@@ -215,9 +215,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			<div class="col">
 				<div class="date">
 					<h1 class="top_box_text3">날짜를 설정해주세요!</h1>
-					<input type="text" id="datePicker_start" class="form-control" placeholder="시작 날짜">
-					<i class="fas fa-arrow-right"></i>
-					<input type="text" id="datePicker_end" class="form-control" placeholder="종료 날짜">			
+					<input type="text" id="datePicker_start" class="form-control" placeholder="방문 날짜">			
 				</div>
 				<div class="time">
 					<h1 class="top_box_text3">시간을 설정해주세요!</h1>
