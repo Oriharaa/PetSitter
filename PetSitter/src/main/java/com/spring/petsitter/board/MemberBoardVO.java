@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
+/* */
+
 /*
 create table MEMBER_BOARD(
     MEMBER_NUM number(10) PRIMARY KEY, -- 회원 게시판 글 번호
