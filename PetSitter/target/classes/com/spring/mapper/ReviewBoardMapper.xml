@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	 
+<mapper namespace="com.spring.mapper.ReviewBoardMapper">
+
+	<resultMap type="com.spring.petsitter.board.ReviewBoardVO" id="ReviewBoardResultMap">
+		<result property="LIST_NUM" column="LIST_NUM" />
+		<result property="MEMBER_ID" column="MEMBER_ID" />
+		<result property="PETSITTER_ID" column="PETSITTER_ID" />
+		<result property="REVIEW_CONTENT" column="REVIEW_CONTENT" />
+		<result property="REVIEW_SCORE" column="REVIEW_SCORE" />
+		<result property="REVIEW_ORG_PHOTO" column="REVIEW_ORG_PHOTO" />
+		<result property="REVIEW_UP_PHOTO" column="REVIEW_UP_PHOTO" />
+		<result property="REVIEW_READCOUNT" column="REVIEW_READCOUNT" />
+		<result property="REVIEW_DATE" column="REVIEW_DATE" />
+		<result property="REVIEW_CHOICE" column="REVIEW_CHOICE" />
+		<result property="LIKE_COUNT" column="LIKE_COUNT" />
+	</resultMap>
+	
+	<select id="getReviewListCount" resultType="int">
+		select count(*) from REVIEW_BOARD
+	</select>
+	
+	<select id="getReviewBoardList" resultMap="ReviewBoardResultMap">
+		<![CDATA[
+		select * 
+		from (select rownum as rnum, LIST_NUM, MEMBER_ID, PETSITTER_ID, REVIEW_CONTENT,
+				  REVIEW_SCORE, REVIEW_ORG_PHOTO, REVIEW_UP_PHOTO, REVIEW_READCOUNT, REVIEW_DATE, REVIEW_CHOICE, LIKE_COUNT 
+			from (select * from REVIEW_BOARD order by REVIEW_DATE desc)) 
+		where rnum >= #{startrow} and rnum <= #{endrow}
+		]]>
+	</select>
+	
+	<select id="maxReviewBoardNumber" resultType="java.lang.Integer">
+		select max(LIST_NUM) from REVIEW_BOARD
+	</select>
+	
+	<select id="getReviewDetail" parameterType="int" resultMap="ReviewBoardResultMap">
+		select * from REVIEW_BOARD where LIST_NUM=#{LIST_NUM}
+	</select>
+	
+	<select id="isReviewBoardWriter" parameterType="int" resultType="java.lang.String">
+		select id from REVIEW_BOARD where LIST_NUM=#{LIST_NUM}
+	</select>
+	
+	<insert id="ReviewboardInsert" parameterType="com.spring.petsitter.board.ReviewBoardVO">
+		<!-- 
+		<selectKey keyProperty="LIST_NUM" order="before" resultType="int">
+			select nvl(max(LIST_NUM), 0)+1 from REVIEW_BOARD
+		<selectKey>
+		 -->
+		insert into REVIEW_BOARD
+		values(#{LIST_NUM}, #{MEMBER_ID}, #{PETSITTER_ID}, #{REVIEW_CONTENT}, #{REVIEW_SCORE}, #{REVIEW_ORG_PHOTO, jdbcType=VARCHAR}, #{REVIEW_UP_PHOTO, jdbcType=VARCHAR}, 0, sysdate, #{REVIEW_CHOICE}, 0)
+	</insert>
+	
+	<update id="setReadCountUpdate" parameterType="int">
+		update REVIEW_BOARD set REVIEW_READCOUNT=REVIEW_READCOUNT+1 where LIST_NUM=#{LIST_NUM}
+	</update>
+	
+	<delete id="ReviewboardDelete" parameterType="int">
+		<![CDATA[
+		delete from REVIEW_BOARD where LIST_NUM=#{LIST_NUM}
+		]]>
+	</delete>
+</mapper>

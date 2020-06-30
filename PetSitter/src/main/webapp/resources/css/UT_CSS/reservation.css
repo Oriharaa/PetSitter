@@ -1,0 +1,245 @@
+@charset "UTF-8";
+/* 언택 추가 CSS *//* 언택 추가 CSS *//* 언택 추가 CSS */
+/* 언택 추가 CSS *//* 언택 추가 CSS *//* 언택 추가 CSS */ 
+/* top_box */	  
+	.top_box_title{
+	margin: 10% 0 0 10%;
+	}
+
+	.top_box_text1{
+	text-align:center;
+	color:#53DC98;
+	font-size:60px;
+	font-weight:bold;
+	}	  
+	
+	.top_box_text2{
+	text-align:center;
+	color:#949494;
+	font-size:15px;
+	}
+	
+	.top_box_text3{
+	font-size:16px;
+	color:#53DC98;
+	font-size:16px;
+	font-weight:bold;
+	}
+	
+	.top_box_text4{
+	text-align:center;
+	font-size:16px;
+	color:#53DC98;
+	font-size:16px;
+	font-weight:bold;
+	margin-bottom:2%;
+	}
+	
+ 	.address, .date{
+ 	margin-top:20%;
+ 	margin-left:10%;
+ 	margin-bottom:10%;
+ 	}
+ 	
+ 	.time {
+  margin-left:10%;
+  margin-bottom:10%;
+  }
+  
+  .custom {
+  margin-top:10%;
+  margin-bottom:10%;
+  text-align:center; 
+  
+  }
+ 
+ 
+ 
+	#sample5_address{
+	width:60%;
+	height:40px;
+	font-size:16px;
+	color:#949494;
+	border:1px solid #53DC98;
+	border-radius:10px;
+	}  
+	
+	#sample5_button{
+	width:20%;
+	height:40px;
+	font-size:16px;
+	font-weight:bold;
+	color:#ffffff;
+	background-color:#53DC98;
+	border:0;
+	border-radius:10px;
+	}
+	
+	
+	#datePicker_start, #datePicker_end{
+	width:40%;
+	height:40px;
+	font-size:16px;
+	color:#949494;
+	margin:0;
+	display:inline;
+	border:1px solid #53DC98;
+	border-radius:10px;
+	} 
+	
+	#timePicker_start, #timePicker_end{
+	width:40%;
+	height:40px;
+	font-size:16px;
+	color:#949494;
+	margin:0;
+	display:inline;
+	border:1px solid #53DC98;
+	border-radius:10px;
+	}
+	  
+	.fa-arrow-right{
+	color:#53DC98;
+	width:2em;
+	font-size:15px;
+	} 
+	
+	.custom_btn{
+	width:15%;
+	height:150px;
+	border-radius:20%;
+	border:0px;
+	background-color:#53DC98;
+	//background-color:'blue';
+	color:#ffffff;
+	font-size:20px;
+	font-weight:bold;
+	}
+
+	#custom_btn2, #custom_btn3, #custom_btn4{
+	margin-left:10.7%;
+	}
+	
+
+
+	hr{
+	width:55%;
+	background-color:#949494;
+	}
+	
+	input:focus {outline:none;}
+/* 	input::placeholder {text-align:center;}   */
+
+/* middle_box */	  
+	.middle_box_title{
+	margin: 2% 0 5% 6%;
+	}
+
+	.middle_box_text1{
+	font-size:16px;
+	color:#53DC98;
+	font-size:16px;
+	font-weight:bold;
+	}
+
+	.middle_box_btn{
+	text-align:right;
+ 	margin-right:8%; 
+	}
+	 
+	.middle_right_btn{
+	width:15%;
+	height:30px;
+	font-size:16px;
+	font-weight:bold;
+	color:#ffffff;
+	background-color:#53DC98;
+	border:0;
+	border-radius:10px;
+	}
+	
+	
+/* 펫시터 찾기 view */
+	.middle_box_img{
+	margin-left:3%;
+  background-image: url(resources/images/noimg.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 23%;
+  height: 250px;
+  border: 1px solid #949494;
+	}
+
+	.middle_box{
+	margin-bottom:10%;
+	}
+
+	.noimg {
+	border-top:1px solid #53DC98;
+	border-right: 1px solid #53DC98;
+	border-bottom: 1px solid #53DC98;;
+	border-left: 1px solid #53DC98;
+	width:40%;
+	height:250px;
+	}
+
+	.item{
+	width:5%;
+	height:40px;
+	}
+	
+	.star, .starhalf{
+	width:2.935%;
+	height:17px;
+	}
+	
+	
+	.v_grade{
+	color:#54DC98;
+	font-weight:bold;
+	font-size:16px;
+	}
+	
+	.v_location{
+	color:#949494;
+	font-weight:bold;
+	}
+	
+	.v_review{
+	color:#949494;
+	font-weight:bold;
+	font-size:14px;
+	}
+	
+	.v_title{
+	color:#707070;
+	font-weight:bold;
+	font-size:23px;
+	}
+	
+	.v_option{
+	color:#949494;
+	font-size:14px;
+	}
+	
+
+	
+	.middle_box_view_start{
+	margin-top:10%;
+	margin-left:2%;
+	}
+	
+	.middle_box_view_center, .middle_box_view_end{
+	margin-left:3%;
+	}
+	
+	 
+	.middle_box_row {
+	display: flex;
+	justify-content: left;
+	}
+	 
+	.middle_box_view{
+	width:54%;
+	border:1px solid #949494;
+	} 

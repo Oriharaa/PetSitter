@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	 
+<mapper namespace = "com.spring.mapper.PetsitterMapper">
+
+	<select id="petsitterCheck" parameterType = "PetsitterVO" resultType = "int">
+		select count(*) from petsitter where PETSITTER_ID = #{PETSITTER_ID} and PETSITTER_PW = #{PETSITTER_PW}
+	</select>
+	
+	<select id="petsitterList" parameterType = "PetsitterVO" resultType = "PetsitterVO">
+		select * from petsitter
+	</select>
+	
+	<select id="selectPetsitter" parameterType = "PetsitterVO" resultType = "PetsitterVO">
+		select * from petsitter where PETSITTER_ID = #{PETSITTER_ID}
+	</select>
+	
+	<insert id ="insertPetsitter" parameterType = "PetsitterVO">
+		insert into petsitter (PETSITTER_ID,PETSITTER_PW,PETSITTER_NAME,PETSITTER_TEL,PETSITTER_EMAIL,
+		PETSITTER_ADDRESS,PETSITTER_INTRODUCE,PETSITTER_PRICE_12H,PETSITTER_PRICE_24H,
+		PETSITTER_PRICE_30M,PETSITTER_PRICE_60M,PETSITTER_SERVICE_LIST,PETSITTER_PHOTO_UPFILE,
+		PETSITTER_PHOTO_PROFILE_FILE,PETSITTER_CERT_LIST,PETSITTER_PHOTO_CERT_FILE,
+		PETSITTER_PHOTO_HOME_FILE,PETSITTER_TYPE) values 
+		(#{PETSITTER_ID},#{PETSITTER_PW},#{PETSITTER_NAME},#{PETSITTER_TEL},#{PETSITTER_EMAIL}
+		,#{PETSITTER_ADDRESS},#{PETSITTER_INTRODUCE},#{PETSITTER_PRICE_12H},#{PETSITTER_PRICE_24H}
+		,#{PETSITTER_PRICE_30M},#{PETSITTER_PRICE_60M},#{PETSITTER_SERVICE_LIST},#{PETSITTER_PHOTO_UPFILE}
+		,#{PETSITTER_PHOTO_PROFILE_FILE},#{PETSITTER_CERT_LIST},#{PETSITTER_PHOTO_CERT_FILE},#{PETSITTER_PHOTO_HOME_FILE}
+		,#{PETSITTER_TYPE})
+	</insert>
+	
+	<update id = "petsitterApproval" parameterType = "PetsitterVO">
+		update petsitter set PETSITTER_RANK = 'Y' where PETSITTER_ID = #{PETSITTER_ID}
+	</update>
+	
+	<update id = "petsitterRefusal" parameterType = "PetsitterVO">
+		update petsitter set PETSITTER_RANK = 'X' where PETSITTER_ID = #{PETSITTER_ID}
+	</update>
+</mapper>

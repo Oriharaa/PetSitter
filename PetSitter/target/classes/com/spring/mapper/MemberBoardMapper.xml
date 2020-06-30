@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.spring.mapper.MemberBoardMapper">
+
+	<resultMap type = "com.spring.petsitter.board.MemberBoardVO" id="memberboardResultMap">
+		<result property = "MEMBER_NUM" column ="MEMBER_NUM"/>
+		<result property = "MEMBER_ID" column ="MEMBER_ID"/>
+		<result property = "MEMBER_SUBJECT" column ="MEMBER_SUBJECT"/>
+		<result property = "MEMBER_CONTENT" column ="MEMBER_CONTENT"/>
+		<result property = "MEMBER_ORG_FILE" column = "MEMBER_ORG_FILE"/>
+		<result property = "MEMBER_UP_FILE" column = "MEMBER_UP_FILE"/>
+		<result property = "MEMBER_READCOUNT" column ="MEMBER_READCOUNT"/>
+		<result property = "MEMBER_DATE" column ="MEMBER_DATE"/>
+		<result property = "MEMBER_LIKECOUNT" column = "MEMBER_LIKECOUNT"/>
+	</resultMap>
+	
+	<select id="getBoardList" parameterType="HashMap" resultMap="memberboardResultMap">
+	<![CDATA[
+		select MEMBER_NUM, MEMBER_ID, MEMBER_SUBJECT, MEMBER_CONTENT, MEMBER_ORG_FILE, MEMBER_UP_FILE, MEMBER_READCOUNT, MEMBER_DATE, MEMBER_LIKECOUNT
+		 	from (select rownum rnum, MEMBER_NUM, MEMBER_ID, MEMBER_SUBJECT, MEMBER_CONTENT, MEMBER_ORG_FILE, MEMBER_UP_FILE, MEMBER_READCOUNT, MEMBER_DATE, MEMBER_LIKECOUNT
+		 		from (select * from member_board order by MEMBER_NUM desc))
+		 			where rnum >= #{startrow} and rnum <= #{endrow}
+		   
+		]]>
+	</select>
+	
+	<select id="getListCount" resultType="int">
+		select count(*) from member_board
+	</select>
+			
+	<select id="getDetail" parameterType="int" resultMap="memberboardResultMap">
+		select * from member_board where MEMBER_NUM = #{MEMBER_NUM}
+	</select>
+	
+	<update id="setReadCountUpdate" parameterType="int">
+		update member_board set MEMBER_READCOUNT=MEMBER_READCOUNT+1 where MEMBER_NUM=#{MEMBER_NUM}
+	</update>
+	
+	<insert id = "boardInsert" parameterType="com.spring.petsitter.board.MemberBoardVO">
+		<selectKey keyProperty="num" order="BEFORE" resultType="int">
+			select nvl(max(MEMBER_NUM), 0)+1 from member_board
+		</selectKey>
+		insert into member_board values (#{MEMBER_NUM},#{MEMBER_ID},#{MEMBER_SUBJECT},#{MEMBER_CONTENT},#{MEMBER_ORG_FILE},#{memeber_up_file},
+			#{MEMBER_READCOUNT}, sysdate, 0)
+	</insert>
+	
+	<update id="boardModify" parameterType="com.spring.petsitter.board.MemberBoardVO">
+		update member_board set MEMBER_SUBJECT=#{MEMBER_SUBJECT}, MEMBER_CONTENT=#{MEMBER_CONTENT} where MEMBER_NUM=#{mebmer_num}
+	</update>
+	
+	<delete id="boardDelete" parameterType="int">
+		delete from member_board where MEMBER_NUM=#{MEMBER_NUM}
+	</delete>
+	
+		<select id="isBoardWriter" parameterType="HashMap" resultType="int">
+		select count(*) from member_board where MEMBER_NUM=#{MEMBER_NUM} and MEMBER_ID=#{MEMBER_ID}
+	</select>
+	
+</mapper>
