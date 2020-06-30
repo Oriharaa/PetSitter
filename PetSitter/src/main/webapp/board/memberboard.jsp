@@ -1,12 +1,19 @@
 <!-- 관리자 메인 페이지 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.petsitter.*" %>
 <%@ page import="com.spring.petsitter.board.*" %>
 <%@ page import="javax.servlet.*,java.text.*" %>
 <% 
+	String id=null;
+	if(session.getAttribute("id") == null){
+		out.println("<script>");
+		out.println("location.href='loginform.me'");
+		out.println("</script>");
+	}
+	id = (String)session.getAttribute("id");
+
 	ArrayList<MemberVO> memberList = (ArrayList<MemberVO>)request.getAttribute("member_list");
 	List<MemberBoardVO> mboardlist=(List<MemberBoardVO>)request.getAttribute("mboard_list");
 	

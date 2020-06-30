@@ -63,8 +63,8 @@ public class MemberBoardController {
 	
 	@RequestMapping("/mboardwrite.me")
 	public String boardInsert(MemberBoardVO vo) throws Exception {
-		System.out.println("vo.getMember_id()=" + vo.getMEMBER_ID());
-		System.out.println("vo.getMember_file()=" + vo.getMEMBER_FILE());
+		System.out.println("vo.getMEMBER_ID() =" + vo.getMEMBER_ID());
+		System.out.println("vo.getMEMBER_FILE() =" + vo.getMEMBER_FILE());
 		MultipartFile mf = vo.getMEMBER_FILE();
 		String uploadPath = "C:\\Project156\\upload\\";
 

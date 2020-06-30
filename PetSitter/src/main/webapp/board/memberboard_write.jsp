@@ -1,12 +1,14 @@
 <!-- 관리자 메인 페이지 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.petsitter.*" %>
 <%@ page import="com.spring.petsitter.board.*" %>
 
 <%@ page import="javax.servlet.*,java.text.*" %>
+<%
+	String id = (String)session.getAttribute("id");
+%>
 
 <!doctype html>
 <html lang="en">
@@ -238,7 +240,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <div class="row">
     	<div class="col-md-12">
     		<textarea id = "editor4" name = "editor4"></textarea>
-					<script>CKEDITOR.replace('editor4');</script>
+					<!-- <script>CKEDITOR.replace('editor4');</script> -->
     		</div>
     </div>
 
@@ -327,21 +329,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <script src="<c:url value="./resources/js/aos.js"/>"></script>
 
     <script src="<c:url value="/resources/js/main.js"/>"></script>
-		
-		<script type="text/javascript">
-	  /* CKEDITOR */
-	  CKEDITOR.editorConfig = function( config ) {
-	    config.removePlugins = 'easyimage, cloudservices';
-	    config.fillEmptyBlocks = false;
-	    config.fullPage = false;
-	    config.enterMode = CKEDITOR.ENTER_BR;
-	    config.filebrowserUploadMethod = 'form';
-	    config.language = 'ko';
-	  };
-	
-	  CKEDITOR.replace('editor4', {
-	   });
-		</script>
+
 
   </body>
 
