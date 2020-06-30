@@ -89,6 +89,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	 
 	
 </style>
+
+
 	
 	
   <head>
@@ -247,8 +249,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     
     <div class="row">
     	<div class="col-md-12">
-				<button type="button" style="background:#53dc98;" class="btn btn-sm">등록</button>
-  			<button type="button" style="background:#e67e22;" class="btn btn-sm">취소</button>
+				<button type="button" style="background:#53dc98;" class="btn btn-sm" id="btnSave">등록</button>
+  			<button type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList">취소</button>
     	</div>
     </div>
    </div>
@@ -325,7 +327,21 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <script src="<c:url value="./resources/js/aos.js"/>"></script>
 
     <script src="<c:url value="/resources/js/main.js"/>"></script>
-
+		
+		<script type="text/javascript">
+	  /* CKEDITOR */
+	  CKEDITOR.editorConfig = function( config ) {
+	    config.removePlugins = 'easyimage, cloudservices';
+	    config.fillEmptyBlocks = false;
+	    config.fullPage = false;
+	    config.enterMode = CKEDITOR.ENTER_BR;
+	    config.filebrowserUploadMethod = 'form';
+	    config.language = 'ko';
+	  };
+	
+	  CKEDITOR.replace('editor4', {
+	   });
+		</script>
 
   </body>
 
