@@ -46,13 +46,14 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public ArrayList<MemberVO> memberList() {
-		
-		return null;
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		return memberMapper.memberList();
 	}
 
 	@Override
 	public void deleteMember(String id) {
-		
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		memberMapper.deleteMember(id);
 		
 	}
 }
