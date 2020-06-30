@@ -1,12 +1,13 @@
 <!-- 관리자 메인 페이지 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.petsitter.*" %>
 <%@ page import="com.spring.petsitter.board.*" %>
 <%@ page import="javax.servlet.*,java.text.*" %>
 <% 
+	String id = (String)session.getAttribute("id");
+	String name = (String)session.getAttribute("name");
 	ArrayList<MemberVO> memberList = (ArrayList<MemberVO>)request.getAttribute("member_list");
 	List<MemberBoardVO> mboardlist=(List<MemberBoardVO>)request.getAttribute("mboard_list");
 	
@@ -152,10 +153,15 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
               <div class="float-right">
-
-                <a href="basicform.me" ><span class = "font-size-14" >로그인</span></a>
+              	<%
+              		if(id == null) {
+              	%>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
-                <a href="basicform.me" ><span class = "font-size-14">회원가입</span></a>
+                <%} else { %>
+                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+                <%} %>
               </div>
             </div>
           </div>
