@@ -1,6 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%
+	String id = (String)session.getAttribute("id");
+	String name = (String)session.getAttribute("name");
+%>
 
 <!doctype html>
 <html lang="en">
@@ -86,15 +89,10 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	margin : 8.2% 0 10px 0;
 	}
 
-	.profileimg {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	}
 	  
 	.profile {
-    width: 80%;
-    height: 80%; 
+    width: 183px;
+    height: 183px; 
     border-radius: 70%;
     overflow: hidden;
     margin-bottom : 10%;
@@ -105,7 +103,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     height: 100px; 
     border-radius: 70%;
     overflow: hidden;
-    margin : 6px 0;
+    margin : 6px 0 6px 20%;
 	}
 	
 	.roundimg{
@@ -217,6 +215,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	border:0;
 	color : #707070;
 	background-color:rgb(224, 224, 224);
+	border-radius : 3px;
+	width : 90px;
+	margin : 0 0 0 17px;
 	}
 	
 	.pet_talk {
@@ -281,7 +282,17 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	.pagination a.active {
 	outline:none;
 	}
-
+	
+	.modalprofileimg {
+	widht : 100px;
+	height : 100px;
+	border-radius : 5px;
+	}
+	
+	.tleft {
+	text-align : left;
+	}
+	
 	.modal .num {
 	margin-left:3px;
 	padding:0;
@@ -310,7 +321,14 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	border-bottom:10px solid transparent;
 	border-right:10px solid blue;
 	}
-
+	
+	choiceS{ 
+	text-align : center; 
+	font-size : 15px;
+	border : 0px solid #ffffff;
+}
+	
+	/*모달 버튼 시작*/
 	.modalbt01 {
 	background : rgb(224, 224, 224)!important;
 	}
@@ -326,6 +344,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	width : 100px;
 	text-align : center;
 	}
+	/*모달 버튼 종료*/
+	
 		/*테이블 css 시작*/
 	th, td {
 	color : #5e5e5e!important;
@@ -343,6 +363,56 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	background-color: #F8F8F8;
 	}
 	/*테이블 css 종료*/
+	
+	/*파일 선택 css 시작*/
+	.filebox input[type="file"] { 
+	position: absolute;
+	width: 1px; 
+	height: 1px; 
+	padding: 0; 
+	margin: -1px; 
+	overflow: hidden; 
+	clip:rect(0,0,0,0); border: 0; 
+	} 
+	
+	.filebox label { 
+	display: inline-block; 
+	padding: .5em .75em; 
+	margin : 0;
+	color: #ffffff; 
+	font-size: inherit; 
+	line-height: normal; 
+	vertical-align: middle; 
+	background-color: rgb(83,220,152); 
+	cursor: pointer; 
+	border: 1px solid #ebebeb; 
+	border-bottom-color: #e2e2e2; 
+	border-radius: .25em; 
+	} 
+	/*파일 선택 css 종료*/
+	
+	/* named upload */ 
+	.filebox .upload-name { 
+	display: inline-block; 
+	padding: .5em .75em; 
+	/* label의 패딩값과 일치 */ 
+	font-size: inherit; 
+  line-height: normal; 
+  vertical-align: middle; 
+  background-color: #f5f5f5; 
+  border: 1px solid #ebebeb; 
+  border-bottom-color: #e2e2e2; 
+  border-radius: .25em; 
+  -webkit-appearance: none; 
+  /* 네이티브 외형 감추기 */ 
+  -moz-appearance: none; 
+  appearance: none; 
+  }
+  
+
+	/*파일 선택 css 종료*/
+
+	
 	
 	/*메인 버튼 css 시작*/
 	.mybtn {
@@ -414,11 +484,15 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
               <div class="float-right">
-
-                <a href="home.me" class=""><span>로그인</span></a>
+              	<%
+              		if(id == null) {
+              	%>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
-                <a href="home.me" class=""><span>회원가입</span></a>
-
+                <%} else { %>
+                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+                <%} %>
               </div>
               
             </div>
@@ -468,8 +542,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		    <div class="row">
 		      <div class="col-5" style = "margin : 3.5% 0 0 0;">  
 			    <div class="roundimg">
-				  <div class="profile" style="background: #BDBDBD;">
-					<img class="profileimg" src="resources/images/person_1.jpg">
+				  <div class="profile aspect_1_1" style="background: #BDBDBD;">
+					<img src="resources/images/person_1.jpg">
 				  </div>
 				</div>
 			  </div> 
@@ -486,7 +560,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				  </div>
 				  <div class = "col-md-5" style = "margin-top : 50px;">
 				  	<a href = "#" class="font-size-16 main_whitefont">반려견 등록하기</a>
-				  	<button type="button" class="font-size-16 main_whitefont mybtn" data-toggle="modal02" data-target="#staticBackdrop">
+				  	<button type="button" style = "padding : 0;" class="font-size-16 main_whitefont mybtn" data-toggle="modal" data-target="#staticBackdrop">
 						회원정보 변경
 						</button>
 				  </div>
@@ -578,12 +652,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	  <tbody>
 	    <tr style = "color : #5e5e5e;">
 		  <td>위탁</td>
-		  <td rowspan="3"><img src="resources/images/person_1.jpg" class="profile_sm1"></td>
+		  <td rowspan="3"><div class = "aspect_1_1 profile_sm1"><img src="resources/images/person_1.jpg"></div></td>
 		  <td>이기자</td>
 		  <td>2020.06.03 11:00</td>
 		  <td rowspan="3">3</td>
 		  <td rowspan="3">60,000원</td>
-		  <td rowspan="3"><input type="button" class="pet_talk" value="펫시터와의 소통"></td>
+		  <td rowspan="3"><input type="button" class="pet_talk mybtn" value="펫시터와의 소통"></td>
 		</tr>
 			
 		<tr style = "color : #5e5e5e;">
@@ -604,12 +678,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	  <tbody>
 	    <tr style = "color : #5e5e5e;">
 		  <td>방문</td>
-		  <td rowspan="3"><img src="resources/images/person_2.jpg" class="profile_sm1"></td>
+		  <td rowspan="3"><div class = "aspect_1_1 profile_sm1"><img src="resources/images/person_2.jpg"></div></td>
 		  <td>김기자</td>
 		  <td>2020.06.01 11:00</td>
 		  <td rowspan="3">2</td>
 		  <td rowspan="3">30,000원</td>
-		  <td rowspan="3"><button type="button" class="font-size-16 main_whitefont mybtn" data-toggle="modal" data-target="#staticBackdrop">후기 남기기</button></td>
+		  <td rowspan="3"><button type="button" class="font-size-16 main_whitefont mybtn" data-toggle="modal" data-target="#staticBackdrop02">후기 남기기</button></td>
 		</tr>
 		
 		<tr style = "color : #5e5e5e;">
@@ -629,12 +703,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	  <tbody>
 	    <tr style = "color : #5e5e5e;">
 		  <td>위탁</td>
-		  <td rowspan="3"><img src="resources/images/person_3.jpg" class="profile_sm1"></td>
+		  <td rowspan="3"><div class = "aspect_1_1 profile_sm1"><img src="resources/images/person_3.jpg"></div></td>
 		  <td>박기자</td>
 		  <td>2020.06.01 11:00</td>
 		  <td rowspan="3">1</td>
 		  <td rowspan="3">30,000원</td>
-		  <td rowspan="3"><div class="review_complete">후기남기기 완료</div></td>
+		  <td rowspan="3"><div class="review_complete ">후기 완료</div></td>
 		</tr>
 			
 		<tr style = "color : #5e5e5e;">
@@ -661,7 +735,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">회원정보변경</h5>
+        <h5 class="modal-title main_mintfont" id="staticBackdropLabel">회원정보변경</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -697,7 +771,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       				</tr>
       				<tr>
       					<th width = "200px">프로필 사진 :</th>
-      					<td colspan = "2"><input type = "file" value = "" class = "float-left"></td>
+      					<td colspan = "2">
+      					<div class="filebox float-left"> 
+      					<input class="upload-name" value="파일선택" disabled="disabled"> 
+      					<label for="ex_filename">업로드</label><input type="file" id="ex_filename" class="upload-hidden"> </div>
+      					</td>
       				</tr>      				
        			</table>
       		</div>
@@ -715,52 +793,102 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
 <!-- Modal 후기 남기기 시작-->
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+<div class="modal fade" id="staticBackdrop02" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">후기 남기기</h5>
-        <button type="button" class="close" data-dismiss="modal02" aria-label="Close">
+        <h5 class="modal-title main_mintfont" id="staticBackdropLabel">후기 남기기</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
       	<div class = "row">
+      		<div class = "col-3">
+      			<div class = "float-left" style = "margin : 2px 0 0 10%;"><img src = "resources/images/person_2.jpg" class = "modalprofileimg"></div>
+      		</div>
+      		<div class = "col-7">
+						<div class = "float-left" style= "padding : 3px 0 0 3px; margin-left : 10px;">
+							<table>
+								<tr>
+									<td colspan = "2" class = "font-size-15 main_grayfont3 mybold tleft">닉네임<td>
+								<tr>
+								<tr>
+									<td colspan = "2" class = "font-size-15 main_grayfont3 mybold tleft">서울시 서초구<td>
+								<tr>
+								<tr>
+									<td style = "padding: 0 0 7px 0;">
+										<% 
+											int star = 5;
+											for(int i = 0; i < star; i++) {
+										%>
+										<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-bottom : 8px;">
+										<%} %>
+									</td>
+									<td style = "padding: 0 0 5px 10px;"> 10점</td>
+								<tr>
+							</table>
+						</div>	
+      		</div>
+      		<div class = "col-12" style = "padding : 0;">
+      			<hr/>
+      		</div>
       		<div class = "col-12">
-      			<table class="table table-sm table-hover table-striped" style = "font-size : 15px;">
+      			<table>
       				<tr>
-      					<th width = "200px">닉네임 :</th>
-      					<td colspan = "2" ><input type = "text" value = "닉네임" size = "12" class = "float-left"></td>
+      					<th width = "80px">아이디 :</th>
+      					<td class = "tleft">abc12</td>
       				</tr>
       				<tr>
-      					<th width = "200px">새 비밀번호 :</th>
-      					<td colspan = "2"><input type = "password" value = "" size = "12" class = "float-left"></td>
-      				</tr>
-      				<tr>
-      					<th width = "200px">새 비밀번호 확인 :</th>
-      					<td colspan = "2"><input type = "password" value = "" size = "12" class = "float-left"></td>
+      					<th>점수 :</th>
+								<td>
+									<select class="choiceS float-left" style = "height : 35px; width : 100px">
+								    <option value="5">5점</option>
+								    <option value="4">4점</option>
+								    <option value="3">3점</option>
+								    <option value="2">2점</option>
+								    <option value="1">1점</option>
+									</select>
+								</td>
       				</tr>
 							<tr>
-      					<th width = "200px">주소 변경:</th>
-      					<td width = "270px"><input type = "text" value = "주소 버튼을 누르세요." size = "30"  class = "float-left" id="sample5_address"></td>
-      					<td><input type="button" class="btn modalbt03 float-left" onclick="sample5_execDaumPostcode();" value="주소 검색 "></td>
+								<th>후기 :</th>
+								<td><textarea name="inputstr2" style = "width : 380px; height : 100px; font-size : 12px;"></textarea></td>
+							</tr>
+							<tr>
+								<th colspan = "2" class = "font-size-13">자신의 강아지 사진을 어필해보세요(후기 게시판에서 확인할 수 있어요!)</th>
+							</tr>
+							<tr>
+      					<th>메인 사진 :</th>
+      					<td class = "tleft">
+      					<div class="filebox"> 
+      					<input class="upload-name" value="파일선택" disabled="disabled"> 
+      					<label for="ex_filename02">업로드</label> <input type="file" id="ex_filename02" class="upload-hidden"> </div>
+      					</td>
       				</tr>
       				<tr>
-      					<th width = "200px">상세 주소 :</th>
-      					<td colspan = "2"><input type = "text" value = "" size = "30" class = "float-left"></td>
+      					<th>사진 1 :</th>
+      					<td class = "tleft">
+      					<div class="filebox"> 
+      					<input class="upload-name" value="파일선택" disabled="disabled"> 
+      					<label for="ex_filename03">업로드</label> <input type="file" id="ex_filename03" class="upload-hidden"> </div>
+      					</td>
       				</tr>
       				<tr>
-      					<th width = "200px">전화번호 :</th>
-      					<td colspan = "2"><input type = "text" value = "" size = "10" class = "float-left"></td>
+      					<th>사진 2 :</th>
+      					<td class = "tleft">
+      					<div class="filebox"> 
+      					<input class="upload-name" value="파일선택" disabled="disabled"> 
+      					<label for="ex_filename04">업로드</label> <input type="file" id="ex_filename04" class="upload-hidden"> </div>
+      					</td>
       				</tr>
-      				<tr>
-      					<th width = "200px">프로필 사진 :</th>
-      					<td colspan = "2"><input type = "file" value = "" class = "float-left"></td>
-      				</tr>      				
-       			</table>
+      							
+      			</table>
       		</div>
+      		
         </div>
       </div>
+     
       <div class="modal-footer">
         <button type="button" class="btn modalbt01" data-dismiss="modal">닫기</button>
         <button type="button" class="btn modalbt02">확인</button>
@@ -849,7 +977,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <!-- 모달 구현 제이쿼리(부트스트랩용) 회원정보 수정 종료-->
     
     <!-- 모달 구현 제이쿼리(부트스트랩용) 후기 남기기 시작-->
-     <script type="text/javascript">
+    <script type="text/javascript">
     $('#myModal').on('shown.bs.modal', function () {
     	  $('#myInput').trigger('focus')
     	})
@@ -871,7 +999,61 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		}
 		</script>
 		<!-- 주소 창 불러오기 api 종료-->
- 
+		
+		<!-- 파일 업로드1 (회원정보관리용)시작  -->
+		<script type="text/javascript">
+		$(document).ready(function() { 
+			var fileTarget = $('.filebox .upload-hidden'); 
+			fileTarget.on('change', function() { // 값이 변경되면
+				if(window.FileReader) { // modern browser 
+				var filename = $(this)[0].files[0].name; 
+				} else { 
+				// old IE 
+				var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
+			  } 
+			
+				// 추출한 파일명 삽입
+				$(this).siblings('.upload-name').val(filename); 
+		  }); 
+		});
+		</script>
+		<!-- 파일 업로드 -->
+		
+
+		<script type="text/javascript">
+		/*사진 가로 세로 이미지 크기 맞추고 가운데 위치로 보이게 하기  시작*/ 
+		window.onload = function() {
+			  var divs = document.querySelectorAll('.aspect_1_1');
+			  for (var i = 0; i < divs.length; ++i) {
+			    var div = divs[i];
+			    var divAspect = div.offsetHeight / div.offsetWidth;
+			    div.style.overflow = 'hidden';
+			    
+			    var img = div.querySelector('img');
+			    var imgAspect = img.height / img.width;
+		
+			    if (imgAspect <= divAspect) {
+			      // 이미지가 div보다 납작한 경우 세로를 div에 맞추고 가로는 잘라낸다
+			      var imgWidthActual = div.offsetHeight / imgAspect;
+			      var imgWidthToBe = div.offsetHeight / divAspect;
+			      var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2)
+			      img.style.cssText = 'width: auto; height: 100%; margin-left: '
+			                      + marginLeft + 'px;'
+			    } else {
+			      // 이미지가 div보다 길쭉한 경우 가로를 div에 맞추고 세로를 잘라낸다
+			      img.style.cssText = 'width: 100%; height: auto; margin-left: 0;';
+			    }
+			  }
+			  
+			  var btn = document.querySelector('#btnToggleOverflow');
+			  btn.onclick = function() {
+			    var val = divs[0].style.overflow == 'hidden' ? 'visible' : 'hidden';
+			    for (var i = 0; i < divs.length; ++i)
+			      divs[i].style.overflow = val;
+			  };
+			};
+			/*사진 가로 세로 이미지 크기 맞추고 가운데 위치로 보이게 하기  종료*/ 
+	  </script>
 
 
 </body>
