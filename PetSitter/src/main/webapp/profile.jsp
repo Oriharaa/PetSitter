@@ -319,6 +319,13 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
                                 <input class="form-control" type="email" value="email@gmail.com">
                             </div>
                         </div> -->
+                <div class="form-group row">
+									<label class="col-lg-3 col-form-label form-control-label">성별</label>
+									<div class="col-lg-9">
+										<input class="form-control" type="radio" name="MEMBER_GENDER" id="MEMBER_GENDER">남 &nbsp;&nbsp;
+										<input class="form-control" type="radio" name="MEMBER_GENDER" id="MEMBER_GENDER">여
+									</div>
+								</div>
 								<div class="form-group row">
 									<label class="col-lg-3 col-form-label form-control-label">전화번호</label>
 									<div class="col-lg-9">
@@ -330,14 +337,14 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								<div class="form-group row">
 									<label class="col-lg-3 col-form-label form-control-label">주소</label>
 									<div class="col-lg-9">
-										<input class="form-control" type="text" value=""
+										<input class="form-control" type="text" name="MEMBER_ADDRESS"
 											placeholder="도로명 주소">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label class="col-lg-3 col-form-label form-control-label"></label>
 									<div class="col-lg-9">
-										<input class="form-control" type="text" value=""
+										<input class="form-control" type="text" name="MEMBER_ADDRESS"
 											placeholder="상세 주소">
 									</div>
 								</div>
@@ -345,7 +352,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								<div class="form-group row">
 									<label class="col-lg-3 col-form-label form-control-label">비밀번호</label>
 									<div class="col-lg-9">
-										<input class="form-control" type="password" name="MEMBER_PW1" id="MEMBER_PW1">
+										<input class="form-control" type="password" name="MEMBER_PW" id="MEMBER_PW1">
 									</div>
 								</div>
 								<div class="form-group row">
@@ -354,7 +361,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 									<div class="col-lg-9">
 										<input class="form-control" type="password" name="MEMBER_PW2" id="MEMBER_PW2">
 									</div>
-									<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label form-control-label"></label>
+									<div class="col-lg-9">
+										<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+									</div>
 								</div>
 								<div class="form-group row">
 									<label class="col-lg-3 col-form-label form-control-label"></label>
@@ -472,21 +484,26 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	<script src="<c:url value="/resources/js/main.js"/>"></script>
 	
 	<script>
-		$(document).ready(function() {
+		$(function() {
+			
+			var	tel = $("#MEMBER_TEL").val();
+			$("#alert-danger").hide();
+			
+			$("#MEMBER_PW1, #MEMBER_PW2").on("keyup", function() {
 				var pw1 = $("#MEMBER_PW1").val();
-				var	pw2 = $("#MEMBER_PW2").val();
-				var	tel = $("#MEMBER_TEL").val();
-				$("#alert-danger").hide();
-				
-				$("#MEMBER_PW2").on("keyup", function() {
-					if(pw1 !== pw2) {
-						$("#alert-danger").show();
-						$("updatebutton").attr("disabled", "disabled");
-					} else {
-						$("#alert-danger").hide();
-						$("updatebutton").removeAttr("disabled");
-					}
-				}); 
+				var	pw2 = $("#MEMBER_PW2").val();	
+				if(pw1 !== pw2) {
+					$("#alert-danger").show();
+					$("#updatebutton").attr("disabled", true);
+				} else {
+					$("#alert-danger").hide();
+					$("#updatebutton").attr("disabled", false);
+				}
+			});
+			
+			$("#updatebutton").click(function() {
+				location.href="memberUpdate.me?id=<%=id %>";
+			});
 		});
 	</script>
 
