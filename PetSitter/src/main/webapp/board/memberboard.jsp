@@ -4,10 +4,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.petsitter.*" %>
+<%@ page import="com.spring.petsitter.board.*" %>
 <%@ page import="javax.servlet.*,java.text.*" %>
 <% 
 	ArrayList<MemberVO> memberList = (ArrayList<MemberVO>)request.getAttribute("member_list");
-	List<MBoardVO> mboardlist=(List<MBoardVO>)request.getAttribute("mboard_list");
+	List<MemberBoardVO> mboardlist=(List<MemberBoardVO>)request.getAttribute("mboard_list");
 	
 	int listcount=((Integer)request.getAttribute("listcount")).intValue();
 	int nowpage=((Integer)request.getAttribute("page")).intValue();
@@ -245,15 +246,15 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						<%int num = listcount - ((nowpage - 1) * 10); %>
 					<%for(int i = 0 ; i < mboardlist.size(); i++) {
 						
-						MBoardVO bl=(MBoardVO)mboardlist.get(i);
+						MemberBoardVO bl=(MemberBoardVO)mboardlist.get(i);
 					%>
 					
 						<tr>
 						<td><%=num %></td>
-						<td><%=mboardlist.get(i).getMember_id() %></td>
-						<td><a href="./mboarddetail.me?num=<%=bl.getMember_num()%>"><%=mboardlist.get(i).getMember_subject() %></a></td>
-						<td><%=mboardlist.get(i).getMember_date() %></td>
-						<td><%=mboardlist.get(i).getMember_readcount() %></td>
+						<td><%=mboardlist.get(i).getMEMBER_ID() %></td>
+						<td><a href="./mboarddetail.me?num=<%=bl.getMEMBER_NUM()%>"><%=mboardlist.get(i).getMEMBER_SUBJECT() %></a></td>
+						<td><%=mboardlist.get(i).getMEMBER_DATE() %></td>
+						<td><%=mboardlist.get(i).getMEMBER_READCOUNT() %></td>
 						<% num--; %>
 						</tr>						
 					<%} %> 
