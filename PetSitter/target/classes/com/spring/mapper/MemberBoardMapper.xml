@@ -39,11 +39,14 @@
 	</update>
 	
 	<insert id = "boardInsert" parameterType="com.spring.petsitter.board.MemberBoardVO">
-		<selectKey keyProperty="num" order="BEFORE" resultType="int">
+		<selectKey keyProperty="MEMBER_NUM" order="BEFORE" resultType="int"> 
 			select nvl(max(MEMBER_NUM), 0)+1 from member_board
 		</selectKey>
-		insert into member_board values (#{MEMBER_NUM},#{MEMBER_ID},#{MEMBER_SUBJECT},#{MEMBER_CONTENT},#{MEMBER_ORG_FILE},#{memeber_up_file},
+		<![CDATA[
+		insert into member_board (member_num, member_id, member_subject, member_content, member_org_file, member_up_file, member_readcount, member_date, member_likecount)
+		 values (#{MEMBER_NUM},#{MEMBER_ID},#{MEMBER_SUBJECT},#{MEMBER_CONTENT},#{MEMBER_ORG_FILE},#{MEMBER_UP_FILE},
 			#{MEMBER_READCOUNT}, sysdate, 0)
+			]]>
 	</insert>
 	
 	<update id="boardModify" parameterType="com.spring.petsitter.board.MemberBoardVO">

@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import com.spring.petsitter.*;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -21,6 +23,8 @@ public class MemberBoardController {
 	
 	@Autowired
 	private MemberBoardService memberboardService;	
+	
+	
 	
 	
 	@RequestMapping(value = "/mboardlist.me")
@@ -63,11 +67,12 @@ public class MemberBoardController {
 	
 	@RequestMapping("/mboardwrite.me")
 	public String boardInsert(MemberBoardVO vo) throws Exception {
-		System.out.println("vo.getMEMBER_ID() =" + vo.getMEMBER_ID());
-		System.out.println("vo.getMEMBER_FILE() =" + vo.getMEMBER_FILE());
+		System.out.println("vo.getMEMBER_ID() = " + vo.getMEMBER_ID());
+		System.out.println("vo.getMEMBER_FILE() = " + vo.getMEMBER_FILE());
 		MultipartFile mf = vo.getMEMBER_FILE();
 		String uploadPath = "C:\\Project156\\upload\\";
 
+		/*
 		if (mf.getSize() != 0) {
 			System.out.println("mf=" + mf);
 			String originalFileExtension = mf.getOriginalFilename()
@@ -82,8 +87,11 @@ public class MemberBoardController {
 		} else {
 			vo.setMEMBER_ORG_FILE("");
 			vo.setMEMBER_UP_FILE("");
-
 		}
+		*/
+		vo.setMEMBER_ORG_FILE("");
+		vo.setMEMBER_UP_FILE("");
+		
 		memberboardService.boardInsert(vo);
 
 		return "redirect:/mboardlist.me";
