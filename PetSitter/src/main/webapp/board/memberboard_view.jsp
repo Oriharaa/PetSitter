@@ -234,6 +234,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	  		<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnDelete" href="./mboardDelete.me?num=<%=mboard.getMEMBER_NUM() %>">삭제</a>
 	  		<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./mboardlist.me">목록</a>
 			<% } else { %>
+			<div class="text-right">
   			<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./mboardlist.me">목록</a>
   		<% } %>
 					</div>
