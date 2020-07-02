@@ -1,5 +1,3 @@
-// 만드는중
-
 package com.spring.petsitter.board;
 
 import java.util.HashMap;
@@ -55,6 +53,7 @@ public class MemberBoardServiceImpl implements MemberBoardService {
 		return memberboard;
 	}	
 
+
 	@Override
 	public int boardModify(MemberBoardVO modifyboard) {
 		MemberBoardMapper memberboardMapper = sqlSession.getMapper(MemberBoardMapper.class);
@@ -67,10 +66,10 @@ public class MemberBoardServiceImpl implements MemberBoardService {
 	public int boardDelete(HashMap<String, String> hashmap) {
 		MemberBoardMapper memberboardMapper = sqlSession.getMapper(MemberBoardMapper.class);
 		int res = memberboardMapper.isBoardWriter(hashmap);
-		int num = Integer.parseInt(hashmap.get("num"));
+		int num = Integer.parseInt(hashmap.get("member_num"));
 		if (res == 1) {
 			res = memberboardMapper.boardDelete(num);
 		}
 		return res;
-	}	
+	}
 }

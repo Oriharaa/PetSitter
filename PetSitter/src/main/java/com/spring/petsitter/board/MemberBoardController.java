@@ -40,7 +40,7 @@ public class MemberBoardController {
 		HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
 		hashmap.put("startrow", startrow);
 		hashmap.put("endrow", endrow);
-		List<MemberBoardVO> mboard_list = memberboardService.getBoardList(hashmap); // 다른 타입 2개를 전달해야하므로
+		List<MemberBoardVO> mboard_list = memberboardService.getBoardList(hashmap); 
 
 		int maxpage = (int) ((double) listcount / limit + 0.95);
 		int startpage = (((int) ((double) page / 10 + 0.9)) - 1) * 10 + 1;
@@ -56,6 +56,7 @@ public class MemberBoardController {
 		model.addAttribute("startpage", startpage);
 		model.addAttribute("endpage", endpage);
 
+		
 		return "board/memberboard";
 	}	
 	
@@ -68,6 +69,7 @@ public class MemberBoardController {
 	@RequestMapping("/mboardwrite.me")
 	public String boardInsert(MemberBoardVO vo) throws Exception {
 		System.out.println("vo.getMEMBER_ID() = " + vo.getMEMBER_ID());
+		System.out.println("vo.getMEMBER_NAME() = " + vo.getMEMBER_NAME());
 		System.out.println("vo.getMEMBER_FILE() = " + vo.getMEMBER_FILE());
 		MultipartFile mf = vo.getMEMBER_FILE();
 		String uploadPath = "C:\\Project156\\upload\\";
@@ -117,31 +119,34 @@ public class MemberBoardController {
 	
 	@RequestMapping("/mboardmodify.me")
 	public String boardModify(MemberBoardVO vo) {
+		
 		memberboardService.boardModify(vo);
 		
 		return "redirect:/mboarddetail.me?num=" + vo.getMEMBER_NUM();
 	}
 	
-	@RequestMapping("/mboarddelete.me")
+	@RequestMapping("/mboardDelete.me")
 	public String boardDelete(@RequestParam(value="num", required=true) int num, HttpSession session, HttpServletResponse response) throws Exception {
+		System.out.println("num : " + num);
 		String id = (String)session.getAttribute("id");
+		System.out.println("id : " + id);
 		
 		HashMap<String, String> hashmap = new HashMap<String, String>();
-		hashmap.put("num", Integer.toString(num));
-		hashmap.put("id", id);
+		hashmap.put("member_num", Integer.toString(num));
+		hashmap.put("member_id", id);
 		int res = memberboardService.boardDelete(hashmap);
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter writer = response.getWriter();
 		if (res == 1)
 		{
-			writer.write("<script>alert('삭제 성공!!');"
-					+ "location.href='./mboardlist.bo';</script>");
+			writer.write("<script>alert('delete success');"
+					+ "location.href='./mboardlist.me';</script>");
 		}
 		else
 		{
-			writer.write("<script>alert('삭제 실패!!');"
-					+ "location.href='./mboardlist.bo';</script>");
+			writer.write("<script>alert('delete failed');"
+					+ "location.href='./mboardlist.me';</script>");
 		}
 		return null;
 	}

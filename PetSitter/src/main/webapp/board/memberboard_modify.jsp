@@ -6,8 +6,11 @@
 <%@ page import="com.spring.petsitter.board.*" %>
 
 <%@ page import="javax.servlet.*,java.text.*" %>
+<%
+MemberBoardVO mboard = (MemberBoardVO)request.getAttribute("vo");
+System.out.println(mboard.getMEMBER_SUBJECT());
 
-<% String name = (String)session.getAttribute("name"); %>
+%>
 
 
 <!doctype html>
@@ -96,13 +99,15 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	
 	
   <head>
-  <form action="./mboardwrite.me" method="post" name="boardform" enctype="multipart/form-data">
-  <input type="hidden" name="MEMBER_ID" value="${id}">
-  <input type="hidden" name="MEMBER_NAME" value="${name}">
+	<form action="./mboardmodify.me" method="post" name="modifyform">
+	<input type="hidden" name="MEMBER_NUM" value="<%=mboard.getMEMBER_NUM() %>">
+	<input type="hidden" name="MEMBER_ID" value="${id}">
+
   
-  		<script language="javascript">
-			function addboard(){
-			boardform.submit();
+  
+  	<script language="javascript">
+			function modifyboard(){
+				modifyform.submit();
 		}
 		</script>
   
@@ -225,7 +230,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     	</div>
     </div>  
     ${id}  로그인 중
-    닉네임 : ${name} 
     <!-- 여백용 row -->
     <div class="row">
     	<div class="col-md-12 p-3"></div>
@@ -235,7 +239,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
    		<div class="col-md-12">
    			<span class="glyphicon glyphicon-pencil"></span>
   			<div class="input-group">  		
- 					<input name="MEMBER_SUBJECT" type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
+ 					<input name="MEMBER_SUBJECT" type="text" class="form-control" value="<%=mboard.getMEMBER_SUBJECT() %>" aria-describedby="sizing-addon1" >
 				</div>
    		</div>
     </div>
@@ -260,7 +264,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <!-- 본문 textarea를 ckeditor로 교체 -->
     <div class="row">
     	<div class="col-md-12">
-    		<textarea name = "MEMBER_CONTENT"></textarea>
+    		<textarea name = "MEMBER_CONTENT"><%=mboard.getMEMBER_CONTENT() %></textarea>
 					<script>CKEDITOR.replace('MEMBER_CONTENT');</script>
     		</div>
     </div>
@@ -272,7 +276,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     
     <div class="row">
     	<div class="col-md-12">
-				<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnSave" href="javascript:addboard()">등록</a>
+				<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnSave" href="javascript:modifyboard()">등록</a>
   			<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="javascript:history.go(-1)">취소</a>
     	</div>
     </div>

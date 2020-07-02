@@ -1,6 +1,5 @@
 <!-- 관리자 메인 페이지 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.petsitter.*" %>
@@ -9,6 +8,11 @@
 <%@ page import="javax.servlet.*,java.text.*" %>
 <% 
 	MemberBoardVO mboard = (MemberBoardVO)request.getAttribute("vo");
+	String id = (String)session.getAttribute("id");
+%>
+<%
+	SimpleDateFormat format1;
+	format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 %>
 
 <!doctype html>
@@ -195,6 +199,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		<div class="row">
 			<div class="col-md-12 p-3"></div>
 		</div>
+		
+		
 		  
     <div class="container">      
 			<div class="row">
@@ -206,11 +212,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						</tr> 
 						<tr>
 							<td>작성일</td>
-							<td><%=mboard.getMEMBER_DATE() %></td>
+							<td><%=format1.format(mboard.getMEMBER_DATE()) %></td>
 						</tr>
 						<tr> 
 							<td>작성자</td>
-							<td><%=mboard.getMEMBER_ID() %></td>
+							<td><%=mboard.getMEMBER_NAME() %></td>
 						</tr>
 						</table>
 					</div>
@@ -220,6 +226,14 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							<td><%=mboard.getMEMBER_CONTENT() %></td>
 						</tr>
 					</table>
+			<% if(mboard.getMEMBER_ID() == id) {%>
+				<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnModify" href="./mboardmodifyform.me?num=<%=mboard.getMEMBER_NUM() %>">수정</a>
+	  			<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnDelete" href="./mboardDelete.me?num=<%=mboard.getMEMBER_NUM() %>">삭제</a>
+	  			<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./mboardlist.me">목록</a>
+  			<% } else { %>
+  				<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./mboardlist.me">목록</a>
+  			<% } %>
+					
 				</div>
 			</div>	  
 		</div>

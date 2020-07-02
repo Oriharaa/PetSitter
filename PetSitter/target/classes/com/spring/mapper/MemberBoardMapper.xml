@@ -14,15 +14,15 @@
 		<result property = "MEMBER_READCOUNT" column ="MEMBER_READCOUNT"/>
 		<result property = "MEMBER_DATE" column ="MEMBER_DATE"/>
 		<result property = "MEMBER_LIKECOUNT" column = "MEMBER_LIKECOUNT"/>
+		<result property = "MEMBER_NAME" column = "MEMBER_NAME"/>
 	</resultMap>
 	
 	<select id="getBoardList" parameterType="HashMap" resultMap="memberboardResultMap">
 	<![CDATA[
-		select MEMBER_NUM, MEMBER_ID, MEMBER_SUBJECT, MEMBER_CONTENT, MEMBER_ORG_FILE, MEMBER_UP_FILE, MEMBER_READCOUNT, MEMBER_DATE, MEMBER_LIKECOUNT
-		 	from (select rownum rnum, MEMBER_NUM, MEMBER_ID, MEMBER_SUBJECT, MEMBER_CONTENT, MEMBER_ORG_FILE, MEMBER_UP_FILE, MEMBER_READCOUNT, MEMBER_DATE, MEMBER_LIKECOUNT
+		select MEMBER_NUM, MEMBER_NAME, MEMBER_SUBJECT, MEMBER_CONTENT, MEMBER_ORG_FILE, MEMBER_UP_FILE, MEMBER_READCOUNT, MEMBER_DATE, MEMBER_LIKECOUNT
+		 	from (select rownum rnum, MEMBER_NUM, MEMBER_NAME, MEMBER_SUBJECT, MEMBER_CONTENT, MEMBER_ORG_FILE, MEMBER_UP_FILE, MEMBER_READCOUNT, MEMBER_DATE, MEMBER_LIKECOUNT
 		 		from (select * from member_board order by MEMBER_NUM desc))
 		 			where rnum >= #{startrow} and rnum <= #{endrow}
-		   
 		]]>
 	</select>
 	
@@ -43,22 +43,26 @@
 			select nvl(max(MEMBER_NUM), 0)+1 from member_board
 		</selectKey>
 		<![CDATA[
-		insert into member_board (member_num, member_id, member_subject, member_content, member_org_file, member_up_file, member_readcount, member_date, member_likecount)
+		insert into member_board (member_num, member_id, member_subject, member_content, member_org_file, member_up_file, member_readcount, member_date, member_likecount, member_name)
 		 values (#{MEMBER_NUM},#{MEMBER_ID},#{MEMBER_SUBJECT},#{MEMBER_CONTENT},#{MEMBER_ORG_FILE},#{MEMBER_UP_FILE},
-			#{MEMBER_READCOUNT}, sysdate, 0)
+			#{MEMBER_READCOUNT}, sysdate, 0, #{MEMBER_NAME})
 			]]>
 	</insert>
 	
 	<update id="boardModify" parameterType="com.spring.petsitter.board.MemberBoardVO">
-		update member_board set MEMBER_SUBJECT=#{MEMBER_SUBJECT}, MEMBER_CONTENT=#{MEMBER_CONTENT} where MEMBER_NUM=#{mebmer_num}
+		update member_board set MEMBER_SUBJECT=#{MEMBER_SUBJECT}, MEMBER_CONTENT=#{MEMBER_CONTENT} where member_num=#{MEMBER_NUM}
 	</update>
 	
 	<delete id="boardDelete" parameterType="int">
-		delete from member_board where MEMBER_NUM=#{MEMBER_NUM}
+		delete from member_board where member_num=#{member_num}
 	</delete>
 	
-		<select id="isBoardWriter" parameterType="HashMap" resultType="int">
-		select count(*) from member_board where MEMBER_NUM=#{MEMBER_NUM} and MEMBER_ID=#{MEMBER_ID}
+	<select id="isBoardWriter" parameterType="HashMap" resultType="int">
+		select count(*) from member_board where MEMBER_NUM=#{member_num} and MEMBER_ID=#{member_id}
+	</select>
+	
+	<select id="getMemberName" parameterType="String" resultType="String">
+		select member_name from member, member_board where member.member_id = #{member_id}
 	</select>
 	
 </mapper>

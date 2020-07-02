@@ -7,13 +7,16 @@
 <%@ page import="javax.servlet.*,java.text.*" %>
 <% 
 	String id=null;
+	String name = null;
+	
 	if(session.getAttribute("id") == null){
 		out.println("<script>");
 		out.println("location.href='loginform.me'");
 		out.println("</script>");
 	}
 	id = (String)session.getAttribute("id");
-
+	name = (String)session.getAttribute("name");
+	
 	ArrayList<MemberVO> memberList = (ArrayList<MemberVO>)request.getAttribute("member_list");
 	List<MemberBoardVO> mboardlist=(List<MemberBoardVO>)request.getAttribute("mboard_list");
 	
@@ -22,6 +25,10 @@
 	int maxpage=((Integer)request.getAttribute("maxpage")).intValue();
 	int startpage=((Integer)request.getAttribute("startpage")).intValue();
 	int endpage=((Integer)request.getAttribute("endpage")).intValue();
+%>
+<%
+	SimpleDateFormat format1;
+	format1 = new SimpleDateFormat("yyyy-MM-dd");
 %>
 
 <!doctype html>
@@ -251,19 +258,19 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					</thead>
 					<tbody>
 						<%int num = listcount - ((nowpage - 1) * 10); %>
+												
 					<%for(int i = 0 ; i < mboardlist.size(); i++) {
-						
 						MemberBoardVO bl=(MemberBoardVO)mboardlist.get(i);
+		
 					%>
-					
-						<tr>
+					<tr>
 						<td><%=num %></td>
-						<td><%=mboardlist.get(i).getMEMBER_ID() %></td>
-						<td><a href="./mboarddetail.me?num=<%=bl.getMEMBER_NUM()%>"><%=mboardlist.get(i).getMEMBER_SUBJECT() %></a></td>
-						<td><%=mboardlist.get(i).getMEMBER_DATE() %></td>
-						<td><%=mboardlist.get(i).getMEMBER_READCOUNT() %></td>
+						<td><%=bl.getMEMBER_NAME() %></td>
+						<td><a href="./mboarddetail.me?num=<%=bl.getMEMBER_NUM()%>"><%=bl.getMEMBER_SUBJECT() %></a></td>
+						<td><%=format1.format(bl.getMEMBER_DATE()) %></td>
+						<td><%=bl.getMEMBER_READCOUNT() %></td>
 						<% num--; %>
-						</tr>						
+					</tr>						
 					<%} %> 
 				</tbody>
 				</table>

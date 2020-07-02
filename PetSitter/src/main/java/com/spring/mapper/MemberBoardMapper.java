@@ -14,4 +14,5 @@ public interface MemberBoardMapper {
 	public int boardDelete(int num);
 	public void setReadCountUpdate(int num);
 	public int isBoardWriter(HashMap<String, String> hashmap);
+	public String getMemberName(String member_id);
 }

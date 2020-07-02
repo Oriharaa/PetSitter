@@ -1,5 +1,3 @@
-// 만드는중
-
 package com.spring.petsitter.board;
 
 import java.util.HashMap;
@@ -13,4 +11,6 @@ public interface MemberBoardService {
 	public MemberBoardVO boardModifyForm(int num);
 	public int boardModify(MemberBoardVO modifyboard);
 	public int boardDelete(HashMap<String, String> hashmap);
+	
+	
 }
