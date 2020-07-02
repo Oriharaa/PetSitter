@@ -6,9 +6,10 @@
 <%@ page import="com.spring.petsitter.board.*" %>
 
 <%@ page import="javax.servlet.*,java.text.*" %>
-<% 
+<%
 	MemberBoardVO mboard = (MemberBoardVO)request.getAttribute("vo");
 	String id = (String)session.getAttribute("id");
+	String rank = (String)session.getAttribute("rank");
 %>
 <%
 	SimpleDateFormat format1;
@@ -226,14 +227,16 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							<td><%=mboard.getMEMBER_CONTENT() %></td>
 						</tr>
 					</table>
-			<% if(mboard.getMEMBER_ID() == id) {%>
-				<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnModify" href="./mboardmodifyform.me?num=<%=mboard.getMEMBER_NUM() %>">수정</a>
-	  			<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnDelete" href="./mboardDelete.me?num=<%=mboard.getMEMBER_NUM() %>">삭제</a>
-	  			<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./mboardlist.me">목록</a>
-  			<% } else { %>
-  				<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./mboardlist.me">목록</a>
-  			<% } %>
 					
+			<%if((mboard.getMEMBER_ID().equals(id)) || rank.equals("admin") || rank.equals("manager")) {%>
+			<div class="text-right">
+				<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnModify" href="./mboardmodifyform.me?num=<%=mboard.getMEMBER_NUM() %>">수정</a>
+	  		<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnDelete" href="./mboardDelete.me?num=<%=mboard.getMEMBER_NUM() %>">삭제</a>
+	  		<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./mboardlist.me">목록</a>
+			<% } else { %>
+  			<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./mboardlist.me">목록</a>
+  		<% } %>
+					</div>
 				</div>
 			</div>	  
 		</div>

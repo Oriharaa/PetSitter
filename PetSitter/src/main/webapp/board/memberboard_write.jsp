@@ -272,8 +272,10 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     
     <div class="row">
     	<div class="col-md-12">
-				<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnSave" href="javascript:addboard()">등록</a>
-  			<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="javascript:history.go(-1)">취소</a>
+    		<div class="text-right">
+					<a type="button" style="background:#53dc98; color:white;" class="btn btn-sm" id="btnSave" href="javascript:addboard()">등록</a>
+	  			<a type="button" style="background:#e67e22; color:white;" class="btn btn-sm" id="btnList" href="javascript:history.go(-1)">취소</a>
+	  		</div>
     	</div>
     </div>
    </div>

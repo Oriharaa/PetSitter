@@ -67,12 +67,9 @@ public class MemberController {
 		if(res == 1) {
 			session.setAttribute("id", membervo.getMEMBER_ID());
 			session.setAttribute("name", membervo.getMEMBER_NAME());
-			System.out.println("아이디: " + membervo.getMEMBER_ID());
-			System.out.println("이름: " + membervo.getMEMBER_NAME());
-			System.out.println("로그인 성공");
+			session.setAttribute("rank", membervo.getMEMBER_RANK());
 			return "home";
 		}else {
-			System.out.println("로그인 실패");
 			return "loginform";
 		}
 		
@@ -95,7 +92,6 @@ public class MemberController {
 	public String member_join(MemberVO vo) {
 		int res = memberService.memberInsert(vo);
 		if(res == 1) {
-			System.out.println("회원가입 성공");
 		}
 		return "home";
 	}

@@ -6,8 +6,9 @@
 <%@ page import="com.spring.petsitter.board.*" %>
 <%@ page import="javax.servlet.*,java.text.*" %>
 <% 
-	String id=null;
+	String id = null;
 	String name = null;
+	String rank = null;
 	
 	if(session.getAttribute("id") == null){
 		out.println("<script>");
@@ -16,6 +17,7 @@
 	}
 	id = (String)session.getAttribute("id");
 	name = (String)session.getAttribute("name");
+	rank = (String)session.getAttribute("rank");
 	
 	ArrayList<MemberVO> memberList = (ArrayList<MemberVO>)request.getAttribute("member_list");
 	List<MemberBoardVO> mboardlist=(List<MemberBoardVO>)request.getAttribute("mboard_list");
@@ -272,33 +274,30 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						<% num--; %>
 					</tr>						
 					<%} %> 
-				</tbody>
+					</tbody>
 				</table>
-				
-				
 				</div>
 			</div>
 			
 				    <div class="row">
 	      <div class="col-md-2">
-	      <a type="button" style="background:#D3D3D3;" class="btn btn-sm" id="list">목록</a>
-	      
+	      	      
 	      <% if(nowpage <= 1) { %>
-	      <a type="button" style="background:#D3D3D3;" class="btn btn-sm" id="prev">이전</a>
+	      <a type="button" style="background:#F8F8F8; color:black;" class="btn btn-sm" id="prev">이전</a>
 	      <% } else { %>
-	      <a type="button" style="background:#D3D3D3;" class="btn btn-sm" id="prev" href="./mboardlist.me?page=<%=nowpage-1 %>">이전</a>
+	      <a type="button" style="background:#F8F8F8; color:black;" class="btn btn-sm" id="prev" href="./mboardlist.me?page=<%=nowpage-1 %>">이전</a>
 	      <% } %>
 	            
 	      <%if(nowpage >= maxpage) { %>
-	      <a type="button" style="background:#D3D3D3;" class="btn btn-sm" id="next">다음</a>
+	      <a type="button" style="background:#F8F8F8; color:black;" class="btn btn-sm" id="next">다음</a>
 	      <% } else { %>
-	      <a type="button" style="background:#D3D3D3;" class="btn btn-sm" id="next" href="./mboardlist.me?page=<%=nowpage+1%>">다음</a>
+	      <a type="button" style="background:#F8F8F8; color:black;" class="btn btn-sm" id="next" href="./mboardlist.me?page=<%=nowpage+1%>">다음</a>
 	      <% } %>
 	      
 	    	</div>
 		    <div class="col-md-9"></div>
 	      <div class="col-md-1">
-	    		<a type="button" style="background:#D3D3D3;" class="btn btn-sm" id="write" href="./mboardwriteform.me">글쓰기</a>
+	    		<a type="button" style="background:#e67e22; color:white;" class="btn btn-sm" id="write" href="./mboardwriteform.me">글쓰기</a>
 	    		
 	    	</div>
 	    </div>
@@ -311,9 +310,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							<td>
 							<%for(int a=startpage;a<=endpage;a++){
 								if(a==nowpage){%>
-								<a type="button" style="background:#D3D3D3;" class="btn btn-sm"><%=a %></a>
+								<a type="button" style="background:#53DC98; color:white" class="btn btn-sm"><%=a %></a>
 								<%}else{ %>
-								<a type="button" style="background:#D3D3D3;" class="btn btn-sm" href="./mboardlist.me?page=<%=a %>"><%=a %></a>
+								<a type="button" style="background:#F8F8F8;" class="btn btn-sm" href="./mboardlist.me?page=<%=a %>"><%=a %></a>
 								
 								<%} %>
 							<%} %>
