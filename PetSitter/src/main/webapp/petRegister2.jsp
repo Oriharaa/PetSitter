@@ -1,5 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	String id = (String)session.getAttribute("id");
+	String name = (String)session.getAttribute("name");
+%>
 <!-- 반려동물 등록 완료 페이지 -->
 
 <!doctype html>
@@ -119,11 +123,15 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
               <div class="float-right">
-
-                <a href="home.me" class=""><span>로그인</span></a>
+              	<%
+              		if(id == null) {
+              	%>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
-                <a href="home.me" class=""><span>회원가입</span></a>
-
+                <%} else { %>
+                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+                <%} %>
               </div>
               
             </div>
@@ -176,7 +184,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					<h1 class="one_text1">환영합니다!</h1>
 					<!-- ID값 받아오기 -->
 					<p class="one_text2">
-						qwer1234님 마이펫 등록을 축하합니다!<br>
+						${id }님 마이펫 등록을 축하합니다!<br>
 						보살펴조에서는 항상 회원님들의 입장에서<br>
 						보다 좋은 서비스를 받으실 수 있도록 노력하겠습니다.<br>
 						감사합니다:)	
@@ -194,7 +202,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		<div class="row justify-content-center">
 			<div class="col">
 				<div class="one_a">
-					<a href="#" class="go_main">메인으로</a>
+					<a href="home.me" class="go_main">메인으로</a>
 				</div>
 			</div>
 		</div>

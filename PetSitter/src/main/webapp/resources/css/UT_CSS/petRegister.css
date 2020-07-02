@@ -62,7 +62,8 @@
 	border-right: 1px solid #949494;
 	border-bottom: 1px solid #949494;;
 	border-left: 1px solid #949494;
-	width:19%;
+	width:24%; /*19*/
+	height:266px;
 	margin:0 0.4em 0 0;
 	}
 	 
@@ -84,13 +85,19 @@
 	}		  
 
 	.btn_next{
-	width:82%; height:40px; margin:0 0 0 14%; 
-	background-color:#53DC98; color:#ffffff;
-	font-size:20px; font-weight:bold;
+	margin:3% 0 0 14%;
+	width:50%;
+	height:100px;
+	background-color:white;
+	color:#53DC98;
+	font-size:70px; font-weight:bold;
 	border:0;
+	
 	}
 
-	#pet_birth {padding-left:16%;}
+	#PET_BIRTH {
+	padding-left:16%;
+	}
 
 	.filebox input[type="file"] {
 	position: absolute; 
@@ -104,28 +111,31 @@
 	}
 
 	.upload {
-	width:19%;
+	width:24%;
 	text-align:center;
 	border:1px;
 	background-color:#949494;
 	color:#ffffff;
 	}
 
-	.upload2 {
-	width:19%;
-	text-align:center;
-	border:1px;
-	background-color:#949494;
-	color:#ffffff;
-	margin-left:6px;
+	.div_img {
+	width:400px;
+	heigth:200px;
 	}
 
+	#icon1{
+	width:30%;
+	height:80px;
+	}
 
 input::placeholder {text-align:center;}
 input[type=text] {padding-left:10%;}
+input[type=number] {padding-left:10%;}
 
-/*인풋 색상 없애기*/
+/*인풋&버튼 클릭시 색상 없애기*/
+input:focus {outline:none;}
+button:focus {outline:none;} 
 
-input:focus {outline:none;} 
 /*인풋 색상 변경*/
 /* input:focus {outline:2px solid #d50000;} */
+
