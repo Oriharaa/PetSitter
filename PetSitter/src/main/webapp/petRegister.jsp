@@ -1,5 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+
+
 <!-- 반려동물 등록 -->
 <!doctype html>
 <html lang="en">
@@ -64,6 +67,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	  background: #e9e9e9!important; 
 	}
 	/*최하단바 종료*/
+
 </style>
 
 
@@ -118,11 +122,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
               <div class="float-right">
-
-                <a href="home.me" class=""><span>로그인</span></a>
-                <span class="mx-md-2 d-inline-block"></span>
-                <a href="home.me" class=""><span>회원가입</span></a>
-
+                <a href="profile.me?id=${id }"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
               </div>
               
             </div>
@@ -176,23 +177,24 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		</div>
   </div>
 </section>
+
 <section class="middle_box">
   <div class="container">
     <div class="row">
       <div class="col">
 	    	<div class="inner">
-		  		<form name="frm_ins" method="post" enctype="multipart/form-data" target="frm_hiddenFrame" onsubmit="return check_register();">
+		  		<form name="petRegister2" action="petRegister2.me" method="post">
 		    
 		    		<div class="row">
 			 	 			<div class="col">
 			  				<div class="div_txt">
-			  					<input type="text" name="user_id" id="user_id" class="input_txt" placeholder="">
+			  					<input type="text" name="MEMBER_ID" id="MEMBER_ID" class="input_txt" value=${id } readonly>
 			  					<span class="span_txt" id="input_id">ID</span>
 			  				</div>
 			  			</div>
 			  			<div class="col">
 			  				<div class="div_txt">
-			  					<input type="text" name="pet_animal" id="pet_animal" class="input_txt" placeholder="예 : 강아지">
+			  					<input type="text" name="PET_CATEGORY" id="PET_CATEGORY" class="input_txt" placeholder="예 : 강아지">
 			    				<span class="span_txt" id="input">종류</span>	
 			  				</div>
 			  			</div>
@@ -201,13 +203,13 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						<div class="row">
 							<div class="col">
 								<div class="div_txt">
-									<input type="text" name="pet_kind" id="pet_kind" class="input_txt" placeholder="예 : 푸들">
+									<input type="text" name="PET_KIND" id="PET_KIND" class="input_txt" placeholder="예 : 푸들">
 									<span class="span_txt" id="input">품종</span>
 								</div>
 							</div>
 							<div class="col">
 								<div class="div_txt">
-									<input type="text" name="pet_name" id="pet_name" class="input_txt" placeholder="예 : 밍키">
+									<input type="text" name="PET_NAME" id="PET_NAME" class="input_txt" placeholder="예 : 밍키">
 									<span class="span_txt" id="input">이름</span>
 								</div>	
 							</div>
@@ -216,13 +218,18 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						<div class="row">
 							<div class="col">
 								<div class="div_txt">
-									<input type="text" name="pet_weight" id="pet_weight" class="input_txt" placeholder="예 : 9kg">
+									<input type="number" name="PET_WEIGHT" id="PET_WEIGHT" class="input_txt" placeholder="예(단위 :kg) : 9">
 									<span class="span_txt" id="input">체중</span>
 								</div>
+								<div class="div_txt">
+									<input type="text" name="PET_SIZE" id="PET_SIZE" class="input_txt" placeholder="예(대/중/소) : 대형">
+									<span class="span_txt" id="input">크기</span>
+								</div>
+								
 							</div>	
 							<div class="col">
 								<div class="div_txt">
-									<input type="text" name="pet_birth" id="pet_birth" class="input_txt" placeholder="예 : 2020/06/16">
+									<input type="text" name="PET_BIRTH" id="PET_BIRTH" class="input_txt" placeholder="예 : 2020-06-16">
 									<span class="span_txt" id="input">생년월일</span>			
 								</div>
 							</div>			
@@ -236,9 +243,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 									<span class="span_txt2" id="checkbox">성별</span>
 									<input type="text" name="pet_sex" id="pet_sex" class="input_txt" disabled/>
 										<div class="div_rd">
-											<input type="radio" name="pet_sex" id="male" class="input_rd">
+											<input type="radio" name="PET_GENDER" id="PET_GENDER" class="input_rd" value="수컷">
 											<span>수컷</span>
-											<input type="radio" name="pet_sex" id="female" class="input_rd">
+											<input type="radio" name="PET_GENDER" id="PET_GENDER" class="input_rd" value="암컷">
 											<span>암컷</span>
 										</div>
 								</div>
@@ -249,9 +256,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 									<span class="span_txt2" id="checkbox">중성화 수술 여부</span>
 									<input type="text" name="pet_operation" id="pet_operation" class="input_txt" disabled/>
 										<div class="div_rd">
-											<input type="radio" name="pet_operation" id="yes1" class="input_rd">
+											<input type="radio" name="PET_NEUTERED" id="PET_NEUTERED" class="input_rd" value="Y">
 											<span>했음</span>
-											<input type="radio" name="pet_operation" id="no1" class="input_rd">
+											<input type="radio" name="PET_NEUTERED" id="PET_NEUTERED" class="input_rd" value="N">
 											<span>안했음</span>
 										</div>
 								</div>
@@ -262,9 +269,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 									<span class="span_txt2" id="checkbox">배변훈련 여부</span>
 									<input type="text" name="pet_shit" id="pet_shit" class="input_txt" disabled/>
 										<div class="div_rd">
-											<input type="radio" name="pet_shit" id="yes2" class="input_rd">
+											<input type="radio" name="PET_POTTYTRAN" id="PET_POTTYTRAN" class="input_rd" value="Y">
 											<span>했음</span>
-											<input type="radio" name="pet_shit" id="no2" class="input_rd">
+											<input type="radio" name="PET_POTTYTRAN" id="PET_POTTYTRAN" class="input_rd" value="N">
 											<span>안했음</span>
 										</div>
 								</div>
@@ -275,9 +282,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 									<span class="span_txt2" id="checkbox">예방접종 여부</span>
 									<input type="text" name="pet_prevent" id="pet_prevent" class="input_txt" disabled/>
 										<div class="div_rd">
-											<input type="radio" name="pet_prevent" id="yes3" class="input_rd">
+											<input type="radio" name="PET_VAOONE" id="PET_VAOONE" class="input_rd" value="Y">
 											<span>했음</span>
-											<input type="radio" name="pet_prevent" id="no3" class="input_rd">
+											<input type="radio" name="PET_VAOONE" id="PET_VAOONE" class="input_rd" value="N">
 											<span>안했음</span>
 										</div>	
 								</div>
@@ -292,41 +299,28 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 									<span class="span_txt3" id="file">사진 업로드</span>
 								</div>
 								<div class="div_txt3">
-									<img class="noimg" src="resources/images/noimg.png">
-									<img class="noimg" src="resources/images/noimg.png">
-									<img class="noimg" src="resources/images/noimg.png">
-									<img class="noimg" src="resources/images/noimg.png">
-									<img class="noimg" src="resources/images/noimg.png">
+									<img class="noimg" id="noimg" src="resources/images/noimg.png">
+									<button type="submit" class="btn_next" onclick="javascript:register">
+										<i class="fas fa-arrow-right" id="icon1"></i>펫 등록
+									</button>
+
 								</div>
 								<div class="div_file">
 									<div class="filebox">
 										<label for="input-file" class="upload">업로드</label>
-										<input type="file" id="input-file" class="upload-hidden">
-										<label for="input-file" class="upload2">업로드</label>
-										<input type="file" id="input-file" class="upload-hidden">			
-										<label for="input-file" class="upload2">업로드</label>
-										<input type="file" id="input-file" class="upload-hidden">			
-										<label for="input-file" class="upload2">업로드</label>
-										<input type="file" id="input-file" class="upload-hidden">			
-										<label for="input-file" class="upload2">업로드</label>
-										<input type="file" id="input-file" class="upload-hidden">																		
+											<input type="file" name="PET_PHOTO" id="input-file" class="upload-hidden">																										
 									</div>
 								</div>
+
+								
+
+
+
+
 							</div>
 						</div>
 						
-						<br><br>
-						
-						<div class="row">
-							<div class="col-9">
-							</div>
-							<div class="col-3">
-								<div class="div_btn">
-									<input type="button" value="펫 등록" class="btn_next">
-								</div>
-							</div>
-						</div>
-						
+						<br><br>				
 		  		</form>
 				</div>
 	  	</div>
@@ -375,7 +369,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
             <a href="https://twitter.com/" class="pl-3 pr-3" target="_blank"><span class="icon-twitter" id="main_grayfont2" ></span></a>
             <a href="https://www.instagram.com/" class="pl-3 pr-3" target="_blank"><span class="icon-instagram" id="main_grayfont2" ></span></a>
             <a href="https://www.linkedin.com/" class="pl-3 pr-3" target="_blank"><span class="icon-linkedin" id="main_grayfont2" ></span></a>
-            </form>
+            <!-- </form> -->
           </div>
         </div>
         <div class="row pt-5 mt-5 text-center">
@@ -406,6 +400,55 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <script src="<c:url value="./resources/js/aos.js"/>"></script><!-- nav 상단바 반응형웹 적용1 -->
 
     <script src="<c:url value="/resources/js/main.js"/>"></script><!-- nav 상단바 반응형웹 적용2 -->
+    
+    <script>
+    	function register()
+    	{
+    		petRegister2.submit();
+    	}
+    </script>
+    
+    <script>
+    	var sel_file;
+    	
+    	$(document).ready(function() {
+/*     		$("#input_img").on("change", handleImgFileSelect); */
+    		 	$("#input-file").on("change", handleImgFileSelect);
+    	});
+    	
+    	function handleImgFileSelect(e) {
+    		var files = e.target.files;
+    		var filesArr = Array.prototype.slice.call(files);
+    		
+    		filesArr.forEach(function(f) {
+    			if(!f.type.match("image.*")) {
+    				alert("확장자는 이미지 확장자만 가능합니다.");
+    				return;
+    			}
+    			
+    			sel_file = f;
+    			
+    			var reader = new FileReader();
+    			reader.onload = function(e) {
+    				$("#noimg").attr("src", e.target.result);
+    			}
+    			reader.readAsDataURL(f);
+    		});
+    	}
+    </script>
+    
+    <!-- 아이콘 -->   
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
       
 
 
