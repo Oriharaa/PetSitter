@@ -1,6 +1,5 @@
 package com.spring.petsitter;
 
-import java.util.Date;
 import org.springframework.web.multipart.MultipartFile;
 
 /*
@@ -15,7 +14,9 @@ create table member(
     MEMBER_AMOUNT number DEFAULT 0, --총 금액
     MEMBER_DATE date default sysdate, --가입날짜
     MEMBER_PHOTO varchar2(100) DEFAULT 'N', --프로필사진
-    MEMBER_REPORT number DEFAULT 0 --신고누적횟수
+    MEMBER_REPORT number DEFAULT 0, --신고누적횟수
+    MEMBER_ADDRESS varchar2(100), -- 주소
+    MEMBER_GENDER varchar2(4) -- 성별
 );
 */
 
@@ -32,6 +33,8 @@ public class MemberVO {
 	private MultipartFile MEMBER_PHOTO_FILE;
 	private String MEMBER_PHOTO;
 	private int MEMBER_REPORT;
+	private String MEMBER_ADDRESS;
+	private String MEMBER_GENDER;
 	
 	public String getMEMBER_ID() {
 		return MEMBER_ID;
@@ -105,4 +108,17 @@ public class MemberVO {
 	public void setMEMBER_REPORT(int mEMBER_REPORT) {
 		MEMBER_REPORT = mEMBER_REPORT;
 	}
+	public String getMEMBER_ADDRESS() {
+		return MEMBER_ADDRESS;
+	}
+	public void setMEMBER_ADDRESS(String mEMBER_ADDRESS) {
+		MEMBER_ADDRESS = mEMBER_ADDRESS;
+	}
+	public String getMEMBER_GENDER() {
+		return MEMBER_GENDER;
+	}
+	public void setMEMBER_GENDER(String mEMBER_GENDER) {
+		MEMBER_GENDER = mEMBER_GENDER;
+	}
+	
 }

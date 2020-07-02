@@ -12,7 +12,7 @@
 		select * from petsitter
 	</select>
 	
-	<select id="selectPetsitter" parameterType = "PetsitterVO" resultType = "PetsitterVO">
+	<select id="selectPetsitter" parameterType = "String" resultType = "PetsitterVO">
 		select * from petsitter where PETSITTER_ID = #{PETSITTER_ID}
 	</select>
 	

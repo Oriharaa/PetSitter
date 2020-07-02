@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>http://www.blueb.co.kr</title>
+	<title>PetSitter Login Page</title>
 
 <style rel="stylesheet">
 @charset "UTF-8";

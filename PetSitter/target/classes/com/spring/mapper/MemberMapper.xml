@@ -11,7 +11,19 @@
 		<result property = "MEMBER_TEL" column ="MEMBER_ID"/>
 	</resultMap>
 	
-	<select id="memberCheck" parameterType = "MemberVO" resultType = "int">
+	<resultMap type="MemberUsinglistVO" id="UsingResultMap">
+		<result property="LIST_NUM" column="LIST_NUM" />
+		<result property="LIST_TYPE" column="LIST_TYPE" />
+		<result property="PETSITTER_NICKNAME" column="PETSITTER_NICKNAME" />
+		<result property="PETSITTER_NAME" column="PETSITTER_NAME" />
+		<result property="PETSITTER_TEL" column="PETSITTER_TEL" />
+		<result property="MEMBER_ID" column="MEMBER_ID" />
+		<result property="LIST_START_DATE" column="LIST_START_DATE" />
+		<result property="LIST_END_DATE" column="LIST_END_DATE" />
+		<result property="LIST_PRICE" column="LIST_PRICE" />
+	</resultMap>
+	
+	<select id="memberCheck" parameterType="MemberVO" resultType="int">
 		select count(*) from member where MEMBER_ID = #{MEMBER_ID} and MEMBER_PW = #{MEMBER_PW}
 	</select>
 	
@@ -23,14 +35,42 @@
 		select * from member where MEMBER_ID=#{MEMBER_ID}
 	</select>
 	
+	<select id="getUsingList_Member" parameterType="String" resultType="UsinglistVO">
+		select * from usinglist where MEMBER_ID=#{MEMBER_ID} order by LIST_NUM desc
+	</select>
+	
+	<select id="getUsingList_Member_ajax" parameterType="String" resultMap="UsingResultMap">
+		select list_num, member_id, list_price, list_start_date, list_end_date, list_type, petsitter_nickname, petsitter_name, petsitter_tel 
+		from usinglist, petsitter 
+		where MEMBER_ID=#{MEMBER_ID} and usinglist.PETSITTER_ID=petsitter.PETSITTER_ID order by LIST_NUM desc
+	</select>
+	
+	<select id="getUsingList_Member_ajax_month" parameterType="map" resultMap="UsingResultMap">
+		<![CDATA[
+		select list_num, member_id, list_price, list_start_date, list_end_date, list_type, petsitter_nickname, petsitter_name, petsitter_tel 
+		from usinglist , petsitter 
+		where MEMBER_ID=#{MEMBER_ID} and usinglist.PETSITTER_ID=petsitter.PETSITTER_ID and list_start_date >= trunc(add_months(sysdate, #{month})) 
+		order by LIST_NUM desc
+		]]>
+	</select>
+	
+	<select id="getUsingList_Member_month" parameterType="map" resultType="UsinglistVO">
+		<![CDATA[
+		select * from usinglist where MEMBER_ID=#{MEMBER_ID} and list_start_date >= trunc(add_months(sysdate, #{month})) 
+		order by LIST_NUM desc
+		]]>
+	</select>
+	
+	
+	
 	<insert id="insertMember" parameterType="MemberVO">
 		insert into member (MEMBER_ID,MEMBER_PW,MEMBER_NAME,MEMBER_TEL) values
 				(#{MEMBER_ID},#{MEMBER_PW},#{MEMBER_NAME},#{MEMBER_TEL})
 	</insert>
 	
-	<update id="updateMember" parameterType="String">
-		update member set MEMBER_NAME=#{MEMBER_NAME}, MEMBER_NICKNAME=#{MEMBER_NICKNAME}, MEMBER_TEL=#{MEMBER_TEL}, 
-		MEMBER_PW=#{MEMBER_PW} where MEMBER_ID=#{MEMBER_ID}
+	<update id="updateMember" parameterType="MemberVO">
+		update member set MEMBER_NICKNAME=#{MEMBER_NICKNAME}, MEMBER_TEL=#{MEMBER_TEL}, 
+		MEMBER_PW=#{MEMBER_PW}, MEMBER_ADDRESS=#{MEMBER_ADDRESS} where MEMBER_ID=#{MEMBER_ID}
 	</update>
 	
 	<delete id="deleteMember" parameterType="MemberVO">
