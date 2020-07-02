@@ -95,9 +95,7 @@ public class MemberController {
 		String today = new_Format.format(date);
 		
 		for(int i = 0; i < usinglist_ajax.size(); i++) {
-			System.out.println("dd: " + usinglist.get(i).getLIST_START_DATE());
 			usinglist_ajax.get(i).setLIST_START_DATE(new_Format.format(usinglist.get(i).getLIST_START_DATE()));
-			System.out.println(usinglist_ajax.get(i).getLIST_START_DATE());
 			usinglist_ajax.get(i).setLIST_END_DATE(new_Format.format(usinglist.get(i).getLIST_END_DATE()));
 			
 			String ing = "";
