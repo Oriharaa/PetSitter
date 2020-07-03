@@ -1,12 +1,8 @@
 package com.spring.petsitter.board;
 
-import java.io.File;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
-
-import com.spring.petsitter.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,14 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+
 @Controller
 public class MemberBoardController {
 	
 	@Autowired
 	private MemberBoardService memberboardService;	
 	
-	
-	
+	@Autowired 
+	private MReplyService mReplyService;
 	
 	@RequestMapping(value = "/mboardlist.me")
 	public String memberboard(Model model,
@@ -100,10 +97,12 @@ public class MemberBoardController {
 	}
 	
 	@RequestMapping("/mboarddetail.me")
-	public String getDetail(@RequestParam(value = "num", required = true) int num, Model model) {
+	public String getDetail(@RequestParam(value = "num", required = true) int num, Model model) throws Exception {
 		MemberBoardVO vo = memberboardService.getDetail(num);
-
 		model.addAttribute("vo", vo);
+		
+		List<MReplyVO> mReplyList = mReplyService.readReply(num);
+		model.addAttribute("mReplyList", mReplyList);
 
 		return "board/memberboard_view";
 	}
@@ -151,5 +150,8 @@ public class MemberBoardController {
 		return null;
 	}
 	
+//댓글 작성
+
+			
 	
 }

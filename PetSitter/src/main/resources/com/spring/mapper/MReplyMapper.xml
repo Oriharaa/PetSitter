@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.spring.mapper.MReplyMapper" >
+
+	<select id="readReply" resultType="com.spring.petsitter.board.MReplyVO">
+		select rno, content, writer, regDate from mReply where bno = #{bno}
+	</select>
+	
+	<insert id="writeReply">
+		insert into mReply(bno, rno, content, writer)
+		values(#{bno}, mReply_seq.nextval, #{content}, #{writer})
+	</insert>
+	
+</mapper>

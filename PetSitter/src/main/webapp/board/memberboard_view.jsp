@@ -4,12 +4,15 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.petsitter.*" %>
 <%@ page import="com.spring.petsitter.board.*" %>
-
+<%@ page import="java.io.PrintWriter" %>
 <%@ page import="javax.servlet.*,java.text.*" %>
 <%
 	MemberBoardVO mboard = (MemberBoardVO)request.getAttribute("vo");
+	List<MReplyVO> mReplyList =(List<MReplyVO>)request.getAttribute("mReplyList");
+	
 	String id = (String)session.getAttribute("id");
 	String rank = (String)session.getAttribute("rank");
+	
 %>
 <%
 	SimpleDateFormat format1;
@@ -195,6 +198,20 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	 	.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
    	background-color: #F8F8F8;
 		}    
+		
+					
+	  .pb-cmnt-container {
+	      font-family: Lato;
+	      margin-top: 10px;
+		  }
+	  .pb-cmnt-textarea {
+		      resize: none;
+		      padding: 20px;
+		      height: 130px;
+		      width: 100%;
+		      border: 1px solid #949494;
+			  }
+			
     </style>  
 		
 		<div class="row">
@@ -203,14 +220,15 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		
 		
 		  
+
     <div class="container">      
-			<div class="row">
-				<div class="col-md-12">
-					<table class="table table-sm table-striped">
+			<div class="row justify-content-center">
+				<div class="col-md-10">
+					<table class="table table-sm">
 						<tr>
 							<td>제목</td>
 							<td><%=mboard.getMEMBER_SUBJECT()%></td>
-						</tr> 
+							</tr> 
 						<tr>
 							<td>작성일</td>
 							<td><%=format1.format(mboard.getMEMBER_DATE()) %></td>
@@ -219,9 +237,13 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							<td>작성자</td>
 							<td><%=mboard.getMEMBER_NAME() %></td>
 						</tr>
+						<tr>
+							<td>조회수</td>
+							<td><%=mboard.getMEMBER_READCOUNT() %></td>
+						</tr>
 						</table>
 					</div>
-					<div class="col-md-12">
+					<div class="col-md-10">
 						<table class="table table-borderless">						
 						<tr>						
 							<td><%=mboard.getMEMBER_CONTENT() %></td>
@@ -229,18 +251,64 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					</table>
 					
 			<%if((mboard.getMEMBER_ID().equals(id)) || rank.equals("admin") || rank.equals("manager")) {%>
-			<div class="text-right">
 				<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnModify" href="./mboardmodifyform.me?num=<%=mboard.getMEMBER_NUM() %>">수정</a>
 	  		<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnDelete" href="./mboardDelete.me?num=<%=mboard.getMEMBER_NUM() %>">삭제</a>
 	  		<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./mboardlist.me">목록</a>
 			<% } else { %>
   			<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./mboardlist.me">목록</a>
   		<% } %>
-					</div>
+ 		 
 				</div>
-			</div>	  
+			</div>
+			
+			<div class="row">
+			<div class="col-md-12 p-3"></div>
 		</div>
 			
+			<div class="row justify-content-center">
+				<div class="col-md-10">
+					<table class="table table-sm">
+				 <%for(int i = 0 ; i < mReplyList.size(); i++) { 
+				 	MReplyVO mr = mReplyList.get(i);
+				 %>
+				 <tr>
+				 	<td>작성자</td>
+				 	<td><%=mr.getWriter() %></td>
+				 	<td>작성일</td>
+				 	<td><%=mr.getRegDate() %></td>
+				 </tr>
+				 <tr>
+				 	<td>내용</td>
+				 	<td><%=mr.getContent() %></td>
+				 </tr>
+				 <%} %>		
+				 </table>		 
+				</div>
+			</div>
+			
+			<div class="container pb-cmnt-container">
+				<div class="row justify-content-center">
+				    <div class="col-md-10">
+				        <div class="panel panel-info">
+				            <div class="panel-body">
+				                <textarea placeholder="Write your comment here!" name="replyContent" class="pb-cmnt-textarea"></textarea>
+				                	<div class="text-right">
+				                    <button class="btn btn-primary pull-right" type="button">Share</button>
+				                	</div>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+			</div>
+
+
+			
+		</div>
+			
+	</div>	  
+	
+	
+
 			<!-- 하단 넉넉하게 여백 주기 -->
 			<div class="row">
 		   <div class="col-md-12 p-5"></div>
