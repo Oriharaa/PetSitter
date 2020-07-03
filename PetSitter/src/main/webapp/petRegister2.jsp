@@ -184,7 +184,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					<h1 class="one_text1">환영합니다!</h1>
 					<!-- ID값 받아오기 -->
 					<p class="one_text2">
-						qwer1234님 마이펫 등록을 축하합니다!<br>
+						${id }님 마이펫 등록을 축하합니다!<br>
 						보살펴조에서는 항상 회원님들의 입장에서<br>
 						보다 좋은 서비스를 받으실 수 있도록 노력하겠습니다.<br>
 						감사합니다:)	
@@ -202,7 +202,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		<div class="row justify-content-center">
 			<div class="col">
 				<div class="one_a">
-					<a href="#" class="go_main">메인으로</a>
+					<a href="home.me" class="go_main">메인으로</a>
 				</div>
 			</div>
 		</div>
