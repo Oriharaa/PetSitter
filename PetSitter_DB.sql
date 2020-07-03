@@ -137,6 +137,28 @@ CREATE TABLE BOARD_COMMENT (
     COMMENT_LIKECOUNT NUMBER
 ); -- 생성 안함
 
+-- 펫시터와의 소통 게시판
+create table COMMUNICATION_BOARD(
+	BOARD_NUM number(10) PRIMARY KEY, -- 회원 게시판 글 번호
+	MEMBER_ID varchar2(30), -- 일반 회원 아이디
+	PETSITTER_ID varchar2(30), -- 펫시터 회원 아이디
+	BOARD_SUBJECT varchar2(100), -- 제목
+	BOARD_CONTENT varchar2(4000), -- 내용
+	BOARD_READCOUNT number, -- 조회수
+	BOARD_DATE date default sysdate -- 작성일
+);
+
+create table COMMUNICATION_BOARD(
+	BOARD_NUM number(10) PRIMARY KEY, -- 회원 게시판 글 번호
+    BOARD_WRITER varchar2(30), -- 작성자(일반 회원 닉네임 or 펫시터 닉네임)
+	MEMBER_ID varchar2(30), -- 일반 회원 아이디
+	PETSITTER_ID varchar2(30), -- 펫시터 회원 아이디
+	BOARD_SUBJECT varchar2(100), -- 제목
+	BOARD_CONTENT varchar2(4000), -- 내용
+	BOARD_READCOUNT number, -- 조회수
+	BOARD_DATE date default sysdate -- 작성일
+);
+
 create table USINGLIST(
     LIST_NUM number(10) primary key,
     PETSITTER_ID varchar2(30),
@@ -149,23 +171,23 @@ create table USINGLIST(
 
 -- usinglist 예시 데이터
 insert into usinglist
-values('5', 'asd111', 'asdasd@naver.com', '30000', '2020/06/29', '2020/06/30', '위탁');
+values('1', 'asd222', 'asdasd@naver.com', '90000', '2020/02/21', '2020/02/22', '위탁');
 insert into usinglist
-values('7', 'asd222', 'asdasd@naver.com', '60000', '2020/06/30', '2020/07/01', '위탁');
+values('2', 'asd111', 'asdasd@naver.com', '70000', '2020/05/21', '2020/05/22', '위탁');
 insert into usinglist
-values('6', 'asd111', 'asdasd@naver.com', '20000', '2020/06/29', '2020/06/29', '방문');
+values('3', 'asd444', 'asdasd@naver.com', '80000', '2020/06/25', '2020/06/26', '위탁');
 insert into usinglist
 values('4', 'asd333', 'asdasd@naver.com', '40000', '2020/06/27', '2020/06/28', '위탁');
 insert into usinglist
-values('3', 'asd444', 'asdasd@naver.com', '80000', '2020/06/25', '2020/06/26', '위탁');
+values('5', 'asd111', 'asdasd@naver.com', '30000', '2020/06/29', '2020/06/30', '위탁');
+insert into usinglist
+values('6', 'asd111', 'asdasd@naver.com', '20000', '2020/06/29', '2020/06/29', '방문');
+insert into usinglist
+values('7', 'asd222', 'asdasd@naver.com', '60000', '2020/06/30', '2020/07/01', '위탁');
 insert into usinglist
 values('8', 'asd333', 'asdasd@naver.com', '80000', '2020/07/01', '2020/07/02', '위탁');
 insert into usinglist
 values('9', 'asd111', 'asdasd@naver.com', '70000', '2020/07/02', '2020/07/03', '위탁');
-insert into usinglist
-values('2', 'asd111', 'asdasd@naver.com', '70000', '2020/05/21', '2020/05/22', '위탁');
-insert into usinglist
-values('1', 'asd222', 'asdasd@naver.com', '90000', '2020/02/21', '2020/02/22', '위탁');
 insert into usinglist
 values('10', 'asd333', 'asdasd@naver.com', '120000', '2020/07/02', '2020/07/05', '위탁');
 
@@ -173,9 +195,10 @@ select * from usinglist where member_id='asdasd@naver.com' order by list_num des
 select * from petsitter where petsitter_id='asd444';
 commit;
 
-select list_num, member_id, list_price, list_start_date, list_end_date, list_type, petsitter_nickname, petsitter_name, petsitter_tel 
-from usinglist u, petsitter p 
-where member_id='asdasd@naver.com' and u.petsitter_id = p.petsitter_id order by list_num desc;
+select list_num, member_id, petsitter_id, list_price, list_start_date, list_end_date, list_type, petsitter_nickname, petsitter_name, petsitter_tel 
+from usinglist natural join petsitter
+where member_id='asdasd@naver.com'
+order by list_num desc;
 
 select u.list_num, u.member_id, u.list_price, u.list_start_date, u.list_end_date, u.list_type, p.petsitter_nickname, p.petsitter_name, p.petsitter_tel 
 from usinglist u, petsitter p 

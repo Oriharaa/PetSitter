@@ -179,7 +179,7 @@ border-radius:400px
 	                <form action="#">
 	                <div class="form-group d-flex">
 	                	<input class="form-control" type="text"  id="sample5_address"  placeholder="주소를 입력하세요" >
-	                  <input type="button" class="btn btn-outline-warning px-4" onclick="sample5_execDaumPostcode(); location.href = '#mapgo';" value="주소 검색 " >
+	                  <input type="button" class="btn btn-outline-warning px-4" onclick="sample5_execDaumPostcode(); location.href='#mapgo';" value="주소 검색 " >
 	                </div>
 	                </form>
 	                

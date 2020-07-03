@@ -5,6 +5,7 @@ public class MemberUsinglistVO {
 	private int LIST_NUM;
 	private String LIST_TYPE;
 	private String MEMBER_ID;
+	private String PETSITTER_ID;
 	private String PETSITTER_NAME;
 	private String PETSITTER_NICKNAME;
 	private String PETSITTER_TEL;
@@ -31,6 +32,12 @@ public class MemberUsinglistVO {
 	}
 	public void setMEMBER_ID(String mEMBER_ID) {
 		MEMBER_ID = mEMBER_ID;
+	}
+	public String getPETSITTER_ID() {
+		return PETSITTER_ID;
+	}
+	public void setPETSITTER_ID(String pETSITTER_ID) {
+		PETSITTER_ID = pETSITTER_ID;
 	}
 	public String getPETSITTER_NAME() {
 		return PETSITTER_NAME;

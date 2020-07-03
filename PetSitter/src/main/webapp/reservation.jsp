@@ -1,9 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-	String id = (String)session.getAttribute("id");
-	String name = (String)session.getAttribute("name");
-%>
+
 <!-- 위탁 돌봄 -->
 
 <!doctype html>
@@ -74,7 +71,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
   <head>
-    <title>Depot &mdash;Website Template by Colorlib</title>
+    <title>위탁 돌봄 예약 페이지</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -111,8 +108,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 		<link href="${pageContext.servletContext.contextPath}/resources/jquery/jquery-ui.css?version=1.3" rel="stylesheet" type="text/css" media="screen">
     
-    
-    <title>petssiter basicform</title>
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
   
@@ -138,15 +133,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
               <div class="float-right">
-              	<%
-              		if(id == null) {
-              	%>
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
-                <span class="mx-md-2 d-inline-block"></span>
-                <%} else { %>
-                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
+              	<a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
-                <%} %>
               </div>
               
             </div>
