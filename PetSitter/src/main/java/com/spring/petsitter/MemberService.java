@@ -12,6 +12,10 @@ public interface MemberService {
 	public void deleteMember(String id);
 	public ArrayList<UsinglistVO> getUsingList_Member(String id);
 	public List<MemberUsinglistVO> getUsingList_Member_ajax(String id);
-	public List<MemberUsinglistVO> getUsingList_Member_ajax_month(String id, int month);
+	
 	public ArrayList<UsinglistVO> getUsingList_Member_month(String id, int month);
+	public List<MemberUsinglistVO> getUsingList_Member_ajax_month(String id, int month);
+	
+	public ArrayList<UsinglistVO> getUsingList_Member_calendar(String id, String startdate, String enddate);
+	public List<MemberUsinglistVO> getUsingList_Member_ajax_calendar(String id, String startdate, String enddate);
 }

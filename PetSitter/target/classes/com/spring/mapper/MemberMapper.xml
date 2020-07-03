@@ -31,7 +31,7 @@
 		select * from member order by MEMBER_DATE desc
 	</select>
 	
-	<select id="selectMember" parameterType="String" resultType="com.spring.petsitter.MemberVO">
+	<select id="selectMember" parameterType="String" resultType="MemberVO">
 		select * from member where MEMBER_ID=#{MEMBER_ID}
 	</select>
 	
@@ -61,7 +61,25 @@
 		]]>
 	</select>
 	
+	<select id="getUsingList_Member_ajax_calendar" parameterType="map" resultMap="UsingResultMap">
+		<![CDATA[
+		select list_num, member_id, list_price, list_start_date, list_end_date, list_type, petsitter_nickname, petsitter_name, petsitter_tel 
+		from usinglist , petsitter 
+		where MEMBER_ID=#{MEMBER_ID} and usinglist.PETSITTER_ID=petsitter.PETSITTER_ID and (list_start_date between to_date(#{startdate}, 'YYYY-MM-DD') and to_date(#{enddate}, 'YYYY-MM-DD') or
+					list_end_date between to_date(#{startdate}, 'YYYY-MM-DD') and to_date(#{enddate}, 'YYYY-MM-DD'))
+		order by LIST_NUM desc
+		]]>
+	</select>
 	
+	<select id="getUsingList_Member_calendar" parameterType="map" resultType="UsinglistVO">
+		<![CDATA[
+		select * 
+		from usinglist 
+		where MEMBER_ID=#{MEMBER_ID} and (list_start_date between to_date(#{startdate}, 'YYYY-MM-DD') and to_date(#{enddate}, 'YYYY-MM-DD') or
+					list_end_date between to_date(#{startdate}, 'YYYY-MM-DD') and to_date(#{enddate}, 'YYYY-MM-DD'))
+		order by LIST_NUM desc
+		]]>
+	</select>
 	
 	<insert id="insertMember" parameterType="MemberVO">
 		insert into member (MEMBER_ID,MEMBER_PW,MEMBER_NAME,MEMBER_TEL) values

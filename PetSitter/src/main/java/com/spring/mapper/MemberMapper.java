@@ -16,6 +16,10 @@ public interface MemberMapper {
 	public void deleteMember(String id);
 	public ArrayList<UsinglistVO> getUsingList_Member(String id);
 	public List<MemberUsinglistVO> getUsingList_Member_ajax(String id);
-	public List<MemberUsinglistVO> getUsingList_Member_ajax_month(@Param("MEMBER_ID") String id, @Param("month") int month);
+
 	public ArrayList<UsinglistVO> getUsingList_Member_month(@Param("MEMBER_ID") String id, @Param("month") int month);
+	public List<MemberUsinglistVO> getUsingList_Member_ajax_month(@Param("MEMBER_ID") String id, @Param("month") int month);
+	
+	public ArrayList<UsinglistVO> getUsingList_Member_calendar(@Param("MEMBER_ID")String id, @Param("startdate") String startdate, @Param("enddate") String enddate);
+	public List<MemberUsinglistVO> getUsingList_Member_ajax_calendar(@Param("MEMBER_ID")String id, @Param("startdate") String startdate, @Param("enddate") String enddate);
 }

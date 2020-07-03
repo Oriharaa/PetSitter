@@ -118,6 +118,40 @@ public class MemberController {
 		return usinglist_ajax;
 	}
 	
+	@RequestMapping(value = "getUsingList_calendar.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<MemberUsinglistVO> getUsinglist_calendar(String id, String startdate, String enddate) {
+		ArrayList<UsinglistVO> usinglist = memberService.getUsingList_Member_calendar(id, startdate, enddate);
+		List<MemberUsinglistVO> usinglist_ajax = memberService.getUsingList_Member_ajax_calendar(id, startdate, enddate);
+		SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date date = new Date();
+		String today = new_Format.format(date);
+		
+		for(int i = 0; i < usinglist_ajax.size(); i++) {
+			usinglist_ajax.get(i).setLIST_START_DATE(new_Format.format(usinglist.get(i).getLIST_START_DATE()));
+			usinglist_ajax.get(i).setLIST_END_DATE(new_Format.format(usinglist.get(i).getLIST_END_DATE()));
+			
+			String ing = "";
+			int compare1 = usinglist_ajax.get(i).getLIST_START_DATE().compareTo(today);
+			int compare2 = today.compareTo(usinglist_ajax.get(i).getLIST_END_DATE());
+			if(compare1 < 0 && compare2 < 0) {
+  				ing = "현재 이용중";
+  			} else {
+  				ing = "이용 완료";
+  			}
+			usinglist_ajax.get(i).setLIST_ING(ing);
+			
+			if(ing.equals("현재 이용중")) {
+				usinglist_ajax.get(i).setLIST_COMPLETE("펫시터와의 소통");
+			} else {
+				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 남기기");
+			}
+		}
+		
+		return usinglist_ajax;
+	}
+	
+	
 	@RequestMapping(value = "reportlist.me")
 	public String reportlist(Model model) {
 		return "reportlist";

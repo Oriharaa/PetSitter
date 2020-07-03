@@ -1,6 +1,7 @@
 package com.spring.petsitter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -87,5 +88,19 @@ public class MemberServiceImpl implements MemberService{
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		ArrayList<UsinglistVO> usinglist = memberMapper.getUsingList_Member_month(id, month);
 		return usinglist;
+	}
+
+	@Override
+	public ArrayList<UsinglistVO> getUsingList_Member_calendar(String id, String startdate, String enddate) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		ArrayList<UsinglistVO> usinglist = memberMapper.getUsingList_Member_calendar(id, startdate, enddate);
+		return usinglist;
+	}
+
+	@Override
+	public List<MemberUsinglistVO> getUsingList_Member_ajax_calendar(String id, String startdate, String enddate) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		List<MemberUsinglistVO> usinglist_ajax = memberMapper.getUsingList_Member_ajax_calendar(id, startdate, enddate);
+		return usinglist_ajax;
 	}
 }

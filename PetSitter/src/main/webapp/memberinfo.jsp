@@ -102,7 +102,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	}  
 
 	.profile_sm1{
-	width: 100px;
+		width: 100px;
     height: 100px; 
     border-radius: 70%;
     overflow: hidden;
@@ -411,11 +411,37 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
   -moz-appearance: none; 
   appearance: none; 
   }
-  
-
 	/*파일 선택 css 종료*/
 
 	
+	/*ajax 에서 사진 가운데 와 크기(규격)지정 css 시작*/
+	.thumbnail-wrappper { 
+	width: 25%; 
+	} 
+	.thumbnail { 
+	position: relative; 
+	padding-top: 100%; /*한번 만져보기 전에 max-width 먼저 수정 */ 
+	overflow: hidden; 
+	} 
+	.thumbnail .centered { 
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	right: 0; 
+	bottom: 0; 
+	-webkit-transform: translate(50%,50%); 
+	-ms-transform: translate(50%,50%); 
+	transform: translate(50%,50%); } 
+	.thumbnail .centered img { 
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	max-width: 100px; /*사이즈 비율 조정*/
+	height: auto; 
+	-webkit-transform: translate(-50%,-50%); 
+	-ms-transform: translate(-50%,-50%);
+	 transform: translate(-50%,-50%); }
+	/*ajax 에서 사진 가운데 와 크기(규격) 지정 css 종료*/
 	
 	/*메인 버튼 css 시작*/
 	.mybtn {
@@ -443,7 +469,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
   <head>
-    <title>Depot &mdash;Website Template by Colorlib</title>
+    <title>마이 페이지</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -462,10 +488,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
   
   	<!-- 데이트피커ver.2(bootstrap_design) -->  
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.standalone.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css">
-    
-    <title>petssiter basicform</title>
+
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
   
@@ -619,9 +646,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		<input type="button" class="middle_bt1" id="middle_bt3" value="6개월" onclick="usinglistfunc(num = 6)">
 		<input type="button" class="middle_bt1" id="middle_bt4" value="전체 시기" onclick="selectData()" >
 			
-		<input type="button" class="middle_bt2" id="datePicker_start" value="날짜 설정">
-		<input type="button" class="middle_bt2" id="datePicker_end" value="날짜 설정">
-		<input type="button" class="middle_bt2" id="middle_bt7" value="조회">
+		<input type="text" class="middle_bt2_date" id="datePicker_start" placeholder="시작일" size="10px" style="text-align: center;" readonly>
+		<input type="text" class="middle_bt2_date" id="datePicker_end" placeholder="종료일" size="10px" style="text-align: center;" readonly>
+		<input type="button" class="middle_bt2" id="middle_bt7" value="조회" onclick="calendarUsinglist()">
 
 	  </div>
 	</div>
@@ -918,6 +945,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
 	
 		<script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
     <script src="<c:url value="/resources/js/jquery.sticky.js"/>"></script>	
@@ -1032,25 +1061,26 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				
 			});
 		</script>
-		
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script>
 	
 	<!-- 데이트피커 코드 -->
 	<script type="text/javascript">
-		$('#datePicker_start').datepicker({
-				format: "yyyy-mm-dd",
-				language: "ko",
-				onSelect: function() {
-					var date = $(this).val();
-					console.log(date);
-				}
-		});
-		
-		$('#datePicker_end').datepicker({
-				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
-				language : "ko" // 언어(<ㅡ js추가필요해서 했음.)
-		});
+	$(function() {
+			$('#datePicker_start').datepicker({
+				format: "yyyy-mm-dd", // 날짜 형식 포맷
+				language: "ko", // 언어
+				autoclose: true, // 날짜 선택하면 자동으로 닫힘
+				todayHighlight: true,
+				disableTouchKeyboard: false //모바일에서 플러그인 작동 여부 기본값 false 가 작동 true가 작동 안함.
+			});
+			
+			$('#datePicker_end').datepicker({
+				format: "yyyy-mm-dd", // 날짜 형식 포맷
+				language: "ko", // 언어
+				autoclose: true, // 날짜 선택하면 자동으로 닫힘
+				todayHighlight: true,
+				disableTouchKeyboard: false //모바일에서 플러그인 작동 여부 기본값 false 가 작동 true가 작동 안함.
+			});
+	});
 		
 	</script>
 		
@@ -1069,15 +1099,24 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						
 						$.each(data, function(index, item) {
 							let ing1 = '현재 이용중';
+							let ing2 = '펫시터와의 소통';
 							var output = '';
-							output += '<tr style="color: #5e5e5e;">';
+							output += '<tr style="color: #5e5e5e; border-top: 1px dashed gray;">';
 							output += '<td>' + item.list_TYPE + '</td>';
-							output += '<td rowspan="3"><div class="aspect_1_1 profile_sm1"><img src="resources/images/person_1.jpg"></div></td>';
+							output += '<td rowspan="3">';
+							output += '<div class="thumbnail-wrapper profile_sm1"> <div class="thumbnail"> <div class="centered">';
+							output += '<img src="resources/images/person_1.jpg">';
+							output += '</div></div></div>';
+							output += '</td>';
 							output += '<td>' + item.petsitter_NICKNAME + '</td>';
 							output += '<td>' + item.list_START_DATE + '</td>';
 							output += '<td rowspan="3">' + item.list_NUM + '</td>';
 							output += '<td rowspan="3">' + item.list_PRICE + '</td>';
-							output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '"></td>';
+							if(item.list_COMPLETE === ing2) {
+								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '"></td>';
+							} else {
+								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02"></td>';
+							}
 							output += '<tr style="color: #5e5e5e;">';
 							if(item.list_ING === ing1) {
 								output += '<td><b style="color: #0d47a1;">' + item.list_ING + '</b></td>';
@@ -1120,15 +1159,24 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						
 						$.each(data, function(index, item) {
 							let ing1 = '현재 이용중';
+							let ing2 = '펫시터와의 소통';
 							var output = '';
-							output += '<tr style="color: #5e5e5e;">';
+							output += '<tr style="color: #5e5e5e; border-top: 1px dashed gray;">';
 							output += '<td>' + item.list_TYPE + '</td>';
-							output += '<td rowspan="3"><div class="aspect_1_1 profile_sm1"><img src="resources/images/person_1.jpg"></div></td>';
+							output += '<td rowspan="3">';
+							output += '<div class="thumbnail-wrapper profile_sm1"> <div class="thumbnail"> <div class="centered">';
+							output += '<img src = "resources/images/person_1.jpg">';
+							output += '</div></div></div>';
+							output += '</td>';
 							output += '<td>' + item.petsitter_NICKNAME + '</td>';
 							output += '<td>' + item.list_START_DATE + '</td>';
 							output += '<td rowspan="3">' + item.list_NUM + '</td>';
 							output += '<td rowspan="3">' + item.list_PRICE + '</td>';
-							output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '"></td>';
+							if(item.list_COMPLETE === ing2) {
+								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '"></td>';
+							} else {
+								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02"></td>';
+							}
 							output += '<tr style="color: #5e5e5e;">';
 							if(item.list_ING === ing1) {
 								output += '<td><b style="color: #0d47a1;">' + item.list_ING + '</b></td>';
@@ -1154,9 +1202,73 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				});
 			}
 		
+			/* 날짜 선택 후 목록 출력 */
+			function calendarUsinglist() {
+				$('#petsitterList').empty();
+				
+				let start_date = $("#datePicker_start").val();
+				let end_date = $("#datePicker_end").val();
+				
+				$.ajax({
+					url: '/petsitter/getUsingList_calendar.bo',
+					type: 'post',
+					data: {
+						id : '${id}', 
+						startdate: start_date,
+						enddate: end_date
+					},
+					dataType: 'json',
+					contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+					success: function(data) {
+						
+						$.each(data, function(index, item) {
+							let ing1 = '현재 이용중';
+							let ing2 = '펫시터와의 소통';
+							var output = '';
+							output += '<tr style="color: #5e5e5e; border-top: 1px dashed gray;">';
+							output += '<td>' + item.list_TYPE + '</td>';
+							output += '<td rowspan="3">';
+							output += '<div class="thumbnail-wrapper profile_sm1"> <div class="thumbnail"> <div class="centered">';
+							output += '<img src = "resources/images/person_1.jpg">';
+							output += '</div></div></div>';
+							output += '</td>';
+							output += '<td>' + item.petsitter_NICKNAME + '</td>';
+							output += '<td>' + item.list_START_DATE + '</td>';
+							output += '<td rowspan="3">' + item.list_NUM + '</td>';
+							output += '<td rowspan="3">' + item.list_PRICE + '</td>';
+							if(item.list_COMPLETE === ing2) {
+								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '"></td>';
+							} else {
+								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02"></td>';
+							}
+							output += '<tr style="color: #5e5e5e;">';
+							if(item.list_ING === ing1) {
+								output += '<td><b style="color: #0d47a1;">' + item.list_ING + '</b></td>';
+							} else {
+								output += '<td><b>' + item.list_ING + '</b></td>';
+							}
+							output += '<td><b>' + item.petsitter_NAME + '</b></td>';
+							output += '<td>~</td>';
+							output += '</tr>';
+							output += '<tr style="color: #5e5e5e;">';
+							output += '<td class="grade" style="margin-bottom: 5px;">신고</td>';
+							output += '<td>' + item.petsitter_TEL + '</td>';
+							output += '<td>' + item.list_END_DATE + '</td>';
+							output += '</tr>';
+							
+							console.log("output: " + output);
+							$('#petsitterList').append(output);
+						});
+					},
+					error: function() {
+						alert("ajax 통신 실패!");
+					}
+				});
+			}
+			
+			
 			$(document).ready(function() {
 
-				
 				selectData();
 			});
 		</script>
