@@ -28,6 +28,9 @@ public class MemberController {
 	@Autowired
 	private PetsitterService petsitterService;
 	
+	@Autowired
+	private PetService petService;
+	
 	@RequestMapping(value = "notice.me")
 	public String notice(Model model) {
 		return "notice";
@@ -50,6 +53,21 @@ public class MemberController {
 		mv.addObject("usinglist", usinglist);
 		mv.setViewName("memberinfo");
 		return mv;
+	}
+	
+	@RequestMapping(value="petRegister.me")
+	public String petRegister() {
+		return "petRegister";
+	}
+	
+
+	@RequestMapping(value="petRegister2.me")
+	public String petRegister2(PetVO vo) {
+		int res = petService.petInsert(vo);
+		if(res ==1) {
+			System.out.println("complete!");
+		}
+		return "petRegister2";
 	}
 	
 	@RequestMapping(value = "getUsingList.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")

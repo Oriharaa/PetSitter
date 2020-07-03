@@ -586,7 +586,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				    <h5 class="mpdate font-size-16" id="memberdate"><%=membervo.getMEMBER_DATE().substring(0,10) %></h5>
 				  </div>
 				  <div class = "col-md-5" style = "margin-top : 50px;">
-				  	<a href = "#" class="font-size-16 main_whitefont">반려견 등록하기</a>
+				  	<a href="petRegister.me" class="font-size-16 main_whitefont">반려견 등록하기</a>
 				  	<button type="button" style = "padding : 0;" class="font-size-16 main_whitefont mybtn" data-toggle="modal" data-target="#staticBackdrop">
 						회원정보 변경
 						</button>
