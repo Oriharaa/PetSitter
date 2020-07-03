@@ -1,6 +1,7 @@
 package com.spring.petsitter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class MemberServiceImpl implements MemberService{
 	public int memberCheck(MemberVO member) {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		int res = memberMapper.memberCheck(member);
+		
 		return res;
 	}
 	
@@ -38,21 +40,66 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void updateMember(String id) {
+	public void updateMember(MemberVO membervo) {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
-		memberMapper.updateMember(id);
-		
+		memberMapper.updateMember(membervo);
 	}
 
 	@Override
 	public ArrayList<MemberVO> memberList() {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		ArrayList<MemberVO> memberList = memberMapper.memberList();
 		
-		return null;
+		return memberList;
 	}
 
 	@Override
 	public void deleteMember(String id) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		memberMapper.deleteMember(id);
+	}
+
+	@Override
+	public ArrayList<UsinglistVO> getUsingList_Member(String id) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		ArrayList<UsinglistVO> usinglist = memberMapper.getUsingList_Member(id);
+		return usinglist;
+	}
+	
+	@Override
+	public List<MemberUsinglistVO> getUsingList_Member_ajax(String id) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		List<MemberUsinglistVO> usinglist_ajax = memberMapper.getUsingList_Member_ajax(id);
 		
+		return usinglist_ajax;
+	}
+	
+	@Override
+	public List<MemberUsinglistVO> getUsingList_Member_ajax_month(String id, int month) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		List<MemberUsinglistVO> usinglist_ajax = memberMapper.getUsingList_Member_ajax_month(id, month);
 		
+		return usinglist_ajax;
+	}
+
+	@Override
+	public ArrayList<UsinglistVO> getUsingList_Member_month(String id, int month) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		ArrayList<UsinglistVO> usinglist = memberMapper.getUsingList_Member_month(id, month);
+		return usinglist;
+	}
+
+	@Override
+	public ArrayList<UsinglistVO> getUsingList_Member_calendar(String id, String startdate, String enddate) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		ArrayList<UsinglistVO> usinglist = memberMapper.getUsingList_Member_calendar(id, startdate, enddate);
+		return usinglist;
+	}
+
+	@Override
+	public List<MemberUsinglistVO> getUsingList_Member_ajax_calendar(String id, String startdate, String enddate) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		List<MemberUsinglistVO> usinglist_ajax = memberMapper.getUsingList_Member_ajax_calendar(id, startdate, enddate);
+		return usinglist_ajax;
 	}
 }

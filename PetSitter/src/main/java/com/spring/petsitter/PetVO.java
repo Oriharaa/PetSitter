@@ -3,23 +3,25 @@ package com.spring.petsitter;
 
 import org.springframework.web.multipart.MultipartFile;
 
-//create table PET(
-//	    MEMBER_ID varchar2(30), --ÁÖÀÎID
-//	    PET_CATEGORY varchar2(20), --¹Ý·Áµ¿¹° Á¾·ù 
-//	    PET_KIND varchar2(20), --Ç°Á¾
-//	    PET_NAME varchar2(20), --ÀÌ¸§
-//	    PET_PHOTO varchar2(150), --»çÁø
-//	    PET_WEIGHT number(3), --¹«°Ô
-//	    PET_SIZE varchar2(5), --Å©±â
-//	    PET_GENDER varchar2(6), --¼ºº°
-//	    PET_BIRTH date, --»ý³â¿ùÀÏ
-//	    PET_NEUTERED varchar2(10), --Áß¼ºÈ­ ¼ö¼ú ¿©ºÎ
-//	    PET_POTTYTRAN varchar2(10), --¹èº¯ ÈÆ·Ã ¿©ºÎ
-//	    PET_VAOONE varchar2(10), --¿¹¹æ Á¢Á¾ ¿©ºÎ
-//	    PET_QUESTION varchar2(30), --Áú¹®?
-//	    PET_ETC varchar2(200), --±âÅ¸?
-//	    PET_DATE date --µî·Ï³¯Â¥
-//	);
+/*
+create table PET(
+	MEMBER_ID varchar2(30), --ï¿½ï¿½ï¿½ï¿½ID
+	PET_CATEGORY varchar2(20), --ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
+	PET_KIND varchar2(20), --Ç°ï¿½ï¿½
+	PET_NAME varchar2(20), --ï¿½Ì¸ï¿½
+	PET_PHOTO varchar2(150), --ï¿½ï¿½ï¿½ï¿½
+	PET_WEIGHT number(3), --ï¿½ï¿½ï¿½ï¿½
+	PET_SIZE varchar2(5), --Å©ï¿½ï¿½
+	PET_GENDER varchar2(6), --ï¿½ï¿½ï¿½ï¿½
+	PET_BIRTH date, --ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	PET_NEUTERED varchar2(10), --ï¿½ß¼ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	PET_POTTYTRAN varchar2(10), --ï¿½èº¯ ï¿½Æ·ï¿½ ï¿½ï¿½ï¿½ï¿½
+	PET_VAOONE varchar2(10), --ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	PET_QUESTION varchar2(30), --ï¿½ï¿½ï¿½ï¿½?
+	PET_ETC varchar2(200), --ï¿½ï¿½Å¸?
+	PET_DATE date --ï¿½ï¿½Ï³ï¿½Â¥
+);
+*/
 
 public class PetVO {
 

@@ -2,9 +2,8 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>http://www.blueb.co.kr</title>
-<!-- Test -->
-<!-- Test 복구 -->
+	<title>PetSitter Login Page</title>
+
 <style rel="stylesheet">
 @charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700);

@@ -51,6 +51,27 @@ values('asd333', 'Çâ', 'ÃáÇâ', '123123', '010-3333-6666', 'asd333@naver.com');
 insert into petsitter(petsitter_id, petsitter_nickname, petsitter_name, petsitter_pw, petsitter_tel, petsitter_email)
 values('asd444', 'Èï', 'ÈïºÎ', '123123', '010-4444-8888', 'asd444@naver.com');
 
+<<<<<<< HEAD
+=======
+create table PET(
+	MEMBER_ID varchar2(30),
+	PET_CATEGORY varchar2(20),
+	PET_KIND varchar2(20),
+	PET_NAME varchar2(20), 
+	PET_PHOTO varchar2(150), 
+	PET_WEIGHT number(3), 
+	PET_SIZE varchar2(5), 
+	PET_GENDER varchar2(6),
+	PET_BIRTH date,
+	PET_NEUTERED varchar2(10), 
+	PET_POTTYTRAN varchar2(10),
+	PET_VAOONE varchar2(10),
+	PET_QUESTION varchar2(30), 
+	PET_ETC varchar2(200),
+	PET_DATE date
+);
+
+>>>>>>> 823152b4918d7b962f99c5d7383409f27f7824f4
 create table NOTICE_BOARD(
     NOTICE_NUM number(10) primary key, -- ±Û ¹øÈ£
     MEMBER_ID varchar2(30), -- È¸¿ø ¾ÆÀÌµğ

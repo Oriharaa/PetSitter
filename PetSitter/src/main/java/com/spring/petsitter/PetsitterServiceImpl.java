@@ -35,10 +35,10 @@ public class PetsitterServiceImpl implements PetsitterService{
 	}
 
 	@Override
-	public PetsitterVO selectPetsitter(PetsitterVO petsitter) {
+	public PetsitterVO selectPetsitter(String id) {
 		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class); 
 		PetsitterVO vo = new PetsitterVO();
-		vo = petsitterMapper.selectPetsitter(petsitter);
+		vo = petsitterMapper.selectPetsitter(id);
 		return vo;
 	}
 

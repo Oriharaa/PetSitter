@@ -63,7 +63,7 @@ public class PetsitterController {
 	@RequestMapping(value = "apply_petsitter.me", method = RequestMethod.GET)
 	public String apply_petsitter(Model model,PetsitterVO vo) {
 		PetsitterVO petsitter = new PetsitterVO();
-		petsitter = petsitterService.selectPetsitter(vo);
+		petsitter = petsitterService.selectPetsitter(vo.getPETSITTER_ID());
 		model.addAttribute("petsitter", petsitter);
 		return "apply_petsitter";
 	}
