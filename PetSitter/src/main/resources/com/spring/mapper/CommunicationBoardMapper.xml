@@ -20,10 +20,10 @@
 		where MEMBER_ID=#{MEMBER_ID} and PETSITTER_ID=#{PETSITTER_ID}
 	</select>
 	
-	<select id="getBoardList" parameterType="map" resultMap="CommunicationResult">
+	<select id="getQuesionList" parameterType="map" resultMap="CommunicationResult">
 		<![CDATA[
 		select * 
-		from (select rownum as rnum, BOARD_NUM, BOARD_WRITER, MEMBER_ID, PETSITTER_ID, BOARD_SUBJECT, BOARD_CONTENT, BOARD_READCOUNT, BOARD_DATE 
+		from (select rownum as rnum, BOARD_NUM, BOARD_WRITER, MEMBER_ID, PETSITTER_ID, BOARD_SUBJECT, BOARD_CONTENT, BOARD_READCOUNT, BOARD_DATE, BOARD_CONDITION, BOARD_TYPE 
 					from communication_board 
 					where MEMBER_ID=#{MEMBER_ID} and PETSITTER_ID=#{PETSITTER_ID}
 					order by BOARD_NUM desc)
@@ -36,7 +36,7 @@
 			select nvl(max(BOARD_NUM), 0)+1 from communication_board
 		</selectKey>
 		insert into communication_board 
-		values(#{BOARD_NUM}, #{BOARD_WRITER}, #{MEMBER_ID}, #{PETSITTER_ID}, #{BOARD_SUBJECT}, #{BOARD_CONTENT}, 0, sysdate)
+		values(#{BOARD_NUM}, #{BOARD_WRITER}, #{MEMBER_ID}, #{PETSITTER_ID}, #{BOARD_SUBJECT}, #{BOARD_CONTENT}, 0, sysdate, '답변 예정', #{BOARD_TYPE})
 	</insert>
 	
 </mapper>

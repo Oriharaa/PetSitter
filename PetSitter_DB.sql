@@ -30,7 +30,7 @@ create table PETSITTER(
     PETSITTER_PRICE_24H varchar2(10), --24시간가격
     PETSITTER_PRICE_30M varchar2(10), --30분가격
     PETSITTER_PRICE_60M varchar2(10), --60분가격
-    PETSITTER_SERVICE_LIST varchar2(30), --가능한 서비스
+    PETSITTER_SERVICE_LIST varchar2(60), --가능한 서비스
     PETSITTER_PHOTO_UPFILE varchar2(100), --증명 사진
     PETSITTER_PHOTO_PROFILE_FILE varchar2(100), --프로필 사진
     PETSITTER_CERT_LIST varchar2(100), --자격증이름
@@ -41,6 +41,11 @@ create table PETSITTER(
     PETSITTER_REPORT number(2) default 0, --신고누적횟수, 추가
     PETSITTER_GENDER varchar2(4) -- 성별, 추가
 ); 
+
+select * from petsitter
+where petsitter_type like '%방문%';
+select * from petsitter
+where petsitter_type like '%위탁%';
 
 insert into petsitter(petsitter_id, petsitter_nickname, petsitter_name, petsitter_pw, petsitter_tel, petsitter_email)
 values('asd111', '길동', '홍길동', '123123', '010-1111-2222', 'asd111@naver.com');
@@ -156,7 +161,9 @@ create table COMMUNICATION_BOARD(
 	BOARD_SUBJECT varchar2(100), -- 제목
 	BOARD_CONTENT varchar2(4000), -- 내용
 	BOARD_READCOUNT number, -- 조회수
-	BOARD_DATE date default sysdate -- 작성일
+	BOARD_DATE date default sysdate, -- 작성일
+	BOARD_CONDITION varchar2(10) default '답변 예정', -- 답변예정/답변완료
+	BOARD_TYPE varchar2(10) -- 글 구분(스케줄/기타)
 );
 
 create table USINGLIST(

@@ -539,8 +539,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               <nav class="site-navigation text-right ml-auto " role="navigation">
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
+                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
+	                <li><a href="reservation1.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
@@ -603,7 +603,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			<div class="mptext">
 			  <div class="row">
 			  <div class = "col-6">
-				<h5 class="font-size-15">이용 횟수 : 0</h5>
+				<h5 class="font-size-15">이용 횟수 : <%=membervo.getMEMBER_COUNT() %></h5>
 				</div>
 				<div class = "col-6">
 				<h5 class="font-size-15">후기 작성 : 0</h5>

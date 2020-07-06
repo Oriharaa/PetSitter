@@ -23,11 +23,11 @@ public class CommunicationBoardServiceImpl implements CommunicationBoardService 
 	}
 	
 	@Override
-	public ArrayList<CommunicationBoardVO> getBoardList(String member, String petsitter, int page, int limit) {
+	public ArrayList<CommunicationBoardVO> getQuesionList(String member, String petsitter, int page, int limit) {
 		CommunicationBoardMapper boardMapper = sqlSession.getMapper(CommunicationBoardMapper.class);
 		int startrow = (page - 1) * 10 + 1;
 		int endrow = startrow + limit - 1;
-		ArrayList<CommunicationBoardVO> boardList = boardMapper.getBoardList(member, petsitter, startrow, endrow);
+		ArrayList<CommunicationBoardVO> boardList = boardMapper.getQuesionList(member, petsitter, startrow, endrow);
 		return boardList;
 	}
 	

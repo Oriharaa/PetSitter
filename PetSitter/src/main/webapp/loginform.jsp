@@ -613,16 +613,16 @@ text-decoration:none;
    	<!-- 펫시터 회원가입4 -->
 <div class="signup-cont-cont4 cont">
 	<div class="box" id = "box1">
-        <input type = "checkbox" name = "PETSITTER_SERVICE" id = "pickup" value = "pickup"> 픽업 여부
+        <input type = "checkbox" name = "PETSITTER_SERVICE" id="pickup" value="픽업 가능"> 픽업 여부
         </div>
         <div class="box" id = "box2">
-        <input type = "checkbox" name = "PETSITTER_SERVICE" id = "yard" value = "yard"> 마당 유무
+        <input type = "checkbox" name = "PETSITTER_SERVICE" id="yard" value="마당 존재"> 마당 유무
         </div>
         <div class="box">
-        <input type = "checkbox" name = "PETSITTER_SERVICE" id = "bigsize" value = "bigsize"> 대형견 케어 가능 유무
+        <input type = "checkbox" name = "PETSITTER_SERVICE" id="bigsize" value="대형견 케어 가능"> 대형견 케어 가능 유무
        	</div>
         <div class="box">
-        <input type = "checkbox" name = "PETSITTER_SERVICE" id = "olddog" value = "olddog"> 노견 케어 가능 유무
+        <input type = "checkbox" name = "PETSITTER_SERVICE" id="olddog" value="노견 케어 가능"> 노견 케어 가능 유무
        	</div>
        	<div class="tabs">
        	<span class="tab signup-petsitter5-back"><a href="#signup-petsitter5">이전</a></span>

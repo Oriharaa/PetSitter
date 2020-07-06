@@ -54,6 +54,17 @@
 			</tr>
 			<tr>
 				<td style="font-family:돋음; font-size:12" height="50px">
+					<div align="center">구 분&nbsp;&nbsp;</div>
+				</td>
+				<td>
+					<select name="BOARD_TYPE">
+						<option>스케줄
+						<option>기타
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td style="font-family:돋음; font-size:12" height="50px">
 					<div align="center">제   목&nbsp;&nbsp;</div>
 				</td>
 				<td>
@@ -65,8 +76,8 @@
 				<td height="25px"></td>
 			</tr>
 			<tr>
-				<td style = "font-family:돋음; font-size:12" >
-					<div align = "center" >내   용&nbsp;&nbsp;</div>
+				<td style="font-family:돋음; font-size:12" >
+					<div align="center">내   용&nbsp;&nbsp;</div>
 				</td>
 				<td>
 					<textarea name="BOARD_CONTENT" cols="67" rows="15"></textarea>

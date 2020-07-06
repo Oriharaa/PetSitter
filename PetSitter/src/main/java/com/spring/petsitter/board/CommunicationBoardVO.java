@@ -11,7 +11,9 @@ create table COMMUNICATION_BOARD(
 	BOARD_SUBJECT varchar2(100), -- 제목
 	BOARD_CONTENT varchar2(4000), -- 내용
 	BOARD_READCOUNT number, -- 조회수
-	BOARD_DATE date default sysdate -- 작성일
+	BOARD_DATE date default sysdate, -- 작성일
+	BOARD_CONDITION varchar2(10) default '답변 예정', -- 답변예정/답변완료
+	BOARD_TYPE varchar2(10) -- 글 구분(스케줄/기타)
 );
 */
 public class CommunicationBoardVO {
@@ -24,6 +26,8 @@ public class CommunicationBoardVO {
 	private String BOARD_READCOUNT;
 	private Date BOARD_DATE;
 	private String BOARD_REALDATE;
+	private String BOARD_CONDITION;
+	private String BOARD_TYPE;
 	
 	public int getBOARD_NUM() {
 		return BOARD_NUM;
@@ -79,4 +83,17 @@ public class CommunicationBoardVO {
 	public void setBOARD_REALDATE(String bOARD_REALDATE) {
 		BOARD_REALDATE = bOARD_REALDATE;
 	}
+	public String getBOARD_CONDITION() {
+		return BOARD_CONDITION;
+	}
+	public void setBOARD_CONDITION(String bOARD_CONDITION) {
+		BOARD_CONDITION = bOARD_CONDITION;
+	}
+	public String getBOARD_TYPE() {
+		return BOARD_TYPE;
+	}
+	public void setBOARD_TYPE(String bOARD_TYPE) {
+		BOARD_TYPE = bOARD_TYPE;
+	}
+	
 }

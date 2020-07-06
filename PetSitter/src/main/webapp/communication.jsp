@@ -152,8 +152,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
             <div class="col-12">
               <nav class="site-navigation text-right ml-auto " role="navigation">
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
+                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
+	                <li><a href="reservation1.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
@@ -194,13 +194,13 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				</div>
 			
 				<div class="middle_table">
-					<table class="table table-sm table-hover table-striped">
+					<table class="table table-sm table-hover table-striped" style="text-align: center;">
 						<thead>
 							<tr>
 								<th width="50px">번호</th>
 								<th width="100px">답변여부</th>
 								<th width="20px">구분</th>
-								<th width="180px">내용</th>
+								<th width="180px">제목</th>
 								<th width="100px">작성자</th>
 								<th width="100px">등록일자</th>
 							</tr>
@@ -213,39 +213,47 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 									CommunicationBoardVO board = (CommunicationBoardVO)boardList.get(i);
 						%>
 						
-						<tbody>
-						<c:forEach var="i" begin="1" end="10">
-							<tr>
-								<td><%=num %></td>		
-								<td>답변예정/완료</td>
-								<td>스케줄/기타</td>
-								<td><%=board.getBOARD_SUBJECT() %></td>
-								<td><%=board.getBOARD_WRITER() %></td>
-								<td><%=board.getBOARD_REALDATE() %></td>
+						<tbody id="getContent">
+							<tr id="clickText_<%=num %>" style="cursor:pointer;">
+								<td width="50px">
+									<input type="hidden" id="textValue" value="<%=board.getBOARD_NUM() %>">
+									<%=num %>
+								</td>
+								<td width="100px"><%=board.getBOARD_CONDITION() %></td>
+								<td width="50px"><%=board.getBOARD_TYPE() %></td>
+								<td width="180px"><%=board.getBOARD_SUBJECT() %></td>
+								<td width="100px"><%=board.getBOARD_WRITER() %></td>
+								<td width="100px"><%=board.getBOARD_REALDATE() %></td>
 							</tr>
-						</c:forEach>
+							<tr class="viewText" id="viewText_<%=num %>" style="display: none;">
+								<td colspan="3"></td>
+								<td width="180px"><%=board.getBOARD_CONTENT() %></td>
+								<td colspan="2"></td>
+							</tr>
 						</tbody>
+						
 						<%
 							num--;
 								}
 							} 
 						%>
+						
 						</table>
 					</div>
 					<table class="col-md-12 text-center">
-						<tr align = center height = 20>
-							<td colspan = 7 style = "font-family:Tahoma;font-size:10pt;">
+						<tr align=center height = 20>
+							<td colspan=7 style="font-family:Tahoma;font-size:10pt;">
 								<%if(nowpage <= 1) { %>
 								<&nbsp;
 								<%}else { %>
-								<a href = "./communication.bo?page=<%=nowpage - 1 %>"> < </a>&nbsp;
+								<a href="./communication_member.bo?petsitterid=<%=PETSITTER_ID %>&page=<%=nowpage - 1 %>"> < </a>
 								<%} %>
 								
 								<%for(int a = startpage; a <= endpage; a++) {
 									if(a == nowpage) {%>
 									<%=a %>
 									<%}else { %>
-									<a href = "./communication.bo?page=<%=a %>"><%=a %></a>
+									<a href = "./communication_member.bo?petsitterid=<%=PETSITTER_ID %>&page=<%=a %>"><%=a %></a>
 									&nbsp;
 									<%} %>
 								<%} %>
@@ -253,7 +261,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								<%if(nowpage >= maxpage) { %>
 								>
 								<%}else { %>
-								<a href = "./communication.bo?page=<%=nowpage + 1 %>"> > </a>
+								<a href = "./communication_member.bo?petsitterid=<%=PETSITTER_ID %>&page=<%=nowpage + 1 %>"> > </a>
 								<%} %> 
 							</td>
 						</tr>
@@ -396,6 +404,25 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
  		
  		<!-- 아이콘 -->   
 		<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-
+		
+		<script>
+			/* 글 눌렀을 때 내용 보이기 함수 */
+			$(function() {
+				$(".viewText").hide();
+				let num = '<%=listcount-((nowpage - 1)*10)%>';
+				console.log(num);
+				for(let i = 1; i <= num; i++) {
+					$("#clickText_" + i).click(function() {
+						if($("#viewText_" + i).css("display") == "none") {
+							$("#viewText_" + i).show();
+						} else {
+							$("#viewText_" + i).hide();
+						}
+					});
+				}
+				
+			});
+		</script>
+		
 </body>
 </html>
