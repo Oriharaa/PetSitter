@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-
 @Controller
 public class MemberController {
 	
@@ -39,29 +38,19 @@ public class MemberController {
 	@RequestMapping(value = "memberinfo.me")
 	public ModelAndView profile(MemberVO vo, @RequestParam(value = "id") String id) {
 		ModelAndView mv = new ModelAndView();
-		ArrayList<UsinglistVO> usinglist = memberService.getUsingList_Member(id);
-		ArrayList<PetsitterVO> petsitterlist = new ArrayList<PetsitterVO>();
-		PetsitterVO petsitter = new PetsitterVO();
 		
-		for(int i = 0; i < usinglist.size(); i++) {
-			petsitter = petsitterService.selectPetsitter(usinglist.get(i).getPETSITTER_ID());
-			petsitterlist.add(petsitter);
-		}
 		MemberVO membervo = memberService.selectMember(id);
 		mv.addObject("membervo", membervo);
-		mv.addObject("petsitterlist", petsitterlist);
-		mv.addObject("usinglist", usinglist);
 		mv.setViewName("memberinfo");
 		return mv;
 	}
 	
-	@RequestMapping(value="petRegister.me")
+	@RequestMapping(value = "petRegister.me")
 	public String petRegister() {
 		return "petRegister";
 	}
 	
-
-	@RequestMapping(value="petRegister2.me")
+	@RequestMapping(value = "petRegister2.me")
 	public String petRegister2(PetVO vo) {
 		int res = petService.petInsert(vo);
 		if(res ==1) {
@@ -169,6 +158,41 @@ public class MemberController {
 		return usinglist_ajax;
 	}
 	
+	// 위탁 돌봄 예약 페이지 이동
+	@RequestMapping(value = "reservation1.br")
+	public String reservation1() {
+		
+		return "reservation";
+	}
+	
+	@RequestMapping(value = "getPetsitterList_We.br", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<PetsitterVO> getPetsitterList_We() {
+		List<PetsitterVO> petsitter_list = petsitterService.petsitterList_We();
+		for(int i = 0; i < petsitter_list.size(); i++) {
+			PetsitterVO petsitter = petsitter_list.get(i);
+			
+			if(petsitter.getPETSITTER_ADDRESS() != null) {
+				String[] petsitter_address = petsitter.getPETSITTER_ADDRESS().split(",");
+				petsitter_list.get(i).setPETSITTER_ADDRESS(petsitter_address[1]);
+			}
+			
+			if(petsitter.getPETSITTER_SERVICE_LIST() != null) {
+				String[] petsitter_service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
+				petsitter_list.get(i).setPETSITTER_SERVICE(petsitter_service);
+			}
+		}
+		System.out.println("상세주소 제외: " + petsitter_list.get(6).getPETSITTER_ADDRESS());
+		System.out.println("서비스 종류: " + petsitter_list.get(6).getPETSITTER_SERVICE());
+		return petsitter_list;
+	}
+	
+	// 방문 돌봄 예약 페이지 이동
+	@RequestMapping(value = "reservation2.br")
+	public String reservation2() {
+		
+		return "reservation2";
+	}
 	
 	@RequestMapping(value = "reportlist.me")
 	public String reportlist(Model model) {

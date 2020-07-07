@@ -539,8 +539,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               <nav class="site-navigation text-right ml-auto " role="navigation">
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
+                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
+	                <li><a href="reservation1.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
@@ -603,7 +603,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			<div class="mptext">
 			  <div class="row">
 			  <div class = "col-6">
-				<h5 class="font-size-15">이용 횟수 : 0</h5>
+				<h5 class="font-size-15">이용 횟수 : <%=membervo.getMEMBER_COUNT() %></h5>
 				</div>
 				<div class = "col-6">
 				<h5 class="font-size-15">후기 작성 : 0</h5>
@@ -1069,6 +1069,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				format: "yyyy-mm-dd", // 날짜 형식 포맷
 				language: "ko", // 언어
 				autoclose: true, // 날짜 선택하면 자동으로 닫힘
+				orientation: "bottom auto",
 				todayHighlight: true,
 				disableTouchKeyboard: false //모바일에서 플러그인 작동 여부 기본값 false 가 작동 true가 작동 안함.
 			});
@@ -1077,6 +1078,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				format: "yyyy-mm-dd", // 날짜 형식 포맷
 				language: "ko", // 언어
 				autoclose: true, // 날짜 선택하면 자동으로 닫힘
+				orientation: "bottom auto",
 				todayHighlight: true,
 				disableTouchKeyboard: false //모바일에서 플러그인 작동 여부 기본값 false 가 작동 true가 작동 안함.
 			});
@@ -1113,7 +1115,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<td rowspan="3">' + item.list_NUM + '</td>';
 							output += '<td rowspan="3">' + item.list_PRICE + '</td>';
 							if(item.list_COMPLETE === ing2) {
-								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '"></td>';
+								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?petsitterid=' + item.petsitter_ID + '\';" ></td>';
 							} else {
 								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02"></td>';
 							}
@@ -1173,7 +1175,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<td rowspan="3">' + item.list_NUM + '</td>';
 							output += '<td rowspan="3">' + item.list_PRICE + '</td>';
 							if(item.list_COMPLETE === ing2) {
-								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '"></td>';
+								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?petsitterid=' + item.petsitter_ID + '\';" ></td>';
 							} else {
 								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02"></td>';
 							}
@@ -1237,7 +1239,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<td rowspan="3">' + item.list_NUM + '</td>';
 							output += '<td rowspan="3">' + item.list_PRICE + '</td>';
 							if(item.list_COMPLETE === ing2) {
-								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '"></td>';
+								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?petsitterid=' + item.petsitter_ID + '\';" ></td>';
 							} else {
 								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02"></td>';
 							}

@@ -1,8 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.spring.petsitter.PetsitterVO" %>
+<%@ page import="java.util.*" %>
 <%
-	String id = (String)session.getAttribute("id");
-	String name = (String)session.getAttribute("name");
+	ArrayList<PetsitterVO> petsitterList = (ArrayList<PetsitterVO>)request.getAttribute("petsitter_list");
 %>
 <!-- 위탁 돌봄 -->
 
@@ -74,7 +75,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
   <head>
-    <title>Depot &mdash;Website Template by Colorlib</title>
+    <title>위탁 돌봄 예약 페이지</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -109,10 +110,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     
     <!-- 타임피커 -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
-		<link href="${pageContext.servletContext.contextPath}/resources/jquery/jquery-ui.css?version=1.3" rel="stylesheet" type="text/css" media="screen">
     
-    
-    <title>petssiter basicform</title>
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
   
@@ -139,12 +137,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
               <div class="float-right">
               	<%
-              		if(id == null) {
+              		if(session.getAttribute("id") == null) {
               	%>
                 <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
                 <%} else { %>
-                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} %>
               </div>
@@ -210,7 +208,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				<div class="address">
 					<h1 class="top_box_text3">어디에 사시나요?</h1>
 					<input type="text" id="sample5_address" placeholder="동 이름을 검색하세요 (예:논현동)">
-					<input type="button" id="sample5_button"onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+					<input type="button" id="sample5_button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
 					<div id="map" style="width:80%;height:300px;margin-top:10px;display:none">
 					</div>
         </div>
@@ -262,7 +260,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					<h1 class="middle_box_text1">모든 펫시터를 만나보세요!</h1>
 				</div>
 			</div>
-			<div class="col">	
+			<div class="col">
 				<div class="middle_box_btn">
 					<input type="button" class="middle_right_btn" id="newOrder" value="최신순">
 					<input type="button" class="middle_right_btn" id="gradeOrder" value="평점순">
@@ -270,96 +268,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			</div>
 		</div>
 		
-		<div class="row">
-			<div class="col-12">
-				<div class="middle_box_row">
-					<div class="middle_box_img"><!--이미지를 background-image로 줌 -->
-					</div>	
-					<div class="middle_box_view">
-						<div class="middle_box_view_start">
-							<span class="v_location">서울 서초구 서초1동</span>
-							<span class="v_grade"> · 프로 펫시터</span><br>
-							<span class="v_title">정성을 다해 사랑으로 돌봐드려요</span>
-						</div>
-							<div class="middle_box_view_center">
-								<span class="v_option" id="option1">반려동물 있어요</span>
-								<span class="v_option" id="optionJum"> · </span>
-								<span class="v_option" id="option2">마당 있어요</span>
-							</div>
-							<div class="middle_box_view_end">
-								<img class="star" id="star1" src="resources/images/function/star.jpg">
-								<img class="star" id="star2" src="resources/images/function/star.jpg">
-								<img class="star" id="star3" src="resources/images/function/star.jpg">
-								<img class="star" id="star4" src="resources/images/function/star.jpg">
-								<img class="starhalf" id="star5" src="resources/images/function/starhalf.jpg">
-								<span class="v_review">후기55개</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div><br><br>
-			
-			<div class="row">
-			<div class="col-12">
-				<div class="middle_box_row">
-					<div class="middle_box_img"><!--이미지를 background-image로 줌 -->
-					</div>	
-					<div class="middle_box_view">
-						<div class="middle_box_view_start">
-							<span class="v_location">서울 서초구 서초1동</span>
-							<span class="v_grade"> · 프로 펫시터</span><br>
-							<span class="v_title">정성을 다해 사랑으로 돌봐드려요</span>
-						</div>
-							<div class="middle_box_view_center">
-								<span class="v_option" id="option1">반려동물 있어요</span>
-								<span class="v_option" id="optionJum"> · </span>
-								<span class="v_option" id="option2">마당 있어요</span>
-							</div>
-							<div class="middle_box_view_end">
-								<img class="star" id="star1" src="resources/images/function/star.jpg">
-								<img class="star" id="star2" src="resources/images/function/star.jpg">
-								<img class="star" id="star3" src="resources/images/function/star.jpg">
-								<img class="star" id="star4" src="resources/images/function/star.jpg">
-								<img class="starhalf" id="star5" src="resources/images/function/starhalf.jpg">
-								<span class="v_review">후기55개</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div><br><br>
-			
-			<div class="row">
-			<div class="col-12">
-				<div class="middle_box_row">
-					<div class="middle_box_img"><!--이미지를 background-image로 줌 -->
-					</div>	
-					<div class="middle_box_view">
-						<div class="middle_box_view_start">
-							<span class="v_location">서울 서초구 서초1동</span>
-							<span class="v_grade"> · 프로 펫시터</span><br>
-							<span class="v_title">정성을 다해 사랑으로 돌봐드려요</span>
-						</div>
-							<div class="middle_box_view_center">
-								<span class="v_option" id="option1">반려동물 있어요</span>
-								<span class="v_option" id="optionJum"> · </span>
-								<span class="v_option" id="option2">마당 있어요</span>
-							</div>
-							<div class="middle_box_view_end">
-								<img class="star" id="star1" src="resources/images/function/star.jpg">
-								<img class="star" id="star2" src="resources/images/function/star.jpg">
-								<img class="star" id="star3" src="resources/images/function/star.jpg">
-								<img class="star" id="star4" src="resources/images/function/star.jpg">
-								<img class="starhalf" id="star5" src="resources/images/function/starhalf.jpg">
-								<span class="v_review">후기55개</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div><br><br>
-			
-			
-			
-		</div>
+		<div class="row" id="petsitter_middle_box">
+		</div><br><br>
+		
+		
+	</div>
 </section>
 
      
@@ -401,7 +314,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
             
 
-
+						<form>
             <h2 class="footer-heading mb-4" id="main_grayfont1">Follow Us</h2>
             <a href="https://www.facebook.com/" class="smoothscroll pl-0 pr-3" target="_blank"><span class="icon-facebook" id="main_grayfont2" ></span></a>
             <a href="https://twitter.com/" class="pl-3 pr-3" target="_blank"><span class="icon-twitter" id="main_grayfont2" ></span></a>
@@ -428,9 +341,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
 	
 
     <script src="<c:url value="./resources/js/aos.js"/>"></script><!-- nav 상단바 반응형웹 적용1 -->
@@ -547,8 +460,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	
 
 <!-- 타임피커 ver.1 -->
-<script src="${pageContext.servletContext.contextPath}/resources/js//jquery-1.8.3.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/resources/jquery/jquery-ui.js?version=1.3"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 	<!-- 타임피커 자스코드 -->
 	<script type="text/javascript">
@@ -650,14 +561,67 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	
 </script>
 
-
+<script>
+	function selectData() {
+		$('#petsitter_middle_box').empty();
+		
+		$.ajax({
+			url: '/petsitter/getPetsitterList_We.br',
+			type: 'post',
+			dataType: 'json',
+			contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+			success: function(data) {
+				
+				$.each(data, function(index, item) {
+					var output = '';
+					output += '<div class="col-12">';
+					output += '<div class="middle_box_row">';
+					output += '<div class="middle_box_img">';
+					output += '</div>'; // middle_box_img 종료 태그
+					output += '<div class="middle_box_view">';
+					output += '<div class="middle_box_view_start">';
+					output += '<span class="v_location">' + item.petsitter_ADDRESS + '</span>&nbsp;';
+					output += '<span class="v_grade">' + item.petsitter_RANK + '</span><br />';
+					output += '<span class="v_title">' + item.petsitter_INTRODUCE + '</span>';
+					output += '</div>'; // middle_box_view_start 종료 태그
+					output += '<div class="middle_box_view_center">';
+					
+					if(item.petsitter_SERVICE !== null) {
+						for(let i = 0; i < item.petsitter_SERVICE.length; i++) {
+							output += '<span class="v_option" id="option${i+1}">' + item.petsitter_SERVICE[i] + '</span>';
+							if(i !== item.petsitter_SERVICE.length - 1) {
+								output += '<span class="v_option" id="optionJum">' + '&nbsp;' + '</span>';
+							}
+						}
+					}
+					output += '</div>'; // middle_box_view_center 종료 태그
+					output += '<div class="middle_box_view_end">'; // 별점
+					output += '<img class="star" id="star1" src="./resources/images/function/star.jpg">';
+					output += '<img class="star" id="star2" src="./resources/images/function/star.jpg">';
+					output += '<img class="star" id="star3" src="./resources/images/function/star.jpg">';
+					output += '<img class="star" id="star4" src="./resources/images/function/star.jpg">';
+					output += '<img class="starhalf" id="star5" src="./resources/images/function/starhalf.jpg">';
+					output += '<span class="v_review">'
+					output += '</div>'; // middle_box_view_end 종료 태그
+					output += '</div>'; // middle_box_view 종료 태그
+					output += '</div>'; // middle_box_row 종료 태그
+					output += '</div>'; // col-12 종료 태그
+					
+					console.log("output: " + output);
+					$('#petsitter_middle_box').append(output);
+				});
+			},
+			error: function() {
+				alert("ajax 통신 실패!");
+			}
+		});
+	}
+	
+	$(document).ready(function() {
+		
+		selectData();
+	});
+</script>
    
-      
-      
-      
-      
-
-
-
 </body>
 </html>

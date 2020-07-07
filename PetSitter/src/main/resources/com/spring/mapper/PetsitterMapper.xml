@@ -8,11 +8,17 @@
 		select count(*) from petsitter where PETSITTER_ID = #{PETSITTER_ID} and PETSITTER_PW = #{PETSITTER_PW}
 	</select>
 	
-	<select id="petsitterList" parameterType = "PetsitterVO" resultType = "PetsitterVO">
-		select * from petsitter
+	<select id="petsitterList" resultType="PetsitterVO">
+		select * from petsitter order by PETSITTER_DATE
+	</select>
+	<select id="petsitterList_Bang" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%방문%' order by PETSITTER_DATE
+	</select>
+	<select id="petsitterList_We" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' order by PETSITTER_DATE
 	</select>
 	
-	<select id="selectPetsitter" parameterType = "String" resultType = "PetsitterVO">
+	<select id="selectPetsitter" parameterType="String" resultType="PetsitterVO">
 		select * from petsitter where PETSITTER_ID = #{PETSITTER_ID}
 	</select>
 	

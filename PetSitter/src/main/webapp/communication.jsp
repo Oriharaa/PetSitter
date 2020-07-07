@@ -1,8 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.spring.petsitter.board.*" %>
 <%
-	String id = (String)session.getAttribute("id");
-	String name = (String)session.getAttribute("name");
+	ArrayList<CommunicationBoardVO> boardList = (ArrayList<CommunicationBoardVO>)request.getAttribute("board_list");
+	int listcount = ((Integer)request.getAttribute("listcount")).intValue();
+	int nowpage = ((Integer)request.getAttribute("page")).intValue();
+	int maxpage = ((Integer)request.getAttribute("maxpage")).intValue();
+	int startpage = ((Integer)request.getAttribute("startpage")).intValue();
+	int endpage = ((Integer)request.getAttribute("endpage")).intValue();
+	String PETSITTER_ID = (String)request.getAttribute("petsitter_id");
 %>
 <!-- 고객과의 소통 -->
 
@@ -89,7 +96,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
   <head>
-    <title>Depot &mdash;Website Template by Colorlib</title>
+    <title>펫시터와의 소통 게시판</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
@@ -109,9 +116,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <!-- 언택CSS -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/UT_CSS/communication.css">
     
-    
-    
-    <title>PetSitter BasicForm</title>
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
       <div class="site-mobile-menu site-navbar-target">
@@ -131,15 +135,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               <span class="mx-md-2 d-inline-block"></span>
               <a href="#" class=""><span class="mr-2  icon-phone"></span> <span class="d-none d-md-inline-block">1+ (234) 5678 9101</span></a>
               <div class="float-right">
-              	<%
-              		if(id == null) {
-              	%>
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
-                <span class="mx-md-2 d-inline-block"></span>
-                <%} else { %>
-                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
-                <%} %>
               </div>
             </div>
           </div>
@@ -155,8 +152,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
             <div class="col-12">
               <nav class="site-navigation text-right ml-auto " role="navigation">
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
+                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
+	                <li><a href="reservation1.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
@@ -193,39 +190,83 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		<div class="row">
 			<div class="col">
 				<div class="middle_box_right">
-					<a href="#" id="question" class="right_btn">질문남기기</a>
+					<a href="communicationWrite_member.bo?petsitterid=<%=PETSITTER_ID %>" id="question" class="right_btn">질문남기기</a>
 				</div>
 			
 				<div class="middle_table">
-					<table class="table table-sm table-hover table-striped">
+					<table class="table table-sm table-hover table-striped" style="text-align: center;">
 						<thead>
 							<tr>
 								<th width="50px">번호</th>
 								<th width="100px">답변여부</th>
 								<th width="20px">구분</th>
-								<th width="180px">내용</th>
+								<th width="180px">제목</th>
 								<th width="100px">작성자</th>
 								<th width="100px">등록일자</th>
 							</tr>
 						</thead>
-						<tbody>
-						<c:forEach var="i" begin="1" end="10">
-							<tr>
-								<td><c:out value="${16-i}"></c:out></td>		
-								<td>답변예정/완료</td>
-								<td>스케줄/기타</td>
-								<td>서비스 관련 문의입니다.</td>
-								<td>닉네임123</td>
-								<td>2020-05-11</td>
+						
+						<%
+							int num = listcount - ((nowpage - 1) * 10);
+							if(boardList != null) {
+								for(int i = 0; i < boardList.size(); i++) {
+									CommunicationBoardVO board = (CommunicationBoardVO)boardList.get(i);
+						%>
+						
+						<tbody id="getContent">
+							<tr id="clickText_<%=num %>" style="cursor:pointer;">
+								<td width="50px">
+									<input type="hidden" id="textValue" value="<%=board.getBOARD_NUM() %>">
+									<%=num %>
+								</td>
+								<td width="100px"><%=board.getBOARD_CONDITION() %></td>
+								<td width="50px"><%=board.getBOARD_TYPE() %></td>
+								<td width="180px"><%=board.getBOARD_SUBJECT() %></td>
+								<td width="100px"><%=board.getBOARD_WRITER() %></td>
+								<td width="100px"><%=board.getBOARD_REALDATE() %></td>
 							</tr>
-						</c:forEach>
+							<tr class="viewText" id="viewText_<%=num %>" style="display: none;">
+								<td colspan="3"></td>
+								<td width="180px"><%=board.getBOARD_CONTENT() %></td>
+								<td colspan="2"></td>
+							</tr>
 						</tbody>
+						
+						<%
+							num--;
+								}
+							} 
+						%>
+						
 						</table>
 					</div>
-					<div class="col-md-12 text-center">
-						<h6>< 1 2 3 4 5 6 7 8 9 10 ></h6>
-					</div>
-					<br/><br/><br/><!-- br은 제거가능 -->
+					<table class="col-md-12 text-center">
+						<tr align=center height = 20>
+							<td colspan=7 style="font-family:Tahoma;font-size:10pt;">
+								<%if(nowpage <= 1) { %>
+								<&nbsp;
+								<%}else { %>
+								<a href="./communication_member.bo?petsitterid=<%=PETSITTER_ID %>&page=<%=nowpage - 1 %>"> < </a>
+								<%} %>
+								
+								<%for(int a = startpage; a <= endpage; a++) {
+									if(a == nowpage) {%>
+									<%=a %>
+									<%}else { %>
+									<a href = "./communication_member.bo?petsitterid=<%=PETSITTER_ID %>&page=<%=a %>"><%=a %></a>
+									&nbsp;
+									<%} %>
+								<%} %>
+								
+								<%if(nowpage >= maxpage) { %>
+								>
+								<%}else { %>
+								<a href = "./communication_member.bo?petsitterid=<%=PETSITTER_ID %>&page=<%=nowpage + 1 %>"> > </a>
+								<%} %> 
+							</td>
+						</tr>
+					</table>
+					<br/><br/><!-- br은 제거가능 -->
 
 			</div>
 		</div>
@@ -323,7 +364,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
             
 
-
+						<form>
             <h2 class="footer-heading mb-4" id="main_grayfont1">Follow Us</h2>
             <a href="https://www.facebook.com/" class="smoothscroll pl-0 pr-3" target="_blank"><span class="icon-facebook" id="main_grayfont2" ></span></a>
             <a href="https://twitter.com/" class="pl-3 pr-3" target="_blank"><span class="icon-twitter" id="main_grayfont2" ></span></a>
@@ -350,9 +391,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
 		
 		<script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
     <script src="<c:url value="/resources/js/jquery.sticky.js"/>"></script>
@@ -363,10 +404,25 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
  		
  		<!-- 아이콘 -->   
 		<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-
-     
- 
-
-
+		
+		<script>
+			/* 글 눌렀을 때 내용 보이기 함수 */
+			$(function() {
+				$(".viewText").hide();
+				let num = '<%=listcount-((nowpage - 1)*10)%>';
+				console.log(num);
+				for(let i = 1; i <= num; i++) {
+					$("#clickText_" + i).click(function() {
+						if($("#viewText_" + i).css("display") == "none") {
+							$("#viewText_" + i).show();
+						} else {
+							$("#viewText_" + i).hide();
+						}
+					});
+				}
+				
+			});
+		</script>
+		
 </body>
 </html>

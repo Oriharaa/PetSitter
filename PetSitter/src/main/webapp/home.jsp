@@ -142,8 +142,8 @@ border-radius:400px
 	            <div class="col-12">
 	              <nav class="site-navigation text-right ml-auto " role="navigation" >
 	                <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-	                  <li><a href="call_view.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
-	                  <li><a href="foster_view.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
+	                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
+	                  <li><a href="reservation1.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
 	                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
 	                  <li><a href="postscript_board.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
 	                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li> 
@@ -179,7 +179,7 @@ border-radius:400px
 	                <form action="#">
 	                <div class="form-group d-flex">
 	                	<input class="form-control" type="text"  id="sample5_address"  placeholder="주소를 입력하세요" >
-	                  <input type="button" class="btn btn-outline-warning px-4" onclick="sample5_execDaumPostcode(); location.href = '#mapgo';" value="주소 검색 " >
+	                  <input type="button" class="btn btn-outline-warning px-4" onclick="sample5_execDaumPostcode(); location.href='#mapgo';" value="주소 검색 " >
 	                </div>
 	                </form>
 	                
