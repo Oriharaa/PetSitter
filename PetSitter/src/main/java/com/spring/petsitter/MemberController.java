@@ -125,6 +125,17 @@ public class MemberController {
 			usinglist_ajax.get(i).setLIST_START_DATE(new_Format.format(usinglist.get(i).getLIST_START_DATE()));
 			usinglist_ajax.get(i).setLIST_END_DATE(new_Format.format(usinglist.get(i).getLIST_END_DATE()));
 			
+			if(usinglist.get(i).getPETSITTER_ADDR() != null) {
+				String[] address_arr = usinglist.get(i).getPETSITTER_ADDR().split(" ");
+				String address;
+				if(address_arr.length == 2) {
+					address = address_arr[0] + " " + address_arr[1];
+				} else {
+					address = address_arr[0];
+				}
+				usinglist_ajax.get(i).setPETSITTER_ADDRESS1(address);
+			}
+			
 			String ing = "";
 			int compare1 = usinglist_ajax.get(i).getLIST_START_DATE().compareTo(today);
 			int compare2 = today.compareTo(usinglist_ajax.get(i).getLIST_END_DATE());
@@ -157,6 +168,17 @@ public class MemberController {
 		for(int i = 0; i < usinglist_ajax.size(); i++) {
 			usinglist_ajax.get(i).setLIST_START_DATE(new_Format.format(usinglist.get(i).getLIST_START_DATE()));
 			usinglist_ajax.get(i).setLIST_END_DATE(new_Format.format(usinglist.get(i).getLIST_END_DATE()));
+			
+			if(usinglist.get(i).getPETSITTER_ADDR() != null) {
+				String[] address_arr = usinglist.get(i).getPETSITTER_ADDR().split(" ");
+				String address;
+				if(address_arr.length == 2) {
+					address = address_arr[0] + " " + address_arr[1];
+				} else {
+					address = address_arr[0];
+				}
+				usinglist_ajax.get(i).setPETSITTER_ADDRESS1(address);
+			}
 			
 			String ing = "";
 			int compare1 = usinglist_ajax.get(i).getLIST_START_DATE().compareTo(today);

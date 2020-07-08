@@ -203,10 +203,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	text-align:center;
 	}
 	
-	tbody {
-	border-bottom: solid 1px;
-	}
-	
 	
 	.list {
 	margin:0 0  200px 0 ;}
@@ -597,9 +593,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				  <%
 				  	if(membervo.getMEMBER_PHOTO_FILE().equals("N")) {
 				  %>
-				  	<img src="resources/images/person_1.jpg">
+				  	<img src="resources/images/defaultprofile.jpg.jpg">
 				  <%} else { %>
-						<img src="/petsitter/upload/<%=membervo.getMEMBER_PHOTO_FILE()%>" >
+						<img src="/filepath/${membervo.MEMBER_PHOTO_FILE }" >
 					<%} %>
 					
 				  </div>
@@ -810,9 +806,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 										<%
 											if(membervo.getMEMBER_PHOTO_FILE().equals("N")) {
 										%>
-											<img id="profile_img" class="profile_img" style="display: none; width: 130px;"/>
+											<img src="resources/images/defaultprofile.jpg.jpg" id="profile_img" class="profile_img" style="display: none; width: 130px;"/>
 										<%} else { %>
-											<img src="C:\Project156\upload\<%=membervo.getMEMBER_PHOTO_FILE() %>" id="profile_img" class="profile_img" style="width: 130px;"/>
+											<img src="/filepath/${membervo.MEMBER_PHOTO_FILE }" id="profile_img" class="profile_img" style="width: 130px;"/>
 										<%} %>
 									</div>
 	      					<div class="filebox float-left"> 
@@ -865,24 +861,18 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 									<td>
 								<tr>
 								<tr>
-									<td style="padding: 0 0 7px 0;">
-										<% 
-											int star = 5;
-											for(int i = 0; i < star; i++) {
-										%>
-										<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">
-										<%} %>
+									<td id="modal_star" >
 									</td>
-									<td style="padding: 0 0 5px 10px;"> 5점</td>
+									<td id="modal_score" style="padding: 0 0 5px 10px;"></td>
 								<tr>
 							</table>
 						</div>	
       		</div>
-      		<div class="col-12" style = "padding : 0;">
+      		<div class="col-12" style="padding : 0;">
       			<hr/>
       		</div>
       		<div class="col-12">
-      			<table>
+      			<table style="margin-bottom: 10px;">
       				<tr>
       					<th width="80px">아이디 </th>
       					<td class="tleft">${id }</td>
@@ -890,21 +880,98 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       				<tr>
       					<th>점수 </th>
 								<td>
-									<select class="choiceS float-left" style="height: 35px; width: 50px">
-								    <option>5</option>
-								    <option>4</option>
-								    <option>3</option>
-								    <option>2</option>
-								    <option>1</option>
-									</select>
+									<div style="width: 144px;" class="tzSelect">
+										<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" style="float: left; padding: 6px 0px;">
+											<div id="starmenu" style="float: left; display: flex;">
+												<img src="resources/images/star.jpg" width="18px" height="18px">
+							        	<img src="resources/images/star.jpg" width="18px" height="18px">
+							        	<img src="resources/images/star.jpg" width="18px" height="18px">
+							        	<img src="resources/images/star.jpg" width="18px" height="18px">
+							        	<img src="resources/images/star.jpg" width="18px" height="18px">
+						        	</div>
+  										<span class="caret"></span>
+  									</button>
+								    <ul class="dropdown-menu" aria-labelledby="menu1" style="list-style: none; padding: 0px; float: left;">
+								        <li id="starstar5" style="display: flex; padding-bottom: 5px;" onclick="insertstar5()">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								       	</li>
+								        <li id="starstar4_5" style="display: flex; padding-bottom: 5px;" onclick="insertstar4_5()">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/starhalf.jpg" width="18px" height="18px">
+								        </li>
+								        <li id="starstar4" style="display: flex; padding-bottom: 5px;">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        </li>
+								        <li id="starstar3_5" style="display: flex; padding-bottom: 5px;">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/starhalf.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        </li>
+								        <li id="starstar3" style="display: flex; padding-bottom: 5px;">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        </li>
+								        <li id="starstar2_5" style="display: flex; padding-bottom: 5px;">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/starhalf.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        </li>
+								        <li id="starstar2" style="display: flex; padding-bottom: 5px;">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        </li>
+								        <li id="starstar1_5" style="display: flex; padding-bottom: 5px;">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/starhalf.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        </li>
+								        <li id="starstar1" style="display: flex; padding-bottom: 5px;">
+								        	<img src="resources/images/star.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        </li>
+								        <li id="starstar0_5" style="display: flex; padding-bottom: 5px;">
+								        	<img src="resources/images/starhalf.jpg" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
+								        </li>
+								    </ul>
+								</div>
 								</td>
       				</tr>
 							<tr>
 								<th>후기 </th>
-								<td><textarea name="inputstr2" style = "width : 380px; height : 100px; font-size : 12px;"></textarea></td>
+								<td><textarea name="inputstr2" style="width: 380px; height: 100px; font-size: 12px;"></textarea></td>
 							</tr>
 							<tr>
-								<th colspan = "2" class = "font-size-13">자신의 강아지 사진을 어필해보세요(후기 게시판에서 확인할 수 있어요!)</th>
+								<th colspan="2" class="font-size-13" style="padding-top: 10px;">자신의 강아지 사진을 어필해보세요(후기 게시판에서 확인할 수 있어요!)</th>
 							</tr>
 							<tr>
       					<th>메인 사진 </th>
@@ -1202,7 +1269,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<td>' + item.list_TYPE + '</td>';
 							output += '<td rowspan="3">';
 							output += '<div class="thumbnail-wrapper profile_sm1"> <div class="thumbnail"> <div class="centered">';
-							output += '<img src="resources/images/person_1.jpg">';
+							if(item.petsitter_PHOTO_PROFILE_FILE === 'N') {
+								output += '<img src="resources/images/defaultprofile02.png.png">';
+							} else {
+								output += '<img src="/filepath/' + item.petsitter_PHOTO_PROFILE_FILE +'">';
+							}
 							output += '</div></div></div>';
 							output += '</td>';
 							output += '<td>' + item.petsitter_NICKNAME + '</td>';
@@ -1215,6 +1286,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
 								output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
 								output += '<input type="hidden" id="review_petsitter_address'+index+'" value="' + item.petsitter_ADDRESS1 + '">';
+								output += '<input type="hidden" id="review_petsitter_photo'+index+'" value="' + item.petsitter_PHOTO_PROFILE_FILE + '">';
+								output += '<input type="hidden" id="review_petsitter_score'+index+'" value="' + item.petsitter_SCORE + '">';
 								output += '</td>';
 							}
 							
@@ -1265,7 +1338,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<td>' + item.list_TYPE + '</td>';
 							output += '<td rowspan="3">';
 							output += '<div class="thumbnail-wrapper profile_sm1"> <div class="thumbnail"> <div class="centered">';
-							output += '<img src="resources/images/person_1.jpg">';
+							if(item.petsitter_PHOTO_PROFILE_FILE === 'N') {
+								output += '<img src="resources/images/defaultprofile02.png.png">';
+							} else {
+								output += '<img src="/filepath/' + item.petsitter_PHOTO_PROFILE_FILE +'">';
+							}
 							output += '</div></div></div>';
 							output += '</td>';
 							output += '<td>' + item.petsitter_NICKNAME + '</td>';
@@ -1278,6 +1355,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
 								output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
 								output += '<input type="hidden" id="review_petsitter_address'+index+'" value="' + item.petsitter_ADDRESS1 + '">';
+								output += '<input type="hidden" id="review_petsitter_photo'+index+'" value="' + item.petsitter_PHOTO_PROFILE_FILE + '">';
+								output += '<input type="hidden" id="review_petsitter_score'+index+'" value="' + item.petsitter_SCORE + '">';
 								output += '</td>';
 							}
 							output += '<tr style="color: #5e5e5e;">';
@@ -1331,7 +1410,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<td>' + item.list_TYPE + '</td>';
 							output += '<td rowspan="3">';
 							output += '<div class="thumbnail-wrapper profile_sm1"> <div class="thumbnail"> <div class="centered">';
-							output += '<img src="resources/images/person_1.jpg">';
+							if(item.petsitter_PHOTO_PROFILE_FILE === 'N') {
+								output += '<img src="resources/images/defaultprofile02.png.png">';
+							} else {
+								output += '<img src="/filepath/' + item.petsitter_PHOTO_PROFILE_FILE +'">';
+							}
 							output += '</div></div></div>';
 							output += '</td>';
 							output += '<td>' + item.petsitter_NICKNAME + '</td>';
@@ -1344,6 +1427,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
 								output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
 								output += '<input type="hidden" id="review_petsitter_address'+index+'" value="' + item.petsitter_ADDRESS1 + '">';
+								output += '<input type="hidden" id="review_petsitter_photo'+index+'" value="' + item.petsitter_PHOTO_PROFILE_FILE + '">';
+								output += '<input type="hidden" id="review_petsitter_score'+index+'" value="' + item.petsitter_SCORE + '">';
 								output += '</td>';
 							}
 							output += '<tr style="color: #5e5e5e;">';
@@ -1467,17 +1552,120 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			}
 		</script>
 		
-		<script >
-		// 리뷰 남기기 모달창으로 데이터 보내기 함수
+		<script>
+			// 리뷰 남기기 모달창으로 데이터 보내기 함수
 				function showing(num) {
 					let nickname_ = $("#review_petsitter" + num).val();
 					let address_ = $("#review_petsitter_address" + num).val();
+					let photo_ = $("#review_petsitter_photo" + num).val();
+					let score_ = $("#review_petsitter_score" + num).val();
+					
 					$("#petsitter_nickname").text(nickname_);
 					$("#petsitter_address").text(address_);
+					if(photo_ === 'N') {
+						$(".modalprofileimg").attr("src", "resources/images/defaultprofile02.png.png");
+					} else {
+						$(".modalprofileimg").attr("src", "/filepath/" + photo_);
+					}
+					
+					var staroutput = '';
+					if(score_ === 5.0) {
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						$("#modal_star").append(staroutput);
+					} else if(score_ > 4.0 && score_ < 5.0) {
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/starhalf.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						$("#modal_star").append(staroutput);
+					} else if(score_ === 4.0) {
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						$("#modal_star").append(staroutput);
+					} else if(score_ > 3.0 && score_ < 4.0) {
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/starhalf.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						$("#modal_star").append(staroutput);
+					} else if(score_ === 3.0) {
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						$("#modal_star").append(staroutput);
+					} else if(score_ > 2.0 && score_ < 3.0) {
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						$("#modal_star").append(staroutput);
+					} else if(score_ === 2.0) {
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						$("#modal_star").append(staroutput);
+					} else if(score_ > 1.0 && score_ < 2.0) {
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						$("#modal_star").append(staroutput);
+					} else if(score_ === 1.0) {
+						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						$("#modal_star").append(staroutput);
+					} else if(score_ > 0 && score_ < 1.0){
+						staroutput += '<img src="resources/images/starhalf.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						$("#modal_star").append(staroutput);
+					} else {
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						$("#modal_star").append(staroutput);
+					}
+					
+					$("#modal_score").text(score_);
+					
 					
 					$("#staticBackdrop02").modal("show");
 				};
-				
+		</script>
+		<script>
+			function insertstar5() {
+       	$("#starmenu").empty();
+       	$("#starmenu img").replaceAll($("#starstar5 img"));
+       	alert('5점입니다.');
+			};
+			
+			function insertstar4_5() {
+       	$("#starmenu").empty();
+       	$("#starmenu img").replaceAll($("#starstar4_5 img"));
+       	alert('4.5점입니다.');
+       };
 		</script>
 </body>
 </html>

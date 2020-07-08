@@ -1,5 +1,6 @@
 package com.spring.petsitter;
 
+import org.springframework.web.multipart.MultipartFile;
 
 public class MemberUsinglistVO {
 	private int LIST_NUM;
@@ -10,6 +11,9 @@ public class MemberUsinglistVO {
 	private String PETSITTER_NICKNAME;
 	private String PETSITTER_TEL;
 	private String PETSITTER_ADDRESS1;
+	private double PETSITTER_SCORE;
+	private MultipartFile PETSITTER_PHOTO_PROFILE;
+	private String PETSITTER_PHOTO_PROFILE_FILE;
 	private String LIST_START_DATE;
 	private String LIST_END_DATE;
 	private int LIST_PRICE;
@@ -63,6 +67,24 @@ public class MemberUsinglistVO {
 	}
 	public void setPETSITTER_ADDRESS1(String pETSITTER_ADDRESS1) {
 		PETSITTER_ADDRESS1 = pETSITTER_ADDRESS1;
+	}
+	public double getPETSITTER_SCORE() {
+		return PETSITTER_SCORE;
+	}
+	public void setPETSITTER_SCORE(double pETSITTER_SCORE) {
+		PETSITTER_SCORE = pETSITTER_SCORE;
+	}
+	public MultipartFile getPETSITTER_PHOTO_PROFILE() {
+		return PETSITTER_PHOTO_PROFILE;
+	}
+	public void setPETSITTER_PHOTO_PROFILE(MultipartFile pETSITTER_PHOTO_PROFILE) {
+		PETSITTER_PHOTO_PROFILE = pETSITTER_PHOTO_PROFILE;
+	}
+	public String getPETSITTER_PHOTO_PROFILE_FILE() {
+		return PETSITTER_PHOTO_PROFILE_FILE;
+	}
+	public void setPETSITTER_PHOTO_PROFILE_FILE(String pETSITTER_PHOTO_PROFILE_FILE) {
+		PETSITTER_PHOTO_PROFILE_FILE = pETSITTER_PHOTO_PROFILE_FILE;
 	}
 	public String getLIST_START_DATE() {
 		return LIST_START_DATE;

@@ -17,11 +17,11 @@ select * from member;
 create table PETSITTER(
     PETSITTER_ID varchar2(30) primary key, --ID
     PETSITTER_NICKNAME varchar2(30) DEFAULT 'N', --닉네임
-    PETSITTER_NAME varchar2(20), --이름
-    PETSITTER_PW varchar2(30), --PW
-    PETSITTER_TEL varchar2(20), --전화번호
-    PETSITTER_EMAIL varchar2(30), --이메일
-    PETSITTER_SCORE number(2,2) DEFAULT 0, --평점
+    PETSITTER_NAME varchar2(20) default 'N', --이름
+    PETSITTER_PW varchar2(30) default 'N', --PW
+    PETSITTER_TEL varchar2(20) default 'N', --전화번호
+    PETSITTER_EMAIL varchar2(30) default 'N', --이메일
+    PETSITTER_SCORE number(2,1) DEFAULT 0, --평점
     PETSITTER_COUNT number(5) DEFAULT 0, --활동횟수
     PETSITTER_RANK varchar2(20) DEFAULT 'N', --등급
     PETSITTER_ADDRESS varchar2(100) default 'N', --주소
@@ -31,15 +31,15 @@ create table PETSITTER(
     PETSITTER_PRICE_30M varchar2(10), --30분가격
     PETSITTER_PRICE_60M varchar2(10), --60분가격
     PETSITTER_SERVICE_LIST varchar2(60) default 'N', --가능한 서비스
-    PETSITTER_PHOTO_UPFILE varchar2(100), --증명 사진
-    PETSITTER_PHOTO_PROFILE varchar2(100), --프로필 사진
-    PETSITTER_CERT_LIST varchar2(100), --자격증이름
-    PETSITTER_PHOTO_CERT varchar2(300), --자격증 사진
-    PETSITTER_PHOTO_HOME varchar2(300), --집 사진
+    PETSITTER_PHOTO_UPFILE varchar2(100) default 'N', --증명 사진
+    PETSITTER_PHOTO_PROFILE_FILE varchar2(100) default 'N', --프로필 사진
+    PETSITTER_CERT_LIST varchar2(100) default 'N', --자격증이름
+    PETSITTER_PHOTO_CERT_FILE varchar2(300) default 'N', --자격증 사진
+    PETSITTER_PHOTO_HOME_FILE varchar2(300) default 'N', --집 사진
     PETSITTER_DATE date DEFAULT sysdate, --가입 날짜
     PETSITTER_TYPE varchar2(20) default 'N', -- 케어종류
     PETSITTER_REPORT number(2) default 0, --신고누적횟수, 추가
-    PETSITTER_GENDER varchar2(4) -- 성별, 추가
+    PETSITTER_GENDER varchar2(4) default 'N'-- 성별, 추가
 ); 
 
 select * from petsitter
