@@ -1,10 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-	String id = (String)session.getAttribute("id");
-	String name = (String)session.getAttribute("name");
-%>
-<!-- ***후기 게시판*** -->
+
 
 <!doctype html>
 <html lang="en">
@@ -34,9 +30,9 @@
 	/*펫시터 메인 폰트컬러 끝*/
 	
 .circleprofileimg {
-	width : 70px; 
-	height : 70px; 
-	border-radius : 35px; 
+	width : 60px; 
+	height : 60px; 
+	border-radius : 30px; 
 	background : gray;	
 	}
 	
@@ -45,6 +41,7 @@
 	height : 60px; 
 	border-radius : 30px; 
 	background : gray;	
+	margin : 0 0 0 30px
 	}
 	
 	
@@ -108,6 +105,96 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/petsitter-style.css">
     
     <title>PetSitter BasicForm</title>
+    
+    
+    <script type="text/javascript">
+//목록
+function selectData(){
+	$.ajax({
+        url:'petsitter/getReviewBoardJSON.bo',
+        type:'POST',
+        dataType : "json", // 서버에서 보내줄 데이터 타입
+        contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+        success:function(data){
+
+        	$.each(data, function(index, item){
+       	       	var reviewForm = '';
+       	     		reviewForm += '<!--후기 폼 시작 -->';
+       	    		reviewForm += '<div class = "col-md-4" style = "align : center; margin-top : 20px;">';
+       	    		reviewForm += '<div class = "row justify-content-center">';
+       	    		reviewForm += '<div class = "col-12">';
+       	    		reviewForm += '<div style = "background :rgba(224, 224, 224, 0.65); height: 600px; width : 322px">';
+       	    		reviewForm += '<div class = "row justify-content-center">';
+       	    		reviewForm += '<div class = "col-10">';
+       	    		reviewForm += '<div class = "float-right font-size-12 main_grayfont3" style = "margin : 5px 0 0 0;">: 15</div>';
+       	    		reviewForm += '<div class = "float-right" style = "margin : 0 5px 0 0;"><img src = "resources/images/heart.png" width = "18px" height = "18px"></div>';
+       	    		reviewForm += '<div class = "float-right font-size-12 main_grayfont3" style = "margin : 5px 10px 0 0;">NO : 12521</div>';
+       	    		reviewForm += '</div>';
+       	    		reviewForm += '<div class = "col-12">';
+       	    		reviewForm += '<div class = "float-left circleprofileimg02"></div>';
+       	    		reviewForm += '<div class = "float-left" style= "padding : 3px 0 0 3px; margin : 0 0 0 10px; height : 100%">';
+       	    		reviewForm += '<table>';
+       	    		reviewForm += '<tr>';
+       	    		reviewForm += '<td class = "font-size-17 main_grayfont3 mybold">닉네임<td>';
+       	    		reviewForm += '<tr>';
+       	    		reviewForm += '<tr>';
+       	    		reviewForm += '<td class = "font-size-15" style = "padding: 0 0 7px 0;">서울시 서초구<td>';
+       	    		reviewForm += '<tr>';						
+       	    		reviewForm += '</table>';
+       	    		reviewForm += '</div>';
+       	    		reviewForm += '</div>';
+       	    		reviewForm += '<div class = "col-12 float-none">';
+       	    		reviewForm += '<center>';
+       	    		reviewForm += '<div class = "aspect_1_1" style = "width :260px; height : 260px; background :rgba(224, 224, 224); margin : 10px 0;">';
+       	    		reviewForm += '<img src = "resources/images/dog02.jpg">';
+       	    		reviewForm += '</div>';
+       	    		reviewForm += '</center>';
+       	    		reviewForm += '</div>';
+													
+       	    		reviewForm += '<div class = "col-12">';
+       	    		reviewForm += '<div class = "float-left circleprofileimg" style = "margin : 2px 0 0 10%;"></div>';
+       	    		reviewForm += '<div class = "float-left" style= "padding : 3px 0 0 3px; margin-left : 10px;">';
+       	    		reviewForm += '<table>';
+       	    		reviewForm += '<tr>';
+       	    		reviewForm += '<td class = "font-size-18 main_grayfont3 mybold"  align = "center">닉네임<td>';
+       	    		reviewForm += '<td style = "padding: 6px 0 0 10px; font-size: 12px;"><a class ="main_redfont0" href="#">신고</a><td>';
+       	    		reviewForm += '<tr>';
+       	    		reviewForm += '<tr>';
+       	    		reviewForm += '<td style = "padding: 0 0 7px 0;">';
+								reviewForm += '<% int star = 5; for(int i = 0; i < star; i++) { %> <img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-bottom : 8px;"><%} %>';
+								reviewForm += '</td>';
+								reviewForm += '<td style = "padding: 0 0 5px 10px;"> 10점</td>';
+								reviewForm += '<tr>';
+								reviewForm += '</table>';
+								reviewForm += '</div>	';
+								reviewForm += '</div>';
+													
+								reviewForm += '<div class = "col-11">';
+								reviewForm += '<div class = "font-size-14 main_grayfont3" style ="padding : 0 15px;">';
+								reviewForm += '<p>따뜻한 봄바람을 불어 보내는 것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 풀이 없으면 인간은 사막이다 오아이스도 없는 사막이다</p>';
+								reviewForm += '</div>';
+								reviewForm += '</div>';
+													
+								reviewForm += '</div>';
+								reviewForm += '</div>';
+								reviewForm += '</div>';
+								reviewForm += '</div>';
+								reviewForm += '</div> ';
+								reviewForm += '<!--후기 폼 종료 -->';
+       	       	
+       	       	
+       	       	$('#reviewForm').append(reviewForm);
+       	  	});
+
+    	},
+    	error:function(){
+        alert("ajax통신 실패!!!");
+    	}
+	});  
+}
+</script>
+    
+    
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
   
@@ -133,16 +220,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
               <div class="float-right">
-              	<%
-              		if(id == null) {
-              	%>		
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
-                <%
-              		} else {
-                %>
-                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
-                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
-                <%} %>
+
+                <a href="loginform.me" class=""><span>로그인</span></a>
+                <span class="mx-md-2 d-inline-block"></span>
+                <a href="home.me" class=""><span>회원가입</span></a>
+
               </div>
               
             </div>
@@ -155,7 +237,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
         <div class="container">
           <div class="row align-items-center position-relative">
             <div class="site-logo">
-              <a href="./home_login.me"><span class="main_whitefont">보살펴조</span></a>
+              <a href="./home.me"><span class="main_whitefont">보살펴조</span></a>
             </div>
 
             <div class="col-12">
@@ -183,11 +265,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       
       <div class = "container">
       	<div class = "row justify-content-center">
-      		<div class = "col-4" style = "padding : 0 0 0 0;">
+      		<div class = "col-md-4" style = "padding : 0 0 0 0;">
       			<br/><br/>
       			<img src = "resources/images/dog05.png" width = "384px" height = "241px">
       		</div>
-      		<div class = "col-4 offset-1">
+      		<div class = "col-md-4 offset-md-1">
    					<br/><br/>
     				<center>
   					<img src = "resources/images/postscript.png" width = "230px" height = "60px">
@@ -200,62 +282,90 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
      	 </div>
       </div>
       
-      
+       
       <div class = "container">
-      	<div class = "row">
-					<div class = "col-4" style = "align : center; margin-top : 20px;">
-						<div class = "row justify-content-center">
-							<div class = "col-12">
-								<div style = "background :rgba(224, 224, 224, 0.65); height: 565px; width : 92%">
-									<div class = "row">
-									
-										<div class = "col-12">
-											<div class = "float-left circleprofileimg02" style = "margin : 20px 0 0 30px;"></div>
-											<div class = "float-left" style= "padding : 17px 0 0 3px; margin : 6px 0 0 10px; height : 100%">
-												<table>
-													<tr>
-														<td class = "font-size-17 main_grayfont3 mybold">닉네임<td>
-													<tr>
-													<tr>
-														<td class = "font-size-15" style = "padding: 0 0 7px 0;">서울시 서초구<td>
-													<tr>									
-												</table>
+	      <form id ="update_form" method="post">
+	      	<div class = "row"  id = "reviewForm">
+	      	
+	      	<!--후기 폼 시작 -->
+						<div class = "col-md-4" style = "align : center; margin-top : 20px;">
+							<div class = "row justify-content-center">
+								<div class = "col-12">
+									<div style = "background :rgba(224, 224, 224, 0.65); height: 600px; width : 322px">
+										<div class = "row justify-content-center">
+											<div class = "col-10">
+												<div class = "float-right font-size-12 main_grayfont3" style = "margin : 5px 0 0 0;">: 15</div>
+												<div class = "float-right" style = "margin : 0 5px 0 0;"><img src = "resources/images/heart.png" width = "18px" height = "18px"></div>
+												<div class = "float-right font-size-12 main_grayfont3" style = "margin : 5px 10px 0 0;">NO : 12521</div>
 											</div>
-										</div>
-										<div class = "col-12">
-											<div class = "aspect_1_1" style = "width :260px; height : 260px; background :rgba(224, 224, 224);">
-												<img src = "resources/images/dog02.jpg">
+											<div class = "col-12">
+												<div class = "float-left circleprofileimg02"></div>
+												<div class = "float-left" style= "padding : 3px 0 0 3px; margin : 0 0 0 10px; height : 100%">
+													<table>
+														<tr>
+															<td class = "font-size-17 main_grayfont3 mybold">닉네임<td>
+														<tr>
+														<tr>
+															<td class = "font-size-15" style = "padding: 0 0 7px 0;">서울시 서초구<td>
+														<tr>									
+													</table>
+												</div>
 											</div>
+											<div class = "col-12 float-none">
+												<center>
+												<div class = "aspect_1_1" style = "width :260px; height : 260px; background :rgba(224, 224, 224); margin : 10px 0;">
+													<img src = "resources/images/dog02.jpg">
+												</div>
+												</center>
+											</div>
+											
+											<div class = "col-12">
+												<div class = "float-left circleprofileimg" style = "margin : 2px 0 0 10%;"></div>
+												<div class = "float-left" style= "padding : 3px 0 0 3px; margin-left : 10px;">
+													<table>
+														<tr>
+															<td class = "font-size-18 main_grayfont3 mybold"  align = "center">닉네임<td>
+															<td style = "padding: 6px 0 0 10px; font-size: 12px;"><a class ="main_redfont0" href="#">신고</a><td>
+														<tr>
+														<tr>
+															<td style = "padding: 0 0 7px 0;">
+																<% 
+																	int star2 = 5;
+																	for(int i = 0; i < star2; i++) {
+																%>
+																<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-bottom : 8px;">
+																<%} %>
+															</td>
+															<td style = "padding: 0 0 5px 10px;"> 10점</td>
+														<tr>
+													</table>
+												</div>	
+											</div>
+											
+											<div class = "col-11">
+												<div class = "font-size-14 main_grayfont3" style ="padding : 0 15px;">
+														<p>따뜻한 봄바람을 불어 보내는 것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 풀이 없으면 인간은 사막이다 오아이스도 없는 사막이다</p>
+													</div>
+											</div>
+											
 										</div>
-										
 									</div>
 								</div>
 							</div>
-						</div>
-					</div> 
+						</div> 
+						<!--후기 폼 종료 -->
+					</div>
+				</form>
 					
-					
-					<div class = "col-4" style = "align : center; margin-top : 20px;">
-						<div class = "row justify-content-center">
-							<div class = "col-12">
-								<div style = "background : blue; height: 565px; width : 92%"></div>
-							</div>
-						</div>
-					</div> 
-					
-					<div class = "col-4" style = "align : center; margin-top : 20px;">
-						<div class = "row justify-content-center">
-							<div class = "col-12">
-								<div style = "background : blue; height: 565px; width : 92%"></div>
-							</div>
-						</div>
-					</div> 
-					
-					
-					
-					 
-      	</div>
-      </div>
+			<div class = "row">
+					<div class = "col-12 text-center" style ="margin : 15px 0;">
+									<button type="button" style="background:#53dc98; color :white; width : 200px;" class="btn btn-sm">더 보기</button>
+								</div>
+			</div>
+   	</div>
+      
+      
+      
       
       
       <!-- 본 기능 추가 종료 -->

@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class JinhoController {
 
+	@RequestMapping(value = "home.me", method = RequestMethod.GET)
+	public String home( Model model) {
 	
+		return "home";
+	}
 
 	
 	@RequestMapping(value = "foster_view.me", method = RequestMethod.GET)
@@ -31,6 +35,6 @@ public class JinhoController {
 	@RequestMapping(value = "postscript_board.me", method = RequestMethod.GET)
 	public String postscript_board( Model model) {
 				
-		return "postscript_board";
+		return "board/review_board";
 	}	
 }
