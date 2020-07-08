@@ -1,6 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%
+	//세션 종료시 홈으로
+	if(session.getAttribute("id") == null) {
+		out.println("<script>");
+		out.println("location.href = 'home.me'");
+		out.println("</script>");
+	}
+%>
 <!doctype html>
 <html lang="en">
 
@@ -541,7 +548,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
               <div class="float-right">
-                <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="petsitterinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
               </div>
               

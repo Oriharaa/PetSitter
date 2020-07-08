@@ -16,6 +16,7 @@ create table USINGLIST(
 public class UsinglistVO {
 	private int LIST_NUM;
 	private String PETSITTER_ID;
+	private String PETSITTER_ADDR;
 	private String MEMBER_ID;
 	private int LIST_PRICE;
 	private Date LIST_START_DATE;
@@ -37,6 +38,12 @@ public class UsinglistVO {
 	}
 	public String getMEMBER_ID() {
 		return MEMBER_ID;
+	}
+	public String getPETSITTER_ADDR() {
+		return PETSITTER_ADDR;
+	}
+	public void setPETSITTER_ADDR(String pETSITTER_ADDR) {
+		PETSITTER_ADDR = pETSITTER_ADDR;
 	}
 	public void setMEMBER_ID(String mEMBER_ID) {
 		MEMBER_ID = mEMBER_ID;

@@ -54,6 +54,7 @@
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>*.me</url-pattern>
 		<url-pattern>*.bo</url-pattern>
+		<url-pattern>*.br</url-pattern>
 	</filter-mapping>
 	<!-- Korean Filter 끝-->
 

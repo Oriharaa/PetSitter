@@ -1,6 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%
+	if(session.getAttribute("id") == null) {
+		out.println("<script>");
+		out.println("location.href = 'home.me'");
+		out.println("</script>");
+	}
+%>
 <!doctype html>
 <html lang="en">
 
@@ -124,8 +130,11 @@ border-radius:400px
               	%>
                 <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
-                <%} else { %>
+                <%} else if(((String)session.getAttribute("id")).contains("@")){ %> <!-- 일반 회원 마이 페이지 -->
                 <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+                <%} else {%> <!-- 펫시터 마이 페이지 -->
+                <a href="petsitterinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} %>
             </div>

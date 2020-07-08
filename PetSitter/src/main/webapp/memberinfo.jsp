@@ -7,6 +7,15 @@
 	MemberVO membervo = (MemberVO)request.getAttribute("membervo");
 	ArrayList<PetsitterVO> petsitterlist = (ArrayList<PetsitterVO>)request.getAttribute("petsitterlist");
 	ArrayList<UsinglistVO> usinglist = (ArrayList<UsinglistVO>)request.getAttribute("usinglist");
+	String[] tel = (String[])request.getAttribute("tel");
+	String[] address = (String[])request.getAttribute("address");
+	 
+	// 세션 종료시 홈으로
+	if(session.getAttribute("id") == null) {
+		out.println("<script>");
+		out.println("location.href = 'home.me'");
+		out.println("</script>");
+	}
 %>
 <!doctype html>
 <html lang="en">
@@ -106,7 +115,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     height: 100px; 
     border-radius: 70%;
     overflow: hidden;
-    margin : 6px 0 6px 20%;
+    margin : 10px auto;
 	}
 	
 	.roundimg{
@@ -331,6 +340,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	border : 0px solid #ffffff;
 }
 	
+	
 	/*모달 버튼 시작*/
 	.modalbt01 {
 	background : rgb(224, 224, 224)!important;
@@ -416,12 +426,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	
 	/*ajax 에서 사진 가운데 와 크기(규격)지정 css 시작*/
 	.thumbnail-wrappper { 
-	width: 25%; 
+	width: 25%;
 	} 
 	.thumbnail { 
 	position: relative; 
 	padding-top: 100%; /*한번 만져보기 전에 max-width 먼저 수정 */ 
-	overflow: hidden; 
+	overflow: hidden;
 	} 
 	.thumbnail .centered { 
 	position: absolute; 
@@ -467,6 +477,20 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	  
 </style>
 
+<style>
+	.img_wrap {
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 130px;
+		height: 100px;
+  }
+
+  .img_wrap profile_img{
+  	max-width:100%;
+  }
+</style>
 
   <head>
     <title>마이 페이지</title>
@@ -562,15 +586,22 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 <!-- 상세정보 시작!! -->
 <section class="myinfo">
-  <div class="container" style = "margin-top :60px;">
-    <div class = "row">
-	  <div class="col-md-7" style = "padding : 0;">
+  <div class="container" style="margin-top: 60px;">
+    <div class="row">
+	  <div class="col-md-7" style="padding: 0;">
 	    <div class="box1">
 		    <div class="row">
-		      <div class="col-5" style = "margin : 3.5% 0 0 0;">  
+		      <div class="col-5" style="margin: 3.5% 0 0 0;">  
 			    <div class="roundimg">
 				  <div class="profile aspect_1_1" style="background: #BDBDBD;">
-					<img src="resources/images/person_1.jpg">
+				  <%
+				  	if(membervo.getMEMBER_PHOTO_FILE().equals("N")) {
+				  %>
+				  	<img src="resources/images/person_1.jpg">
+				  <%} else { %>
+						<img src="/petsitter/upload/<%=membervo.getMEMBER_PHOTO_FILE()%>" >
+					<%} %>
+					
 				  </div>
 				</div>
 			  </div> 
@@ -686,7 +717,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
 <!-- Modal 회원정보변경시작-->
-<form name="updateMember" action="./memberUpdate.me" method="post">
+<form name="updateMember" action="./memberUpdate.me" method="post" enctype="multipart/form-data">
 <input type="hidden" name="MEMBER_ID" id="session_id" value=${id }> 
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -702,43 +733,63 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       		<div class="col-12">
       			<table class="table table-sm table-hover table-striped" style="font-size: 15px;">
       				<tr>
-      					<th width="150px">닉네임</th>
+      					<th width="200px">닉네임</th>
       					<td colspan="2" >
-      						<input type="text" placeholder="${membervo.MEMBER_NICKNAME }" size="12" name="MEMBER_NICKNAME" class="float-left">
+      						<input type="text" value="${membervo.MEMBER_NICKNAME }" size="12" name="MEMBER_NICKNAME" class="float-left">
       					</td>
       				</tr>
       				<tr>
-      					<th width="150px">비밀번호</th>
+      					<th width="200px">성별</th>
+      					<td colspan="2" >
+      						<label for="man" class="float-left" style="margin: 0;">남&nbsp;</label>
+      						<input type="radio" value="남" id="man" name="MEMBER_GENDER" class="float-left" style="margin-top: 6px;" checked="checked">
+      						<label for="woman" class="float-left" style="margin: 0;">&emsp;여&nbsp;</label>
+      						<input type="radio" value="여" id="woman" name="MEMBER_GENDER" class="float-left" style="margin-top: 6px;">
+      					</td>
+      				</tr>
+      				<tr>
+      					<th width="200px">비밀번호</th>
       					<td colspan="2">
       						<input type="password" name="MEMBER_PW" id="pw1" value="" size="20" class="float-left">
       					</td>
       				</tr>
       				<tr>
-      					<th width="150px">비밀번호 확인</th>
+      					<th width="200px">비밀번호 확인</th>
       					<td colspan="2">
 	      					<input type="password" size ="20" id="pw2" class="float-left">
 	      					<input class="alert alert-danger" value="비밀 번호가 일치하지 않습니다." style="padding: 4px; margin-bottom: 0; width: 250px; height: 31px; text-align: center;">
       					</td>
       				</tr>
 							<tr>
-      					<th width="150px">주소</th>
-      					<td width="270px">
-      						<input type="text" placeholder="주소 버튼을 누르세요." size="30" name="MEMBER_ADDRESS" class="float-left" id="sample5_address" readonly>
-      					</td>
-      					<td>
-      						<input type="button" class="btn modalbt03 float-left" onclick="sample5_execDaumPostcode();" value="주소 검색 " style="height: 31px;" >
+      					<th width="200px">주소</th>
+      					<td colspan="2">
+      						<input type="text" placeholder="우편 번호 검색" size="15" name="MEMBER_ADDRESS" class="float-left" id="sample5_address" value="${address[0] }" readonly>
+      						
+      						<input type="button" class="btn modalbt03 float-left" onclick="sample5_execDaumPostcode();" value="우편 번호 검색" style="width: 130px; padding: 2.5px;" >
       					</td>
       				</tr>
       				<tr>
       					<th width="200px"></th>
       					<td colspan="2">
-      						<input type="text" placeholder="상세 주소" size="30" name="MEMBER_ADDRESS" class="float-left">
+      						<input type="text" placeholder="도로명 주소" size="30" name="MEMBER_ADDRESS" id="road_address" class="float-left" value="${address[1] }" readonly>
+      					</td>
+      				</tr>
+      				<tr>
+      					<th width="200px"></th>
+      					<td colspan="2">
+      						<input type="text" placeholder="지번 주소" size="30" name="MEMBER_ADDRESS" id="jibun_address" class="float-left" value="${address[2] }" readonly>
+      					</td>
+      				</tr>
+      				<tr>
+      					<th width="200px"></th>
+      					<td colspan="2">
+      						<input type="text" placeholder="상세 주소" size="30" name="MEMBER_ADDRESS" class="float-left" value="${address[3] }">
       					</td>
       				</tr>
       				<tr>
       					<th width="200px">전화 번호</th>
       					<td colspan="2" class="float-left">
-      						<select style="height: 31px;" name="MEMBER_TEL">
+      						<select style="height: 31px;" name="MEMBER_TEL" value="${tel[0] }">
       							<option>010
       							<option>011
       							<option>02
@@ -747,17 +798,26 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       							<option>033
       						</select>
       						&nbsp;-&nbsp;
-      						<input type="text" size="6" name="MEMBER_TEL">
+      						<input type="text" size="4" name="MEMBER_TEL" value="${tel[1] }">
       						&nbsp;-&nbsp;
-      						<input type="text" size="6" name="MEMBER_TEL">
+      						<input type="text" size="4" name="MEMBER_TEL" value="${tel[2] }">
       					</td>
       				</tr>
       				<tr>
       					<th width="200px">프로필 사진</th>
       					<td colspan="2">
+									<div class="img_wrap">
+										<%
+											if(membervo.getMEMBER_PHOTO_FILE().equals("N")) {
+										%>
+											<img id="profile_img" class="profile_img" style="display: none; width: 130px;"/>
+										<%} else { %>
+											<img src="C:\Project156\upload\<%=membervo.getMEMBER_PHOTO_FILE() %>" id="profile_img" class="profile_img" style="width: 130px;"/>
+										<%} %>
+									</div>
 	      					<div class="filebox float-left"> 
-		      					<input class="upload-name" value="파일선택" disabled="disabled" name="MEMBER_PHOTO"> 
-		      					<label for="ex_filename">업로드</label><input type="file" id="ex_filename" class="upload-hidden">
+		      					<input type="text" class="upload-name" value="파일선택" disabled="disabled" > 
+		      					<label for="ex_filename">업로드</label><input type="file" id="ex_filename" class="upload-hidden" name="MEMBER_PHOTO" style="padding: 2.5px;">
 	      					</div>
       					</td>
       				</tr>      				
@@ -766,8 +826,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn modalbt01" data-dismiss="modal">닫기</button>
-        <button type="submit" class="btn modalbt02" id="updatebutton" >확인</button>
+        <button type="button" class="btn modalbt01" data-dismiss="modal" style="padding: 2.5px;">닫기</button>
+        <button type="submit" class="btn modalbt02" id="updatebutton" style="padding: 2.5px;">확인</button>
       </div>
     </div>
   </div>
@@ -778,6 +838,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
 <!-- Modal 후기 남기기 시작-->
+<form name="insertReview" action="./insertReview.me" method="post" enctype="multipart/form-data">
 <div class="modal fade" id="staticBackdrop02" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -788,51 +849,53 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
         </button>
       </div>
       <div class="modal-body">
-      	<div class = "row">
-      		<div class = "col-3">
-      			<div class = "float-left" style = "margin : 2px 0 0 10%;"><img src = "resources/images/person_2.jpg" class = "modalprofileimg"></div>
+      	<div class="row">
+      		<div class="col-3">
+      			<div class="float-left" style="margin: 2px 0 0 10%;"><img src="resources/images/person_2.jpg" class="modalprofileimg"></div>
       		</div>
-      		<div class = "col-7">
-						<div class = "float-left" style= "padding : 3px 0 0 3px; margin-left : 10px;">
+      		<div class="col-7">
+						<div class="float-left" style="padding: 3px 0 0 3px; margin-left: 10px;">
 							<table>
 								<tr>
-									<td colspan = "2" class = "font-size-15 main_grayfont3 mybold tleft">닉네임<td>
+									<td colspan="2" class="font-size-15 main_grayfont3 mybold tleft" id="petsitter_nickname" style="font-weight: bold;">
+									<td>
 								<tr>
 								<tr>
-									<td colspan = "2" class = "font-size-15 main_grayfont3 mybold tleft">서울시 서초구<td>
+									<td colspan="2" class="font-size-15 main_grayfont3 mybold tleft" id="petsitter_address">
+									<td>
 								<tr>
 								<tr>
-									<td style = "padding: 0 0 7px 0;">
+									<td style="padding: 0 0 7px 0;">
 										<% 
 											int star = 5;
 											for(int i = 0; i < star; i++) {
 										%>
-										<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-bottom : 8px;">
+										<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">
 										<%} %>
 									</td>
-									<td style = "padding: 0 0 5px 10px;"> 10점</td>
+									<td style="padding: 0 0 5px 10px;"> 5점</td>
 								<tr>
 							</table>
 						</div>	
       		</div>
-      		<div class = "col-12" style = "padding : 0;">
+      		<div class="col-12" style = "padding : 0;">
       			<hr/>
       		</div>
-      		<div class = "col-12">
+      		<div class="col-12">
       			<table>
       				<tr>
-      					<th width = "80px">아이디 </th>
-      					<td class = "tleft">${id }</td>
+      					<th width="80px">아이디 </th>
+      					<td class="tleft">${id }</td>
       				</tr>
       				<tr>
       					<th>점수 </th>
 								<td>
-									<select class="choiceS float-left" style = "height : 35px; width : 100px">
-								    <option value="5">5점</option>
-								    <option value="4">4점</option>
-								    <option value="3">3점</option>
-								    <option value="2">2점</option>
-								    <option value="1">1점</option>
+									<select class="choiceS float-left" style="height: 35px; width: 50px">
+								    <option>5</option>
+								    <option>4</option>
+								    <option>3</option>
+								    <option>2</option>
+								    <option>1</option>
 									</select>
 								</td>
       				</tr>
@@ -846,25 +909,37 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							<tr>
       					<th>메인 사진 </th>
       					<td class = "tleft">
-      					<div class="filebox"> 
-      					<input class="upload-name" value="파일선택" disabled="disabled"> 
-      					<label for="ex_filename02">업로드</label> <input type="file" id="ex_filename02" class="upload-hidden"> </div>
+	      					<div class="filebox"> 
+		      					<div class="img_wrap">
+													<img id="profile_img02" class="profile_img02" style="display: none; width: 130px;"/>
+										</div>
+		      					<input class="upload-name" value="파일선택" disabled="disabled"> 
+		      					<label for="ex_filename02">업로드</label> <input type="file" id="ex_filename02" class="upload-hidden"> 
+	      					</div>
       					</td>
       				</tr>
       				<tr>
       					<th>사진 1 </th>
       					<td class = "tleft">
-      					<div class="filebox"> 
-      					<input class="upload-name" value="파일선택" disabled="disabled"> 
-      					<label for="ex_filename03">업로드</label> <input type="file" id="ex_filename03" class="upload-hidden"> </div>
+	      					<div class="filebox">
+		      					<div class="img_wrap">
+													<img id="profile_img03" class="profile_img03" style="display: none; width: 130px;"/>
+										</div> 
+		      					<input class="upload-name" value="파일선택" disabled="disabled"> 
+		      					<label for="ex_filename03">업로드</label> <input type="file" id="ex_filename03" class="upload-hidden">
+	      					</div>
       					</td>
       				</tr>
       				<tr>
       					<th>사진 2 </th>
       					<td class = "tleft">
-      					<div class="filebox"> 
-      					<input class="upload-name" value="파일선택" disabled="disabled"> 
-      					<label for="ex_filename04">업로드</label> <input type="file" id="ex_filename04" class="upload-hidden"> </div>
+	      					<div class="filebox">
+		      					<div class="img_wrap">
+													<img id="profile_img04" class="profile_img04" style="display: none; width: 130px;"/>
+										</div>
+		      					<input class="upload-name" value="파일선택" disabled="disabled"> 
+		      					<label for="ex_filename04">업로드</label> <input type="file" id="ex_filename04" class="upload-hidden">
+	      					</div>
       					</td>
       				</tr>
       							
@@ -876,17 +951,15 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
      
       <div class="modal-footer">
         <button type="button" class="btn modalbt01" data-dismiss="modal">닫기</button>
-        <button type="button" class="btn modalbt02">확인</button>
+        <button type="submit" class="btn modalbt02">확인</button>
       </div>
     </div>
   </div>
 </div>
+</form>
 <!-- Modal 후기 남기기종료-->
 
 <!-- 본 기능 추가 종료 -->
-      
-      
-
       
       <footer class="site-footer">
       <div class="container">
@@ -977,10 +1050,32 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		function sample5_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
-        	var addr = data.address; // 최종 주소 변수
-        	document.getElementById("sample5_address").value = addr;
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+        		// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var extraRoadAddr = ''; // 참고 항목 변수
+
+            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                extraRoadAddr += data.bname;
+            }
+            // 건물명이 있고, 공동주택일 경우 추가한다.
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            if(extraRoadAddr !== ''){
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('sample5_address').value = data.zonecode;
+            document.getElementById("road_address").value = roadAddr;
+            document.getElementById("jibun_address").value = data.jibunAddress;
+            
         }
     }).open();
 		}
@@ -993,7 +1088,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			var fileTarget = $('.filebox .upload-hidden'); 
 			fileTarget.on('change', function() { // 값이 변경되면
 				if(window.FileReader) { // modern browser 
-				var filename = $(this)[0].files[0].name; 
+				var filename = $(this)[0].files[0].name;
+				console.log(filename);
 				} else { 
 				// old IE 
 				var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
@@ -1063,7 +1159,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		</script>
 	
 	<!-- 데이트피커 코드 -->
-	<script type="text/javascript">
+	<script>
 	$(function() {
 			$('#datePicker_start').datepicker({
 				format: "yyyy-mm-dd", // 날짜 형식 포맷
@@ -1083,7 +1179,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				disableTouchKeyboard: false //모바일에서 플러그인 작동 여부 기본값 false 가 작동 true가 작동 안함.
 			});
 	});
-		
 	</script>
 		
 		<script>
@@ -1117,8 +1212,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							if(item.list_COMPLETE === ing2) {
 								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?petsitterid=' + item.petsitter_ID + '\';" ></td>';
 							} else {
-								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02"></td>';
+								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
+								output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
+								output += '<input type="hidden" id="review_petsitter_address'+index+'" value="' + item.petsitter_ADDRESS1 + '">';
+								output += '</td>';
 							}
+							
 							output += '<tr style="color: #5e5e5e;">';
 							if(item.list_ING === ing1) {
 								output += '<td><b style="color: #0d47a1;">' + item.list_ING + '</b></td>';
@@ -1134,7 +1233,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<td>' + item.list_END_DATE + '</td>';
 							output += '</tr>';
 							
-							console.log("output: " + output);
 							$('#petsitterList').append(output);
 						});
 					},
@@ -1167,7 +1265,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<td>' + item.list_TYPE + '</td>';
 							output += '<td rowspan="3">';
 							output += '<div class="thumbnail-wrapper profile_sm1"> <div class="thumbnail"> <div class="centered">';
-							output += '<img src = "resources/images/person_1.jpg">';
+							output += '<img src="resources/images/person_1.jpg">';
 							output += '</div></div></div>';
 							output += '</td>';
 							output += '<td>' + item.petsitter_NICKNAME + '</td>';
@@ -1177,7 +1275,10 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							if(item.list_COMPLETE === ing2) {
 								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?petsitterid=' + item.petsitter_ID + '\';" ></td>';
 							} else {
-								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02"></td>';
+								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
+								output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
+								output += '<input type="hidden" id="review_petsitter_address'+index+'" value="' + item.petsitter_ADDRESS1 + '">';
+								output += '</td>';
 							}
 							output += '<tr style="color: #5e5e5e;">';
 							if(item.list_ING === ing1) {
@@ -1194,7 +1295,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<td>' + item.list_END_DATE + '</td>';
 							output += '</tr>';
 							
-							console.log("output: " + output);
 							$('#petsitterList').append(output);
 						});
 					},
@@ -1231,7 +1331,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<td>' + item.list_TYPE + '</td>';
 							output += '<td rowspan="3">';
 							output += '<div class="thumbnail-wrapper profile_sm1"> <div class="thumbnail"> <div class="centered">';
-							output += '<img src = "resources/images/person_1.jpg">';
+							output += '<img src="resources/images/person_1.jpg">';
 							output += '</div></div></div>';
 							output += '</td>';
 							output += '<td>' + item.petsitter_NICKNAME + '</td>';
@@ -1241,7 +1341,10 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							if(item.list_COMPLETE === ing2) {
 								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?petsitterid=' + item.petsitter_ID + '\';" ></td>';
 							} else {
-								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02"></td>';
+								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
+								output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
+								output += '<input type="hidden" id="review_petsitter_address'+index+'" value="' + item.petsitter_ADDRESS1 + '">';
+								output += '</td>';
 							}
 							output += '<tr style="color: #5e5e5e;">';
 							if(item.list_ING === ing1) {
@@ -1258,7 +1361,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<td>' + item.list_END_DATE + '</td>';
 							output += '</tr>';
 							
-							console.log("output: " + output);
 							$('#petsitterList').append(output);
 						});
 					},
@@ -1268,11 +1370,114 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				});
 			}
 			
-			
+		
 			$(document).ready(function() {
-
 				selectData();
+				
+				let sel_file;
+				let sel_file02;
+				let sel_file03;
+				let sel_file04;
+				
+				$("#ex_filename").on("change", handleImgFileSelect);
+				$("#ex_filename02").on("change", handleImgFileSelect02);
+				$("#ex_filename03").on("change", handleImgFileSelect03);
+				$("#ex_filename04").on("change", handleImgFileSelect04);
 			});
+			
+			function handleImgFileSelect(e){
+				var files = e.target.files;
+				var filesArr = Array.prototype.slice.call(files);
+				
+				filesArr.forEach(function(f) {
+					if(!f.type.match("image.*")){
+						alert("확장자는 이미지 확장자만 가능합니다.");
+						return;
+					}
+					sel_file = f;
+					
+					var reader = new FileReader();
+					
+					reader.onload = function(e){
+						$(".profile_img").attr("src",e.target.result);
+						$("#profile_img").show();
+					}
+					reader.readAsDataURL(f);
+				});
+			}
+			
+			function handleImgFileSelect02(e){
+				var files = e.target.files;
+				var filesArr = Array.prototype.slice.call(files);
+				
+				filesArr.forEach(function(f) {
+					if(!f.type.match("image.*")){
+						alert("확장자는 이미지 확장자만 가능합니다.");
+						return;
+					}
+					sel_file = f;
+					
+					var reader = new FileReader();
+					reader.onload = function(e){
+						$(".profile_img02").attr("src",e.target.result);
+						$("#profile_img02").show();
+					}
+					reader.readAsDataURL(f);
+				});
+			}
+			
+			function handleImgFileSelect03(e){
+				var files = e.target.files;
+				var filesArr = Array.prototype.slice.call(files);
+				
+				filesArr.forEach(function(f) {
+					if(!f.type.match("image.*")){
+						alert("확장자는 이미지 확장자만 가능합니다.");
+						return;
+					}
+					sel_file = f;
+					
+					var reader = new FileReader();
+					reader.onload = function(e){
+						$(".profile_img03").attr("src",e.target.result);
+						$("#profile_img03").show();
+					}
+					reader.readAsDataURL(f);
+				});
+			}
+			
+			function handleImgFileSelect04(e){
+				var files = e.target.files;
+				var filesArr = Array.prototype.slice.call(files);
+				
+				filesArr.forEach(function(f) {
+					if(!f.type.match("image.*")){
+						alert("확장자는 이미지 확장자만 가능합니다.");
+						return;
+					}
+					sel_file = f;
+					
+					var reader = new FileReader();
+					reader.onload = function(e){
+						$(".profile_img04").attr("src",e.target.result);
+						$("#profile_img04").show();
+					}
+					reader.readAsDataURL(f);
+				});
+			}
+		</script>
+		
+		<script >
+		// 리뷰 남기기 모달창으로 데이터 보내기 함수
+				function showing(num) {
+					let nickname_ = $("#review_petsitter" + num).val();
+					let address_ = $("#review_petsitter_address" + num).val();
+					$("#petsitter_nickname").text(nickname_);
+					$("#petsitter_address").text(address_);
+					
+					$("#staticBackdrop02").modal("show");
+				};
+				
 		</script>
 </body>
 </html>

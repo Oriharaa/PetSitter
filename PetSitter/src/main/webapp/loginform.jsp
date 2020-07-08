@@ -491,11 +491,11 @@ text-decoration:none;
                     </div>
 		        </form>
 	        </div>
+	        
 	        <!-- 일반회원 회원가입 -->
-
 	        <div class="signup-cont cont">
-	        	        <form action="member_join.me" method="post" onsubmit ="return member_check_input();" enctype="multipart/form-data" id="Signinform3">
-                    <input type="email" name="MEMBER_ID" class="inpt" required="required" placeholder="이메일을 입력해주세요">
+	  	      <form action="member_join.me" method="post" onsubmit="return member_check_input();" enctype="multipart/form-data" id="Signinform3">
+	          <input type="email" name="MEMBER_ID" class="inpt" required="required" placeholder="이메일을 입력해주세요">
 					<input type="password" name="MEMBER_PW" id="MEMBER_PW1" class="inpt" required="required" placeholder="패스워드를 입력해주세요">
                     <input type="password" name="password2" id="MEMBER_PW2" class="inpt" required="required" placeholder="패스워드를 확인해주세요">
 				    <input type="text" name="MEMBER_NAME" id="MEMBER_NAME" class="inpt" required="required" placeholder="이름을 입력해주세요">

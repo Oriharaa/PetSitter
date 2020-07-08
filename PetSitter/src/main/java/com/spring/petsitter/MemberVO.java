@@ -13,7 +13,7 @@ create table member(
     MEMBER_COUNT number DEFAULT 0, --활동횟수
     MEMBER_AMOUNT number DEFAULT 0, --총 금액
     MEMBER_DATE date default sysdate, --가입날짜
-    MEMBER_PHOTO varchar2(100) DEFAULT 'N', --프로필사진
+    MEMBER_PHOTO_FILE varchar2(100) DEFAULT 'N', --프로필사진
     MEMBER_REPORT number DEFAULT 0, --신고누적횟수
     MEMBER_ADDRESS varchar2(100), -- 주소
     MEMBER_GENDER varchar2(4) -- 성별
@@ -30,10 +30,11 @@ public class MemberVO {
 	private int MEMBER_COUNT;
 	private int MEMBER_AMOUNT;
 	private String MEMBER_DATE;
-	private MultipartFile MEMBER_PHOTO_FILE;
-	private String MEMBER_PHOTO;
+	private MultipartFile MEMBER_PHOTO;
+	private String MEMBER_PHOTO_FILE;
 	private int MEMBER_REPORT;
 	private String MEMBER_ADDRESS;
+	private String MEMBER_REAL_ADDRESS;
 	private String MEMBER_GENDER;
 	
 	public String getMEMBER_ID() {
@@ -90,16 +91,16 @@ public class MemberVO {
 	public void setMEMBER_DATE(String mEMBER_DATE) {
 		MEMBER_DATE = mEMBER_DATE;
 	}
-	public MultipartFile getMEMBER_PHOTO_FILE() {
+	public String getMEMBER_PHOTO_FILE() {
 		return MEMBER_PHOTO_FILE;
 	}
-	public void setMEMBER_PHOTO_FILE(MultipartFile mEMBER_PHOTO_FILE) {
+	public void setMEMBER_PHOTO_FILE(String mEMBER_PHOTO_FILE) {
 		MEMBER_PHOTO_FILE = mEMBER_PHOTO_FILE;
 	}
-	public String getMEMBER_PHOTO() {
+	public MultipartFile getMEMBER_PHOTO() {
 		return MEMBER_PHOTO;
 	}
-	public void setMEMBER_PHOTO(String mEMBER_PHOTO) {
+	public void setMEMBER_PHOTO(MultipartFile mEMBER_PHOTO) {
 		MEMBER_PHOTO = mEMBER_PHOTO;
 	}
 	public int getMEMBER_REPORT() {
@@ -113,6 +114,12 @@ public class MemberVO {
 	}
 	public void setMEMBER_ADDRESS(String mEMBER_ADDRESS) {
 		MEMBER_ADDRESS = mEMBER_ADDRESS;
+	}
+	public String getMEMBER_REAL_ADDRESS() {
+		return MEMBER_REAL_ADDRESS;
+	}
+	public void setMEMBER_REAL_ADDRESS(String mEMBER_REAL_ADDRESS) {
+		MEMBER_REAL_ADDRESS = mEMBER_REAL_ADDRESS;
 	}
 	public String getMEMBER_GENDER() {
 		return MEMBER_GENDER;

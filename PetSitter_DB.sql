@@ -8,10 +8,10 @@ create table member(
     MEMBER_COUNT number DEFAULT 0, --활동횟수
     MEMBER_AMOUNT number DEFAULT 0, --총 금액
     MEMBER_DATE date default sysdate, --가입날짜
-    MEMBER_PHOTO varchar2(100) DEFAULT 'N', --프로필사진
+    MEMBER_PHOTO_FILE varchar2(100) DEFAULT 'N', --프로필사진
     MEMBER_REPORT number DEFAULT 0, --신고누적횟수
     MEMBER_GENDER varchar2(4), -- 성별, 추가
-    MEMBER_ADDRESS varchar2(100) -- 주소, 추가
+    MEMBER_ADDRESS varchar2(100) DEFAULT 'N'-- 주소, 추가
 ); 
 select * from member;
 create table PETSITTER(
@@ -24,20 +24,20 @@ create table PETSITTER(
     PETSITTER_SCORE number(2,2) DEFAULT 0, --평점
     PETSITTER_COUNT number(5) DEFAULT 0, --활동횟수
     PETSITTER_RANK varchar2(20) DEFAULT 'N', --등급
-    PETSITTER_ADDRESS varchar2(100), --주소
-    PETSITTER_INTRODUCE varchar2(2000), --자기소개
+    PETSITTER_ADDRESS varchar2(100) default 'N', --주소
+    PETSITTER_INTRODUCE varchar2(2000) default 'N', --자기소개
     PETSITTER_PRICE_12H varchar2(10), --12시간가격
     PETSITTER_PRICE_24H varchar2(10), --24시간가격
     PETSITTER_PRICE_30M varchar2(10), --30분가격
     PETSITTER_PRICE_60M varchar2(10), --60분가격
-    PETSITTER_SERVICE_LIST varchar2(60), --가능한 서비스
+    PETSITTER_SERVICE_LIST varchar2(60) default 'N', --가능한 서비스
     PETSITTER_PHOTO_UPFILE varchar2(100), --증명 사진
-    PETSITTER_PHOTO_PROFILE_FILE varchar2(100), --프로필 사진
+    PETSITTER_PHOTO_PROFILE varchar2(100), --프로필 사진
     PETSITTER_CERT_LIST varchar2(100), --자격증이름
-    PETSITTER_PHOTO_CERT_FILE varchar2(300), --자격증 사진
-    PETSITTER_PHOTO_HOME_FILE varchar2(300), --집 사진
+    PETSITTER_PHOTO_CERT varchar2(300), --자격증 사진
+    PETSITTER_PHOTO_HOME varchar2(300), --집 사진
     PETSITTER_DATE date DEFAULT sysdate, --가입 날짜
-    PETSITTER_TYPE varchar2(20), -- 케어종류
+    PETSITTER_TYPE varchar2(20) default 'N', -- 케어종류
     PETSITTER_REPORT number(2) default 0, --신고누적횟수, 추가
     PETSITTER_GENDER varchar2(4) -- 성별, 추가
 ); 
@@ -169,6 +169,7 @@ create table COMMUNICATION_BOARD(
 create table USINGLIST(
     LIST_NUM number(10) primary key,
     PETSITTER_ID varchar2(30),
+    PETSITTER_ADDR varchar2(100),
     MEMBER_ID varchar2(30),
     LIST_PRICE number(8),
     LIST_START_DATE date,
@@ -178,38 +179,40 @@ create table USINGLIST(
 
 -- usinglist 예시 데이터
 insert into usinglist
-values('1', 'asd222', 'asdasd@naver.com', '90000', '2020/02/21', '2020/02/22', '위탁');
+values('1', 'asd222', 'N', 'asdasd@naver.com', '90000', '2020/02/21', '2020/02/22', '위탁');
 insert into usinglist
-values('2', 'asd111', 'asdasd@naver.com', '70000', '2020/05/21', '2020/05/22', '위탁');
+values('2', 'asd111', 'N', 'asdasd@naver.com', '70000', '2020/05/21', '2020/05/22', '위탁');
 insert into usinglist
-values('3', 'asd444', 'asdasd@naver.com', '80000', '2020/06/25', '2020/06/26', '위탁');
+values('3', 'asd444', 'N', 'asdasd@naver.com', '80000', '2020/06/25', '2020/06/26', '위탁');
 insert into usinglist
-values('4', 'asd333', 'asdasd@naver.com', '40000', '2020/06/27', '2020/06/28', '위탁');
+values('4', 'asd333', 'N', 'asdasd@naver.com', '40000', '2020/06/27', '2020/06/28', '위탁');
 insert into usinglist
-values('5', 'asd111', 'asdasd@naver.com', '30000', '2020/06/29', '2020/06/30', '위탁');
+values('5', 'asd111', 'N', 'asdasd@naver.com', '30000', '2020/06/29', '2020/06/30', '위탁');
 insert into usinglist
-values('6', 'asd111', 'asdasd@naver.com', '20000', '2020/06/29', '2020/06/29', '방문');
+values('6', 'asd111', 'N', 'asdasd@naver.com', '20000', '2020/06/29', '2020/06/29', '방문');
 insert into usinglist
-values('7', 'asd222', 'asdasd@naver.com', '60000', '2020/06/30', '2020/07/01', '위탁');
+values('7', 'asd222', 'N', 'asdasd@naver.com', '60000', '2020/06/30', '2020/07/01', '위탁');
 insert into usinglist
-values('8', 'asd333', 'asdasd@naver.com', '80000', '2020/07/01', '2020/07/02', '위탁');
+values('8', 'asd333', 'N', 'asdasd@naver.com', '80000', '2020/07/01', '2020/07/02', '위탁');
 insert into usinglist
-values('9', 'asd111', 'asdasd@naver.com', '70000', '2020/07/02', '2020/07/03', '위탁');
+values('9', 'asd111', 'N', 'asdasd@naver.com', '70000', '2020/07/02', '2020/07/03', '위탁');
 insert into usinglist
-values('10', 'asd333', 'asdasd@naver.com', '120000', '2020/07/02', '2020/07/05', '위탁');
+values('10', 'asd333', 'N', 'asdasd@naver.com', '120000', '2020/07/02', '2020/07/05', '위탁');
+insert into usinglist
+values('11', 'asd888', '경기 오산시', 'asdasd@naver.com', '150000', '2020/07/07', '2020/07/17', '위탁');
 
 select * from usinglist where member_id='asdasd@naver.com' order by list_num desc;
 select * from petsitter where petsitter_id='asd444';
 commit;
 
-select list_num, member_id, petsitter_id, list_price, list_start_date, list_end_date, list_type, petsitter_nickname, petsitter_name, petsitter_tel 
+select list_num, member_id, petsitter_id, list_price, list_type, petsitter_nickname, petsitter_name, petsitter_tel 
 from usinglist natural join petsitter
 where member_id='asdasd@naver.com'
 order by list_num desc;
 
-select u.list_num, u.member_id, u.list_price, u.list_start_date, u.list_end_date, u.list_type, p.petsitter_nickname, p.petsitter_name, p.petsitter_tel 
-from usinglist u, petsitter p 
-where member_id='asdasd@naver.com' and u.petsitter_id = p.petsitter_id and u.list_start_date >= trunc(add_months(sysdate,-1))
+select list_num, member_id, list_price, list_start_date, list_end_date, list_type, petsitter_nickname, petsitter_name, petsitter_tel 
+from usinglist natural join petsitter  
+where member_id='asdasd@naver.com' and list_start_date >= trunc(add_months(sysdate,-1))
 order by list_num desc;
 
 select * from usinglist 

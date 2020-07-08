@@ -9,6 +9,7 @@ public class MemberUsinglistVO {
 	private String PETSITTER_NAME;
 	private String PETSITTER_NICKNAME;
 	private String PETSITTER_TEL;
+	private String PETSITTER_ADDRESS1;
 	private String LIST_START_DATE;
 	private String LIST_END_DATE;
 	private int LIST_PRICE;
@@ -56,6 +57,12 @@ public class MemberUsinglistVO {
 	}
 	public void setPETSITTER_TEL(String pETSITTER_TEL) {
 		PETSITTER_TEL = pETSITTER_TEL;
+	}
+	public String getPETSITTER_ADDRESS1() {
+		return PETSITTER_ADDRESS1;
+	}
+	public void setPETSITTER_ADDRESS1(String pETSITTER_ADDRESS1) {
+		PETSITTER_ADDRESS1 = pETSITTER_ADDRESS1;
 	}
 	public String getLIST_START_DATE() {
 		return LIST_START_DATE;
