@@ -5,9 +5,6 @@
 <%
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
-	
-
-	
 %>
 <!doctype html>
 <html lang="en">
@@ -212,7 +209,7 @@
 
 
   <head>
-    <title>Depot &mdash;Website Template by Colorlib</title>
+    <title>펫시터 리뷰 게시판</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -230,8 +227,7 @@
     <!-- MAIN CSS 다양한 폰트크기보유 -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/petsitter-style.css">
-    
-    <title>PetSitter BasicForm</title>
+   
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script type="text/javascript">
     
@@ -255,7 +251,8 @@
         		//주소 문자열 추출 2자리
     				if(index < num) {
     				var address = item.petsitter_ADDRESS;
-    		   	var Paddress = address.split(' ', 2);
+    		   	var Paddress = address.split(',', 2);
+    		   	var real_address = Paddress[1].split(' ');
 						
     		   	//사진 개 수 별 업로드 문자열 추출
     		   	if(item.review_UP_PHOTO != "N"){
@@ -353,7 +350,7 @@
 		    		reviewForm += '<td class = "font-size-16 main_grayfont3 mybold">펫시터 : ' + item.petsitter_NICKNAME + '<td>';
 		    		reviewForm += '<tr>';
 		    		reviewForm += '<tr>';
-		    		reviewForm += '<td class = "font-size-15 main_grayfont3" style = "padding: 0 0 9px 0;">' +Paddress[0]+ ' '+Paddress[1]+ '<td>';
+		    		reviewForm += '<td class = "font-size-15 main_grayfont3" style = "padding: 0 0 9px 0;">' +real_address[0]+' '+real_address[1]+ '<td>';
 		    		reviewForm += '<tr>';						
 		    		reviewForm += '</table>';
 		    		reviewForm += '</a>';
@@ -437,9 +434,9 @@
 		    		reviewForm += '<div class = "col-12">';
 		    		reviewForm += '<div class = "float-left circleprofileimg" style = "margin : 2px 0 0 10%;">';
 		    		
-		    		if(item.member_PHOTO != "N"){
+		    		if(item.member_PHOTO_FILE != "N"){
 	    			reviewForm += '<div class="thumbnail-wrapper"> <div class="thumbnail02"> <div class="centered02">';
-		    		reviewForm += '<img src="<spring:url value="/upload/'+item.member_PHOTO+'" />" class="d-block w-100" alt="...">';
+		    		reviewForm += '<img src="<spring:url value="/upload/'+item.member_PHOTO_FILE+'" />" class="d-block w-100" alt="...">';
 		    		reviewForm += '</div></div></div>';	
 		    		}
 		    		else {
@@ -459,19 +456,74 @@
 		    		reviewForm += '<tr>';
 		    		reviewForm += '<td colspan = "2" style = "padding: 0 0 7px 0;">';
    	    		if(item.review_SCORE == 5){
-						reviewForm += '<% int star5 = 5; for(int i = 0; i < star5; i++) { %> <img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-bottom : 8px;"><%} %>';
+   	    			reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+   	    			reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+   	    			reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+   	    			reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+   	    			reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
    	    		}
    	    		if(item.review_SCORE == 4){
-						reviewForm += '<% int star4 = 4; for(int i = 0; i < star4; i++) { %> <img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-bottom : 8px;"><%} %>';
+   	    			reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+   	    			reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+   	    			reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+   	    			reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
 	    			}
    	    		if(item.review_SCORE == 3){
-						reviewForm += '<% int star3 = 3; for(int i = 0; i < star3; i++) { %> <img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-bottom : 8px;"><%} %>';
+   	    			reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+   	    			reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+   	    			reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
     				}   
    	    		if(item.review_SCORE == 2){
-						reviewForm += '<% int star2 = 2; for(int i = 0; i < star2; i++) { %> <img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-bottom : 8px;"><%} %>';
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
 						}
    	    		if(item.review_SCORE == 1){
-						reviewForm += '<% int star1 = 1; for(int i = 0; i < star1; i++) { %> <img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-bottom : 8px;"><%} %>';
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px; margin-top: 1px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+						}
+   	    		if(item.review_SCORE > 4 && item.review_SCORE < 5){
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+						}
+   	    		if(item.review_SCORE > 3 && item.review_SCORE < 4){
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+						}
+   	    		if(item.review_SCORE > 2 && item.review_SCORE < 3){
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+						}
+   	    		if(item.review_SCORE > 1 && item.review_SCORE < 2){
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+						}
+   	    		if(item.review_SCORE > 0 && item.review_SCORE < 1){
+   	    			reviewForm += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+   	    			reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+   	    			reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+   	    			reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+   	    			reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
 						}
    	    		reviewForm += ' &nbsp;' + item.review_SCORE + '점</td>';
 						reviewForm += '<tr>';
@@ -502,11 +554,11 @@
 			}); 
 		}
 
-		$(document).ready(function(){ 
+		$(document).ready(function(){
 			selectData();
 	
 			
-		$(document).on('click', '.plus_review', function(event){ //on이 동적인걸 실행해준다.
+		$('.plus_review').on('click', function(event){ //on이 동적인걸 실행해준다.
 			$.ajax({
 	      url:$(this).attr("href"),
 	      type:'POST',
@@ -519,7 +571,8 @@
    	       	var reviewForm = '';
 			   	  //주소 문자열 추출 2자리
 						var address2 = item.petsitter_ADDRESS;
-				   	var Paddress2 = address2.split(' ', 2);
+				   	var Paddress2 = address2.split(',', 2);
+				   	var real_address2 = Paddress2[1].split(',');
 							
 				   	//사진 개 수 별 업로드 문자열 추출
 				   	if(item.review_UP_PHOTO != "N"){
@@ -612,7 +665,7 @@
 		    		reviewForm += '<td class = "font-size-16 main_grayfont3 mybold">펫시터 : ' + item.petsitter_NICKNAME + '<td>';
 		    		reviewForm += '<tr>';
 		    		reviewForm += '<tr>';
-		    		reviewForm += '<td class = "font-size-15 main_grayfont3" style = "padding: 0 0 9px 0;">' +Paddress2[0]+ ' '+Paddress2[1]+ '<td>';
+		    		reviewForm += '<td class = "font-size-15 main_grayfont3" style = "padding: 0 0 9px 0;">' +real_address2[0]+' '+real_address2[1]+ '<td>';
 		    		reviewForm += '<tr>';						
 		    		reviewForm += '</table>';
 		    		reviewForm += '</a>';
@@ -695,9 +748,9 @@
 										
 		    		reviewForm += '<div class = "col-12">';
 		    		reviewForm += '<div class = "float-left circleprofileimg" style = "margin : 2px 0 0 10%;">';
-		    		if(item.member_PHOTO != "N"){
+		    		if(item.member_PHOTO_FILE != "N"){
 	    			reviewForm += '<div class="thumbnail-wrapper"> <div class="thumbnail02"> <div class="centered02">';
-		    		reviewForm += '<img src="<spring:url value="/upload/'+item.member_PHOTO+'" />" class="d-block w-100" alt="...">';
+		    		reviewForm += '<img src="<spring:url value="/upload/'+item.member_PHOTO_FILE+'" />" class="d-block w-100" alt="...">';
 		    		reviewForm += '</div></div></div>';	
 		    		}
 		    		else {
@@ -715,19 +768,65 @@
 		    		reviewForm += '<tr>';
 		    		reviewForm += '<td colspan = "2" style = "padding: 0 0 7px 0;">';
 		   			if(item.review_SCORE == 5){
-						reviewForm += '<% for(int i = 0; i < star5; i++) { %> <img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-bottom : 8px;"><%} %>';
+		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
 		   			}
 		   			if(item.review_SCORE == 4){
-						reviewForm += '<% for(int i = 0; i < star4; i++) { %> <img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-bottom : 8px;"><%} %>';
+		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
 						}
 		   			if(item.review_SCORE == 3){
-						reviewForm += '<% for(int i = 0; i < star3; i++) { %> <img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-bottom : 8px;"><%} %>';
+		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
 						}   
 		   			if(item.review_SCORE == 2){
-						reviewForm += '<% for(int i = 0; i < star2; i++) { %> <img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-bottom : 8px;"><%} %>';
+		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
 						}
 		   			if(item.review_SCORE == 1){
-						reviewForm += '<% for(int i = 0; i < star1; i++) { %> <img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-bottom : 8px;"><%} %>';
+		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+						}
+	   	    	if(item.review_SCORE > 4 && item.review_SCORE < 5){
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+						}
+		    		if(item.review_SCORE > 3 && item.review_SCORE < 4){
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+						}
+		    		if(item.review_SCORE > 2 && item.review_SCORE < 3){
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+						}
+		    		if(item.review_SCORE > 1 && item.review_SCORE < 2){
+							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+						}
+		    		if(item.review_SCORE > 0 && item.review_SCORE < 1){
+		    			reviewForm += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		    			reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		    			reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		    			reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		    			reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
 						}
 		   			reviewForm += ' &nbsp;' + item.review_SCORE + '점</td>';
 						reviewForm += '<tr>';
@@ -886,15 +985,17 @@
 
               <div class="float-right">
               	<%
-              		if(id == null) {
+              		if(session.getAttribute("id") == null) {
               	%>
                 <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
-                <%} else { %>
-                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
+                <%} else if(((String)session.getAttribute("id")).contains("@")){ %> <!-- 일반 회원 마이 페이지 -->
+                <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+                <%} else {%> <!-- 펫시터 마이 페이지 -->
+                <a href="petsitterinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} %>
-
               </div>
               
             </div>
@@ -914,11 +1015,11 @@
               <nav class="site-navigation text-right ml-auto " role="navigation">
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
+                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
+                  <li><a href="reservation1.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
+                  <li><a href="postscript_board.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
+                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li> 
                 </ul>
               </nav>
 
@@ -1071,12 +1172,14 @@
 		    }
 		  }
 		  
+		  /*
 		  var btn = document.querySelector('#btnToggleOverflow');
 		  btn.onclick = function() {
 		    var val = divs[0].style.overflow == 'hidden' ? 'visible' : 'hidden';
 		    for (var i = 0; i < divs.length; ++i)
 		      divs[i].style.overflow = val;
 		  };
+		  */
 		};
 		
 		/*사진 가로 세로 이미지 크기 맞추고 가운데 위치로 보이게 하기  종료*/

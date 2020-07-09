@@ -2,13 +2,13 @@
 
 package com.spring.petsitter.board;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 
 public interface ReviewBoardService {
+	public void insertReview(ReviewBoardVO vo);
 	public List<ReviewBoardVO> getReviewList();
 	public List<ReviewBoardVO> updateLike_count(ReviewBoardVO vo);
 	public List<ReviewBoardVO> updateLike_count2(ReviewBoardVO vo);
+	public ArrayList<Integer> usinglist_num_List_member(String id);
 }

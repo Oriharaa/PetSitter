@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.petsitter.board.ReviewBoardService;
+
 @Controller
 public class MemberController {
 	
@@ -31,6 +33,9 @@ public class MemberController {
 	
 	@Autowired
 	private PetService petService;
+	
+	@Autowired
+	private ReviewBoardService reviewboardService;
 	
 	@RequestMapping(value = "notice.me")
 	public String notice(Model model) {
@@ -76,6 +81,7 @@ public class MemberController {
 		SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date date = new Date();
 		String today = new_Format.format(date);
+		ArrayList<Integer> usinglist_num_member = reviewboardService.usinglist_num_List_member(id);
 		
 		for(int i = 0; i < usinglist_ajax.size(); i++) {
 			usinglist_ajax.get(i).setLIST_START_DATE(new_Format.format(usinglist.get(i).getLIST_START_DATE()));
@@ -104,6 +110,8 @@ public class MemberController {
 			
 			if(ing.equals("현재 이용중")) {
 				usinglist_ajax.get(i).setLIST_COMPLETE("펫시터와의 소통");
+			} else if(usinglist_num_member.contains(usinglist_ajax.get(i).getUSINGLIST_NUM())) {
+				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 완료");
 			} else {
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 남기기");
 			}
@@ -165,6 +173,7 @@ public class MemberController {
 		Date date = new Date();
 		String today = new_Format.format(date);
 		
+		
 		for(int i = 0; i < usinglist_ajax.size(); i++) {
 			usinglist_ajax.get(i).setLIST_START_DATE(new_Format.format(usinglist.get(i).getLIST_START_DATE()));
 			usinglist_ajax.get(i).setLIST_END_DATE(new_Format.format(usinglist.get(i).getLIST_END_DATE()));
@@ -189,6 +198,7 @@ public class MemberController {
   				ing = "이용 완료";
   			}
 			usinglist_ajax.get(i).setLIST_ING(ing);
+			
 			
 			if(ing.equals("현재 이용중")) {
 				usinglist_ajax.get(i).setLIST_COMPLETE("펫시터와의 소통");

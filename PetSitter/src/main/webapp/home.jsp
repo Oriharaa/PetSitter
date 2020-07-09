@@ -1,11 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	if(session.getAttribute("id") == null) {
-		out.println("<script>");
-		out.println("location.href = 'home.me'");
-		out.println("</script>");
-	}
 %>
 <!doctype html>
 <html lang="en">
@@ -81,7 +76,7 @@ border-radius:400px
 	
 	
   <head>
-    <title>Pet Sitter Project</title>
+    <title>펫시터 홈페이지</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -128,7 +123,7 @@ border-radius:400px
               	<%
               		if(session.getAttribute("id") == null) {
               	%>
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 & 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
                 <%} else if(((String)session.getAttribute("id")).contains("@")){ %> <!-- 일반 회원 마이 페이지 -->
                 <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
@@ -153,9 +148,9 @@ border-radius:400px
 	                <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
 	                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
 	                  <li><a href="reservation1.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
-	                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
+	                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
 	                  <li><a href="postscript_board.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
-	                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li> 
+	                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li> 
 	                </ul>
 	              </nav>
 	            </div>

@@ -6,6 +6,7 @@
 
 	<resultMap type="com.spring.petsitter.board.ReviewBoardVO" id="ReviewBoardResultMap">
 		<result property="LIST_NUM" column="LIST_NUM" />
+		<result property="USINGLIST_NUM" column="USINGLIST_NUM" />
 		<result property="MEMBER_ID" column="MEMBER_ID" />
 		<result property="REVIEW_CONTENT" column="REVIEW_CONTENT" />
 		<result property="REVIEW_SCORE" column="REVIEW_SCORE" />
@@ -25,11 +26,11 @@
 	</resultMap>
 	
 	<select id="getReviewList" resultMap="ReviewBoardResultMap">
-    select  R.RNUM,R.LIST_NUM, R.MEMBER_ID, R.PETSITTER_ID, R.REVIEW_CONTENT,
+    select R.RNUM, R.LIST_NUM, R.USINGLIST_NUM, R.MEMBER_ID, R.PETSITTER_ID, R.REVIEW_CONTENT,
         R.REVIEW_SCORE, NVL(R.REVIEW_ORG_PHOTO, 'N') REVIEW_ORG_PHOTO, NVL(R.REVIEW_UP_PHOTO, 'N') REVIEW_UP_PHOTO, R.REVIEW_DATE , R.LIKE_COUNT, R.BOARD_TYPE,
-        M.MEMBER_NICKNAME, NVL(M.MEMBER_PHOTO, 'N') MEMBER_PHOTO, P.PETSITTER_NICKNAME, P.PETSITTER_ADDRESS, 
+        M.MEMBER_NICKNAME, NVL(M.MEMBER_PHOTO_FILE, 'N') MEMBER_PHOTO_FILE, P.PETSITTER_NICKNAME, P.PETSITTER_ADDRESS, 
         NVL(P.PETSITTER_PHOTO_PROFILE_FILE, 'N') PETSITTER_PHOTO_PROFILE_FILE , NVL(L.LIKE_ID, 'N') LIKE_ID
-    from (select rownum as rnum, LIST_NUM, MEMBER_ID, PETSITTER_ID, REVIEW_CONTENT,
+    from (select rownum as rnum, LIST_NUM, USINGLIST_NUM, MEMBER_ID, PETSITTER_ID, REVIEW_CONTENT,
         REVIEW_SCORE, REVIEW_ORG_PHOTO, REVIEW_UP_PHOTO, REVIEW_DATE, LIKE_COUNT, BOARD_TYPE
     from (select * from REVIEW_BOARD order by REVIEW_DATE desc)) R, MEMBER M, PETSITTER P, LIKE_COUNT L
     WHERE R.MEMBER_ID = M.MEMBER_ID AND R.PETSITTER_ID = P.PETSITTER_ID AND R.LIST_NUM = L.LIKE_NUM
@@ -37,7 +38,7 @@
 	</select>
 	
 	<select id="before_id" resultType="String">
-	select LIKE_ID from LIKE_COUNT WHERE LIKE_NUM = #{LIST_NUM} 
+		select LIKE_ID from LIKE_COUNT WHERE LIKE_NUM=#{LIST_NUM} 
 	</select>
 	
 	<update id="updateLike_count" parameterType="HashMap">
@@ -45,22 +46,29 @@
 	</update>
 	
 	<update id="updateLike_count2" parameterType="HashMap">
-	UPDATE LIKE_COUNT SET LIKE_ID = concat(#{before_id},#{LIKE_ID}) WHERE LIKE_NUM = #{LIST_NUM}
+		UPDATE LIKE_COUNT SET LIKE_ID = concat(#{before_id},#{LIKE_ID}) WHERE LIKE_NUM = #{LIST_NUM}
 	</update>
 	
 	<update id="updateLike_count3" parameterType="HashMap">
-	UPDATE LIKE_COUNT SET LIKE_ID = REPLACE(LIKE_ID,#{LIKE_ID} ,'') WHERE LIKE_NUM = #{LIST_NUM}
+		UPDATE LIKE_COUNT SET LIKE_ID = REPLACE(LIKE_ID,#{LIKE_ID} ,'') WHERE LIKE_NUM = #{LIST_NUM}
 	</update>
 	
+	<insert id="insertReview" parameterType="com.spring.petsitter.board.ReviewBoardVO" >
+		<selectKey keyProperty="LIST_NUM" order="BEFORE" resultType="int">
+			select nvl(max(LIST_NUM), 0)+1 from review_board
+		</selectKey>
+		insert into review_board(list_num, usinglist_num, member_id, petsitter_id, review_content, review_score, review_org_photo, review_up_photo, review_date, like_count, BOARD_TYPE)
+		values(#{LIST_NUM}, #{USINGLIST_NUM}, #{MEMBER_ID}, #{PETSITTER_ID}, #{REVIEW_CONTENT}, #{REVIEW_SCORE}, #{REVIEW_ORG_PHOTO, jdbcType=VARCHAR}, #{REVIEW_UP_PHOTO, jdbcType=VARCHAR}, sysdate, 0, 'REVIEW_BOARD')
+	</insert>
 	
 	<select id="getLikeSelect" resultMap="ReviewBoardResultMap" parameterType="HashMap">
-    select R.LIST_NUM, R.MEMBER_ID, R.PETSITTER_ID, R.LIKE_COUNT, R.BOARD_TYPE, 
+    select R.LIST_NUM, R.USINGLIST_NUM, R.MEMBER_ID, R.PETSITTER_ID, R.LIKE_COUNT, R.BOARD_TYPE, 
         NVL(L.LIKE_ID, 'N') LIKE_ID 
         from review_board R, LIKE_COUNT L
         WHERE R.LIST_NUM=#{LIST_NUM} AND L.LIKE_NUM=#{LIST_NUM}
 	</select>
 
-
-	
-	
+	<select id="usinglist_num_List_member" resultType="int" parameterType="String">
+		select usinglist_num from review_board where MEMBER_ID=#{MEMBER_ID}
+	</select>
 </mapper>

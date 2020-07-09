@@ -86,18 +86,32 @@ create table NOTICE_BOARD(
 
 create table REVIEW_BOARD(
     LIST_NUM number(10), -- 리뷰 번호
+    USINGLIST_NUM number(10), -- 이용내역 번호
     MEMBER_ID varchar2(30), -- 회원 아이디
     PETSITTER_ID varchar2(30), -- 펫시터 아이디
     REVIEW_CONTENT varchar2(500), -- 리뷰 내용
-    REVIEW_SCORE number(2), -- 리뷰 평점
+    REVIEW_SCORE number(2,1), -- 리뷰 평점
     REVIEW_ORG_PHOTO varchar2(50), -- 리뷰 사진
-    REVIEW_UP_PHOTO varchar2(50), -- 리뷰 사진
-    REVIEW_READCOUNT number(6), -- 리뷰 조회수
+    REVIEW_UP_PHOTO varchar2(200), -- 업로드된 리뷰 사진
     REVIEW_DATE date default sysdate, -- 리뷰 작성일
-    REVIEW_CHOICE varchar2(2), -- 리뷰 선택
-    LIKE_COUNT number(6) -- 좋아요 수
-); -- 생성 안함
--- 리뷰 댓글(펫시터용)(?)
+    LIKE_COUNT number(6), -- 좋아요 수
+    BOARD_TYPE VARCHAR2(20) default 'REVIEW_BOARD' -- 게시판 타입
+);
+
+CREATE TABLE LIKE_COUNT(
+    LIKE_NUM NUMBER, --좋아요 번호
+    LIKE_ID varchar2(2000), -- 좋아요 아이디
+    LIKE_TYPE varchar2(20) default 'REVIEW_BOARD' -- 좋아요 타입
+);
+/
+--트리거(REVIEW_BOARD, LIKE_COUNT 트리거)
+CREATE OR REPLACE TRIGGER REVIEW_LIKE_INSERT_TRG1
+BEFORE INSERT ON REVIEW_BOARD
+BEGIN
+INSERT into LIKE_COUNT
+VALUES ((SELECT NVL(MAX(LIST_NUM),0)+1 FROM REVIEW_BOARD),'N','REVIEW_BOARD');
+END;
+/
 
 create table PRO_BOARD(
     PRO_NUM number(6) primary key, -- 글 번호
@@ -142,17 +156,8 @@ CREATE TABLE BOARD_COMMENT (
     COMMENT_LIKECOUNT NUMBER
 ); -- 생성 안함
 
--- 펫시터와의 소통 게시판
-create table COMMUNICATION_BOARD(
-	BOARD_NUM number(10) PRIMARY KEY, -- 회원 게시판 글 번호
-	MEMBER_ID varchar2(30), -- 일반 회원 아이디
-	PETSITTER_ID varchar2(30), -- 펫시터 회원 아이디
-	BOARD_SUBJECT varchar2(100), -- 제목
-	BOARD_CONTENT varchar2(4000), -- 내용
-	BOARD_READCOUNT number, -- 조회수
-	BOARD_DATE date default sysdate -- 작성일
-);
 
+-- 펫시터와의 소통 게시판
 create table COMMUNICATION_BOARD(
 	BOARD_NUM number(10) PRIMARY KEY, -- 회원 게시판 글 번호
     BOARD_WRITER varchar2(30), -- 작성자(일반 회원 닉네임 or 펫시터 닉네임)
@@ -166,8 +171,9 @@ create table COMMUNICATION_BOARD(
 	BOARD_TYPE varchar2(10) -- 글 구분(스케줄/기타)
 );
 
+
 create table USINGLIST(
-    LIST_NUM number(10) primary key,
+    USINGLIST_NUM number(10) primary key,
     PETSITTER_ID varchar2(30),
     PETSITTER_ADDR varchar2(100),
     MEMBER_ID varchar2(30),
@@ -234,3 +240,22 @@ where MEMBER_ID='asdasd@naver.com' and usinglist.PETSITTER_ID=petsitter.PETSITTE
       (list_start_date between to_date('2020-07-03', 'YYYY-MM-DD') and to_date('2020-07-04', 'YYYY-MM-DD') or
       list_end_date between to_date('2020-07-03', 'YYYY-MM-DD') and to_date('2020-07-04', 'YYYY-MM-DD'))
 order by LIST_NUM desc;
+
+-- review_board 예시 데이터
+insert into REVIEW_BOARD
+values(2, 2, 'asdasd@naver.com', 'asd111', '2따뜻한 봄바람을 불어 보내는 것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 풀이 없으면 인간은 사막이다 오아이스도 없는 사막이다', 
+4.5, 'dog01.jpg', '','2020/05/23', 0, 'REVIEW_BOARD');
+insert into REVIEW_BOARD
+values(1, 1, 'asdasd@naver.com', 'asd222', '2따뜻한 봄바람을 불어 보내는 것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 풀이 없으면 인간은 사막이다 오아이스도 없는 사막이다', 
+3, 'dog02.jpg', '','2020/03/01', 0, 'REVIEW_BOARD');
+insert into REVIEW_BOARD
+values(4, 4, 'asdasd@naver.com', 'asd333', '2따뜻한 봄바람을 불어 보내는 것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 풀이 없으면 인간은 사막이다 오아이스도 없는 사막이다', 
+5, 'dog03.jpg', '','2020/06/29', 0, 'REVIEW_BOARD');
+insert into REVIEW_BOARD
+values(3, 3, 'asdasd@naver.com', 'asd444', '2따뜻한 봄바람을 불어 보내는 것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 풀이 없으면 인간은 사막이다 오아이스도 없는 사막이다', 
+4, 'dog04.jpg', '','2020/06/28', 0, 'REVIEW_BOARD');
+insert into REVIEW_BOARD
+values(5, 9, 'asdasd@naver.com', 'asd111', '2따뜻한 봄바람을 불어 보내는 것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 풀이 없으면 인간은 사막이다 오아이스도 없는 사막이다', 
+3.5, 'dog05.jpg', '','2020/07/04', 0, 'REVIEW_BOARD');
+    
+commit;

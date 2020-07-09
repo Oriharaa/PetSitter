@@ -4,7 +4,6 @@ package com.spring.petsitter.board;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public interface MemberBoardService {

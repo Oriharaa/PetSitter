@@ -36,6 +36,11 @@
 		<welcome-file>home.me</welcome-file> 
 	</welcome-file-list>
 	
+	<!-- 세션 시간 증가 -->
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	
 	<!-- Korean Filter -->
 	<filter>
 		<filter-name>CharacterEncodingFilter</filter-name>

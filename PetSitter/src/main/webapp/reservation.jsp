@@ -1,12 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	// 세션 종료시 홈으로
-	if(session.getAttribute("id") == null) {
-		out.println("<script>");
-		out.println("location.href = 'home.me'");
-		out.println("</script>");
-	}
+
 %>
 <!-- 위탁 돌봄 -->
 <!doctype html>
