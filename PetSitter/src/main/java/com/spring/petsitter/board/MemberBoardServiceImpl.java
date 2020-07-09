@@ -4,12 +4,14 @@ package com.spring.petsitter.board;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.mapper.MemberBoardMapper;
+import com.spring.mapper.ReviewBoardMapper;
 
 @Service("MemberBoardService")
 public class MemberBoardServiceImpl implements MemberBoardService {
@@ -72,5 +74,9 @@ public class MemberBoardServiceImpl implements MemberBoardService {
 			res = memberboardMapper.boardDelete(num);
 		}
 		return res;
-	}	
+	}
+
+
+
+
 }
