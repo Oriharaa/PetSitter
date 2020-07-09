@@ -1,5 +1,6 @@
 <!-- 관리자 메인 페이지 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.petsitter.*" %>
@@ -8,11 +9,21 @@
 <%@ page import="javax.servlet.*,java.text.*" %>
 <%
 	MemberBoardVO mboard = (MemberBoardVO)request.getAttribute("vo");
-	List<MReplyVO> mReplyList =(List<MReplyVO>)request.getAttribute("mReplyList");
 	
 	String id = (String)session.getAttribute("id");
 	String rank = (String)session.getAttribute("rank");
-	
+//세션 종료시 홈으로
+  if(session.getAttribute("id") == null) {
+     out.println("<script>");
+     out.println("location.href = 'loginform.me'");
+     out.println("</script>");
+  }
+	if(mboard.getMEMBER_SECRET().equals("Y") && !(mboard.getMEMBER_ID().equals(id))) {
+		out.println("<script>");
+		out.println("alert('권한이 없습니다.')");
+		out.println("history.go(-1)");
+		out.println("</script>");
+	}
 %>
 <%
 	SimpleDateFormat format1;
@@ -103,17 +114,19 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	
 	
   <head>
+  	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-    <title>Depot &mdash;Website Template by Colorlib</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     
+    <title>Depot &mdash;Website Template by Colorlib</title>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
-	<!-- 아이콘 css -->
+		<!-- 아이콘 css -->
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
-    
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
@@ -198,29 +211,13 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	 	.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
    	background-color: #F8F8F8;
 		}    
-		
 					
-	  .pb-cmnt-container {
-	      font-family: Lato;
-	      margin-top: 10px;
-		  }
-	  .pb-cmnt-textarea {
-		      resize: none;
-		      padding: 20px;
-		      height: 130px;
-		      width: 100%;
-		      border: 1px solid #949494;
-			  }
-			
     </style>  
 		
 		<div class="row">
 			<div class="col-md-12 p-3"></div>
 		</div>
 		
-		
-		  
-
     <div class="container">      
 			<div class="row justify-content-center">
 				<div class="col-md-10">
@@ -264,51 +261,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			<div class="row">
 			<div class="col-md-12 p-3"></div>
 		</div>
-			
-			<div class="row justify-content-center">
-				<div class="col-md-10">
-					<table class="table table-sm">
-				 <%for(int i = 0 ; i < mReplyList.size(); i++) { 
-				 	MReplyVO mr = mReplyList.get(i);
-				 %>
-				 <tr>
-				 	<td>작성자</td>
-				 	<td><%=mr.getWriter() %></td>
-				 	<td>작성일</td>
-				 	<td><%=mr.getRegDate() %></td>
-				 </tr>
-				 <tr>
-				 	<td>내용</td>
-				 	<td><%=mr.getContent() %></td>
-				 </tr>
-				 <%} %>		
-				 </table>		 
-				</div>
-			</div>
-			
-			<div class="container pb-cmnt-container">
-				<div class="row justify-content-center">
-				    <div class="col-md-10">
-				        <div class="panel panel-info">
-				            <div class="panel-body">
-				                <textarea placeholder="Write your comment here!" name="replyContent" class="pb-cmnt-textarea"></textarea>
-				                	<div class="text-right">
-				                    <button class="btn btn-primary pull-right" type="button">Share</button>
-				                	</div>
-					            </div>
-					        </div>
-					    </div>
-					</div>
-			</div>
-
-
-			
-		</div>
-			
 	</div>	  
 	
+	<jsp:include page="./memberboard_comments.jsp">
+	<jsp:param name="bno" value="<%=mboard.getMEMBER_NUM() %>"/>
+</jsp:include>
 	
-
 			<!-- 하단 넉넉하게 여백 주기 -->
 			<div class="row">
 		   <div class="col-md-12 p-5"></div>
@@ -367,7 +325,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	<!-- 하단 바 종료 -->
     </div>
 
-    <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
+    
     <script src="<c:url value="/resources/js/popper.min.js"/>"></script>
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
     <script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
@@ -380,6 +338,13 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
     <script src="<c:url value="/resources/js/main.js"/>"></script>
 
+		<script>
+			$(".replyWriteBtn").on("click", function(){
+				  var formObj = $("form[name='replyForm']");
+				  formObj.attr("action", "/replyWrite.me");
+				  formObj.submit();
+				});
+		</script>
 
   </body>
 

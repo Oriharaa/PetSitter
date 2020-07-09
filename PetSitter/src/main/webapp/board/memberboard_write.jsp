@@ -1,4 +1,3 @@
-<!-- 관리자 메인 페이지 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
@@ -7,7 +6,15 @@
 
 <%@ page import="javax.servlet.*,java.text.*" %>
 
-<% String name = (String)session.getAttribute("name"); %>
+<% String name = (String)session.getAttribute("name");
+//세션 종료시 홈으로
+if(session.getAttribute("id") == null) {
+   out.println("<script>");
+   out.println("location.href = 'loginform.me'");
+   out.println("</script>");
+}
+%>
+
 
 
 <!doctype html>
@@ -235,7 +242,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
    		<div class="col-md-12">
    			<span class="glyphicon glyphicon-pencil"></span>
   			<div class="input-group">  		
- 					<input name="MEMBER_SUBJECT" type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
+ 					<input name="MEMBER_SUBJECT" type="text" class="form-control" aria-describedby="sizing-addon1">
 				</div>
    		</div>
     </div>
@@ -245,7 +252,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	     	<div class="col-md-12">
 	    		<div class="checkbox">
 	    			<label>
-	      			<input type="checkbox"> 필수사항
+	      			<input type="checkbox" name="MEMBER_SECRET" value="Y">비밀글
 	    			</label>
 	  			</div>
 	  		</div>
@@ -283,10 +290,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		<!-- 하단 넉넉하게 여백 주기 -->
 		<div class="row">
     	<div class="col-md-12 p-5"></div>
-    </div>
+    </div>   
    
-	   
-
   	<!-- 하단 바 시작 -->
     <footer class="site-footer">
       <div class="container">
@@ -311,9 +316,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
             </div>
           </div>
           <div class="col-md-4 ml-auto">
-
-            
-
 
             <h2 class="footer-heading mb-4" id="main_grayfont1" >Follow Us</h2>
             <a href="https://www.facebook.com/" class="smoothscroll pl-0 pr-3" target="_blank"><span class="icon-facebook" id="main_grayfont2"></span></a>

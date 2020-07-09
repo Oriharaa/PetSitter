@@ -15,15 +15,33 @@ public class MReplyServiceImpl implements MReplyService {
 	private SqlSession sqlSession;
 
 	@Override
+	public int replyCount() throws Exception {
+		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
+		return mReplyMapper.replyCount();
+	}
+	
+	@Override
 	public List<MReplyVO> readReply(int bno) throws Exception {
 			MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
-			List<MReplyVO> mReplyMapperList = mReplyMapper.readReply(bno);
-
-		return mReplyMapperList;
+			return mReplyMapper.readReply(bno);
 	}
 
 	@Override
-	public void writeReply(MReplyVO vo) throws Exception {
-		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);		
-	}	
+	public int writeReply(MReplyVO vo) throws Exception {
+		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
+		return mReplyMapper.writeReply(vo);
+	}
+
+	@Override
+	public int updateReply(MReplyVO vo) throws Exception {
+		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
+		return mReplyMapper.updateReply(vo);
+	}
+
+	@Override
+	public int deleteReply(int rno) throws Exception {
+		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
+		return mReplyMapper.deleteReply(rno);
+	}
+
 }

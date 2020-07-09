@@ -9,7 +9,12 @@
 <%
 MemberBoardVO mboard = (MemberBoardVO)request.getAttribute("vo");
 System.out.println(mboard.getMEMBER_SUBJECT());
-
+//세션 종료시 홈으로
+if(session.getAttribute("id") == null) {
+   out.println("<script>");
+   out.println("location.href = 'loginform.me'");
+   out.println("</script>");
+}
 %>
 
 

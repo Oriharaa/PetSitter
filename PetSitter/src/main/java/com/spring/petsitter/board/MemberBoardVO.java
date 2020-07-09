@@ -16,7 +16,8 @@ create table MEMBER_BOARD(
     MEMBER_UP_FILE varchar2(100), --
     MEMBER_READCOUNT number, -- 
     MEMBER_DATE date default sysdate, --
-    MEMBER_LIKECOUNT number -- 
+    MEMBER_LIKECOUNT number, -- 
+    MEMBER_SECRET default 'N'
 );
 */
 public class MemberBoardVO {
@@ -31,7 +32,14 @@ public class MemberBoardVO {
 	private int MEMBER_READCOUNT;
 	private Date MEMBER_DATE;
 	private int MEMBER_LIKECOUNT;
+	private String MEMBER_SECRET;
 	
+	public String getMEMBER_SECRET() {
+		return MEMBER_SECRET;
+	}
+	public void setMEMBER_SECRET(String mEMBER_SECRET) {
+		MEMBER_SECRET = mEMBER_SECRET;
+	}
 	public int getMEMBER_NUM() {
 		return MEMBER_NUM;
 	}

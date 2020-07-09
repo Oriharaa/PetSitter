@@ -1,8 +1,10 @@
 package com.spring.petsitter.board;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -20,10 +24,7 @@ public class MemberBoardController {
 	
 	@Autowired
 	private MemberBoardService memberboardService;	
-	
-	@Autowired 
-	private MReplyService mReplyService;
-	
+		
 	@RequestMapping(value = "/mboardlist.me")
 	public String memberboard(Model model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
@@ -68,11 +69,12 @@ public class MemberBoardController {
 		System.out.println("vo.getMEMBER_ID() = " + vo.getMEMBER_ID());
 		System.out.println("vo.getMEMBER_NAME() = " + vo.getMEMBER_NAME());
 		System.out.println("vo.getMEMBER_FILE() = " + vo.getMEMBER_FILE());
+		System.out.println("vo.getMEMBER_SECRET() = " + vo.getMEMBER_SECRET());
 		MultipartFile mf = vo.getMEMBER_FILE();
 		String uploadPath = "C:\\Project156\\upload\\";
 
-		/*
-		if (mf.getSize() != 0) {
+		
+		/* if (mf.getSize() != 0) {
 			System.out.println("mf=" + mf);
 			String originalFileExtension = mf.getOriginalFilename()
 					.substring(mf.getOriginalFilename().lastIndexOf("."));
@@ -86,10 +88,14 @@ public class MemberBoardController {
 		} else {
 			vo.setMEMBER_ORG_FILE("");
 			vo.setMEMBER_UP_FILE("");
-		}
-		*/
+		} */
+		
 		vo.setMEMBER_ORG_FILE("");
 		vo.setMEMBER_UP_FILE("");
+		
+		if(vo.getMEMBER_SECRET().equals("Y")) {
+			vo.setMEMBER_SECRET("Y");
+		}
 		
 		memberboardService.boardInsert(vo);
 
@@ -101,9 +107,6 @@ public class MemberBoardController {
 		MemberBoardVO vo = memberboardService.getDetail(num);
 		model.addAttribute("vo", vo);
 		
-		List<MReplyVO> mReplyList = mReplyService.readReply(num);
-		model.addAttribute("mReplyList", mReplyList);
-
 		return "board/memberboard_view";
 	}
 	
@@ -149,9 +152,4 @@ public class MemberBoardController {
 		}
 		return null;
 	}
-	
-//댓글 작성
-
-			
-	
 }

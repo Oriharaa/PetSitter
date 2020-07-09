@@ -192,23 +192,42 @@
         
         <!-- AJAX, IMPORT 카카오결제  JSON댓글  -->
         <!-- Jackson JSON Mapper 시작 -->
-	    <!-- jackson-core springframework 5.X.X에 사용 -->
+	    <!-- jackson-core springframework 5.X.X에 사용 
 		<dependency> 
 			<groupId>com.fasterxml.jackson.core</groupId> 
 			<artifactId>jackson-databind</artifactId> 
 			<version>2.9.10.5</version> 
 		</dependency>
+		-->
 		<!-- Jackson JSON Mapper 끝 -->
+		<dependency> 
+			<groupId>com.fasterxml.jackson.core</groupId> 
+			<artifactId>jackson-databind</artifactId> 
+			<version>2.9.6</version> 
+		</dependency>
 		
+		<!-- ajax json 
+  <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.9.10</version>
+  </dependency>
+  -->
+<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-annotations</artifactId>
+    <version>2.9.10</version>
+</dependency>
+ -->		
 		
-		
-		<!-- 제이슨 파싱 -->
+		<!-- 제이슨 파싱 
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
 		</dependency>
-
+-->
 		<!-- HttpCore : HTTP 프로토콜을 이용해서 데이터를 전송할 수 있는 로우 레벨의 기능을 제공 -->
 		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
         <dependency>

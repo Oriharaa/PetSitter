@@ -14,8 +14,10 @@ public class MReplyVO {
 	private int bno;
 	private int rno;
 	private String content;
-	private String writer;
+	private String writer_id;
+	private String writer_name;
 	private Date regDate;
+
 	public int getBno() {
 		return bno;
 	}
@@ -34,16 +36,23 @@ public class MReplyVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getWriter() {
-		return writer;
-	}
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
 	public Date getRegDate() {
 		return regDate;
 	}
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	public String getWriter_id() {
+		return writer_id;
+	}
+	public void setWriter_id(String writer_id) {
+		this.writer_id = writer_id;
+	}
+	public String getWriter_name() {
+		return writer_name;
+	}
+	public void setWriter_name(String writer_name) {
+		this.writer_name = writer_name;
+	}
+
 }
