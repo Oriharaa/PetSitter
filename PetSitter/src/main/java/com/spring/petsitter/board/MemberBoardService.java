@@ -15,7 +15,5 @@ public interface MemberBoardService {
 	public MemberBoardVO boardModifyForm(int num);
 	public int boardModify(MemberBoardVO modifyboard);
 	public int boardDelete(HashMap<String, String> hashmap);
-	public List<ReviewBoardVO> getReviewList();
-	public List<ReviewBoardVO> updateLike_count(ReviewBoardVO vo);
-	public List<ReviewBoardVO> updateLike_count2(ReviewBoardVO vo);
+	
 }

@@ -5,9 +5,6 @@
 <%
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
-	
-
-	
 %>
 <!doctype html>
 <html lang="en">
@@ -202,10 +199,6 @@
     z-index: 999;
 		}
 
-		.swal2-content {
-			font-size: 15px!important;
-		}
-
 
 
 </style>
@@ -282,19 +275,15 @@
 		    		//좋아요 숫자
 		    		reviewForm += '<form id = "likeForm">';
 		    		
-		    		//세션아이디 비로그인시 좋아요기능
 		    		if(sessionid == "null" ){
 						var lc = item.like_COUNT;
 						var ln = item.list_NUM;
 		    		reviewForm += '<div class = "float-right font-size-12 main_grayfont3" style = "margin : 5px 0 0 0;">: ' + item.like_COUNT + '</div>';
 		    		reviewForm += '<div class = "float-right" style = "margin : 0 5px 0 0;">';
-		    		reviewForm += '<a href ="#" class="loginalert">'; //sweetalert2
+		    		reviewForm += '<a href ="#" class="loginalert">';
 		    		reviewForm += '<img src = "resources/images/heart.png" width = "18px" height = "18px"></a></div>';
 		    		}
-		    		
-		    		//좋아요 누른 아이디 확인시 값  바뀜
-		    		var idcheck = 1;
-		    		
+		    		var ll = 1;
 		    		//첫 split된 인데스 0번째는 'N' 으로 1인덱스부터 시작과 il에 1추가로 필요한 길이 맞춤
 		    		if (sessionid != "null" && item.like_ID != "N"){
 		    			var lc = item.like_COUNT;
@@ -305,15 +294,14 @@
 					    		reviewForm += '<div class = "float-right" style = "margin : 0 5px 0 0;">';
 					    		reviewForm += '<a href ="updateLike_count2.bo" class="updateLike_count2" ID = "updateLike_count'+ ln + '">';
 					    		reviewForm += '<img src = "resources/images/fullheart.png" width = "18px" height = "18px" id = "heart'+ln+'"></a></div>';
-					    		//input으로 serialize 이용 값을 sql문에 대입 가능하게 전송
 					    		reviewForm += '<input type = "hidden" name = "LIKE_ID" id = "LIKE_ID" value= "'+ sessionid2 +'">';
 					    		reviewForm += '<input type = "hidden" name = "LIKE_COUNT" id = "LIKE_COUNT'+ln+'" value= "'+ (lc-1) +'">';
 					    		reviewForm += '<input type = "hidden" name = "LIST_NUM" id = "LIST_NUM" value= "'+ ln + '">';
-					    		idcheck = 2; //아이디확인 값 2로
+					    		ll = 2;
 				    		}
 				    	}	
 		    		}
-		    		if(sessionid != "null" && idcheck == 1){
+		    		if(sessionid != "null" && ll == 1){
 		    			var lc = item.like_COUNT;
 							var ln = item.list_NUM;
 			    		reviewForm += '<div class = "float-right font-size-12 main_grayfont3" style = "margin : 5px 0 0 0;" id = "textcount'+ln+'">: ' + item.like_COUNT + '</div>';
@@ -556,7 +544,7 @@
 		    		}
 		    		
 		    		//첫 split된 인데스 0번째는 'N' 으로 1인덱스부터 시작과 il에 1추가로 필요한 길이 맞춤
-		    		var idcheck = 1;
+		    		var ll = 1;
 		    		//첫 split된 인데스 0번째는 'N' 으로 1인덱스부터 시작과 il에 1추가로 필요한 길이 맞춤
 		    		if (sessionid != "null" && item.like_ID != "N"){
 		    			var lc = item.like_COUNT;
@@ -570,11 +558,11 @@
 					    		reviewForm += '<input type = "hidden" name = "LIKE_ID" id = "LIKE_ID" value= "'+ sessionid2 +'">';
 					    		reviewForm += '<input type = "hidden" name = "LIKE_COUNT" id = "LIKE_COUNT'+ln+'" value= "'+ (lc-1) +'">';
 					    		reviewForm += '<input type = "hidden" name = "LIST_NUM" id = "LIST_NUM" value= "'+ ln + '">';
-					    		idcheck = 2;
+					    		ll = 2;
 				    		}
 				    	}	
 		    		}
-		    		if(sessionid != "null" && idcheck == 1){
+		    		if(sessionid != "null" && ll == 1){
 		    			var lc = item.like_COUNT;
 							var ln = item.list_NUM;
 			    		reviewForm += '<div class = "float-right font-size-12 main_grayfont3" style = "margin : 5px 0 0 0;" id = "textcount'+ln+'">: ' + item.like_COUNT + '</div>';
@@ -841,15 +829,7 @@
 		
 		
 		$(document).on('click', '.loginalert', function(event){
-			Swal.fire({
-			  title: '로그인을 하시겠습니까?',
-			  text: "좋아요는 로그인 후 사용 가능합니다.",
-			  icon: 'warning',
-			  showCancelButton: true,
-			  confirmButtonColor: 'rgba(83, 220, 152)',
-			  cancelButtonColor: '#de7631',
-			  confirmButtonText: '<a href="loginform.me" style = "color : white;">로그인 페이지로</a>'
-			})
+	 		alert("좋아요는 로그인 상태에서만 가능합니다!!");
 		});
 	
 		
@@ -1039,9 +1019,10 @@
 		
 		<script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
     <script src="<c:url value="/resources/js/jquery.sticky.js"/>"></script>
+
     <script src="<c:url value="./resources/js/aos.js"/>"></script><!-- nav 상단바 반응형웹 적용1 -->
+
     <script src="<c:url value="/resources/js/main.js"/>"></script><!-- nav 상단바 반응형웹 적용2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script><!-- sweetalert2 -->
  
 
 
