@@ -607,7 +607,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				  <div class="row" style = "margin-to">
 				  <div class = "col-04" style = "padding : 0 15px;">
 				    <h2 class="mpname float-left">${membervo.MEMBER_NICKNAME }</h2>
-						<h5 class="mpneem float-none">&nbsp;&nbsp;</h5>
 				    <h3 class="mpnick">${name }</h3>
 				    <h5 class="mpgrade">등급 : &nbsp;${membervo.MEMBER_RANK }</h5>
 				    <h5 class="mpdate font-size-16" id="memberdate"><%=membervo.getMEMBER_DATE().substring(0,10) %></h5>
@@ -715,7 +714,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 <!-- Modal 회원정보변경시작-->
 <form name="updateMember" action="./memberUpdate.me" method="post" enctype="multipart/form-data">
 <input type="hidden" name="MEMBER_ID" id="session_id" value=${id }> 
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -814,6 +813,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	      					<div class="filebox float-left"> 
 		      					<input type="text" class="upload-name" value="파일선택" disabled="disabled" > 
 		      					<label for="ex_filename">업로드</label><input type="file" id="ex_filename" class="upload-hidden" name="MEMBER_PHOTO" style="padding: 2.5px;">
+		      					<img src="resources/images/deleteimage.jpg" id="deleteimg" onclick="deleteImage()" style="position: absolute; width: 20px; margin-top: 16px; opacity: 0.5;" 
+		      							onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'"/>
 	      					</div>
       					</td>
       				</tr>      				
@@ -835,7 +836,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 <!-- Modal 후기 남기기 시작-->
 <form name="insertReview" action="./insertReview.me" method="post" enctype="multipart/form-data">
-<div class="modal fade" id="staticBackdrop02" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop02" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -906,56 +907,56 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								        	<img src="resources/images/star.jpg" width="18px" height="18px">
 								        	<img src="resources/images/starhalf.jpg" width="18px" height="18px">
 								        </li>
-								        <li id="starstar4" style="display: flex; padding-bottom: 5px;">
+								        <li id="starstar4" style="display: flex; padding-bottom: 5px;" onclick="insertstar4()">
 								        	<img src="resources/images/star.jpg" width="18px" height="18px">
 								        	<img src="resources/images/star.jpg" width="18px" height="18px">
 								        	<img src="resources/images/star.jpg" width="18px" height="18px">
 								        	<img src="resources/images/star.jpg" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        </li>
-								        <li id="starstar3_5" style="display: flex; padding-bottom: 5px;">
+								        <li id="starstar3_5" style="display: flex; padding-bottom: 5px;" onclick="insertstar3_5()">
 								        	<img src="resources/images/star.jpg" width="18px" height="18px">
 								        	<img src="resources/images/star.jpg" width="18px" height="18px">
 								        	<img src="resources/images/star.jpg" width="18px" height="18px">
 								        	<img src="resources/images/starhalf.jpg" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        </li>
-								        <li id="starstar3" style="display: flex; padding-bottom: 5px;">
+								        <li id="starstar3" style="display: flex; padding-bottom: 5px;" onclick="insertstar3()">
 								        	<img src="resources/images/star.jpg" width="18px" height="18px">
 								        	<img src="resources/images/star.jpg" width="18px" height="18px">
 								        	<img src="resources/images/star.jpg" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        </li>
-								        <li id="starstar2_5" style="display: flex; padding-bottom: 5px;">
+								        <li id="starstar2_5" style="display: flex; padding-bottom: 5px;" onclick="insertstar2_5()">
 								        	<img src="resources/images/star.jpg" width="18px" height="18px">
 								        	<img src="resources/images/star.jpg" width="18px" height="18px">
 								        	<img src="resources/images/starhalf.jpg" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        </li>
-								        <li id="starstar2" style="display: flex; padding-bottom: 5px;">
+								        <li id="starstar2" style="display: flex; padding-bottom: 5px;" onclick="insertstar2()">
 								        	<img src="resources/images/star.jpg" width="18px" height="18px">
 								        	<img src="resources/images/star.jpg" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        </li>
-								        <li id="starstar1_5" style="display: flex; padding-bottom: 5px;">
+								        <li id="starstar1_5" style="display: flex; padding-bottom: 5px;" onclick="insertstar1_5()">
 								        	<img src="resources/images/star.jpg" width="18px" height="18px">
 								        	<img src="resources/images/starhalf.jpg" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        </li>
-								        <li id="starstar1" style="display: flex; padding-bottom: 5px;">
+								        <li id="starstar1" style="display: flex; padding-bottom: 5px;" onclick="insertstar1()">
 								        	<img src="resources/images/star.jpg" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        </li>
-								        <li id="starstar0_5" style="display: flex; padding-bottom: 5px;">
+								        <li id="starstar0_5" style="display: flex; padding-bottom: 5px;" onclick="insertstar0_5()">
 								        	<img src="resources/images/starhalf.jpg" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
@@ -981,7 +982,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 													<img id="profile_img02" class="profile_img02" style="display: none; width: 130px;"/>
 										</div>
 		      					<input class="upload-name" value="파일선택" disabled="disabled"> 
-		      					<label for="ex_filename02">업로드</label> <input type="file" id="ex_filename02" class="upload-hidden"> 
+		      					<label for="ex_filename02">업로드</label><input type="file" id="ex_filename02" class="upload-hidden">
+		      					<img src="resources/images/deleteimage.jpg" id="deleteimg" onclick="deleteImage()" 
+		      							style="position: absolute; width: 20px; margin-top: 16px; opacity: 0.5;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'"/> 
 	      					</div>
       					</td>
       				</tr>
@@ -993,7 +996,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 													<img id="profile_img03" class="profile_img03" style="display: none; width: 130px;"/>
 										</div> 
 		      					<input class="upload-name" value="파일선택" disabled="disabled"> 
-		      					<label for="ex_filename03">업로드</label> <input type="file" id="ex_filename03" class="upload-hidden">
+		      					<label for="ex_filename03">업로드</label><input type="file" id="ex_filename03" class="upload-hidden">
+		      					<img src="resources/images/deleteimage.jpg" id="deleteimg" onclick="deleteImage()" 
+		      							style="position: absolute; width: 20px; margin-top: 16px; opacity: 0.5;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'"/>
 	      					</div>
       					</td>
       				</tr>
@@ -1005,7 +1010,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 													<img id="profile_img04" class="profile_img04" style="display: none; width: 130px;"/>
 										</div>
 		      					<input class="upload-name" value="파일선택" disabled="disabled"> 
-		      					<label for="ex_filename04">업로드</label> <input type="file" id="ex_filename04" class="upload-hidden">
+		      					<label for="ex_filename04">업로드</label><input type="file" id="ex_filename04" class="upload-hidden">
+		      					<img src="resources/images/deleteimage.jpg" id="deleteimg" onclick="deleteImage()" 
+		      							style="position: absolute; width: 20px; margin-top: 16px; opacity: 0.5;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'"/>
 	      					</div>
       					</td>
       				</tr>
@@ -1468,7 +1475,24 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				$("#ex_filename02").on("change", handleImgFileSelect02);
 				$("#ex_filename03").on("change", handleImgFileSelect03);
 				$("#ex_filename04").on("change", handleImgFileSelect04);
+				
+				
+				
 			});
+			
+			/* 회원정보 수정 모달창에서 미리보기 이미지 파일 삭제 */
+			function deleteImage() {
+				let profile_file = '<%=membervo.getMEMBER_PHOTO_FILE() %>';
+				if(profile_file !== "N") {
+					$("#profile_img").attr("src", "/filepath/" + profile_file);
+					$("#ex_filename").val($("#ex_filename").prop("defaultValue"));
+					$(".upload-name").val($(".upload-name").prop("defaultValue"));
+				} else {
+					$("#profile_img").attr("src", "resources/images/defaultprofile.jpg.jpg");
+					$("#ex_filename").val($("#ex_filename").prop("defaultValue"));
+					$(".upload-name").val($(".upload-name").prop("defaultValue"));
+				}
+			}
 			
 			function handleImgFileSelect(e){
 				var files = e.target.files;
@@ -1550,6 +1574,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					reader.readAsDataURL(f);
 				});
 			}
+			
+			
 		</script>
 		
 		<script>
@@ -1570,6 +1596,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					
 					var staroutput = '';
 					if(score_ === 5.0) {
+						$("#modal_star").empty();
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
@@ -1577,6 +1604,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						$("#modal_star").append(staroutput);
 					} else if(score_ > 4.0 && score_ < 5.0) {
+						$("#modal_star").empty();
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
@@ -1584,6 +1612,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						staroutput += '<img src="resources/images/starhalf.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						$("#modal_star").append(staroutput);
 					} else if(score_ === 4.0) {
+						$("#modal_star").empty();
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
@@ -1591,6 +1620,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						$("#modal_star").append(staroutput);
 					} else if(score_ > 3.0 && score_ < 4.0) {
+						$("#modal_star").empty();
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
@@ -1598,6 +1628,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						$("#modal_star").append(staroutput);
 					} else if(score_ === 3.0) {
+						$("#modal_star").empty();
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
@@ -1605,6 +1636,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						$("#modal_star").append(staroutput);
 					} else if(score_ > 2.0 && score_ < 3.0) {
+						$("#modal_star").empty();
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
@@ -1612,6 +1644,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						$("#modal_star").append(staroutput);
 					} else if(score_ === 2.0) {
+						$("#modal_star").empty();
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
@@ -1619,6 +1652,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						$("#modal_star").append(staroutput);
 					} else if(score_ > 1.0 && score_ < 2.0) {
+						$("#modal_star").empty();
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
@@ -1626,6 +1660,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						$("#modal_star").append(staroutput);
 					} else if(score_ === 1.0) {
+						$("#modal_star").empty();
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
@@ -1633,6 +1668,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						$("#modal_star").append(staroutput);
 					} else if(score_ > 0 && score_ < 1.0){
+						$("#modal_star").empty();
 						staroutput += '<img src="resources/images/starhalf.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
@@ -1640,6 +1676,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						$("#modal_star").append(staroutput);
 					} else {
+						$("#modal_star").empty();
 						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
@@ -1650,22 +1687,62 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					
 					$("#modal_score").text(score_);
 					
+					$("#starmenu").empty();
+					$("#starstar5 img").clone().appendTo($("#starmenu"));
 					
 					$("#staticBackdrop02").modal("show");
 				};
 		</script>
 		<script>
+			/* 별점 부여 함수 */
+			
 			function insertstar5() {
-       	$("#starmenu").empty();
-       	$("#starmenu img").replaceAll($("#starstar5 img"));
-       	alert('5점입니다.');
+				$("#starmenu").empty();
+       	$("#starstar5 img").clone().appendTo($("#starmenu"));
 			};
 			
 			function insertstar4_5() {
-       	$("#starmenu").empty();
-       	$("#starmenu img").replaceAll($("#starstar4_5 img"));
-       	alert('4.5점입니다.');
-       };
+				$("#starmenu").empty();
+       	$("#starstar4_5 img").clone().appendTo($("#starmenu"));
+      };
+       
+      function insertstar4() {
+				$("#starmenu").empty();
+		  	$("#starstar4 img").clone().appendTo($("#starmenu"));
+			};
+				
+			function insertstar3_5() {
+				$("#starmenu").empty();
+		  	$("#starstar3_5 img").clone().appendTo($("#starmenu"));
+		  };
+		  
+		  function insertstar3() {
+				$("#starmenu").empty();
+		  	$("#starstar3 img").clone().appendTo($("#starmenu"));
+			};
+				
+			function insertstar2_5() {
+				$("#starmenu").empty();
+		  	$("#starstar2_5 img").clone().appendTo($("#starmenu"));
+		  };
+		  function insertstar2() {
+				$("#starmenu").empty();
+		  	$("#starstar2 img").clone().appendTo($("#starmenu"));
+			};
+				
+			function insertstar1_5() {
+				$("#starmenu").empty();
+		  	$("#starstar1_5 img").clone().appendTo($("#starmenu"));
+		  };
+		  function insertstar1() {
+				$("#starmenu").empty();
+		  	$("#starstar1 img").clone().appendTo($("#starmenu"));
+			};
+				
+			function insertstar0_5() {
+				$("#starmenu").empty();
+		  	$("#starstar0_5 img").clone().appendTo($("#starmenu"));
+		  };
 		</script>
 </body>
 </html>

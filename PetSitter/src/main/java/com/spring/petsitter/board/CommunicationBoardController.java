@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -60,7 +59,7 @@ public class CommunicationBoardController {
 		model.addAttribute("board_list", board_list);
 		model.addAttribute("petsitter_id", petsitter_id);
 		
-		return "communication";
+		return "board/communication";
 	}
 	
 	@RequestMapping(value = "communicationWrite_member.bo")
@@ -69,7 +68,7 @@ public class CommunicationBoardController {
 		String writer = membervo.getMEMBER_NICKNAME();
 		model.addAttribute("writer", writer);
 		model.addAttribute("petsitter_id", petsitter_id);
-		return "communication_board";
+		return "board/communication_board";
 	}
 	
 	@RequestMapping(value = "communicationWriteProcess_member.bo")
