@@ -4,8 +4,8 @@ create table member(
     MEMBER_PW varchar2(30), --PW
     MEMBER_NAME varchar2(20), --이름
     MEMBER_TEL varchar2(20), --전화번호
-    MEMBER_RANK varchar2(30) DEFAULT 'NOMAL', --등급
-    MEMBER_COUNT number DEFAULT 0, --활동횟수
+    MEMBER_RANK varchar2(30) DEFAULT 'Green', --등급
+    MEMBER_COUNT number DEFAULT 0, --이용횟수
     MEMBER_AMOUNT number DEFAULT 0, --총 금액
     MEMBER_DATE date default sysdate, --가입날짜
     MEMBER_PHOTO_FILE varchar2(100) DEFAULT 'N', --프로필사진
@@ -39,7 +39,8 @@ create table PETSITTER(
     PETSITTER_DATE date DEFAULT sysdate, --가입 날짜
     PETSITTER_TYPE varchar2(20) default 'N', -- 케어종류
     PETSITTER_REPORT number(2) default 0, --신고누적횟수, 추가
-    PETSITTER_GENDER varchar2(4) default 'N'-- 성별, 추가
+    PETSITTER_GENDER varchar2(4) default 'N',-- 성별, 추가
+    PETSITTER_REVIEWCOUNT number(5) DEFAULT 0 --리뷰 개수
 ); 
 
 select * from petsitter
@@ -160,6 +161,7 @@ CREATE TABLE BOARD_COMMENT (
 -- 펫시터와의 소통 게시판
 create table COMMUNICATION_BOARD(
 	BOARD_NUM number(10) PRIMARY KEY, -- 회원 게시판 글 번호
+    USINGLIST_NUM number(10), -- 이용 내역 번호
     BOARD_WRITER varchar2(30), -- 작성자(일반 회원 닉네임 or 펫시터 닉네임)
 	MEMBER_ID varchar2(30), -- 일반 회원 아이디
 	PETSITTER_ID varchar2(30), -- 펫시터 회원 아이디
@@ -170,7 +172,6 @@ create table COMMUNICATION_BOARD(
 	BOARD_CONDITION varchar2(10) default '답변 예정', -- 답변예정/답변완료
 	BOARD_TYPE varchar2(10) -- 글 구분(스케줄/기타)
 );
-
 
 create table USINGLIST(
     USINGLIST_NUM number(10) primary key,

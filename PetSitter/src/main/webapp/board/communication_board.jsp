@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%
 	String writer = (String)request.getAttribute("writer");
+	int usinglist_num = ((Integer)request.getAttribute("usinglist_num")).intValue();
 	String petsitter_id = (String)request.getAttribute("petsitter_id");
 %>
 <!DOCTYPE html>
@@ -39,6 +40,7 @@
 	<form action="./communicationWriteProcess_member.bo" method="post" name="boardform" >
 		<input type="hidden" name="BOARD_WRITER" value="<%=writer %>">
 		<input type="hidden" name="MEMBER_ID" value="${id }">
+		<input type="hidden" name="USINGLIST_NUM" value="<%=usinglist_num %>">
 		<input type="hidden" name="PETSITTER_ID" value="<%=petsitter_id %>">
 		<table cellpadding=0 cellspacing=0>
 			<tr align="center" valign="middle">

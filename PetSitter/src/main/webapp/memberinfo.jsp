@@ -9,6 +9,14 @@
 	ArrayList<UsinglistVO> usinglist = (ArrayList<UsinglistVO>)request.getAttribute("usinglist");
 	String[] tel = (String[])request.getAttribute("tel");
 	String[] address = (String[])request.getAttribute("address");
+	
+	// 세션 종료시 홈으로
+	if(session.getAttribute("id") == null) {
+		out.println("<script>");
+		out.println("alert('세션이 만료되어 자동 로그아웃됩니다.)");
+		out.println("location.href='logout.me'");
+		out.println("</script>");
+	}
 %>
 <!doctype html>
 <html lang="en">
@@ -531,18 +539,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
               <div class="float-right">
-              	<%
-			          	// 세션 종료시 홈으로
-	            		if(session.getAttribute("id") == null) {
-	            			out.println("<script>");
-	            			out.println("alert('세션이 만료되어 자동 로그아웃됩니다.)");
-	            			out.println("location.href='home.me'");
-	            			out.println("</script>");
-	            		} else {
-              	%>
                 <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
-                <%} %>
               </div>
               
             </div>
@@ -610,9 +608,22 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				  <div class="row" style = "margin-to">
 				  <div class = "col-04" style = "padding : 0 15px;">
 				    <h2 class="mpname float-left">${membervo.MEMBER_NICKNAME }</h2>
-				    <h3 class="mpnick">${name }</h3>
-				    <h5 class="mpgrade">등급 : &nbsp;${membervo.MEMBER_RANK }</h5>
-				    <h5 class="mpdate font-size-16" id="memberdate"><%=membervo.getMEMBER_DATE().substring(0,10) %></h5>
+				    <%
+				    	if(membervo.getMEMBER_RANK().equals("Green")) {
+				    %>
+				    	<h3 class="mpnick" style="margin-top: 60px;">${name } &nbsp;<img src="resources/images/rank_green.png" style="width: 25px; height: 25px;"></h3>
+				    <%
+				    	} else if(membervo.getMEMBER_RANK().equals("Gold")) {
+				    %>
+				   		<h3 class="mpnick" style="margin-top: 60px;">${name } &nbsp;<img src="resources/images/rank_gold.png" style="width: 25px; height: 25px;"></h3>
+				    <%
+				    	} else if(membervo.getMEMBER_RANK().equals("vip")) { 
+				    %>
+				    	<h3 class="mpnick" style="margin-top: 60px;">${name } &nbsp;<img src="resources/images/rank_vip.png" style="width: 25px; height: 25px;"></h3>
+				    <%
+				    	} 
+				    %>
+				    <h5 class="mpdate font-size-16" id="memberdate">가입일 &nbsp;<%=membervo.getMEMBER_DATE().substring(0,10) %></h5>
 				  </div>
 				  <div class = "col-md-5" style = "margin-top : 50px;">
 				  	<a href="petRegister.me" class="font-size-16 main_whitefont">반려견 등록하기</a>
@@ -707,7 +718,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	  <tbody id="petsitterList">
 	  	<input type="hidden" id="id" value=${id } />
 	  </tbody>
-	  
+	  <tr class="table_page_number">
+	  	
+	  </tr>
 	</table>	
   </div>
 </section>
@@ -1309,7 +1322,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<td rowspan="3">' + item.usinglist_NUM + '</td>';
 							output += '<td rowspan="3">' + item.list_PRICE + '</td>';
 							if(item.list_COMPLETE === ing2) {
-								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?petsitterid=' + item.petsitter_ID + '\';" ></td>';
+								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.usinglist_NUM + '\';" ></td>';
 							} else if(item.list_COMPLETE === ing3) {
 								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
 								output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
@@ -1338,7 +1351,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<td>' + item.list_END_DATE + '</td>';
 							output += '</tr>';
 							
-							$('#petsitterList').append(output);
+							if(item.list_ING === ing1) {
+								$('#petsitterList').prepend(output);
+							} else {
+								$('#petsitterList').append(output);
+							}
 						});
 					},
 					error: function() {
@@ -1383,7 +1400,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<td rowspan="3">' + item.usinglist_NUM + '</td>';
 							output += '<td rowspan="3">' + item.list_PRICE + '</td>';
 							if(item.list_COMPLETE === ing2) {
-								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?petsitterid=' + item.petsitter_ID + '\';" ></td>';
+								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.usinglist_NUM + '\';" ></td>';
 							} else if(item.list_COMPLETE === ing3) {
 								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
 								output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
@@ -1412,7 +1429,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<td>' + item.list_END_DATE + '</td>';
 							output += '</tr>';
 							
-							$('#petsitterList').append(output);
+							if(item.list_ING === ing1) {
+								$('#petsitterList').prepend(output);
+							} else {
+								$('#petsitterList').append(output);
+							}
 						});
 					},
 					error: function() {
@@ -1461,7 +1482,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<td rowspan="3">' + item.usinglist_NUM + '</td>';
 							output += '<td rowspan="3">' + item.list_PRICE + '</td>';
 							if(item.list_COMPLETE === ing2) {
-								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?petsitterid=' + item.petsitter_ID + '\';" ></td>';
+								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.usinglist_NUM + '\';" ></td>';
 							} else if(item.list_COMPLETE === ing3) {
 								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
 								output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
@@ -1490,7 +1511,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<td>' + item.list_END_DATE + '</td>';
 							output += '</tr>';
 							
-							$('#petsitterList').append(output);
+							if(item.list_ING === ing1) {
+								$('#petsitterList').prepend(output);
+							} else {
+								$('#petsitterList').append(output);
+							}
 						});
 					},
 					error: function() {
@@ -1702,24 +1727,24 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						$("#modal_star").empty();
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
-						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
-						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/starhalf.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						$("#modal_star").append(staroutput);
 					} else if(score_ == 2) {
 						$("#modal_star").empty();
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
-						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
-						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						$("#modal_star").append(staroutput);
 					} else if(score_ > 1 && score_ < 2) {
 						$("#modal_star").empty();
 						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
-						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
-						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
-						staroutput += '<img src="resources/images/star.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/starhalf.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
+						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						staroutput += '<img src="resources/images/star_empty.png" width="20px" height="20px" style="margin-bottom: 8px;">';
 						$("#modal_star").append(staroutput);
 					} else if(score_ == 1) {

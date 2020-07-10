@@ -652,6 +652,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					output += '<img class="star" id="star3" src="./resources/images/function/star.jpg">';
 					output += '<img class="star" id="star4" src="./resources/images/function/star.jpg">';
 					output += '<img class="starhalf" id="star5" src="./resources/images/function/starhalf.jpg">';
+					output += '<span class="v_location">' + item.petsitter_REVIEWCOUNT + '</span>';
 					output += '<span class="v_review">'
 					output += '</div>'; // middle_box_view_end 종료 태그
 					output += '</div>'; // middle_box_view 종료 태그

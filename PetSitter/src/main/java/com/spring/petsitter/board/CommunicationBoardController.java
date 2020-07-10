@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.petsitter.MemberService;
 import com.spring.petsitter.MemberVO;
+import com.spring.petsitter.UsinglistVO;
 
 @Controller
 public class CommunicationBoardController {
@@ -27,20 +28,20 @@ public class CommunicationBoardController {
 	CommunicationBoardService communicationboardService;
 	
 	@RequestMapping(value = "communication_member.bo")
-	public String communication(@RequestParam(value = "petsitterid") String petsitter_id, Model model, CommunicationBoardVO boardvo,
+	public String communication(@RequestParam(value = "usinglist_num") int usinglist_num, Model model, CommunicationBoardVO boardvo,
 								HttpSession session,
 								@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 		String member = (String)session.getAttribute("id");
-		int limit = 10;
+		int limit = 5;
 		
-		ArrayList<CommunicationBoardVO> board_list = communicationboardService.getQuesionList(member, petsitter_id, page, limit);
+		ArrayList<CommunicationBoardVO> board_list = communicationboardService.getQuesionList(member, usinglist_num, page, limit);
 		
 		SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		for(int i = 0; i < board_list.size(); i++) {
 			board_list.get(i).setBOARD_REALDATE(new_Format.format(board_list.get(i).getBOARD_DATE()));
 		}
 		
-		int listcount = communicationboardService.getListCount(member, petsitter_id);
+		int listcount = communicationboardService.getListCount(member, usinglist_num);
 
 		int maxpage = (int) ((double)listcount / limit + 0.95);
 
@@ -48,8 +49,7 @@ public class CommunicationBoardController {
 		
 		int endpage = maxpage;
 		
-		if(endpage > startpage + 10 - 1) 
-			endpage = startpage + 10 - 1;
+		if(endpage > startpage + 10 - 1) endpage = startpage + 10 - 1;
 		
 		model.addAttribute("page", page); // 현재 페이지 수
 		model.addAttribute("maxpage", maxpage); // 최대 페이지 수
@@ -57,16 +57,24 @@ public class CommunicationBoardController {
 		model.addAttribute("endpage", endpage); // 현재 페이지에 표시할 끝 페이지 수
 		model.addAttribute("listcount", listcount); // 글 수
 		model.addAttribute("board_list", board_list);
-		model.addAttribute("petsitter_id", petsitter_id);
+		model.addAttribute("usinglist_num", usinglist_num);
 		
 		return "board/communication";
 	}
 	
 	@RequestMapping(value = "communicationWrite_member.bo")
-	public String communicationWrite(@RequestParam(value = "petsitterid") String petsitter_id, Model model, HttpSession session) {
+	public String communicationWrite(@RequestParam(value = "usinglist_num") int usinglist_num, Model model, HttpSession session) {
 		MemberVO membervo = memberService.selectMember((String)session.getAttribute("id"));
+		ArrayList<UsinglistVO> usinglist = memberService.getUsingList_Member((String)session.getAttribute("id"));
+		String petsitter_id = "";
+		for(int i = 0; i < usinglist.size(); i++) {
+			if(usinglist.get(i).getUSINGLIST_NUM() == usinglist_num) {
+				petsitter_id = usinglist.get(i).getPETSITTER_ID();
+			}
+		}
 		String writer = membervo.getMEMBER_NICKNAME();
 		model.addAttribute("writer", writer);
+		model.addAttribute("usinglist_num", usinglist_num);
 		model.addAttribute("petsitter_id", petsitter_id);
 		return "board/communication_board";
 	}
@@ -79,12 +87,12 @@ public class CommunicationBoardController {
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter writer = response.getWriter();
 		if(res != 0) {
-			writer.write("<script>location.href='./communication_member.bo?petsitterid=" +
-						boardvo.getPETSITTER_ID() + "';</script>");
+			writer.write("<script>location.href='./communication_member.bo?usinglist_num=" +
+						boardvo.getUSINGLIST_NUM() + "';</script>");
 		}
 		else {
 			writer.write("<script>alert('등록 실패');" +
-							"location.href='./communication_member.bo?petsitterid=" + boardvo.getPETSITTER_ID() + "';</script>");
+							"location.href='./communication_member.bo?usinglist_num=" + boardvo.getUSINGLIST_NUM() + "';</script>");
 		}
 		return null;
 	}

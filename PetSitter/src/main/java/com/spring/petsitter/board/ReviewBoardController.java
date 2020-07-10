@@ -52,9 +52,11 @@ public class ReviewBoardController {
 		if(petsitter.getPETSITTER_SCORE() == 0) {
 			petsitter.setPETSITTER_SCORE(petsitter_score);
 		} else {
-			double org_petsitter_score = Math.round(petsitter.getPETSITTER_SCORE() * 10) / 10;
-			double result_score = (petsitter_score + org_petsitter_score) / 2;
-			petsitter.setPETSITTER_SCORE(Math.round(result_score * 10) / 10);
+			double org_petsitter_score = petsitter.getPETSITTER_SCORE();
+			double result_score = (petsitter_score + org_petsitter_score) / 2.0;
+			petsitter.setPETSITTER_SCORE(Math.round(result_score * 10.0) / 10.0);
+			
+			petsitterService.petsitterscoreupdate(petsitter.getPETSITTER_ID(), Math.round(result_score * 10.0) / 10.0);
 		}
 		ReviewboardService.insertReview(vo);
 		

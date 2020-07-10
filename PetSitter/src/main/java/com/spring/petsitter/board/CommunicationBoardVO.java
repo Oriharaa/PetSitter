@@ -5,6 +5,7 @@ import java.util.Date;
 /*
 create table COMMUNICATION_BOARD(
 	BOARD_NUM number(10) PRIMARY KEY, -- 회원 게시판 글 번호
+	USINGLIST_NUM number(10), -- 이용 내역 번호
 	BOARD_WRITER varchar2(30), -- 작성자(일반 회원 닉네임 or 펫시터 닉네임)
 	MEMBER_ID varchar2(30), -- 일반 회원 아이디
 	PETSITTER_ID varchar2(30), -- 펫시터 회원 아이디
@@ -18,6 +19,7 @@ create table COMMUNICATION_BOARD(
 */
 public class CommunicationBoardVO {
 	private int BOARD_NUM;
+	private int USINGLIST_NUM;
 	private String BOARD_WRITER;
 	private String MEMBER_ID;
 	private String PETSITTER_ID;
@@ -34,6 +36,12 @@ public class CommunicationBoardVO {
 	}
 	public void setBOARD_NUM(int bOARD_NUM) {
 		BOARD_NUM = bOARD_NUM;
+	}
+	public int getUSINGLIST_NUM() {
+		return USINGLIST_NUM;
+	}
+	public void setUSINGLIST_NUM(int uSINGLIST_NUM) {
+		USINGLIST_NUM = uSINGLIST_NUM;
 	}
 	public String getBOARD_WRITER() {
 		return BOARD_WRITER;

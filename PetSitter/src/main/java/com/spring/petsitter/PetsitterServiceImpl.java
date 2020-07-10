@@ -74,6 +74,11 @@ public class PetsitterServiceImpl implements PetsitterService{
 		return petsitter_list;
 	}
 	
-	
+	// 리뷰 등록 후 펫시터 평점 수정
+	@Override
+	public void petsitterscoreupdate(String id, double score) {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class); 
+		petsitterMapper.petsitterscoreupdate(id, score);
+	}
 	
 }

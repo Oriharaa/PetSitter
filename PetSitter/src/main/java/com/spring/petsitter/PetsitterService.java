@@ -12,4 +12,5 @@ public interface PetsitterService {
 	public PetsitterVO selectPetsitter(String id);
 	public int petsitterApproval(PetsitterVO petsitter);
 	public int petsitterRefusal(PetsitterVO petsitter);
+	public void petsitterscoreupdate(String id, double score);
 }

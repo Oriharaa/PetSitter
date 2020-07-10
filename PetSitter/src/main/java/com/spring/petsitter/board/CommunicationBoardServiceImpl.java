@@ -14,20 +14,19 @@ public class CommunicationBoardServiceImpl implements CommunicationBoardService 
 	@Autowired
 	private SqlSession sqlSession;
 	
-	
 	@Override
-	public int getListCount(String member, String petsitter) {
+	public int getListCount(String member, int usinglist_num) {
 		CommunicationBoardMapper boardMapper = sqlSession.getMapper(CommunicationBoardMapper.class);
-		int cnt = boardMapper.getListCount(member, petsitter);
+		int cnt = boardMapper.getListCount(member, usinglist_num);
 		return cnt;
 	}
 	
 	@Override
-	public ArrayList<CommunicationBoardVO> getQuesionList(String member, String petsitter, int page, int limit) {
+	public ArrayList<CommunicationBoardVO> getQuesionList(String member, int usinglist_num, int page, int limit) {
 		CommunicationBoardMapper boardMapper = sqlSession.getMapper(CommunicationBoardMapper.class);
-		int startrow = (page - 1) * 10 + 1;
+		int startrow = (page - 1) * 5 + 1;
 		int endrow = startrow + limit - 1;
-		ArrayList<CommunicationBoardVO> boardList = boardMapper.getQuesionList(member, petsitter, startrow, endrow);
+		ArrayList<CommunicationBoardVO> boardList = boardMapper.getQuesionList(member, usinglist_num, startrow, endrow);
 		return boardList;
 	}
 	
