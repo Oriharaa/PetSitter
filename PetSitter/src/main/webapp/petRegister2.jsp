@@ -89,7 +89,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
     
     <!-- 언택 추가 CSS -->
-		<link rel="stylesheet" type="text/css" href="resources/css/UT_CSS/petRegister2.css">
+		<link rel="stylesheet" type="text/css" href="resources/css/UT_CSS/petRegister2.css?after">
 
 
     

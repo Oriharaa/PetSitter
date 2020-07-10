@@ -12,6 +12,12 @@
 					 #{PET_GENDER}, #{PET_NEUTERED}, #{PET_POTTYTRAN}, #{PET_VAOONE}, #{PET_PHOTO}, SYSDATE)
 	</insert>
 		
+	<select id="selectPetService" parameterType="String">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' order by PETSITTER_DATE
+	</select>
+	
+
+
 
 
 </mapper>

@@ -1,6 +1,7 @@
 package com.spring.petsitter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public interface PetsitterService {
@@ -12,4 +13,30 @@ public interface PetsitterService {
 	public PetsitterVO selectPetsitter(String id);
 	public int petsitterApproval(PetsitterVO petsitter);
 	public int petsitterRefusal(PetsitterVO petsitter);
+	
+	
+	
+	
+	//언택 추가
+	//원하는 조건별
+	public List<PetsitterVO> petsitterList_We_Pick();
+	public List<PetsitterVO> petsitterList_We_Big();
+	public List<PetsitterVO> petsitterList_We_Yard();
+	public List<PetsitterVO> petsitterList_We_Old();
+
+	//평점순
+	public List<PetsitterVO> petsitterList_We_Grade();
+	
+	//지역별
+	public List<PetsitterVO> petsitterList_We_Area1();
+	public List<PetsitterVO> petsitterList_We_Area2();
+	public List<PetsitterVO> petsitterList_We_Area3();
+	public List<PetsitterVO> petsitterList_We_Area4();
+	public List<PetsitterVO> petsitterList_We_Area5();
+	public List<PetsitterVO> petsitterList_We_Area6();
+	public List<PetsitterVO> petsitterList_We_Area7();
+	public List<PetsitterVO> petsitterList_We_Area8();
+	public List<PetsitterVO> petsitterList_We_Area9();
+	public List<PetsitterVO> petsitterList_We_Area10();
+	
 }

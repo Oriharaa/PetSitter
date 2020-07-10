@@ -3,25 +3,19 @@
 	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	 
 <mapper namespace = "com.spring.mapper.PetsitterMapper">
+	<resultMap type="PetsitterVO" id="PetsitterResultMap">
+		<result property="" column="" />
+	</resultMap>
 
-	<select id="petsitterCheck" parameterType = "PetsitterVO" resultType = "int">
+
+	<select id="petsitterCheck" parameterType = "PetsitterVO" resultType = "int" >
 		select count(*) from petsitter where PETSITTER_ID = #{PETSITTER_ID} and PETSITTER_PW = #{PETSITTER_PW}
 	</select>
 	
 	<select id="petsitterList" resultType="PetsitterVO">
 		select * from petsitter order by PETSITTER_DATE
 	</select>
-	<select id="petsitterList_Bang" resultType="PetsitterVO">
-		select * from petsitter where PETSITTER_TYPE like '%방문%' order by PETSITTER_DATE
-	</select>
-	<select id="petsitterList_We" resultType="PetsitterVO">
-		select * from petsitter where PETSITTER_TYPE like '%위탁%' order by PETSITTER_DATE
-	</select>
-	
-	<select id="selectPetsitter" parameterType="String" resultType="PetsitterVO">
-		select * from petsitter where PETSITTER_ID = #{PETSITTER_ID}
-	</select>
-	
+
 	<insert id ="insertPetsitter" parameterType = "PetsitterVO">
 		insert into petsitter (PETSITTER_ID,PETSITTER_PW,PETSITTER_NAME,PETSITTER_TEL,PETSITTER_EMAIL,
 		PETSITTER_ADDRESS,PETSITTER_INTRODUCE,PETSITTER_PRICE_12H,PETSITTER_PRICE_24H,
@@ -42,4 +36,120 @@
 	<update id = "petsitterRefusal" parameterType = "PetsitterVO">
 		update petsitter set PETSITTER_RANK = 'X' where PETSITTER_ID = #{PETSITTER_ID}
 	</update>
+	
+	
+	
+	<!-- 언택추가 --><!-- 언택추가 --><!-- 언택추가 -->
+	<!-- 언택추가 --><!-- 언택추가 --><!-- 언택추가 -->
+	
+	<!-- 방문 & 위탁 -->
+	<select id="petsitterList_Bang" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%방문%' order by PETSITTER_DATE DESC
+	</select>
+	<select id="petsitterList_We" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' order by PETSITTER_DATE DESC
+	</select>
+	
+	
+	<!-- 원하는 조건(위탁VER)-->
+	<select id="petsitterList_We_Pick" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' and 
+		PETSITTER_SERVICE_LIST like '%픽업%' order by PETSITTER_DATE DESC
+	</select>
+	
+	<select id="petsitterList_We_Big" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' and
+		PETSITTER_SERVICE_LIST like '%대형%' order by PETSITTER_DATE DESC
+	</select>
+	
+	<select id="petsitterList_We_Yard" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' and 
+		PETSITTER_SERVICE_LIST like '%마당%' order by PETSITTER_DATE DESC
+	</select>
+	
+	<select id="petsitterList_We_Old" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' and 
+		PETSITTER_SERVICE_LIST like '%노견%' order by PETSITTER_DATE DESC
+	</select>
+
+	
+	<!-- 평점순(위탁VER) -->
+	<select id="petsitterList_We_Grade" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' 
+		order by PETSITTER_SCORE DESC 
+	</select>
+
+
+	<!-- 지역별(위탁VER) -->
+	<select id="petsitterList_We_Area1" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' and
+		PETSITTER_ADDRESS like '%서울%' or PETSITTER_ADDRESS like '%경기%'
+		order by PETSITTER_DATE DESC
+	</select>
+	
+	<select id="petsitterList_We_Area2" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' and
+		PETSITTER_ADDRESS like '%인천%' or PETSITTER_ADDRESS like '%부천%'
+		order by PETSITTER_DATE DESC
+	</select>
+	
+	<select id="petsitterList_We_Area3" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' and
+		PETSITTER_ADDRESS like '%춘천%' or PETSITTER_ADDRESS like '%강원%'
+		order by PETSITTER_DATE DESC
+	</select>
+	
+	<select id="petsitterList_We_Area4" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' and
+		PETSITTER_ADDRESS like '%부산%' or PETSITTER_ADDRESS like '%울산%' or PETSITTER_ADDRESS like '%경남%'
+		order by PETSITTER_DATE DESC
+	</select>
+	
+	<select id="petsitterList_We_Area5" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' and
+		PETSITTER_ADDRESS like '%대구%' or PETSITTER_ADDRESS like '%경북%'
+		order by PETSITTER_DATE DESC
+	</select>
+	
+	<select id="petsitterList_We_Area6" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' and
+		PETSITTER_ADDRESS like '%전주%' or PETSITTER_ADDRESS like '%전북%'
+		order by PETSITTER_DATE DESC
+	</select>
+	
+	<select id="petsitterList_We_Area7" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' and
+		PETSITTER_ADDRESS like '%광주%' or PETSITTER_ADDRESS like '%전남%'
+		order by PETSITTER_DATE DESC
+	</select>
+	
+	<select id="petsitterList_We_Area8" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' and
+		PETSITTER_ADDRESS like '%청주%' or PETSITTER_ADDRESS like '%충북%'
+		order by PETSITTER_DATE DESC
+	</select>
+	
+	<select id="petsitterList_We_Area9" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' and
+		PETSITTER_ADDRESS like '%대전%' or PETSITTER_ADDRESS like '%충남%'
+		order by PETSITTER_DATE DESC
+	</select>
+	
+	<select id="petsitterList_We_Area10" resultType="PetsitterVO">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' and
+		PETSITTER_ADDRESS like '%제주%' order by PETSITTER_DATE DESC
+	</select>
+
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

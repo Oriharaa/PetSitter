@@ -59,6 +59,12 @@ public class MemberController {
 		return "petRegister2";
 	}
 	
+	@RequestMapping(value = "call_view.me")
+	public String call_view() {
+		return "call_view";
+	}
+	
+
 	@RequestMapping(value = "getUsingList.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public List<MemberUsinglistVO> getUsinglist(String id) {
@@ -182,10 +188,15 @@ public class MemberController {
 				petsitter_list.get(i).setPETSITTER_SERVICE(petsitter_service);
 			}
 		}
-		System.out.println("상세주소 제외: " + petsitter_list.get(6).getPETSITTER_ADDRESS());
-		System.out.println("서비스 종류: " + petsitter_list.get(6).getPETSITTER_SERVICE());
 		return petsitter_list;
 	}
+	
+		
+
+	
+	
+	
+	
 	
 	// 방문 돌봄 예약 페이지 이동
 	@RequestMapping(value = "reservation2.br")
@@ -266,4 +277,327 @@ public class MemberController {
 		}
 		return "home";
 	}
+	
+	
+	
+	
+	//언택 추가
+	//원하는 조건별
+	@RequestMapping(value = "getPetsitterList_We_Pick.br", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<PetsitterVO> getPetsitterList_We_Pick() {
+		List<PetsitterVO> petsitter_list = petsitterService.petsitterList_We_Pick();
+		for(int i = 0; i < petsitter_list.size(); i++) {
+			PetsitterVO petsitter = petsitter_list.get(i);
+			
+			if(petsitter.getPETSITTER_ADDRESS() != null) {
+				String[] petsitter_address = petsitter.getPETSITTER_ADDRESS().split(",");
+				petsitter_list.get(i).setPETSITTER_ADDRESS(petsitter_address[1]);
+			}
+			
+			if(petsitter.getPETSITTER_SERVICE_LIST() != null) {
+				String[] petsitter_service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
+				petsitter_list.get(i).setPETSITTER_SERVICE(petsitter_service);
+			}
+		}
+		return petsitter_list;
+	}
+	@RequestMapping(value = "getPetsitterList_We_Big.br", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<PetsitterVO> getPetsitterList_We_Big() {
+		List<PetsitterVO> petsitter_list = petsitterService.petsitterList_We_Big();
+		for(int i = 0; i < petsitter_list.size(); i++) {
+			PetsitterVO petsitter = petsitter_list.get(i);
+			
+			if(petsitter.getPETSITTER_ADDRESS() != null) {
+				String[] petsitter_address = petsitter.getPETSITTER_ADDRESS().split(",");
+				petsitter_list.get(i).setPETSITTER_ADDRESS(petsitter_address[1]);
+			}
+			
+			if(petsitter.getPETSITTER_SERVICE_LIST() != null) {
+				String[] petsitter_service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
+				petsitter_list.get(i).setPETSITTER_SERVICE(petsitter_service);
+			}
+		}
+		return petsitter_list;
+	}	
+	@RequestMapping(value = "getPetsitterList_We_Yard.br", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<PetsitterVO> getPetsitterList_We_Yard() {
+		List<PetsitterVO> petsitter_list = petsitterService.petsitterList_We_Yard();
+		for(int i = 0; i < petsitter_list.size(); i++) {
+			PetsitterVO petsitter = petsitter_list.get(i);
+			
+			if(petsitter.getPETSITTER_ADDRESS() != null) {
+				String[] petsitter_address = petsitter.getPETSITTER_ADDRESS().split(",");
+				petsitter_list.get(i).setPETSITTER_ADDRESS(petsitter_address[1]);
+			}
+			
+			if(petsitter.getPETSITTER_SERVICE_LIST() != null) {
+				String[] petsitter_service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
+				petsitter_list.get(i).setPETSITTER_SERVICE(petsitter_service);
+			}
+		}
+		return petsitter_list;
+	}	
+	@RequestMapping(value = "getPetsitterList_We_Old.br", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<PetsitterVO> getPetsitterList_We_Old() {
+		List<PetsitterVO> petsitter_list = petsitterService.petsitterList_We_Old();
+		for(int i = 0; i < petsitter_list.size(); i++) {
+			PetsitterVO petsitter = petsitter_list.get(i);
+			
+			if(petsitter.getPETSITTER_ADDRESS() != null) {
+				String[] petsitter_address = petsitter.getPETSITTER_ADDRESS().split(",");
+				petsitter_list.get(i).setPETSITTER_ADDRESS(petsitter_address[1]);
+			}
+			
+			if(petsitter.getPETSITTER_SERVICE_LIST() != null) {
+				String[] petsitter_service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
+				petsitter_list.get(i).setPETSITTER_SERVICE(petsitter_service);
+			}
+		}
+		return petsitter_list;
+	}	
+	
+	//평점순
+	@RequestMapping(value ="getPetsitterList_We_Grade.br", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<PetsitterVO> getPetsitterList_We_Grade() {
+		List<PetsitterVO> petsitter_list = petsitterService.petsitterList_We_Grade();
+		for(int i = 0; i < petsitter_list.size(); i++) {
+			PetsitterVO petsitter = petsitter_list.get(i);
+			
+			if(petsitter.getPETSITTER_ADDRESS() != null) {
+				String[] petsitter_address = petsitter.getPETSITTER_ADDRESS().split(",");
+				petsitter_list.get(i).setPETSITTER_ADDRESS(petsitter_address[1]);
+			}
+			
+			if(petsitter.getPETSITTER_SERVICE_LIST() != null) {
+				String[] petsitter_service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
+				petsitter_list.get(i).setPETSITTER_SERVICE(petsitter_service);
+			}
+		}
+		return petsitter_list;
+	}
+	
+	//지역별
+	@RequestMapping(value ="getPetsitterList_We_Area1.br", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<PetsitterVO> getPetsitterList_We_Area1() {
+		List<PetsitterVO> petsitter_list = petsitterService.petsitterList_We_Area1();
+		for(int i = 0; i < petsitter_list.size(); i++) {
+			PetsitterVO petsitter = petsitter_list.get(i);
+			
+			if(petsitter.getPETSITTER_ADDRESS() != null) {
+				String[] petsitter_address = petsitter.getPETSITTER_ADDRESS().split(",");
+				petsitter_list.get(i).setPETSITTER_ADDRESS(petsitter_address[1]);
+			}
+			
+			if(petsitter.getPETSITTER_SERVICE_LIST() != null) {
+				String[] petsitter_service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
+				petsitter_list.get(i).setPETSITTER_SERVICE(petsitter_service);
+			}
+		}
+		return petsitter_list;
+	}
+	@RequestMapping(value ="getPetsitterList_We_Area2.br", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<PetsitterVO> getPetsitterList_We_Area2() {
+		List<PetsitterVO> petsitter_list = petsitterService.petsitterList_We_Area2();
+		for(int i = 0; i < petsitter_list.size(); i++) {
+			PetsitterVO petsitter = petsitter_list.get(i);
+			
+			if(petsitter.getPETSITTER_ADDRESS() != null) {
+				String[] petsitter_address = petsitter.getPETSITTER_ADDRESS().split(",");
+				petsitter_list.get(i).setPETSITTER_ADDRESS(petsitter_address[1]);
+			}
+			
+			if(petsitter.getPETSITTER_SERVICE_LIST() != null) {
+				String[] petsitter_service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
+				petsitter_list.get(i).setPETSITTER_SERVICE(petsitter_service);
+			}
+		}
+		return petsitter_list;
+	}
+	@RequestMapping(value ="getPetsitterList_We_Area3.br", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<PetsitterVO> getPetsitterList_We_Area3() {
+		List<PetsitterVO> petsitter_list = petsitterService.petsitterList_We_Area3();
+		for(int i = 0; i < petsitter_list.size(); i++) {
+			PetsitterVO petsitter = petsitter_list.get(i);
+			
+			if(petsitter.getPETSITTER_ADDRESS() != null) {
+				String[] petsitter_address = petsitter.getPETSITTER_ADDRESS().split(",");
+				petsitter_list.get(i).setPETSITTER_ADDRESS(petsitter_address[1]);
+			}
+			
+			if(petsitter.getPETSITTER_SERVICE_LIST() != null) {
+				String[] petsitter_service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
+				petsitter_list.get(i).setPETSITTER_SERVICE(petsitter_service);
+			}
+		}
+		return petsitter_list;
+	}
+	@RequestMapping(value ="getPetsitterList_We_Area4.br", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<PetsitterVO> getPetsitterList_We_Area4() {
+		List<PetsitterVO> petsitter_list = petsitterService.petsitterList_We_Area4();
+		for(int i = 0; i < petsitter_list.size(); i++) {
+			PetsitterVO petsitter = petsitter_list.get(i);
+			
+			if(petsitter.getPETSITTER_ADDRESS() != null) {
+				String[] petsitter_address = petsitter.getPETSITTER_ADDRESS().split(",");
+				petsitter_list.get(i).setPETSITTER_ADDRESS(petsitter_address[1]);
+			}
+			
+			if(petsitter.getPETSITTER_SERVICE_LIST() != null) {
+				String[] petsitter_service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
+				petsitter_list.get(i).setPETSITTER_SERVICE(petsitter_service);
+			}
+		}
+		return petsitter_list;
+	}
+	@RequestMapping(value ="getPetsitterList_We_Area5.br", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<PetsitterVO> getPetsitterList_We_Area5() {
+		List<PetsitterVO> petsitter_list = petsitterService.petsitterList_We_Area5();
+		for(int i = 0; i < petsitter_list.size(); i++) {
+			PetsitterVO petsitter = petsitter_list.get(i);
+			
+			if(petsitter.getPETSITTER_ADDRESS() != null) {
+				String[] petsitter_address = petsitter.getPETSITTER_ADDRESS().split(",");
+				petsitter_list.get(i).setPETSITTER_ADDRESS(petsitter_address[1]);
+			}
+			
+			if(petsitter.getPETSITTER_SERVICE_LIST() != null) {
+				String[] petsitter_service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
+				petsitter_list.get(i).setPETSITTER_SERVICE(petsitter_service);
+			}
+		}
+		return petsitter_list;
+	}
+	@RequestMapping(value ="getPetsitterList_We_Area6.br", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<PetsitterVO> getPetsitterList_We_Area6() {
+		List<PetsitterVO> petsitter_list = petsitterService.petsitterList_We_Area6();
+		for(int i = 0; i < petsitter_list.size(); i++) {
+			PetsitterVO petsitter = petsitter_list.get(i);
+			
+			if(petsitter.getPETSITTER_ADDRESS() != null) {
+				String[] petsitter_address = petsitter.getPETSITTER_ADDRESS().split(",");
+				petsitter_list.get(i).setPETSITTER_ADDRESS(petsitter_address[1]);
+			}
+			
+			if(petsitter.getPETSITTER_SERVICE_LIST() != null) {
+				String[] petsitter_service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
+				petsitter_list.get(i).setPETSITTER_SERVICE(petsitter_service);
+			}
+		}
+		return petsitter_list;
+	}
+	@RequestMapping(value ="getPetsitterList_We_Area7.br", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<PetsitterVO> getPetsitterList_We_Area7() {
+		List<PetsitterVO> petsitter_list = petsitterService.petsitterList_We_Area7();
+		for(int i = 0; i < petsitter_list.size(); i++) {
+			PetsitterVO petsitter = petsitter_list.get(i);
+			
+			if(petsitter.getPETSITTER_ADDRESS() != null) {
+				String[] petsitter_address = petsitter.getPETSITTER_ADDRESS().split(",");
+				petsitter_list.get(i).setPETSITTER_ADDRESS(petsitter_address[1]);
+			}
+			
+			if(petsitter.getPETSITTER_SERVICE_LIST() != null) {
+				String[] petsitter_service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
+				petsitter_list.get(i).setPETSITTER_SERVICE(petsitter_service);
+			}
+		}
+		return petsitter_list;
+	}
+	@RequestMapping(value ="getPetsitterList_We_Area8.br", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<PetsitterVO> getPetsitterList_We_Area8() {
+		List<PetsitterVO> petsitter_list = petsitterService.petsitterList_We_Area8();
+		for(int i = 0; i < petsitter_list.size(); i++) {
+			PetsitterVO petsitter = petsitter_list.get(i);
+			
+			if(petsitter.getPETSITTER_ADDRESS() != null) {
+				String[] petsitter_address = petsitter.getPETSITTER_ADDRESS().split(",");
+				petsitter_list.get(i).setPETSITTER_ADDRESS(petsitter_address[1]);
+			}
+			
+			if(petsitter.getPETSITTER_SERVICE_LIST() != null) {
+				String[] petsitter_service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
+				petsitter_list.get(i).setPETSITTER_SERVICE(petsitter_service);
+			}
+		}
+		return petsitter_list;
+	}
+	@RequestMapping(value ="getPetsitterList_We_Area9.br", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<PetsitterVO> getPetsitterList_We_Area9() {
+		List<PetsitterVO> petsitter_list = petsitterService.petsitterList_We_Area9();
+		for(int i = 0; i < petsitter_list.size(); i++) {
+			PetsitterVO petsitter = petsitter_list.get(i);
+			
+			if(petsitter.getPETSITTER_ADDRESS() != null) {
+				String[] petsitter_address = petsitter.getPETSITTER_ADDRESS().split(",");
+				petsitter_list.get(i).setPETSITTER_ADDRESS(petsitter_address[1]);
+			}
+			
+			if(petsitter.getPETSITTER_SERVICE_LIST() != null) {
+				String[] petsitter_service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
+				petsitter_list.get(i).setPETSITTER_SERVICE(petsitter_service);
+			}
+		}
+		return petsitter_list;
+	}
+	@RequestMapping(value ="getPetsitterList_We_Area10.br", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public List<PetsitterVO> getPetsitterList_We_Area10() {
+		List<PetsitterVO> petsitter_list = petsitterService.petsitterList_We_Area10();
+		for(int i = 0; i < petsitter_list.size(); i++) {
+			PetsitterVO petsitter = petsitter_list.get(i);
+			
+			if(petsitter.getPETSITTER_ADDRESS() != null) {
+				String[] petsitter_address = petsitter.getPETSITTER_ADDRESS().split(",");
+				petsitter_list.get(i).setPETSITTER_ADDRESS(petsitter_address[1]);
+			}
+			
+			if(petsitter.getPETSITTER_SERVICE_LIST() != null) {
+				String[] petsitter_service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
+				petsitter_list.get(i).setPETSITTER_SERVICE(petsitter_service);
+			}
+		}
+		return petsitter_list;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
