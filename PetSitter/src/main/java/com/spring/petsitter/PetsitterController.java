@@ -72,9 +72,11 @@ public class PetsitterController {
 	@RequestMapping(value = "petsitter_login.me")
 	public String petsiiterLogin(PetsitterVO vo,HttpSession session) {
 		int res = petsitterService.petsitterCheck(vo);
+		PetsitterVO petsitter = petsitterService.selectPetsitter(vo.getPETSITTER_ID());
 		
 		if(res == 1) {
 			session.setAttribute("id", vo.getPETSITTER_ID());
+			session.setAttribute("name", petsitter.getPETSITTER_NAME());
 			System.out.println("로그인 성공");
 			return "home";
 		}else {

@@ -13,6 +13,7 @@ public interface PetsitterService {
 	public PetsitterVO selectPetsitter(String id);
 	public int petsitterApproval(PetsitterVO petsitter);
 	public int petsitterRefusal(PetsitterVO petsitter);
+<<<<<<< HEAD
 	
 	
 	
@@ -39,4 +40,7 @@ public interface PetsitterService {
 	public List<PetsitterVO> petsitterList_We_Area9();
 	public List<PetsitterVO> petsitterList_We_Area10();
 	
+=======
+	public void petsitterscoreupdate(String id, double score);
+>>>>>>> origin/moon
 }

@@ -8,7 +8,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class JinhoController {
 
+	@RequestMapping(value = "home.me", method = RequestMethod.GET)
+	public String home( Model model) {
 	
+<<<<<<< HEAD
+=======
+		return "home";
+	}
+
+	
+>>>>>>> origin/CJH
 	@RequestMapping(value = "foster_view.me", method = RequestMethod.GET)
 	public String foster_view() {
 	
@@ -24,6 +33,6 @@ public class JinhoController {
 	@RequestMapping(value = "postscript_board.me", method = RequestMethod.GET)
 	public String postscript_board() {
 				
-		return "postscript_board";
+		return "board/review_board";
 	}	
 }

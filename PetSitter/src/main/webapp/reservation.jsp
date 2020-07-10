@@ -1,18 +1,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<<<<<<< HEAD
 <%@ page import="com.spring.petsitter.PetsitterVO" %>
 <%@ page import="java.util.*" %>
 
 
+=======
+>>>>>>> origin/moon
 <%
-	ArrayList<PetsitterVO> petsitterList = (ArrayList<PetsitterVO>)request.getAttribute("petsitter_list");
+
 %>
 
 
 
 
 <!-- 위탁 돌봄 -->
-
 <!doctype html>
 <html lang="en">
 
@@ -149,8 +151,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               	%>
                 <a href="loginform.me" ><span class = "font-size-14" >로그인 & 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
-                <%} else { %>
+                <%} else if(((String)session.getAttribute("id")).contains("@")){ %> <!-- 일반 회원 마이 페이지 -->
                 <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+                <%} else {%> <!-- 펫시터 마이 페이지 -->
+                <a href="petsitterinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} %>
               </div>
@@ -259,10 +264,17 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			<div class="col">
 				<div class="custom">
 					<h1 class="top_box_text4">원하는 조건을 선택해주세요!</h1>
+<<<<<<< HEAD
 					<input type="button" class="custom_btn" id="custom_btn1" value="픽업">
 					<input type="button" class="custom_btn" id="custom_btn2" value="대형견">
 					<input type="button" class="custom_btn" id="custom_btn3" value="마당">
 					<input type="button" class="custom_btn" id="custom_btn4" value="노견">
+=======
+					<input type="button" class="custom_btn" id="custom_btn1" name="" value="픽업 OK!">
+					<input type="button" class="custom_btn" id="custom_btn2" value="대형견 OK!">
+					<input type="button" class="custom_btn" id="custom_btn3" value="마당 OK!">
+					<input type="button" class="custom_btn" id="custom_btn4" value="노견 OK!">
+>>>>>>> origin/moon
 				</div>
 			</div>
 		</div>
@@ -532,6 +544,122 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
   	<script src="<c:url value="/resources/js/UT_JS/reservation_term.js"/>"></script>   
 
 
+<<<<<<< HEAD
+=======
+<script>
+	$(function() {
+		let service_list = new Array();
+		$("#custom_btn1").click(function() {
+			let service_item1 = $("#custom_btn1").val();
+			if(service_list.includes("픽업 OK!")) {
+				const index1 = service_list.indexOf("픽업 OK!");
+				service_list.splice(index1, 1);
+				console.log(service_list);
+			} else {
+				service_list.push(service_item1);
+				console.log(service_list);
+			}
+		});
+		$("#custom_btn2").click(function() {
+			let service_item2 = $("#custom_btn2").val();
+			if(service_list.includes("대형견 OK!")) {
+				const index2 = service_list.indexOf("대형견 OK!");
+				service_list.splice(index2, 1);
+				console.log(service_list);
+			} else {
+				service_list.push(service_item2);
+				console.log(service_list);
+			}
+		});
+		$("#custom_btn3").click(function() {
+			let service_item3 = $("#custom_btn3").val();
+			if(service_list.includes("마당 OK!")) {
+				const index3 = service_list.indexOf("마당 OK!");
+				service_list.splice(index3, 1);
+				console.log(service_list);
+			} else {
+				service_list.push(service_item3);
+				console.log(service_list);
+			}
+		});
+		$("#custom_btn4").click(function() {
+			let service_item4 = $("#custom_btn4").val();
+			if(service_list.includes("노견 OK!")) {
+				const index4 = service_list.indexOf("노견 OK!");
+				service_list.splice(index4, 1);
+				console.log(service_list);
+			} else {
+				service_list.push(service_item4);
+				console.log(service_list);
+			}
+		});
+	});
+</script>
+
+
+<script>
+	function selectData() {
+		$('#petsitter_middle_box').empty();
+		
+		$.ajax({
+			url: '/petsitter/getPetsitterList_We.br',
+			type: 'post',
+			dataType: 'json',
+			contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+			success: function(data) {
+				
+				$.each(data, function(index, item) {
+					var output = '';
+					output += '<div class="col-12">';
+					output += '<div class="middle_box_row">';
+					output += '<div class="middle_box_img">';
+					output += '</div>'; // middle_box_img 종료 태그
+					output += '<div class="middle_box_view">';
+					output += '<div class="middle_box_view_start">';
+					output += '<span class="v_location">' + item.petsitter_ADDRESS + '</span>&nbsp;';
+					output += '<span class="v_grade">' + item.petsitter_RANK + '</span><br />';
+					output += '<span class="v_title">' + item.petsitter_INTRODUCE + '</span>';
+					output += '</div>'; // middle_box_view_start 종료 태그
+					output += '<div class="middle_box_view_center">';
+					
+					if(item.petsitter_SERVICE !== null) {
+						for(let i = 0; i < item.petsitter_SERVICE.length; i++) {
+							output += '<span class="v_option" id="option${i+1}">' + item.petsitter_SERVICE[i] + '</span>';
+							if(i !== item.petsitter_SERVICE.length - 1) {
+								output += '<span class="v_option" id="optionJum">' + '&nbsp;' + '</span>';
+							}
+						}
+					}
+					output += '</div>'; // middle_box_view_center 종료 태그
+					output += '<div class="middle_box_view_end">'; // 별점
+					output += '<img class="star" id="star1" src="./resources/images/function/star.jpg">';
+					output += '<img class="star" id="star2" src="./resources/images/function/star.jpg">';
+					output += '<img class="star" id="star3" src="./resources/images/function/star.jpg">';
+					output += '<img class="star" id="star4" src="./resources/images/function/star.jpg">';
+					output += '<img class="starhalf" id="star5" src="./resources/images/function/starhalf.jpg">';
+					output += '<span class="v_location">' + item.petsitter_REVIEWCOUNT + '</span>';
+					output += '<span class="v_review">'
+					output += '</div>'; // middle_box_view_end 종료 태그
+					output += '</div>'; // middle_box_view 종료 태그
+					output += '</div>'; // middle_box_row 종료 태그
+					output += '</div>'; // col-12 종료 태그
+					
+					console.log("output: " + output);
+					$('#petsitter_middle_box').append(output);
+				});
+			},
+			error: function() {
+				alert("ajax 통신 실패!");
+			}
+		});
+	}
+	
+	$(document).ready(function() {
+		
+		selectData();
+	});
+</script>
+>>>>>>> origin/moon
    
 </body>
 </html>

@@ -72,5 +72,9 @@ public class MemberBoardServiceImpl implements MemberBoardService {
 			res = memberboardMapper.boardDelete(num);
 		}
 		return res;
-	}	
+	}
+
+
+
+
 }

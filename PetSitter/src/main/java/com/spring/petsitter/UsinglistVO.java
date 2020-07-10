@@ -4,7 +4,7 @@ import java.util.Date;
 
 /*
 create table USINGLIST(
-    LIST_NUM number(10) primary key,
+    USINGLIST_NUM number(10) primary key,
     PETSITTER_ID varchar2(30),
     MEMBER_ID varchar2(30),
     LIST_PRICE number(8),
@@ -14,8 +14,9 @@ create table USINGLIST(
 );
 */
 public class UsinglistVO {
-	private int LIST_NUM;
+	private int USINGLIST_NUM;
 	private String PETSITTER_ID;
+	private String PETSITTER_ADDR;
 	private String MEMBER_ID;
 	private int LIST_PRICE;
 	private Date LIST_START_DATE;
@@ -23,11 +24,11 @@ public class UsinglistVO {
 	private int LIST_SCORE;
 	private String LIST_TYPE;
 	
-	public int getLIST_NUM() {
-		return LIST_NUM;
+	public int getUSINGLIST_NUM() {
+		return USINGLIST_NUM;
 	}
-	public void setLIST_NUM(int lIST_NUM) {
-		LIST_NUM = lIST_NUM;
+	public void setUSINGLIST_NUM(int uSINGLIST_NUM) {
+		USINGLIST_NUM = uSINGLIST_NUM;
 	}
 	public String getPETSITTER_ID() {
 		return PETSITTER_ID;
@@ -37,6 +38,12 @@ public class UsinglistVO {
 	}
 	public String getMEMBER_ID() {
 		return MEMBER_ID;
+	}
+	public String getPETSITTER_ADDR() {
+		return PETSITTER_ADDR;
+	}
+	public void setPETSITTER_ADDR(String pETSITTER_ADDR) {
+		PETSITTER_ADDR = pETSITTER_ADDR;
 	}
 	public void setMEMBER_ID(String mEMBER_ID) {
 		MEMBER_ID = mEMBER_ID;
