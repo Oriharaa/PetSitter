@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.petsitter.board.ReviewBoardVO;
 
 @RestController
-public class UsinglistController {
+public class PUsinglistController {
 	
 	
 	@Autowired
-	private UsinglistService usinglistService;
+	private PUsinglistService usinglistService;
 	
 	@Autowired
 	private PetsitterService petsitterService;
@@ -30,7 +30,7 @@ public class UsinglistController {
 	}
 	
 	@RequestMapping(value = "/review_refly.bo",produces="application/json;charset=UTF-8")
-	public ArrayList<ReviewBoardVO> selectReview(HttpSession session, UsinglistVO vo) {
+	public ArrayList<ReviewBoardVO> selectReview(HttpSession session, PUsinglistVO vo) {
 		String id = (String)session.getAttribute("id");
 		vo.setPETSITTER_ID(id);
 		System.out.println(vo.getPETSITTER_ID());
@@ -43,7 +43,7 @@ public class UsinglistController {
 	}
 	
 	@RequestMapping(value = "/search_data.bo",produces="application/json;charset=UTF-8")
-	public ArrayList<PetsitterUsinglistVO> selectList(HttpSession session, UsinglistVO vo){
+	public ArrayList<PetsitterUsinglistVO> selectList(HttpSession session, PUsinglistVO vo){
 		String id = (String)session.getAttribute("id");
 		vo.setPETSITTER_ID(id);
 		int limit = 5;
@@ -101,7 +101,7 @@ public class UsinglistController {
 	}
 	
 	@RequestMapping(value = "/getList.bo", produces="application/json;charset=UTF-8")
-	public ArrayList<PetsitterUsinglistVO> getList(HttpSession session,UsinglistVO vo) {
+	public ArrayList<PetsitterUsinglistVO> getList(HttpSession session,PUsinglistVO vo) {
 		String id = (String)session.getAttribute("id");
 		vo.setPETSITTER_ID(id);
 		int limit = 5;
@@ -158,7 +158,7 @@ public class UsinglistController {
 	}
 	
 	@RequestMapping(value = "/getList_7d.bo",produces="application/json;charset=UTF-8")
-	public ArrayList<PetsitterUsinglistVO> getList_7d(HttpSession session,UsinglistVO vo){
+	public ArrayList<PetsitterUsinglistVO> getList_7d(HttpSession session,PUsinglistVO vo){
 		String id = (String)session.getAttribute("id");
 		vo.setPETSITTER_ID(id);
 		int limit = 5;
@@ -216,7 +216,7 @@ public class UsinglistController {
 	}
 	
 	@RequestMapping(value = "/getList_1m.bo",produces="application/json;charset=UTF-8")
-	public ArrayList<PetsitterUsinglistVO> getList_1m(HttpSession session,UsinglistVO vo){
+	public ArrayList<PetsitterUsinglistVO> getList_1m(HttpSession session,PUsinglistVO vo){
 		String id = (String)session.getAttribute("id");
 		vo.setPETSITTER_ID(id);
 		int limit = 5;
@@ -274,7 +274,7 @@ public class UsinglistController {
 	}
 	
 	@RequestMapping(value = "/getList_3m.bo",produces="application/json;charset=UTF-8")
-	public ArrayList<PetsitterUsinglistVO> getList_3m(HttpSession session,UsinglistVO vo){
+	public ArrayList<PetsitterUsinglistVO> getList_3m(HttpSession session,PUsinglistVO vo){
 		String id = (String)session.getAttribute("id");
 		vo.setPETSITTER_ID(id);
 		int limit = 5;

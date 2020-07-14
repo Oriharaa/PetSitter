@@ -25,7 +25,7 @@ public class PetsitterController {
 	private MemberService memberService;
 
 	@Autowired
-	private UsinglistService usinglistService;
+	private PUsinglistService usinglistService;
 	
 	@RequestMapping(value = "reflyUpdate.me")
 	public String reflyUpdate(HttpSession session,ReviewBoardVO vo) {
@@ -217,7 +217,7 @@ public class PetsitterController {
 		vo = petsitterService.selectPetsitter(petsitter);
 
 		ArrayList<PetsitterUsinglistVO> list = new ArrayList<PetsitterUsinglistVO>();
-		UsinglistVO usinglist = new UsinglistVO();
+		PUsinglistVO usinglist = new PUsinglistVO();
 		usinglist.setPETSITTER_ID(id);
 		list = usinglistService.petsitterSelectUsingList(usinglist);
 		model.addAttribute("vo", vo);

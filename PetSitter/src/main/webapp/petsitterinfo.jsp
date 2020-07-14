@@ -911,7 +911,6 @@ function button_select(page){
 	$('#output').empty(); //table내부 내용을 제거(초기화)
 	$('#output1').empty();
 	var params = $("#search_form").serialize()+"&PAGE"+"="+page;
-	alert(params);
 	$.ajax({
 		url : '/petsitter/search_data.bo',
 		type : 'POST',

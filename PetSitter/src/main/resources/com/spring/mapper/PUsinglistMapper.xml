@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace = "com.spring.mapper.UsinglistMapper">
+<mapper namespace = "com.spring.mapper.PUsinglistMapper">
 
 	<resultMap type = "PetsitterUsinglistVO" id = "petsitterUsinglistVO">
 		<result property = "PETSITTER_ID" column = "PETSITTER_ID"></result>
@@ -17,35 +17,35 @@
 		<result property = "LIST_TYPE" column = "LIST_TYPE"></result>
 	</resultMap>
 	
-	<select id = "review_refly_N" parameterType = "UsinglistVO" resultType ="int">
+	<select id = "review_refly_N" parameterType = "PUsinglistVO" resultType ="int">
 	select count(*) from review_board,member where petsitter_id = #{PETSITTER_ID} and usinglist_num = #{LIST_NUM} and member.member_id = review_board.member_id and review_refly = 'N'
 	</select>
 	
-	<select id = "review_refly_select" parameterType = "UsinglistVO" resultType = "ReviewBoardVO">
+	<select id = "review_refly_select" parameterType = "PUsinglistVO" resultType = "ReviewBoardVO">
 	select * from review_board,member where petsitter_id = #{PETSITTER_ID} and usinglist_num = #{NUMBER} and member.member_id = review_board.member_id
 	</select>
 	
-	<select id = "petsitterSelectUsinglistCount" parameterType = "UsinglistVO" resultType = "int">
+	<select id = "petsitterSelectUsinglistCount" parameterType = "PUsinglistVO" resultType = "int">
 		select count(*) from usinglist,member where petsitter_id = #{PETSITTER_ID} and usinglist.member_id = member.member_id
 	</select>
 	
-	<select id = "petsitterSelectUsinglistCount_7d" parameterType = "UsinglistVO" resultType = "int">
+	<select id = "petsitterSelectUsinglistCount_7d" parameterType = "PUsinglistVO" resultType = "int">
 		select count(*) from usinglist,member where petsitter_id = #{PETSITTER_ID} and usinglist.member_id = member.member_id and list_end_date between sysdate-7 and sysdate+7
 	</select>
 	
-	<select id = "petsitterSelectUsinglistCount_1m" parameterType = "UsinglistVO" resultType = "int">
+	<select id = "petsitterSelectUsinglistCount_1m" parameterType = "PUsinglistVO" resultType = "int">
 		select count(*) from usinglist,member where petsitter_id = #{PETSITTER_ID} and usinglist.member_id = member.member_id and list_end_date between to_char(add_months(sysdate,-1)) and to_char(add_months(sysdate,+1))
 	</select>
 	
-	<select id = "petsitterSelectUsinglistCount_3m" parameterType = "UsinglistVO" resultType = "int">
+	<select id = "petsitterSelectUsinglistCount_3m" parameterType = "PUsinglistVO" resultType = "int">
 		select count(*) from usinglist,member where petsitter_id = #{PETSITTER_ID} and usinglist.member_id = member.member_id and list_end_date between to_char(add_months(sysdate,-3)) and to_char(add_months(sysdate,+3))
 	</select>
 	
-	<select id = "petsitterSelectUsinglistCount_select" parameterType = "UsinglistVO" resultType = "int">
+	<select id = "petsitterSelectUsinglistCount_select" parameterType = "PUsinglistVO" resultType = "int">
 		select count(*) from usinglist,member where petsitter_id = #{PETSITTER_ID} and usinglist.member_id = member.member_id and list_end_date between #{STRING_STARTDATE} and #{STRING_ENDDATE}
 	</select>
 	
-	<select id = "petsitterSelectUsingList" parameterType= "UsinglistVO" resultMap = "petsitterUsinglistVO">
+	<select id = "petsitterSelectUsingList" parameterType= "PUsinglistVO" resultMap = "petsitterUsinglistVO">
 		<![CDATA[
 		select MEMBER_PHOTO_FILE,MEMBER_ID,LIST_PRICE,MEMBER_NICKNAME,MEMBER_NAME,MEMBER_TEL,LIST_NUM,LIST_START_DATE,LIST_END_DATE,LIST_TYPE
 		from (select row_number() over(ORDER by A.list_end_date desc)AS SEQ,MEMBER_PHOTO_FILE,A.MEMBER_ID,MEMBER_NICKNAME,MEMBER_NAME,MEMBER_TEL,LIST_NUM,LIST_START_DATE,LIST_END_DATE,LIST_TYPE,LIST_PRICE
@@ -53,7 +53,7 @@
 		]]>
 	</select>
 	
-	<select id = "petsitterSelectUsingList_7d" parameterType = "UsinglistVO" resultType = "PetsitterUsinglistVO">
+	<select id = "petsitterSelectUsingList_7d" parameterType = "PUsinglistVO" resultType = "PetsitterUsinglistVO">
 		<![CDATA[
 		select MEMBER_PHOTO_FILE,MEMBER_ID,LIST_PRICE,MEMBER_NICKNAME,MEMBER_NAME,MEMBER_TEL,LIST_NUM,LIST_START_DATE,LIST_END_DATE,LIST_TYPE
 		from (select row_number() over(ORDER by A.list_end_date desc)AS SEQ,MEMBER_PHOTO_FILE,A.MEMBER_ID,MEMBER_NICKNAME,MEMBER_NAME,MEMBER_TEL,LIST_NUM,LIST_START_DATE,LIST_END_DATE,LIST_TYPE,LIST_PRICE
@@ -61,7 +61,7 @@
 		]]>
 	</select>
 	
-	<select id = "petsitterSelectUsingList_1m" parameterType = "UsinglistVO" resultType = "PetsitterUsinglistVO">
+	<select id = "petsitterSelectUsingList_1m" parameterType = "PUsinglistVO" resultType = "PetsitterUsinglistVO">
 	<![CDATA[
 		select MEMBER_PHOTO_FILE,MEMBER_ID,LIST_PRICE,MEMBER_NICKNAME,MEMBER_NAME,MEMBER_TEL,LIST_NUM,LIST_START_DATE,LIST_END_DATE,LIST_TYPE
 from (select row_number() over(ORDER by A.list_end_date desc)AS SEQ,MEMBER_PHOTO_FILE,A.MEMBER_ID,MEMBER_NICKNAME,MEMBER_NAME,MEMBER_TEL,LIST_NUM,LIST_START_DATE,LIST_END_DATE,LIST_TYPE,LIST_PRICE
@@ -69,7 +69,7 @@ from usinglist A,member B where petsitter_id = #{PETSITTER_ID} and A.member_id =
 		]]>
 	</select>
 	
-	<select id = "petsitterSelectUsingList_3m" parameterType = "UsinglistVO" resultType = "PetsitterUsinglistVO">
+	<select id = "petsitterSelectUsingList_3m" parameterType = "PUsinglistVO" resultType = "PetsitterUsinglistVO">
 		<![CDATA[
 		select MEMBER_PHOTO_FILE,MEMBER_ID,LIST_PRICE,MEMBER_NICKNAME,MEMBER_NAME,MEMBER_TEL,LIST_NUM,LIST_START_DATE,LIST_END_DATE,LIST_TYPE
 from (select row_number() over(ORDER by A.list_end_date desc)AS SEQ,MEMBER_PHOTO_FILE,A.MEMBER_ID,MEMBER_NICKNAME,MEMBER_NAME,MEMBER_TEL,LIST_NUM,LIST_START_DATE,LIST_END_DATE,LIST_TYPE,LIST_PRICE
@@ -78,7 +78,7 @@ from usinglist A,member B where petsitter_id = #{PETSITTER_ID} and A.member_id =
 	</select>
 
 	
-	<select id = "petsitterSelectUsingList_select" parameterType = "UsinglistVO" resultType = "PetsitterUsinglistVO">
+	<select id = "petsitterSelectUsingList_select" parameterType = "PUsinglistVO" resultType = "PetsitterUsinglistVO">
 		<![CDATA[
 		select MEMBER_PHOTO_FILE,MEMBER_ID,LIST_PRICE,MEMBER_NICKNAME,MEMBER_NAME,MEMBER_TEL,LIST_NUM,LIST_START_DATE,LIST_END_DATE,LIST_TYPE
 from (select row_number() over(ORDER by A.list_end_date desc)AS SEQ,MEMBER_PHOTO_FILE,A.MEMBER_ID,MEMBER_NICKNAME,MEMBER_NAME,MEMBER_TEL,LIST_NUM,LIST_START_DATE,LIST_END_DATE,LIST_TYPE,LIST_PRICE

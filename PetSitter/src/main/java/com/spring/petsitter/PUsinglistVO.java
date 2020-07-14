@@ -13,7 +13,7 @@ LIST_END_DATE date,
 LIST_TYPE varchar2(10));
  */
 
-public class UsinglistVO {
+public class PUsinglistVO {
 	private int LIST_NUM;
 	private String PETSITTER_ID;
 	private String MEMBER_ID;
