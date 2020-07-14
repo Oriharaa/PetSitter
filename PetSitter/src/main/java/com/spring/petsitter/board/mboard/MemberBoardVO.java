@@ -1,25 +1,30 @@
-package com.spring.petsitter.board;
+package com.spring.petsitter.board.mboard;
 
 import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
+/* */
+
 /*
-create table MEMBER_BOARD(
-    MEMBER_NUM number(10) PRIMARY KEY, -- 회원 게시판 글 번호
-    MEMBER_ID varchar2(30), -- 회원 아이디
-    MEMBER_SUBJECT varchar2(100), -- 제목
-    MEMBER_CONTENT varchar2(4000), -- 내용
-    MEMBER_ORG_FILE varchar2(100), -- 파일 이름
-    MEMBER_UP_FILE varchar2(100), -- 업로드 파일 이름
-    MEMBER_READCOUNT number, -- 조회수
-    MEMBER_DATE date default sysdate, -- 작성일
-    MEMBER_LIKECOUNT number -- 좋아요 수
-);
+  CREATE TABLE "MEMBER_BOARD" 
+   (	"MEMBER_NUM" NUMBER(10,0), 
+	"MEMBER_ID" VARCHAR2(20 BYTE), 
+	"MEMBER_SUBJECT" VARCHAR2(100 BYTE), 
+	"MEMBER_CONTENT" VARCHAR2(4000 BYTE), 
+	"MEMBER_ORG_FILE" VARCHAR2(100 BYTE), 
+	"MEMBER_UP_FILE" VARCHAR2(100 BYTE), 
+	"MEMBER_READCOUNT" NUMBER, 
+	"MEMBER_DATE" DATE, 
+	"MEMBER_LIKECOUNT" NUMBER, 
+	"MEMBER_NAME" VARCHAR2(20 BYTE), 
+	"MEMBER_SECRET" VARCHAR2(2 BYTE) DEFAULT 'N'
+   ) ;
 */
 public class MemberBoardVO {
 	private int MEMBER_NUM;
 	private String MEMBER_ID;
+	private String MEMBER_NAME;
 	private String MEMBER_SUBJECT;
 	private String MEMBER_CONTENT;
 	private MultipartFile MEMBER_FILE;
@@ -28,7 +33,14 @@ public class MemberBoardVO {
 	private int MEMBER_READCOUNT;
 	private Date MEMBER_DATE;
 	private int MEMBER_LIKECOUNT;
+	private String MEMBER_SECRET;
 	
+	public String getMEMBER_SECRET() {
+		return MEMBER_SECRET;
+	}
+	public void setMEMBER_SECRET(String mEMBER_SECRET) {
+		MEMBER_SECRET = mEMBER_SECRET;
+	}
 	public int getMEMBER_NUM() {
 		return MEMBER_NUM;
 	}
@@ -88,6 +100,12 @@ public class MemberBoardVO {
 	}
 	public void setMEMBER_LIKECOUNT(int mEMBER_LIKECOUNT) {
 		MEMBER_LIKECOUNT = mEMBER_LIKECOUNT;
+	}
+	public String getMEMBER_NAME() {
+		return MEMBER_NAME;
+	}
+	public void setMEMBER_NAME(String mEMBER_NAME) {
+		MEMBER_NAME = mEMBER_NAME;
 	}
 	
 }

@@ -1,4 +1,3 @@
-<!-- 관리자 메인 페이지 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
@@ -6,10 +5,25 @@
 <%@ page import="com.spring.petsitter.board.*" %>
 
 <%@ page import="javax.servlet.*,java.text.*" %>
+<<<<<<< HEAD
 <%
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
 %>
+=======
+
+<% String name = (String)session.getAttribute("name");
+//세션 종료시 홈으로
+if(session.getAttribute("id") == null) {
+   out.println("<script>");
+   out.println("location.href = 'loginform.me'");
+   out.println("</script>");
+}
+%>
+
+
+
+>>>>>>> origin/PGKIM
 <!doctype html>
 <html lang="en">
 
@@ -91,17 +105,28 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	 
 	
 </style>
+
+
 	
 	
   <head>
+  <form action="./mboardwrite.me" method="post" name="boardform" enctype="multipart/form-data">
+  <input type="hidden" name="MEMBER_ID" value="${id}">
+  <input type="hidden" name="MEMBER_NAME" value="${name}">
+  
+  
   	<!-- CKEDITOR 사용 위한 스크립트 -->
   	<script src = "${pageContext.request.contextPath}/resources/js/ckeditor/ckeditor.js"></script>
+
+  		
   	
   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     <title>Depot &mdash;Website Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
     
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
@@ -118,16 +143,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <!-- MAIN CSS 다양한 폰트크기보유 -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 	
-	
+
 		  
   </head>
 	
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-
-    	
-
-    <div class="site-wrap" id="home-section">
-
+  	<div class="site-wrap" id="home-section">
       <div class="site-mobile-menu site-navbar-target">
         <div class="site-mobile-menu-header">
           <div class="site-mobile-menu-close mt-3">
@@ -191,6 +212,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
       </header>
       
+		
+		
+      
    	<div class="container">      
 			<div class="row">
     		<div class="col-md-12 p-3"></div>
@@ -207,7 +231,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     		<button type="button" style="background:#53dc98;" class="btn btn-sm">회계 관리</button>
     	</div>
     </div>  
-    
+    ${id}  로그인 중
+    닉네임 : ${name} 
     <!-- 여백용 row -->
     <div class="row">
     	<div class="col-md-12 p-3"></div>
@@ -217,7 +242,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
    		<div class="col-md-12">
    			<span class="glyphicon glyphicon-pencil"></span>
   			<div class="input-group">  		
- 					<input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1">
+ 					<input name="MEMBER_SUBJECT" type="text" class="form-control" aria-describedby="sizing-addon1">
 				</div>
    		</div>
     </div>
@@ -227,7 +252,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	     	<div class="col-md-12">
 	    		<div class="checkbox">
 	    			<label>
-	      			<input type="checkbox"> 필수사항
+	      			<input type="checkbox" name="MEMBER_SECRET">비밀글
 	    			</label>
 	  			</div>
 	  		</div>
@@ -242,9 +267,40 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <!-- 본문 textarea를 ckeditor로 교체 -->
     <div class="row">
     	<div class="col-md-12">
-    		<textarea id = "editor4" name = "editor4"></textarea>
-					<script>CKEDITOR.replace('editor4');</script>
+    		<textarea name = "MEMBER_CONTENT"></textarea>
+					<script>CKEDITOR.replace('MEMBER_CONTENT');</script>
     		</div>
+    </div>
+    
+    <div class="row">
+    	<div class="col-md-12">
+    		<table>
+    			<tr>
+    				<td>
+    					<div align="center">미리 보기	</div>
+    				</td>
+    				<td>
+	    				<div class="inputArea">
+	    					<label for="exampleImg">이미지</label>
+	    					<input name="MEMBER_FILE" id="exampleImg" type="file"/>
+	    					<div class="select_img"><img src="" /></div>
+	    						<script>
+				  				$("#exampleImg").change(function(){
+				   					if(this.files && this.files[0]) {
+				    					var reader = new FileReader;
+				    						reader.onload = function(data) {
+				     							$(".select_img img").attr("src", data.target.result).width(500);        
+				    						}
+				    					reader.readAsDataURL(this.files[0]);
+				   					}
+				  				});
+				 				</script>
+    					</div>
+    				</td>
+    			</tr>
+  
+    		</table>
+    	</div>
     </div>
 
 		<!-- 여백용 row -->
@@ -254,8 +310,10 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     
     <div class="row">
     	<div class="col-md-12">
-				<button type="button" style="background:#53dc98;" class="btn btn-sm">등록</button>
-  			<button type="button" style="background:#e67e22;" class="btn btn-sm">취소</button>
+    		<div class="text-right">
+					<a type="button" style="background:#53dc98; color:white;" class="btn btn-sm" id="btnSave" href="javascript:addboard()">등록</a>
+	  			<a type="button" style="background:#e67e22; color:white;" class="btn btn-sm" id="btnList" href="javascript:history.go(-1)">취소</a>
+	  		</div>
     	</div>
     </div>
    </div>
@@ -263,10 +321,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		<!-- 하단 넉넉하게 여백 주기 -->
 		<div class="row">
     	<div class="col-md-12 p-5"></div>
-    </div>
+    </div>   
    
-	   
-
   	<!-- 하단 바 시작 -->
     <footer class="site-footer">
       <div class="container">
@@ -291,9 +347,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
             </div>
           </div>
           <div class="col-md-4 ml-auto">
-
-            
-
 
             <h2 class="footer-heading mb-4" id="main_grayfont1" >Follow Us</h2>
             <a href="https://www.facebook.com/" class="smoothscroll pl-0 pr-3" target="_blank"><span class="icon-facebook" id="main_grayfont2"></span></a>
@@ -320,7 +373,17 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	<!-- 하단 바 종료 -->
     </div>
 
-    <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
+
+    
+    
+    MEMBER_SECRET
+    
+  	<script language="javascript">
+		function addboard(){
+			boardform.submit();
+		}		
+		</script>
+    
     <script src="<c:url value="/resources/js/popper.min.js"/>"></script>
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
     <script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>

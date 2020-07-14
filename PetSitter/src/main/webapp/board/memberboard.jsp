@@ -3,19 +3,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.petsitter.*" %>
-<%@ page import="com.spring.petsitter.board.*" %>
+<%@ page import="com.spring.petsitter.board.mboard.*" %>
 <%@ page import="javax.servlet.*,java.text.*" %>
 <% 
+<<<<<<< HEAD
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
+=======
+	String id = null;
+	String name = null;
+	String rank = null;
+	
+	if(session.getAttribute("id") == null){
+		out.println("<script>");
+		out.println("location.href='loginform.me'");
+		out.println("</script>");
+	}
+	id = (String)session.getAttribute("id");
+	name = (String)session.getAttribute("name");
+	rank = (String)session.getAttribute("rank");
+	
+>>>>>>> origin/PGKIM
 	ArrayList<MemberVO> memberList = (ArrayList<MemberVO>)request.getAttribute("member_list");
 	List<MemberBoardVO> mboardlist=(List<MemberBoardVO>)request.getAttribute("mboard_list");
+	List<MReplyVO> mReplyList =(List<MReplyVO>)request.getAttribute("mReplyList"); 
 	
 	int listcount=((Integer)request.getAttribute("listcount")).intValue();
 	int nowpage=((Integer)request.getAttribute("page")).intValue();
 	int maxpage=((Integer)request.getAttribute("maxpage")).intValue();
 	int startpage=((Integer)request.getAttribute("startpage")).intValue();
 	int endpage=((Integer)request.getAttribute("endpage")).intValue();
+%>
+<%
+	SimpleDateFormat format1;
+	format1 = new SimpleDateFormat("yyyy-MM-dd");
 %>
 
 <!doctype html>
@@ -112,7 +133,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
 	<!-- 아이콘 css -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
-    
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
@@ -211,7 +232,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		    
 					<div class="row">
 			     	<div class="col-md-12">
-			    		<h3 class="text-left" id="qna">이용자 상담&문의 게시판</h3>
+			    		<a href="#"><h3 class="text-left" id="qna">이용자 상담&문의 게시판</h3></a>
 			    		<h6>글 갯수 :  ${listcount }</h6>
 			    	</div>
 			    </div>
@@ -250,47 +271,51 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					</thead>
 					<tbody>
 						<%int num = listcount - ((nowpage - 1) * 10); %>
+												
 					<%for(int i = 0 ; i < mboardlist.size(); i++) {
-						
 						MemberBoardVO bl=(MemberBoardVO)mboardlist.get(i);
 					%>
+					<tr>
 					
-						<tr>
+					<%if(bl.getMEMBER_SECRET().equals("N")) { %>					
 						<td><%=num %></td>
-						<td><%=mboardlist.get(i).getMEMBER_ID() %></td>
-						<td><a href="./mboarddetail.me?num=<%=bl.getMEMBER_NUM()%>"><%=mboardlist.get(i).getMEMBER_SUBJECT() %></a></td>
-						<td><%=mboardlist.get(i).getMEMBER_DATE() %></td>
-						<td><%=mboardlist.get(i).getMEMBER_READCOUNT() %></td>
+						<td><%=bl.getMEMBER_NAME() %></td>
+						<td><a href="./mboarddetail.me?num=<%=bl.getMEMBER_NUM()%>"><%=bl.getMEMBER_SUBJECT() %></a></td>
+						<td><%=format1.format(bl.getMEMBER_DATE()) %></td>
+						<td><%=bl.getMEMBER_READCOUNT() %></td>
 						<% num--; %>
-						</tr>						
+					<%} else {%>
+						<td><%=num %></td>
+						<td colspan="4"><a href="./mboarddetail.me?num=<%=bl.getMEMBER_NUM()%>"><span class="oi oi-lock-locked"></span>비밀글입니다.</a></td>
+						<% num--; %>
+					<%} %>
+					</tr>
+											
 					<%} %> 
-				</tbody>
+					</tbody>
 				</table>
-				
-				
 				</div>
 			</div>
 			
 				    <div class="row">
 	      <div class="col-md-2">
-	      <a type="button" style="background:#D3D3D3;" class="btn btn-sm" id="list">목록</a>
-	      
+	      	      
 	      <% if(nowpage <= 1) { %>
-	      <a type="button" style="background:#D3D3D3;" class="btn btn-sm" id="prev">이전</a>
+	      <a type="button" style="background:#F8F8F8; color:black;" class="btn btn-sm" id="prev">이전</a>
 	      <% } else { %>
-	      <a type="button" style="background:#D3D3D3;" class="btn btn-sm" id="prev" href="./mboardlist.me?page=<%=nowpage-1 %>">이전</a>
+	      <a type="button" style="background:#F8F8F8; color:black;" class="btn btn-sm" id="prev" href="./mboardlist.me?page=<%=nowpage-1 %>">이전</a>
 	      <% } %>
 	            
 	      <%if(nowpage >= maxpage) { %>
-	      <a type="button" style="background:#D3D3D3;" class="btn btn-sm" id="next">다음</a>
+	      <a type="button" style="background:#F8F8F8; color:black;" class="btn btn-sm" id="next">다음</a>
 	      <% } else { %>
-	      <a type="button" style="background:#D3D3D3;" class="btn btn-sm" id="next" href="./mboardlist.me?page=<%=nowpage+1%>">다음</a>
+	      <a type="button" style="background:#F8F8F8; color:black;" class="btn btn-sm" id="next" href="./mboardlist.me?page=<%=nowpage+1%>">다음</a>
 	      <% } %>
 	      
 	    	</div>
 		    <div class="col-md-9"></div>
 	      <div class="col-md-1">
-	    		<a type="button" style="background:#D3D3D3;" class="btn btn-sm" id="write" href="./mboardwriteform.me">글쓰기</a>
+	    		<a type="button" style="background:#e67e22; color:white;" class="btn btn-sm" id="write" href="./mboardwriteform.me">글쓰기</a>
 	    		
 	    	</div>
 	    </div>
@@ -303,9 +328,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							<td>
 							<%for(int a=startpage;a<=endpage;a++){
 								if(a==nowpage){%>
-								<a type="button" style="background:#D3D3D3;" class="btn btn-sm"><%=a %></a>
+								<a type="button" style="background:#53DC98; color:white" class="btn btn-sm"><%=a %></a>
 								<%}else{ %>
-								<a type="button" style="background:#D3D3D3;" class="btn btn-sm" href="./mboardlist.me?page=<%=a %>"><%=a %></a>
+								<a type="button" style="background:#F8F8F8;" class="btn btn-sm" href="./mboardlist.me?page=<%=a %>"><%=a %></a>
 								
 								<%} %>
 							<%} %>

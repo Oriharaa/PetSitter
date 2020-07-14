@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.spring.mapper.MReplyMapper" >
+
+	<select id="replyCount" resultType="int">
+		select count(*) from mReply
+	</select>
+
+	<select id="readReply" resultType="com.spring.petsitter.board.mboard.MReplyVO">
+		select rno, content, writer_name, regDate from mReply where bno = #{bno}
+	</select>	
+	
+	<insert id="writeReply" parameterType="com.spring.petsitter.board.mboard.MReplyVO">
+		<selectKey keyProperty="rno" order="BEFORE" resultType="int">
+			select nvl(max(rno), 0)+1 from mReply
+		</selectKey>
+	
+ 	 INSERT INTO mReply (BNO, RNO, CONTENT, WRITER_ID, WRITER_NAME, REGDATE)
+		VALUES(#{bno},#{rno},#{content},#{writer_id}, #{writer_name}, sysdate) 
+	</insert>
+	
+	<update id="updateReply" parameterType="com.spring.petsitter.board.mboard.MReplyVO">
+		update mReply set content = #{content} where rno = #{rno}	
+	</update>
+	
+	<delete id="deleteReply" parameterType="int">
+		delete from mReply where rno = #{rno}	
+	</delete>
+	
+</mapper>

@@ -1,11 +1,15 @@
-package com.spring.petsitter.board;
+package com.spring.petsitter.board.mboard;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -23,8 +27,7 @@ public class MemberBoardController {
 	
 	@Autowired
 	private MemberBoardService memberboardService;	
-	
-	
+		
 	@RequestMapping(value = "/mboardlist.me")
 	public String memberboard(Model model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
@@ -38,7 +41,7 @@ public class MemberBoardController {
 		HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
 		hashmap.put("startrow", startrow);
 		hashmap.put("endrow", endrow);
-		List<MemberBoardVO> mboard_list = memberboardService.getBoardList(hashmap); // 다른 타입 2개를 전달해야하므로
+		List<MemberBoardVO> mboard_list = memberboardService.getBoardList(hashmap); 
 
 		int maxpage = (int) ((double) listcount / limit + 0.95);
 		int startpage = (((int) ((double) page / 10 + 0.9)) - 1) * 10 + 1;
@@ -54,6 +57,7 @@ public class MemberBoardController {
 		model.addAttribute("startpage", startpage);
 		model.addAttribute("endpage", endpage);
 
+		
 		return "board/memberboard";
 	}	
 	
@@ -65,38 +69,44 @@ public class MemberBoardController {
 	
 	@RequestMapping("/mboardwrite.me")
 	public String boardInsert(MemberBoardVO vo) throws Exception {
-		System.out.println("vo.getMember_id()=" + vo.getMEMBER_ID());
-		System.out.println("vo.getMember_file()=" + vo.getMEMBER_FILE());
+		System.out.println("vo.getMEMBER_ID() = " + vo.getMEMBER_ID());
+		System.out.println("vo.getMEMBER_NAME() = " + vo.getMEMBER_NAME());
+		System.out.println("vo.getMEMBER_FILE() = " + vo.getMEMBER_FILE());
+		System.out.println("vo.getMEMBER_SECRET() = " + vo.getMEMBER_SECRET());
+				
+		if(vo.getMEMBER_SECRET() == null) {
+			System.out.println("vo.getMEMBER_SECRET is null");
+			vo.setMEMBER_SECRET("N");
+		}
+		else {
+			System.out.println("vo.getMEMBER_SECRET is not null");
+		}
+				
 		MultipartFile mf = vo.getMEMBER_FILE();
+		System.out.println("mf.getSize() : " + mf.getSize());
 		String uploadPath = "C:\\Project156\\upload\\";
-
-		if (mf.getSize() != 0) {
-			System.out.println("mf=" + mf);
-			String originalFileExtension = mf.getOriginalFilename()
-					.substring(mf.getOriginalFilename().lastIndexOf("."));
+				
+		if(mf.getSize() != 0) {
+			String originalFileExtension = mf.getOriginalFilename();
 			String storedFileName = UUID.randomUUID().toString().replaceAll("-", "") + originalFileExtension;
-
-			// mf.transferTo(new File(uploadPath+"/"+mf.getOriginalFilename()));
 			mf.transferTo(new File(uploadPath + storedFileName));
-
 			vo.setMEMBER_ORG_FILE(mf.getOriginalFilename());
 			vo.setMEMBER_UP_FILE(storedFileName);
 		} else {
 			vo.setMEMBER_ORG_FILE("");
 			vo.setMEMBER_UP_FILE("");
-
 		}
+		
 		memberboardService.boardInsert(vo);
 
 		return "redirect:/mboardlist.me";
 	}
-	
+
 	@RequestMapping("/mboarddetail.me")
-	public String getDetail(@RequestParam(value = "num", required = true) int num, Model model) {
+	public String getDetail(@RequestParam(value = "num", required = true) int num, Model model) throws Exception {
 		MemberBoardVO vo = memberboardService.getDetail(num);
-
 		model.addAttribute("vo", vo);
-
+		
 		return "board/memberboard_view";
 	}
 	
@@ -111,35 +121,80 @@ public class MemberBoardController {
 	
 	@RequestMapping("/mboardmodify.me")
 	public String boardModify(MemberBoardVO vo) {
+		
 		memberboardService.boardModify(vo);
 		
 		return "redirect:/mboarddetail.me?num=" + vo.getMEMBER_NUM();
 	}
 	
-	@RequestMapping("/mboarddelete.me")
+	// 삭제
+	@RequestMapping("/mboardDelete.me")
 	public String boardDelete(@RequestParam(value="num", required=true) int num, HttpSession session, HttpServletResponse response) throws Exception {
+		System.out.println("num : " + num);
 		String id = (String)session.getAttribute("id");
+		System.out.println("id : " + id);
 		
 		HashMap<String, String> hashmap = new HashMap<String, String>();
-		hashmap.put("num", Integer.toString(num));
-		hashmap.put("id", id);
+		hashmap.put("member_num", Integer.toString(num));
+		hashmap.put("member_id", id);
 		int res = memberboardService.boardDelete(hashmap);
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter writer = response.getWriter();
 		if (res == 1)
 		{
-			writer.write("<script>alert('삭제 성공!!');"
-					+ "location.href='./mboardlist.bo';</script>");
+			writer.write("<script>alert('delete success');"
+					+ "location.href='./mboardlist.me';</script>");
 		}
 		else
 		{
-			writer.write("<script>alert('삭제 실패!!');"
-					+ "location.href='./mboardlist.bo';</script>");
+			writer.write("<script>alert('delete failed');"
+					+ "location.href='./mboardlist.me';</script>");
 		}
 		return null;
 	}
 	
+<<<<<<< HEAD:PetSitter/src/main/java/com/spring/petsitter/board/MemberBoardController.java
 
 	
+=======
+	@RequestMapping("/filedownload.bo")
+  public void fileDownload(HttpServletRequest request, HttpServletResponse response) throws Exception{
+  	response.setCharacterEncoding("utf-8");
+  	
+  	String num = request.getParameter("num");
+    String of = request.getParameter("of"); // 서버에 업로드된 변경된 실제 파일명
+    String of2 = request.getParameter("of2"); // 오리지날 파일명
+      
+     /* //웹사이트 루트디렉토리의 실제 디스크상의 경로 알아내기.
+     String uploadPath = request.getSession().getServletContext().getRealPath("/upload");
+     String fullPath = uploadPath+"/"+of; 
+     */
+     String uploadPath = "C:\\Project156\\upload\\"; // 직접 경로 지정
+     String fullPath = uploadPath + of;
+     File downloadFile = new File(fullPath);
+     
+     //파일 다운로드를 위해 컨테츠 타입을 application/download 설정
+     response.setContentType("application/download; charset=UTF-8");
+     //파일 사이즈 지정
+     response.setContentLength((int)downloadFile.length());
+     //다운로드 창을 띄우기 위한 헤더 조작
+     response.setHeader("Content-Disposition", "attachment;filename="
+                                      + new String(of2.getBytes(), "ISO8859_1"));
+     response.setHeader("Content-Transfer-Encoding","binary");
+     
+     System.out.println("downloadFile : " + downloadFile);
+     
+     FileInputStream fin = new FileInputStream(downloadFile);
+     ServletOutputStream sout = response.getOutputStream();
+
+     byte[] buf = new byte[1024];
+     int size = -1;
+     while ((size = fin.read(buf, 0, buf.length)) != -1) {
+        sout.write(buf, 0, size);
+     }
+     fin.close();
+     sout.close();
+  }
+>>>>>>> origin/PGKIM:PetSitter/src/main/java/com/spring/petsitter/board/mboard/MemberBoardController.java
 }
