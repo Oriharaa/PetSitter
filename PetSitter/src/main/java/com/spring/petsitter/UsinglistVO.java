@@ -13,10 +13,11 @@ LIST_END_DATE date,
 LIST_TYPE varchar2(10));
  */
 
-public class PUsinglistVO {
+public class UsinglistVO {
 	private int LIST_NUM;
 	private String PETSITTER_ID;
 	private String MEMBER_ID;
+	private String PETSITTER_ADDR;
 	private int LIST_PRICE;
 	private Date LIST_START_DATE;
 	private Date LIST_END_DATE;
@@ -35,7 +36,13 @@ public class PUsinglistVO {
 	private int NUMBER;
 	
 	
-
+	
+	public String getPETSITTER_ADDR() {
+		return PETSITTER_ADDR;
+	}
+	public void setPETSITTER_ADDR(String pETSITTER_ADDR) {
+		PETSITTER_ADDR = pETSITTER_ADDR;
+	}
 	public int getNUMBER() {
 		return NUMBER;
 	}
