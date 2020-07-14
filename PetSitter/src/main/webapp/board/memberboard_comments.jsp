@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ page import="com.spring.petsitter.board.*" %>
+<%@ page import="com.spring.petsitter.board.mboard.*" %>
 <meta charset="UTF-8">
 <%
 MemberBoardVO mboard = (MemberBoardVO)request.getAttribute("vo");
@@ -23,6 +23,7 @@ String name = (String)session.getAttribute("name");
     .pb-cmnt-textarea {
         resize: none;
         padding: 20px;
+        margin-bottom: 10px;
         height: 130px;
         width: 100%;
         border: 1px solid #827979!important;
@@ -75,6 +76,7 @@ var bno = <%=bno %>; // 게시판 글 번호
 			var a = '';
 			var num = 1;
 			$.each(data, function(key, value) {
+				
 				a +='<div class="container">';
 		    a +='<div class="row justify-content-center">'
 		    a +='<div class="col-md-10">';	

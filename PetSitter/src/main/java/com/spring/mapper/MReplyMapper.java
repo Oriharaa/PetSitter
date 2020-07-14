@@ -2,7 +2,7 @@ package com.spring.mapper;
 
 import java.util.List;
 
-import com.spring.petsitter.board.MReplyVO;
+import com.spring.petsitter.board.mboard.MReplyVO;
 
 public interface MReplyMapper {
 	public int replyCount() throws Exception;

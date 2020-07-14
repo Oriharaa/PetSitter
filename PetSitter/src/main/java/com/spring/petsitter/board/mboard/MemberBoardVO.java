@@ -1,4 +1,4 @@
-package com.spring.petsitter.board;
+package com.spring.petsitter.board.mboard;
 
 import java.util.Date;
 
@@ -7,18 +7,19 @@ import org.springframework.web.multipart.MultipartFile;
 /* */
 
 /*
-create table MEMBER_BOARD(
-    MEMBER_NUM number(10) PRIMARY KEY, -- 
-    MEMBER_ID varchar2(30), -- 
-    MEMBER_SUBJECT varchar2(100), -- 
-    MEMBER_CONTENT varchar2(4000), -- 
-    MEMBER_ORG_FILE varchar2(100), -- 
-    MEMBER_UP_FILE varchar2(100), --
-    MEMBER_READCOUNT number, -- 
-    MEMBER_DATE date default sysdate, --
-    MEMBER_LIKECOUNT number, -- 
-    MEMBER_SECRET default 'N'
-);
+  CREATE TABLE "MEMBER_BOARD" 
+   (	"MEMBER_NUM" NUMBER(10,0), 
+	"MEMBER_ID" VARCHAR2(20 BYTE), 
+	"MEMBER_SUBJECT" VARCHAR2(100 BYTE), 
+	"MEMBER_CONTENT" VARCHAR2(4000 BYTE), 
+	"MEMBER_ORG_FILE" VARCHAR2(100 BYTE), 
+	"MEMBER_UP_FILE" VARCHAR2(100 BYTE), 
+	"MEMBER_READCOUNT" NUMBER, 
+	"MEMBER_DATE" DATE, 
+	"MEMBER_LIKECOUNT" NUMBER, 
+	"MEMBER_NAME" VARCHAR2(20 BYTE), 
+	"MEMBER_SECRET" VARCHAR2(2 BYTE) DEFAULT 'N'
+   ) ;
 */
 public class MemberBoardVO {
 	private int MEMBER_NUM;

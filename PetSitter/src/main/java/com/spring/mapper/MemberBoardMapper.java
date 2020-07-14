@@ -3,7 +3,7 @@ package com.spring.mapper;
 import java.util.HashMap;
 import java.util.List;
 
-import com.spring.petsitter.board.MemberBoardVO;
+import com.spring.petsitter.board.mboard.MemberBoardVO;
 
 public interface MemberBoardMapper {
 	public List<MemberBoardVO> getBoardList(HashMap<String, Integer> hashmap);

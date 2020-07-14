@@ -1,4 +1,4 @@
-package com.spring.petsitter.board;
+package com.spring.petsitter.board.mboard;
 
 import java.util.List;
 
@@ -19,7 +19,8 @@ public class MReplyController {
 	
 	@RequestMapping(value="/read_Reply.bo", produces="application/json; charset=UTF-8")  //´ñ±Û ¸®½ºÆ®
 	private List<MReplyVO> mCommentServiceList(@RequestParam int bno) throws Exception{
-  	List<MReplyVO> mReplyList = mReplyService.readReply(bno);  
+  	List<MReplyVO> mReplyList = mReplyService.readReply(bno);
+  	System.out.println(mReplyList.size());
     return mReplyList;
   }
 	

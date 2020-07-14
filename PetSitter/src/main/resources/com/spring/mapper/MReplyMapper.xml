@@ -8,11 +8,11 @@
 		select count(*) from mReply
 	</select>
 
-	<select id="readReply" resultType="com.spring.petsitter.board.MReplyVO">
+	<select id="readReply" resultType="com.spring.petsitter.board.mboard.MReplyVO">
 		select rno, content, writer_name, regDate from mReply where bno = #{bno}
 	</select>	
 	
-	<insert id="writeReply" parameterType="com.spring.petsitter.board.MReplyVO">
+	<insert id="writeReply" parameterType="com.spring.petsitter.board.mboard.MReplyVO">
 		<selectKey keyProperty="rno" order="BEFORE" resultType="int">
 			select nvl(max(rno), 0)+1 from mReply
 		</selectKey>
@@ -21,7 +21,7 @@
 		VALUES(#{bno},#{rno},#{content},#{writer_id}, #{writer_name}, sysdate) 
 	</insert>
 	
-	<update id="updateReply" parameterType="com.spring.petsitter.board.MReplyVO">
+	<update id="updateReply" parameterType="com.spring.petsitter.board.mboard.MReplyVO">
 		update mReply set content = #{content} where rno = #{rno}	
 	</update>
 	

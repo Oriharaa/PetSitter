@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.petsitter.*" %>
-<%@ page import="com.spring.petsitter.board.*" %>
+<%@ page import="com.spring.petsitter.board.mboard.*" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="javax.servlet.*,java.text.*" %>
 <%
@@ -18,7 +18,7 @@
      out.println("location.href = 'loginform.me'");
      out.println("</script>");
   }
-	if(mboard.getMEMBER_SECRET().equals("Y") && !(mboard.getMEMBER_ID().equals(id))) {
+	if(mboard.getMEMBER_SECRET().equals("on") && !(mboard.getMEMBER_ID().equals(id))) {
 		out.println("<script>");
 		out.println("alert('권한이 없습니다.')");
 		out.println("history.go(-1)");
@@ -35,6 +35,12 @@
 
 
 <style>
+	#preview {
+		z-index: 9999; /* 필요시 설정 */
+		position: absoulte;
+		background: #999999!important;
+		padding: 2px;
+	}
 	button#prev, button#list, button#next, button#write {
 		color : white!important;
 	}
@@ -238,13 +244,28 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							<td>조회수</td>
 							<td><%=mboard.getMEMBER_READCOUNT() %></td>
 						</tr>
+						<tr>
+							<td>첨부파일</td>
+							<td>
+									<%if(!(mboard.getMEMBER_ORG_FILE() == null)) { %>
+									<a href="./filedownload.bo?num=<%=mboard.getMEMBER_ORG_FILE()%>&of=<%=mboard.getMEMBER_UP_FILE()%>&of2=<%=mboard.getMEMBER_ORG_FILE()%>">
+										<%=mboard.getMEMBER_ORG_FILE() %>
+									</a>
+									<%} %>
+							</td>
+						</tr>
 						</table>
 					</div>
 					<div class="col-md-10">
-						<table class="table table-borderless">						
-						<tr>						
-							<td><%=mboard.getMEMBER_CONTENT() %></td>
-						</tr>
+						<table class="table table-borderless">
+							<tr>
+								<td><%=mboard.getMEMBER_CONTENT() %></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="./upload/<%=mboard.getMEMBER_UP_FILE() %>">
+								</td> 
+							</tr>
 					</table>
 					
 			<%if((mboard.getMEMBER_ID().equals(id)) || rank.equals("admin") || rank.equals("manager")) {%>

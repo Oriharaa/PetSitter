@@ -1,14 +1,18 @@
-package com.spring.petsitter.board;
+package com.spring.petsitter.board.mboard;
 
 import java.util.Date;
 
 public class MReplyVO {
 	/*
-	 *  bno number not null,
-	 *  rno number not null,
-	 *  content varchar2(2000) not null,
-	 *  writer varchar2(30) not null,
-	 *  regDate date default sysdate,
+
+  CREATE TABLE "MREPLY" 
+   (	"BNO" NUMBER, 
+	"RNO" NUMBER, 
+	"CONTENT" VARCHAR2(2000 BYTE), 
+	"WRITER_ID" VARCHAR2(30 BYTE), 
+	"REGDATE" DATE DEFAULT sysdate, 
+	"WRITER_NAME" VARCHAR2(30 BYTE)
+   ) 
 	 */
 	
 	private int bno;

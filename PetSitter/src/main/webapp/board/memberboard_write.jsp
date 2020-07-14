@@ -107,24 +107,10 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
   <input type="hidden" name="MEMBER_ID" value="${id}">
   <input type="hidden" name="MEMBER_NAME" value="${name}">
   
-  		<script language="javascript">
-			function addboard(){
-			boardform.submit();
-		}
-		</script>
-  
   
   	<!-- CKEDITOR 사용 위한 스크립트 -->
   	<script src = "${pageContext.request.contextPath}/resources/js/ckeditor/ckeditor.js"></script>
-		<script type="text/javascript">
-			$(function(){
-				CKEDITOR.replace('MEMBER_CONTENT', {
-					filebrowserUploadUrl : '${pageContext.request.contextPath}/board/imageupload.do'
-				});
-				
-				window.parent.CKEDITOR.tools.callFunction(1, "${url}", "전송완료");
-			});					
-		</script>
+
   		
   	
   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
@@ -132,6 +118,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <title>Depot &mdash;Website Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
     
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
@@ -252,7 +240,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	     	<div class="col-md-12">
 	    		<div class="checkbox">
 	    			<label>
-	      			<input type="checkbox" name="MEMBER_SECRET" value="Y">비밀글
+	      			<input type="checkbox" name="MEMBER_SECRET">비밀글
 	    			</label>
 	  			</div>
 	  		</div>
@@ -270,6 +258,37 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     		<textarea name = "MEMBER_CONTENT"></textarea>
 					<script>CKEDITOR.replace('MEMBER_CONTENT');</script>
     		</div>
+    </div>
+    
+    <div class="row">
+    	<div class="col-md-12">
+    		<table>
+    			<tr>
+    				<td>
+    					<div align="center">미리 보기	</div>
+    				</td>
+    				<td>
+	    				<div class="inputArea">
+	    					<label for="exampleImg">이미지</label>
+	    					<input name="MEMBER_FILE" id="exampleImg" type="file"/>
+	    					<div class="select_img"><img src="" /></div>
+	    						<script>
+				  				$("#exampleImg").change(function(){
+				   					if(this.files && this.files[0]) {
+				    					var reader = new FileReader;
+				    						reader.onload = function(data) {
+				     							$(".select_img img").attr("src", data.target.result).width(500);        
+				    						}
+				    					reader.readAsDataURL(this.files[0]);
+				   					}
+				  				});
+				 				</script>
+    					</div>
+    				</td>
+    			</tr>
+  
+    		</table>
+    	</div>
     </div>
 
 		<!-- 여백용 row -->
@@ -342,7 +361,17 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	<!-- 하단 바 종료 -->
     </div>
 
-    <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
+
+    
+    
+    MEMBER_SECRET
+    
+  	<script language="javascript">
+		function addboard(){
+			boardform.submit();
+		}		
+		</script>
+    
     <script src="<c:url value="/resources/js/popper.min.js"/>"></script>
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
     <script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>

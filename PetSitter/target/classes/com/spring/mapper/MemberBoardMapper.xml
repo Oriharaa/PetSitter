@@ -4,7 +4,7 @@
 
 <mapper namespace = "com.spring.mapper.MemberBoardMapper">
 
-	<resultMap type = "com.spring.petsitter.board.MemberBoardVO" id="memberboardResultMap">
+	<resultMap type = "com.spring.petsitter.board.mboard.MemberBoardVO" id="memberboardResultMap">
 		<result property = "MEMBER_NUM" column ="MEMBER_NUM"/>
 		<result property = "MEMBER_ID" column ="MEMBER_ID"/>
 		<result property = "MEMBER_SUBJECT" column ="MEMBER_SUBJECT"/>
@@ -39,7 +39,7 @@
 		update member_board set MEMBER_READCOUNT=MEMBER_READCOUNT+1 where MEMBER_NUM=#{MEMBER_NUM}
 	</update>
 	
-	<insert id = "boardInsert" parameterType="com.spring.petsitter.board.MemberBoardVO">
+	<insert id = "boardInsert" parameterType="com.spring.petsitter.board.mboard.MemberBoardVO">
 		<selectKey keyProperty="MEMBER_NUM" order="BEFORE" resultType="int"> 
 			select nvl(max(MEMBER_NUM), 0)+1 from member_board
 		</selectKey>
@@ -50,7 +50,7 @@
 		]]>
 	</insert>
 	
-	<update id="boardModify" parameterType="com.spring.petsitter.board.MemberBoardVO">
+	<update id="boardModify" parameterType="com.spring.petsitter.board.mboard.MemberBoardVO">
 		update member_board set MEMBER_SUBJECT=#{MEMBER_SUBJECT}, MEMBER_CONTENT=#{MEMBER_CONTENT} where member_num=#{MEMBER_NUM}
 	</update>
 	

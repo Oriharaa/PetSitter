@@ -1,4 +1,4 @@
-package com.spring.petsitter.board;
+package com.spring.petsitter.board.mboard;
 
 import java.util.List;
 
