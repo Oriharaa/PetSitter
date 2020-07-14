@@ -96,6 +96,88 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	}
 	/*최하단바 종료*/
 	 
+	 
+	 		/*파일 선택 css 시작*/
+	.filebox input[type="file"] { 
+	position: absolute;
+	width: 1px; 
+	height: 1px; 
+	padding: 0; 
+	margin: -1px; 
+	overflow: hidden; 
+	clip:rect(0,0,0,0); border: 0; 
+	} 
+	
+	.filebox label { 
+	display: inline-block; 
+	padding: .3em .75em; 
+	margin : 0;
+	color: #ffffff; 
+	font-size: inherit; 
+	line-height: normal; 
+	vertical-align: middle; 
+	background-color: rgb(83,220,152); 
+	cursor: pointer; 
+	border: 1px solid #ebebeb; 
+	border-bottom-color: #e2e2e2; 
+	border-radius: .25em; 
+	} 
+	/*파일 선택 css 종료*/
+	
+	/* named upload */ 
+	.filebox .upload-name { 
+	display: inline-block; 
+	padding: .3em .75em; 
+	/* label의 패딩값과 일치 */ 
+	font-size: inherit; 
+  line-height: normal; 
+  vertical-align: middle; 
+  background-color: #f5f5f5; 
+  border: 1px solid #ebebeb; 
+  border-bottom-color: #e2e2e2; 
+  border-radius: .25em; 
+  -webkit-appearance: none; 
+  /* 네이티브 외형 감추기 */ 
+  -moz-appearance: none; 
+  appearance: none; 
+  }
+	/*파일 선택 css 종료*/
+		/*파일 선택 css 시작*/
+		
+/* imaged preview */ 
+.filebox .upload-display { 
+/* 이미지가 표시될 지역 */ 
+margin-bottom: 5px; 
+} 
+@media(min-width: 768px) { 
+	.filebox .upload-display { 
+	display: inline-block; 
+	margin-right: 5px; 
+	margin-bottom: 0; } 
+	} 
+	.filebox .upload-thumb-wrap { 
+	/* 추가될 이미지를 감싸는 요소 */ 
+	display: inline-block; 
+	width: 70px; 
+	padding: 2px; 
+	vertical-align: middle; 
+	border: 1px solid #ddd; 
+	border-radius: 5px; 
+	background-color: #fff; 
+	} 
+	.filebox .upload-display img { 
+	/* 추가될 이미지 */ 
+	display: block; 
+	max-width: 100%; 
+	width: 100%; 
+	height: auto; 
+	}
+	/*파일 선택 css 종료*/	
+	.padd0 {
+	padding : 0 0 0 0;
+	margin : 4px 0 0 0;
+	}
+	 
 	
 </style>
 
@@ -268,22 +350,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     					<div align="center">미리 보기	</div>
     				</td>
     				<td>
-	    				<div class="inputArea">
-	    					<label for="exampleImg">이미지</label>
-	    					<input name="MEMBER_FILE" id="exampleImg" type="file"/>
-	    					<div class="select_img"><img src="" /></div>
-	    						<script>
-				  				$("#exampleImg").change(function(){
-				   					if(this.files && this.files[0]) {
-				    					var reader = new FileReader;
-				    						reader.onload = function(data) {
-				     							$(".select_img img").attr("src", data.target.result).width(500);        
-				    						}
-				    					reader.readAsDataURL(this.files[0]);
-				   					}
-				  				});
-				 				</script>
-    					</div>
+					    <div class = "col-12 filebox padd0 preview-image">
+								<input class="upload-name" value="파일선택" disabled="disabled" > 
+								<label for="input-file">업로드</label> 
+								<input type="file" name="MEMBER_FILE" id="input-file" class="upload-hidden"> 
+					    </div>
     				</td>
     			</tr>
   
@@ -361,11 +432,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	<!-- 하단 바 종료 -->
     </div>
 
-
-    
-    
-    MEMBER_SECRET
-    
   	<script language="javascript">
 		function addboard(){
 			boardform.submit();
@@ -383,7 +449,47 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <script src="<c:url value="./resources/js/aos.js"/>"></script>
 
     <script src="<c:url value="/resources/js/main.js"/>"></script>
+		
+		<script>
+		$(document).ready(function() { 
+			var fileTarget = $('.filebox .upload-hidden'); 
+			fileTarget.on('change', function() { // 값이 변경되면
+				if(window.FileReader) { // modern browser 
+				var filename = $(this)[0].files[0].name; 
+				} else { 
+				// old IE 
+				var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
+			  } 
+			
+				// 추출한 파일명 삽입
+				$(this).siblings('.upload-name').val(filename); 
+		  }); 
+		});
 
+		//preview image 
+		var imgTarget = $('.preview-image .upload-hidden'); 
+		imgTarget.on('change', function(){ 
+			var parent = $(this).parent(); 
+			parent.children('.upload-display').remove(); 
+			if(window.FileReader){ //image 파일만 
+				if (!$(this)[0].files[0].type.match(/image\//)) return;
+			var reader = new FileReader(); 
+			reader.onload = function(e){ 
+				var src = e.target.result; 
+				parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>'); 
+				} 
+			reader.readAsDataURL($(this)[0].files[0]); 
+			} 
+			else { 
+				$(this)[0].select(); 
+				$(this)[0].blur(); 
+				var imgSrc = document.selection.createRange().text; 
+				parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>'); 
+				var img = $(this).siblings('.upload-display').find('img'); 
+				img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")"; 
+				} 
+			});
+		</script>
 
   </body>
 

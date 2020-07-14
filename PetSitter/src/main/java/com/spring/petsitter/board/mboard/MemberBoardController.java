@@ -25,7 +25,7 @@ public class MemberBoardController {
 	
 	@Autowired
 	private MemberBoardService memberboardService;	
-		
+			
 	@RequestMapping(value = "/mboardlist.me")
 	public String memberboard(Model model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
@@ -152,6 +152,20 @@ public class MemberBoardController {
 		return null;
 	}
 	
+	
+	// 글 신고하기
+	@RequestMapping("/reportArticle.me")
+	public String reportInsert(ReportArticleVO report) throws Exception {
+		System.out.println("신고자 : " + report.getMEMBER_ID());
+		System.out.println("신고 글 번호 : " + report.getMEMBER_NUM());
+		System.out.println("신고 사유 : " + report.getREPORT_REASON());
+		
+		memberboardService.reportInsert(report);
+		
+		return "redirect:/mboarddetail.me?num=" + report.getMEMBER_NUM();
+	}
+	
+	// 다운로드 기능
 	@RequestMapping("/filedownload.bo")
   public void fileDownload(HttpServletRequest request, HttpServletResponse response) throws Exception{
   	response.setCharacterEncoding("utf-8");

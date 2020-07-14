@@ -9,9 +9,12 @@
 <%@ page import="javax.servlet.*,java.text.*" %>
 <%
 	MemberBoardVO mboard = (MemberBoardVO)request.getAttribute("vo");
-	
+	ReportArticleVO report = (ReportArticleVO)request.getAttribute("report");	
+
 	String id = (String)session.getAttribute("id");
+	String name = (String)session.getAttribute("name");
 	String rank = (String)session.getAttribute("rank");
+	
 //세션 종료시 홈으로
   if(session.getAttribute("id") == null) {
      out.println("<script>");
@@ -35,12 +38,43 @@
 
 
 <style>
-	#preview {
-		z-index: 9999; /* 필요시 설정 */
-		position: absoulte;
-		background: #999999!important;
-		padding: 2px;
-	}
+#modal {
+	display:none;
+  position:relative;
+  vertical-align: middle;
+  marign-top: -200px;
+  width:100%;
+  height:100%;
+  z-index:10;
+}
+
+#modal h2 {
+  margin:0;   
+}
+
+#modal button {
+  display:inline-block;
+  width:100px;
+  margin-left:calc(100% - 100px - 10px);
+}
+
+#modal .modal_report {
+  width:400px;
+  margin:100px auto;
+  padding:20px 10px;
+  background:#fff;
+  border:2px solid #666;
+}
+
+#modal .modal_layer {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0, 0, 0, 0.5);
+  z-index:-1;
+}   
 	button#prev, button#list, button#next, button#write {
 		color : white!important;
 	}
@@ -216,8 +250,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		}
 	 	.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
    	background-color: #F8F8F8;
-		}    
-					
+		}    					
     </style>  
 		
 		<div class="row">
@@ -275,7 +308,46 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			<% } else { %>
   			<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./mboardlist.me">목록</a>
   		<% } %>
- 		 
+  	 		<a type="button" class="btn btn-sm btn-danger float-right" id="btnReportOpen">신고</a>
+  	 		
+  	 		 <form action="./reportArticle.me" method="post" name="reportform">
+  	 		  	  <input type="hidden" name="MEMBER_ID" value="${id}">
+						  <input type="hidden" name="MEMBER_NUM" value="<%=mboard.getMEMBER_NUM()%>">
+
+  	 		<!-- 신고 창 시작 -->
+	 		 		<div id="modal">
+	 		 			<div class="modal_report">
+		 					<h3>신고하기</h3>
+	 		 				신고 글 번호 : <%=mboard.getMEMBER_NUM() %><br/>
+	 		 				<p>신고자 : ${name} ${id}</p>
+	 		 				<p>신고 사유</p>
+	 		 				<textarea id="REPORT_REASON" name="REPORT_REASON" rows="4" cols="50" placeholder="신고 사유를 적어주세요."></textarea>	
+	 		 				<a type="button" class="btn btn-sm btn-info" id="btnReportClose" href="javascript:addreport()">신고하기</a>
+	        	</div>
+	        	<div class="modal_layer"></div>
+	        	
+	        	<script>
+	        		$("#btnReportOpen").click(function() {
+	        			// $("#modal").attr("style", "display:block");
+	        			$("#modal").fadeIn();
+	        		});
+	        		
+	        		$("#btnReportClose").click(function() {
+	        			//$("#modal").attr("style", "display:none");
+	        			$("#modal").fadeOut();
+	        		})
+	        	</script>
+	 		 		</div>
+	 		 	<!-- 신고 창 끝 -->	
+	 		 		</form>
+	 		 		
+	 		 		
+	 	<script language="javascript">
+			function addreport(){
+				reportform.submit();
+			}		
+		</script>
+    
 				</div>
 			</div>
 			

@@ -72,4 +72,15 @@ public class MemberBoardServiceImpl implements MemberBoardService {
 		}
 		return res;
 	}
+
+	@Override
+	public int reportInsert(ReportArticleVO report) {
+		MemberBoardMapper memberboardMapper = sqlSession.getMapper(MemberBoardMapper.class);
+		System.out.println("report.MEMBER_ID : " + report.getMEMBER_ID());
+		System.out.println("report.MEMBER_NUM : " + report.getMEMBER_NUM());
+		System.out.println("report.REPORT_REASON : " + report.getREPORT_REASON());
+		int res = memberboardMapper.reportInsert(report);
+		
+		return res;
+	}
 }
