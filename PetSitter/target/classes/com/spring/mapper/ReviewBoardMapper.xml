@@ -18,6 +18,7 @@
 		<result property="LIKE_COUNT" column="LIKE_COUNT" />
 	</resultMap>
 	
+	
 	<select id="getReviewListCount" resultType="int">
 		select count(*) from REVIEW_BOARD
 	</select>

@@ -29,10 +29,23 @@ public class MemberVO {
 	private int MEMBER_COUNT;
 	private int MEMBER_AMOUNT;
 	private String MEMBER_DATE;
-	private MultipartFile MEMBER_PHOTO_FILE;
-	private String MEMBER_PHOTO;
+	private MultipartFile MEMBER_PHOTO;
+	private String MEMBER_PHOTO_FILE;
 	private int MEMBER_REPORT;
 	
+	
+	public MultipartFile getMEMBER_PHOTO() {
+		return MEMBER_PHOTO;
+	}
+	public void setMEMBER_PHOTO(MultipartFile mEMBER_PHOTO) {
+		MEMBER_PHOTO = mEMBER_PHOTO;
+	}
+	public String getMEMBER_PHOTO_FILE() {
+		return MEMBER_PHOTO_FILE;
+	}
+	public void setMEMBER_PHOTO_FILE(String mEMBER_PHOTO_FILE) {
+		MEMBER_PHOTO_FILE = mEMBER_PHOTO_FILE;
+	}
 	public String getMEMBER_ID() {
 		return MEMBER_ID;
 	}
@@ -86,18 +99,6 @@ public class MemberVO {
 	}
 	public void setMEMBER_DATE(String mEMBER_DATE) {
 		MEMBER_DATE = mEMBER_DATE;
-	}
-	public MultipartFile getMEMBER_PHOTO_FILE() {
-		return MEMBER_PHOTO_FILE;
-	}
-	public void setMEMBER_PHOTO_FILE(MultipartFile mEMBER_PHOTO_FILE) {
-		MEMBER_PHOTO_FILE = mEMBER_PHOTO_FILE;
-	}
-	public String getMEMBER_PHOTO() {
-		return MEMBER_PHOTO;
-	}
-	public void setMEMBER_PHOTO(String mEMBER_PHOTO) {
-		MEMBER_PHOTO = mEMBER_PHOTO;
 	}
 	public int getMEMBER_REPORT() {
 		return MEMBER_REPORT;

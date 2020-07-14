@@ -601,8 +601,8 @@ text-decoration:none;
    	<input type = "checkbox" name = "PETSITTER_TYPE_LIST" id = "pet1" value = "방문"> 방문
    	<input type = "checkbox" name = "PETSITTER_TYPE_LIST" id = "pet2" value = "위탁"> 위탁
    	</div>
-   	<input type="text" name="PETSITTER_PRICE_30M" id="30mP" class="inpt" placeholder="30분 가격  ex) 15000">
-   	<input type="text" name="PETSITTER_PRICE_60M" id="60mP" class="inpt" placeholder="60분 가격  ex) 15000">
+   	<input type="text" name="PETSITTER_PRICE_30M" id="30mP" class="inpt" placeholder="방문 30분 가격  ex) 15000">
+   	<input type="text" name="PETSITTER_PRICE_60M" id="60mP" class="inpt" placeholder="위탁 60분 가격  ex) 15000">
    	<input type="text" name="PETSITTER_PRICE_12H" id="12hP" class="inpt" placeholder="데이케어 가격  ex) 15000">
    	<input type="text" name="PETSITTER_PRICE_24H" id="24hP" class="inpt" placeholder="1박케어 가격  ex) 15000">
 		<div class="tabs">
@@ -1205,7 +1205,7 @@ $(document).ready(function(){
  		$('#pet1').change(function(){ //방문 체크박스 변경시 실행되는 함수
  			if($("#pet1").is(":checked")){ //방문 체크박스 체크시 true
  				$("#30mP").show();
- 		 		$("#60mP").show();
+ 		 		
 
  			}else{
 	
@@ -1217,15 +1217,11 @@ $(document).ready(function(){
  		
  		$('#pet2').change(function(){ //위탁 체크박스 변경시 실행되는 함수
  			if($("#pet2").is(":checked")){ //위탁 체크박스 체크시 true
- 			  	$("#12hP").show();
- 		 	 	$("#24hP").show();
-
+ 				$("#60mP").show();
   		 		$("#box1").show();
  		 		$("#box2").show();
  			}else{
-
- 		 		$("#12hP").hide();
- 		 		$("#24hP").hide();
+ 				$("#60mP").hide();
  		 		$("#box1").hide();
  		 		$("#box2").hide();
  			}

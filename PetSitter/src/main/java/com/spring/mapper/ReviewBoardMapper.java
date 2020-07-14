@@ -15,4 +15,5 @@ public interface ReviewBoardMapper {
 	public boolean ReviewboardDelete(int num);
 	public void setReadCountUpdate(int num);
 	public String isReviewBoardWriter(int num);
+	
 }

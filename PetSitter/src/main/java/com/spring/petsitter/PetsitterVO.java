@@ -10,13 +10,12 @@ create table PETSITTER(
     PETSITTER_PW varchar2(30), --PW
     PETSITTER_TEL varchar2(20), --전화번호
     PETSITTER_EMAIL varchar2(30), --이메일
+    PETSITTER_AMOUNT number default 0, -- 총 매출금액
     PETSITTER_SCORE number(2,2) DEFAULT 0, --평점
-    PETSITTER_CONUT number(5) DEFAULT 0, --활동횟수
+    PETSITTER_COUNT number(5) DEFAULT 0, --활동횟수
     PETSITTER_RANK varchar2(20) DEFAULT 'N', --등급
     PETSITTER_ADDRESS varchar2(100), --주소
     PETSITTER_INTRODUCE varchar2(2000), --자기소개
-    PETSITTER_PRICE_12H varchar2(10), --12시간가격
-    PETSITTER_PRICE_24H varchar2(10), --24시간가격
     PETSITTER_PRICE_30M varchar2(10), --30분가격
     PETSITTER_PRICE_60M varchar2(10), --60분가격
     PETSITTER_SERVICE_LIST varchar2(30), --가능한 서비스
@@ -25,6 +24,7 @@ create table PETSITTER(
     PETSITTER_CERT_LIST varchar2(100), --자격증이름
     PETSITTER_PHOTO_CERT_FILE varchar2(300), --자격증 사진
     PETSITTER_PHOTO_HOME_FILE varchar2(300), --집 사진
+    PETSITTER_PHOTO_APPEAL varchar2(300) DEFAULT 'N', --어필 사진
     PETSITTER_DATE date DEFAULT sysdate, --가입 날짜
     PETSITTER_TYPE varchar2(20), -- 케어종류
     PETSITTER_REPORT number(2) default 0 --신고누적횟수
@@ -40,6 +40,8 @@ public class PetsitterVO {
 	private String PETSITTER_EMAIL;
 	private double PETSITTER_SCORE;
 	private int PETSITTER_COUNT;
+	private int PETSITTER_REPORT;
+	private int PETSITTER_AMOUNT;
 	private String PETSITTER_RANK;
 	private String PETSITTER_ADDRESS;
 	private String PETSITTER_INTRODUCE;
@@ -55,6 +57,8 @@ public class PetsitterVO {
 	private String PETSITTER_PHOTO_PROFILE_FILE;
 	private MultipartFile[] PETSITTER_PHOTO_HOME;
 	private String PETSITTER_PHOTO_HOME_FILE;
+	private MultipartFile[] PETSITTER_PHOTO_APPEAL_FILE;
+	private String PETSITTER_PHOTO_APPEAL;
 	private String[] PETSITTER_CERT;
 	private String PETSITTER_CERT_LIST;
 	private MultipartFile[] PETSITTER_PHOTO_CERT;	
@@ -63,6 +67,35 @@ public class PetsitterVO {
 	private String[] PETSITTER_TYPE_LIST;
 	private String PETSITTER_TYPE;
 	
+	
+	
+	public int getPETSITTER_AMOUNT() {
+		return PETSITTER_AMOUNT;
+	}
+	public void setPETSITTER_AMOUNT(int pETSITTER_AMOUNT) {
+		PETSITTER_AMOUNT = pETSITTER_AMOUNT;
+	}
+	public int getPETSITTER_REPORT() {
+		return PETSITTER_REPORT;
+	}
+	public void setPETSITTER_REPORT(int pETSITTER_REPORT) {
+		PETSITTER_REPORT = pETSITTER_REPORT;
+	}
+	public MultipartFile[] getPETSITTER_PHOTO_APPEAL_FILE() {
+		return PETSITTER_PHOTO_APPEAL_FILE;
+	}
+	public void setPETSITTER_PHOTO_APPEAL_FILE(MultipartFile[] pETSITTER_PHOTO_APPEAL_FILE) {
+		PETSITTER_PHOTO_APPEAL_FILE = pETSITTER_PHOTO_APPEAL_FILE;
+	}
+	public String getPETSITTER_PHOTO_APPEAL() {
+		return PETSITTER_PHOTO_APPEAL;
+	}
+	public void setPETSITTER_PHOTO_APPEAL(String pETSITTER_PHOTO_APPEAL) {
+		PETSITTER_PHOTO_APPEAL = pETSITTER_PHOTO_APPEAL;
+	}
+	public void setPETSITTER_COUNT(int pETSITTER_COUNT) {
+		PETSITTER_COUNT = pETSITTER_COUNT;
+	}
 	public String getPETSITTER_NAME() {
 		return PETSITTER_NAME;
 	}
