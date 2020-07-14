@@ -1344,7 +1344,11 @@ function handleImgFileSelect11(e){
 		      <div class="col-5" style = "margin : 3.5% 0 0 0;">  
 			    <div class="roundimg">
 				  <div class="profile aspect_1_1" style="background: #BDBDBD;">
+				  <%if(vo.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")){ %>
+				  	<img src="resources/images/defaultprofile02.png">
+				  	<%}else{ %>
 					<img src="/filepath/<%=vo.getPETSITTER_PHOTO_PROFILE_FILE() %>">
+					<%} %>
 				  </div>
 				</div>
 			  </div> 

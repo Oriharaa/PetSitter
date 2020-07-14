@@ -41,7 +41,7 @@ public class PetsitterController {
 	}
 	
 	@RequestMapping(value = "petsitterUpdate.me")
-	public String petsitterUpdate(PetsitterUpdateVO vo) {
+	public String petsitterUpdate(PetsitterUpdateVO vo)throws Exception {
 		PetsitterVO petsitter = new PetsitterVO();
 		petsitter.setPETSITTER_ID(vo.getPETSITTER_ID()); 
 		petsitter = petsitterService.selectPetsitter(petsitter);
@@ -53,7 +53,7 @@ public class PetsitterController {
 		if(mf.getSize() != 0) {
 			String originalFileExtension = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));
 			String storedFileName = UUID.randomUUID().toString().replaceAll("-", "")+ originalFileExtension;
-			//mf.transferTo(new File(uploadPath+storedFileName));
+			mf.transferTo(new File(uploadPath+storedFileName));
 			petsitter.setPETSITTER_PHOTO_UPFILE(storedFileName);
 		}
 		
@@ -61,7 +61,7 @@ public class PetsitterController {
 		if(mf.getSize() != 0) {
 			String originalFileExtension = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));
 			String storedFileName = UUID.randomUUID().toString().replaceAll("-", "")+ originalFileExtension;
-			//mf.transferTo(new File(uploadPath+storedFileName));
+			mf.transferTo(new File(uploadPath+storedFileName));
 			petsitter.setPETSITTER_PHOTO_PROFILE_FILE(storedFileName);
 		}
 		
@@ -77,7 +77,7 @@ public class PetsitterController {
 				mf = vo.getCertFile()[i];
 				String originalFileExtension = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));
 				String storedFileName = UUID.randomUUID().toString().replaceAll("-", "")+ originalFileExtension;
-				//mf.transferTo(new File(uploadPath+storedFileName));
+				mf.transferTo(new File(uploadPath+storedFileName));
 				CertState += storedFileName+",";
 				CertNames += vo.getCertName()[i]+",";
 			}
@@ -111,7 +111,7 @@ public class PetsitterController {
 				mf = vo.getPhotoHome()[i];
 				String originalFileExtension = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));
 				String storedFileName = UUID.randomUUID().toString().replaceAll("-", "")+ originalFileExtension;
-				//mf.transferTo(new File(uploadPath+storedFileName));
+				mf.transferTo(new File(uploadPath+storedFileName));
 				homeState += storedFileName+",";
 			}
 		}
@@ -137,7 +137,7 @@ public class PetsitterController {
 				mf = vo.getPhotoAppeal()[i];
 				String originalFileExtension = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));
 				String storedFileName = UUID.randomUUID().toString().replaceAll("-", "")+ originalFileExtension;
-				//mf.transferTo(new File(uploadPath+storedFileName));
+				mf.transferTo(new File(uploadPath+storedFileName));
 				appealState += storedFileName+",";
 			}
 		}
@@ -165,31 +165,6 @@ public class PetsitterController {
 		petsitter.setPETSITTER_SERVICE_LIST(service);
 		petsitter.setPETSITTER_INTRODUCE(vo.getIntroduce());
 		
-		/*
-		 * System.out.println("getPETSITTER_ID = "+petsitter.getPETSITTER_ID());
-		 * System.out.println("getPETSITTER_NICKNAME = "+petsitter.getPETSITTER_NICKNAME())
-		 * ; System.out.println("getPETSITTER_NAME = "+petsitter.getPETSITTER_NAME());
-		 * System.out.println("getPETSITTER_PW = "+petsitter.getPETSITTER_PW());
-		 * System.out.println("getPETSITTER_TEL = "+petsitter.getPETSITTER_TEL());
-		 * System.out.println("getPETSITTER_EMAIL = "+petsitter.getPETSITTER_EMAIL());
-		 * System.out.println("getPETSITTER_SCORE = "+petsitter.getPETSITTER_SCORE());
-		 * System.out.println("getPETSITTER_COUNT = "+petsitter.getPETSITTER_COUNT());
-		 * System.out.println("getPETSITTER_RANK = "+petsitter.getPETSITTER_RANK());
-		 * System.out.println("getPETSITTER_ADDRESS = "+petsitter.getPETSITTER_ADDRESS());
-		 * System.out.println("getPETSITTER_INTRODUCE = "+petsitter.getPETSITTER_INTRODUCE());
-		 * System.out.println("getPETSITTER_PRICE_30M = "+petsitter.getPETSITTER_PRICE_30M());
-		 * System.out.println("getPETSITTER_PRICE_60M = "+petsitter.getPETSITTER_PRICE_60M()); 
-		 * System.out.println("getPETSITTER_SERVICE_LIST = "+petsitter.getPETSITTER_SERVICE_LIST());
-		 * System.out.println("getPETSITTER_PHOTO_UPFILE = "+petsitter.getPETSITTER_PHOTO_UPFILE());
-		 * System.out.println("getPETSITTER_PHOTO_PROFILE_FILE = "+petsitter.getPETSITTER_PHOTO_PROFILE_FILE());
-		 * System.out.println("getPETSITTER_CERT_LIST = "+petsitter.getPETSITTER_CERT_LIST()); 
-		 * System.out.println("getPETSITTER_PHOTO_CERT_FILE = "+petsitter.getPETSITTER_PHOTO_CERT_FILE());
-		 * System.out.println("getPETSITTER_PHOTO_HOME_FILE = "+petsitter.getPETSITTER_PHOTO_HOME_FILE());
-		 * System.out.println("getPETSITTER_DATE = "+petsitter.getPETSITTER_DATE());
-		 * System.out.println("getPETSITTER_TYPE = "+petsitter.getPETSITTER_TYPE());
-		 * System.out.println("getPETSITTER_REPORT = "+petsitter.getPETSITTER_REPORT());
-		 * System.out.println("getPETSITTER_PHOTO_APPEAL = "+petsitter.getPETSITTER_PHOTO_APPEAL());
-		 */
 		int res = petsitterService.petsitterUpdate(petsitter);
 		if(res == 1) {
 			System.out.println("업데이트 성공");
