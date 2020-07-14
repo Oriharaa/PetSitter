@@ -14,8 +14,9 @@ public interface MemberMapper {
 	public MemberVO selectMember(String id);
 	public void updateMember(MemberVO membervo);
 	public void deleteMember(String id);
-	public ArrayList<UsinglistVO> getUsingList_Member(String id);
-	public List<MemberUsinglistVO> getUsingList_Member_ajax(String id);
+	public int getListCount(String id);
+	public ArrayList<UsinglistVO> getUsingList_Member(@Param("MEMBER_ID") String id, @Param("startrow") int startrow, @Param("endrow") int endrow);
+	public List<MemberUsinglistVO> getUsingList_Member_ajax(@Param("MEMBER_ID") String id, @Param("startrow") int startrow, @Param("endrow") int endrow);
 
 	public ArrayList<UsinglistVO> getUsingList_Member_month(@Param("MEMBER_ID") String id, @Param("month") int month);
 	public List<MemberUsinglistVO> getUsingList_Member_ajax_month(@Param("MEMBER_ID") String id, @Param("month") int month);

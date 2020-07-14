@@ -136,8 +136,8 @@ public class PetsitterController {
 			String originalFileExtension4 = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));
 			String storedFileName4 = UUID.randomUUID().toString().replaceAll("-", "")+ originalFileExtension4;
 			
-				mf.transferTo(new File(uploadPath+storedFileName4));
-				HOME_PHOTO.add(storedFileName4);
+			mf.transferTo(new File(uploadPath+storedFileName4));
+			HOME_PHOTO.add(storedFileName4);
 			}
 		}
 		vo.setPETSITTER_PHOTO_HOME_FILE(String.join(",", HOME_PHOTO));

@@ -43,18 +43,19 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "memberinfo.me")
-	public ModelAndView profile(MemberVO vo, @RequestParam(value = "id") String id) {
+	public ModelAndView profile(MemberVO vo, @RequestParam(value = "id") String id, Model model) {
 		ModelAndView mv = new ModelAndView();
-		
-		ArrayList<UsinglistVO> usinglist = memberService.getUsingList_Member(id);
 		
 		MemberVO membervo = memberService.selectMember(id);
 		String[] tel = membervo.getMEMBER_TEL().split("-");
 		String[] address = membervo.getMEMBER_ADDRESS().split(",");
+		
+		int listcount = memberService.getListCount(id);
+		
+		mv.addObject("listcount", listcount);
 		mv.addObject("membervo", membervo);
 		mv.addObject("tel", tel);
 		mv.addObject("address", address);
-		mv.addObject("usinglist", usinglist);
 		mv.setViewName("memberinfo");
 		return mv;
 	}
@@ -75,13 +76,15 @@ public class MemberController {
 	
 	@RequestMapping(value = "getUsingList.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public List<MemberUsinglistVO> getUsinglist(String id) {
-		ArrayList<UsinglistVO> usinglist = memberService.getUsingList_Member(id);
-		List<MemberUsinglistVO> usinglist_ajax = memberService.getUsingList_Member_ajax(id);
+	public List<MemberUsinglistVO> getUsinglist(String id, int page) {
+		int limit = 5;
+		
+		ArrayList<UsinglistVO> usinglist = memberService.getUsingList_Member(id, page, limit);
+		List<MemberUsinglistVO> usinglist_ajax = memberService.getUsingList_Member_ajax(id, page, limit);
 		SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date date = new Date();
 		String today = new_Format.format(date);
-		ArrayList<Integer> usinglist_num_member = reviewboardService.usinglist_num_List_member(id);
+		ArrayList<Integer> usinglist_num_member = reviewboardService.usinglist_num_List_member(id); // 리뷰를 남겼는지 확인하기 위한 리스트
 		
 		for(int i = 0; i < usinglist_ajax.size(); i++) {
 			usinglist_ajax.get(i).setLIST_START_DATE(new_Format.format(usinglist.get(i).getLIST_START_DATE()));
@@ -110,25 +113,28 @@ public class MemberController {
 			
 			if(ing.equals("현재 이용중")) {
 				usinglist_ajax.get(i).setLIST_COMPLETE("펫시터와의 소통");
-			} else if(usinglist_num_member.contains(usinglist_ajax.get(i).getUSINGLIST_NUM())) {
+			} else if(usinglist_num_member.contains(usinglist_ajax.get(i).getUSINGLIST_NUM())) { // 리뷰 작성 했는지 안했는지 확인
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 완료");
 			} else {
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 남기기");
 			}
 		}
 		
+		
 		return usinglist_ajax;
 	}
 	
 	@RequestMapping(value = "getUsingList_month.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public List<MemberUsinglistVO> getUsinglist_month(String id, int month) {
+	public List<MemberUsinglistVO> getUsinglist_month(String id, int month, int page) {
 		ArrayList<UsinglistVO> usinglist = memberService.getUsingList_Member_month(id, -month);
 		List<MemberUsinglistVO> usinglist_ajax = memberService.getUsingList_Member_ajax_month(id, -month);
 		SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date date = new Date();
 		String today = new_Format.format(date);
 		
+		ArrayList<Integer> usinglist_num_member = reviewboardService.usinglist_num_List_member(id); // 리뷰를 남겼는지 확인하기 위한 리스트
+		
 		for(int i = 0; i < usinglist_ajax.size(); i++) {
 			usinglist_ajax.get(i).setLIST_START_DATE(new_Format.format(usinglist.get(i).getLIST_START_DATE()));
 			usinglist_ajax.get(i).setLIST_END_DATE(new_Format.format(usinglist.get(i).getLIST_END_DATE()));
@@ -156,23 +162,26 @@ public class MemberController {
 			
 			if(ing.equals("현재 이용중")) {
 				usinglist_ajax.get(i).setLIST_COMPLETE("펫시터와의 소통");
+			} else if(usinglist_num_member.contains(usinglist_ajax.get(i).getUSINGLIST_NUM())) { // 리뷰 작성 했는지 안했는지 확인
+				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 완료");
 			} else {
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 남기기");
 			}
 		}
-		
 		return usinglist_ajax;
 	}
 	
 	@RequestMapping(value = "getUsingList_calendar.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public List<MemberUsinglistVO> getUsinglist_calendar(String id, String startdate, String enddate) {
+	public List<MemberUsinglistVO> getUsinglist_calendar(String id, String startdate, String enddate, int page, Model model) {
+		
 		ArrayList<UsinglistVO> usinglist = memberService.getUsingList_Member_calendar(id, startdate, enddate);
 		List<MemberUsinglistVO> usinglist_ajax = memberService.getUsingList_Member_ajax_calendar(id, startdate, enddate);
 		SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date date = new Date();
 		String today = new_Format.format(date);
 		
+		ArrayList<Integer> usinglist_num_member = reviewboardService.usinglist_num_List_member(id); // 리뷰를 남겼는지 확인하기 위한 리스트
 		
 		for(int i = 0; i < usinglist_ajax.size(); i++) {
 			usinglist_ajax.get(i).setLIST_START_DATE(new_Format.format(usinglist.get(i).getLIST_START_DATE()));
@@ -202,11 +211,12 @@ public class MemberController {
 			
 			if(ing.equals("현재 이용중")) {
 				usinglist_ajax.get(i).setLIST_COMPLETE("펫시터와의 소통");
+			} else if(usinglist_num_member.contains(usinglist_ajax.get(i).getUSINGLIST_NUM())) { // 리뷰 작성 했는지 안했는지 확인
+				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 완료");
 			} else {
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 남기기");
 			}
 		}
-		
 		return usinglist_ajax;
 	}
 	
@@ -293,7 +303,7 @@ public class MemberController {
 		String[] tel = request.getParameterValues("MEMBER_TEL");
 		String[] address = request.getParameterValues("MEMBER_ADDRESS");
 		vo.setMEMBER_TEL(tel[0] + "-"  + tel[1] + "-" + tel[2]);
-		vo.setMEMBER_REAL_ADDRESS(address[0] + " " + address[1] + "(" + address[2] + ")" + " " + address[3]);
+		vo.setMEMBER_REAL_ADDRESS(address[0] + " " + address[1] + " " + address[2]);
 		
 		MultipartFile mf = vo.getMEMBER_PHOTO();
 		String uploadPath = "C:\\Project156\\upload\\";

@@ -3,17 +3,18 @@
 <%@ page import="com.spring.petsitter.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.spring.petsitter.MemberController.*" %>
 <%
 	MemberVO membervo = (MemberVO)request.getAttribute("membervo");
 	ArrayList<PetsitterVO> petsitterlist = (ArrayList<PetsitterVO>)request.getAttribute("petsitterlist");
 	ArrayList<UsinglistVO> usinglist = (ArrayList<UsinglistVO>)request.getAttribute("usinglist");
 	String[] tel = (String[])request.getAttribute("tel");
 	String[] address = (String[])request.getAttribute("address");
-	
+	int listcount = ((Integer)request.getAttribute("listcount")).intValue();
 	// 세션 종료시 홈으로
 	if(session.getAttribute("id") == null) {
 		out.println("<script>");
-		out.println("alert('세션이 만료되어 자동 로그아웃됩니다.)");
+		out.println("alert('세션이 만료되어 자동 로그아웃됩니다.')");
 		out.println("location.href='logout.me'");
 		out.println("</script>");
 	}
@@ -681,14 +682,18 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		
 	<div class="row main_grayfont3" style = "margin-top : 25px;">
 	  <div class="date_row">
-		<input type="button" class="middle_bt1" id="middle_bt1" value="1개월" onclick="usinglistfunc(num = 1)">
-		<input type="button" class="middle_bt1" id="middle_bt2" value="3개월" onclick="usinglistfunc(num = 3)">
-		<input type="button" class="middle_bt1" id="middle_bt3" value="6개월" onclick="usinglistfunc(num = 6)">
-		<input type="button" class="middle_bt1" id="middle_bt4" value="전체 시기" onclick="selectData()" >
+		<input type="button" class="middle_bt1" id="middle_bt1" value="1개월" onclick="usinglistfunc(1, 1)">
+		<input type="button" class="middle_bt1" id="middle_bt2" value="3개월" onclick="usinglistfunc(3, 1)">
+		<input type="button" class="middle_bt1" id="middle_bt3" value="6개월" onclick="usinglistfunc(6, 1)">
+		<input type="button" class="middle_bt1" id="middle_bt4" value="전체 시기" onclick="selectData(1)" >
 			
 		<input type="text" class="middle_bt2_date" id="datePicker_start" placeholder="시작일" size="10px" style="text-align: center;" readonly>
 		<input type="text" class="middle_bt2_date" id="datePicker_end" placeholder="종료일" size="10px" style="text-align: center;" readonly>
-		<input type="button" class="middle_bt2" id="middle_bt7" value="조회" onclick="calendarUsinglist()">
+		<script>
+			var s_d = document.getElementById("datePicker_start").value;
+			var e_d = document.getElementById("datePicker_end").value;
+		</script>
+		<input type="button" class="middle_bt2" id="middle_bt7" value="조회" onclick="calendarUsinglist(1);">
 
 	  </div>
 	</div>
@@ -718,11 +723,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	  <tbody id="petsitterList">
 	  	<input type="hidden" id="id" value=${id } />
 	  </tbody>
-	  <tr class="table_page_number">
-	  	
-	  </tr>
-	</table>	
+	</table>
   </div>
+  <table id="pagenum_table" class="col-md-12 text-center">
+	  
+  </table>
 </section>
 <!-- 이용현황 및 내역 끝!!-->
 
@@ -788,13 +793,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       				<tr>
       					<th width="200px"></th>
       					<td colspan="2">
-      						<input type="text" placeholder="지번 주소" size="30" name="MEMBER_ADDRESS" id="jibun_address" class="float-left" value="${address[2] }" readonly>
-      					</td>
-      				</tr>
-      				<tr>
-      					<th width="200px"></th>
-      					<td colspan="2">
-      						<input type="text" placeholder="상세 주소" size="30" name="MEMBER_ADDRESS" class="float-left" value="${address[3] }">
+      						<input type="text" placeholder="상세 주소" size="30" name="MEMBER_ADDRESS" class="float-left" value="${address[2] }">
       					</td>
       				</tr>
       				<tr>
@@ -1290,21 +1289,37 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		
 		<script>
 		/* 전체 목록 출력 함수 */
-			function selectData() {
+			function selectData(page) {
 				$('#petsitterList').empty();
+				$('#pagenum_table').empty();
+				
+				let listcount = <%=listcount %>;
 				
 				$.ajax({
-					url: '/petsitter/getUsingList.bo',
+					url: '/petsitter/getUsingList.bo?',
 					type: 'post',
-					data: {id : '${id}'},
+					data: {
+						id : '${id}',
+						page: page
+					},
 					dataType: 'json',
 					contentType: 'application/x-www-form-urlencoded; charset=utf-8',
 					success: function(data) {
+						
+						let nowpage = page;
+						let maxpage = parseInt(listcount / 5 + 0.95);
+						let startpage = (parseInt((page / 10 + 0.9)) - 1) * 10 + 1;
+						let endpage = maxpage;
+						if(endpage > startpage + 10 - 1) {
+							endpage = startpage + 10 - 1;
+						}
+						let num = listcount - ((nowpage - 1) * 5);
 						
 						$.each(data, function(index, item) {
 							let ing1 = '현재 이용중';
 							let ing2 = '펫시터와의 소통';
 							let ing3 = '리뷰 남기기';
+							
 							var output = '';
 							output += '<tr style="color: #5e5e5e; border-top: 1px dashed gray;">';
 							output += '<td>' + item.list_TYPE + '</td>';
@@ -1356,7 +1371,33 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							} else {
 								$('#petsitterList').append(output);
 							}
+							num--;
 						});
+						
+						pagenum = '';
+						pagenum += '<tr class="table_page_number">';
+						pagenum += '<td colspan=7 style="font-family:Tahoma;font-size:10pt;">';
+						if(nowpage <= 1) {
+							pagenum += '<&nbsp;&nbsp;';
+						} else {
+							pagenum += '<a href="javascript:selectData(' + (nowpage - 1) + ')" >' + '<&nbsp;&nbsp;' + '</a>';
+						}
+						for(let a = startpage; a <= endpage; a++) {
+							if(a === nowpage) {
+								pagenum += a + '&nbsp;&nbsp';
+							} else {
+								pagenum += '<a href="javascript:selectData(' + a + ')" >' + a + '&nbsp;&nbsp;</a>';
+							}
+						}
+						if(nowpage >= maxpage) {
+							pagenum += '>';
+						} else {
+							pagenum += '<a href="javascript:selectData(' + (nowpage + 1) + ')" >' + '>' + '</a>';
+						}
+						pagenum += '</td>';
+						pagenum += '</tr>';
+						
+						$('#pagenum_table').append(pagenum);
 					},
 					error: function() {
 						alert("ajax 통신 실패!");
@@ -1365,76 +1406,117 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			}
 			
 			/* n개월 버튼 클릭 함수 */
-			function usinglistfunc(num) {
+			function usinglistfunc(month, page) {
 				$('#petsitterList').empty();
+				$('#pagenum_table').empty();
 				
 				$.ajax({
 					url: '/petsitter/getUsingList_month.bo',
 					type: 'post',
 					data: {
 						id : '${id}', 
-						month: num
+						month: month, 
+						page: page
 					},
 					dataType: 'json',
 					contentType: 'application/x-www-form-urlencoded; charset=utf-8',
 					success: function(data) {
 						
+						let listcount = data.length;
+						let nowpage = page;
+						let maxpage = parseInt(listcount / 5 + 0.95);
+						let startpage = (parseInt((page / 10 + 0.9)) - 1) * 10 + 1;
+						let endpage = maxpage;
+						if(endpage > startpage + 10 - 1) {
+							endpage = startpage + 10 - 1;
+						}
+						let num = listcount - ((nowpage - 1) * 5);
+						
 						$.each(data, function(index, item) {
-							let ing1 = '현재 이용중';
-							let ing2 = '펫시터와의 소통';
-							let ing3 = '리뷰 남기기';
-							var output = '';
-							output += '<tr style="color: #5e5e5e; border-top: 1px dashed gray;">';
-							output += '<td>' + item.list_TYPE + '</td>';
-							output += '<td rowspan="3">';
-							output += '<div class="thumbnail-wrapper profile_sm1"> <div class="thumbnail"> <div class="centered">';
-							if(item.petsitter_PHOTO_PROFILE_FILE === 'N') {
-								output += '<img src="resources/images/defaultprofile02.png.png">';
-							} else {
-								output += '<img src="/filepath/' + item.petsitter_PHOTO_PROFILE_FILE +'">';
-							}
-							output += '</div></div></div>';
-							output += '</td>';
-							output += '<td>' + item.petsitter_NICKNAME + '</td>';
-							output += '<td>' + item.list_START_DATE + '</td>';
-							output += '<td rowspan="3">' + item.usinglist_NUM + '</td>';
-							output += '<td rowspan="3">' + item.list_PRICE + '</td>';
-							if(item.list_COMPLETE === ing2) {
-								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.usinglist_NUM + '\';" ></td>';
-							} else if(item.list_COMPLETE === ing3) {
-								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
-								output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
-								output += '<input type="hidden" id="review_petsitter_address'+index+'" value="' + item.petsitter_ADDRESS1 + '">';
-								output += '<input type="hidden" id="review_petsitter_photo'+index+'" value="' + item.petsitter_PHOTO_PROFILE_FILE + '">';
-								output += '<input type="hidden" id="review_petsitter_score'+index+'" value="' + item.petsitter_SCORE + '">';
-								output += '<input type="hidden" id="review_petsitter_id'+index+'" value="' + item.petsitter_ID + '">';
-								output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.usinglist_NUM + '">';
+							if(index >= 5 * (page - 1) && index <= 4 + 5 * (page - 1)) {
+								let ing1 = '현재 이용중';
+								let ing2 = '펫시터와의 소통';
+								let ing3 = '리뷰 남기기';
+								var output = '';
+								output += '<tr style="color: #5e5e5e; border-top: 1px dashed gray;">';
+								output += '<td>' + item.list_TYPE + '</td>';
+								output += '<td rowspan="3">';
+								output += '<div class="thumbnail-wrapper profile_sm1"> <div class="thumbnail"> <div class="centered">';
+								if(item.petsitter_PHOTO_PROFILE_FILE === 'N') {
+									output += '<img src="resources/images/defaultprofile02.png.png">';
+								} else {
+									output += '<img src="/filepath/' + item.petsitter_PHOTO_PROFILE_FILE +'">';
+								}
+								output += '</div></div></div>';
 								output += '</td>';
+								output += '<td>' + item.petsitter_NICKNAME + '</td>';
+								output += '<td>' + item.list_START_DATE + '</td>';
+								output += '<td rowspan="3">' + item.usinglist_NUM + '</td>';
+								output += '<td rowspan="3">' + item.list_PRICE + '</td>';
+								if(item.list_COMPLETE === ing2) {
+									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.usinglist_NUM + '\';" ></td>';
+								} else if(item.list_COMPLETE === ing3) {
+									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
+									output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
+									output += '<input type="hidden" id="review_petsitter_address'+index+'" value="' + item.petsitter_ADDRESS1 + '">';
+									output += '<input type="hidden" id="review_petsitter_photo'+index+'" value="' + item.petsitter_PHOTO_PROFILE_FILE + '">';
+									output += '<input type="hidden" id="review_petsitter_score'+index+'" value="' + item.petsitter_SCORE + '">';
+									output += '<input type="hidden" id="review_petsitter_id'+index+'" value="' + item.petsitter_ID + '">';
+									output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.usinglist_NUM + '">';
+									output += '</td>';
+								} else {
+									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
+								}
+								
+								output += '<tr style="color: #5e5e5e;">';
+								if(item.list_ING === ing1) {
+									output += '<td><b style="color: #0d47a1;">' + item.list_ING + '</b></td>';
+								} else {
+									output += '<td><b>' + item.list_ING + '</b></td>';
+								}
+								output += '<td><b>' + item.petsitter_NAME + '</b></td>';
+								output += '<td>~</td>';
+								output += '</tr>';
+								output += '<tr style="color: #5e5e5e;">';
+								output += '<td class="grade" style="margin-bottom: 5px;">신고</td>';
+								output += '<td>' + item.petsitter_TEL + '</td>';
+								output += '<td>' + item.list_END_DATE + '</td>';
+								output += '</tr>';
+								
+								if(item.list_ING === ing1) {
+									$('#petsitterList').prepend(output);
+								} else {
+									$('#petsitterList').append(output);
+								}
 							} else {
-								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
-							}
-							
-							output += '<tr style="color: #5e5e5e;">';
-							if(item.list_ING === ing1) {
-								output += '<td><b style="color: #0d47a1;">' + item.list_ING + '</b></td>';
-							} else {
-								output += '<td><b>' + item.list_ING + '</b></td>';
-							}
-							output += '<td><b>' + item.petsitter_NAME + '</b></td>';
-							output += '<td>~</td>';
-							output += '</tr>';
-							output += '<tr style="color: #5e5e5e;">';
-							output += '<td class="grade" style="margin-bottom: 5px;">신고</td>';
-							output += '<td>' + item.petsitter_TEL + '</td>';
-							output += '<td>' + item.list_END_DATE + '</td>';
-							output += '</tr>';
-							
-							if(item.list_ING === ing1) {
-								$('#petsitterList').prepend(output);
-							} else {
-								$('#petsitterList').append(output);
+								return true;
 							}
 						});
+						
+						pagenum = '';
+						pagenum += '<tr class="table_page_number">';
+						pagenum += '<td colspan=7 style="font-family:Tahoma;font-size:10pt;">';
+						if(nowpage <= 1) {
+							pagenum += '<&nbsp;&nbsp;';
+						} else {
+							pagenum += '<a href="javascript:usinglistfunc(' + month + ', ' + (nowpage - 1) + ')" >' + '<&nbsp;&nbsp;' + '</a>';
+						}
+						for(let a = startpage; a <= endpage; a++) {
+							if(a === nowpage) {
+								pagenum += a + '&nbsp;&nbsp';
+							} else {
+								pagenum += '<a href="javascript:usinglistfunc(' + month + ', ' + a + ')" >' + a + '&nbsp;&nbsp;</a>';
+							}
+						}
+						if(nowpage >= maxpage) {
+							pagenum += '>';
+						} else {
+							pagenum += '<a href="javascript:usinglistfunc(' + month + ', ' + (nowpage + 1) + ')" >' + '>' + '</a>';
+						}
+						pagenum += '</td>';
+						pagenum += '</tr>';
+						
+						$('#pagenum_table').append(pagenum);
 					},
 					error: function() {
 						alert("ajax 통신 실패!");
@@ -1443,8 +1525,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			}
 		
 			/* 날짜 선택 후 목록 출력 */
-			function calendarUsinglist() {
+			function calendarUsinglist(page) {
 				$('#petsitterList').empty();
+				$('#pagenum_table').empty();
 				
 				let start_date = $("#datePicker_start").val();
 				let end_date = $("#datePicker_end").val();
@@ -1455,68 +1538,109 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					data: {
 						id : '${id}', 
 						startdate: start_date,
-						enddate: end_date
+						enddate: end_date,
+						page: page
 					},
 					dataType: 'json',
 					contentType: 'application/x-www-form-urlencoded; charset=utf-8',
 					success: function(data) {
+						console.log(data)
+						
+						let listcount = data.length;
+						let nowpage = page;
+						let maxpage = parseInt(listcount / 5 + 0.95);
+						let startpage = (parseInt((page / 10 + 0.9)) - 1) * 10 + 1;
+						let endpage = maxpage;
+						if(endpage > startpage + 10 - 1) {
+							endpage = startpage + 10 - 1;
+						}
+						let num = listcount - ((nowpage - 1) * 5);
 						
 						$.each(data, function(index, item) {
-							let ing1 = '현재 이용중';
-							let ing2 = '펫시터와의 소통';
-							let ing3 = '리뷰 남기기';
-							var output = '';
-							output += '<tr style="color: #5e5e5e; border-top: 1px dashed gray;">';
-							output += '<td>' + item.list_TYPE + '</td>';
-							output += '<td rowspan="3">';
-							output += '<div class="thumbnail-wrapper profile_sm1"> <div class="thumbnail"> <div class="centered">';
-							if(item.petsitter_PHOTO_PROFILE_FILE === 'N') {
-								output += '<img src="resources/images/defaultprofile02.png.png">';
-							} else {
-								output += '<img src="/filepath/' + item.petsitter_PHOTO_PROFILE_FILE +'">';
-							}
-							output += '</div></div></div>';
-							output += '</td>';
-							output += '<td>' + item.petsitter_NICKNAME + '</td>';
-							output += '<td>' + item.list_START_DATE + '</td>';
-							output += '<td rowspan="3">' + item.usinglist_NUM + '</td>';
-							output += '<td rowspan="3">' + item.list_PRICE + '</td>';
-							if(item.list_COMPLETE === ing2) {
-								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.usinglist_NUM + '\';" ></td>';
-							} else if(item.list_COMPLETE === ing3) {
-								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
-								output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
-								output += '<input type="hidden" id="review_petsitter_address'+index+'" value="' + item.petsitter_ADDRESS1 + '">';
-								output += '<input type="hidden" id="review_petsitter_photo'+index+'" value="' + item.petsitter_PHOTO_PROFILE_FILE + '">';
-								output += '<input type="hidden" id="review_petsitter_score'+index+'" value="' + item.petsitter_SCORE + '">';
-								output += '<input type="hidden" id="review_petsitter_id'+index+'" value="' + item.petsitter_ID + '">';
-								output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.usinglist_NUM + '">';
+							if(index >= 5*(page - 1) && index <= 4 + 5*(page - 1)) {
+								let ing1 = '현재 이용중';
+								let ing2 = '펫시터와의 소통';
+								let ing3 = '리뷰 남기기';
+								var output = '';
+								output += '<tr style="color: #5e5e5e; border-top: 1px dashed gray;">';
+								output += '<td>' + item.list_TYPE + '</td>';
+								output += '<td rowspan="3">';
+								output += '<div class="thumbnail-wrapper profile_sm1"> <div class="thumbnail"> <div class="centered">';
+								if(item.petsitter_PHOTO_PROFILE_FILE === 'N') {
+									output += '<img src="resources/images/defaultprofile02.png.png">';
+								} else {
+									output += '<img src="/filepath/' + item.petsitter_PHOTO_PROFILE_FILE +'">';
+								}
+								output += '</div></div></div>';
 								output += '</td>';
+								output += '<td>' + item.petsitter_NICKNAME + '</td>';
+								output += '<td>' + item.list_START_DATE + '</td>';
+								output += '<td rowspan="3">' + item.usinglist_NUM + '</td>';
+								output += '<td rowspan="3">' + item.list_PRICE + '</td>';
+								if(item.list_COMPLETE === ing2) {
+									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.usinglist_NUM + '\';" ></td>';
+								} else if(item.list_COMPLETE === ing3) {
+									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
+									output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
+									output += '<input type="hidden" id="review_petsitter_address'+index+'" value="' + item.petsitter_ADDRESS1 + '">';
+									output += '<input type="hidden" id="review_petsitter_photo'+index+'" value="' + item.petsitter_PHOTO_PROFILE_FILE + '">';
+									output += '<input type="hidden" id="review_petsitter_score'+index+'" value="' + item.petsitter_SCORE + '">';
+									output += '<input type="hidden" id="review_petsitter_id'+index+'" value="' + item.petsitter_ID + '">';
+									output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.usinglist_NUM + '">';
+									output += '</td>';
+								} else {
+									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
+								}
+								
+								output += '<tr style="color: #5e5e5e;">';
+								if(item.list_ING === ing1) {
+									output += '<td><b style="color: #0d47a1;">' + item.list_ING + '</b></td>';
+								} else {
+									output += '<td><b>' + item.list_ING + '</b></td>';
+								}
+								output += '<td><b>' + item.petsitter_NAME + '</b></td>';
+								output += '<td>~</td>';
+								output += '</tr>';
+								output += '<tr style="color: #5e5e5e;">';
+								output += '<td class="grade" style="margin-bottom: 5px;">신고</td>';
+								output += '<td>' + item.petsitter_TEL + '</td>';
+								output += '<td>' + item.list_END_DATE + '</td>';
+								output += '</tr>';
+								
+								if(item.list_ING === ing1) {
+									$('#petsitterList').prepend(output);
+								} else {
+									$('#petsitterList').append(output);
+								}
 							} else {
-								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
-							}
-							
-							output += '<tr style="color: #5e5e5e;">';
-							if(item.list_ING === ing1) {
-								output += '<td><b style="color: #0d47a1;">' + item.list_ING + '</b></td>';
-							} else {
-								output += '<td><b>' + item.list_ING + '</b></td>';
-							}
-							output += '<td><b>' + item.petsitter_NAME + '</b></td>';
-							output += '<td>~</td>';
-							output += '</tr>';
-							output += '<tr style="color: #5e5e5e;">';
-							output += '<td class="grade" style="margin-bottom: 5px;">신고</td>';
-							output += '<td>' + item.petsitter_TEL + '</td>';
-							output += '<td>' + item.list_END_DATE + '</td>';
-							output += '</tr>';
-							
-							if(item.list_ING === ing1) {
-								$('#petsitterList').prepend(output);
-							} else {
-								$('#petsitterList').append(output);
+								return true;
 							}
 						});
+						
+						pagenum = '';
+						pagenum += '<tr class="table_page_number">';
+						pagenum += '<td colspan=7 style="font-family:Tahoma;font-size:10pt;">';
+						if(nowpage <= 1) {
+							pagenum += '<&nbsp;&nbsp;';
+						} else {
+							pagenum += '<a href="javascript:calendarUsinglist(' + (nowpage - 1) + ')" >' + '<&nbsp;&nbsp;' + '</a>';
+						}
+						for(let a = startpage; a <= endpage; a++) {
+							if(a === nowpage) {
+								pagenum += a + '&nbsp;&nbsp';
+							} else {
+								pagenum += '<a href="javascript:calendarUsinglist(' + a + ')" >' + a + '&nbsp;&nbsp;</a>';
+							}
+						}
+						if(nowpage >= maxpage) {
+							pagenum += '>';
+						} else {
+							pagenum += '<a href="javascript:calendarUsinglist(' + (nowpage + 1) + ')" >' + '>' + '</a>';
+						}
+						pagenum += '</td>';
+						pagenum += '</tr>';
+						
+						$('#pagenum_table').append(pagenum);
 					},
 					error: function() {
 						alert("ajax 통신 실패!");
@@ -1526,7 +1650,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			
 		
 			$(document).ready(function() {
-				selectData();
+				selectData(1);
 				
 				let sel_file;
 				let sel_file02;

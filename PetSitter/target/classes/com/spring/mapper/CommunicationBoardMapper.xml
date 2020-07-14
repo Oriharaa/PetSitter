@@ -32,6 +32,10 @@
 		]]>
 	</select>
 	
+	<select id="getUsingList_Member" parameterType="String" resultType="UsinglistVO">
+		select * from usinglist where MEMBER_ID=#{MEMBER_ID}
+	</select>
+	
 	<insert id="boardInsert" parameterType="com.spring.petsitter.board.CommunicationBoardVO">
 		<selectKey keyProperty="BOARD_NUM" order="BEFORE" resultType="int">
 			select nvl(max(BOARD_NUM), 0)+1 from communication_board

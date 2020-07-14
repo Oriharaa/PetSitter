@@ -28,7 +28,6 @@ public class ReviewBoardController {
 	public String insertReview(ReviewBoardVO vo) throws Exception {
 		String uploadPath = "C:\\Project156\\upload\\";
 		
-		ArrayList<String> review_org_photolist = new ArrayList<String>();
 		ArrayList<String> review_up_photolist = new ArrayList<String>();
 		for(int i = 0; i < vo.getREVIEW_PHOTO().length; i++) {
 		MultipartFile mf = vo.getREVIEW_PHOTO()[i];
@@ -40,11 +39,9 @@ public class ReviewBoardController {
 					mf.transferTo(new File(uploadPath + storedFileName));
 				}
 				
-				review_org_photolist.add(mf.getOriginalFilename());
 				review_up_photolist.add(storedFileName);
 			}
 		}
-		vo.setREVIEW_ORG_PHOTO(String.join(",", review_org_photolist));
 		vo.setREVIEW_UP_PHOTO(String.join(",", review_up_photolist));
 		
 		double petsitter_score = vo.getREVIEW_SCORE();

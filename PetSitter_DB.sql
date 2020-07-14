@@ -90,17 +90,17 @@ create table REVIEW_BOARD(
     USINGLIST_NUM number(10), -- 이용내역 번호
     MEMBER_ID varchar2(30), -- 회원 아이디
     PETSITTER_ID varchar2(30), -- 펫시터 아이디
-    REVIEW_CONTENT varchar2(500), -- 리뷰 내용
-    REVIEW_SCORE number(2,1), -- 리뷰 평점
-    REVIEW_ORG_PHOTO varchar2(50), -- 리뷰 사진
-    REVIEW_UP_PHOTO varchar2(200), -- 업로드된 리뷰 사진
+    REVIEW_CONTENT varchar2(250) default 'N', -- 리뷰 내용
+    REVIEW_SCORE number(2,1) default 0, -- 리뷰 평점
+    REVIEW_UP_PHOTO varchar2(200) default 'N', -- 업로드된 리뷰 사진
     REVIEW_DATE date default sysdate, -- 리뷰 작성일
-    LIKE_COUNT number(6), -- 좋아요 수
-    BOARD_TYPE VARCHAR2(20) default 'REVIEW_BOARD' -- 게시판 타입
+    LIKE_COUNT number(6) default 0, -- 좋아요 수
+    BOARD_TYPE VARCHAR2(20) default 'REVIEW_BOARD', -- 게시판 타입
+    REVIEW_REFLY VARCHAR2(250) DEFAULT 'N'--후기게시판 답변
 );
 
 CREATE TABLE LIKE_COUNT(
-    LIKE_NUM NUMBER, --좋아요 번호
+    LIKE_NUM NUMBER primary key, --좋아요 번호
     LIKE_ID varchar2(2000), -- 좋아요 아이디
     LIKE_TYPE varchar2(20) default 'REVIEW_BOARD' -- 좋아요 타입
 );
@@ -260,3 +260,46 @@ values(5, 9, 'asdasd@naver.com', 'asd111', '2따뜻한 봄바람을 불어 보내는 것은 청
 3.5, 'dog05.jpg', '','2020/07/04', 0, 'REVIEW_BOARD');
     
 commit;
+
+select * 
+from (select rownum as rnum, usinglist_num, petsitter_id, member_id, 
+             list_price, list_start_date, list_end_date, list_type
+      from usinglist 
+      where MEMBER_ID='asdasd@naver.com'
+      order by USINGLIST_NUM desc) 
+where rnum >= 1 and rnum <= 5;
+
+select r_num, usinglist_num, member_id, petsitter_id, list_price, list_type, petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, petsitter_address, petsitter_photo_profile_file 
+from (select rownum as r_num, usinglist_num, member_id, petsitter_id, list_price, list_type, 
+             petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, 
+             petsitter_address, petsitter_photo_profile_file
+       from (select usinglist_num, member_id, petsitter_id, list_price, list_type, 
+                    petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, 
+                    petsitter_address, petsitter_photo_profile_file
+             from usinglist natural join petsitter 
+             where MEMBER_ID='asdasd@naver.com' order by USINGLIST_NUM desc))
+where r_num >= 1 and r_num <= 20;
+
+select usinglist_num, member_id, petsitter_id, list_price, list_type, petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, petsitter_address, petsitter_photo_profile_file 
+		from (select rownum as rnum, usinglist_num, member_id, petsitter_id, list_price, list_type, 
+                     petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, 
+                     petsitter_address, petsitter_photo_profile_file
+              from (select usinglist_num, member_id, petsitter_id, list_price, list_type, 
+                           petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, 
+                           petsitter_address, petsitter_photo_profile_file
+                    from usinglist natural join petsitter 
+                    where MEMBER_ID='asdasd@naver.com' and (list_start_date between to_date('20/06/24') and to_date('20/07/09') or
+                                    list_end_date between to_date('20/06/24') and to_date('20/07/09'))
+                    order by USINGLIST_NUM desc))
+where rnum >= 1 and rnum <= 5;
+
+
+select * 
+		from (select rownum as rnum, usinglist_num, petsitter_id, member_id, 
+                     list_price, list_start_date, list_end_date, list_type
+              from (select * 
+                    from usinglist 
+                    where MEMBER_ID='asdasd@naver.com'
+                    order by USINGLIST_NUM desc))
+where rnum >= 6 and rnum <= 10 and (list_start_date between to_date('20/06/20') and to_date('20/07/09') or
+                          list_end_date between to_date('20/06/20') and to_date('20/07/09'));

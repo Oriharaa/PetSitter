@@ -10,8 +10,10 @@ public interface MemberService {
 	public MemberVO selectMember(String id);
 	public void updateMember(MemberVO membervo);
 	public void deleteMember(String id);
-	public ArrayList<UsinglistVO> getUsingList_Member(String id);
-	public List<MemberUsinglistVO> getUsingList_Member_ajax(String id);
+	
+	public int getListCount(String id);
+	public ArrayList<UsinglistVO> getUsingList_Member(String id, int page, int limit);
+	public List<MemberUsinglistVO> getUsingList_Member_ajax(String id, int page, int limit);
 	
 	public ArrayList<UsinglistVO> getUsingList_Member_month(String id, int month);
 	public List<MemberUsinglistVO> getUsingList_Member_ajax_month(String id, int month);

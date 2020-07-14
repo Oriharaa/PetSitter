@@ -3,6 +3,7 @@ package com.spring.petsitter;
 import org.springframework.web.multipart.MultipartFile;
 
 public class MemberUsinglistVO {
+	private int LISTCOUNT;
 	private int USINGLIST_NUM;
 	private String LIST_TYPE;
 	private String MEMBER_ID;
@@ -20,6 +21,12 @@ public class MemberUsinglistVO {
 	private String LIST_ING; // 현재 이용중, 이용 완료
 	private String LIST_COMPLETE; // 리뷰 남기기, 펫시터와의 소통
 	
+	public int getLISTCOUNT() {
+		return LISTCOUNT;
+	}
+	public void setLISTCOUNT(int lISTCOUNT) {
+		LISTCOUNT = lISTCOUNT;
+	}
 	public int getUSINGLIST_NUM() {
 		return USINGLIST_NUM;
 	}

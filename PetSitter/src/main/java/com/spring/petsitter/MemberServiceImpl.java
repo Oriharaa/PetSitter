@@ -58,18 +58,29 @@ public class MemberServiceImpl implements MemberService{
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		memberMapper.deleteMember(id);
 	}
-
+	
 	@Override
-	public ArrayList<UsinglistVO> getUsingList_Member(String id) {
+	public int getListCount(String id) {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
-		ArrayList<UsinglistVO> usinglist = memberMapper.getUsingList_Member(id);
+		int listcount = memberMapper.getListCount(id);
+		return listcount;
+	}
+	
+	@Override
+	public ArrayList<UsinglistVO> getUsingList_Member(String id, int page, int limit) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		int startrow = (page - 1) * 5 + 1;
+		int endrow = startrow + limit - 1;
+		ArrayList<UsinglistVO> usinglist = memberMapper.getUsingList_Member(id, startrow, endrow);
 		return usinglist;
 	}
 	
 	@Override
-	public List<MemberUsinglistVO> getUsingList_Member_ajax(String id) {
+	public List<MemberUsinglistVO> getUsingList_Member_ajax(String id, int page, int limit) {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
-		List<MemberUsinglistVO> usinglist_ajax = memberMapper.getUsingList_Member_ajax(id);
+		int startrow = (page - 1) * 5 + 1;
+		int endrow = startrow + limit - 1;
+		List<MemberUsinglistVO> usinglist_ajax = memberMapper.getUsingList_Member_ajax(id, startrow, endrow);
 		
 		return usinglist_ajax;
 	}
@@ -102,4 +113,5 @@ public class MemberServiceImpl implements MemberService{
 		List<MemberUsinglistVO> usinglist_ajax = memberMapper.getUsingList_Member_ajax_calendar(id, startdate, enddate);
 		return usinglist_ajax;
 	}
+	
 }

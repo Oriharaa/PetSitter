@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.mapper.CommunicationBoardMapper;
+import com.spring.petsitter.UsinglistVO;
 
 @Service("CommunicationBoardService")
 public class CommunicationBoardServiceImpl implements CommunicationBoardService {
@@ -36,6 +37,13 @@ public class CommunicationBoardServiceImpl implements CommunicationBoardService 
 		int res = communicationboardMapper.boardInsert(boardvo);
 		
 		return res;
+	}
+
+	@Override
+	public ArrayList<UsinglistVO> getUsingList_Member(String id) {
+		CommunicationBoardMapper communicationboardMapper = sqlSession.getMapper(CommunicationBoardMapper.class);
+		ArrayList<UsinglistVO> usinglist = communicationboardMapper.getUsingList_Member(id);
+		return usinglist;
 	}
 
 }

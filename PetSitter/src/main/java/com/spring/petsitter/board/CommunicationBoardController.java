@@ -65,7 +65,7 @@ public class CommunicationBoardController {
 	@RequestMapping(value = "communicationWrite_member.bo")
 	public String communicationWrite(@RequestParam(value = "usinglist_num") int usinglist_num, Model model, HttpSession session) {
 		MemberVO membervo = memberService.selectMember((String)session.getAttribute("id"));
-		ArrayList<UsinglistVO> usinglist = memberService.getUsingList_Member((String)session.getAttribute("id"));
+		ArrayList<UsinglistVO> usinglist = communicationboardService.getUsingList_Member((String)session.getAttribute("id"));
 		String petsitter_id = "";
 		for(int i = 0; i < usinglist.size(); i++) {
 			if(usinglist.get(i).getUSINGLIST_NUM() == usinglist_num) {

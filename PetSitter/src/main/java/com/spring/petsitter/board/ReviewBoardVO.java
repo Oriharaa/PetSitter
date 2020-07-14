@@ -11,17 +11,17 @@ create table REVIEW_BOARD(
     USINGLIST_NUM number(10), -- 이용내역 번호
     MEMBER_ID varchar2(30), -- 회원 아이디
     PETSITTER_ID varchar2(30), -- 펫시터 아이디
-    REVIEW_CONTENT varchar2(500), -- 리뷰 내용
+    REVIEW_CONTENT varchar2(250), -- 리뷰 내용
     REVIEW_SCORE number(2), -- 리뷰 평점
-    REVIEW_ORG_PHOTO varchar2(50), -- 리뷰 사진
     REVIEW_UP_PHOTO varchar2(200), -- 업로드된 리뷰 사진
     REVIEW_DATE date default sysdate, -- 리뷰 작성일
     LIKE_COUNT number(6), -- 좋아요 수
-    BOARD_TYPE VARCHAR2(20) default 'REIVIEW_BOARD' -- 게시판 타입
+    BOARD_TYPE VARCHAR2(20) default 'REIVIEW_BOARD', -- 게시판 타입
+    REVIEW_REFLY VARCHAR2(250) DEFAULT 'N'--후기게시판 답변
 );
 
 CREATE TABLE LIKE_COUNT(
-    LIKE_NUM NUMBER DEFAULT, --좋아요 번호
+    LIKE_NUM NUMBER primary key, --좋아요 번호
     LIKE_ID varchar2(2000), -- 좋아요 아이디
     LIKE_TYPE varchar2(20) default 'REIVIEW_BOARD' -- 좋아요 타입
 );
@@ -45,7 +45,6 @@ public class ReviewBoardVO {
 	private String REVIEW_CONTENT;
 	private double REVIEW_SCORE;
 	private MultipartFile[] REVIEW_PHOTO;
-	private String REVIEW_ORG_PHOTO;
 	private String REVIEW_UP_PHOTO;
 	private Date REVIEW_DATE;
 	private int LIKE_COUNT;
@@ -58,6 +57,7 @@ public class ReviewBoardVO {
 	private String LIKE_ID;
 	private int LIKE_NUM;
 	private String LIKE_TYPE;
+	private String REVIEW_REFLY;
 	
 	public int getLIST_NUM() {
 		return LIST_NUM;
@@ -100,12 +100,6 @@ public class ReviewBoardVO {
 	}
 	public void setREVIEW_PHOTO(MultipartFile[] rEVIEW_PHOTO) {
 		REVIEW_PHOTO = rEVIEW_PHOTO;
-	}
-	public String getREVIEW_ORG_PHOTO() {
-		return REVIEW_ORG_PHOTO;
-	}
-	public void setREVIEW_ORG_PHOTO(String rEVIEW_ORG_PHOTO) {
-		REVIEW_ORG_PHOTO = rEVIEW_ORG_PHOTO;
 	}
 	public String getREVIEW_UP_PHOTO() {
 		return REVIEW_UP_PHOTO;
@@ -178,6 +172,12 @@ public class ReviewBoardVO {
 	}
 	public void setLIKE_TYPE(String lIKE_TYPE) {
 		LIKE_TYPE = lIKE_TYPE;
+	}
+	public String getREVIEW_REFLY() {
+		return REVIEW_REFLY;
+	}
+	public void setREVIEW_REFLY(String rEVIEW_REFLY) {
+		REVIEW_REFLY = rEVIEW_REFLY;
 	}
 	
 }
