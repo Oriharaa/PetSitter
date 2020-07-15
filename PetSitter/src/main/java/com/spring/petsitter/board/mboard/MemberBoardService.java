@@ -12,9 +12,4 @@ public interface MemberBoardService {
 	public MemberBoardVO boardModifyForm(int num);
 	public int boardModify(MemberBoardVO modifyboard);
 	public int boardDelete(HashMap<String, String> hashmap);
-	
-<<<<<<< HEAD:PetSitter/src/main/java/com/spring/petsitter/board/MemberBoardService.java
-=======
-	
->>>>>>> origin/PGKIM:PetSitter/src/main/java/com/spring/petsitter/board/mboard/MemberBoardService.java
 }

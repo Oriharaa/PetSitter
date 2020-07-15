@@ -26,8 +26,6 @@ create table PETSITTER(
     PETSITTER_RANK varchar2(20) DEFAULT 'N', --등급
     PETSITTER_ADDRESS varchar2(100) default 'N', --주소
     PETSITTER_INTRODUCE varchar2(2000) default 'N', --자기소개
-    PETSITTER_PRICE_12H varchar2(10), --12시간가격
-    PETSITTER_PRICE_24H varchar2(10), --24시간가격
     PETSITTER_PRICE_30M varchar2(10), --30분가격
     PETSITTER_PRICE_60M varchar2(10), --60분가격
     PETSITTER_SERVICE_LIST varchar2(60) default 'N', --가능한 서비스
@@ -144,8 +142,19 @@ create table MEMBER_BOARD(
     MEMBER_UP_FILE varchar2(100), -- 업로드 파일 이름
     MEMBER_READCOUNT number, -- 조회수
     MEMBER_DATE date default sysdate, -- 작성일
-    MEMBER_LIKECOUNT number -- 좋아요 수
+    MEMBER_LIKECOUNT number, -- 좋아요 수
+    MEMBER_NICKNAME varchar2(20), -- 회원 닉네임
+    MEMBER_SECRET varchar2(2) default 'N' -- 비밀 글
 ); -- 생성 안함
+
+create table mreply(
+    BNO number,
+    RNO number,
+    CONTENT varchar2(2000),
+    WRITER_ID varchar2(30),
+    REGDATE date default sysdate,
+    WRITER_NAME varchar2(30)
+);
 
 CREATE TABLE BOARD_COMMENT (
     COMMENT_NUM NUMBER,
@@ -174,7 +183,7 @@ create table COMMUNICATION_BOARD(
 );
 
 create table USINGLIST(
-    USINGLIST_NUM number(10) primary key,
+    LIST_NUM number(10) primary key,
     PETSITTER_ID varchar2(30),
     PETSITTER_ADDR varchar2(100),
     MEMBER_ID varchar2(30),
@@ -266,18 +275,18 @@ from (select rownum as rnum, usinglist_num, petsitter_id, member_id,
              list_price, list_start_date, list_end_date, list_type
       from usinglist 
       where MEMBER_ID='asdasd@naver.com'
-      order by USINGLIST_NUM desc) 
+      order by LIST_NUM desc) 
 where rnum >= 1 and rnum <= 5;
 
-select r_num, usinglist_num, member_id, petsitter_id, list_price, list_type, petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, petsitter_address, petsitter_photo_profile_file 
-from (select rownum as r_num, usinglist_num, member_id, petsitter_id, list_price, list_type, 
+select r_num, list_num, member_id, petsitter_id, list_price, list_type, petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, petsitter_address, petsitter_photo_profile_file 
+from (select rownum as r_num, list_num, member_id, petsitter_id, list_price, list_type, 
              petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, 
              petsitter_address, petsitter_photo_profile_file
        from (select usinglist_num, member_id, petsitter_id, list_price, list_type, 
                     petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, 
                     petsitter_address, petsitter_photo_profile_file
              from usinglist natural join petsitter 
-             where MEMBER_ID='asdasd@naver.com' order by USINGLIST_NUM desc))
+             where MEMBER_ID='asdasd@naver.com' order by LIST_NUM desc))
 where r_num >= 1 and r_num <= 20;
 
 select usinglist_num, member_id, petsitter_id, list_price, list_type, petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, petsitter_address, petsitter_photo_profile_file 
@@ -290,16 +299,16 @@ select usinglist_num, member_id, petsitter_id, list_price, list_type, petsitter_
                     from usinglist natural join petsitter 
                     where MEMBER_ID='asdasd@naver.com' and (list_start_date between to_date('20/06/24') and to_date('20/07/09') or
                                     list_end_date between to_date('20/06/24') and to_date('20/07/09'))
-                    order by USINGLIST_NUM desc))
+                    order by LIST_NUM desc))
 where rnum >= 1 and rnum <= 5;
 
-
+commit;
 select * 
 		from (select rownum as rnum, usinglist_num, petsitter_id, member_id, 
                      list_price, list_start_date, list_end_date, list_type
               from (select * 
                     from usinglist 
                     where MEMBER_ID='asdasd@naver.com'
-                    order by USINGLIST_NUM desc))
+                    order by LIST_NUM desc))
 where rnum >= 6 and rnum <= 10 and (list_start_date between to_date('20/06/20') and to_date('20/07/09') or
                           list_end_date between to_date('20/06/20') and to_date('20/07/09'));

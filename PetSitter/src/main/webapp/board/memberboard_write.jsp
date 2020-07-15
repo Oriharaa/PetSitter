@@ -5,25 +5,17 @@
 <%@ page import="com.spring.petsitter.board.*" %>
 
 <%@ page import="javax.servlet.*,java.text.*" %>
-<<<<<<< HEAD
 <%
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
-%>
-=======
-
-<% String name = (String)session.getAttribute("name");
-//세션 종료시 홈으로
-if(session.getAttribute("id") == null) {
-   out.println("<script>");
-   out.println("location.href = 'loginform.me'");
-   out.println("</script>");
-}
+	//세션 종료시 홈으로
+	if(session.getAttribute("id") == null) {
+	   out.println("<script>");
+	   out.println("location.href = 'loginform.me'");
+	   out.println("</script>");
+	}
 %>
 
-
-
->>>>>>> origin/PGKIM
 <!doctype html>
 <html lang="en">
 
@@ -175,7 +167,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
                 <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
                 <%} else { %>
-                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="profile.me?id=${id }"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} %>
               </div>

@@ -2,7 +2,6 @@ package com.spring.petsitter.board.mboard;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberBoardController {
 	
 	@Autowired
-	private MemberBoardService memberboardService;	
+	private MemberBoardService memberboardService;
 		
 	@RequestMapping(value = "/mboardlist.me")
 	public String memberboard(Model model,
@@ -70,7 +69,7 @@ public class MemberBoardController {
 	@RequestMapping("/mboardwrite.me")
 	public String boardInsert(MemberBoardVO vo) throws Exception {
 		System.out.println("vo.getMEMBER_ID() = " + vo.getMEMBER_ID());
-		System.out.println("vo.getMEMBER_NAME() = " + vo.getMEMBER_NAME());
+		System.out.println("vo.getMEMBER_NICKNAME() = " + vo.getMEMBER_NICKNAME());
 		System.out.println("vo.getMEMBER_FILE() = " + vo.getMEMBER_FILE());
 		System.out.println("vo.getMEMBER_SECRET() = " + vo.getMEMBER_SECRET());
 				
@@ -153,16 +152,11 @@ public class MemberBoardController {
 		}
 		return null;
 	}
-	
-<<<<<<< HEAD:PetSitter/src/main/java/com/spring/petsitter/board/MemberBoardController.java
 
-	
-=======
 	@RequestMapping("/filedownload.bo")
   public void fileDownload(HttpServletRequest request, HttpServletResponse response) throws Exception{
   	response.setCharacterEncoding("utf-8");
   	
-  	String num = request.getParameter("num");
     String of = request.getParameter("of"); // 서버에 업로드된 변경된 실제 파일명
     String of2 = request.getParameter("of2"); // 오리지날 파일명
       
@@ -196,5 +190,4 @@ public class MemberBoardController {
      fin.close();
      sout.close();
   }
->>>>>>> origin/PGKIM:PetSitter/src/main/java/com/spring/petsitter/board/mboard/MemberBoardController.java
 }

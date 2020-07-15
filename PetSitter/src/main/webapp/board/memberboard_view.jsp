@@ -1,9 +1,6 @@
 <!-- 관리자 메인 페이지 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<<<<<<< HEAD
-=======
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
->>>>>>> origin/PGKIM
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.petsitter.*" %>
@@ -11,11 +8,7 @@
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="javax.servlet.*,java.text.*" %>
 <%
-<<<<<<< HEAD
-	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
-=======
->>>>>>> origin/PGKIM
 	MemberBoardVO mboard = (MemberBoardVO)request.getAttribute("vo");
 	
 	String id = (String)session.getAttribute("id");
@@ -187,7 +180,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
                 <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
                 <%} else { %>
-                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="profile.me?id=${id }"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} %>
               </div>
@@ -251,7 +244,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						</tr>
 						<tr> 
 							<td>작성자</td>
-							<td><%=mboard.getMEMBER_NAME() %></td>
+							<td><%=mboard.getMEMBER_NICKNAME() %></td>
 						</tr>
 						<tr>
 							<td>조회수</td>

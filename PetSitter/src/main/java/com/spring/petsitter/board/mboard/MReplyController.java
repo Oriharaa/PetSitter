@@ -15,16 +15,16 @@ public class MReplyController {
 	@Autowired
 	MReplyService mReplyService;
 	
-	/* ´ñ±Û ±â´É ÄÁÆ®·Ñ·¯ */
+	/* ëŒ“ê¸€ ê¸°ëŠ¥ ì»¨íŠ¸ë¡¤ëŸ¬ */
 	
-	@RequestMapping(value="/read_Reply.bo", produces="application/json; charset=UTF-8")  //´ñ±Û ¸®½ºÆ®
+	@RequestMapping(value="/read_Reply.bo", produces="application/json; charset=UTF-8") 
 	private List<MReplyVO> mCommentServiceList(@RequestParam int bno) throws Exception{
   	List<MReplyVO> mReplyList = mReplyService.readReply(bno);
   	System.out.println(mReplyList.size());
     return mReplyList;
   }
 	
-	@RequestMapping(value="/write_Reply.bo", produces="application/json; charset=UTF-8") //´ñ±Û ÀÛ¼º 
+	@RequestMapping(value="/write_Reply.bo", produces="application/json; charset=UTF-8")
   private int writeReply(MReplyVO comment, HttpSession session) throws Exception{
       comment.setWriter_name((String)session.getAttribute("name"));
       comment.setWriter_id((String)session.getAttribute("id"));
@@ -32,7 +32,7 @@ public class MReplyController {
       return mReplyService.writeReply(comment);
   }
   
-  @RequestMapping(value="/update_Reply.bo", produces="application/json; charset=UTF-8") //´ñ±Û ¼öÁ¤)
+  @RequestMapping(value="/update_Reply.bo", produces="application/json; charset=UTF-8") //ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
    private int updateReply(@RequestParam int rno,  @RequestParam String content) throws Exception{
   	MReplyVO comment = new MReplyVO();
   	comment.setRno(rno);
@@ -41,10 +41,10 @@ public class MReplyController {
   	return mReplyService.updateReply(comment);
   }
   
-  @RequestMapping(value="/delete_Reply.bo",  produces="application/json; charset=UTF-8") //´ñ±Û »èÁ¦
+  @RequestMapping(value="/delete_Reply.bo",  produces="application/json; charset=UTF-8") //ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
   private int deleteReply(@RequestParam(value="rno") int rno) throws Exception {
   	return mReplyService.deleteReply(rno);
   }
 	
-	/* ¿©±â±îÁö */
+	/* ì—¬ê¸°ê¹Œì§€ */
 }

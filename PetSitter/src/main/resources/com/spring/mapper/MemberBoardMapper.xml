@@ -14,14 +14,14 @@
 		<result property = "MEMBER_READCOUNT" column ="MEMBER_READCOUNT"/>
 		<result property = "MEMBER_DATE" column ="MEMBER_DATE"/>
 		<result property = "MEMBER_LIKECOUNT" column = "MEMBER_LIKECOUNT"/>
-		<result property = "MEMBER_NAME" column = "MEMBER_NAME"/>
+		<result property = "MEMBER_NICKNAME" column = "MEMBER_NICKNAME"/>
 		<result property = "MEMBER_SECRET" column = "MEMBER_SECRET"/>
 	</resultMap>
 	
 	<select id="getBoardList" parameterType="HashMap" resultMap="memberboardResultMap">
 	<![CDATA[
-		select MEMBER_NUM, MEMBER_NAME, MEMBER_SUBJECT, MEMBER_CONTENT, MEMBER_ORG_FILE, MEMBER_UP_FILE, MEMBER_READCOUNT, MEMBER_DATE, MEMBER_LIKECOUNT, MEMBER_SECRET
-		 	from (select rownum rnum, MEMBER_NUM, MEMBER_NAME, MEMBER_SUBJECT, MEMBER_CONTENT, MEMBER_ORG_FILE, MEMBER_UP_FILE, MEMBER_READCOUNT, MEMBER_DATE, MEMBER_LIKECOUNT, MEMBER_SECRET
+		select MEMBER_NUM, MEMBER_NICKNAME, MEMBER_SUBJECT, MEMBER_CONTENT, MEMBER_ORG_FILE, MEMBER_UP_FILE, MEMBER_READCOUNT, MEMBER_DATE, MEMBER_LIKECOUNT, MEMBER_SECRET
+		 	from (select rownum rnum, MEMBER_NUM, MEMBER_NICKNAME, MEMBER_SUBJECT, MEMBER_CONTENT, MEMBER_ORG_FILE, MEMBER_UP_FILE, MEMBER_READCOUNT, MEMBER_DATE, MEMBER_LIKECOUNT, MEMBER_SECRET
 		 		from (select * from member_board order by MEMBER_NUM desc))
 		 			where rnum >= #{startrow} and rnum <= #{endrow}
 		]]>
@@ -45,8 +45,8 @@
 		</selectKey>
 		<![CDATA[
 		insert into member_board
-		(member_num, member_id, member_subject, member_content, member_org_file, member_up_file, member_readcount, member_date, member_likecount, member_name, MEMBER_SECRET)
-		values (#{MEMBER_NUM},#{MEMBER_ID},#{MEMBER_SUBJECT},#{MEMBER_CONTENT},#{MEMBER_ORG_FILE},#{MEMBER_UP_FILE}, #{MEMBER_READCOUNT}, sysdate, 0, #{MEMBER_NAME}, #{MEMBER_SECRET})
+		(member_num, member_id, member_subject, member_content, member_org_file, member_up_file, member_readcount, member_date, member_likecount, member_nickname, MEMBER_SECRET)
+		values (#{MEMBER_NUM},#{MEMBER_ID},#{MEMBER_SUBJECT},#{MEMBER_CONTENT},#{MEMBER_ORG_FILE},#{MEMBER_UP_FILE}, #{MEMBER_READCOUNT}, sysdate, 0, #{MEMBER_NICKNAME}, #{MEMBER_SECRET})
 		]]>
 	</insert>
 	
@@ -63,7 +63,7 @@
 	</select>
 	
 	<select id="getMemberName" parameterType="String" resultType="String">
-		select member_name from member, member_board where member.member_id = #{member_id}
+		select member_nickname from member, member_board where member.member_id = #{member_id}
 	</select>
 	
 </mapper>

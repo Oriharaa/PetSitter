@@ -4,7 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class MemberUsinglistVO {
 	private int LISTCOUNT;
-	private int USINGLIST_NUM;
+	private int LIST_NUM;
 	private String LIST_TYPE;
 	private String MEMBER_ID;
 	private String PETSITTER_ID;
@@ -27,11 +27,11 @@ public class MemberUsinglistVO {
 	public void setLISTCOUNT(int lISTCOUNT) {
 		LISTCOUNT = lISTCOUNT;
 	}
-	public int getUSINGLIST_NUM() {
-		return USINGLIST_NUM;
+	public int getLIST_NUM() {
+		return LIST_NUM;
 	}
-	public void setUSINGLIST_NUM(int uSINGLIST_NUM) {
-		USINGLIST_NUM = uSINGLIST_NUM;
+	public void setLIST_NUM(int lIST_NUM) {
+		LIST_NUM = lIST_NUM;
 	}
 	public String getLIST_TYPE() {
 		return LIST_TYPE;

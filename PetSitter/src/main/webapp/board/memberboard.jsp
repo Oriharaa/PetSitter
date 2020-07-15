@@ -5,11 +5,7 @@
 <%@ page import="com.spring.petsitter.*" %>
 <%@ page import="com.spring.petsitter.board.mboard.*" %>
 <%@ page import="javax.servlet.*,java.text.*" %>
-<% 
-<<<<<<< HEAD
-	String id = (String)session.getAttribute("id");
-	String name = (String)session.getAttribute("name");
-=======
+<%
 	String id = null;
 	String name = null;
 	String rank = null;
@@ -23,16 +19,21 @@
 	name = (String)session.getAttribute("name");
 	rank = (String)session.getAttribute("rank");
 	
->>>>>>> origin/PGKIM
 	ArrayList<MemberVO> memberList = (ArrayList<MemberVO>)request.getAttribute("member_list");
 	List<MemberBoardVO> mboardlist=(List<MemberBoardVO>)request.getAttribute("mboard_list");
 	List<MReplyVO> mReplyList =(List<MReplyVO>)request.getAttribute("mReplyList"); 
-	
-	int listcount=((Integer)request.getAttribute("listcount")).intValue();
-	int nowpage=((Integer)request.getAttribute("page")).intValue();
-	int maxpage=((Integer)request.getAttribute("maxpage")).intValue();
-	int startpage=((Integer)request.getAttribute("startpage")).intValue();
-	int endpage=((Integer)request.getAttribute("endpage")).intValue();
+	int listcount = 0;
+	int nowpage = 0;
+	int maxpage = 0;
+	int startpage = 0;
+	int endpage = 0;
+	if(request.getAttribute("listcount") != null) {
+		listcount=((Integer)request.getAttribute("listcount")).intValue();
+		nowpage=((Integer)request.getAttribute("page")).intValue();
+		maxpage=((Integer)request.getAttribute("maxpage")).intValue();
+		startpage=((Integer)request.getAttribute("startpage")).intValue();
+		endpage=((Integer)request.getAttribute("endpage")).intValue();
+	}
 %>
 <%
 	SimpleDateFormat format1;
@@ -180,7 +181,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
                 <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
                 <%} else { %>
-                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="profile.me?id=${id } "><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} %>
               </div>
@@ -272,14 +273,16 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					<tbody>
 						<%int num = listcount - ((nowpage - 1) * 10); %>
 												
-					<%for(int i = 0 ; i < mboardlist.size(); i++) {
-						MemberBoardVO bl=(MemberBoardVO)mboardlist.get(i);
+					<%
+						if(mboardlist.size() != 0) {
+							for(int i = 0 ; i < mboardlist.size(); i++) {
+								MemberBoardVO bl=(MemberBoardVO)mboardlist.get(i);
 					%>
 					<tr>
 					
 					<%if(bl.getMEMBER_SECRET().equals("N")) { %>					
 						<td><%=num %></td>
-						<td><%=bl.getMEMBER_NAME() %></td>
+						<td><%=bl.getMEMBER_NICKNAME() %></td>
 						<td><a href="./mboarddetail.me?num=<%=bl.getMEMBER_NUM()%>"><%=bl.getMEMBER_SUBJECT() %></a></td>
 						<td><%=format1.format(bl.getMEMBER_DATE()) %></td>
 						<td><%=bl.getMEMBER_READCOUNT() %></td>
@@ -288,7 +291,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						<td><%=num %></td>
 						<td colspan="4"><a href="./mboarddetail.me?num=<%=bl.getMEMBER_NUM()%>"><span class="oi oi-lock-locked"></span>비밀글입니다.</a></td>
 						<% num--; %>
-					<%} %>
+					<%} } %>
 					</tr>
 											
 					<%} %> 
@@ -383,7 +386,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
             
 
-
+						<form>
             <h2 class="footer-heading mb-4" id="main_grayfont1" >Follow Us</h2>
             <a href="https://www.facebook.com/" class="smoothscroll pl-0 pr-3" target="_blank"><span class="icon-facebook" id="main_grayfont2"></span></a>
             <a href="https://twitter.com/" class="pl-3 pr-3" target="_blank"><span class="icon-twitter" id="main_grayfont2"></span></a>

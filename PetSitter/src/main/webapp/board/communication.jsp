@@ -229,7 +229,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								for(int i = 0; i < boardList.size(); i++) {
 									CommunicationBoardVO board = (CommunicationBoardVO)boardList.get(i);
 						%>
-							<tr id="clickText_<%=num %>" style="cursor:pointer;" onmouseover="this.style.fontWeight='bold'" onmouseout="this.style.fontWeight='normal'">
+							<tr id="clickText_<%=num %>" style="cursor:pointer;" >
 								<td width="50px">
 									<input type="hidden" id="textValue" value="<%=board.getBOARD_NUM() %>">
 									<%=num %>
@@ -411,13 +411,15 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			$(function() {
 				$(".viewText").hide();
 				let num = '<%=listcount-((nowpage - 1)*10)%>';
-				console.log(num);
+				
 				for(let i = 1; i <= num; i++) {
-					$("#clickText_" + i).click(function() {
+					$("#clickText_" + i).on("click", function() {
 						if($("#viewText_" + i).css("display") == "none") {
 							$("#viewText_" + i).show();
+							$("#clickText_" + i).css("font-weight", "bold");
 						} else {
 							$("#viewText_" + i).hide();
+							$("#clickText_" + i).css("font-weight", "normal");
 						}
 					});
 				}

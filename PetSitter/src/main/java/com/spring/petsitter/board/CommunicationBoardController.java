@@ -68,7 +68,7 @@ public class CommunicationBoardController {
 		ArrayList<UsinglistVO> usinglist = communicationboardService.getUsingList_Member((String)session.getAttribute("id"));
 		String petsitter_id = "";
 		for(int i = 0; i < usinglist.size(); i++) {
-			if(usinglist.get(i).getUSINGLIST_NUM() == usinglist_num) {
+			if(usinglist.get(i).getLIST_NUM() == usinglist_num) {
 				petsitter_id = usinglist.get(i).getPETSITTER_ID();
 			}
 		}

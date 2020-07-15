@@ -1334,10 +1334,10 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '</td>';
 							output += '<td>' + item.petsitter_NICKNAME + '</td>';
 							output += '<td>' + item.list_START_DATE + '</td>';
-							output += '<td rowspan="3">' + item.usinglist_NUM + '</td>';
+							output += '<td rowspan="3">' + item.list_NUM + '</td>';
 							output += '<td rowspan="3">' + item.list_PRICE + '</td>';
 							if(item.list_COMPLETE === ing2) {
-								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.usinglist_NUM + '\';" ></td>';
+								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.list_NUM + '\';" ></td>';
 							} else if(item.list_COMPLETE === ing3) {
 								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
 								output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
@@ -1345,7 +1345,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								output += '<input type="hidden" id="review_petsitter_photo'+index+'" value="' + item.petsitter_PHOTO_PROFILE_FILE + '">';
 								output += '<input type="hidden" id="review_petsitter_score'+index+'" value="' + item.petsitter_SCORE + '">';
 								output += '<input type="hidden" id="review_petsitter_id'+index+'" value="' + item.petsitter_ID + '">';
-								output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.usinglist_NUM + '">';
+								output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.list_NUM + '">';
 								output += '</td>';
 							} else {
 								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
@@ -1451,10 +1451,10 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								output += '</td>';
 								output += '<td>' + item.petsitter_NICKNAME + '</td>';
 								output += '<td>' + item.list_START_DATE + '</td>';
-								output += '<td rowspan="3">' + item.usinglist_NUM + '</td>';
+								output += '<td rowspan="3">' + item.list_NUM + '</td>';
 								output += '<td rowspan="3">' + item.list_PRICE + '</td>';
 								if(item.list_COMPLETE === ing2) {
-									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.usinglist_NUM + '\';" ></td>';
+									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.list_NUM + '\';" ></td>';
 								} else if(item.list_COMPLETE === ing3) {
 									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
 									output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
@@ -1462,7 +1462,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 									output += '<input type="hidden" id="review_petsitter_photo'+index+'" value="' + item.petsitter_PHOTO_PROFILE_FILE + '">';
 									output += '<input type="hidden" id="review_petsitter_score'+index+'" value="' + item.petsitter_SCORE + '">';
 									output += '<input type="hidden" id="review_petsitter_id'+index+'" value="' + item.petsitter_ID + '">';
-									output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.usinglist_NUM + '">';
+									output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.list_NUM + '">';
 									output += '</td>';
 								} else {
 									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
@@ -1575,10 +1575,10 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								output += '</td>';
 								output += '<td>' + item.petsitter_NICKNAME + '</td>';
 								output += '<td>' + item.list_START_DATE + '</td>';
-								output += '<td rowspan="3">' + item.usinglist_NUM + '</td>';
+								output += '<td rowspan="3">' + item.list_NUM + '</td>';
 								output += '<td rowspan="3">' + item.list_PRICE + '</td>';
 								if(item.list_COMPLETE === ing2) {
-									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.usinglist_NUM + '\';" ></td>';
+									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.list_NUM + '\';" ></td>';
 								} else if(item.list_COMPLETE === ing3) {
 									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
 									output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
@@ -1586,7 +1586,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 									output += '<input type="hidden" id="review_petsitter_photo'+index+'" value="' + item.petsitter_PHOTO_PROFILE_FILE + '">';
 									output += '<input type="hidden" id="review_petsitter_score'+index+'" value="' + item.petsitter_SCORE + '">';
 									output += '<input type="hidden" id="review_petsitter_id'+index+'" value="' + item.petsitter_ID + '">';
-									output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.usinglist_NUM + '">';
+									output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.list_NUM + '">';
 									output += '</td>';
 								} else {
 									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
@@ -1780,7 +1780,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				});
 			}
 			
-			
+		
 		</script>
 		
 		<script>

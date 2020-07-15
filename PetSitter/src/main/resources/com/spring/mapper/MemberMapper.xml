@@ -12,7 +12,7 @@
 	</resultMap>
 	
 	<resultMap type="MemberUsinglistVO" id="UsingResultMap">
-		<result property="USINGLIST_NUM" column="USINGLIST_NUM" />
+		<result property="LIST_NUM" column="LIST_NUM" />
 		<result property="LIST_TYPE" column="LIST_TYPE" />
 		<result property="PETSITTER_NICKNAME" column="PETSITTER_NICKNAME" />
 		<result property="PETSITTER_NAME" column="PETSITTER_NAME" />
@@ -55,84 +55,84 @@
 	<select id="getUsingList_Member" parameterType="map" resultType="UsinglistVO">
 		<![CDATA[
 		select * 
-		from (select rownum as rnum, usinglist_num, petsitter_id, member_id, 
+		from (select rownum as rnum, list_num, petsitter_id, member_id, 
 								 list_price, list_start_date, list_end_date, list_type
 					from (select * 
 								from usinglist 
 								where MEMBER_ID=#{MEMBER_ID}
-								order by USINGLIST_NUM desc)) 
+								order by LIST_NUM desc)) 
 		where rnum >= #{startrow} and rnum <= #{endrow}
 		]]>
 	</select>
 	
 	<select id="getUsingList_Member_ajax" parameterType="map" resultMap="UsingResultMap">
 		<![CDATA[
-		select usinglist_num, member_id, petsitter_id, list_price, list_type, petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, petsitter_address, petsitter_photo_profile_file 
-		from (select rownum as rnum, usinglist_num, member_id, petsitter_id, list_price, list_type, 
+		select list_num, member_id, petsitter_id, list_price, list_type, petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, petsitter_address, petsitter_photo_profile_file 
+		from (select rownum as rnum, list_num, member_id, petsitter_id, list_price, list_type, 
 								 petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, 
 								 petsitter_address, petsitter_photo_profile_file
-					from (select usinglist_num, member_id, petsitter_id, list_price, list_type, 
+					from (select list_num, member_id, petsitter_id, list_price, list_type, 
 								 			 petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, 
 								 			 petsitter_address, petsitter_photo_profile_file
 								from usinglist natural join petsitter 
-								where MEMBER_ID=#{MEMBER_ID} order by USINGLIST_NUM desc))
+								where MEMBER_ID=#{MEMBER_ID} order by LIST_NUM desc))
 		where rnum >= #{startrow} and rnum <= #{endrow}
 		]]>
 	</select>
 	
 	<select id="getUsingList_Member_ajax_month" parameterType="map" resultMap="UsingResultMap">
 		<![CDATA[
-		select usinglist_num, member_id, petsitter_id, list_price, list_type, petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, petsitter_address, petsitter_photo_profile_file 
-		from (select rownum as rnum, usinglist_num, member_id, petsitter_id, list_price, list_type, 
+		select list_num, member_id, petsitter_id, list_price, list_type, petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, petsitter_address, petsitter_photo_profile_file 
+		from (select rownum as rnum, list_num, member_id, petsitter_id, list_price, list_type, 
 								 petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, 
 								 petsitter_address, petsitter_photo_profile_file
-					from (select usinglist_num, member_id, petsitter_id, list_price, list_type, 
+					from (select list_num, member_id, petsitter_id, list_price, list_type, 
 								 			 petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, 
 								 			 petsitter_address, petsitter_photo_profile_file
 								from usinglist natural join petsitter 
 								where MEMBER_ID=#{MEMBER_ID} and list_start_date >= trunc(add_months(sysdate, #{month}))
-								order by USINGLIST_NUM desc))
+								order by LIST_NUM desc))
 		]]>
 	</select>
 	
 	<select id="getUsingList_Member_month" parameterType="map" resultType="UsinglistVO">
 		<![CDATA[
 		select * 
-		from (select rownum as rnum, usinglist_num, petsitter_id, member_id, 
+		from (select rownum as rnum, list_num, petsitter_id, member_id, 
 								 list_price, list_start_date, list_end_date, list_type
 					from (select * 
 								from usinglist 
 								where MEMBER_ID=#{MEMBER_ID} and list_start_date >= trunc(add_months(sysdate, #{month})) 
-								order by USINGLIST_NUM desc))
+								order by LIST_NUM desc))
 		]]>
 	</select>
 	
 	<select id="getUsingList_Member_ajax_calendar" parameterType="map" resultMap="UsingResultMap">
 		<![CDATA[
-		select usinglist_num, member_id, petsitter_id, list_price, list_type, petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, petsitter_address, petsitter_photo_profile_file 
-		from (select rownum as rnum, usinglist_num, member_id, petsitter_id, list_price, list_type, 
+		select list_num, member_id, petsitter_id, list_price, list_type, petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, petsitter_address, petsitter_photo_profile_file 
+		from (select rownum as rnum, list_num, member_id, petsitter_id, list_price, list_type, 
 								 petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, 
 								 petsitter_address, petsitter_photo_profile_file
-					from (select usinglist_num, member_id, petsitter_id, list_price, list_type, 
+					from (select list_num, member_id, petsitter_id, list_price, list_type, 
 								 			 petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, 
 								 			 petsitter_address, petsitter_photo_profile_file
 								from usinglist natural join petsitter 
 								where MEMBER_ID=#{MEMBER_ID} and (list_start_date between to_date(#{startdate}, 'YYYY-MM-DD') and to_date(#{enddate}, 'YYYY-MM-DD') or
 											list_end_date between to_date(#{startdate}, 'YYYY-MM-DD') and to_date(#{enddate}, 'YYYY-MM-DD'))
-								order by USINGLIST_NUM desc))
+								order by LIST_NUM desc))
 		]]>
 	</select>
 	
 	<select id="getUsingList_Member_calendar" parameterType="map" resultType="UsinglistVO">
 		<![CDATA[
 		select * 
-		from (select rownum as rnum, usinglist_num, petsitter_id, member_id, 
+		from (select rownum as rnum, list_num, petsitter_id, member_id, 
 								 list_price, list_start_date, list_end_date, list_type
 					from (select * 
 								from usinglist 
 								where MEMBER_ID=#{MEMBER_ID} and (list_start_date between to_date(#{startdate}, 'YYYY-MM-DD') and to_date(#{enddate}, 'YYYY-MM-DD') or
 											list_end_date between to_date(#{startdate}, 'YYYY-MM-DD') and to_date(#{enddate}, 'YYYY-MM-DD'))
-								order by USINGLIST_NUM desc)) 
+								order by LIST_NUM desc)) 
 		]]>
 	</select>
 	

@@ -72,11 +72,4 @@ public class MemberBoardServiceImpl implements MemberBoardService {
 		}
 		return res;
 	}
-<<<<<<< HEAD:PetSitter/src/main/java/com/spring/petsitter/board/MemberBoardServiceImpl.java
-
-
-
-
-=======
->>>>>>> origin/PGKIM:PetSitter/src/main/java/com/spring/petsitter/board/mboard/MemberBoardServiceImpl.java
 }

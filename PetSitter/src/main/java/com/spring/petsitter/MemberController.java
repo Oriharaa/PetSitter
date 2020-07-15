@@ -113,7 +113,7 @@ public class MemberController {
 			
 			if(ing.equals("현재 이용중")) {
 				usinglist_ajax.get(i).setLIST_COMPLETE("펫시터와의 소통");
-			} else if(usinglist_num_member.contains(usinglist_ajax.get(i).getUSINGLIST_NUM())) { // 리뷰 작성 했는지 안했는지 확인
+			} else if(usinglist_num_member.contains(usinglist_ajax.get(i).getLIST_NUM())) { // 리뷰 작성 했는지 안했는지 확인
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 완료");
 			} else {
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 남기기");
@@ -162,7 +162,7 @@ public class MemberController {
 			
 			if(ing.equals("현재 이용중")) {
 				usinglist_ajax.get(i).setLIST_COMPLETE("펫시터와의 소통");
-			} else if(usinglist_num_member.contains(usinglist_ajax.get(i).getUSINGLIST_NUM())) { // 리뷰 작성 했는지 안했는지 확인
+			} else if(usinglist_num_member.contains(usinglist_ajax.get(i).getLIST_NUM())) { // 리뷰 작성 했는지 안했는지 확인
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 완료");
 			} else {
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 남기기");
@@ -211,7 +211,7 @@ public class MemberController {
 			
 			if(ing.equals("현재 이용중")) {
 				usinglist_ajax.get(i).setLIST_COMPLETE("펫시터와의 소통");
-			} else if(usinglist_num_member.contains(usinglist_ajax.get(i).getUSINGLIST_NUM())) { // 리뷰 작성 했는지 안했는지 확인
+			} else if(usinglist_num_member.contains(usinglist_ajax.get(i).getLIST_NUM())) { // 리뷰 작성 했는지 안했는지 확인
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 완료");
 			} else {
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 남기기");
@@ -290,10 +290,7 @@ public class MemberController {
 		if(res == 1) {
 			session.setAttribute("id", membervo.getMEMBER_ID());
 			session.setAttribute("name", membervo.getMEMBER_NAME());
-<<<<<<< HEAD
-=======
 			session.setAttribute("rank", membervo.getMEMBER_RANK());
->>>>>>> origin/PGKIM
 			return "home";
 		}else {
 			return "loginform";
