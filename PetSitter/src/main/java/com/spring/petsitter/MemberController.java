@@ -49,10 +49,12 @@ public class MemberController {
 		MemberVO membervo = memberService.selectMember(id);
 		String[] tel = membervo.getMEMBER_TEL().split("-");
 		String[] address = membervo.getMEMBER_ADDRESS().split(",");
+		int review_count = reviewboardService.getReviewListCount_member(id);
 		
 		int listcount = memberService.getListCount(id);
 		
 		mv.addObject("listcount", listcount);
+		mv.addObject("review_count", review_count);
 		mv.addObject("membervo", membervo);
 		mv.addObject("tel", tel);
 		mv.addObject("address", address);

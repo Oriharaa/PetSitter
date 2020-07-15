@@ -38,8 +38,16 @@ create table PETSITTER(
     PETSITTER_TYPE varchar2(20) default 'N', -- 케어종류
     PETSITTER_REPORT number(2) default 0, --신고누적횟수, 추가
     PETSITTER_GENDER varchar2(4) default 'N',-- 성별, 추가
-    PETSITTER_REVIEWCOUNT number(5) DEFAULT 0 --리뷰 개수
+    PETSITTER_REVIEWCOUNT number(5) DEFAULT 0, --리뷰 개수
+    PETSITTER_PHOTO_APPEAL varchar2(300) default 'N', --어필 사진
+    PETSITTER_AMOUNT number default 0 --총 매출 금액
 ); 
+
+create table petsitter_schedule(
+    PETSITTER_ID varchar2(30),
+    START_DATE date,
+    END_DATE date
+);
 
 select * from petsitter
 where petsitter_type like '%방문%';

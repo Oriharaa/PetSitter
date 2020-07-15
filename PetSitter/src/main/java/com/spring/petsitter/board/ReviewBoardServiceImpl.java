@@ -73,6 +73,13 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 		ReviewBoardMapper reviewMapper =  sqlSession.getMapper(ReviewBoardMapper.class);
 		ArrayList<Integer> usinglist_num_List = reviewMapper.usinglist_num_List_member(id);
 		return usinglist_num_List;
+	}
+
+	@Override
+	public int getReviewListCount_member(String id) {
+		ReviewBoardMapper reviewMapper =  sqlSession.getMapper(ReviewBoardMapper.class);
+		int review_count = reviewMapper.getReviewListCount_member(id);
+		return review_count;
 	}	
 
 }

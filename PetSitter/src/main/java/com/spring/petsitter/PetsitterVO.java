@@ -29,7 +29,7 @@ create table PETSITTER(
     PETSITTER_TYPE varchar2(20), -- 케어종류
     PETSITTER_REPORT number(2) default 0, --신고누적횟수
     PETSITTER_GENDER varchar2(4), -- 성별
-    PETSITTER_REVIEWCOUNT number(5) DEFAULT 0 --리뷰 개수
+    PETSITTER_REVIEWCOUNT number(5) DEFAULT 0, --리뷰 개수
 );
 */
 
@@ -69,11 +69,7 @@ public class PetsitterVO {
 	private String PETSITTER_DATE;
 	private String[] PETSITTER_TYPE_LIST;
 	private String PETSITTER_TYPE;
-	private int PETSITTER_REPORT;
 	private String PETSITTER_GENDER;
-	
-	
-	
 	
 	public int getPETSITTER_AMOUNT() {
 		return PETSITTER_AMOUNT;
@@ -98,9 +94,6 @@ public class PetsitterVO {
 	}
 	public void setPETSITTER_PHOTO_APPEAL(String pETSITTER_PHOTO_APPEAL) {
 		PETSITTER_PHOTO_APPEAL = pETSITTER_PHOTO_APPEAL;
-	}
-	public void setPETSITTER_COUNT(int pETSITTER_COUNT) {
-		PETSITTER_COUNT = pETSITTER_COUNT;
 	}
 	public String getPETSITTER_NAME() {
 		return PETSITTER_NAME;
@@ -281,12 +274,6 @@ public class PetsitterVO {
 	}
 	public void setPETSITTER_INTRODUCE(String pETSITTER_INTRODUCE) {
 		PETSITTER_INTRODUCE = pETSITTER_INTRODUCE;
-	}
-	public int getPETSITTER_REPORT() {
-		return PETSITTER_REPORT;
-	}
-	public void setPETSITTER_REPORT(int pETSITTER_REPORT) {
-		PETSITTER_REPORT = pETSITTER_REPORT;
 	}
 	public String getPETSITTER_GENDER() {
 		return PETSITTER_GENDER;

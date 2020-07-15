@@ -14,26 +14,6 @@ create table USINGLIST(
     LIST_TYPE varchar2(10)
 );
 */
-public class UsinglistVO {
-	private int LIST_NUM;
-	private String PETSITTER_ID;
-	private String PETSITTER_ADDR;
-	private String MEMBER_ID;
-	private int LIST_PRICE;
-	private Date LIST_START_DATE;
-	private Date LIST_END_DATE;
-	private int LIST_SCORE;
-	private String LIST_TYPE;
-	
-=======
-LIST_NUM number(10) primary key,
-PETSITTER_ID varchar2(30),
-MEMBER_ID varchar2(30),
-LIST_PRICE number(8),
-LIST_START_DATE date,
-LIST_END_DATE date,
-LIST_TYPE varchar2(10));
- */
 
 public class UsinglistVO {
 	private int LIST_NUM;
@@ -131,7 +111,6 @@ public class UsinglistVO {
 	public void setSTRING_ENDDATE(String sTRING_ENDDATE) {
 		STRING_ENDDATE = sTRING_ENDDATE;
 	}
->>>>>>> origin/MH
 	public int getLIST_NUM() {
 		return LIST_NUM;
 	}
@@ -147,15 +126,6 @@ public class UsinglistVO {
 	public String getMEMBER_ID() {
 		return MEMBER_ID;
 	}
-<<<<<<< HEAD
-	public String getPETSITTER_ADDR() {
-		return PETSITTER_ADDR;
-	}
-	public void setPETSITTER_ADDR(String pETSITTER_ADDR) {
-		PETSITTER_ADDR = pETSITTER_ADDR;
-	}
-=======
->>>>>>> origin/MH
 	public void setMEMBER_ID(String mEMBER_ID) {
 		MEMBER_ID = mEMBER_ID;
 	}
@@ -165,7 +135,6 @@ public class UsinglistVO {
 	public void setLIST_PRICE(int lIST_PRICE) {
 		LIST_PRICE = lIST_PRICE;
 	}
-<<<<<<< HEAD
 	public Date getLIST_START_DATE() {
 		return LIST_START_DATE;
 	}
@@ -178,9 +147,6 @@ public class UsinglistVO {
 	public void setLIST_END_DATE(Date lIST_END_DATE) {
 		LIST_END_DATE = lIST_END_DATE;
 	}
-=======
-	
->>>>>>> origin/MH
 	public int getLIST_SCORE() {
 		return LIST_SCORE;
 	}
@@ -193,20 +159,4 @@ public class UsinglistVO {
 	public void setLIST_TYPE(String lIST_TYPE) {
 		LIST_TYPE = lIST_TYPE;
 	}
-<<<<<<< HEAD
-=======
-	public Date getLIST_START_DATE() {
-		return LIST_START_DATE;
-	}
-	public void setLIST_START_DATE(Date lIST_START_DATE) {
-		LIST_START_DATE = lIST_START_DATE;
-	}
-	public Date getLIST_END_DATE() {
-		return LIST_END_DATE;
-	}
-	public void setLIST_END_DATE(Date lIST_END_DATE) {
-		LIST_END_DATE = lIST_END_DATE;
-	}
-
->>>>>>> origin/MH
 }

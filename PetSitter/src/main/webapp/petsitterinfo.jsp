@@ -5,14 +5,6 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 
 <%
-<<<<<<< HEAD
-	//세션 종료시 홈으로
-	if(session.getAttribute("id") == null) {
-		out.println("<script>");
-		out.println("location.href = 'home.me'");
-		out.println("</script>");
-	}
-=======
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
 	PetsitterVO vo = (PetsitterVO)request.getAttribute("vo");
@@ -26,9 +18,10 @@
  	String[] address = vo.getPETSITTER_ADDRESS().split(",");
  	String[] type = vo.getPETSITTER_TYPE().split(",");
  	
-    if(session.getAttribute("id") == null) {
+    if(session.getAttribute("id") == "") {
         out.println("<script>");
         out.println("location.href = 'home.me'");
+        out.println("alert('로그인 시간이 만료되어 자동 로그아웃 됩니다.')");
         out.println("</script>");
      }
  	
@@ -80,8 +73,6 @@
  	if(Arrays.asList(service).contains("olddog")){
  		olddog = "checked";
  	}
- 	
->>>>>>> origin/MH
 %>
 <!doctype html>
 <html lang="en">
@@ -703,7 +694,7 @@ function selectData(page){
         		num = item.maxpage;
         		var type = '';
        	       	var output = '';
-       	       	output += '<tr style = "color : #5e5e5e;">';
+       	       	output += '<tr style = "color : #5e5e5e; border-top: 1px dashed gray;">';
        	       	output += '<td>'+item.list_TYPE+'</td>';
        	       	output += '<td rowspan="3"><div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered"><img src='+item.member_PHOTO_FILE+'></div></div></div></td>';
        	        output += '<td>'+item.member_NAME+'</td>';
@@ -749,7 +740,7 @@ function button_7d(page){
         		num = item.maxpage;
         		var type = '';
        	       	var output = '';
-       	       	output += '<tr style = "color : #5e5e5e;">';
+       	       	output += '<tr style = "color : #5e5e5e; border-top: 1px dashed gray;">';
        	       	output += '<td>'+item.list_TYPE+'</td>';
        	       	output += '<td rowspan="3"><div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered"><img src='+item.member_PHOTO_FILE+'></div></div></div></td>';
        	        output += '<td>'+item.member_NAME+'</td>';
@@ -795,7 +786,7 @@ function button_1m(page){
         		num = item.maxpage;
         		var type = '';
        	       	var output = '';
-       	       	output += '<tr style = "color : #5e5e5e;">';
+       	       	output += '<tr style = "color : #5e5e5e; border-top: 1px dashed gray;">';
        	       	output += '<td>'+item.list_TYPE+'</td>';
        	       	output += '<td rowspan="3"><div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered"><img src='+item.member_PHOTO_FILE+'></div></div></div></td>';
        	        output += '<td>'+item.member_NAME+'</td>';
@@ -841,7 +832,7 @@ function button_3m(page){
         		num = item.maxpage;
         		var type = '';
        	       	var output = '';
-       	       	output += '<tr style = "color : #5e5e5e;">';
+       	       	output += '<tr style = "color : #5e5e5e; border-top: 1px dashed gray;">';
        	       	output += '<td>'+item.list_TYPE+'</td>';
        	       	output += '<td rowspan="3"><div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered"><img src='+item.member_PHOTO_FILE+'></div></div></div></td>';
        	        output += '<td>'+item.member_NAME+'</td>';
@@ -882,12 +873,12 @@ function button_all(page){
         		if(item.member_PHOTO_FILE=="N"){
         			item.member_PHOTO_FILE = "resources/images/defaultprofile.jpg";
         		}else{
-        			item.member_PHOTO_FILE = "/filepath/"+item.member_PHOTO;
+        			item.member_PHOTO_FILE = "/filepath/"+item.member_PHOTO_FILE;
         		}
         		num = item.maxpage;
         		var type = '';
        	       	var output = '';
-       	       	output += '<tr style = "color : #5e5e5e;">';
+       	       	output += '<tr style = "color : #5e5e5e; border-top: 1px dashed gray;">';
        	       	output += '<td>'+item.list_TYPE+'</td>';
        	       	output += '<td rowspan="3"><div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered"><img src='+item.member_PHOTO_FILE+'></div></div></div></td>';
        	        output += '<td>'+item.member_NAME+'</td>';
@@ -935,7 +926,7 @@ function button_select(page){
         		num = item.maxpage;
         		var type = '';
        	       	var output = '';
-       	       	output += '<tr style = "color : #5e5e5e;">';
+       	       	output += '<tr style = "color : #5e5e5e; border-top: 1px dashed gray;">';
        	       	output += '<td>'+item.list_TYPE+'</td>';
        	       	output += '<td rowspan="3"><div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered"><img src='+item.member_PHOTO_FILE+'></div></div></div></td>';
        	        output += '<td>'+item.member_NAME+'</td>';
@@ -987,9 +978,68 @@ function button_modal(number){
        	       	imgoutput += '<div class="thumbnail-wrapper"> <div class="thumbnail02"> <div class="centered02"><img src ="'+item.member_PHOTO_FILE+'"></div></div></div>'
        	       	output2 += '<tr><td colspan = "2" class = "font-size-15 main_grayfont3 mybold tleft">'+item.member_NICKNAME+'<td>';
        	       	output2 += '<tr><tr><td class = "float-left" style = "padding: 0 0 7px 0;">'
-       	       	for(var i = 0; i < item.review_SCORE; i++){
+       	       	if(item.review_SCORE == 5) {
        	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+	       	       	output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+	       	       	output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+	       	     		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+	       	        output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       	} else if(item.review_SCORE > 4 && item.review_SCORE < 5) {
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/starhalf.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       	} else if(item.review_SCORE == 4) {
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       	} else if(item.review_SCORE > 3 && item.review_SCORE < 4) {
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/starhalf.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       	} else if(item.review_SCORE == 3) {
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       	} else if(item.review_SCORE > 2 && item.review_SCORE < 3) {
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/starhalf.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       	} else if(item.review_SCORE == 2) {
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       	} else if(item.review_SCORE > 1 && item.review_SCORE < 2) {
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/starhalf.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       	} else if(item.review_SCORE == 1) {
+       	       		output2 += '<img src = "resources/images/star.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       	} else {
+       	       		output2 += '<img src = "resources/images/starhalf.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
+       	       		output2 += '<img src = "resources/images/star_empty.png" width = "17px" height = "17px" style = "margin-botton : 8px;">';
        	       	}
+       	       	
        	       	output2 += '</td><td class = "tset1">점수 : '+item.review_SCORE+'점</td><tr>';
        	       	
        	       	
@@ -1314,10 +1364,10 @@ function handleImgFileSelect11(e){
               <nav class="site-navigation text-right ml-auto " role="navigation">
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
+                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
+                  <li><a href="reservation1.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
+                  <li><a href="postscript_board.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
                 </ul>
               </nav>
@@ -1391,7 +1441,7 @@ function handleImgFileSelect11(e){
 				<hr class ="line" color="#949494" width="100%">
 				</div>
 				<div class = "col-6">
-				<h5 class="font-size-15">총 매출금액 : 0</h5>
+				<h5 class="font-size-15">총 매출금액 : <%=vo.getPETSITTER_AMOUNT() %></h5>
 				</div>
 				<div class = "col-6">
 				<h5 class="font-size-15">이번달 매출 금액: </h5>
@@ -1488,7 +1538,7 @@ function handleImgFileSelect11(e){
 
       		<div class = "col-12">
       		<form action = "petsitterSchedule.me" method = "post">
-      			<input type = "hidden" value = <%=id %> name = "PETSITTER_ID">
+      			<input type = "hidden" value = ${id } name = "PETSITTER_ID">
       			<table>
       				<tr>
       					<th class = "font-size-14">제외 날짜 : </th>
@@ -1589,7 +1639,7 @@ function handleImgFileSelect11(e){
       				<%for(int i = 0; i < 3;i++){ %>
       				<tr>
       					<th>자격증<%=i+1 %> :</th>
-      					<td colspan = "2"><input name = "certName" type = "text" value = <%if(cert>i){ %>"<%=certName[i] %>"<%}else{ %>""<%} %>  size = "50" class = "float-left"></td>
+      					<td colspan = "2"><input name = "certName" type = "text" value = <%if(cert>i){ %>"<%=certName[i] %>"<% %>}else{ %>""<%} %>  size = "50" class = "float-left"></td>
       				</tr>
       				<tr>
       					<th>자격증 사진<%=i+1 %> :</th>
@@ -1655,7 +1705,17 @@ function handleImgFileSelect11(e){
       					<th>프로필 사진 :</th>
       					<td colspan = "2">
       					<div class = "img_wrap">
+      						<%
+      							if(vo.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+      						%>
+      						<img id= "img" class="img4" src= "resources/images/defaultprofile02.png"/>
+      						<%
+      							} else {
+      						%>
       						<img id= "img" class="img4" src= "/filepath/<%=vo.getPETSITTER_PHOTO_PROFILE_FILE() %>"/>
+      						<%
+      							}
+      						%>
       					</div>
       					<div class="filebox float-left"> 
       						<input class="upload-name" value="파일선택" disabled="disabled"> 
@@ -1667,7 +1727,17 @@ function handleImgFileSelect11(e){
       					<th>증명 사진 :</th>
       					<td colspan = "2">
       					<div class = "img_wrap">
+      						<%
+      							if(vo.getPETSITTER_PHOTO_UPFILE().equals("N")) {
+      						%>
+      						<img id= "img" class="img4" src= "resources/images/defaultprofile02.png"/>
+      						<%
+      							} else {
+      						%>
       						<img id= "img" class="img5" src= "/filepath/<%=vo.getPETSITTER_PHOTO_UPFILE() %>"/>
+      						<%
+      							}
+      						%>
       					</div>
 									<div class="filebox float-left"> 
       						<input class="upload-name" value="파일선택" disabled="disabled"> 
@@ -1990,13 +2060,14 @@ function handleImgFileSelect11(e){
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 	<!-- 달력(한국어버젼_) -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
 	
 	<!-- 데이트피커 자스코드 -->
 	<script type="text/javascript">
 		$('#datePicker_start').datepicker({
 				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
-				language : "kr", // 언어(<ㅡ js추가필요해서 했음.)
+				language : "ko", // 언어(<ㅡ js추가필요해서 했음.)
+				autoclose: true,
 				orientation: "bottom auto"
 		});
 		
@@ -2004,14 +2075,15 @@ function handleImgFileSelect11(e){
 				var date = $('#dateRangePicker').val(); //클릭이벤
 				alert(date);
 		});
-
+		
 		
 	</script>
   
   <script type="text/javascript">
 		$('#datePicker_end').datepicker({
 				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
-				language : "kr", // 언어(<ㅡ js추가필요해서 했음.)
+				language : "ko", // 언어(<ㅡ js추가필요해서 했음.)
+				autoclose: true,
 				orientation: "bottom auto"
 		});
 		
@@ -2028,7 +2100,8 @@ function handleImgFileSelect11(e){
 		<script type="text/javascript">
 		$('#datePicker_start1').datepicker({
 				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
-				language : "kr", // 언어(<ㅡ js추가필요해서 했음.)
+				language : "ko", // 언어(<ㅡ js추가필요해서 했음.)
+				autoclose: true,
 				orientation: "bottom auto"
 		});
 		
@@ -2043,7 +2116,8 @@ function handleImgFileSelect11(e){
   <script type="text/javascript">
 		$('#datePicker_end1').datepicker({
 				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
-				language : "kr", // 언어(<ㅡ js추가필요해서 했음.)
+				language : "ko", // 언어(<ㅡ js추가필요해서 했음.)
+				autoclose: true,
 				orientation: "bottom auto"
 		});
 		
@@ -2073,7 +2147,8 @@ function handleImgFileSelect11(e){
 	    startTime: '00:00',
 	    dynamic: false,
 	    dropdown: true,
-	    scrollbar: true
+	    scrollbar: true,
+	    autoclose: true
 	});
 	</script>
 	
@@ -2087,7 +2162,8 @@ function handleImgFileSelect11(e){
 	    startTime: '07:00',
 	    dynamic: false,
 	    dropdown: true,
-	    scrollbar: true
+	    scrollbar: true,
+	    autoclose: true
 	});
 	</script>	 
 	  

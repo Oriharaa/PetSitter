@@ -3,7 +3,6 @@
 <!doctype html>
 <html lang="en">
 
-
 <style>
 
 
@@ -119,7 +118,7 @@ border-radius:400px
 
               <div class="float-right" style="margin-bottom:8px;">
               	<%
-              		if(session.getAttribute("id") == null) {
+              		if(session.getAttribute("id") == "" || session.getAttribute("id") == null) {
               	%>
                 <a href="loginform.me" ><span class = "font-size-14" >로그인 & 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
@@ -127,7 +126,7 @@ border-radius:400px
                 <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} else {%> <!-- 펫시터 마이 페이지 -->
-                <a href="petsitterinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="petsitterinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} %>
             </div>

@@ -8,13 +8,14 @@
 	MemberVO membervo = (MemberVO)request.getAttribute("membervo");
 	ArrayList<PetsitterVO> petsitterlist = (ArrayList<PetsitterVO>)request.getAttribute("petsitterlist");
 	ArrayList<UsinglistVO> usinglist = (ArrayList<UsinglistVO>)request.getAttribute("usinglist");
+	int review_count = ((Integer)request.getAttribute("review_count")).intValue();
 	String[] tel = (String[])request.getAttribute("tel");
 	String[] address = (String[])request.getAttribute("address");
 	int listcount = ((Integer)request.getAttribute("listcount")).intValue();
 	// 세션 종료시 홈으로
-	if(session.getAttribute("id") == null) {
+	if(session.getAttribute("id") == "") {
 		out.println("<script>");
-		out.println("alert('세션이 만료되어 자동 로그아웃됩니다.')");
+		out.println("alert('로그인 시간이 만료되어 자동 로그아웃 됩니다.')");
 		out.println("location.href='logout.me'");
 		out.println("</script>");
 	}
@@ -647,7 +648,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				<h5 class="font-size-15">이용 횟수 : <%=membervo.getMEMBER_COUNT() %></h5>
 				</div>
 				<div class = "col-6">
-				<h5 class="font-size-15">후기 작성 : 0</h5>
+				<h5 class="font-size-15">후기 작성 : <%=review_count %></h5>
 				</div>
 				<div class = "col-12">
 				<hr class ="line" color="#949494" width="100%">

@@ -44,7 +44,7 @@ public class PetsitterController {
 	public String petsitterUpdate(PetsitterUpdateVO vo)throws Exception {
 		PetsitterVO petsitter = new PetsitterVO();
 		petsitter.setPETSITTER_ID(vo.getPETSITTER_ID()); 
-		petsitter = petsitterService.selectPetsitter(petsitter);
+		petsitter = petsitterService.selectPetsitter(vo.getPETSITTER_ID());
 		String uploadPath = "C:\\Project156\\upload\\";
 		
 		
@@ -186,10 +186,7 @@ public class PetsitterController {
 	@RequestMapping(value = "petsitterinfo.me")
 	public String petsitterinfo(HttpSession session, Model model) {
 		String id = (String) session.getAttribute("id");
-		PetsitterVO petsitter = new PetsitterVO();
-		petsitter.setPETSITTER_ID(id);
-		PetsitterVO vo = new PetsitterVO();
-		vo = petsitterService.selectPetsitter(petsitter);
+		PetsitterVO vo = petsitterService.selectPetsitter(id);
 
 		ArrayList<PetsitterUsinglistVO> list = new ArrayList<PetsitterUsinglistVO>();
 		UsinglistVO usinglist = new UsinglistVO();
@@ -251,18 +248,11 @@ public class PetsitterController {
 	@RequestMapping(value = "petsitter_login.me")
 	public String petsiiterLogin(PetsitterVO vo, HttpSession session) {
 		int res = petsitterService.petsitterCheck(vo);
-<<<<<<< HEAD
-		PetsitterVO petsitter = petsitterService.selectPetsitter(vo.getPETSITTER_ID());
-		
-		if(res == 1) {
-			session.setAttribute("id", vo.getPETSITTER_ID());
-			session.setAttribute("name", petsitter.getPETSITTER_NAME());
-=======
-		vo = petsitterService.selectPetsitter(vo);
+
+		vo = petsitterService.selectPetsitter(vo.getPETSITTER_ID());
 		if (res == 1) {
 			session.setAttribute("id", vo.getPETSITTER_ID());
 			session.setAttribute("name", vo.getPETSITTER_NAME());
->>>>>>> origin/MH
 			System.out.println("로그인 성공");
 
 			return "home";
@@ -319,14 +309,6 @@ public class PetsitterController {
 		ArrayList<String> HOME_PHOTO = new ArrayList<String>();
 		for (int i = 0; i < vo.getPETSITTER_PHOTO_HOME().length; i++) {
 			mf = vo.getPETSITTER_PHOTO_HOME()[i];
-<<<<<<< HEAD
-			if(mf.getSize() != 0) {
-			String originalFileExtension4 = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));
-			String storedFileName4 = UUID.randomUUID().toString().replaceAll("-", "")+ originalFileExtension4;
-			
-			mf.transferTo(new File(uploadPath+storedFileName4));
-			HOME_PHOTO.add(storedFileName4);
-=======
 			if (mf.getSize() != 0) {
 				String originalFileExtension4 = mf.getOriginalFilename()
 						.substring(mf.getOriginalFilename().lastIndexOf("."));
@@ -334,7 +316,6 @@ public class PetsitterController {
 
 				mf.transferTo(new File(uploadPath + storedFileName4));
 				HOME_PHOTO.add(storedFileName4);
->>>>>>> origin/MH
 			}
 		}
 

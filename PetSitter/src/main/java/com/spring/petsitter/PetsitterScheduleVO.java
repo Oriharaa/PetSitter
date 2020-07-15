@@ -1,6 +1,5 @@
 package com.spring.petsitter;
 
-import oracle.sql.DATE;
 /*create table petsitter_schedule(
 PETSITTER_ID varchar2(30),
 START_DATE date,
