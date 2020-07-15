@@ -12,6 +12,7 @@ public interface MemberBoardService {
 	public int boardModify(MemberBoardVO modifyboard);
 	public int boardDelete(HashMap<String, String> hashmap);
 	public int reportInsert(ReportArticleVO report);
+	public int reportReply(ReportReplyVO report);
 	
 	
 }

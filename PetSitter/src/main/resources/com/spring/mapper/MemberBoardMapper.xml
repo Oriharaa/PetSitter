@@ -24,6 +24,13 @@
 		<result property="MEMBER_ID" column="MEMBER_ID" />
 	</resultMap>
 	
+	<resultMap type = "com.spring.petsitter.board.mboard.ReportReplyVO" id="reportReplyResultMap">
+		<result property="BNO" column="BNO" />
+		<result property="RNO" column="RNO" />
+		<result property="REPORT_REASON" column="REPORT_REASON" />
+		<result property="MEMBER_ID" column="MEMBER_ID" />		
+	</resultMap>
+	
 	<select id="getBoardList" parameterType="HashMap" resultMap="memberboardResultMap">
 	<![CDATA[
 		select MEMBER_NUM, MEMBER_NAME, MEMBER_SUBJECT, MEMBER_CONTENT, MEMBER_ORG_FILE, MEMBER_UP_FILE, MEMBER_READCOUNT, MEMBER_DATE, MEMBER_LIKECOUNT, MEMBER_SECRET
@@ -77,4 +84,8 @@
 		values (#{MEMBER_NUM}, #{REPORT_REASON}, #{MEMBER_ID})
 	</insert> 
 	
+	<insert id="reportReply" parameterType="com.spring.petsitter.board.mboard.ReportReplyVO">
+		insert into report_reply(BNO, RNO, REPORT_REASON, MEMBER_ID)
+		values (#{BNO}, #{RNO}, #{REPORT_REASON}, #{MEMBER_ID})
+	</insert>
 </mapper>

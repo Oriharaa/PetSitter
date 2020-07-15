@@ -83,4 +83,12 @@ public class MemberBoardServiceImpl implements MemberBoardService {
 		
 		return res;
 	}
+	
+	@Override
+	public int reportReply(ReportReplyVO report) {
+		MemberBoardMapper memberboardMapper = sqlSession.getMapper(MemberBoardMapper.class);
+		int res = memberboardMapper.reportReply(report);
+		
+		return res;
+	}
 }

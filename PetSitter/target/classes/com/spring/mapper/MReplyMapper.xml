@@ -27,6 +27,9 @@
 	
 	<delete id="deleteReply" parameterType="int">
 		delete from mReply where rno = #{rno}	
-	</delete>
+	</delete>	
 	
+	<select id="getReplyCnt" parameterType="int" resultType="int">
+		select count(*) from mReply where bno = #{bno}
+	</select>
 </mapper>

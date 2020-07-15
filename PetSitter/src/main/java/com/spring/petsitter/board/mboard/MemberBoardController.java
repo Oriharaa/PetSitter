@@ -165,6 +165,19 @@ public class MemberBoardController {
 		return "redirect:/mboarddetail.me?num=" + report.getMEMBER_NUM();
 	}
 	
+	// 댓글 신고하기
+	@RequestMapping("/reportReply.me")
+	public String reportReply(ReportReplyVO report) throws Exception {
+		System.out.println("신고자 : " + report.getMEMBER_ID());
+		System.out.println("신고 글 번호 : " + report.getBNO());
+		System.out.println("신고 리플 번호 : " + report.getRNO());
+		System.out.println("신고 사유 : " + report.getREPORT_REASON());
+		
+		memberboardService.reportReply(report);
+		
+		return "redirect:/mboarddetail.me?num=" + report.getBNO();
+	}
+	
 	// 다운로드 기능
 	@RequestMapping("/filedownload.bo")
   public void fileDownload(HttpServletRequest request, HttpServletResponse response) throws Exception{

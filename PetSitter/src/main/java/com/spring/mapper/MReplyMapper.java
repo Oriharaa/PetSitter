@@ -10,4 +10,5 @@ public interface MReplyMapper {
 	public int writeReply(MReplyVO vo) throws Exception;  // ´ñ±Û ÀÛ¼º
 	public int updateReply(MReplyVO vo) throws Exception; // ´ñ±Û ¼öÁ¤
 	public int deleteReply(int rno) throws Exception; // ´ñ±Û »èÁ¦
+	public int getReplyCnt(int rno) throws Exception; // ´ñ±Û °¹¼ö ±¸ÇÏ±â
 }

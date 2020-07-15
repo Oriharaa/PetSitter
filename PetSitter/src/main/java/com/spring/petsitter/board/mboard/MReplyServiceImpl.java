@@ -44,4 +44,9 @@ public class MReplyServiceImpl implements MReplyService {
 		return mReplyMapper.deleteReply(rno);
 	}
 
+	@Override
+	public int getReplyCnt(int rno) throws Exception {
+		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
+		return mReplyMapper.getReplyCnt(rno);
+	}
 }

@@ -350,10 +350,10 @@ margin-bottom: 5px;
     					<div align="center">미리 보기	</div>
     				</td>
     				<td>
-					    <div class = "col-12 filebox padd0 preview-image">
-								<input class="upload-name" value="파일선택" disabled="disabled" > 
-								<label for="input-file">업로드</label> 
-								<input type="file" name="MEMBER_FILE" id="input-file" class="upload-hidden"> 
+							<div class = "col-12 filebox padd0 filebox preview-image">
+				         <label for="input-file">업로드</label> 
+				         <input class="upload-name" value="파일선택" disabled="disabled" style = "text-align : right" > 
+				         <input type="file" id="input-file" class="upload-hidden" name = "MEMBER_FILE"> 
 					    </div>
     				</td>
     			</tr>

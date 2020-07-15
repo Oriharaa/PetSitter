@@ -8,4 +8,5 @@ public interface MReplyService {
 	public int writeReply(MReplyVO vo) throws Exception;	
   public int updateReply(MReplyVO vo) throws Exception;
   public int deleteReply(int rno) throws Exception;
+  public int getReplyCnt(int rno) throws Exception;
 }
