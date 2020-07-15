@@ -3,11 +3,17 @@
 	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	 
 <mapper namespace = "com.spring.mapper.PetsitterMapper">
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/MH
 	
 	<select id="petsitterCheck" parameterType = "PetsitterVO" resultType = "int">
 		select count(*) from petsitter where PETSITTER_ID = #{PETSITTER_ID} and PETSITTER_PW = #{PETSITTER_PW}
 	</select>
 	
+<<<<<<< HEAD
 	<select id="petsitterList" resultType="PetsitterVO">
 		select * from petsitter order by PETSITTER_DATE
 	</select>
@@ -16,26 +22,60 @@
 	</select>
 	<select id="petsitterList_We" resultType="PetsitterVO">
 		select * from petsitter where PETSITTER_TYPE like '%위탁%' order by PETSITTER_DATE
+=======
+	<select id = "petsitterNicknameCheck" parameterType = "PetsitterVO" resultType="int">
+		select count(*) from petsitter where PETSITTER_NICKNAME = #{PETSITTER_NICKNAME}
+	</select>
+	
+	<select id="petsitterList" parameterType = "PetsitterVO" resultType = "PetsitterVO">
+		select * from petsitter
+>>>>>>> origin/MH
 	</select>
 	
 	<select id="selectPetsitter" parameterType="String" resultType="PetsitterVO">
 		select * from petsitter where PETSITTER_ID = #{PETSITTER_ID}
 	</select>
 	
+<<<<<<< HEAD
 	<insert id="insertPetsitter" parameterType="PetsitterVO">
+=======
+	<insert id = "petsitterSchedule" parameterType = "PetsitterScheduleVO">
+		insert into petsitter_schedule (PETSITTER_ID,START_DATE,END_DATE) 
+		values(#{PETSITTER_ID},#{START_DATE},#{END_DATE})
+	</insert>
+	
+	<insert id ="insertPetsitter" parameterType = "PetsitterVO">
+>>>>>>> origin/MH
 		insert into petsitter (PETSITTER_ID,PETSITTER_PW,PETSITTER_NAME,PETSITTER_TEL,PETSITTER_EMAIL,
-		PETSITTER_ADDRESS,PETSITTER_INTRODUCE,PETSITTER_PRICE_12H,PETSITTER_PRICE_24H,
+		PETSITTER_ADDRESS,PETSITTER_INTRODUCE,
 		PETSITTER_PRICE_30M,PETSITTER_PRICE_60M,PETSITTER_SERVICE_LIST,PETSITTER_PHOTO_UPFILE,
 		PETSITTER_PHOTO_PROFILE_FILE,PETSITTER_CERT_LIST,PETSITTER_PHOTO_CERT_FILE,
 		PETSITTER_PHOTO_HOME_FILE,PETSITTER_TYPE) values 
 		(#{PETSITTER_ID},#{PETSITTER_PW},#{PETSITTER_NAME},#{PETSITTER_TEL},#{PETSITTER_EMAIL}
-		,#{PETSITTER_ADDRESS},#{PETSITTER_INTRODUCE},#{PETSITTER_PRICE_12H},#{PETSITTER_PRICE_24H}
+		,#{PETSITTER_ADDRESS},#{PETSITTER_INTRODUCE}
 		,#{PETSITTER_PRICE_30M},#{PETSITTER_PRICE_60M},#{PETSITTER_SERVICE_LIST},#{PETSITTER_PHOTO_UPFILE}
 		,#{PETSITTER_PHOTO_PROFILE_FILE},#{PETSITTER_CERT_LIST},#{PETSITTER_PHOTO_CERT_FILE},#{PETSITTER_PHOTO_HOME_FILE}
 		,#{PETSITTER_TYPE})
 	</insert>
 	
+<<<<<<< HEAD
 	<update id="petsitterApproval" parameterType="PetsitterVO">
+=======
+	<update id = "petsitterUpdate" parameterType = "PetsitterVO">
+		update petsitter set PETSITTER_NICKNAME = #{PETSITTER_NICKNAME},PETSITTER_PW=#{PETSITTER_PW},PETSITTER_TEL=#{PETSITTER_TEL},
+		PETSITTER_EMAIL=#{PETSITTER_EMAIL},PETSITTER_ADDRESS=#{PETSITTER_ADDRESS},PETSITTER_INTRODUCE=#{PETSITTER_INTRODUCE},
+		PETSITTER_PRICE_30M=#{PETSITTER_PRICE_30M},PETSITTER_PRICE_60M=#{PETSITTER_PRICE_60M},PETSITTER_SERVICE_LIST=#{PETSITTER_SERVICE_LIST},
+		PETSITTER_PHOTO_UPFILE=#{PETSITTER_PHOTO_UPFILE},PETSITTER_PHOTO_PROFILE_FILE=#{PETSITTER_PHOTO_PROFILE_FILE},
+		PETSITTER_CERT_LIST=#{PETSITTER_CERT_LIST},PETSITTER_PHOTO_CERT_FILE=#{PETSITTER_PHOTO_CERT_FILE},PETSITTER_PHOTO_HOME_FILE=#{PETSITTER_PHOTO_HOME_FILE},
+		PETSITTER_TYPE=#{PETSITTER_TYPE},PETSITTER_PHOTO_APPEAL=#{PETSITTER_PHOTO_APPEAL} where PETSITTER_ID=#{PETSITTER_ID}
+	</update>
+	
+	<update id = "reflyUpdate" parameterType = "ReviewBoardVO">
+		update review_board set review_refly = #{REVIEW_REFLY} where petsitter_id = #{PETSITTER_ID} and usinglist_num = #{USINGLIST_NUM}
+	</update>
+	
+	<update id = "petsitterApproval" parameterType = "PetsitterVO">
+>>>>>>> origin/MH
 		update petsitter set PETSITTER_RANK = 'Y' where PETSITTER_ID = #{PETSITTER_ID}
 	</update>
 	

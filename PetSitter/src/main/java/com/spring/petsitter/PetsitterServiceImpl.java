@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.mapper.PetsitterMapper;
+import com.spring.petsitter.board.ReviewBoardVO;
 
 @Service("petsitterService")
 public class PetsitterServiceImpl implements PetsitterService{
@@ -15,6 +16,37 @@ public class PetsitterServiceImpl implements PetsitterService{
 	@Autowired
 	private SqlSession sqlSession;
 	
+	
+	
+	@Override
+	public int petsitterNicknameCheck(PetsitterVO petsitter) {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		int res = petsitterMapper.petsitterNicknameCheck(petsitter);
+		return res;
+	}
+
+	@Override
+	public int reflyUpdate(ReviewBoardVO vo) {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		int res =petsitterMapper.reflyUpdate(vo);
+		return res;
+	}
+
+	@Override
+	public int petsitterUpdate(PetsitterVO petsitter) {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		int res = petsitterMapper.petsitterUpdate(petsitter);
+		return res;
+	}
+
+	@Override
+	public int petsitterSchedule(PetsitterScheduleVO petsitterSchedule) {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		int res = petsitterMapper.petsitterSchedule(petsitterSchedule);
+		
+		return res;
+	}
+
 	@Override
 	public int petsitterInsert(PetsitterVO petsitter) {
 		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);

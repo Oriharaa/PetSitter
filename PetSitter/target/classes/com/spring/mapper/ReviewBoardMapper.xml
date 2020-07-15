@@ -24,6 +24,7 @@
 		<result property="LIKE_TYPE" column="LIKE_TYPE" />
 	</resultMap>
 	
+<<<<<<< HEAD
 	<select id="getReviewList" resultMap="ReviewBoardResultMap">
     select R.RNUM, R.LIST_NUM, R.USINGLIST_NUM, R.MEMBER_ID, R.PETSITTER_ID, R.REVIEW_CONTENT,
         R.REVIEW_SCORE, NVL(R.REVIEW_UP_PHOTO, 'N') REVIEW_UP_PHOTO, R.REVIEW_DATE , R.LIKE_COUNT, R.BOARD_TYPE,
@@ -34,6 +35,11 @@
     from (select * from REVIEW_BOARD order by REVIEW_DATE desc)) R, MEMBER M, PETSITTER P, LIKE_COUNT L
     WHERE R.MEMBER_ID = M.MEMBER_ID AND R.PETSITTER_ID = P.PETSITTER_ID AND R.LIST_NUM = L.LIKE_NUM
     order by R.RNUM
+=======
+	
+	<select id="getReviewListCount" resultType="int">
+		select count(*) from REVIEW_BOARD
+>>>>>>> origin/MH
 	</select>
 	
 	<select id="before_id" resultType="String">

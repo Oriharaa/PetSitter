@@ -3,7 +3,10 @@ package com.spring.petsitter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.spring.petsitter.board.ReviewBoardVO;
+
 public interface PetsitterService {
+	public int petsitterSchedule(PetsitterScheduleVO petsitterSchedule);
 	public int petsitterInsert(PetsitterVO petsitter);
 	public int petsitterCheck(PetsitterVO petsitter);
 	public ArrayList<PetsitterVO> petsitterList();
@@ -13,4 +16,7 @@ public interface PetsitterService {
 	public int petsitterApproval(PetsitterVO petsitter);
 	public int petsitterRefusal(PetsitterVO petsitter);
 	public void petsitterscoreupdate(String id, double score);
+	public int petsitterUpdate(PetsitterVO petsitter);
+	public int reflyUpdate(ReviewBoardVO vo);
+	public int petsitterNicknameCheck(PetsitterVO petsitter);
 }
