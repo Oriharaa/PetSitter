@@ -48,6 +48,7 @@ public class ReviewBoardController {
 		PetsitterVO petsitter = petsitterService.selectPetsitter(vo.getPETSITTER_ID());
 		if(petsitter.getPETSITTER_SCORE() == 0) {
 			petsitter.setPETSITTER_SCORE(petsitter_score);
+			petsitterService.petsitterscoreupdate(petsitter.getPETSITTER_ID(), petsitter_score);
 		} else {
 			double org_petsitter_score = petsitter.getPETSITTER_SCORE();
 			double result_score = (petsitter_score + org_petsitter_score) / 2.0;

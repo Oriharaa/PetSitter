@@ -4,9 +4,9 @@ import java.util.Date;
 
 /*
 create table USINGLIST(
-<<<<<<< HEAD
     LIST_NUM number(10) primary key,
     PETSITTER_ID varchar2(30),
+    PETSITTER_ADDR varchar2(100),
     MEMBER_ID varchar2(30),
     LIST_PRICE number(8),
     LIST_START_DATE date,

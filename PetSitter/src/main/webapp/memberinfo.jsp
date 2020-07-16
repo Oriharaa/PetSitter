@@ -711,10 +711,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			
 		<input type="text" class="middle_bt2_date" id="datePicker_start" placeholder="시작일" size="10px" style="text-align: center;" readonly>
 		<input type="text" class="middle_bt2_date" id="datePicker_end" placeholder="종료일" size="10px" style="text-align: center;" readonly>
-		<script>
-			var s_d = document.getElementById("datePicker_start").value;
-			var e_d = document.getElementById("datePicker_end").value;
-		</script>
 		<input type="button" class="middle_bt2" id="middle_bt7" value="조회" onclick="calendarUsinglist(1);">
 
 	  </div>
@@ -924,7 +920,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       				<tr>
       					<th>평점 </th>
 								<td>
-									<input type="hidden" name="REVIEW_SCORE" value="">
+									<input type="hidden" name="REVIEW_SCORE" value=5>
 									<div style="width: 144px;" class="tzSelect">
 										<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown" style="float: left; padding: 6px 0px;">
 											<div id="starmenu" style="float: left; display: flex;">
@@ -938,7 +934,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
   									</button>
 								    <ul class="dropdown-menu" aria-labelledby="menu1" style="list-style: none; padding: 0px; float: left;">
 								        <li id="starstar5" style="display: flex; padding-bottom: 5px;" onclick="insertstar5()">
-								        	<input type="hidden" name="REVIEW_SCORE" value=5>
 								        	<img src="resources/images/star.png" width="18px" height="18px">
 								        	<img src="resources/images/star.png" width="18px" height="18px">
 								        	<img src="resources/images/star.png" width="18px" height="18px">
@@ -946,7 +941,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								        	<img src="resources/images/star.png" width="18px" height="18px">
 								       	</li>
 								        <li id="starstar4_5" style="display: flex; padding-bottom: 5px;" onclick="insertstar4_5()">
-								        	<input type="hidden" name="REVIEW_SCORE" value=4.5>
 								        	<img src="resources/images/star.png" width="18px" height="18px">
 								        	<img src="resources/images/star.png" width="18px" height="18px">
 								        	<img src="resources/images/star.png" width="18px" height="18px">
@@ -954,7 +948,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								        	<img src="resources/images/starhalf.png" width="18px" height="18px">
 								        </li>
 								        <li id="starstar4" style="display: flex; padding-bottom: 5px;" onclick="insertstar4()">
-								        	<input type="hidden" name="REVIEW_SCORE" value=4>
 								        	<img src="resources/images/star.png" width="18px" height="18px">
 								        	<img src="resources/images/star.png" width="18px" height="18px">
 								        	<img src="resources/images/star.png" width="18px" height="18px">
@@ -962,7 +955,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        </li>
 								        <li id="starstar3_5" style="display: flex; padding-bottom: 5px;" onclick="insertstar3_5()">
-								        	<input type="hidden" name="REVIEW_SCORE" value=3.5>
 								        	<img src="resources/images/star.png" width="18px" height="18px">
 								        	<img src="resources/images/star.png" width="18px" height="18px">
 								        	<img src="resources/images/star.png" width="18px" height="18px">
@@ -970,7 +962,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        </li>
 								        <li id="starstar3" style="display: flex; padding-bottom: 5px;" onclick="insertstar3()">
-								        	<input type="hidden" name="REVIEW_SCORE" value=3>
 								        	<img src="resources/images/star.png" width="18px" height="18px">
 								        	<img src="resources/images/star.png" width="18px" height="18px">
 								        	<img src="resources/images/star.png" width="18px" height="18px">
@@ -978,7 +969,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        </li>
 								        <li id="starstar2_5" style="display: flex; padding-bottom: 5px;" onclick="insertstar2_5()">
-								        	<input type="hidden" name="REVIEW_SCORE" value=2.5>
 								        	<img src="resources/images/star.png" width="18px" height="18px">
 								        	<img src="resources/images/star.png" width="18px" height="18px">
 								        	<img src="resources/images/starhalf.png" width="18px" height="18px">
@@ -986,7 +976,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        </li>
 								        <li id="starstar2" style="display: flex; padding-bottom: 5px;" onclick="insertstar2()">
-								        	<input type="hidden" name="REVIEW_SCORE" value=2>
 								        	<img src="resources/images/star.png" width="18px" height="18px">
 								        	<img src="resources/images/star.png" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
@@ -994,7 +983,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        </li>
 								        <li id="starstar1_5" style="display: flex; padding-bottom: 5px;" onclick="insertstar1_5()">
-								        	<input type="hidden" name="REVIEW_SCORE" value=1.5>
 								        	<img src="resources/images/star.png" width="18px" height="18px">
 								        	<img src="resources/images/starhalf.png" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
@@ -1002,7 +990,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        </li>
 								        <li id="starstar1" style="display: flex; padding-bottom: 5px;" onclick="insertstar1()">
-								        	<input type="hidden" name="REVIEW_SCORE" value=1>
 								        	<img src="resources/images/star.png" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
@@ -1010,7 +997,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        </li>
 								        <li id="starstar0_5" style="display: flex; padding-bottom: 5px;" onclick="insertstar0_5()">
-								        	<input type="hidden" name="REVIEW_SCORE" value=0.5>
 								        	<img src="resources/images/starhalf.png" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
 								        	<img src="resources/images/star_empty.png" width="18px" height="18px">
@@ -1318,7 +1304,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				let listcount = <%=listcount %>;
 				
 				$.ajax({
-					url: '/petsitter/getUsingList.bo?',
+					url: '/petsitter/getUsingList.bo',
 					type: 'post',
 					data: {
 						id : '${id}',
@@ -1361,7 +1347,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							if(item.list_COMPLETE === ing2) {
 								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.list_NUM + '\';" ></td>';
 							} else if(item.list_COMPLETE === ing3) {
-								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
+								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing('+index+')">';
 								output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
 								output += '<input type="hidden" id="review_petsitter_address'+index+'" value="' + item.petsitter_ADDRESS1 + '">';
 								output += '<input type="hidden" id="review_petsitter_photo'+index+'" value="' + item.petsitter_PHOTO_PROFILE_FILE + '">';
@@ -1478,7 +1464,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								if(item.list_COMPLETE === ing2) {
 									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.list_NUM + '\';" ></td>';
 								} else if(item.list_COMPLETE === ing3) {
-									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
+									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing('+index+')">';
 									output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
 									output += '<input type="hidden" id="review_petsitter_address'+index+'" value="' + item.petsitter_ADDRESS1 + '">';
 									output += '<input type="hidden" id="review_petsitter_photo'+index+'" value="' + item.petsitter_PHOTO_PROFILE_FILE + '">';
@@ -1566,7 +1552,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					dataType: 'json',
 					contentType: 'application/x-www-form-urlencoded; charset=utf-8',
 					success: function(data) {
-						console.log(data)
 						
 						let listcount = data.length;
 						let nowpage = page;
@@ -1602,7 +1587,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								if(item.list_COMPLETE === ing2) {
 									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.list_NUM + '\';" ></td>';
 								} else if(item.list_COMPLETE === ing3) {
-									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing(num='+index+')">';
+									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing('+index+')">';
 									output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
 									output += '<input type="hidden" id="review_petsitter_address'+index+'" value="' + item.petsitter_ADDRESS1 + '">';
 									output += '<input type="hidden" id="review_petsitter_photo'+index+'" value="' + item.petsitter_PHOTO_PROFILE_FILE + '">';
@@ -1964,7 +1949,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				$("#starmenu").empty();
 		  	$("#starstar2_5 img").clone().appendTo($("#starmenu"));
 				$("input[name=REVIEW_SCORE]").val(2.5);
-		    console.log($("input[name=REVIEW_SCORE]").val());
 		  };
 		  function insertstar2() {
 				$("#starmenu").empty();
