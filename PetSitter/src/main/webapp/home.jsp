@@ -68,7 +68,24 @@ border-radius:400px
 
 }
 
-	
+	a#MOVE_TOP_BTN {
+   	/* position : 화면에 고정
+		right, bottom : 버튼의 위치 설정
+		display : 화면에서 숨김
+		z-index : 다른 태그들보다 위로 오도록 설정(z-index 가 설정된 다른 태그가 있다면 그 태그보다 커야 함)
+		*/
+		background: rgb(83, 220, 152);
+		color : white;
+		width : 90px;
+		height : 40px;
+    position: fixed; 
+    padding : 7px 0 0 30.8px;
+    border-radius : 22px;
+    right: 2%;
+    bottom: 50px;
+    display: none;
+    z-index: 999;
+	}
 </style>
 	
 	
@@ -155,6 +172,8 @@ border-radius:400px
             <div class="toggle-button d-inline-block d-lg-none"><a href="#" class="site-menu-toggle py-5 js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
           </div>
         </div>
+        <!-- 스크롤 위로올라가기 버튼 html-->
+        <a id="MOVE_TOP_BTN" href="#">TOP</a>
       </header>
 		
 
@@ -589,7 +608,33 @@ border-radius:400px
 
     <script src="<c:url value="/resources/js/main.js"/>"></script>
 
-
+		<script>
+			/*스크롤 위로올라가기 버튼 시작 script*/
+			  $(function() {
+			   $(window).scroll(function() {
+			     if ($(this).scrollTop() > 500) {
+			         $('#MOVE_TOP_BTN').fadeIn();
+			     } else {
+			         $('#MOVE_TOP_BTN').fadeOut();
+			     }
+			   });
+			   
+			   $("#MOVE_TOP_BTN").click(function() {
+			     $('html, body').animate({
+			         scrollTop : 0
+			     }, 400);
+			     return false;
+			   });
+			  });
+			
+			  /*
+			scroll(function(): scroll 함수를 이용
+			첫 if문  : 스크롤 위치에 따라 화면에서 맨위로 올라가는 버튼을 나타내고, 사라지도록 설정
+			click(function() : 버튼 클릭 이벤트
+			animate({ });: animation 을 걸어서 화면 맨위로 이동하도록 설정
+			 
+			스크롤 위로올라가기 버튼 종료 script*/
+		</script>
 </body>
 
 </html>
