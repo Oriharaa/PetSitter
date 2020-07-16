@@ -7,27 +7,27 @@ import org.springframework.web.multipart.MultipartFile;
 // 후기 게시판 VO
 /*reviewBoard
 create table REVIEW_BOARD(
-    LIST_NUM number(10), -- 리뷰 번호
-    USINGLIST_NUM number(10), -- 이용내역 번호
+    LIST_NUM number(10) primary key, -- 리뷰 번호
+    USINGLIST_NUM number(10), --이용내역 번호
     MEMBER_ID varchar2(30), -- 회원 아이디
     PETSITTER_ID varchar2(30), -- 펫시터 아이디
     REVIEW_CONTENT varchar2(500), -- 리뷰 내용
     REVIEW_SCORE number(2), -- 리뷰 평점
-    REVIEW_ORG_PHOTO varchar2(50), -- 리뷰 사진
-    REVIEW_UP_PHOTO varchar2(200), -- 업로드된 리뷰 사진
+    REVIEW_UP_PHOTO varchar2(200) default 'N', -- 업로드된 리뷰 사진
     REVIEW_DATE date default sysdate, -- 리뷰 작성일
     LIKE_COUNT number(6), -- 좋아요 수
-    BOARD_TYPE VARCHAR2(20) default 'REIVIEW_BOARD' -- 게시판 타입
+    BOARD_TYPE VARCHAR2(20) default 'REIVIEW_BOARD', -- 게시판 타입
+    REVIEW_REFLY VARCHAR2(500) DEFAULT 'N'--후기게시판 답변
 );
 
+LIKE_COUNT
 CREATE TABLE LIKE_COUNT(
-    LIKE_NUM NUMBER DEFAULT, --좋아요 번호
+    LIKE_NUM NUMBER primary key, --좋아요 번호
     LIKE_ID varchar2(2000), -- 좋아요 아이디
     LIKE_TYPE varchar2(20) default 'REIVIEW_BOARD' -- 좋아요 타입
 );
 
-/
---트리거(REVIEW_BOARD, LIKE_COUNT 트리거)
+트리거
 CREATE OR REPLACE TRIGGER REVIEW_LIKE_INSERT_TRG1
 BEFORE INSERT ON REVIEW_BOARD
 BEGIN
@@ -45,11 +45,11 @@ public class ReviewBoardVO {
 	private String REVIEW_CONTENT;
 	private double REVIEW_SCORE;
 	private MultipartFile[] REVIEW_PHOTO;
-	private String REVIEW_ORG_PHOTO;
 	private String REVIEW_UP_PHOTO;
 	private Date REVIEW_DATE;
 	private int LIKE_COUNT;
 	private String BOARD_TYPE;
+	private String REVIEW_REFLY;
 	private String MEMBER_NICKNAME;
 	private String MEMBER_PHOTO_FILE;
 	private String PETSITTER_NICKNAME;
@@ -59,6 +59,13 @@ public class ReviewBoardVO {
 	private int LIKE_NUM;
 	private String LIKE_TYPE;
 	
+	
+	public String getREVIEW_REFLY() {
+		return REVIEW_REFLY;
+	}
+	public void setREVIEW_REFLY(String rEVIEW_REFLY) {
+		REVIEW_REFLY = rEVIEW_REFLY;
+	}
 	public int getLIST_NUM() {
 		return LIST_NUM;
 	}
@@ -100,12 +107,6 @@ public class ReviewBoardVO {
 	}
 	public void setREVIEW_PHOTO(MultipartFile[] rEVIEW_PHOTO) {
 		REVIEW_PHOTO = rEVIEW_PHOTO;
-	}
-	public String getREVIEW_ORG_PHOTO() {
-		return REVIEW_ORG_PHOTO;
-	}
-	public void setREVIEW_ORG_PHOTO(String rEVIEW_ORG_PHOTO) {
-		REVIEW_ORG_PHOTO = rEVIEW_ORG_PHOTO;
 	}
 	public String getREVIEW_UP_PHOTO() {
 		return REVIEW_UP_PHOTO;

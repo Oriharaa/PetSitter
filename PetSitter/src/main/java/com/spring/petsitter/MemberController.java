@@ -280,6 +280,8 @@ public class MemberController {
 		if(res == 1) {
 			session.setAttribute("id", membervo.getMEMBER_ID());
 			session.setAttribute("name", membervo.getMEMBER_NAME());
+			session.setAttribute("rank", membervo.getMEMBER_RANK());
+			System.out.println(session.getAttribute("rank"));
 			return "home";
 		}else {
 			System.out.println("로그인 실패");
