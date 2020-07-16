@@ -76,11 +76,123 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	  background: #e9e9e9!important; 
 	}
 	/*최하단바 종료*/
-
-
 	
+	/*ajax 에서 사진 가운데 와 크기 지정 css 시작*/
+	.thumbnail-wrappper { 
+	width: 25%; 
+	} 
+	.thumbnail { 
+	position: relative; 
+	width : 350px;
+	height : 290px;
+	background : rgba(94,94,94,0.3);
+	overflow: hidden; 
+	margin-bottom : 4px;
+	border-radius : 3px;
+	} 
+	.thumbnail .centered { 
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	right: 0; 
+	bottom: 0; 
+	-webkit-transform: translate(50%,50%); 
+	-ms-transform: translate(50%,50%); 
+	transform: translate(50%,50%); 
+	} 
+	
+	.thumbnail .centered img { 
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	max-width: auto; 
+	max-height: auto; 
+	height: auto; 
+	-webkit-transform: translate(-50%,-50%); 
+	-ms-transform: translate(-50%,-50%);
+	 transform: translate(-50%,-50%); 
+	 }
+	 
+	 
+	.thumbnail02 { 
+	position: relative; 
+	width : 60px;
+	height : 60px;
+	background : rgba(94,94,94,0.3);
+	overflow: hidden; 
+	margin-bottom : 4px;
+	border-radius : 30px;
+	} 
+	.thumbnail02 .centered02 { 
+	position: relative; 
+	top: 0; 
+	left: 0; 
+	right: 0; 
+	bottom: 0; 
+	-webkit-transform: translate(50%,50%); 
+	-ms-transform: translate(50%,50%); 
+	transform: translate(50%,50%); 
+	} 
+	
+	.thumbnail02 .centered02 img { 
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	max-width: 60px; 
+	max-height: auto; 
+	height: 60px; 
+	-webkit-transform: translate(-50%,-50%); 
+	-ms-transform: translate(-50%,-50%);
+	 transform: translate(-50%,-50%); 
+	 }
+	 
+	/*ajax 에서 사진 가운데 와 크기 지정 css 종료*/
+	
+	/*carousel 고정 높이 조정*/
+	.slide {
+  height: 266px!important;
+  min-height: 266px!important;
+  background-size: cover;
+	}
+	
+	/*carousel 위치 보여주는 아이콘 바 설정*/
+	.carousel-indicators li {
+   box-sizing: content-box;
+   -ms-flex: 0 1 auto;
+   flex: 0 1 auto;
+   width: 18px!important;
+   height: 3px;
+   margin-right: 1.5px!important;
+   margin-left: 1.5px!important;
+   text-indent: -999px;
+   cursor: pointer;
+   background-color: #fff;
+   background-clip: padding-box;
+   border-top: 10px solid transparent;
+   border-bottom: 10px solid transparent;
+   opacity: .5;
+   transition: opacity .6s ease;
+   }
 
-
+	a#MOVE_TOP_BTN {
+   	/* position : 화면에 고정
+		right, bottom : 버튼의 위치 설정
+		display : 화면에서 숨김
+		z-index : 다른 태그들보다 위로 오도록 설정(z-index 가 설정된 다른 태그가 있다면 그 태그보다 커야 함)
+		*/
+		background: rgb(83, 220, 152);
+		color : white;
+		width : 90px;
+		height : 40px;
+    position: fixed; 
+    padding : 7px 0 0 30.8px;
+    border-radius : 22px;
+    right: 2%;
+    bottom: 50px;
+    display: none;
+    z-index: 999;
+	}
+	
 </style>
 
 
@@ -175,11 +287,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               <nav class="site-navigation text-right ml-auto " role="navigation">
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">펫시터 찾기</a></li>
+                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
                   <li><a href="reservation1.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
+                  <li><a href="proboard.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
+                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
+                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li> 
                 </ul>
               </nav>
 
@@ -189,7 +301,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
           </div>
         </div>
-
+				<!-- 스크롤 위로올라가기 버튼 html-->
+        <a id="MOVE_TOP_BTN" href="#">TOP</a>
       </header>
       
 <!-- 본 기능 추가 시작 -->
@@ -490,6 +603,33 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		    scrollbar: true
 		});
 	</script>
- 
+	
+ 	<script>
+		/*스크롤 위로올라가기 버튼 시작 script*/
+		  $(function() {
+		   $(window).scroll(function() {
+		     if ($(this).scrollTop() > 500) {
+		         $('#MOVE_TOP_BTN').fadeIn();
+		     } else {
+		         $('#MOVE_TOP_BTN').fadeOut();
+		     }
+		   });
+		   
+		   $("#MOVE_TOP_BTN").click(function() {
+		     $('html, body').animate({
+		         scrollTop : 0
+		     }, 400);
+		     return false;
+		   });
+		  });
+		
+		  /*
+		scroll(function(): scroll 함수를 이용
+		첫 if문  : 스크롤 위치에 따라 화면에서 맨위로 올라가는 버튼을 나타내고, 사라지도록 설정
+		click(function() : 버튼 클릭 이벤트
+		animate({ });: animation 을 걸어서 화면 맨위로 이동하도록 설정
+		 
+		스크롤 위로올라가기 버튼 종료 script*/
+	</script>
 </body>
 </html>

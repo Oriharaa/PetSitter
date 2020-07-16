@@ -4,7 +4,7 @@ create table member(
     MEMBER_PW varchar2(30), --PW
     MEMBER_NAME varchar2(20), --이름
     MEMBER_TEL varchar2(20), --전화번호
-    MEMBER_RANK varchar2(30) DEFAULT 'Green', --등급
+    MEMBER_RANK varchar2(30) DEFAULT 'Green', --등급('Green', 'Gold', 'VIP')
     MEMBER_COUNT number DEFAULT 0, --이용횟수
     MEMBER_AMOUNT number DEFAULT 0, --총 금액
     MEMBER_DATE date default sysdate, --가입날짜
@@ -23,11 +23,11 @@ create table PETSITTER(
     PETSITTER_EMAIL varchar2(30) default 'N', --이메일
     PETSITTER_SCORE number(2,1) DEFAULT 0, --평점
     PETSITTER_COUNT number(5) DEFAULT 0, --활동횟수
-    PETSITTER_RANK varchar2(20) DEFAULT 'N', --등급
+    PETSITTER_RANK varchar2(20) DEFAULT 'Pro', --등급('Pro', 'GoldPro')
     PETSITTER_ADDRESS varchar2(100) default 'N', --주소
     PETSITTER_INTRODUCE varchar2(2000) default 'N', --자기소개
-    PETSITTER_PRICE_30M varchar2(10), --30분가격
-    PETSITTER_PRICE_60M varchar2(10), --60분가격
+    PETSITTER_PRICE_30M varchar2(10), --30분가격(방문 예약)
+    PETSITTER_PRICE_60M varchar2(10), --60분가격(위탁 예약)
     PETSITTER_SERVICE_LIST varchar2(60) default 'N', --가능한 서비스
     PETSITTER_PHOTO_UPFILE varchar2(100) default 'N', --증명 사진
     PETSITTER_PHOTO_PROFILE_FILE varchar2(100) default 'N', --프로필 사진

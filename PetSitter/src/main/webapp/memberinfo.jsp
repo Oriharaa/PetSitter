@@ -640,7 +640,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				    %>
 				   		<h3 class="mpnick" style="margin-top: 60px;">${name } &nbsp;<img src="resources/images/rank_gold.png" style="width: 25px; height: 25px;"></h3>
 				    <%
-				    	} else if(membervo.getMEMBER_RANK().equals("vip")) { 
+				    	} else if(membervo.getMEMBER_RANK().equals("VIP")) { 
 				    %>
 				    	<h3 class="mpnick" style="margin-top: 60px;">${name } &nbsp;<img src="resources/images/rank_vip.png" style="width: 25px; height: 25px;"></h3>
 				    <%

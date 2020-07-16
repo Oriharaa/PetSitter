@@ -61,18 +61,6 @@ public class ReviewBoardController {
 		return "redirect:/memberinfo.me?id=" + vo.getMEMBER_ID();
 	}
 	
-	@RequestMapping(value = "foster_view.me", method = RequestMethod.GET)
-	public String foster_view() {
-	
-		return "foster_view";
-	}
-	
-	@RequestMapping(value = "call_view.me", method = RequestMethod.GET)
-	public String call_view() {
-				
-		return "call_view";
-	}
-	
 	@RequestMapping(value = "review_board.bo", method = RequestMethod.GET)
 	public String postscript_board() {
 				

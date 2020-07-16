@@ -9,7 +9,7 @@ create table member(
     MEMBER_PW varchar2(30), --PW
     MEMBER_NAME varchar2(20), --이름
     MEMBER_TEL varchar2(20), --전화번호
-    MEMBER_RANK varchar2(30) DEFAULT 'NOMAL', --등급
+    MEMBER_RANK varchar2(30) DEFAULT 'Green', --등급('Green', 'Gold', 'VIP')
     MEMBER_COUNT number DEFAULT 0, --활동횟수
     MEMBER_AMOUNT number DEFAULT 0, --총 금액
     MEMBER_DATE date default sysdate, --가입날짜

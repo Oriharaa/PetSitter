@@ -14,6 +14,8 @@ var btn_type = "BANG";
 
 let loading = false;
 
+var k = 1;	//반복될시 carousel 맞춤 지정
+
 	function selectData(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type) {
 		$('#petsitter_middle_box').empty();
 		
@@ -42,166 +44,236 @@ let loading = false;
 			success: function(data) {
 				
 				$.each(data, function(index, item) {
+					var address = item.petsitter_ADDRESS.split(' ');
+					var real_addr = address[0] + ' ' + address[1];
+					var home_photo = item.petsitter_PHOTO_HOME_FILE.split(',');
 					var output = '';
-						output += '<div class="row">'
-						output += '<div class="col">';
-						output += '<div class="middle_box_row">';
-						output += '<div class="middle_room_img">';
-						
-						if(item.petsitter_PHOTO_HOME_FILE === "N") 
-						{
-							output += '<img class="noImg" src="resources/images/room/noimg.png">';
-						}
-						else 
-						{
-							output  += '<img class="room" src="/filepath/' + item.petsitter_PHOTO_HOME_FILE + '">';
-						}		
+					output += '<div class="row">'
+					output += '<div class="col">';
+					output += '<div class="middle_box_row">';
+					output += '<div class="middle_room_img">';
+					
+					output += '<div class = "col-12 float-none">';
+		    		output += '<center>';
+			    		
+			    		if(item.petsitter_PHOTO_HOME_FILE != "N" && home_photo[1] != null){
+			    		output += '<div id="carouselExampleIndicators'+k+'" class="carousel slide" data-ride="carousel"  >';
+			    		output += '<ol class="carousel-indicators">';
+			    		if(home_photo[2] != null){
+			    		output += '<li data-target="#carouselExampleIndicators'+k+'" data-slide-to="0" class="active"></li>';
+			    		output += '<li data-target="#carouselExampleIndicators'+k+'" data-slide-to="1"></li>';
+			    		output += '<li data-target="#carouselExampleIndicators'+k+'" data-slide-to="2"></li>';
+			    		output += '</ol>';
+			    		output += '<div class="carousel-inner">';
+			    		output += '<div class="carousel-item active">';
+			    		output += '<div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered">';
+			    		output += '<img src="/filepath/'+home_photo[0]+'" class="d-block w-100" alt="...">';
+			    		output += '</div></div></div>';
+			    		output += '</div>';
+			    		output += '<div class="carousel-item">';
+			    		output += '<div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered">';
+			    		output += '<img src="/filepath/'+home_photo[1]+'" class="d-block w-100" alt="...">';
+			    		output += '</div></div></div>';
+			    		output += '</div>';
+			    		
+			    		output += '<div class="carousel-item">';
+			    		output += '<div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered">';
+			    		output += '<img src="/filepath/'+home_photo[2]+'" class="d-block w-100" alt="...">';
+			    		output += '</div></div></div>';
+			    		output += '</div>';
+			    		
+			    		
+			    		}
+			    		if(home_photo[2] == null){
+			    		output += '<li data-target="#carouselExampleIndicators'+k+'" data-slide-to="0" class="active"></li>';
+			    		output += '<li data-target="#carouselExampleIndicators'+k+'" data-slide-to="1"></li>';
+			    		output += '</ol>';
+			    		output += '<div class="carousel-inner">';
+			    		output += '<div class="carousel-item active">';
+			    		output += '<div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered">';
+			    		output += '<img src="/filepath/'+home_photo[0]+'" class="d-block w-100" alt="...">';
+			    		output += '</div></div></div>';
+			    		output += '</div>';
+			    		output += '<div class="carousel-item">';
+			    		output += '<div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered">';
+			    		output += '<img src="/filepath/'+home_photo[1]+'" class="d-block w-100" alt="...">';
+			    		output += '</div></div></div>';
+			    		output += '</div>';
+			    		
+			    		}
+			    		
+			    		output += '<a class="carousel-control-prev" href="#carouselExampleIndicators'+k+'" role="button" data-slide="prev">';
+			    		output += '<svg style = "color : #949494; padding-right : 4px;"width="40px" height="32px" viewBox="0 0 16 16" class="bi bi-chevron-compact-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223z"/></svg>';
+			    		output += '<span class="sr-only">Previous</span>';
+			    		output += '</a>';
+			    		output += '<a class="carousel-control-next" href="#carouselExampleIndicators'+k+'" role="button" data-slide="next">';
+			    		output += '<svg style = "color : #949494; padding-left : 4px;"width="40px" height="32px" viewBox="0 0 16 16" class="bi bi-chevron-compact-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"/></svg>';
+			    		output += '<span class="sr-only">Next</span>';
+			    		output += '</a>';
+			    		output +=	'</div>';   	    		
+			    		}
+			    		
+			    		if(item.petsitter_PHOTO_HOME_FILE != "N" && home_photo[1] == null){
+		    			output += '<div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered">';
+			    		output += '<img src="/filepath/'+home_photo[0]+'" class="d-block w-100" alt="...">';
+			    		output += '</div></div></div>';	
+			    		}
+			    		
+			    		if(item.petsitter_PHOTO_HOME_FILE == "N"){
+			    		output += '<div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered">';
+			    		output += '<img src="resources/images/dogmark.png" class="d-block w-100" alt="...">';
+			    		output += '</div></div></div>';
+			    		}
+			    		
+			    		output += '</center>';
+			    		output += '</div>';
 
-						output += '</div>';
-						output += '<a href ="call_view.me" class="go_view">';
-						output += '<div class="view_top">';
-						output += '<p class="v_location">' + item.petsitter_ADDRESS;
-						output += '<span class="v_i"> · </span>';
-						output += '<span class="v_grade">' + item.petsitter_RANK + '</span>';
-						output += '</p>';
-						output += '<p class="v_introduce">' + item.petsitter_INTRODUCE + '</p>';
-						output += '</div>';
-						output += '<div class="view_middle_left">';
-						output += '<div class="view_middle_left1">'; 
+					output += '</div>';
+					output += '<a href ="call_view.me" class="go_view">';
+					output += '<div class="view_top">';
+					output += '<p class="v_location">' + real_addr;
+					output += '<span class="v_i">  </span>';
+					output += '<span class="v_grade">';
+					if(item.petsitter_RANK == 'Pro') {
+						output += '<img src="resources/images/petsitter_pro.png" style="width: 25px; margin-bottom: 5px;">';
+					} else if(item.petsitter_RANK == 'GoldPro') {
+						output += '<img src="resources/images/petsitter_goldpro.png" style="width: 25px; margin-bottom: 5px;">';
+					}
+					output += '</span>';
+					output += '</p>';
+					output += '<p class="v_introduce">' + item.petsitter_INTRODUCE + '</p>';
+					output += '</div>';
+					output += '<div class="view_middle_left">';
+					output += '<div class="view_middle_left1">'; 
 					
 						//추가
-						output += '<div class="v_option">';
+					output += '<div class="v_option">';
 						
-						if(item.petsitter_SERVICE !== null) {
-							for(let i = 0; i < item.petsitter_SERVICE.length; i++) {
-								output += item.petsitter_SERVICE[i];
-								
-								if(i !== item.petsitter_SERVICE.length - 1) {
-									output += '<span class="v_i"> · </span>';
-								}
-
+					if(item.petsitter_SERVICE !== null) {
+						for(let i = 0; i < item.petsitter_SERVICE.length; i++) {
+							output += item.petsitter_SERVICE[i];
+							
+							if(i !== item.petsitter_SERVICE.length - 1) {
+								output += '<span class="v_i"> · </span>';
 							}
+
 						}
+					}
 						
-						output += '</div>';
-						output += '<div class="view_middle_left2">';
-						if(0 <= item.petsitter_SCORE && item.petsitter_SCORE < 0.5)
-						{
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-						}
+					output += '</div>';
+					output += '<div class="view_middle_left2">';
+					if(item.petsitter_SCORE == 0)
+					{
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+					}
+					
+					else if (0 < item.petsitter_SCORE && item.petsitter_SCORE < 1)
+					{
+						output += '<img class="starhalf" src="./resources/images/starhalf.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+					}	
 						
-						else if (0.5 <= item.petsitter_SCORE && item.petsitter_SCORE < 1)
-						{
-							output += '<img class="starhalf" src="./resources/images/function/starhalf.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-						}	
-							
-							
-						else if (1 <= item.petsitter_SCORE && item.petsitter_SCORE < 1.5 )
-						{
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-						}
 						
-						else if ( 1.5 <= item.petsitter_SCORE && item.petsitter_SCORE < 2)
-						{
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="starhalf" src="./resources/images/function/starhalf.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-						}
+					else if (item.petsitter_SCORE == 1)
+					{
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+					}
+					
+					else if (1 < item.petsitter_SCORE && item.petsitter_SCORE < 2)
+					{
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="starhalf" src="./resources/images/starhalf.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+					}
+					
+					else if (item.petsitter_SCORE == 2)
+					{
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
 						
-						else if ( 2 <= item.petsitter_SCORE && item.petsitter_SCORE < 2.5)
-						{
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-							
-						}
+					}
+					
+					else if (2 < item.petsitter_SCORE && item.petsitter_SCORE < 3)
+					{
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="starhalf" src="./resources/images/starhalf.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+					}
+					
+					else if (item.petsitter_SCORE == 3)
+					{
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+					}
+					
+					else if (3 < item.petsitter_SCORE && item.petsitter_SCORE < 4)
+					{
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="starhalf" src="./resources/images/starhalf.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+					}
+					
+					else if (item.petsitter_SCORE == 4)
+					{
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star_empty.png">';
+					}
+					
+					else if (4 < item.petsitter_SCORE && item.petsitter_SCORE < 5)
+					{
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="starhalf" src="./resources/images/starhalf.png">';
+					}
 						
-						else if ( 2.5 <= item.petsitter_SCORE && item.petsitter_SCORE < 3)
-						{
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="starhalf" src="./resources/images/function/starhalf.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-						}
+					else if (item.petsitter_SCORE == 5)
+					{
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star.png">';
+						output += '<img class="star" src="./resources/images/star.png">';
+					}
 						
-						else if ( 3 <= item.petsitter_SCORE && item.petsitter_SCORE < 3.5)
-						{
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-						}
-						
-						else if ( 3.5 <= item.petsitter_SCORE && item.petsitter_SCORE < 4)
-						{
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="starhalf" src="./resources/images/function/starhalf.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-						}
-						
-						else if ( 4 <= item.petsitter_SCORE && item.petsitter_SCORE < 4.5)
-						{
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star_empty.png">';
-						}
-						
-						else if ( 4.5 <= item.petsitter_SCORE && item.petsitter_SCORE < 5)
-					  {
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="starhalf" src="./resources/images/function/starhalf.png">';
-					  }
-						
-						else if (item.petsitter_SCORE === 5)
-						{
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star.png">';
-							output += '<img class="star" src="./resources/images/function/star.png">';
-						}
-						
-							output += '<span class="v_review">후기' + item.petsitter_REVIEWCOUNT + '개 </span>';
-							output += '</div>';
-							output += '</div>';
-							output += '<div class="view_middle_right">';
-							output += '<div class="view_middle_right1">';
-							output += '<p class="v_money1">₩' + item.petsitter_PRICE_12H + '</p>';
-							output += '<div class="v_1bak">';
-							output += '<p class="oneNight">데이케어</p>';
-							output += '</div>';
-							output += '</div>';
-							output += '<div class="view_middle_right2">';
-							output += '<p class="v_money2">₩' + item.petsitter_PRICE_24H + '</p>';
-							output += '<div class="v_1bak">';
-							output += '<p class="oneDay">1박케어</p>';
-							output += '</div></div></div></div></a></div></div></div>';
-							$('#petsitter_middle_box').append(output);		
+					output += '<span class="v_review">후기' + item.petsitter_REVIEWCOUNT + '개 </span>';
+					output += '</div>';
+					output += '</div>';
+					output += '<div class="view_middle_right">';
+					output += '<div class="view_middle_right2">';
+					output += '<p class="v_money2">₩' + item.petsitter_PRICE_30M + '</p>';
+					output += '<div class="v_1bak">';
+					output += '<p class="oneDay">30분</p>';
+					output += '</div></div></div></div></a></div></div></div>';
+					
+					$('#petsitter_middle_box').append(output);		
 				});
 				setTimeout(function() {
 					loading = false;

@@ -1,6 +1,5 @@
 package com.spring.petsitter;
 
-
 import java.util.List;
 
 
@@ -11,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
-
 
 @Controller
 public class ReservationController {
@@ -58,6 +54,17 @@ public class ReservationController {
 		}
 		return petsitter_list;
 	}
+
+	@RequestMapping(value = "foster_view.me", method = RequestMethod.GET)
+	public String foster_view() {
 		
+		return "foster_view";
+	}
+	
+	@RequestMapping(value = "call_view.me", method = RequestMethod.GET)
+	public String call_view() {
+				
+		return "call_view";
+	}
 
 }
