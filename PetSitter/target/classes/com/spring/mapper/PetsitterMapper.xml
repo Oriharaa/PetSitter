@@ -3,6 +3,11 @@
 	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	 
 <mapper namespace = "com.spring.mapper.PetsitterMapper">
+
+	<resultMap type="PetsitterVO" id="PetsitterResultMap">
+		<result property="" column="" />
+	</resultMap>
+
 	
 	<select id="petsitterCheck" parameterType = "PetsitterVO" resultType = "int">
 		select count(*) from petsitter where PETSITTER_ID = #{PETSITTER_ID} and PETSITTER_PW = #{PETSITTER_PW}
@@ -11,13 +16,8 @@
 	<select id="petsitterList" resultType="PetsitterVO">
 		select * from petsitter order by PETSITTER_DATE
 	</select>
-	<select id="petsitterList_Bang" resultType="PetsitterVO">
-		select * from petsitter where PETSITTER_TYPE like '%방문%' order by PETSITTER_DATE
-	</select>
-	<select id="petsitterList_We" resultType="PetsitterVO">
-		select * from petsitter where PETSITTER_TYPE like '%위탁%' order by PETSITTER_DATE
-	</select>
-	
+
+
 	<select id="selectPetsitter" parameterType="String" resultType="PetsitterVO">
 		select * from petsitter where PETSITTER_ID = #{PETSITTER_ID}
 	</select>
@@ -46,4 +46,7 @@
 	<update id="petsitterscoreupdate" parameterType="map">
 		update petsitter set PETSITTER_SCORE=#{PETSITTER_SCORE}, PETSITTER_REVIEWCOUNT=PETSITTER_REVIEWCOUNT+1 where PETSITTER_ID=#{PETSITTER_ID}
 	</update>
+
 </mapper>
+
+

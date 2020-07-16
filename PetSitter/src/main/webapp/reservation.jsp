@@ -1,17 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<<<<<<< HEAD
 <%@ page import="com.spring.petsitter.PetsitterVO" %>
 <%@ page import="java.util.*" %>
-
-
-=======
->>>>>>> origin/moon
+<%@ page import="com.spring.petsitter.*" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%
+	PetsitterVO petsittervo = (PetsitterVO)request.getAttribute("petsittervo");
+	ArrayList<PetsitterVO> petsitterlist = (ArrayList<PetsitterVO>)request.getAttribute("petsitterlist");
+	ArrayList<UsinglistVO> usinglist = (ArrayList<UsinglistVO>)request.getAttribute("usinglist");
 
 %>
-
-
 
 
 <!-- 위탁 돌봄 -->
@@ -222,59 +220,79 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					<input type="text" id="datePicker_start" class="form-control" placeholder="시작 날짜">
 					<i class="fas fa-arrow-right"></i>
 					<input type="text" id="datePicker_end" class="form-control" placeholder="종료 날짜">	
-					
+
 				</div>
 			</div>
 			<div class="col">	
 				<div class="time">
 					<h1 class="top_box_text3">시간을 설정해주세요!</h1>
-					<input type="text" name="time" class="timepicker" id="timePicker_start" value="00:00">
+					<input type="text" name="time" class="timepicker" id="timePicker_start">
 					<i class="fas fa-arrow-right"></i>
-  				<input type="text" name="time" class="timepicker" id="timePicker_end" value="00:00">
-				</div>
-			</div>
-		</div>
-	
-		<!-- 추가 작업시작 -->
-		<div class="row">
-			<div class="col">
-				<div class="area_1">
-					<h1 class="top_box_text4">지역을 선택해주세요!</h1>
-					<input type="button" class="area_btn" id="area_btn1" value="서울/경기">
-					<input type="button" class="area_btn" id="area_btn2" value="인천/부천">
-					<input type="button" class="area_btn" id="area_btn3" value="춘천/강원">
-					<input type="button" class="area_btn" id="area_btn4" value="부산/울산/경남">
-					<input type="button" class="area_btn" id="area_btn5" value="대구/경북">
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col">
-				<div class="area_2">
-					<input type="button" class="area_btn" id="area_btn6" value="전주/전북">
-					<input type="button" class="area_btn" id="area_btn7" value="광주/전남">
-					<input type="button" class="area_btn" id="area_btn8" value="청주/충북">
-					<input type="button" class="area_btn" id="area_btn9" value="대전/충남">
-					<input type="button" class="area_btn" id="area_btn10" value="제주">				
+  				<input type="text" name="time" class="timepicker" id="timePicker_end">
 				</div>
 			</div>
 		</div>
 		
+		<!-- 지역 선택 필터 -->
 		<div class="row">
+			<div class="col">
+				<div class="address">
+					<h1 class="top_box_text4">원하는 지역을 한군데 선택해주세요!</h1>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="fuckyou">
+					<label for="area_ck1" class="area_lb" id="area_lb1"> 서울/경기</label>
+						<input type="checkbox" name="area" id="area_ck1" value="서울/경기" class="hide" />
+					<label for="area_ck2" class="area_lb" id="area_lb2"> 인천</label>
+						<input type="checkbox" name="area" id="area_ck2" value="인천" class="hide" />
+					<label for="area_ck3" class="area_lb" id="area_lb3"> 강원</label>
+						<input type="checkbox" name="area" id="area_ck3" value="강원" class="hide" />
+					<label for="area_ck4" class="area_lb" id="area_lb4"> 부산/울산/경남</label>
+						<input type="checkbox" name="area" id="area_ck4" value="부산/울산/경남" class="hide" />
+					<label for="area_ck5" class="area_lb" id="area_lb5"> 대구/경북</label>
+						<input type="checkbox" name="area" id="area_ck5" value="대구/경북" class="hide" />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="fuckyou">
+					<label for="area_ck6" class="area_lb" id="area_lb6"> 전북</label>
+						<input type="checkbox" name="area" id="area_ck6" value="전북" class="hide" />
+					<label for="area_ck7" class="area_lb" id="area_lb7"> 광주/전남</label>
+						<input type="checkbox" name="area" id="area_ck7" value="광주/전남" class="hide" />
+					<label for="area_ck8" class="area_lb" id="area_lb8"> 충북</label>
+						<input type="checkbox" name="area" id="area_ck8" value="충북" class="hide" />
+					<label for="area_ck9" class="area_lb" id="area_lb9"> 대전/충남</label>
+						<input type="checkbox" name="area" id="area_ck9" value="대전/충남" class="hide" />
+					<label for="area_ck10" class="area_lb" id="area_lb10"> 제주</label>
+						<input type="checkbox" name="area" id="area_ck10" value="제주" class="hide" />
+				</div>
+			</div>
+		</div>
+		
+		<!-- 픽업, 대형견, 마당, 노견 조건 필터 -->
+		<div class ="row">
 			<div class="col">
 				<div class="custom">
 					<h1 class="top_box_text4">원하는 조건을 선택해주세요!</h1>
-<<<<<<< HEAD
-					<input type="button" class="custom_btn" id="custom_btn1" value="픽업">
-					<input type="button" class="custom_btn" id="custom_btn2" value="대형견">
-					<input type="button" class="custom_btn" id="custom_btn3" value="마당">
-					<input type="button" class="custom_btn" id="custom_btn4" value="노견">
-=======
-					<input type="button" class="custom_btn" id="custom_btn1" name="" value="픽업 OK!">
-					<input type="button" class="custom_btn" id="custom_btn2" value="대형견 OK!">
-					<input type="button" class="custom_btn" id="custom_btn3" value="마당 OK!">
-					<input type="button" class="custom_btn" id="custom_btn4" value="노견 OK!">
->>>>>>> origin/moon
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="fuckyou">
+					<label for="custom_ck1" class="custom_lb" id="custom_lb1"> 픽업 </label> 
+						<input type="checkbox" name="custom" id="custom_ck1" value="픽업" class="hide"/>
+					<label for="custom_ck2" class="custom_lb" id="custom_lb2"> 대형견</label>
+						<input type="checkbox" name="custom" id="custom_ck2" value="대형견" class="hide" />
+					<label for="custom_ck3" class="custom_lb" id="custom_lb3"> 마당 </label> 
+						<input type="checkbox" name="custom" id="custom_ck3" value="마당"  class="hide" />
+				  <label for="custom_ck4" class="custom_lb" id="custom_lb4"> 노견 </label> 
+				  	<input type="checkbox" name="custom" id="custom_ck4" value="대형견" class="hide"/>
 				</div>
 			</div>
 		</div>
@@ -286,7 +304,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
 
-<!-- 주소 검색 & 예약날짜 & 맞춤조건 등.. 종료-->      
+<!-- 예약날짜 & 맞춤조건 등.. 종료-->      
 <!-- top_box 종료 --> 
 
 
@@ -294,7 +312,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 <!-- 맞춤조건에 의한 펫시터 뷰 시작-->
 <section class="middle_box">
 	<div class="container">
-	
 		<div class="row">
 			<div class="col">
 				<div class="middle_box_title">
@@ -302,112 +319,20 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				</div>
 			</div>
 			<div class="col">
-				<div class="middle_box_btn">
-					<input type="button" class="middle_right_btn" id="newOrder" value="최신순">
-					<input type="button" class="middle_right_btn" id="gradeOrder" value="평점순">
+		  	<div class="middle_box_btn">
+		  		<label for="order_ck1" class="order_lb" id="order_lb1">최신순</label>
+		  			<input type="radio" name="order" id="order_ck1" value="최신순" class="hide" />
+		  		<label for="order_ck2" class="order_lb" id="order_lb2">평점순</label>
+						<input type="radio" name="order" id="order_ck2" value="평점순" class="hide" />
 				</div>
 			</div>
 		</div>
+
+		
 		
 		<div class="row" id="petsitter_middle_box">
-			<div class="row">
-				<div class="col">
-					<div class="middle_box_row">
-						<div class="middle_room_img">
-							<img class="room" src="./resources/images/room/bang1.jpg">
-						</div>
-						
-						<a href ="call_view.me" class="go_view">
-							<div class="view_top">
-								<p class="v_location">서울 은평구 xx동
-									<span class="v_i"> · </span>
-									<span class="v_grade">프로펫시터</span>
-								</p>
-								
-								<p class="v_introduce">가족처럼 행복과 사랑으로 돌보겠습니다.^^진짜임</p>
-							</div>
-							<div class="view_middle_left">
-								<div class="view_middle_left1">
-									<span class="v_option" id ="option1">아파트 ·</span>
-									<span class="v_option" id ="option2">산책로 있어요</span>
-									<span class="v_option" id ="option3">반려동물있어요</span>
-									<div class="view_middle_left2">
-										<img class="star" src="./resources/images/function/star.png">
-										<img class="star" src="./resources/images/function/star.png">
-										<img class="star" src="./resources/images/function/star.png">
-										<img class="star" src="./resources/images/function/star.png">
-										<img class="star" src="./resources/images/function/starhalf.png">
-										<p class="v_review">후기 · 99개</p>
-									</div>
-								</div>
-								<div class="view_middle_right">
-									<div class="view_middle_right1">
-										<p class="v_money1">₩45,000</p>
-										<div class="v_1bak">
-											<p class="oneNight">데이케어</p>
-										</div>
-									</div>
-									<div class="view_middle_right2">
-										<p class="v_money2">₩45,000</p>
-										<div class="v_1bak">
-											<p class="oneDay">1박 케어	</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-			</div>
-			
-			<div class="row">
-				<div class="col">
-					<div class="middle_box_row">
-						<div class="middle_room_img">
-							<img class="room" src="./resources/images/room/bang1.jpg">
-						</div>
-						
-						<a href ="call_view.me" class="go_view">
-							<div class="view_top">
-								<p class="v_location">서울 은평구 xx동
-									<span class="v_i"> · </span>
-									<span class="v_grade">프로펫시터</span>
-								</p>
-								
-								<p class="v_introduce">가족처럼 행복과 사랑으로 돌보겠습니다.^^진짜임</p>
-							</div>
-							<div class="view_middle_left">
-								<div class="view_middle_left1">
-									<p class="v_option">아파트 · 산책로 있어요 · 반려동물 없어요</p>
-									<span class="view_middle_left2">
-										<img class="star" src="./resources/images/function/star.png">
-										<img class="star" src="./resources/images/function/star.png">
-										<img class="star" src="./resources/images/function/star.png">
-										<img class="star" src="./resources/images/function/star.png">
-										<img class="star" src="./resources/images/function/starhalf.png">
-										<p class="v_review">후기 · 99개</p>
-									</span>
-								</div>
-								<div class="view_middle_right">
-									<div class="view_middle_right1">
-										<p class="v_money1">₩45,000</p>
-										<div class="v_1bak">
-											<p class="oneNight">데이케어</p>
-										</div>
-									</div>
-									<div class="view_middle_right2">
-										<p class="v_money2">₩45,000</p>
-										<div class="v_1bak">
-											<p class="oneDay">1박 케어	</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div>
-			</div>	
-	</div><br><br>
+				
+		</div></div><br><br>
 </section>
 
      
@@ -419,10 +344,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
 <!-- 본 기능 추가 종료 -->
-      
-      
-
-      
       <footer class="site-footer">
       <div class="container">
         <div class="row">
@@ -491,175 +412,84 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
   
 
   
-  
-<!-- 데이트피커 ver.2 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-	<!-- 달력(한국어버젼_) -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script>
+<!-- 기능구현 JS-->
+	<script src="<c:url value="/resources/js/UT_JS/reservation_color.js"/>"></script>
+  <script src="<c:url value="/resources/js/UT_JS/reservation_view.js"/>"></script>
+  <%-- <script src="<c:url value="/resources/js/UT_JS/reservation_area3.js"/>"></script> --%> 
+
+<!-- 아이콘 -->   
+	<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>  
 	
-	<!-- 데이트피커 자스코드 -->
-	<!-- 시작날짜 -->
+<!-- 데이트피커 -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+	<!-- 달력(한국어버젼_) -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
+	
+<!-- 타임피커 -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>	
+	
+	
+	
+	
+<!-- 데이트피커 자스코드 -->
+<!-- 시작날짜 -->
 	<script type="text/javascript">
 		$('#datePicker_start').datepicker({
-				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
-				language : "kr", // 언어(<ㅡ js추가필요해서 했음.)
-				orientation: "bottom auto"
+				format : "yyyy-mm-dd", 			//달력에서 클릭시 표시할 값 형식
+				language : "ko", 						//언어
+				orientation: "bottom auto", //아래에 뜨게
+				todayHighlight : true,			//오늘날짜 색상표시
+				autoclose : true						//날짜누르면 닫힘.
 		});
-  </script>
-  
-  <!-- 종료날짜 -->
-  <script type="text/javascript">
+	</script>   
+<!-- 종료날짜 -->
+	<script type="text/javascript">
 		$('#datePicker_end').datepicker({
-				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
-				language : "kr", // 언어(<ㅡ js추가필요해서 했음.)
-				orientation: "bottom auto"
+				format : "yyyy-mm-dd", 			//달력에서 클릭시 표시할 값 형식
+				language : "ko", 						// 언어
+				orientation: "bottom auto", //아래에 뜨게
+				todayHighlight : true,			//오늘날짜 색상표시
+				autoclose : true						//날짜누르면 닫힘.
 		});
 	</script>    
 	
 	
-<!-- 타임피커 ver.1 -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
-	<!-- 타임피커 자스코드 -->
+<!-- 타임피커 자스코드 -->
+<!-- 시작시간 -->
 	<script type="text/javascript">
-	$('.timepicker').timepicker({
-	    timeFormat: 'p h:mm',
-	    interval: 60,
-	    minTime: '09',
-	    maxTime: '11:00pm',
-	    defaultTime: '14',
-	    startTime: '00:00',
-	    dynamic: false,
-	    dropdown: true,
-	    scrollbar: true
-	});
+		$('#timePicker_start').timepicker({
+		    timeFormat: 'p h:mm',
+		    interval: 60,
+		    minTime: '09',
+		    maxTime: '11:00pm',
+		    defaultTime: '14',
+		    startTime: '00:00',
+		    dynamic: false,
+		    dropdown: true,
+		    scrollbar: true
+		});
+<!-- 종료시간 -->		
+		$('#timePicker_end').timepicker({
+		    timeFormat: 'p h:mm',
+		    interval: 60,
+		    minTime: '09',
+		    maxTime: '11:00pm',
+		    defaultTime: '14',
+		    startTime: '00:00',
+		    dynamic: false,
+		    dropdown: true,
+		    scrollbar: true
+		});
 	</script>
 
-<!-- 아이콘 -->   
-		<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>  
-
-<!-- 언택 추가 JS!! -->
-		<script src="<c:url value="/resources/js/UT_JS/reservation.js"/>"></script>
-  	<script src="<c:url value="/resources/js/UT_JS/reservation_area.js"/>"></script>
-  	<script src="<c:url value="/resources/js/UT_JS/reservation_term.js"/>"></script>   
 
 
-<<<<<<< HEAD
-=======
-<script>
-	$(function() {
-		let service_list = new Array();
-		$("#custom_btn1").click(function() {
-			let service_item1 = $("#custom_btn1").val();
-			if(service_list.includes("픽업 OK!")) {
-				const index1 = service_list.indexOf("픽업 OK!");
-				service_list.splice(index1, 1);
-				console.log(service_list);
-			} else {
-				service_list.push(service_item1);
-				console.log(service_list);
-			}
-		});
-		$("#custom_btn2").click(function() {
-			let service_item2 = $("#custom_btn2").val();
-			if(service_list.includes("대형견 OK!")) {
-				const index2 = service_list.indexOf("대형견 OK!");
-				service_list.splice(index2, 1);
-				console.log(service_list);
-			} else {
-				service_list.push(service_item2);
-				console.log(service_list);
-			}
-		});
-		$("#custom_btn3").click(function() {
-			let service_item3 = $("#custom_btn3").val();
-			if(service_list.includes("마당 OK!")) {
-				const index3 = service_list.indexOf("마당 OK!");
-				service_list.splice(index3, 1);
-				console.log(service_list);
-			} else {
-				service_list.push(service_item3);
-				console.log(service_list);
-			}
-		});
-		$("#custom_btn4").click(function() {
-			let service_item4 = $("#custom_btn4").val();
-			if(service_list.includes("노견 OK!")) {
-				const index4 = service_list.indexOf("노견 OK!");
-				service_list.splice(index4, 1);
-				console.log(service_list);
-			} else {
-				service_list.push(service_item4);
-				console.log(service_list);
-			}
-		});
-	});
-</script>
 
-
-<script>
-	function selectData() {
-		$('#petsitter_middle_box').empty();
-		
-		$.ajax({
-			url: '/petsitter/getPetsitterList_We.br',
-			type: 'post',
-			dataType: 'json',
-			contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-			success: function(data) {
-				
-				$.each(data, function(index, item) {
-					var output = '';
-					output += '<div class="col-12">';
-					output += '<div class="middle_box_row">';
-					output += '<div class="middle_box_img">';
-					output += '</div>'; // middle_box_img 종료 태그
-					output += '<div class="middle_box_view">';
-					output += '<div class="middle_box_view_start">';
-					output += '<span class="v_location">' + item.petsitter_ADDRESS + '</span>&nbsp;';
-					output += '<span class="v_grade">' + item.petsitter_RANK + '</span><br />';
-					output += '<span class="v_title">' + item.petsitter_INTRODUCE + '</span>';
-					output += '</div>'; // middle_box_view_start 종료 태그
-					output += '<div class="middle_box_view_center">';
-					
-					if(item.petsitter_SERVICE !== null) {
-						for(let i = 0; i < item.petsitter_SERVICE.length; i++) {
-							output += '<span class="v_option" id="option${i+1}">' + item.petsitter_SERVICE[i] + '</span>';
-							if(i !== item.petsitter_SERVICE.length - 1) {
-								output += '<span class="v_option" id="optionJum">' + '&nbsp;' + '</span>';
-							}
-						}
-					}
-					output += '</div>'; // middle_box_view_center 종료 태그
-					output += '<div class="middle_box_view_end">'; // 별점
-					output += '<img class="star" id="star1" src="./resources/images/function/star.jpg">';
-					output += '<img class="star" id="star2" src="./resources/images/function/star.jpg">';
-					output += '<img class="star" id="star3" src="./resources/images/function/star.jpg">';
-					output += '<img class="star" id="star4" src="./resources/images/function/star.jpg">';
-					output += '<img class="starhalf" id="star5" src="./resources/images/function/starhalf.jpg">';
-					output += '<span class="v_location">' + item.petsitter_REVIEWCOUNT + '</span>';
-					output += '<span class="v_review">'
-					output += '</div>'; // middle_box_view_end 종료 태그
-					output += '</div>'; // middle_box_view 종료 태그
-					output += '</div>'; // middle_box_row 종료 태그
-					output += '</div>'; // col-12 종료 태그
-					
-					console.log("output: " + output);
-					$('#petsitter_middle_box').append(output);
-				});
-			},
-			error: function() {
-				alert("ajax 통신 실패!");
-			}
-		});
-	}
-	
-	$(document).ready(function() {
-		
-		selectData();
-	});
-</script>
->>>>>>> origin/moon
+ 
+   
+   
+   
    
 </body>
 </html>
