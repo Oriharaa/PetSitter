@@ -76,6 +76,12 @@ public class MemberController {
 		return "petRegister2";
 	}
 	
+	@RequestMapping(value = "call_view.me")
+	public String call_view() {
+		return "call_view";
+	}
+	
+
 	@RequestMapping(value = "getUsingList.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public List<MemberUsinglistVO> getUsinglist(String id, int page) {
@@ -222,39 +228,7 @@ public class MemberController {
 		return usinglist_ajax;
 	}
 	
-	// 위탁 돌봄 예약 페이지 이동
-	@RequestMapping(value = "reservation1.br")
-	public String reservation1() {
-		
-		return "reservation";
-	}
 	
-	@RequestMapping(value = "getPetsitterList_We.br", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-	@ResponseBody
-	public List<PetsitterVO> getPetsitterList_We() {
-		List<PetsitterVO> petsitter_list = petsitterService.petsitterList_We();
-		for(int i = 0; i < petsitter_list.size(); i++) {
-			PetsitterVO petsitter = petsitter_list.get(i);
-			
-			if(!petsitter.getPETSITTER_ADDRESS().equals("N")) {
-				String[] petsitter_address = petsitter.getPETSITTER_ADDRESS().split(",");
-				petsitter_list.get(i).setPETSITTER_ADDRESS(petsitter_address[1]);
-			}
-			
-			if(!petsitter.getPETSITTER_SERVICE_LIST().equals("N")) {
-				String[] petsitter_service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
-				petsitter_list.get(i).setPETSITTER_SERVICE(petsitter_service);
-			}
-		}
-		return petsitter_list;
-	}
-	
-	// 방문 돌봄 예약 페이지 이동
-	@RequestMapping(value = "reservation2.br")
-	public String reservation2() {
-		
-		return "reservation2";
-	}
 	
 	@RequestMapping(value = "reportlist.me")
 	public String reportlist(Model model) {
@@ -336,4 +310,7 @@ public class MemberController {
 		
 		return "home";
 	}
+	
+
+	
 }

@@ -95,6 +95,15 @@ public class PetsitterVO {
 	public void setPETSITTER_PHOTO_APPEAL(String pETSITTER_PHOTO_APPEAL) {
 		PETSITTER_PHOTO_APPEAL = pETSITTER_PHOTO_APPEAL;
 	}
+	private String PETSITTER_AREA;
+	
+	public String getPETSITTER_AREA() {
+		return PETSITTER_AREA;
+	}
+	public void setPETSITTER_AREA(String pETSITTER_AREA) {
+		PETSITTER_AREA = pETSITTER_AREA;
+	}
+
 	public String getPETSITTER_NAME() {
 		return PETSITTER_NAME;
 	}
@@ -281,10 +290,13 @@ public class PetsitterVO {
 	public void setPETSITTER_GENDER(String pETSITTER_GENDER) {
 		PETSITTER_GENDER = pETSITTER_GENDER;
 	}
+
 	public int getPETSITTER_REVIEWCOUNT() {
 		return PETSITTER_REVIEWCOUNT;
 	}
 	public void setPETSITTER_REVIEWCOUNT(int pETSITTER_REVIEWCOUNT) {
 		PETSITTER_REVIEWCOUNT = pETSITTER_REVIEWCOUNT;
 	}
+
+
 }

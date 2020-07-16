@@ -1,8 +1,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.spring.petsitter.PetsitterVO" %>
+<%@ page import="java.util.*" %>
+<%@ page import="com.spring.petsitter.*" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%
+	PetsitterVO petsittervo = (PetsitterVO)request.getAttribute("petsittervo");
+	ArrayList<PetsitterVO> petsitterlist = (ArrayList<PetsitterVO>)request.getAttribute("petsitterlist");
+	ArrayList<UsinglistVO> usinglist = (ArrayList<UsinglistVO>)request.getAttribute("usinglist");
 
 %>
+
+
 <!-- 위탁 돌봄 -->
 <!doctype html>
 <html lang="en">
@@ -68,6 +77,10 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	}
 	/*최하단바 종료*/
 
+
+	
+
+
 </style>
 
 
@@ -90,15 +103,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <!-- MAIN CSS 다양한 폰트크기보유 -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
     
-    <!-- 언택 추가 CSS -->
-		<link rel="stylesheet" type="text/css" href="resources/css/UT_CSS/reservation.css">
     
-    
-    
-		<!--     데이트피커 ver.1
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
-    
-    
+		<!--  언택 추가 CSS -->
+		<link rel="stylesheet" type="text/css" href="resources/css/UT_CSS/reservation.css?after">
+		 
+
     
     <!-- 데이트피커 ver.2(bootstrap) -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
@@ -107,6 +116,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     
     <!-- 타임피커 -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+    
+    
     
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -136,7 +147,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               	<%
               		if(session.getAttribute("id") == null) {
               	%>
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 & 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
                 <%} else if(((String)session.getAttribute("id")).contains("@")){ %> <!-- 일반 회원 마이 페이지 -->
                 <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
@@ -164,8 +175,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               <nav class="site-navigation text-right ml-auto " role="navigation">
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
+                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">펫시터 찾기</a></li>
+                  <li><a href="reservation1.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
@@ -204,56 +215,103 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		
 		<div class="row justify-content-center">
 			<div class="col">
-				<!-- 주소 검색 시작-->
-				<div class="address">
-					<h1 class="top_box_text3">어디에 사시나요?</h1>
-					<input type="text" id="sample5_address" placeholder="동 이름을 검색하세요 (예:논현동)">
-					<input type="button" id="sample5_button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
-					<div id="map" style="width:80%;height:300px;margin-top:10px;display:none">
-					</div>
-        </div>
-        <!-- 주소 검색 종료-->
-			</div>
-			
-			<div class="col">
 				<div class="date">
 					<h1 class="top_box_text3">날짜를 설정해주세요!</h1>
 					<input type="text" id="datePicker_start" class="form-control" placeholder="시작 날짜">
 					<i class="fas fa-arrow-right"></i>
-					<input type="text" id="datePicker_end" class="form-control" placeholder="종료 날짜">			
+					<input type="text" id="datePicker_end" class="form-control" placeholder="종료 날짜">	
+
 				</div>
+			</div>
+			<div class="col">	
 				<div class="time">
 					<h1 class="top_box_text3">시간을 설정해주세요!</h1>
-					<input type="text" name="time" class="timepicker" id="timePicker_start" value="00:00">
+					<input type="text" name="time" class="timepicker" id="timePicker_start">
 					<i class="fas fa-arrow-right"></i>
-  				<input type="text" name="time" class="timepicker" id="timePicker_end" value="00:00">
+  				<input type="text" name="time" class="timepicker" id="timePicker_end">
 				</div>
 			</div>
 		</div>
-				
+		
+		<!-- 지역 선택 필터 -->
 		<div class="row">
+			<div class="col">
+				<div class="address">
+					<h1 class="top_box_text4">원하는 지역을 한군데 선택해주세요!</h1>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="fuckyou">
+					<label for="area_ck1" class="area_lb" id="area_lb1"> 서울/경기</label>
+						<input type="checkbox" name="area" id="area_ck1" value="서울/경기" class="hide" />
+					<label for="area_ck2" class="area_lb" id="area_lb2"> 인천</label>
+						<input type="checkbox" name="area" id="area_ck2" value="인천" class="hide" />
+					<label for="area_ck3" class="area_lb" id="area_lb3"> 강원</label>
+						<input type="checkbox" name="area" id="area_ck3" value="강원" class="hide" />
+					<label for="area_ck4" class="area_lb" id="area_lb4"> 부산/울산/경남</label>
+						<input type="checkbox" name="area" id="area_ck4" value="부산/울산/경남" class="hide" />
+					<label for="area_ck5" class="area_lb" id="area_lb5"> 대구/경북</label>
+						<input type="checkbox" name="area" id="area_ck5" value="대구/경북" class="hide" />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="fuckyou">
+					<label for="area_ck6" class="area_lb" id="area_lb6"> 전북</label>
+						<input type="checkbox" name="area" id="area_ck6" value="전북" class="hide" />
+					<label for="area_ck7" class="area_lb" id="area_lb7"> 광주/전남</label>
+						<input type="checkbox" name="area" id="area_ck7" value="광주/전남" class="hide" />
+					<label for="area_ck8" class="area_lb" id="area_lb8"> 충북</label>
+						<input type="checkbox" name="area" id="area_ck8" value="충북" class="hide" />
+					<label for="area_ck9" class="area_lb" id="area_lb9"> 대전/충남</label>
+						<input type="checkbox" name="area" id="area_ck9" value="대전/충남" class="hide" />
+					<label for="area_ck10" class="area_lb" id="area_lb10"> 제주</label>
+						<input type="checkbox" name="area" id="area_ck10" value="제주" class="hide" />
+				</div>
+			</div>
+		</div>
+		
+		<!-- 픽업, 대형견, 마당, 노견 조건 필터 -->
+		<div class ="row">
 			<div class="col">
 				<div class="custom">
 					<h1 class="top_box_text4">원하는 조건을 선택해주세요!</h1>
-					<input type="button" class="custom_btn" id="custom_btn1" name="" value="픽업 OK!">
-					<input type="button" class="custom_btn" id="custom_btn2" value="대형견 OK!">
-					<input type="button" class="custom_btn" id="custom_btn3" value="마당 OK!">
-					<input type="button" class="custom_btn" id="custom_btn4" value="노견 OK!">
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col">
+				<div class="fuckyou">
+					<label for="custom_ck1" class="custom_lb" id="custom_lb1"> 픽업 </label> 
+						<input type="checkbox" name="custom" id="custom_ck1" value="픽업" class="hide"/>
+					<label for="custom_ck2" class="custom_lb" id="custom_lb2"> 대형견</label>
+						<input type="checkbox" name="custom" id="custom_ck2" value="대형견" class="hide" />
+					<label for="custom_ck3" class="custom_lb" id="custom_lb3"> 마당 </label> 
+						<input type="checkbox" name="custom" id="custom_ck3" value="마당"  class="hide" />
+				  <label for="custom_ck4" class="custom_lb" id="custom_lb4"> 노견 </label> 
+				  	<input type="checkbox" name="custom" id="custom_ck4" value="대형견" class="hide"/>
+				</div>
+			</div>
+		</div>
+		
+			
 	</div>
-</section></form><hr>
+</section></form>
 
 
-<!-- 주소 검색 & 예약날짜 & 맞춤조건 등.. 종료-->      
+
+
+<!-- 예약날짜 & 맞춤조건 등.. 종료-->      
 <!-- top_box 종료 --> 
+
 
 <!-- middle_box 시작 -->
 <!-- 맞춤조건에 의한 펫시터 뷰 시작-->
 <section class="middle_box">
 	<div class="container">
-	
 		<div class="row">
 			<div class="col">
 				<div class="middle_box_title">
@@ -261,18 +319,20 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				</div>
 			</div>
 			<div class="col">
-				<div class="middle_box_btn">
-					<input type="button" class="middle_right_btn" id="newOrder" value="최신순">
-					<input type="button" class="middle_right_btn" id="gradeOrder" value="평점순">
+		  	<div class="middle_box_btn">
+		  		<label for="order_ck1" class="order_lb" id="order_lb1">최신순</label>
+		  			<input type="radio" name="order" id="order_ck1" value="최신순" class="hide" />
+		  		<label for="order_ck2" class="order_lb" id="order_lb2">평점순</label>
+						<input type="radio" name="order" id="order_ck2" value="평점순" class="hide" />
 				</div>
 			</div>
 		</div>
+
+		
 		
 		<div class="row" id="petsitter_middle_box">
-		</div><br><br>
-		
-		
-	</div>
+				
+		</div></div><br><br>
 </section>
 
      
@@ -284,10 +344,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
 <!-- 본 기능 추가 종료 -->
-      
-      
-
-      
       <footer class="site-footer">
       <div class="container">
         <div class="row">
@@ -353,327 +409,87 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <!-- 추가!! -->
     <script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
     <script src="<c:url value="/resources/js/jquery.sticky.js"/>"></script>  
-    
-    
-    
-    <!-- 다음 도로명 주소 -->
-		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-		<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cae553f70e30f760c188181ffee2356d&libraries=services"></script>
-		<script>
-		    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-		        mapOption = {
-		            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
-		            level: 5 // 지도의 확대 레벨
-		        };
-		
-		    //지도를 미리 생성
-		    var map = new daum.maps.Map(mapContainer, mapOption);
-		    //주소-좌표 변환 객체를 생성
-		    var geocoder = new daum.maps.services.Geocoder();
-		    //마커를 미리 생성
-		    var marker = new daum.maps.Marker({
-		        position: new daum.maps.LatLng(37.537187, 127.005476),
-		        map: map
-		    });
-		
-		
-		    function sample5_execDaumPostcode() {
-		        new daum.Postcode({
-		            oncomplete: function(data) {
-		                var addr = data.address; // 최종 주소 변수
-		
-		                // 주소 정보를 해당 필드에 넣는다.
-		                document.getElementById("sample5_address").value = addr;
-		                // 주소로 상세 정보를 검색
-		                geocoder.addressSearch(data.address, function(results, status) {
-		                    // 정상적으로 검색이 완료됐으면
-		                    if (status === daum.maps.services.Status.OK) {
-		
-		                        var result = results[0]; //첫번째 결과의 값을 활용
-		
-		                        // 해당 주소에 대한 좌표를 받아서
-		                        var coords = new daum.maps.LatLng(result.y, result.x);
-		                        // 지도를 보여준다.
-		                        mapContainer.style.display = "block";
-		                        map.relayout();
-		                        // 지도 중심을 변경한다.
-		                        map.setCenter(coords);
-		                        // 마커를 결과값으로 받은 위치로 옮긴다.
-		                        marker.setPosition(coords)
-		                    }
-		                });
-		            }
-		        }).open();
-		    }
-		</script>
+  
 
-<!-- 데이트피커 ver.1 -->
-<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="./jquery-ui-1.12.1/datepicker-ko.js"></script>
+  
+<!-- 기능구현 JS-->
+	<script src="<c:url value="/resources/js/UT_JS/reservation_color.js"/>"></script>
+  <script src="<c:url value="/resources/js/UT_JS/reservation_view.js"/>"></script>
+  <%-- <script src="<c:url value="/resources/js/UT_JS/reservation_area3.js"/>"></script> --%> 
 
-		<script type="text/javascript">
-
-		$(function(){
-    	$("#date1").datepicker();
-		});
-		</script> -->
-
-
-
-<!-- 데이트피커 ver.2 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-	<!-- 달력(한국어버젼_) -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script>
+<!-- 아이콘 -->   
+	<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>  
 	
-	<!-- 데이트피커 자스코드 -->
+<!-- 데이트피커 -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+	<!-- 달력(한국어버젼_) -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
+	
+<!-- 타임피커 -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>	
+	
+	
+	
+	
+<!-- 데이트피커 자스코드 -->
+<!-- 시작날짜 -->
 	<script type="text/javascript">
 		$('#datePicker_start').datepicker({
-				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
-				language : "kr", // 언어(<ㅡ js추가필요해서 했음.)
-				orientation: "bottom auto"
-				
+				format : "yyyy-mm-dd", 			//달력에서 클릭시 표시할 값 형식
+				language : "ko", 						//언어
+				orientation: "bottom auto", //아래에 뜨게
+				todayHighlight : true,			//오늘날짜 색상표시
+				autoclose : true						//날짜누르면 닫힘.
 		});
-		
-		$('#click-btn').on('click', function() { 
-				var date = $('#dateRangePicker').val(); //클릭이벤
-				alert(date);
-		});
-	</script>
-  
-  <script type="text/javascript">
+	</script>   
+<!-- 종료날짜 -->
+	<script type="text/javascript">
 		$('#datePicker_end').datepicker({
-				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
-				language : "kr", // 언어(<ㅡ js추가필요해서 했음.)
-				orientation: "bottom auto"
-		});
-		
-		$('#click-btn').on('click', function() { 
-				var date = $('#dateRangePicker').val(); //클릭이벤
-				alert(date);
+				format : "yyyy-mm-dd", 			//달력에서 클릭시 표시할 값 형식
+				language : "ko", 						// 언어
+				orientation: "bottom auto", //아래에 뜨게
+				todayHighlight : true,			//오늘날짜 색상표시
+				autoclose : true						//날짜누르면 닫힘.
 		});
 	</script>    
 	
 	
-
-	
-
-<!-- 타임피커 ver.1 -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
-	<!-- 타임피커 자스코드 -->
+<!-- 타임피커 자스코드 -->
+<!-- 시작시간 -->
 	<script type="text/javascript">
-	$('.timepicker').timepicker({
-	    timeFormat: 'p h:mm',
-	    interval: 60,
-	    minTime: '09',
-	    maxTime: '11:00pm',
-	    defaultTime: '14',
-	    startTime: '00:00',
-	    dynamic: false,
-	    dropdown: true,
-	    scrollbar: true
-	});
+		$('#timePicker_start').timepicker({
+		    timeFormat: 'p h:mm',
+		    interval: 60,
+		    minTime: '09',
+		    maxTime: '11:00pm',
+		    defaultTime: '14',
+		    startTime: '00:00',
+		    dynamic: false,
+		    dropdown: true,
+		    scrollbar: true
+		});
+<!-- 종료시간 -->		
+		$('#timePicker_end').timepicker({
+		    timeFormat: 'p h:mm',
+		    interval: 60,
+		    minTime: '09',
+		    maxTime: '11:00pm',
+		    defaultTime: '14',
+		    startTime: '00:00',
+		    dynamic: false,
+		    dropdown: true,
+		    scrollbar: true
+		});
 	</script>
 
-<!-- 아이콘 -->   
-<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>  
 
 
-<!-- 원하는 조건 선택시 버튼 색상 변화-->
-<script>
-       var btn1 = document.getElementById("custom_btn1");
-      		 btn1.addEventListener("click", function() {
-       			
-	       			if(btn1.style.background === "rgb(83, 220, 152)"){
-	       				btn1.style.background = "rgb(0, 200, 83)";
-	       			} else if(btn1.style.background === "rgb(0, 200, 83)") {
-	       				btn1.style.background = "rgb(83, 220, 152)";
-	       			} else {
-	       				btn1.style.background = "rgb(0, 200, 83)";
-	       			}
-       			});
-      		 
-      		 
-             var btn2 = document.getElementById("custom_btn2");
-      					 btn2.addEventListener("click", function() {
-       			
-	       			if(btn2.style.background === "rgb(83, 220, 152)"){
-	       				btn2.style.background = "rgb(0, 200, 83)";
-	       			} else if(btn2.style.background === "rgb(0, 200, 83)") {
-	       				btn2.style.background = "rgb(83, 220, 152)";
-	       			} else {
-	       				btn2.style.background = "rgb(0, 200, 83)";
-	       			}
-       			});
-      		 
-             var btn3 = document.getElementById("custom_btn3");
-      		 			 btn3.addEventListener("click", function() {
-       			
-	       			if(btn3.style.background === "rgb(83, 220, 152)"){
-	       				btn3.style.background = "rgb(0, 200, 83)";
-	       			} else if(btn3.style.background === "rgb(0, 200, 83)") {
-	       				btn3.style.background = "rgb(83, 220, 152)";
-	       			} else {
-	       				btn3.style.background = "rgb(0, 200, 83)";
-	       			}
-       			});
-      		 
-             var btn4 = document.getElementById("custom_btn4");
-      		 			 btn4.addEventListener("click", function() {
-       			
-	       			if(btn4.style.background === "rgb(83, 220, 152)"){
-	       				btn4.style.background = "rgb(0, 200, 83)";
-	       			} else if(btn4.style.background === "rgb(0, 200, 83)") {
-	       				btn4.style.background = "rgb(83, 220, 152)";
-	       			} else {
-	       				btn4.style.background = "rgb(0, 200, 83)";
-	       			}
-       			});
-</script>
 
-<!-- 최신순, 평점순 -->
-<script>
-	
-	var btn5 = document.getElementById("newOrder");
-		 btn5.addEventListener("click", function() {
-	
-	if(btn5.style.background === "rgb(83, 220, 152)"){
-		btn5.style.background = "rgb(0, 200, 83)";
-	} else if(btn5.style.background === "rgb(0, 200, 83)") {
-		btn5.style.background = "rgb(83, 220, 152)";
-	} else {
-		btn5.style.background = "rgb(0, 200, 83)";
-	}
-	});
-		 
-		 var btn6 = document.getElementById("gradeOrder");
-		 btn6.addEventListener("click", function() {
-	
-	if(btn6.style.background === "rgb(83, 220, 152)"){
-		btn6.style.background = "rgb(0, 200, 83)";
-	} else if(btn6.style.background === "rgb(0, 200, 83)") {
-		btn6.style.background = "rgb(83, 220, 152)";
-	} else {
-		btn6.style.background = "rgb(0, 200, 83)";
-	}
-	});	 
-	
-</script>
-
-<script>
-	$(function() {
-		let service_list = new Array();
-		$("#custom_btn1").click(function() {
-			let service_item1 = $("#custom_btn1").val();
-			if(service_list.includes("픽업 OK!")) {
-				const index1 = service_list.indexOf("픽업 OK!");
-				service_list.splice(index1, 1);
-				console.log(service_list);
-			} else {
-				service_list.push(service_item1);
-				console.log(service_list);
-			}
-		});
-		$("#custom_btn2").click(function() {
-			let service_item2 = $("#custom_btn2").val();
-			if(service_list.includes("대형견 OK!")) {
-				const index2 = service_list.indexOf("대형견 OK!");
-				service_list.splice(index2, 1);
-				console.log(service_list);
-			} else {
-				service_list.push(service_item2);
-				console.log(service_list);
-			}
-		});
-		$("#custom_btn3").click(function() {
-			let service_item3 = $("#custom_btn3").val();
-			if(service_list.includes("마당 OK!")) {
-				const index3 = service_list.indexOf("마당 OK!");
-				service_list.splice(index3, 1);
-				console.log(service_list);
-			} else {
-				service_list.push(service_item3);
-				console.log(service_list);
-			}
-		});
-		$("#custom_btn4").click(function() {
-			let service_item4 = $("#custom_btn4").val();
-			if(service_list.includes("노견 OK!")) {
-				const index4 = service_list.indexOf("노견 OK!");
-				service_list.splice(index4, 1);
-				console.log(service_list);
-			} else {
-				service_list.push(service_item4);
-				console.log(service_list);
-			}
-		});
-	});
-</script>
-
-
-<script>
-	function selectData() {
-		$('#petsitter_middle_box').empty();
-		
-		$.ajax({
-			url: '/petsitter/getPetsitterList_We.br',
-			type: 'post',
-			dataType: 'json',
-			contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-			success: function(data) {
-				
-				$.each(data, function(index, item) {
-					var output = '';
-					output += '<div class="col-12">';
-					output += '<div class="middle_box_row">';
-					output += '<div class="middle_box_img">';
-					output += '</div>'; // middle_box_img 종료 태그
-					output += '<div class="middle_box_view">';
-					output += '<div class="middle_box_view_start">';
-					output += '<span class="v_location">' + item.petsitter_ADDRESS + '</span>&nbsp;';
-					output += '<span class="v_grade">' + item.petsitter_RANK + '</span><br />';
-					output += '<span class="v_title">' + item.petsitter_INTRODUCE + '</span>';
-					output += '</div>'; // middle_box_view_start 종료 태그
-					output += '<div class="middle_box_view_center">';
-					
-					if(item.petsitter_SERVICE !== null) {
-						for(let i = 0; i < item.petsitter_SERVICE.length; i++) {
-							output += '<span class="v_option" id="option${i+1}">' + item.petsitter_SERVICE[i] + '</span>';
-							if(i !== item.petsitter_SERVICE.length - 1) {
-								output += '<span class="v_option" id="optionJum">' + '&nbsp;' + '</span>';
-							}
-						}
-					}
-					output += '</div>'; // middle_box_view_center 종료 태그
-					output += '<div class="middle_box_view_end">'; // 별점
-					output += '<img class="star" id="star1" src="./resources/images/function/star.jpg">';
-					output += '<img class="star" id="star2" src="./resources/images/function/star.jpg">';
-					output += '<img class="star" id="star3" src="./resources/images/function/star.jpg">';
-					output += '<img class="star" id="star4" src="./resources/images/function/star.jpg">';
-					output += '<img class="starhalf" id="star5" src="./resources/images/function/starhalf.jpg">';
-					output += '<span class="v_location">' + item.petsitter_REVIEWCOUNT + '</span>';
-					output += '<span class="v_review">'
-					output += '</div>'; // middle_box_view_end 종료 태그
-					output += '</div>'; // middle_box_view 종료 태그
-					output += '</div>'; // middle_box_row 종료 태그
-					output += '</div>'; // col-12 종료 태그
-					
-					console.log("output: " + output);
-					$('#petsitter_middle_box').append(output);
-				});
-			},
-			error: function() {
-				alert("ajax 통신 실패!");
-			}
-		});
-	}
-	
-	$(document).ready(function() {
-		
-		selectData();
-	});
-</script>
+ 
+   
+   
+   
    
 </body>
 </html>

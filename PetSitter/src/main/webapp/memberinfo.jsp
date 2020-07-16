@@ -621,7 +621,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				  <%} else { %>
 						<img src="/filepath/${membervo.MEMBER_PHOTO_FILE }" >
 					<%} %>
-					
+
 				  </div>
 				</div>
 			  </div> 

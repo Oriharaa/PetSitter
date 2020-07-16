@@ -10,8 +10,6 @@ public interface PetsitterService {
 	public int petsitterInsert(PetsitterVO petsitter);
 	public int petsitterCheck(PetsitterVO petsitter);
 	public ArrayList<PetsitterVO> petsitterList();
-	public List<PetsitterVO> petsitterList_Bang(); //방문 펫시터 목록
-	public List<PetsitterVO> petsitterList_We(); //위탁 펫시터 목록
 	public PetsitterVO selectPetsitter(String id);
 	public int petsitterApproval(PetsitterVO petsitter);
 	public int petsitterRefusal(PetsitterVO petsitter);
@@ -19,4 +17,8 @@ public interface PetsitterService {
 	public int petsitterUpdate(PetsitterVO petsitter);
 	public int reflyUpdate(ReviewBoardVO vo);
 	public int petsitterNicknameCheck(PetsitterVO petsitter);
+	//언택 추가
+	//위탁 펫시터 목록
+	public List<PetsitterVO> petsitterList_We(String btn1, String btn2, String btn3, String btn4, 
+			String btn_a, String btn_b, String btn_c, String btn_g, String btn_type); 
 }

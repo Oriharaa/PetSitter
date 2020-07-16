@@ -14,8 +14,6 @@ public interface PetsitterMapper {
 	public int insertPetsitter(PetsitterVO petsitter); //펫시터 회원가입 insert
 	public int petsitterCheck(PetsitterVO petsitter); //펫시터 회원 확인
 	public ArrayList<PetsitterVO> petsitterList(); //펫시터 목록
-	public List<PetsitterVO> petsitterList_Bang(); //방문 펫시터 목록
-	public List<PetsitterVO> petsitterList_We(); //위탁 펫시터 목록
 	public PetsitterVO selectPetsitter(String id); //ID로 펫시터 정보 select
 	public int petsitterApproval(PetsitterVO petsitter); //펫시터 신청허가시 업데이트
 	public int petsitterRefusal(PetsitterVO petsitter); //펫시터 신청거절시 업데이트

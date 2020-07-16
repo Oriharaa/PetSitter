@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.mapper.PetsitterMapper;
 import com.spring.petsitter.board.ReviewBoardVO;
+import com.spring.mapper.ReservationMapper;
 
 @Service("petsitterService")
 public class PetsitterServiceImpl implements PetsitterService{
@@ -103,6 +104,10 @@ public class PetsitterServiceImpl implements PetsitterService{
 	public List<PetsitterVO> petsitterList_We() {
 		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class); 
 		List<PetsitterVO> petsitter_list = petsitterMapper.petsitterList_We();
+	public List<PetsitterVO> petsitterList_We(String btn1, String btn2, String btn3, String btn4, 
+											  String btn_a, String btn_b, String btn_c, String btn_g, String btn_type) {
+		ReservationMapper reservationMapper = sqlSession.getMapper(ReservationMapper.class);
+		List<PetsitterVO> petsitter_list = reservationMapper.petsitterList_We(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type);
 		return petsitter_list;
 	}
 	
