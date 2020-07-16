@@ -21,11 +21,6 @@ public class ReservationController {
 	@Autowired
 	private PetsitterService petsitterService;
 	
-
-	
-//언택 추가//언택 추가//언택 추가
-//언택 추가//언택 추가//언택 추가
-	
 	// 위탁 돌봄 예약 페이지 이동
 	@RequestMapping(value = "reservation1.br")
 	public String reservation1() {
@@ -48,8 +43,6 @@ public class ReservationController {
 	{
 		List<PetsitterVO> petsitter_list = petsitterService.petsitterList_We(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type);
 	
-		System.out.println(btn_type);
-		
 		for(int i = 0; i < petsitter_list.size(); i++) {
 			PetsitterVO petsitter = petsitter_list.get(i);
 

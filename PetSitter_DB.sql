@@ -63,8 +63,6 @@ values('asd333', '향', '춘향', '123123', '010-3333-6666', 'asd333@naver.com');
 insert into petsitter(petsitter_id, petsitter_nickname, petsitter_name, petsitter_pw, petsitter_tel, petsitter_email)
 values('asd444', '흥', '흥부', '123123', '010-4444-8888', 'asd444@naver.com');
 
-<<<<<<< HEAD
-=======
 create table PET(
 	MEMBER_ID varchar2(30),
 	PET_CATEGORY varchar2(20),
@@ -82,17 +80,6 @@ create table PET(
 	PET_ETC varchar2(200),
 	PET_DATE date
 );
-
->>>>>>> 823152b4918d7b962f99c5d7383409f27f7824f4
-create table NOTICE_BOARD(
-    NOTICE_NUM number(10) primary key, -- 글 번호
-    MEMBER_ID varchar2(30), -- 회원 아이디
-    NOTICE_SUBJECT varchar2(100), -- 제목
-    NOTICE_CONTENT varchar2(4000), -- 내용
-    NOTICE_PHOTO varchar2(50), -- 사진
-    NOTICE_READCOUNT number(6), -- 조회수
-    NOTICE_DATE date default sysdate -- 작성일
-); -- 생성 안함
 
 create table REVIEW_BOARD(
     LIST_NUM number(10), -- 리뷰 번호
@@ -141,15 +128,6 @@ create table PRO_BOARD(
 insert into PRO_BOARD values (1, 'roah631@member.com', 'nickname01','제목1','1안녕하세요 유기견을 입양했는데 아픈부분을 발견했어요 어떻게 치료할가요.',
 '123.jpg','12321312.jpg',0 ,sysdate, 0, 'PRO_BOARD', NVL(null, 'N'));
 
-create table PETSITTER_BOARD(
-    PETSITTER_NUM number(10), -- 펫시터 게시판 글 번호
-    MEMBER_ID varchar2(30), -- 회원 아이디
-    PETSITTER_ID varchar2(30), -- 펫시터 아이디
-    PETSITTER_SUBJECT varchar2(100), -- 제목
-    PETSITTER_CONTENT varchar2(4000), -- 내용
-    PETSITTER_DATE date default sysdate -- 작성일
-); -- 생성 안함
-
 create table MEMBER_BOARD(
     MEMBER_NUM number(10) PRIMARY KEY, -- 회원 게시판 글 번호
     MEMBER_ID varchar2(30), -- 회원 아이디
@@ -162,7 +140,7 @@ create table MEMBER_BOARD(
     MEMBER_LIKECOUNT number, -- 좋아요 수
     MEMBER_NICKNAME varchar2(20), -- 회원 닉네임
     MEMBER_SECRET varchar2(2) default 'N' -- 비밀 글
-); -- 생성 안함
+);
 
 create table mreply(
     BNO number,
@@ -172,17 +150,6 @@ create table mreply(
     REGDATE date default sysdate,
     WRITER_NAME varchar2(30)
 );
-
-CREATE TABLE BOARD_COMMENT (
-    COMMENT_NUM NUMBER,
-    COMMENT_BOARD_TYPE VARCHAR2(20),
-    COMMENT_BOARD_NUM NUMBER,
-    COMMENT_CONTENT VARCHAR2(500),
-    COMMENT_WRITER VARCHAR2(20),
-    COMMENT_DATE DATE,
-    COMMENT_LIKECOUNT NUMBER
-); -- 생성 안함
-
 
 -- 펫시터와의 소통 게시판
 create table COMMUNICATION_BOARD(

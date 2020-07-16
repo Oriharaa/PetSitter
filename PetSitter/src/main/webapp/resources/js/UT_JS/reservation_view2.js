@@ -12,8 +12,16 @@ var btn_c = "F";
 var btn_g = "F";
 var btn_type = "BANG";
 
+let loading = false;
+
 	function selectData(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type) {
 		$('#petsitter_middle_box').empty();
+		
+		if(loading) {
+			return;
+		}
+		
+		loading = true;
 		
 		$.ajax({
 			url: '/petsitter/getPetsitterList_We.br',
@@ -195,9 +203,15 @@ var btn_type = "BANG";
 							output += '</div></div></div></div></a></div></div></div>';
 							$('#petsitter_middle_box').append(output);		
 				});
+				setTimeout(function() {
+					loading = false;
+				}, 100);
 			},
 			error: function() {
 				alert("ajax 통신 실패!");
+				setTimeout(function() {
+					loading = false;
+				}, 100);
 			}
 		});
 	}

@@ -91,19 +91,8 @@ public class PetsitterServiceImpl implements PetsitterService{
 		return res;
 	}
 
-	// 방문 펫시터 목록
-	@Override
-	public List<PetsitterVO> petsitterList_Bang() {
-		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class); 
-		List<PetsitterVO> petsitter_list = petsitterMapper.petsitterList_Bang();
-		return petsitter_list;
-	}
-
 	// 위탁 펫시터 목록
 	@Override
-	public List<PetsitterVO> petsitterList_We() {
-		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class); 
-		List<PetsitterVO> petsitter_list = petsitterMapper.petsitterList_We();
 	public List<PetsitterVO> petsitterList_We(String btn1, String btn2, String btn3, String btn4, 
 											  String btn_a, String btn_b, String btn_c, String btn_g, String btn_type) {
 		ReservationMapper reservationMapper = sqlSession.getMapper(ReservationMapper.class);

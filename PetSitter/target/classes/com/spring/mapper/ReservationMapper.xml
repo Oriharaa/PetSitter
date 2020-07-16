@@ -4,12 +4,7 @@
 	 
 <mapper namespace = "com.spring.mapper.ReservationMapper">
 
-	<resultMap type="PetsitterVO" id="PetsitterResultMap">
-		<result property="" column="" />
-	</resultMap>
-
-	
-<!-- 위탁 -->
+	<!-- 위탁 -->
 	<select id="petsitterList_We" parameterType ="String" resultType="PetsitterVO">
 		
 		<choose>

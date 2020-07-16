@@ -29,9 +29,6 @@ public class MemberController {
 	private MemberService memberService;
 	
 	@Autowired
-	private PetsitterService petsitterService;
-	
-	@Autowired
 	private PetService petService;
 	
 	@Autowired

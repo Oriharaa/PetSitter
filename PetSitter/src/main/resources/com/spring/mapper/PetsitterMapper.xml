@@ -11,15 +11,7 @@
 	<select id="petsitterList" resultType="PetsitterVO">
 		select * from petsitter order by PETSITTER_DATE
 	</select>
-	
-	<select id="petsitterList_Bang" resultType="PetsitterVO">
-		select * from petsitter where PETSITTER_TYPE like '%방문%' order by PETSITTER_DATE
-	</select>
-	
-	<select id="petsitterList_We" resultType="PetsitterVO">
-		select * from petsitter where PETSITTER_TYPE like '%위탁%' order by PETSITTER_DATE
-	</select>
-	
+
 	<select id = "petsitterNicknameCheck" parameterType = "PetsitterVO" resultType="int">
 		select count(*) from petsitter where PETSITTER_NICKNAME = #{PETSITTER_NICKNAME}
 	</select>
