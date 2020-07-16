@@ -72,16 +72,19 @@ public class ReviewBoardController {
 		return "call_view";
 	}
 	
-	@RequestMapping(value = "postscript_board.me", method = RequestMethod.GET)
+	@RequestMapping(value = "review_board.bo", method = RequestMethod.GET)
 	public String postscript_board() {
 				
 		return "board/review_board";
 	}
 
 	@RequestMapping(value="/getReviewBoardJSON.bo", produces="application/json;charset=UTF-8")
-	@ResponseBody // jsp와 같은 뷰를 전달 하는게 아닌 데이터를 전달 하기 위해 사용 
-	public List<ReviewBoardVO> getPeopleJSONGET() {
+	@ResponseBody 
+	// jsp와 같은 뷰를 전달 하는게 아닌 데이터를 전달 하기 위해 사용 
+	public List<ReviewBoardVO> getReviewBoardJSONGET() {
 		List<ReviewBoardVO> review_list = ReviewboardService.getReviewList();
+		//System.out.println(review_list.get(0).getMEMBER_PHOTO_FILE());
+		//System.out.println(review_list.get(0).getREVIEW_REFLY());
 
         return review_list;
 	}

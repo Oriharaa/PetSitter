@@ -572,7 +572,8 @@
 			   	  //주소 문자열 추출 2자리
 						var address2 = item.petsitter_ADDRESS;
 				   	var Paddress2 = address2.split(',', 2);
-				   	var real_address2 = Paddress2[1].split(',');
+				   	var real_address2 = Paddress2[1].split(' ');
+
 							
 				   	//사진 개 수 별 업로드 문자열 추출
 				   	if(item.review_UP_PHOTO != "N"){
@@ -937,8 +938,6 @@
 		});
 		
 		
-		
-		
 		$(document).on('click', '.loginalert', function(event){
 			Swal.fire({
 			  title: '로그인을 하시겠습니까?',
@@ -948,11 +947,12 @@
 			  confirmButtonColor: 'rgba(83, 220, 152)',
 			  cancelButtonColor: '#de7631',
 			  confirmButtonText: '<a href="loginform.me" style = "color : white;">로그인 페이지로</a>'
+			}).then((result) => {
+				  if (result.value) {
+					  window.location = "loginform.me";
+					}
 			})
 		});
-	
-		
-
 		
 	
 });

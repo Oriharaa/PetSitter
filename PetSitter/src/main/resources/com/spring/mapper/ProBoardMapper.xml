@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	 
+<mapper namespace="com.spring.mapper.ProBoardMapper">
+
+	<resultMap type="ProBoardVO" id="proBoardResultMap">
+		<result property="PRO_NUM" column="PRO_NUM" />
+		<result property="MEMBER_ID" column="MEMBER_ID" />
+		<result property="MEMBER_NICKNAME" column="MEMBER_NICKNAME" />
+		<result property="PRO_SUBJECT" column="PRO_SUBJECT" />
+		<result property="PRO_CONTENT" column="PRO_CONTENT" />
+		<result property="PRO_ORG_FILE" column="PRO_ORG_FILE" />
+		<result property="PRO_UP_FILE" column="PRO_UP_FILE" />
+		<result property="re_ref" column="re_ref" />
+		<result property="PRO_DATE" column="PRO_DATE" />
+		<result property="PRO_LIKECOUNT" column="PRO_LIKECOUNT" />
+		<result property="PRO_READCOUNT" column="PRO_READCOUNT" />
+		<result property="SECRET_CHECK" column="SECRET_CHECK" />
+		<result property="page2" column="page2" />
+		<result property="listcount2" column="listcount2" />
+		<result property="maxpage2" column="maxpage2" />
+		<result property="startpage2" column="startpage2" />
+		<result property="endpage2" column="endpage2" />
+		
+	</resultMap>
+
+
+	<select id="getProListCount" resultType="int">
+		select count(*) from PRO_BOARD
+	</select>
+	
+	<select id="getProBoardList" parameterType="HashMap" resultMap="proBoardResultMap">
+		<![CDATA[
+		select rnum, PRO_NUM, MEMBER_ID, MEMBER_NICKNAME, PRO_SUBJECT, PRO_CONTENT, PRO_ORG_FILE, PRO_UP_FILE, PRO_READCOUNT, PRO_DATE, PRO_LIKECOUNT, BOARD_TYPE , SECRET_CHECK
+		from (select rownum rnum,PRO_NUM, MEMBER_ID, MEMBER_NICKNAME, PRO_SUBJECT, PRO_CONTENT, PRO_ORG_FILE, PRO_UP_FILE, PRO_READCOUNT, PRO_DATE, PRO_LIKECOUNT, BOARD_TYPE, SECRET_CHECK 
+		     from (select * from PRO_BOARD order by PRO_NUM desc))
+		where rnum>=#{startrow} and rnum<=#{endrow}		
+		]]>
+	</select>	
+	
+
+	<select id="nicknameFind" resultType="String" parameterType="ProBoardVO">
+			SELECT MEMBER_NICKNAME FROM MEMBER
+			WHERE MEMBER_ID = #{MEMBER_ID}
+	</select>
+	
+
+	<insert id="proboardInsert" parameterType="ProBoardVO">
+		<!-- <selectKey>는 insert구문에만 사용 가능 -->
+		<!-- order값은 "BEFORE|AFTER" 대문자 사용할것  BEFORE은 INSERT 하기전에 실행 AFTER은 한후-->
+		<!-- keyProperty="num"에서 num은 컬럼 명이다. -->
+		<selectKey keyProperty="PRO_NUM" order="BEFORE" resultType="int">
+			select nvl(max(PRO_NUM), 0)+1 from PRO_BOARD
+		</selectKey>
+		insert into PRO_BOARD values (#{PRO_NUM},#{MEMBER_ID}, #{MEMBER_NICKNAME},#{PRO_SUBJECT},#{PRO_CONTENT},#{PRO_ORG_FILE, jdbcType=VARCHAR},#{PRO_UP_FILE, jdbcType=VARCHAR},
+		0 , sysdate, 0, 'PRO_BOARD',#{SECRET_CHECK})
+	</insert>	
+
+	<select id="getProDetail" parameterType="int" resultType="ProBoardVO">
+		select * from PRO_BOARD where PRO_NUM = #{num}
+	</select>
+
+	<update id="setProReadCountUpdate" parameterType="int">
+		update PRO_BOARD set PRO_READCOUNT=PRO_READCOUNT+1 where PRO_NUM=#{num}
+	</update>	
+</mapper>

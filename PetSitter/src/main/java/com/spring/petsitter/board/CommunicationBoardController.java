@@ -58,7 +58,6 @@ public class CommunicationBoardController {
 		model.addAttribute("listcount", listcount); // 글 수
 		model.addAttribute("board_list", board_list);
 		model.addAttribute("usinglist_num", usinglist_num);
-		
 		return "board/communication";
 	}
 	
