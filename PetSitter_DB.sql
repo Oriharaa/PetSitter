@@ -121,16 +121,22 @@ END;
 /
 
 create table PRO_BOARD(
-    PRO_NUM number(6) primary key, -- 글 번호
+    PRO_NUM number(6) primary key, -- 글 번호  
     MEMBER_ID varchar2(30), -- 아이디
+    MEMBER_NICKNAME varchar2(30) DEFAULT 'N', --닉네임  
     PRO_SUBJECT varchar2(100), -- 제목
-    PRO_CONTENT varchar2(4000), -- 내용
+    PRO_CONTENT varchar2(3000), -- 내용
     PRO_ORG_FILE varchar2(100), -- 파일이름
     PRO_UP_FILE varchar2(100), -- 업로드된 파일이름
     PRO_READCOUNT number, -- 조회수
     PRO_DATE date default sysdate, -- 작성일
-    PRO_LIKECOUNT number -- 좋아요 수
-); -- 생성 안함
+    PRO_LIKECOUNT number, -- 좋아요 수
+    BOARD_TYPE VARCHAR2(20) default 'PRO_BOARD', -- 게시판 타입 
+    SECRET_CHECK VARCHAR2(4) default 'N' -- 비밀게시판 확인 
+);
+
+insert into PRO_BOARD values (1, 'roah631@member.com', 'nickname01','제목1','1안녕하세요 유기견을 입양했는데 아픈부분을 발견했어요 어떻게 치료할가요.',
+'123.jpg','12321312.jpg',0 ,sysdate, 0, 'PRO_BOARD', NVL(null, 'N'));
 
 create table PETSITTER_BOARD(
     PETSITTER_NUM number(10), -- 펫시터 게시판 글 번호

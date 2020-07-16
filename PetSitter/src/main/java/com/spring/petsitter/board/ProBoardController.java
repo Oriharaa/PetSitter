@@ -2,24 +2,19 @@ package com.spring.petsitter.board;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,15 +28,13 @@ public class ProBoardController {
 	@Autowired
 	private ProBoardService proboardService;	
 	
-	
-	
-	@RequestMapping("/proboard.bo") 
+	@RequestMapping(value = "proboard.bo") 
 	public String getBoardlist(Model model, @RequestParam(value="page", required=false, 
 			defaultValue="1") int page) { 
 		int limit=6;
 		
 		SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd");
-		//System.out.println("page1 = " + page);
+
 		int listcount=proboardService.getProListCount();
 		
 		int startrow = (page-1)*6+1;
@@ -49,18 +42,13 @@ public class ProBoardController {
 		HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
 		hashmap.put("startrow", startrow);
 		hashmap.put("endrow", endrow);
-		//System.out.println("startrow" + hashmap.get("startrow"));
+		
 		List<ProBoardVO> boardlist = proboardService.getProBoardList(hashmap); // 다른 타입 2개를 전달해야하므로
-		//System.out.println(boardlist.get(0).getPRO_SUBJECT());
-		System.out.println("boardlist.get(0).getPRO_ORG_FILE() : "+boardlist.get(0).getPRO_ORG_FILE());
-		System.out.println("boardlist.get(0).getPRO_UP_FILE() : "+boardlist.get(0).getPRO_UP_FILE());
+		
 		boardlist.get(0).getPRO_ORG_FILE().equals("N");
 		for(int i = 0; i < boardlist.size(); i++) {
 		boardlist.get(i).setREAL_DATE(new_Format.format(boardlist.get(i).getPRO_DATE()));
 		}
-		
-		//System.out.println("날짜 계산" + boardlist.get(0).getPRO_DATE());
-		//System.out.println("날짜 계산" + boardlist.get(0).getREAL_DATE());
 		
 		//총 페이지 수
    		int maxpage=(int)((double)listcount/limit+0.95); //0.95를 더해서 올림 처리
@@ -87,7 +75,7 @@ public class ProBoardController {
 	public List<ProBoardVO> getBoardlist2(@RequestParam(value="page", required=false, 
 			defaultValue="1") int page) { 
 		int limit=6;
-		//System.out.println("page2 = " + page);
+
 		SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd");
 		
 		int listcount=proboardService.getProListCount();
@@ -97,19 +85,13 @@ public class ProBoardController {
 		HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
 		hashmap.put("startrow", startrow);
 		hashmap.put("endrow", endrow);
-		//System.out.println("startrow 7 :" + hashmap.get("startrow"));
-		//System.out.println("endrow 12 : " + hashmap.get("endrow"));
+
 		List<ProBoardVO> boardlist = proboardService.getProBoardList(hashmap); // 다른 타입 2개를 전달해야하므로
-		//System.out.println("boardlist size  : " + boardlist.size());
-		//System.out.println("date1: "+boardlist.get(0).getPRO_DATE());
 		
 		for(int i = 0; i < boardlist.size(); i++) {
 		boardlist.get(i).setREAL_DATE(new_Format.format(boardlist.get(i).getPRO_DATE()));
 		}
-		
-		//System.out.println("날짜 계산2" + boardlist.get(0).getPRO_DATE());
-		//System.out.println("날짜 계산2" + boardlist.get(0).getREAL_DATE());
-		
+
 		//총 페이지 수
    		int maxpage=(int)((double)listcount/limit+0.95); //0.95를 더해서 올림 처리
    		//현재 페이지에 보여줄 시작 페이지 수(1, 11, 21 등...)
@@ -133,9 +115,7 @@ public class ProBoardController {
    	   		boardlist.get(i).setStartpage2(0);
    	   		boardlist.get(i).setEndpage2(0);
    		}
-   		
-   		//System.out.println("testpage1 : " + boardlist.get(0).getPage2());
-   		//System.out.println("testpage2 : " + boardlist.get(1).getPage2());
+
 
 		return boardlist;
 	}	
@@ -176,8 +156,7 @@ public class ProBoardController {
         		mf2.transferTo(new File(uploadPath+storedFileName02));
         		vo.setPRO_ORG_FILE(mf.getOriginalFilename()+","+mf2.getOriginalFilename());
         		vo.setPRO_UP_FILE(storedFileName+","+storedFileName02);
-        		//System.out.println("vo.getPRO_ORG_FILE = " + vo.getPRO_ORG_FILE());
-        		//System.out.println("vo.getPRO_UP_FILE = " + vo.getPRO_UP_FILE());
+
             }	
         }else {
         	vo.setPRO_ORG_FILE("N");

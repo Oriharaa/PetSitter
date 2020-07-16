@@ -354,8 +354,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               	%>
                 <a href="loginform.me" ><span class = "font-size-14" >로그인 & 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
-                <%} else { %>
-                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
+                <%} else if(((String)session.getAttribute("id")).contains("@")){ %> <!-- 일반 회원 마이 페이지 -->
+                <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+                <%} else {%> <!-- 펫시터 마이 페이지 -->
+                <a href="petsitterinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} %>
               </div>
@@ -379,8 +382,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
+                  <li><a href="proboard.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
+                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
                 </ul>
               </nav>
