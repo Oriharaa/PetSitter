@@ -29,16 +29,14 @@ public class MemberController {
 	private MemberService memberService;
 	
 	@Autowired
+	private PetsitterService petsitterService;
+	
+	@Autowired
 	private PetService petService;
 	
 	@Autowired
 	private ReviewBoardService reviewboardService;
-	
-	@RequestMapping(value = "notice.me")
-	public String notice(Model model) {
-		return "notice";
-	}
-	
+
 	@RequestMapping(value = "memberinfo.me")
 	public ModelAndView profile(MemberVO vo, @RequestParam(value = "id") String id, Model model) {
 		ModelAndView mv = new ModelAndView();
@@ -73,12 +71,6 @@ public class MemberController {
 		return "petRegister2";
 	}
 	
-	@RequestMapping(value = "call_view.me")
-	public String call_view() {
-		return "call_view";
-	}
-	
-
 	@RequestMapping(value = "getUsingList.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public List<MemberUsinglistVO> getUsinglist(String id, int page) {
@@ -225,28 +217,35 @@ public class MemberController {
 		return usinglist_ajax;
 	}
 	
-	
-	
-	@RequestMapping(value = "reportlist.me")
-	public String reportlist(Model model) {
-		return "reportlist";
-	}
-	
-	@RequestMapping(value = "write.me")
-	public String write(Model model) {
-		return "write";
-	}
-	
-	
-	@RequestMapping(value = "basicform.me")
-	public String basicform(Model model) {
-
-	
-		return "basicform";
-	}
-	
 	@RequestMapping(value = "home.me")
-	public String home() {
+	public String home(Model model) {
+		// 신규 추천 펫시터 3명
+		ArrayList<PetsitterVO> petsitter_list_date = petsitterService.petsitterList_date();
+		
+		for(int i = 0; i < petsitter_list_date.size(); i++) {
+			String[] address = petsitter_list_date.get(i).getPETSITTER_ADDRESS().split(",")[1].split(" ");
+			petsitter_list_date.get(i).setPETSITTER_ADDRESS(address[0] + " " + address[1]);
+		}
+		
+		// 이달의 펫시터
+		PetsitterVO petsitter_this_month = petsitterService.petsitter_thisMonth();
+		petsitter_this_month.setPETSITTER_ADDRESS(petsitter_this_month.getPETSITTER_ADDRESS().split(",")[1].split(" ")[0] + " " + 
+												  petsitter_this_month.getPETSITTER_ADDRESS().split(",")[1].split(" ")[1]);
+		
+		// 이달의 평점왕
+		PetsitterVO petsitter_this_month_score = petsitterService.petsitter_thisMonth_score();
+		petsitter_this_month_score.setPETSITTER_ADDRESS(petsitter_this_month_score.getPETSITTER_ADDRESS().split(",")[1].split(" ")[0] + " " + 
+														petsitter_this_month_score.getPETSITTER_ADDRESS().split(",")[1].split(" ")[1]);
+		
+		// 이달의 실적왕
+		PetsitterVO petsitter_this_month_count = petsitterService.petsitter_thisMonth_count();
+		petsitter_this_month_count.setPETSITTER_ADDRESS(petsitter_this_month_count.getPETSITTER_ADDRESS().split(",")[1].split(" ")[0] + " " + 
+														petsitter_this_month_count.getPETSITTER_ADDRESS().split(",")[1].split(" ")[1]);
+		
+		model.addAttribute("petsitter_list_date", petsitter_list_date);
+		model.addAttribute("petsitter_this_month", petsitter_this_month);
+		model.addAttribute("petsitter_this_month_score", petsitter_this_month_score);
+		model.addAttribute("petsitter_this_month_count", petsitter_this_month_count);
 		return "home";
 	}
 	
@@ -264,7 +263,7 @@ public class MemberController {
 			session.setAttribute("id", membervo.getMEMBER_ID());
 			session.setAttribute("name", membervo.getMEMBER_NAME());
 			session.setAttribute("rank", membervo.getMEMBER_RANK());
-			return "home";
+			return "redirect:/home.me";
 		}else {
 			return "loginform";
 		}
@@ -305,9 +304,6 @@ public class MemberController {
 	public String member_join(MemberVO vo) {
 		memberService.memberInsert(vo);
 		
-		return "home";
+		return "redirect:/home.me";
 	}
-	
-
-	
 }

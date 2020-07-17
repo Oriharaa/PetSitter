@@ -1,5 +1,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.spring.petsitter.*" %>
+<%@ page import="java.util.*" %>
+<%
+	// 가장 최근에 가입한 펫시터
+	ArrayList<PetsitterVO> petsitter_list_date = (ArrayList<PetsitterVO>)request.getAttribute("petsitter_list_date");
+	
+	// 이달의 펫시터
+	PetsitterVO petsitter_this_month = (PetsitterVO)request.getAttribute("petsitter_this_month");
+	
+	// 이달의 평점왕
+	PetsitterVO petsitter_this_month_score = (PetsitterVO)request.getAttribute("petsitter_this_month_score");
+	
+	// 이달의 실적왕
+	PetsitterVO petsitter_this_month_count = (PetsitterVO)request.getAttribute("petsitter_this_month_count");
+
+%>
 <!doctype html>
 <html lang="en">
 
@@ -86,11 +102,11 @@ border-radius:400px
     display: none;
     z-index: 999;
 	}
+	
 </style>
-	
-	
+
   <head>
-    <title>펫시터 홈페이지</title>
+    <title>보살펴조</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -110,7 +126,56 @@ border-radius:400px
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/petsitter-style.css">
   </head>
+  
+<style>
+	.dropdown:hover {
+		background-color: rgb(83, 220, 153);
+	}
+	
+	.dropdown:active {
+		background-color: rgb(83, 220, 153);
+	}
+	.btn-secondary {
+		background-color: rgb(83, 220, 153);
+		border-color: rgb(83, 220, 153);
+		vertical-align: baseline;
+		font-weight: bold;
+	}
+	
+	.btn-secondary:hover {
+		background-color: rgb(83, 220, 153);
+		border-color: rgb(83, 220, 153);
+	}
+	
+	.btn-secondary:active {
+		background-color: rgb(83, 220, 153);
+		border-color: rgb(83, 220, 153);
+	}
+	
+	.btn-secondary:focus {
+		background-color: rgb(83, 220, 153);
+		border-color: rgb(83, 220, 153);
+		box-shadow: 0 0 0 0 rgb(83, 220, 153);
+	}
+	
+	.dropdown-menu {
+		min-width: 60px !important;
+	}
 
+	.dropdown-item:hover {
+		background-color: rgb(83, 220, 153);
+		color: rgb(255, 255, 255) !important;
+	}
+	
+	.dropdown-item {
+		 color: #53dc99 !important;
+		 font-weight: bold;
+	}
+	
+	.main-menu li a {
+		font-weight: bold;
+	}
+</style>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
@@ -150,20 +215,35 @@ border-radius:400px
           </div>
         </div>
       </div>
-      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152,0.86);">
+      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgb(83,220,152);">
         <div class="container" >
           <div class="row align-items-center position-relative" >
             <div class="site-logo">
-              <a href="home.me" ><span class="main_whitefont">PET SITTER</span></a>
+              <a href="home.me" ><span class="main_whitefont">보살펴조</span></a>
             </div>
 
 	            <div class="col-12">
 	              <nav class="site-navigation text-right ml-auto " role="navigation" >
 	                <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-	                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
-	                  <li><a href="reservation1.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
-	                  <li><a href="proboard.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
-	                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
+	                	<li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
+										  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												돌봄
+										  </button>
+										  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+										    <a href="reservation2.br" class="dropdown-item" style="font-size:15px;">방문 돌봄</a>
+	                  		<a href="reservation1.br" class="dropdown-item" style="font-size:15px;" >위탁 돌봄</a>
+										  </div>
+										</li>
+										<li class="dropdown">
+										  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+												게시판
+										  </button>
+										  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+										    <a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
+	                  		<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
+										  </div>
+										</li>
+	                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>
 	                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li> 
 	                </ul>
 	              </nav>
@@ -322,7 +402,7 @@ border-radius:400px
 
             <div class="col-12 col-lg-6 block__73422 order-lg-2" style="background-image: url('resources/images/dog02.jpg');" data-aos="fade-left" data-aos-delay=""></div>
             <div class="col-lg-6 mr-auto p-lg-5 mt-4 mt-lg-0 order-lg-1" data-aos="fade-right" data-aos-delay="">
-              <h2 class="mb-4 main_mintfont" style = "font-weight : bold">pet ssiter</h2>
+              <h2 class="mb-4 main_mintfont" style = "font-weight : bold">보살펴조</h2>
               <p class = "text-center main_mintfont" style="font-weight : bold;">저희 보살펴조에서는 신뢰있는 서비스를 위해 펫시터를 선별 및 지원하고 있습니다. 아래 조건들을 약속하겠습니다!</p>
 
               <ul class="ul-check primary list-unstyled mt-5 font-size-14 text-center">
@@ -366,22 +446,22 @@ border-radius:400px
               <div class="service text-center">
                 <a href="#"><img src="resources/images/petsitter-find.jpg" alt="Image" class="img-fluid"></a>
                 <div class="px-md-3">
-                  <h3><a href="#" style = "color : rgba(83,220,152)!important; font-weight : bold; " >펫시터 찾기.</a></h3>
+                  <h3><a href="#" style = "color : rgba(83,220,152)!important; font-weight : bold; " >펫시터 찾기</a></h3>
                   <p style = "font-size:14px;">고객과 가깝고 적합한 펫시터를 찾을 수 있어요!</p>
                 </div>
               </div>
               <div class="service text-center">
                 <a href="#"><img src="resources/images/dog-doctor.png" alt="Image" class="img-fluid"></a>
                 <div class="px-md-3">
-                  <h3><a href="#" style = "color : rgba(83,220,152)!important; font-weight : bold;" >반려동물 전문가 상담.</a></h3>
-                  <p style = "font-size:14px;">전문적인 수의사, 훈련사 님들이 실시간으로 상담해주는 커뮤니티 공간입니다.!</p>
+                  <h3><a href="#" style = "color : rgba(83,220,152)!important; font-weight : bold;" >반려동물 전문가 상담</a></h3>
+                  <p style = "font-size:14px;">전문적인 수의사, 훈련사 님들이 실시간으로 상담해주는 커뮤니티 공간입니다!</p>
                   
                 </div>
               </div>
               <div class="service text-center">
                 <a href="#"><img src="resources/images/petsitter-com.jpg" alt="Image" class="img-fluid"></a>
                 <div class="px-md-3">
-                  <h3><a href="#" style = "color : rgba(83,220,152)!important; font-weight : bold;" >생생한 펫시터 이용후기.</a></h3>
+                  <h3><a href="#" style = "color : rgba(83,220,152)!important; font-weight : bold;" >생생한 펫시터 이용후기</a></h3>
                   <p style = "font-size:14px;">솔직하고 담백한 실시간 이용후기!</p>
                 </div>
               </div>
@@ -396,71 +476,142 @@ border-radius:400px
           <div class="row mb-5 justify-content-center">
             <div class="col-md-7 text-center">
               <div class="block-heading-1" data-aos="fade-up" data-aos-delay="">
-                <h1 class="main_violetfont2" style = "border-bottom:thick double;">이달의 펫시터 추천.</h1>
+                <h1 class="main_violetfont2" style = "border-bottom:thick double;">이달의 펫시터 추천</h1>
                 <p>달마다 신뢰가는 펫시터분들을 추천 해드립니다. 가까운 펫시터분이있는지 확인해보세요!</p>
               </div>
             </div>
           </div>
-
+          
+          <%
+          	PetsitterVO petsitter_date1 = petsitter_list_date.get(0);
+          	PetsitterVO petsitter_date2 = petsitter_list_date.get(1);
+          	PetsitterVO petsitter_date3 = petsitter_list_date.get(2);
+          %>
           <div class="owl-carousel owl-all mb-5">
             <div class="block-team-member-1 text-center rounded h-100">
               <figure>
-               <a href="#"><img src="resources/images/dog01.jpg" alt="Image" class="img-fluid rounded-circle"></a>
+               <a href="#">
+               <%
+               		if(petsitter_date1.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+               %>
+               <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               <%
+               		} else {
+               %>
+               <img src="/filepath/<%=petsitter_date1.getPETSITTER_PHOTO_PROFILE_FILE() %>" alt="Image" class="img-fluid rounded-circle"></a>
+               <%
+               		}
+               %>
               </figure>
-              <a href="#"><h3 class="font-size-20 text-black">이름</h3></a>
-              <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3">지역</span>
-              <a href="#"><p class="mb-4" style = "color : #949494!important;">자기소개 자유롭게</p></a>
-              <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">추천 신규 펫시터.</div>
+              <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_date1.getPETSITTER_NAME() %></h3></a>
+              <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_date1.getPETSITTER_ADDRESS() %></span>
+              <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_date1.getPETSITTER_INTRODUCE() %></p></a>
+              <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">신규 추천 펫시터</div>
             </div>
             
             <div class="block-team-member-1 text-center rounded h-100">
               <figure>
-               <a href="#"><img src="resources/images/dog01.jpg" alt="Image" class="img-fluid rounded-circle"></a>
+               <a href="#">
+               <%
+               		if(petsitter_date2.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+               %>
+               <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               <%
+               		} else {
+               %>
+               <img src="/filepath/<%=petsitter_date2.getPETSITTER_PHOTO_PROFILE_FILE() %>" alt="Image" class="img-fluid rounded-circle"></a>
+               <%
+               		}
+               %>
               </figure>
-              <a href="#"><h3 class="font-size-20 text-black">이름</h3></a>
-              <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3">지역</span>
-              <a href="#"><p class="mb-4" style = "color : #949494!important;">자기소개 자유롭게</p></a>
-              <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px;">추천 신규 펫시터.</div>
+              <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_date2.getPETSITTER_NAME() %></h3></a>
+              <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_date2.getPETSITTER_ADDRESS() %></span>
+              <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_date2.getPETSITTER_INTRODUCE() %></p></a>
+              <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">신규 추천 펫시터</div>
             </div>
 
             <div class="block-team-member-1 text-center rounded h-100">
               <figure>
-               <a href="#"><img src="resources/images/dog01.jpg" alt="Image" class="img-fluid rounded-circle"></a>
+               <a href="#">
+               <%
+               		if(petsitter_date3.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+               %>
+               <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               <%
+               		} else {
+               %>
+               <img src="/filepath/<%=petsitter_date3.getPETSITTER_PHOTO_PROFILE_FILE() %>" alt="Image" class="img-fluid rounded-circle"></a>
+               <%
+               		}
+               %>
               </figure>
-              <a href="#"><h3 class="font-size-20 text-black">이름</h3></a>
-              <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3">지역</span>
-              <a href="#"><p class="mb-4" style = "color : #949494!important;">자기소개 자유롭게</p></a>
-              <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 추천  펫시터.</div>
+              <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_date3.getPETSITTER_NAME() %></h3></a>
+              <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_date3.getPETSITTER_ADDRESS() %></span>
+              <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_date3.getPETSITTER_INTRODUCE() %></p></a>
+              <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">신규 추천 펫시터</div>
             </div>
 
             <div class="block-team-member-1 text-center rounded h-100">
               <figure>
-               <a href="#"><img src="resources/images/dog01.jpg" alt="Image" class="img-fluid rounded-circle"></a>
+               <a href="#">
+               <%
+               		if(petsitter_this_month.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+               %>
+               <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               <%
+               		} else {
+               %>
+               <img src="/filepath/<%=petsitter_this_month.getPETSITTER_PHOTO_PROFILE_FILE() %>" alt="Image" class="img-fluid rounded-circle"></a>
+               <%
+               		}
+               %>
               </figure>
-              <a href="#"><h3 class="font-size-20 text-black">이름</h3></a>
-              <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3">지역</span>
-              <a href="#"><p class="mb-4" style = "color : #949494!important;">자기소개 자유롭게</p></a>
-              <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 추천 펫시터.</div>
+              <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_this_month.getPETSITTER_NAME() %></h3></a>
+              <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_this_month.getPETSITTER_ADDRESS() %></span>
+              <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_this_month.getPETSITTER_INTRODUCE() %></p></a>
+              <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 추천 펫시터</div>
             </div>
             
             <div class="block-team-member-1 text-center rounded h-100">
               <figure>
-               <a href="#"><img src="resources/images/dog01.jpg" alt="Image" class="img-fluid rounded-circle"></a>
+               <a href="#">
+               <%
+               		if(petsitter_this_month_score.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+               %>
+               <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               <%
+               		} else {
+               %>
+               <img src="/filepath/<%=petsitter_this_month_score.getPETSITTER_PHOTO_PROFILE_FILE() %>" alt="Image" class="img-fluid rounded-circle"></a>
+               <%
+               		}
+               %>
               </figure>
-              <a href="#"><h3 class="font-size-20 text-black">이름</h3></a>
-              <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3">지역</span>
-              <a href="#"><p class="mb-4" style = "color : #949494!important;">자기소개 자유롭게</p></a>
-              <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 평점왕 .</div>
+              <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_this_month_score.getPETSITTER_NAME() %></h3></a>
+              <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_this_month_score.getPETSITTER_ADDRESS() %></span>
+              <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_this_month.getPETSITTER_INTRODUCE() %></p></a>
+              <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 평점왕</div>
             </div>
             
             <div class="block-team-member-1 text-center rounded h-100">
               <figure>
-               <a href="#"><img src="resources/images/dog01.jpg" alt="Image" class="img-fluid rounded-circle"></a>
+               <a href="#">
+               <%
+               		if(petsitter_this_month_count.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+               %>
+               <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               <%
+               		} else {
+               %>
+               <img src="/filepath/<%=petsitter_this_month_count.getPETSITTER_PHOTO_PROFILE_FILE() %>" alt="Image" class="img-fluid rounded-circle"></a>
+               <%
+               		}
+               %>
               </figure>
-              <a href="#"><h3 class="font-size-20 text-black">이름</h3></a>
-              <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3">지역</span>
-              <a href="#"><p class="mb-4" style = "color : #949494!important;">자기소개 자유롭게</p></a>
-              <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 실적 왕 .</div>
+              <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_this_month_count.getPETSITTER_NAME() %></h3></a>
+              <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_this_month_count.getPETSITTER_ADDRESS() %></span>
+              <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_this_month_count.getPETSITTER_INTRODUCE() %></p></a>
+              <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 실적 왕</div>
             </div>
             
           
@@ -482,7 +633,7 @@ border-radius:400px
 							<div class="col-md-6 text-center">
 								<div class="block-heading-1" data-aos="fade-up" data-aos-delay="">
 									<h2 class="footer-heading" style = "background: rgba(83,220,152,0.86); color : white; border-radius : 10px 10px 3px 3px">About Us</h2>
-									<p>petsitter 소개 영상입니다!</p>
+									<h5>보살펴조 소개 영상입니다</h5>
 								</div>
 							</div>
 						</div>
@@ -635,6 +786,18 @@ border-radius:400px
 			 
 			스크롤 위로올라가기 버튼 종료 script*/
 		</script>
+		
+		<script>
+			$(function() {
+				$(".btn-secondary").on("click mousedown", function() {
+					$(this).css("background-color", "rgb(83, 220, 153)");
+					$(this).css("border-color", "rgb(83, 220, 153)");
+					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
+				});
+			});
+			
+		</script>
+		
 </body>
 
 </html>

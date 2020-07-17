@@ -255,7 +255,7 @@ public class PetsitterController {
 			session.setAttribute("name", vo.getPETSITTER_NAME());
 			System.out.println("로그인 성공");
 
-			return "home";
+			return "redirect:/home.me";
 		} else {
 			return "loginform";
 		}
@@ -382,6 +382,6 @@ public class PetsitterController {
 			System.out.println("회원가입 성공");
 		}
 
-		return "home";
+		return "redirect:/home.me";
 	}
 }

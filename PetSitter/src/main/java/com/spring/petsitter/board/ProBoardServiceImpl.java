@@ -1,17 +1,13 @@
-// 만드는중
-
 package com.spring.petsitter.board;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.mapper.ProBoardMapper;
-import com.spring.petsitter.board.ProBoardVO;
 
 @Service("ProrBoardService")
 public class ProBoardServiceImpl implements ProBoardService {
@@ -47,7 +43,6 @@ public class ProBoardServiceImpl implements ProBoardService {
 		ProBoardMapper boardMapper = sqlSession.getMapper(ProBoardMapper.class);
 		boardMapper.setProReadCountUpdate(num);
 		ProBoardVO board = boardMapper.getProDetail(num);
-		System.out.println("service board = " + board.getPRO_SUBJECT());
 		return board;
 	}
 

@@ -101,17 +101,14 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	
 </style>
 
-
-	
 	
   <head>
-	<form action="./mboardmodify.me" method="post" name="modifyform">
+  	
+  	<form action="./mboardmodify.me" method="post" name="modifyform">
 	<input type="hidden" name="MEMBER_NUM" value="<%=mboard.getMEMBER_NUM() %>">
 	<input type="hidden" name="MEMBER_ID" value="${id}">
-
-  
-  
-  	<script language="javascript">
+  	
+  	<script>
 			function modifyboard(){
 				modifyform.submit();
 		}
@@ -133,7 +130,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
   	
   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-    <title>회원 게시판 수정 페이지</title>
+    <title>회원 게시판</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -152,8 +149,55 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <!-- MAIN CSS 다양한 폰트크기보유 -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 	
-
-		  
+	<style>
+		.dropdown:hover {
+			background-color: rgb(83, 220, 153);
+		}
+		
+		.dropdown:active {
+			background-color: rgb(83, 220, 153);
+		}
+		.btn-secondary {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+			vertical-align: baseline;
+			font-weight: bold;
+		}
+		
+		.btn-secondary:hover {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+		}
+		
+		.btn-secondary:active {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+		}
+		
+		.btn-secondary:focus {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+			box-shadow: 0 0 0 0 rgb(83, 220, 153);
+		}
+		
+		.dropdown-menu {
+			min-width: 60px !important;
+		}
+	
+		.dropdown-item:hover {
+			background-color: rgb(83, 220, 153);
+			color: rgb(255, 255, 255) !important;
+		}
+		
+		.dropdown-item {
+			 color: #53dc99 !important;
+			 font-weight: bold;
+		}
+		
+		.main-menu li a {
+			font-weight: bold;
+		}
+	</style>
   </head>
 	
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -181,7 +225,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								<%
               		if(id == null) {
               	%>
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 & 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
                 <%} else { %>
                 <a href="profile.me?id=${id }"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
@@ -193,7 +237,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
         </div>
 	    </div>
 
-      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152,0.86);">
+      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152);">
         <div class="container" >
           <div class="row align-items-center position-relative" >
             <div class="site-logo">
@@ -203,10 +247,25 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               <nav class="site-navigation text-right ml-auto " role="navigation" >
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
-                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
-                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
-                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
+                  <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
+										<button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onmousedown="this.style.backgroundColor:'rgb(83, 220, 153)'">
+											돌봄
+									  </button>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+									    <a href="reservation2.br" class="dropdown-item" style="font-size:15px;">방문 돌봄</a>
+                  		<a href="reservation1.br" class="dropdown-item" style="font-size:15px;" >위탁 돌봄</a>
+									  </div>
+									</li>
+									<li class="dropdown">
+									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+											게시판
+									  </button>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+									    <a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
+                  		<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
+									  </div>
+									</li>
+                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>
                   <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
                   
                 </ul>
@@ -325,9 +384,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
           </div>
           <div class="col-md-4 ml-auto">
 
-            
-
-
             <h2 class="footer-heading mb-4" id="main_grayfont1" >Follow Us</h2>
             <a href="https://www.facebook.com/" class="smoothscroll pl-0 pr-3" target="_blank"><span class="icon-facebook" id="main_grayfont2"></span></a>
             <a href="https://twitter.com/" class="pl-3 pr-3" target="_blank"><span class="icon-twitter" id="main_grayfont2"></span></a>
@@ -366,7 +422,16 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
     <script src="<c:url value="/resources/js/main.js"/>"></script>
 
-
+		<script>
+			$(function() {
+				$(".btn-secondary").on("click mousedown", function() {
+					$(this).css("background-color", "rgb(83, 220, 153)");
+					$(this).css("border-color", "rgb(83, 220, 153)");
+					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
+				});
+			});
+			
+		</script>
   </body>
 
 </html>

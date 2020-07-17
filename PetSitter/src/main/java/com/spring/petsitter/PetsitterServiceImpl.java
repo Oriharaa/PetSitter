@@ -106,5 +106,33 @@ public class PetsitterServiceImpl implements PetsitterService{
 		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class); 
 		petsitterMapper.petsitterscoreupdate(id, score);
 	}
+
+	// 가장 최근에 가입한 펫시터
+	@Override
+	public ArrayList<PetsitterVO> petsitterList_date() {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		ArrayList<PetsitterVO> petsitter_list = petsitterMapper.petsitterList_date();
+		return petsitter_list;
+	}
 	
+	@Override
+	public PetsitterVO petsitter_thisMonth() {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		PetsitterVO petsitter = petsitterMapper.petsitter_thisMonth();
+		return petsitter;
+	}
+
+	@Override
+	public PetsitterVO petsitter_thisMonth_score() {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		PetsitterVO petsitter = petsitterMapper.petsitter_thisMonth_score();
+		return petsitter;
+	}
+
+	@Override
+	public PetsitterVO petsitter_thisMonth_count() {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		PetsitterVO petsitter = petsitterMapper.petsitter_thisMonth_count();
+		return petsitter;
+	}
 }

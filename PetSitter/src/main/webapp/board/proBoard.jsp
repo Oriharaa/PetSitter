@@ -90,7 +90,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
   <head>
-    <title>PetSitter proboard</title>
+    <title>전문가 상담 게시판</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -322,8 +322,56 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			
 		});
 		</script>
-    
-    <title>petssiter basicform</title>
+
+<style>
+	.dropdown:hover {
+		background-color: rgb(83, 220, 153);
+	}
+	
+	.dropdown:active {
+		background-color: rgb(83, 220, 153);
+	}
+	.btn-secondary {
+		background-color: rgb(83, 220, 153);
+		border-color: rgb(83, 220, 153);
+		vertical-align: baseline;
+		font-weight: bold;
+	}
+	
+	.btn-secondary:hover {
+		background-color: rgb(83, 220, 153);
+		border-color: rgb(83, 220, 153);
+	}
+	
+	.btn-secondary:active {
+		background-color: rgb(83, 220, 153);
+		border-color: rgb(83, 220, 153);
+	}
+	
+	.btn-secondary:focus {
+		background-color: rgb(83, 220, 153);
+		border-color: rgb(83, 220, 153);
+		box-shadow: 0 0 0 0 rgb(83, 220, 153);
+	}
+	
+	.dropdown-menu {
+		min-width: 60px !important;
+	}
+
+	.dropdown-item:hover {
+		background-color: rgb(83, 220, 153);
+		color: rgb(255, 255, 255) !important;
+	}
+	
+	.dropdown-item {
+		 color: #53dc99 !important;
+		 font-weight: bold;
+	}
+	
+	.main-menu li a {
+		font-weight: bold;
+	}
+</style>
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
   
@@ -380,10 +428,25 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               <nav class="site-navigation text-right ml-auto " role="navigation">
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
-                  <li><a href="proboard.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
-                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
+                  <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
+									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											돌봄
+									  </button>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+									    <a href="reservation2.br" class="dropdown-item" style="font-size:15px;">방문 돌봄</a>
+                  		<a href="reservation1.br" class="dropdown-item" style="font-size:15px;" >위탁 돌봄</a>
+									  </div>
+									</li>
+									<li class="dropdown">
+									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+											게시판
+									  </button>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+									    <a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
+                  		<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
+									  </div>
+									</li>
+                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
                 </ul>
               </nav>
@@ -1044,10 +1107,17 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	      $('.modal:visible').length && $(document.body).addClass('modal-open');
 		  });
 
-
-		    
-
 	</script>     
     
+    <script>
+			$(function() {
+				$(".btn-secondary").on("click mousedown", function() {
+					$(this).css("background-color", "rgb(83, 220, 153)");
+					$(this).css("border-color", "rgb(83, 220, 153)");
+					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
+				});
+			});
+			
+		</script>
 </body>
 </html>

@@ -1,9 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-	String id = (String)session.getAttribute("id");
-	String name = (String)session.getAttribute("name");
-%>
 
 <!doctype html>
 <html lang="en">
@@ -159,7 +155,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 
 
   <head>
-    <title>Depot &mdash;Website Template by Colorlib</title>
+    <title>돌봄 예약</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -186,9 +182,56 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 		<!-- 타임피커 -->
 		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 		<link href="${pageContext.servletContext.contextPath}/resources/jquery/jquery-ui.css?version=1.3" rel="stylesheet" type="text/css" media="screen">
-    
-    
-    <title>pet sitter foster view</title>
+
+	<style>
+		.dropdown:hover {
+			background-color: rgb(83, 220, 153);
+		}
+		
+		.dropdown:active {
+			background-color: rgb(83, 220, 153);
+		}
+		.btn-secondary {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+			vertical-align: baseline;
+			font-weight: bold;
+		}
+		
+		.btn-secondary:hover {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+		}
+		
+		.btn-secondary:active {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+		}
+		
+		.btn-secondary:focus {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+			box-shadow: 0 0 0 0 rgb(83, 220, 153);
+		}
+		
+		.dropdown-menu {
+			min-width: 60px !important;
+		}
+	
+		.dropdown-item:hover {
+			background-color: rgb(83, 220, 153);
+			color: rgb(255, 255, 255) !important;
+		}
+		
+		.dropdown-item {
+			 color: #53dc99 !important;
+			 font-weight: bold;
+		}
+		
+		.main-menu li a {
+			font-weight: bold;
+		}
+	</style>
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
   
@@ -215,15 +258,15 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 
               <div class="float-right">
               	<%
-              		if(name == null) {
+              		if(session.getAttribute("id") == null) {
               	%>		
                 <a href="loginform.me" ><span class = "font-size-14" >로그인 & 회원가입</span></a>
-                <%
-              		} else {
-                %>
-                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
-                <a href="home.me<%session.removeAttribute("id");
-																	session.removeAttribute("name");%>"><span class="font-size-14">로그아웃</span></a>
+                <%} else if(((String)session.getAttribute("id")).contains("@")){ %> <!-- 일반 회원 마이 페이지 -->
+                <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+                <%} else {%> <!-- 펫시터 마이 페이지 -->
+                <a href="petsitterinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} %>
               </div>
               
@@ -232,7 +275,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
         </div>
       </div>
       
-      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152,0.86);">
+      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152);">
 
         <div class="container">
           <div class="row align-items-center position-relative">
@@ -244,10 +287,25 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
               <nav class="site-navigation text-right ml-auto " role="navigation">
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
+                  <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
+									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onmousedown="this.style.backgroundColor:'rgb(83, 220, 153)'">
+											돌봄
+									  </button>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+									    <a href="reservation2.br" class="dropdown-item" style="font-size:15px;">방문 돌봄</a>
+                  		<a href="reservation1.br" class="dropdown-item" style="font-size:15px;" >위탁 돌봄</a>
+									  </div>
+									</li>
+									<li class="dropdown">
+									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+											게시판
+									  </button>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+									    <a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
+                  		<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
+									  </div>
+									</li>
+                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
                 </ul>
               </nav>
@@ -1127,7 +1185,16 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 	});
 	</script>	
 	
- 
+ 	<script>
+		$(function() {
+			$(".btn-secondary").on("click mousedown", function() {
+				$(this).css("background-color", "rgb(83, 220, 153)");
+				$(this).css("border-color", "rgb(83, 220, 153)");
+				$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
+			});
+		});
+		
+	</script>
 
 
 </body>

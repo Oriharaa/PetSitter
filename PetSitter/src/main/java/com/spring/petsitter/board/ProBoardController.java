@@ -19,9 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-
-
-
 @Controller
 public class ProBoardController {
 	
@@ -45,7 +42,6 @@ public class ProBoardController {
 		
 		List<ProBoardVO> boardlist = proboardService.getProBoardList(hashmap); // 다른 타입 2개를 전달해야하므로
 		
-		boardlist.get(0).getPRO_ORG_FILE().equals("N");
 		for(int i = 0; i < boardlist.size(); i++) {
 		boardlist.get(i).setREAL_DATE(new_Format.format(boardlist.get(i).getPRO_DATE()));
 		}
@@ -128,12 +124,8 @@ public class ProBoardController {
 
 	@RequestMapping("/proboardwrite.bo") 
 	public String boardInsert(ProBoardVO vo) throws Exception {
-		System.out.println("vo.getId()=" + vo.getMEMBER_ID());
-		System.out.println("vo.getFile()=" + vo.getPRO_FILE());
-		System.out.println("vo.getFile02()=" + vo.getPRO_FILE02());
 		MultipartFile mf = vo.getPRO_FILE();    
 		MultipartFile mf2 = vo.getPRO_FILE02();    
-		System.out.println("mf=" + mf);
     	String uploadPath = "C:\\Project156\\upload\\";
     	if(vo.getSECRET_CHECK() == null) {
     		vo.setSECRET_CHECK("N");
@@ -164,17 +156,14 @@ public class ProBoardController {
         }
         
 		
-		int res = proboardService.proboardInsert(vo);
-		System.out.println("sql완료");
+		proboardService.proboardInsert(vo);
 		return "redirect:/proboard.bo";
 	}
 	
 	@RequestMapping("/proboarddetail.bo") 
 	public String getProDetail(@RequestParam(value="num", required=true) int num, Model model) {
 		ProBoardVO vo = proboardService.getProDetail(num);
-		System.out.println(num);
 		model.addAttribute("vo", vo);
-		System.out.println("vo.getMEMBER_NICKNAME() : " + vo.getMEMBER_NICKNAME());
 		return "redirect:/proboard.bo";
 	}
 
@@ -184,7 +173,7 @@ public class ProBoardController {
     public void fileDownload(HttpServletRequest request, HttpServletResponse response) throws Exception{
     	response.setCharacterEncoding("utf-8");
     	
-    	String num = request.getParameter("num");
+    	request.getParameter("num");
     	String of = request.getParameter("of"); // 서버에 업로드된 변경된 실제 파일명
         String of2 = request.getParameter("of2"); // 오리지날 파일명
         

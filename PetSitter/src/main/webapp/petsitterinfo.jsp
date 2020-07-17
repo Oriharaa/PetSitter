@@ -1290,7 +1290,7 @@ function handleImgFileSelect11(e){
 
 </script>
   <head>
-    <title>Depot &mdash;Website Template by Colorlib</title>
+    <title>펫시터 정보</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -1316,8 +1316,56 @@ function handleImgFileSelect11(e){
 <!-- 타임피커 -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 <link href="${pageContext.servletContext.contextPath}/resources/css/jquery-ui.css?version=1.3" rel="stylesheet" type="text/css" media="screen">
-    
-    <title>petsitterinfo</title>
+
+<style>
+	.dropdown:hover {
+		background-color: rgb(83, 220, 153);
+	}
+	
+	.dropdown:active {
+		background-color: rgb(83, 220, 153);
+	}
+	.btn-secondary {
+		background-color: rgb(83, 220, 153);
+		border-color: rgb(83, 220, 153);
+		vertical-align: baseline;
+		font-weight: bold;
+	}
+	
+	.btn-secondary:hover {
+		background-color: rgb(83, 220, 153);
+		border-color: rgb(83, 220, 153);
+	}
+	
+	.btn-secondary:active {
+		background-color: rgb(83, 220, 153);
+		border-color: rgb(83, 220, 153);
+	}
+	
+	.btn-secondary:focus {
+		background-color: rgb(83, 220, 153);
+		border-color: rgb(83, 220, 153);
+		box-shadow: 0 0 0 0 rgb(83, 220, 153);
+	}
+	
+	.dropdown-menu {
+		min-width: 60px !important;
+	}
+
+	.dropdown-item:hover {
+		background-color: rgb(83, 220, 153);
+		color: rgb(255, 255, 255) !important;
+	}
+	
+	.dropdown-item {
+		 color: #53dc99 !important;
+		 font-weight: bold;
+	}
+	
+	.main-menu li a {
+		font-weight: bold;
+	}
+</style>
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
   
@@ -1352,7 +1400,7 @@ function handleImgFileSelect11(e){
         </div>
       </div>
       
-      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152,0.86);">
+      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152);">
 
         <div class="container">
           <div class="row align-items-center position-relative">
@@ -1362,12 +1410,26 @@ function handleImgFileSelect11(e){
 
             <div class="col-12">
               <nav class="site-navigation text-right ml-auto " role="navigation">
-
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
-                  <li><a href="reservation1.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
-                  <li><a href="proboard.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
-                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
+                  <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
+									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											돌봄
+									  </button>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+									    <a href="reservation2.br" class="dropdown-item" style="font-size:15px;">방문 돌봄</a>
+                  		<a href="reservation1.br" class="dropdown-item" style="font-size:15px;" >위탁 돌봄</a>
+									  </div>
+									</li>
+									<li class="dropdown">
+									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+											게시판
+									  </button>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+									    <a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
+                  		<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
+									  </div>
+									</li>
+                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
                 </ul>
               </nav>
@@ -1411,7 +1473,19 @@ function handleImgFileSelect11(e){
 				    <h2 class="mpname float-left"><%=name %></h2>
 						<h5 class="mpneem float-none">님</h5>
 				    <h3 class="mpnick">닉네임 : <%=vo.getPETSITTER_NICKNAME() %></h3>
-				    <h5 class="mpgrade">등급 : <%=vo.getPETSITTER_RANK() %></h5>
+				    <h5 class="mpgrade">등급 : <%=vo.getPETSITTER_RANK() %>
+				    	<%
+				    		if(vo.getPETSITTER_RANK().equals("Pro")) {
+				    	%>
+				    	<img src="resources/images/petsitter_pro.png" style="width: 19px;">
+				    	<%
+				    		} else if(vo.getPETSITTER_RANK().equals("GoldPro")) {
+				    	%>
+				    	<img src="resources/images/petsitter_goldpro.png" style="width: 19px;">
+				    	<%
+				    		}
+				    	%>
+				    </h5>
 				    <h5 class="mpdate font-size-16">가입일 : <%=vo.getPETSITTER_DATE().substring(0,10) %></h5>
 				  </div>
 				  <div class = "col-md-5" style = "margin-top : 50px;">
@@ -1491,15 +1565,15 @@ function handleImgFileSelect11(e){
 	  </form>
 	</div>
 	
-  <table>
+  <table style="width:100%;">
  	<colgroup>
-	  <col style="width:15%">
-	  <col style="width:20%">
-	  <col style="width:20%">
-	  <col style="width:20%">
-	  <col style="width:15%">
-	  <col style="width:15%">
-	  <col style="width:15%">
+	  <col style="width: 15%;">
+	  <col style="width: 15%;">
+	  <col style="width: 15%;">
+	  <col style="width: 15%;">
+	  <col style="width: 12%;">
+	  <col style="width: 12%;">
+	  <col style="width: 16%;">
 	</colgroup> 
       <thead>
 		<tr class="table_headRow" style = "color : #5e5e5e;">
@@ -1639,7 +1713,7 @@ function handleImgFileSelect11(e){
       				<%for(int i = 0; i < 3;i++){ %>
       				<tr>
       					<th>자격증<%=i+1 %> :</th>
-      					<td colspan = "2"><input name = "certName" type = "text" value = <%if(cert>i){ %>"<%=certName[i] %>"<% %>}else{ %>""<%} %>  size = "50" class = "float-left"></td>
+      					<td colspan = "2"><input name = "certName" type = "text" value = <%if(cert>i){ %><%=certName[i] %><%}else{ %>""<%} %>  size = "50" class = "float-left"></td>
       				</tr>
       				<tr>
       					<th>자격증 사진<%=i+1 %> :</th>
@@ -2167,7 +2241,16 @@ function handleImgFileSelect11(e){
 	});
 	</script>	 
 	  
-
+	<script>
+			$(function() {
+				$(".btn-secondary").on("click mousedown", function() {
+					$(this).css("background-color", "rgb(83, 220, 153)");
+					$(this).css("border-color", "rgb(83, 220, 153)");
+					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
+				});
+			});
+			
+	</script>
 
 </body>
 </html>
