@@ -10,7 +10,7 @@ create table member(
     MEMBER_DATE date default sysdate, --가입날짜
     MEMBER_PHOTO_FILE varchar2(100) DEFAULT 'N', --프로필사진
     MEMBER_REPORT number DEFAULT 0, --신고누적횟수
-    MEMBER_GENDER varchar2(4), -- 성별, 추가
+    MEMBER_GENDER varchar2(4) DEFAULT 'N', -- 성별, 추가
     MEMBER_ADDRESS varchar2(100) DEFAULT 'N'-- 주소, 추가
 ); 
 select * from member;
@@ -166,6 +166,18 @@ create table COMMUNICATION_BOARD(
 	BOARD_TYPE varchar2(10) -- 글 구분(스케줄/기타)
 );
 
+create table pay(
+    PAY_ID varchar2(30), -- 회원 아이디
+    PAY_AMOUNT number, -- 예약 금액
+    PETSITTER_ID varchar2(30), -- 이용 펫시터 아이디
+    MERCHANT_UID varchar2(20), -- 결제 번호
+    PAY_DATE date default sysdate, -- 결제일
+    PAY_TYPE varchar2(10), -- 위탁 or 방문
+    START_DATE date, -- 이용 시작 날짜
+    END_DATE date, -- 이용 종료 날짜
+    PAY_STATUS varchar2(10) default '결제 완료' -- 결제 완료 or 결제 취소
+);
+
 create table USINGLIST(
     LIST_NUM number(10) primary key,
     PETSITTER_ID varchar2(30),
@@ -174,7 +186,8 @@ create table USINGLIST(
     LIST_PRICE number(8),
     LIST_START_DATE date,
     LIST_END_DATE date,
-    LIST_TYPE varchar2(10)
+    LIST_TYPE varchar2(10),
+    MERCHANT_UID varchar2(10) -- 거래 고유 아이디
 );
 
 -- usinglist 예시 데이터
@@ -273,11 +286,11 @@ from (select rownum as r_num, list_num, member_id, petsitter_id, list_price, lis
              where MEMBER_ID='asdasd@naver.com' order by LIST_NUM desc))
 where r_num >= 1 and r_num <= 20;
 
-select usinglist_num, member_id, petsitter_id, list_price, list_type, petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, petsitter_address, petsitter_photo_profile_file 
-		from (select rownum as rnum, usinglist_num, member_id, petsitter_id, list_price, list_type, 
+select list_num, member_id, petsitter_id, list_price, list_type, petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, petsitter_address, petsitter_photo_profile_file 
+		from (select rownum as rnum, list_num, member_id, petsitter_id, list_price, list_type, 
                      petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, 
                      petsitter_address, petsitter_photo_profile_file
-              from (select usinglist_num, member_id, petsitter_id, list_price, list_type, 
+              from (select list_num, member_id, petsitter_id, list_price, list_type, 
                            petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, 
                            petsitter_address, petsitter_photo_profile_file
                     from usinglist natural join petsitter 
@@ -296,3 +309,19 @@ select *
                     order by LIST_NUM desc))
 where rnum >= 6 and rnum <= 10 and (list_start_date between to_date('20/06/20') and to_date('20/07/09') or
                           list_end_date between to_date('20/06/20') and to_date('20/07/09'));
+                          
+                          
+select * from (select petsitter.*, rownum from petsitter order by petsitter_date desc) where rownum = 1;
+select * from (select petsitter.*, rownum 
+               from petsitter 
+               where petsitter_date >= trunc(add_months(sysdate, -1))
+               order by petsitter_score desc, petsitter_count desc)
+where rownum = 1;
+
+select * from (select petsitter.*, rownum 
+               from petsitter 
+               where petsitter_date >= trunc(add_months(sysdate, -1))
+               order by petsitter_count desc)
+where rownum = 1;
+
+select * from pay where MERCHANT_UID='wVy4dd';

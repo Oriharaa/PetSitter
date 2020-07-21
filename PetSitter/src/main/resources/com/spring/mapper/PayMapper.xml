@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	 
+<mapper namespace="com.spring.mapper.PayMapper">
+
+	<select id="selectPay" parameterType="String" resultType="com.spring.petsitter.pay.PayVO">
+		select * from pay where MERCHANT_UID=#{MERCHANT_UID, jdbcType=VARCHAR}
+	</select>
+
+	<insert id="insertPay" parameterType="com.spring.petsitter.pay.PayVO">
+		insert into pay(PAY_ID, PAY_AMOUNT, PETSITTER_ID, MERCHANT_UID, PAY_DATE, PAY_TYPE, START_DATE, END_DATE)
+		values(#{PAY_ID}, #{PAY_AMOUNT}, #{PETSITTER_ID}, #{MERCHANT_UID}, sysdate, #{PAY_TYPE}, to_date(#{START_DATE}, 'YYYY-MM-DD'), to_date(#{END_DATE}, 'YYYY-MM-DD')) 
+	</insert>
+	
+	<update id="updatePay" parameterType="String">
+		update pay
+		set PAY_STATUS='결제 취소'
+		where MERCHANT_UID=#{MERCHANT_UID}
+	</update>
+</mapper>

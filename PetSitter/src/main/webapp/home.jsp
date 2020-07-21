@@ -202,7 +202,7 @@ border-radius:400px
               	<%
               		if(session.getAttribute("id") == "" || session.getAttribute("id") == null) {
               	%>
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 & 회원가입</span></a>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 &amp; 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
                 <%} else if(((String)session.getAttribute("id")).contains("@")){ %> <!-- 일반 회원 마이 페이지 -->
                 <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
@@ -211,6 +211,7 @@ border-radius:400px
                 <a href="petsitterinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} %>
+                </div>
             </div>
           </div>
         </div>
@@ -611,7 +612,7 @@ border-radius:400px
               <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_this_month_count.getPETSITTER_NAME() %></h3></a>
               <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_this_month_count.getPETSITTER_ADDRESS() %></span>
               <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_this_month_count.getPETSITTER_INTRODUCE() %></p></a>
-              <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 실적 왕</div>
+              <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 실적왕</div>
             </div>
             
           

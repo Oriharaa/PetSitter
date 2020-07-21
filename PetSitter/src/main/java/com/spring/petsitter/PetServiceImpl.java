@@ -19,7 +19,4 @@ public class PetServiceImpl implements PetService{
 		return res;
 	}
 
-	
-	
-	
 }

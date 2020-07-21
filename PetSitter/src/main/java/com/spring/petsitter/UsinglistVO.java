@@ -11,7 +11,8 @@ create table USINGLIST(
     LIST_PRICE number(8),
     LIST_START_DATE date,
     LIST_END_DATE date,
-    LIST_TYPE varchar2(10)
+    LIST_TYPE varchar2(10),
+    MERCHANT_UID varchar2(10) -- 거래 고유 아이디
 );
 */
 
@@ -27,6 +28,7 @@ public class UsinglistVO {
 	private String STRING_ENDDATE;
 	private int LIST_SCORE;
 	private String LIST_TYPE;
+	private String MERCHANT_UID;
 	private int PAGE;
 	private int LIMIT;
 	private int START_NUMBER;
@@ -159,4 +161,11 @@ public class UsinglistVO {
 	public void setLIST_TYPE(String lIST_TYPE) {
 		LIST_TYPE = lIST_TYPE;
 	}
+	public String getMERCHANT_UID() {
+		return MERCHANT_UID;
+	}
+	public void setMERCHANT_UID(String mERCHANT_UID) {
+		MERCHANT_UID = mERCHANT_UID;
+	}
+	
 }

@@ -1036,7 +1036,7 @@
               	<%
               		if(session.getAttribute("id") == null) {
               	%>
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 & 회원가입</span></a>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 &amp; 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
                 <%} else if(((String)session.getAttribute("id")).contains("@")){ %> <!-- 일반 회원 마이 페이지 -->
                 <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;

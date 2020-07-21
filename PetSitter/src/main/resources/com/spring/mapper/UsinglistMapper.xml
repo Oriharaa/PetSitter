@@ -86,4 +86,12 @@ from usinglist A,member B where petsitter_id = #{PETSITTER_ID} and A.member_id =
 		]]>
 	</select>
 	
+	<insert id="insertUsinglist" parameterType="UsinglistVO">
+		<selectKey keyProperty="LIST_NUM" order="BEFORE" resultType="int">
+			select nvl(max(LIST_NUM), 0)+1 from usinglist
+		</selectKey>
+		insert into usinglist(LIST_NUM, PETSITTER_ID, PETSITTER_ADDR, MEMBER_ID, LIST_PRICE, LIST_START_DATE, LIST_END_DATE, LIST_TYPE, MERCHANT_UID)
+		values(#{LIST_NUM}, #{PETSITTER_ID}, #{PETSITTER_ADDR}, #{MEMBER_ID}, #{LIST_PRICE}, to_date(#{STRING_STARTDATE}, 'YYYY-MM-DD'), to_date(#{STRING_ENDDATE}, 'YYYY-MM-DD'), #{LIST_TYPE}, #{MERCHANT_UID})
+	</insert>
+	
 </mapper>

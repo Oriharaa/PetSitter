@@ -20,6 +20,7 @@ public class MemberUsinglistVO {
 	private int LIST_PRICE;
 	private String LIST_ING; // 현재 이용중, 이용 완료
 	private String LIST_COMPLETE; // 리뷰 남기기, 펫시터와의 소통
+	private String MERCHANT_UID;
 	
 	public int getLISTCOUNT() {
 		return LISTCOUNT;
@@ -122,6 +123,12 @@ public class MemberUsinglistVO {
 	}
 	public void setLIST_COMPLETE(String lIST_COMPLETE) {
 		LIST_COMPLETE = lIST_COMPLETE;
+	}
+	public String getMERCHANT_UID() {
+		return MERCHANT_UID;
+	}
+	public void setMERCHANT_UID(String mERCHANT_UID) {
+		MERCHANT_UID = mERCHANT_UID;
 	}
 	
 }

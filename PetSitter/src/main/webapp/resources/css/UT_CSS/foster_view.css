@@ -1,0 +1,29 @@
+@charset "UTF-8"; 
+/* 언택 추가 CSS *//* 언택 추가 CSS *//* 언택 추가 CSS */
+/* 언택 추가 CSS *//* 언택 추가 CSS *//* 언택 추가 CSS */ 
+
+.custom_lb{
+	margin-top:5%;
+	text-align:center;
+	width:20%;
+	height:26px;
+	border:0px;
+	border-radius:5px;
+	color:#ffffff;
+	font-size:13px;
+	line-height: 2;
+	transition: all 350ms ease-in-out;
+	cursor: pointer;
+}
+#custom_lb1{
+margin-left:10px;
+background-color:#53DC98;	
+}
+
+#custom_lb2{
+background-color:#BEBEBE;	
+}	
+	
+/* .hide{
+visibility:hidden;
+} */

@@ -224,7 +224,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               	<%
               		if(id == null) {
               	%>
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 & 회원가입</span></a>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 &amp; 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
                 <%} else { %>
                 <a href="profile.me?id=${id }"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;

@@ -1,9 +1,34 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
 %>
+
+<% 
+	 /* 펫시터정보 */ 
+	 String profile= request.getParameter("profile");	
+	 String address= request.getParameter("address");
+	 String nickname= request.getParameter("nickname");
+	 String rank= request.getParameter("rank");
+	 String review_count= request.getParameter("review_count");
+	 String photo_cert_File= request.getParameter("photo_cert_File");
+	 String cert_check1= request.getParameter("cert_check1");
+	 String cert_check2= request.getParameter("cert_check2");
+	 String introduce= request.getParameter("introduce");
+	 String cert_list= request.getParameter("cert_list");
+	 String petsitter_id= request.getParameter("petsitter_id");
+	 
+	 
+	 /* 날짜정보 시간정보 */ 
+	 String start_date= request.getParameter("start_date");
+	 String end_date= request.getParameter("end_date");
+	 String start_time= request.getParameter("start_time");
+	 String end_time= request.getParameter("end_time");
+	 
+%> 
+
 
 <!doctype html>
 <html lang="en">
@@ -159,7 +184,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 
 
   <head>
-    <title>돌봄 예약</title>
+    <title>위탁 예약 페이지</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -185,57 +210,60 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
     
 		<!-- 타임피커 -->
 		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
-		<link href="${pageContext.servletContext.contextPath}/resources/jquery/jquery-ui.css?version=1.3" rel="stylesheet" type="text/css" media="screen">
-
-	<style>
-		.dropdown:hover {
-			background-color: rgb(83, 220, 153);
-		}
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js">
+    
+    <!-- 추가CSS -->
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/UT_CSS/foster_view.css?after">
+	    
+    <style>
+			.dropdown:hover {
+				background-color: rgb(83, 220, 153);
+			}
+			
+			.dropdown:active {
+				background-color: rgb(83, 220, 153);
+			}
+			.btn-secondary {
+				background-color: rgb(83, 220, 153);
+				border-color: rgb(83, 220, 153);
+				vertical-align: baseline;
+				font-weight: bold;
+			}
+			
+			.btn-secondary:hover {
+				background-color: rgb(83, 220, 153);
+				border-color: rgb(83, 220, 153);
+			}
+			
+			.btn-secondary:active {
+				background-color: rgb(83, 220, 153);
+				border-color: rgb(83, 220, 153);
+			}
+			
+			.btn-secondary:focus {
+				background-color: rgb(83, 220, 153);
+				border-color: rgb(83, 220, 153);
+				box-shadow: 0 0 0 0 rgb(83, 220, 153);
+			}
+			
+			.dropdown-menu {
+				min-width: 60px !important;
+			}
 		
-		.dropdown:active {
-			background-color: rgb(83, 220, 153);
-		}
-		.btn-secondary {
-			background-color: rgb(83, 220, 153);
-			border-color: rgb(83, 220, 153);
-			vertical-align: baseline;
-			font-weight: bold;
-		}
-		
-		.btn-secondary:hover {
-			background-color: rgb(83, 220, 153);
-			border-color: rgb(83, 220, 153);
-		}
-		
-		.btn-secondary:active {
-			background-color: rgb(83, 220, 153);
-			border-color: rgb(83, 220, 153);
-		}
-		
-		.btn-secondary:focus {
-			background-color: rgb(83, 220, 153);
-			border-color: rgb(83, 220, 153);
-			box-shadow: 0 0 0 0 rgb(83, 220, 153);
-		}
-		
-		.dropdown-menu {
-			min-width: 60px !important;
-		}
-	
-		.dropdown-item:hover {
-			background-color: rgb(83, 220, 153);
-			color: rgb(255, 255, 255) !important;
-		}
-		
-		.dropdown-item {
-			 color: #53dc99 !important;
-			 font-weight: bold;
-		}
-		
-		.main-menu li a {
-			font-weight: bold;
-		}
-	</style>
+			.dropdown-item:hover {
+				background-color: rgb(83, 220, 153);
+				color: rgb(255, 255, 255) !important;
+			}
+			
+			.dropdown-item {
+				 color: #53dc99 !important;
+				 font-weight: bold;
+			}
+			
+			.main-menu li a {
+				font-weight: bold;
+			}
+		</style>
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
   
@@ -262,15 +290,12 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 
               <div class="float-right">
               	<%
-              		if(session.getAttribute("id") == null) {
+              		if(id == null) {
               	%>
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 & 회원가입</span></a>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 &amp; 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
-                <%} else if(((String)session.getAttribute("id")).contains("@")){ %> <!-- 일반 회원 마이 페이지 -->
-                <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
-                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
-                <%} else {%> <!-- 펫시터 마이 페이지 -->
-                <a href="petsitterinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <%} else { %>
+                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} %>
               </div>
@@ -293,7 +318,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                   <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onmousedown="this.style.backgroundColor:'rgb(83, 220, 153)'">
+									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
 											돌봄
 									  </button>
 									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
@@ -324,11 +349,8 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 
       </header>
       
-      <!-- 본 기능 추가 시작 -->
-      
-    <!--이미지와 메인 예약 폼 시작 -->
+   	<!-- 본 기능 추가 시작 -->
 		<body>
-		  <!-- 이미지 폼 -->
     	<div class = "container">
       	<div class = "row justify-content-center">
       		<div class = "col-md-5" style = "margin-top : 50px;">
@@ -397,27 +419,31 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
       							<span class = "mybold">나의 반려동물 등록하기</span><span>를 누르세요 </span>
       						</div>
       						<div class = "col-12 main_mint text-center petup">
-      							<a class = "font-size-21 main_whitefont mybold" href = "#">나의 반려동물 등록하기 GO!</a>
+      							<a class = "font-size-21 main_whitefont mybold" href = "petRegister.me">나의 반려동물 등록하기 GO!</a>
       						</div>
       						<div class = "col-12 text-center">
-										<button type="button" style="background:#53dc98; color :white; width : 70px; height : 27px; margin : 8px 5px 0 0" class="btn btn-sm font-size-12">위탁</button>
-										<button type="button" style="background:#bebebe; color :white; width : 70px; height : 27px; margin : 8px 0 0 0" class="btn btn-sm font-size-12">방문</button>
+      							<label for="custom_rd1" class="custom_lb" id="custom_lb1"> 위탁</label>
+											<input type="radio" name="type" id="custom_rd1" value="위탁" class="hide" />
+      							<label for="custom_rd2" class="custom_lb" id="custom_lb2">방문</label>
+      								<input type="radio" name="type" id="custom_rd2" value="방문" class="hide" />
 									</div>
+
+									
 									<div class = "col-12 text-center font-size-15 main_grayfont3 mybold" style = "margin-top : 8px;">
 									펫시터 이용 날짜
 									</div>
 									<div class = "col-11 text-center">
 										<div class ="row justify-content-center">
-											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;">
-												<input type="text" id="datePicker_start" class="form-control dateP" placeholder="시작 날짜" style = "height : 41px;">
+											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;"id="hide1">
+												<input type="text" id="datePicker_start" class="form-control dateP" value="<%=start_date%>" style = "height : 41px;">
 											</div>
-											<div class = "col-1" style = "padding : 0 0">
+											<div class = "col-1" id = "hide2" style = "padding : 0 0">
 												<svg class="bi bi-chevron-compact-right main_grayfont4" width="30px" height="30px" style = "margin-top : 11px;"viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   											<path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"/>
 												</svg>
 											</div>
 											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;">
-												<input type="text" id="datePicker_end" class="form-control dateP" placeholder="종료 날짜" style = "height : 41px;">
+												<input type="text" id="datePicker_end" class="form-control dateP" value="<%=end_date%>" style = "height : 41px;">
 											</div>
 										</div>
 									</div>
@@ -439,7 +465,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 									<div class = "col-11 text-center">
 										<div class ="row justify-content-center">
 											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;">
-												<input type="text" name="time" class="form-control timepicker dateP" id="timePicker_start" value="00:00" style = "height : 41px;">
+												<input type="text" name="time" class="form-control timepicker dateP" id="timePicker_start" value="<%=start_time%>" style = "height : 41px;">
 											</div>
 											<div class = "col-1" style = "padding : 0 0">
 												<svg class="bi bi-chevron-compact-right main_grayfont4" width="30px" height="30px" style = "margin-top : 11px;"viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -447,7 +473,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 												</svg>
 											</div>
 											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;">
-												<input type="text" name="time" class="form-control timepicker dateP" id="timePicker_end" value="00:00" style = "height : 41px;">
+												<input type="text" name="time" class="form-control timepicker dateP" id="timePicker_end" value="<%=end_time%>" style = "height : 41px;">
 											</div>
 										</div>
 									</div>
@@ -478,9 +504,16 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 										</div>
 										<hr class = "my-hr3" style = "margin : 8px 0;">
 										<p>예상 총 비용 : </p>
-										<button type="button" style="background:#53dc98; color :white; width : 60%; height : 38px; margin : 4px 0 31px 0;" class="btn btn-sm font-size-14">예약 신청</button>
+										<form name="paycheck" action="./paycheck.br" method="post">
+											<input type="hidden" name="PAY_ID" id="PAY_ID" value=${id } >
+											<input type="hidden" name="PAY_AMOUNT" id="PAY_AMOUNT" value=50000 >
+											<input type="hidden" name="PETSITTER_ID" id="PETSITTER_ID" value=<%=petsitter_id %> >
+											<input type="hidden" name="PAY_TYPE" id="PAY_TYPE" value="위탁" >
+											<input type="hidden" name="START_DATE" id="START_DATE" value=<%=start_date %>>
+											<input type="hidden" name="END_DATE" id="END_DATE" value=<%=end_date %>>
+											<input type="submit" style="background:#53dc98; color :white; width : 60%; height : 38px; margin : 4px 0 31px 0;" class="btn btn-sm font-size-14" value="예약 신청">
+										</form>
 									</div>
-			
 									
       					</div>
       				</div>
@@ -507,8 +540,8 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 							</div>
 								<div class = "col-8 text-center main_grayfont3 font-size-14">
 									<!-- vo로 받아와서 수정해야할 부분 -->
-											<p>서울 강남구 펫시터 : 닉네임12 님</p>
-											<p>등급 : A등급(활동 수 : 25회, 자격증 보유)</p>
+											<p><%=address%> 펫시터 : <%=nickname %> 님</p>
+											<p>등급 : <%=rank%>(활동 수 : <%=review_count%>회, <%=cert_check1%>)</p>
 								</div>
 						</div>
 					</div>
@@ -521,16 +554,17 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 							</div>
 								<div class = "col-6 text-center main_grayfont3 font-size-14">
 									<!-- vo로 받아와서 수정해야할 부분 -->
-											<p>K.S.D 자격증 보유</p>
-											<p>등급 : A등급(활동 수 : 25회, 자격증 보유)
+											<p><%=cert_check2%></p>
+											<p>등급 : <%=rank%> </p>
+											<p>(활동 수 : <%=review_count%>회, <%=cert_check1%>) </p>
 								</div>
 						</div>
 					</div>
 					
 					<div class = "col-8 text-center main_grayfont3">
 						<br/>
-						<p class = "font-size-16" style = "font-weight : bold;"><br/>닉네임12 펫시터 님을 소개합니다!</p>
-						<p class = "font-size-14">어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필<br>어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필 어필</p>
+						<p class = "font-size-16" style = "font-weight : bold;"><br/><%=nickname%> 펫시터 님을 소개합니다!</p>
+						<p class = "font-size-14"><%=introduce%></p>
 						<br/>
 					</div>
 			</div>
@@ -1057,9 +1091,9 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
       
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 	
 		<script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
     <script src="<c:url value="/resources/js/jquery.sticky.js"/>"></script>
@@ -1110,61 +1144,48 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 		      img.style.cssText = 'width: 100%; height: auto; margin-left: 0;';
 		    }
 		  }
-		  
+		  /*
 		  var btn = document.querySelector('#btnToggleOverflow');
 		  btn.onclick = function() {
 		    var val = divs[0].style.overflow == 'hidden' ? 'visible' : 'hidden';
 		    for (var i = 0; i < divs.length; ++i)
 		      divs[i].style.overflow = val;
 		  };
+		  */
 		};
 		/*사진 가로 세로 이미지 크기 맞추고 가운데 위치로 보이게 하기  종료*/ 
     
     
   </script>  
-      
+  <script src="<c:url value="/resources/js/UT_JS/foster.js"/>"></script>    
+
 	<!-- 데이트피커 ver.2 -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 	<!-- 달력(한국어버젼_) -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
 	
 	<!-- 데이트피커 자스코드 -->
-	<script type="text/javascript">
+	<script>
+	$(function() {
 		$('#datePicker_start').datepicker({
 				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
-				language : "kr", // 언어(<ㅡ js추가필요해서 했음.)
+				language : "ko", // 언어(<ㅡ js추가필요해서 했음.)
+				autoclose: true, // 날짜 선택하면 자동으로 닫힘
 				orientation: "bottom auto"
 		});
 		
-		$('#click-btn').on('click', function() { 
-				var date = $('#dateRangePicker').val(); //클릭이벤
-				alert(date);
-		});
-
-		
-	</script>
-  
-  <script type="text/javascript">
 		$('#datePicker_end').datepicker({
 				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
-				language : "kr", // 언어(<ㅡ js추가필요해서 했음.)
+				language : "ko", // 언어(<ㅡ js추가필요해서 했음.)
+				autoclose: true, // 날짜 선택하면 자동으로 닫힘
 				orientation: "bottom auto"
 		});
-		
-		$('#click-btn').on('click', function() { 
-				var date = $('#dateRangePicker').val(); //클릭이벤
-				alert(date);
-		});
-		
-
-
-		
-	</script>      
+	});
+	</script>
 
 	<!-- 타임피커 ver.1 -->
-	<script src="${pageContext.servletContext.contextPath}/resources/js//jquery-1.8.3.min.js"></script>
-	<script src="${pageContext.servletContext.contextPath}/resources/jquery/jquery-ui.js?version=1.3"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 
 	<!-- 타임피커 자스코드 -->
@@ -1174,7 +1195,6 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 	    interval: 60,
 	    minTime: '00',
 	    maxTime: '11:00pm',
-	    defaultTime: '24',
 	    startTime: '00:00',
 	    dynamic: false,
 	    dropdown: true,
@@ -1188,7 +1208,6 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 	    interval: 60,
 	    minTime: '07',
 	    maxTime: '11:00pm',
-	    defaultTime: '12',
 	    startTime: '07:00',
 	    dynamic: false,
 	    dropdown: true,
@@ -1196,7 +1215,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 	});
 	</script>	 
 
-		<script>
+	<script>
 			$(function() {
 				$(".btn-secondary").on("click mousedown", function() {
 					$(this).css("background-color", "rgb(83, 220, 153)");

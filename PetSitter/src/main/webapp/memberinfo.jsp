@@ -802,7 +802,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		</tr>	
 	  </thead>
 	  <tbody id="petsitterList">
-	  	<input type="hidden" id="id" value=${id } />
+	  	<input type="hidden" id="id" value=${id } >
 	  </tbody>
 	</table>
   </div>
@@ -1418,6 +1418,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								output += '<input type="hidden" id="review_petsitter_id'+index+'" value="' + item.petsitter_ID + '">';
 								output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.list_NUM + '">';
 								output += '</td>';
+							} else if(item.list_COMPLETE === '예약 취소') {
+								if(item.list_ING === '예약 취소') {
+									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
+								} else {
+									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" style="background: #03adfc !important;" onclick="location.href=\'cancel.br?merchant_uid=' + item.merchant_UID + '\'"></td>';
+								}
 							} else {
 								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
 							}
@@ -1425,7 +1431,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<tr style="color: #5e5e5e;">';
 							if(item.list_ING === ing1) {
 								output += '<td><b style="color: #0d47a1;">' + item.list_ING + '</b></td>';
-							} else {
+							} else if(item.list_ING === '위탁 대기 중' || item.list_ING === '방문 대기 중') {
+								output += '<td><b style="color: #03adfc;">' + item.list_ING + '</b></td>';
+							} else if(item.list_ING === '예약 취소') {
+								output += '<td><b>' + item.list_ING + '</b></td>';
+							} 
+							else {
 								output += '<td><b>' + item.list_ING + '</b></td>';
 							}
 							output += '<td><b>' + item.petsitter_NAME + '</b></td>';
@@ -1535,6 +1546,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 									output += '<input type="hidden" id="review_petsitter_id'+index+'" value="' + item.petsitter_ID + '">';
 									output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.list_NUM + '">';
 									output += '</td>';
+								} else if(item.list_COMPLETE === '예약 취소') {
+									if(item.list_ING === '예약 취소') {
+										output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
+									} else {
+										output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" style="background: #03adfc !important;" onclick="location.href=\'cancel.br?merchant_uid=' + item.merchant_UID + '\'"></td>';
+									}
 								} else {
 									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
 								}
@@ -1542,7 +1559,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								output += '<tr style="color: #5e5e5e;">';
 								if(item.list_ING === ing1) {
 									output += '<td><b style="color: #0d47a1;">' + item.list_ING + '</b></td>';
-								} else {
+								} else if(item.list_ING === '위탁 대기 중' || item.list_ING === '방문 대기 중') {
+									output += '<td><b style="color: #03adfc;">' + item.list_ING + '</b></td>';
+								} else if(item.list_ING === '예약 취소') {
+									output += '<td><b>' + item.list_ING + '</b></td>';
+								} 
+								else {
 									output += '<td><b>' + item.list_ING + '</b></td>';
 								}
 								output += '<td><b>' + item.petsitter_NAME + '</b></td>';
@@ -1658,6 +1680,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 									output += '<input type="hidden" id="review_petsitter_id'+index+'" value="' + item.petsitter_ID + '">';
 									output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.list_NUM + '">';
 									output += '</td>';
+								} else if(item.list_COMPLETE === '예약 취소') {
+									if(item.list_ING === '예약 취소') {
+										output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
+									} else {
+										output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" style="background: #03adfc !important;" onclick="location.href=\'cancel.br?merchant_uid=' + item.merchant_UID + '\'"></td>';
+									}
 								} else {
 									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
 								}
@@ -1665,7 +1693,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								output += '<tr style="color: #5e5e5e;">';
 								if(item.list_ING === ing1) {
 									output += '<td><b style="color: #0d47a1;">' + item.list_ING + '</b></td>';
-								} else {
+								} else if(item.list_ING === '위탁 대기 중' || item.list_ING === '방문 대기 중') {
+									output += '<td><b style="color: #03adfc;">' + item.list_ING + '</b></td>';
+								} else if(item.list_ING === '예약 취소') {
+									output += '<td><b>' + item.list_ING + '</b></td>';
+								} 
+								else {
 									output += '<td><b>' + item.list_ING + '</b></td>';
 								}
 								output += '<td><b>' + item.petsitter_NAME + '</b></td>';
@@ -2063,6 +2096,17 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			animate({ });: animation 을 걸어서 화면 맨위로 이동하도록 설정
 			 
 			스크롤 위로올라가기 버튼 종료 script*/
+		</script>
+		
+		<script>
+			$(function() {
+				$(".btn-secondary").on("click mousedown", function() {
+					$(this).css("background-color", "rgb(83, 220, 153)");
+					$(this).css("border-color", "rgb(83, 220, 153)");
+					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
+				});
+			});
+			
 		</script>
 </body>
 </html>

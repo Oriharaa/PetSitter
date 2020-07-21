@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.petsitter.board.ReviewBoardService;
+import com.spring.petsitter.pay.PayService;
 
 @Controller
 public class MemberController {
@@ -36,6 +37,9 @@ public class MemberController {
 	
 	@Autowired
 	private ReviewBoardService reviewboardService;
+	
+	@Autowired
+	private PayService payService;
 
 	@RequestMapping(value = "memberinfo.me")
 	public ModelAndView profile(MemberVO vo, @RequestParam(value = "id") String id, Model model) {
@@ -97,12 +101,26 @@ public class MemberController {
 				}
 				usinglist_ajax.get(i).setPETSITTER_ADDRESS1(address);
 			}
+			String merchant_uid = usinglist_ajax.get(i).getMERCHANT_UID();
+			String status = "";
+			if(merchant_uid != null) {
+				status = payService.selectPay(merchant_uid).getPAY_STATUS();
+			}
 			
 			String ing = "";
 			int compare1 = usinglist_ajax.get(i).getLIST_START_DATE().compareTo(today);
 			int compare2 = today.compareTo(usinglist_ajax.get(i).getLIST_END_DATE());
 			if(compare1 < 0 && compare2 < 0) {
   				ing = "현재 이용중";
+  			} else if(compare1 > 0) {
+  				if(usinglist_ajax.get(i).getLIST_TYPE().equals("위탁")) {
+  					ing = "위탁 대기 중";
+  				} else if(usinglist_ajax.get(i).getLIST_TYPE().equals("방문")) {
+  					ing = "방문 대기 중";
+  				}
+  				if(status.equals("결제 취소")) {
+  	  				ing = "예약 취소";
+  	  			}
   			} else {
   				ing = "이용 완료";
   			}
@@ -112,6 +130,8 @@ public class MemberController {
 				usinglist_ajax.get(i).setLIST_COMPLETE("펫시터와의 소통");
 			} else if(usinglist_num_member.contains(usinglist_ajax.get(i).getLIST_NUM())) { // 리뷰 작성 했는지 안했는지 확인
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 완료");
+			} else if(ing.equals("위탁 대기 중") || ing.equals("방문 대기 중") || ing.equals("예약 취소")) {
+				usinglist_ajax.get(i).setLIST_COMPLETE("예약 취소");
 			} else {
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 남기기");
 			}
@@ -146,12 +166,22 @@ public class MemberController {
 				}
 				usinglist_ajax.get(i).setPETSITTER_ADDRESS1(address);
 			}
+			String merchant_uid = usinglist_ajax.get(i).getMERCHANT_UID();
+			String status = payService.selectPay(merchant_uid).getPAY_STATUS();
 			
 			String ing = "";
 			int compare1 = usinglist_ajax.get(i).getLIST_START_DATE().compareTo(today);
 			int compare2 = today.compareTo(usinglist_ajax.get(i).getLIST_END_DATE());
 			if(compare1 < 0 && compare2 < 0) {
   				ing = "현재 이용중";
+  			} else if(compare1 > 0) {
+  				if(usinglist_ajax.get(i).getLIST_TYPE().equals("위탁")) {
+  					ing = "위탁 대기 중";
+  				} else if(usinglist_ajax.get(i).getLIST_TYPE().equals("방문")) {
+  					ing = "방문 대기 중";
+  				} if(status.equals("결제 취소")) {
+  	  				ing = "예약 취소";
+  	  			}
   			} else {
   				ing = "이용 완료";
   			}
@@ -161,6 +191,8 @@ public class MemberController {
 				usinglist_ajax.get(i).setLIST_COMPLETE("펫시터와의 소통");
 			} else if(usinglist_num_member.contains(usinglist_ajax.get(i).getLIST_NUM())) { // 리뷰 작성 했는지 안했는지 확인
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 완료");
+			} else if(ing.equals("위탁 대기 중") || ing.equals("방문 대기 중") || ing.equals("예약 취소")) {
+				usinglist_ajax.get(i).setLIST_COMPLETE("예약 취소");
 			} else {
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 남기기");
 			}
@@ -194,22 +226,33 @@ public class MemberController {
 				}
 				usinglist_ajax.get(i).setPETSITTER_ADDRESS1(address);
 			}
+			String merchant_uid = usinglist_ajax.get(i).getMERCHANT_UID();
+			String status = payService.selectPay(merchant_uid).getPAY_STATUS();
 			
 			String ing = "";
 			int compare1 = usinglist_ajax.get(i).getLIST_START_DATE().compareTo(today);
 			int compare2 = today.compareTo(usinglist_ajax.get(i).getLIST_END_DATE());
 			if(compare1 < 0 && compare2 < 0) {
   				ing = "현재 이용중";
+  			} else if(compare1 > 0) {
+  				if(usinglist_ajax.get(i).getLIST_TYPE().equals("위탁")) {
+  					ing = "위탁 대기 중";
+  				} else if(usinglist_ajax.get(i).getLIST_TYPE().equals("방문")) {
+  					ing = "방문 대기 중";
+  				} if(status.equals("결제 취소")) {
+  	  				ing = "예약 취소";
+  	  			}
   			} else {
   				ing = "이용 완료";
   			}
 			usinglist_ajax.get(i).setLIST_ING(ing);
 			
-			
 			if(ing.equals("현재 이용중")) {
 				usinglist_ajax.get(i).setLIST_COMPLETE("펫시터와의 소통");
 			} else if(usinglist_num_member.contains(usinglist_ajax.get(i).getLIST_NUM())) { // 리뷰 작성 했는지 안했는지 확인
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 완료");
+			} else if(ing.equals("위탁 대기 중") || ing.equals("방문 대기 중") || ing.equals("예약 취소")) {
+				usinglist_ajax.get(i).setLIST_COMPLETE("예약 취소");
 			} else {
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 남기기");
 			}

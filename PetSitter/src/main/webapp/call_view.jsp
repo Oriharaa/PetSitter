@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%
+	String petsitter_id = (String)request.getAttribute("petsitter_id");
+%>
 <!doctype html>
 <html lang="en">
 
@@ -260,7 +262,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
               	<%
               		if(session.getAttribute("id") == null) {
               	%>		
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 & 회원가입</span></a>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 &amp; 회원가입</span></a>
                 <%} else if(((String)session.getAttribute("id")).contains("@")){ %> <!-- 일반 회원 마이 페이지 -->
                 <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
@@ -280,7 +282,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
         <div class="container">
           <div class="row align-items-center position-relative">
             <div class="site-logo">
-              <a href="./home_login.me"><span class="main_whitefont">보살펴조</span></a>
+              <a href="./home.me"><span class="main_whitefont">보살펴조</span></a>
             </div>
 
             <div class="col-12">
@@ -288,7 +290,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                   <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onmousedown="this.style.backgroundColor:'rgb(83, 220, 153)'">
+									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
 											돌봄
 									  </button>
 									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
@@ -451,7 +453,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 										 		</select>
 											</div>
 											<div class = "col-2" style = "padding : 0; margin : 4px 0 0 0;">
-												<button type="button" style="background:#53dc98; color :white; width : 100%; height : 30px; margin : 4px 0 0 0;" class="btn btn-sm font-size-12">추가</button>
+													<button type="button" style="background:#53dc98; color :white; width : 100%; height : 30px; margin : 4px 0 0 0;" class="btn btn-sm font-size-12">추가</button>
 											</div>
 										</div>
 									</div>
@@ -466,7 +468,12 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 										</div>
 										<hr class = "my-hr3" style = "margin : 8px 0;">
 										<p>예상 총 비용 : </p>
-										<button type="button" style="background:#53dc98; color :white; width : 60%; height : 38px; margin : 4px 0 31px 0;" class="btn btn-sm font-size-14">예약 신청</button>
+										<form name="paycheck" action="paycheck.br" method="post">
+											<input type="hidden" name="pay_id" value=${id } >
+											<input type="hidden" name="pay_amount" value=50000 >
+											<input type="hidden" name="petsitter_id" value=<%=petsitter_id %> >
+											<input type="submit" style="background:#53dc98; color :white; width : 60%; height : 38px; margin : 4px 0 31px 0;" class="btn btn-sm font-size-14" onclick="location.href='pay.br'">예약 신청</button>
+										</form>
 									</div>
 			
 									
@@ -1045,9 +1052,9 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
       
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 	
 		<script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
     <script src="<c:url value="/resources/js/jquery.sticky.js"/>"></script>
@@ -1115,13 +1122,14 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 	<!-- 달력(한국어버젼_) -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
 	
 	<!-- 데이트피커 자스코드 -->
 	<script type="text/javascript">
 		$('#datePicker_start').datepicker({
 				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
 				language : "kr", // 언어(<ㅡ js추가필요해서 했음.)
+				autoclose: true, // 날짜 선택하면 자동으로 닫힘
 				orientation: "bottom auto"
 		});
 		
@@ -1137,6 +1145,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 		$('#datePicker_end').datepicker({
 				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
 				language : "kr", // 언어(<ㅡ js추가필요해서 했음.)
+				autoclose: true, // 날짜 선택하면 자동으로 닫힘
 				orientation: "bottom auto"
 		});
 		
@@ -1195,7 +1204,5 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 		});
 		
 	</script>
-
-
 </body>
 </html>

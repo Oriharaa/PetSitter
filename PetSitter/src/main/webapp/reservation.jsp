@@ -79,12 +79,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	
 	/*ajax 에서 사진 가운데 와 크기 지정 css 시작*/
 	.thumbnail-wrappper { 
-	width: 25%; 
+	width: 390px !important; 
 	} 
 	.thumbnail { 
 	position: relative; 
-	width : 350px;
-	height : 290px;
+	width : 390px;
+	height : 250px;
 	background : rgba(94,94,94,0.3);
 	overflow: hidden; 
 	margin-bottom : 4px;
@@ -307,7 +307,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               	<%
               		if(session.getAttribute("id") == null) {
               	%>
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 & 회원가입</span></a>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 &amp; 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
                 <%} else if(((String)session.getAttribute("id")).contains("@")){ %> <!-- 일반 회원 마이 페이지 -->
                 <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
@@ -336,7 +336,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                   <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onmousedown="this.style.backgroundColor:'rgb(83, 220, 153)'">
+									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
 											돌봄
 									  </button>
 									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
@@ -618,7 +618,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	
 <!-- 데이트피커 자스코드 -->
 <!-- 시작날짜 -->
-	<script type="text/javascript">
+	<script>
+	$(function() {
 		$('#datePicker_start').datepicker({
 				format : "yyyy-mm-dd", 			//달력에서 클릭시 표시할 값 형식
 				language : "ko", 						//언어
@@ -626,9 +627,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				todayHighlight : true,			//오늘날짜 색상표시
 				autoclose : true						//날짜누르면 닫힘.
 		});
-	</script>   
-<!-- 종료날짜 -->
-	<script type="text/javascript">
+		
+		<!-- 종료날짜 -->
 		$('#datePicker_end').datepicker({
 				format : "yyyy-mm-dd", 			//달력에서 클릭시 표시할 값 형식
 				language : "ko", 						// 언어
@@ -636,6 +636,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				todayHighlight : true,			//오늘날짜 색상표시
 				autoclose : true						//날짜누르면 닫힘.
 		});
+	});
 	</script>    
 	
 	
@@ -653,7 +654,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		    dropdown: true,
 		    scrollbar: true
 		});
-<!-- 종료시간 -->		
+		
+		<!-- 종료시간 -->	
 		$('#timePicker_end').timepicker({
 		    timeFormat: 'p h:mm',
 		    interval: 60,

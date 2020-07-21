@@ -55,13 +55,13 @@ public class ReservationController {
 		return petsitter_list;
 	}
 
-	@RequestMapping(value = "foster_view.me", method = RequestMethod.GET)
+	@RequestMapping(value = "foster_view.me", method = RequestMethod.POST)
 	public String foster_view() {
 		
 		return "foster_view";
 	}
 	
-	@RequestMapping(value = "call_view.me", method = RequestMethod.GET)
+	@RequestMapping(value = "call_view.me", method = RequestMethod.POST)
 	public String call_view() {
 				
 		return "call_view";
