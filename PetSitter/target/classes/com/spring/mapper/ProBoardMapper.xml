@@ -54,15 +54,84 @@
 		<selectKey keyProperty="PRO_NUM" order="BEFORE" resultType="int">
 			select nvl(max(PRO_NUM), 0)+1 from PRO_BOARD
 		</selectKey>
-		insert into PRO_BOARD values (#{PRO_NUM},#{MEMBER_ID}, #{MEMBER_NICKNAME},#{PRO_SUBJECT},#{PRO_CONTENT},#{PRO_ORG_FILE, jdbcType=VARCHAR},#{PRO_UP_FILE, jdbcType=VARCHAR},
+		insert into PRO_BOARD values (#{PRO_NUM},#{MEMBER_ID}, #{MEMBER_NICKNAME},#{PRO_SUBJECT},#{PRO_CONTENT},
+		#{PRO_ORG_FILE, jdbcType=VARCHAR},#{PRO_UP_FILE, jdbcType=VARCHAR},
 		0 , sysdate, 0, 'PRO_BOARD',#{SECRET_CHECK})
 	</insert>	
 
-	<select id="getProDetail" parameterType="int" resultType="ProBoardVO">
+	<select id="getProDetail" parameterType="int" resultMap="proBoardResultMap">
 		select * from PRO_BOARD where PRO_NUM = #{num}
 	</select>
 
 	<update id="setProReadCountUpdate" parameterType="int">
 		update PRO_BOARD set PRO_READCOUNT=PRO_READCOUNT+1 where PRO_NUM=#{num}
+	</update>
+	
+	<select id="getProModifyForm" parameterType="int" resultMap="proBoardResultMap">
+		select * from PRO_BOARD where PRO_NUM = #{num}
+	</select>	
+
+	<update id="proModifyUpdate" parameterType="ProBoardVO">
+		update PRO_BOARD set PRO_SUBJECT = #{PRO_SUBJECT}, PRO_CONTENT = #{PRO_CONTENT}, 
+		PRO_ORG_FILE = #{PRO_ORG_FILE, jdbcType=VARCHAR}, PRO_UP_FILE = #{PRO_UP_FILE, jdbcType=VARCHAR}, 
+		SECRET_CHECK = #{SECRET_CHECK}
+		where PRO_NUM=#{PRO_NUM}
 	</update>	
+
+	<select id="isProBoardWriter" parameterType="HashMap" resultType="int">
+		select count(*) from PRO_BOARD where PRO_NUM=#{num} and MEMBER_ID=#{id}
+	</select>
+
+	<delete id="proBoardDelete" parameterType="int">
+		delete from PRO_BOARD where PRO_NUM=#{num}
+	</delete>
+	
+	<insert id="proReportInsert" parameterType="ProBoardVO">
+		insert into report_article values (#{PRO_NUM},#{REPORT_REASON},#{MEMBER_ID},#{BOARD_TYPE})
+	</insert>
+	
+	<select id="getProReportReplyForm" parameterType="com.spring.petsitter.board.ProReplyVO" resultType="com.spring.petsitter.board.ProReplyVO">
+		select * from PROREPLY where bno = #{bno} and rno = #{rno}
+	</select>
+	
+	<insert id="proReportReplyInsert" parameterType="ProBoardVO">
+		insert into report_reply values (#{bno},#{rno},#{report_reason},#{writer_id},#{b_type})
+	</insert>	
+	
+	<!-- 하단부터 댓글 Mapper.xml 부분  -->
+
+	<select id="nicknameFind02" resultType="String" parameterType="String">
+			SELECT MEMBER_NICKNAME FROM MEMBER
+			WHERE MEMBER_ID = #{gid}
+	</select>
+	
+	<select id="nicknameFind03" resultType="String" parameterType="String">
+			SELECT PETSITTER_NICKNAME FROM PETSITTER
+			WHERE PETSITTER_ID = #{gid}
+	</select>	
+	
+	<select id="readProReply" resultType="com.spring.petsitter.board.ProReplyVO">
+		select rno, content, writer_id, writer_nickname, regDate from PROREPLY where bno = #{bno} order by rno
+	</select>	
+	
+	<insert id="writeProReply" parameterType="com.spring.petsitter.board.ProReplyVO">
+		<selectKey keyProperty="rno" order="BEFORE" resultType="int">
+			select nvl(max(rno), 0)+1 from PROREPLY where bno = #{bno}
+		</selectKey>
+			
+ 	 INSERT INTO PROREPLY (BNO, RNO, CONTENT, WRITER_ID, WRITER_NICKNAME, REGDATE, B_TYPE)
+		VALUES(#{bno},#{rno},#{content, jdbcType=VARCHAR},#{writer_id, jdbcType=VARCHAR}, #{writer_nickname}, sysdate, 'PRO_BOARD') 
+	</insert>
+	
+	<update id="updateProReply" parameterType="com.spring.petsitter.board.ProReplyVO">
+		update PROREPLY set content = #{content} where bno = #{bno} and rno = #{rno}	
+	</update>
+	
+	<delete id="deleteProReply" parameterType="com.spring.petsitter.board.ProReplyVO">
+		delete from PROREPLY where bno = #{bno} and rno = #{rno}	
+	</delete>		
+	
+	<select id="proReplyCount" resultType="com.spring.petsitter.board.ProReplyVO" parameterType="int">
+		select nvl(count(*), 0) as reply_count from PROREPLY where bno = #{bno}
+	</select>
 </mapper>

@@ -234,7 +234,7 @@
 		var num = 12; //시작시 리뷰 리스트 출력
 		var k = 1;	//반복될시 carousel 맞춤 지정
 		var num2 = 24;//더보기 시 불러올수 있는 리뷰 수 계속 추가됨
-		var j = 1;
+		var j = 1; //좋아요 아이디 체크 for문용
 		var sessionid = "<%=id %>";
 		var sessionid2 = ",<%=id %>";
 			
@@ -609,7 +609,7 @@
 		    		reviewForm += '<img src = "resources/images/heart.png" width = "18px" height = "18px"></a></div>';
 		    		}
 		    		
-		    		//첫 split된 인데스 0번째는 'N' 으로 1인덱스부터 시작과 il에 1추가로 필요한 길이 맞춤
+		    		//idcheck 는  좋아요를 누른 아이디 일시 2로 바뀜
 		    		var idcheck = 1;
 		    		//첫 split된 인데스 0번째는 'N' 으로 1인덱스부터 시작과 il에 1추가로 필요한 길이 맞춤
 		    		if (sessionid != "null" && item.like_ID != "N"){
@@ -1276,6 +1276,19 @@
 		animate({ });: animation 을 걸어서 화면 맨위로 이동하도록 설정
 		 
 		스크롤 위로올라가기 버튼 종료 script*/
+
+		//더보기 버튼 누를시 현재 스크롤 을 구해서 그 위치를 유지 시작
+		   $(".plus_review").click(function() {
+			   //현재 스크롤 값 구하기
+			   var scrollValue = $(document).scrollTop();
+			   //지정값으로 가기
+			   $('html, body').animate({
+			         scrollTop : scrollValue
+			     }, );
+			     return false;
+		  });
+		//종료		
+		
 		
     </script>   
          
@@ -1287,6 +1300,9 @@
 					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
 				});
 			});
+			
+			
+			
 			
 		</script>
 </body>

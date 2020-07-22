@@ -14,6 +14,7 @@ if(session.getAttribute("id") == null) {
  }
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
+	ProBoardVO board =(ProBoardVO)request.getAttribute("board");
 %>
 <!doctype html>
 <html lang="en">
@@ -105,7 +106,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
   	
   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-    <title>전문가 상담 게시판</title>
+    <title>petsitter proboard_write</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -125,57 +126,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 		<link rel="stylesheet" type="text/css" href="resources/css/petsitter-style.css?after">	
 		<link rel="stylesheet" type="text/css" href="resources/css/JH_CSS/proBoard2.css?after">	
-
-
-<style>
-	.dropdown:hover {
-		background-color: rgb(83, 220, 153);
-	}
-	
-	.dropdown:active {
-		background-color: rgb(83, 220, 153);
-	}
-	.btn-secondary {
-		background-color: rgb(83, 220, 153);
-		border-color: rgb(83, 220, 153);
-		vertical-align: baseline;
-		font-weight: bold;
-	}
-	
-	.btn-secondary:hover {
-		background-color: rgb(83, 220, 153);
-		border-color: rgb(83, 220, 153);
-	}
-	
-	.btn-secondary:active {
-		background-color: rgb(83, 220, 153);
-		border-color: rgb(83, 220, 153);
-	}
-	
-	.btn-secondary:focus {
-		background-color: rgb(83, 220, 153);
-		border-color: rgb(83, 220, 153);
-		box-shadow: 0 0 0 0 rgb(83, 220, 153);
-	}
-	
-	.dropdown-menu {
-		min-width: 60px !important;
-	}
-
-	.dropdown-item:hover {
-		background-color: rgb(83, 220, 153);
-		color: rgb(255, 255, 255) !important;
-	}
-	
-	.dropdown-item {
-		 color: #53dc99 !important;
-		 font-weight: bold;
-	}
-	
-	.main-menu li a {
-		font-weight: bold;
-	}
-</style>
+		  
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
@@ -204,11 +155,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               	%>
                 <a href="loginform.me" ><span class = "font-size-14" >로그인 & 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
-                <%} else if(((String)session.getAttribute("id")).contains("@")){ %> <!-- 일반 회원 마이 페이지 -->
-                <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
-                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
-                <%} else {%> <!-- 펫시터 마이 페이지 -->
-                <a href="petsitterinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <%} else { %>
+                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} %>
               </div>
@@ -230,25 +178,10 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               <nav class="site-navigation text-right ml-auto " role="navigation">
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											돌봄
-									  </button>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-									    <a href="reservation2.br" class="dropdown-item" style="font-size:15px;">방문 돌봄</a>
-                  		<a href="reservation1.br" class="dropdown-item" style="font-size:15px;" >위탁 돌봄</a>
-									  </div>
-									</li>
-									<li class="dropdown">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-											게시판
-									  </button>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-									    <a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
-                  		<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
-									  </div>
-									</li>
-                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>
+                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
+                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
+                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
+                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
                 </ul>
               </nav>
@@ -261,8 +194,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
         </div>
       </header>
  
- <form action="./proboardwrite.bo" method="post" name="proboardform" enctype="multipart/form-data">
+ <form action="./promodifyupdate.bo" method="post" name="proboardform" enctype="multipart/form-data">
  <input type="hidden" name="MEMBER_ID" value="<%=id %>">
+ <input type="hidden" name="PRO_NUM" value="<%=board.getPRO_NUM() %>">
    	<div class="container">      
 			<div class="row">
     		<div class="col-md-12 p-3"></div>
@@ -276,16 +210,25 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <div class="row">
 	     	<div class="col-md-12">
 	    		<div class="checkbox font-size-14 main_grayfont3">
+	    		
+	    		
+	    		<%if(board.getSECRET_CHECK().equals("Y")) { %>
 	    			<label>
 	      			비밀 게시판&nbsp; 
 	    			</label>
+	    			<input type="checkbox" name = "SECRET_CHECK" value = "Y" checked>
+	    		<%}else{ %>
+	    			<label>
+	      			비밀 게시판&nbsp; 
+	    			</label>	    		
 	    			<input type="checkbox" name = "SECRET_CHECK" value = "Y">
+	    		<%} %>	    			
 	  			</div>
 	  		</div>    
    		<div class="col-md-12">
    			<span class="glyphicon glyphicon-pencil"></span>
   			<div class="input-group">  		
- 					<input type="text" class="form-control" placeholder="제목" aria-describedby="sizing-addon1" id ="PRO_SUBJECT" name = "PRO_SUBJECT">
+ 					<input type="text" class="form-control" value = "<%=board.getPRO_SUBJECT() %>" aria-describedby="sizing-addon1" id ="PRO_SUBJECT" name = "PRO_SUBJECT">
 				</div>
    		</div>
     </div>
@@ -299,25 +242,27 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     	<div class="col-md-12 p-1"></div>
     </div>
     
-    <!-- 본문 textarea를 ckeditor로 교체 -->
+    <!-- 본문 textarea -->
     <div class="row">
     	<div class="col-md-12">
-				<textarea  name="PRO_CONTENT" cols="155" rows="10" onKeyUp="javascript:fnChkByte(this,'3000')"></textarea>
+				<textarea  name="PRO_CONTENT" cols="155" rows="10" onKeyUp="javascript:fnChkByte(this,'3000')"><%=board.getPRO_CONTENT() %></textarea>
 				<span id="byteInfo">0</span>/3000Byte
     	</div>
     </div>
     
-    <div class = "col-12 filebox padd0 filebox preview-image">
+    <div class = "col-12 filebox padd0 preview-image">    
 			<label for="input-file">업로드</label> 
 			<input class="upload-name" value="파일선택" disabled="disabled" style = "text-align : right" id = "filecheck01"> 
 			<input type="file" id="input-file" class="upload-hidden" name = "PRO_FILE"> 
-    </div>
-    
-    <div class = "col-12 filebox padd0 filebox preview-image">
+    </div>     
+
+    <div class = "col-12 filebox padd0 preview-image">
 			<label for="input-file02" class = "filecheck">업로드</label> 
 			<input class="upload-name" value="파일선택" disabled="disabled" style = "text-align : right"> 
 			<input type="file" id="input-file02" class="upload-hidden" name = "PRO_FILE02"> 
-    </div>    
+    </div>       
+      
+
      
 		<!-- 여백용 row -->
     <div class="row">
@@ -336,7 +281,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		<div class="row">
     	<div class="col-md-12 p-5"></div>
     </div>
-</form>      
+</form>        
 	   
 
   	<!-- 하단 바 시작 -->
@@ -459,7 +404,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		}
 		//내용 byte 글자수 제한 종료
 		
-		//input type file js(css) 시작
+		
+		//file 삽입 시작
 		$(document).ready(function() { 
 			var fileTarget = $('.filebox .upload-hidden'); 
 			fileTarget.on('change', function() { // 값이 변경되면
@@ -474,15 +420,17 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				$(this).siblings('.upload-name').val(filename); 
 		  }); 
 		});
-		//input type file js(css) 종료
+		//file 삽입 종료 
 		
-		//preview image 파일선택시 이미지 보이게 시작
+		
+		//preview image 시작
 		var imgTarget = $('.preview-image .upload-hidden'); 
 		imgTarget.on('change', function(){ 
 			var parent = $(this).parent(); 
 			parent.children('.upload-display').remove(); 
 			if(window.FileReader){ //image 파일만 
-				if (!$(this)[0].files[0].type.match(/image\//)) return;
+				if (!$(this)[0].files[0].type.match(/image\//)) 
+					return;
 			var reader = new FileReader(); 
 			reader.onload = function(e){ 
 				var src = e.target.result; 
@@ -499,7 +447,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")"; 
 				} 
 			});
-		//preview image 파일선택시 이미지 보이게 종료		
+		//preview image 종료
 		
 		//두번째 이미지 파일 넣을때 시작
 		$(document).on('click', '.filecheck', function(event){
@@ -513,17 +461,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		//두번째 이미지 파일 넣을때 종료
 
 	</script>
-	
-		<script>
-			$(function() {
-				$(".btn-secondary").on("click mousedown", function() {
-					$(this).css("background-color", "rgb(83, 220, 153)");
-					$(this).css("border-color", "rgb(83, 220, 153)");
-					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
-				});
-			});
-			
-		</script>
+		
   </body>
 
 </html>

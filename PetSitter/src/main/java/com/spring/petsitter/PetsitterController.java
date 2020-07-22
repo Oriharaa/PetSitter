@@ -253,6 +253,8 @@ public class PetsitterController {
 		if (res == 1) {
 			session.setAttribute("id", vo.getPETSITTER_ID());
 			session.setAttribute("name", vo.getPETSITTER_NAME());
+			session.setAttribute("rank", vo.getPETSITTER_RANK());
+			System.out.println(vo.getPETSITTER_RANK());
 			System.out.println("로그인 성공");
 
 			return "redirect:/home.me";
