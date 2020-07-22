@@ -73,6 +73,8 @@ public class MemberBoardServiceImpl implements MemberBoardService {
 		return res;
 	}
 
+	/* 신고 관련 */
+	
 	@Override
 	public int reportInsert(ReportArticleVO report) {
 		MemberBoardMapper memberboardMapper = sqlSession.getMapper(MemberBoardMapper.class);
@@ -90,5 +92,23 @@ public class MemberBoardServiceImpl implements MemberBoardService {
 		int res = memberboardMapper.reportReply(report);
 		
 		return res;
+	}
+
+	@Override
+	public List<ReportArticleVO> getReportArticleList(ReportArticleVO report) {
+		MemberBoardMapper memberboardMapper = sqlSession.getMapper(MemberBoardMapper.class);
+		
+		List<ReportArticleVO> rarticlelist = memberboardMapper.getReportArticleList(report);
+		System.out.println("rarticlelist.size() : " + rarticlelist.size());
+		return rarticlelist;
+	}
+
+	@Override
+	public List<ReportReplyVO> getReportReplyList(ReportReplyVO report) {
+		MemberBoardMapper memberboardMapper = sqlSession.getMapper(MemberBoardMapper.class);
+		
+		List<ReportReplyVO> rreplylist = memberboardMapper.getReportReplyList(report);
+		System.out.println("rreplylist.size() : " + rreplylist.size());
+		return rreplylist;
 	}
 }

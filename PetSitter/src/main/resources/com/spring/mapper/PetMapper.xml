@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.spring.mapper.PetMapper">
+	
+	<insert id="insertPet" parameterType="PetVO">
+		insert into pet (MEMBER_ID, PET_CATEGORY, PET_KIND, PET_NAME, PET_WEIGHT, PET_SIZE, 
+										 PET_BIRTH, PET_GENDER, PET_NEUTERED, PET_POTTYTRAN, PET_VAOONE, PET_PHOTO, PET_DATE)
+			 
+		values(#{MEMBER_ID}, #{PET_CATEGORY}, #{PET_KIND}, #{PET_NAME}, #{PET_WEIGHT}, #{PET_SIZE}, #{PET_BIRTH},
+					 #{PET_GENDER}, #{PET_NEUTERED}, #{PET_POTTYTRAN}, #{PET_VAOONE}, #{PET_PHOTO}, SYSDATE)
+	</insert>
+		
+	<select id="selectPetService" parameterType="String">
+		select * from petsitter where PETSITTER_TYPE like '%위탁%' order by PETSITTER_DATE
+	</select>
+	
+
+
+
+
+</mapper>

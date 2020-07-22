@@ -5,13 +5,16 @@ public class ReportArticleVO {
 	 create table report_article (
     member_num number,
     report_reason varchar2(4000),
-    member_id varchar2(30)
+    member_id varchar2(30),
+    btype varchar2(100)
 	);
 	 */
 	
 	private int MEMBER_NUM;
 	private String REPORT_REASON;
 	private String MEMBER_ID;
+	private String BTYPE;
+	private String PROCESSING;
 	
 	public int getMEMBER_NUM() {
 		return MEMBER_NUM;
@@ -30,6 +33,18 @@ public class ReportArticleVO {
 	}
 	public void setMEMBER_ID(String mEMBER_ID) {
 		MEMBER_ID = mEMBER_ID;
+	}
+	public String getBTYPE() {
+		return BTYPE;
+	}
+	public void setBTYPE(String bTYPE) {
+		BTYPE = bTYPE;
+	}
+	public String getPROCESSING() {
+		return PROCESSING;
+	}
+	public void setPROCESSING(String pROCESSING) {
+		PROCESSING = pROCESSING;
 	}
 
 }

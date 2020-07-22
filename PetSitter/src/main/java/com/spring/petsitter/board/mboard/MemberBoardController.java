@@ -2,7 +2,6 @@ package com.spring.petsitter.board.mboard;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
@@ -20,12 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+
+
 @Controller
 public class MemberBoardController {
 	
 	@Autowired
-	private MemberBoardService memberboardService;	
-			
+	private MemberBoardService memberboardService;		
+	
+		
 	@RequestMapping(value = "/mboardlist.me")
 	public String memberboard(Model model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
@@ -68,7 +70,7 @@ public class MemberBoardController {
 	@RequestMapping("/mboardwrite.me")
 	public String boardInsert(MemberBoardVO vo) throws Exception {
 		System.out.println("vo.getMEMBER_ID() = " + vo.getMEMBER_ID());
-		System.out.println("vo.getMEMBER_NAME() = " + vo.getMEMBER_NAME());
+		System.out.println("vo.getMEMBER_NICKNAME() = " + vo.getMEMBER_NICKNAME());
 		System.out.println("vo.getMEMBER_FILE() = " + vo.getMEMBER_FILE());
 		System.out.println("vo.getMEMBER_SECRET() = " + vo.getMEMBER_SECRET());
 				
@@ -128,10 +130,8 @@ public class MemberBoardController {
 	// 삭제
 	@RequestMapping("/mboardDelete.me")
 	public String boardDelete(@RequestParam(value="num", required=true) int num, HttpSession session, HttpServletResponse response) throws Exception {
-		System.out.println("num : " + num);
 		String id = (String)session.getAttribute("id");
-		System.out.println("id : " + id);
-		
+				
 		HashMap<String, String> hashmap = new HashMap<String, String>();
 		hashmap.put("member_num", Integer.toString(num));
 		hashmap.put("member_id", id);
@@ -152,13 +152,14 @@ public class MemberBoardController {
 		return null;
 	}
 	
-	
+
 	// 글 신고하기
 	@RequestMapping("/reportArticle.me")
 	public String reportInsert(ReportArticleVO report) throws Exception {
 		System.out.println("신고자 : " + report.getMEMBER_ID());
 		System.out.println("신고 글 번호 : " + report.getMEMBER_NUM());
 		System.out.println("신고 사유 : " + report.getREPORT_REASON());
+		System.out.println("신고 게시판 : " + report.getBTYPE());
 		
 		memberboardService.reportInsert(report);
 		
@@ -172,18 +173,17 @@ public class MemberBoardController {
 		System.out.println("신고 글 번호 : " + report.getBNO());
 		System.out.println("신고 리플 번호 : " + report.getRNO());
 		System.out.println("신고 사유 : " + report.getREPORT_REASON());
+		System.out.println("신고 게시판 : " + report.getBTYPE());
 		
 		memberboardService.reportReply(report);
 		
 		return "redirect:/mboarddetail.me?num=" + report.getBNO();
 	}
-	
-	// 다운로드 기능
+
 	@RequestMapping("/filedownload.bo")
   public void fileDownload(HttpServletRequest request, HttpServletResponse response) throws Exception{
   	response.setCharacterEncoding("utf-8");
   	
-  	String num = request.getParameter("num");
     String of = request.getParameter("of"); // 서버에 업로드된 변경된 실제 파일명
     String of2 = request.getParameter("of2"); // 오리지날 파일명
       
@@ -195,7 +195,7 @@ public class MemberBoardController {
      String fullPath = uploadPath + of;
      File downloadFile = new File(fullPath);
      
-     //파일 다운로드를 위해 컨테츠 타입을 application/download 설정
+     //파일 다운로드를 위해 컨텐츠 타입을 application/download 설정
      response.setContentType("application/download; charset=UTF-8");
      //파일 사이즈 지정
      response.setContentLength((int)downloadFile.length());

@@ -9,6 +9,7 @@
 	String id = null;
 	String name = null;
 	String rank = null;
+	String btype = "mboard";
 	
 	if(session.getAttribute("id") == null){
 		out.println("<script>");
@@ -22,6 +23,8 @@
 	ArrayList<MemberVO> memberList = (ArrayList<MemberVO>)request.getAttribute("member_list");
 	List<MemberBoardVO> mboardlist=(List<MemberBoardVO>)request.getAttribute("mboard_list");
 	List<MReplyVO> mReplyList =(List<MReplyVO>)request.getAttribute("mReplyList"); 
+	
+	System.out.println("mboardlist.size() : " + mboardlist.size());
 	
 	int listcount=((Integer)request.getAttribute("listcount")).intValue();
 	int nowpage=((Integer)request.getAttribute("page")).intValue();
@@ -269,7 +272,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					
 					<%if(bl.getMEMBER_SECRET().equals("N")) { %>					
 						<td><%=num %></td>
-						<td><%=bl.getMEMBER_NAME() %></td>
+						<td><%=bl.getMEMBER_NICKNAME() %></td>
 						<td><a href="./mboarddetail.me?num=<%=bl.getMEMBER_NUM()%>"><%=bl.getMEMBER_SUBJECT() %></a></td>
 						<td><%=format1.format(bl.getMEMBER_DATE()) %></td>
 						<td><%=bl.getMEMBER_READCOUNT() %></td>

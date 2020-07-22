@@ -1,12 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-	String id = (String)session.getAttribute("id");
-	String name = (String)session.getAttribute("name");
-%>
 <!doctype html>
 <html lang="en">
-
 
 <style>
 
@@ -73,12 +68,29 @@ border-radius:400px
 
 }
 
-	
+	a#MOVE_TOP_BTN {
+   	/* position : 화면에 고정
+		right, bottom : 버튼의 위치 설정
+		display : 화면에서 숨김
+		z-index : 다른 태그들보다 위로 오도록 설정(z-index 가 설정된 다른 태그가 있다면 그 태그보다 커야 함)
+		*/
+		background: rgb(83, 220, 152);
+		color : white;
+		width : 90px;
+		height : 40px;
+    position: fixed; 
+    padding : 7px 0 0 30.8px;
+    border-radius : 22px;
+    right: 2%;
+    bottom: 50px;
+    display: none;
+    z-index: 999;
+	}
 </style>
 	
 	
   <head>
-    <title>Pet Sitter Project</title>
+    <title>펫시터 홈페이지</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -123,12 +135,15 @@ border-radius:400px
 
               <div class="float-right" style="margin-bottom:8px;">
               	<%
-              		if(id == null) {
+              		if(session.getAttribute("id") == "" || session.getAttribute("id") == null) {
               	%>
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 & 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
-                <%} else { %>
-                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
+                <%} else if(((String)session.getAttribute("id")).contains("@")){ %> <!-- 일반 회원 마이 페이지 -->
+                <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+                <%} else {%> <!-- 펫시터 마이 페이지 -->
+                <a href="petsitterinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} %>
             </div>
@@ -145,11 +160,11 @@ border-radius:400px
 	            <div class="col-12">
 	              <nav class="site-navigation text-right ml-auto " role="navigation" >
 	                <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-	                  <li><a href="call_view.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
-	                  <li><a href="foster_view.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
-	                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
-	                  <li><a href="postscript_board.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
-	                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li> 
+	                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
+	                  <li><a href="reservation1.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
+	                  <li><a href="proboard.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
+	                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
+	                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li> 
 	                </ul>
 	              </nav>
 	            </div>
@@ -157,6 +172,8 @@ border-radius:400px
             <div class="toggle-button d-inline-block d-lg-none"><a href="#" class="site-menu-toggle py-5 js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
           </div>
         </div>
+        <!-- 스크롤 위로올라가기 버튼 html-->
+        <a id="MOVE_TOP_BTN" href="#">TOP</a>
       </header>
 		
 
@@ -182,7 +199,7 @@ border-radius:400px
 	                <form action="#">
 	                <div class="form-group d-flex">
 	                	<input class="form-control" type="text"  id="sample5_address"  placeholder="주소를 입력하세요" >
-	                  <input type="button" class="btn btn-outline-warning px-4" onclick="sample5_execDaumPostcode(); location.href = '#mapgo';" value="주소 검색 " >
+	                  <input type="button" class="btn btn-outline-warning px-4" onclick="sample5_execDaumPostcode(); location.href='#mapgo';" value="주소 검색 " >
 	                </div>
 	                </form>
 	                
@@ -591,7 +608,33 @@ border-radius:400px
 
     <script src="<c:url value="/resources/js/main.js"/>"></script>
 
-
+		<script>
+			/*스크롤 위로올라가기 버튼 시작 script*/
+			  $(function() {
+			   $(window).scroll(function() {
+			     if ($(this).scrollTop() > 500) {
+			         $('#MOVE_TOP_BTN').fadeIn();
+			     } else {
+			         $('#MOVE_TOP_BTN').fadeOut();
+			     }
+			   });
+			   
+			   $("#MOVE_TOP_BTN").click(function() {
+			     $('html, body').animate({
+			         scrollTop : 0
+			     }, 400);
+			     return false;
+			   });
+			  });
+			
+			  /*
+			scroll(function(): scroll 함수를 이용
+			첫 if문  : 스크롤 위치에 따라 화면에서 맨위로 올라가는 버튼을 나타내고, 사라지도록 설정
+			click(function() : 버튼 클릭 이벤트
+			animate({ });: animation 을 걸어서 화면 맨위로 이동하도록 설정
+			 
+			스크롤 위로올라가기 버튼 종료 script*/
+		</script>
 </body>
 
 </html>

@@ -13,8 +13,11 @@ String bno = request.getParameter("bno");
 String id = (String)session.getAttribute("id");
 String rank = (String)session.getAttribute("rank");
 String name = (String)session.getAttribute("name");
+String btype = "mboard";
+
 %>
-<style> <!-- 댓글 입력란 -->
+<!-- 댓글 입력란 -->
+<style> 
     .pb-cmnt-container {
         font-family: Lato;
         margin-top: 100px;
@@ -28,7 +31,9 @@ String name = (String)session.getAttribute("name");
         width: 100%;
         border: 1px solid #827979!important;
     }
-    
+    #replyContent {
+        word-break:break-all;    
+    }    
 </style>
 
 <div>	
@@ -87,6 +92,7 @@ var bno = <%=bno %>; // 게시판 글 번호
  	 		 	a += '<input type="hidden" name="MEMBER_ID" value="${id}">';
 				a += '<input type="hidden" name="BNO" value="' + <%=mboard.getMEMBER_NUM() %> + '">';
 				a += '<input type="hidden" name="RNO" value=' + value.rno + '>';
+				a += '<input type="hidden" name="BTYPE" value="mboard">';
 				
 
 				a += '<button type="button" class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#exampleModal">';
@@ -116,14 +122,14 @@ var bno = <%=bno %>; // 게시판 글 번호
 
 				num = num + 1;
 				
-				<%if(rank.equals("admin") || rank.equals("manager")) {%>
+				<%if (rank.equals("admin") || rank.equals("manager")) {%>
 				
 				a += '<a style="color:#26bd72;" href="#" class="oi oi-pencil" onclick="replyUpdateForm('+value.rno+',\''+value.content+'\');">수정</a>  ';
 				a += '<a style="color:#26bd72;" href="#" class="oi oi-x" onclick="replyDelete('+value.rno+');">삭제</a></div>';
 				
 				<% } %>
 				
-				a += '<div style="color:#525252;" class="replyContent'+value.rno+'"><p>내용 : ' + value.content + '</p>';
+				a += '<div style="color:#525252;" id="replyContent" class="replyContent'+value.rno+'"><p>내용 : <br>' + value.content + '</p>';
 				a += '</div></div></div>'; 
 				a += '</div></div></div>';
 			}); 

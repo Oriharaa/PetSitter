@@ -3,6 +3,14 @@
 	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace = "com.spring.mapper.MReplyMapper" >
+	
+	<resultMap type = "com.spring.petsitter.board.mboard.ReportArticleVO" id="reportArticleResultMap">
+		<result property = "MEMBER_NUM" column ="MEMBER_NUM"/>
+		<result property = "REPORT_REASON" column = "REPORT_REASON" />	
+		<result property = "MEMBER_ID" column = "MEMBER_ID" />			
+		<result property = "BTYPE" column = "BTYPE" />
+		<result property ="PROCESSING" column = "PROCESSING"/>
+	</resultMap>
 
 	<select id="replyCount" resultType="int">
 		select count(*) from mReply
@@ -27,9 +35,13 @@
 	
 	<delete id="deleteReply" parameterType="int">
 		delete from mReply where rno = #{rno}	
-	</delete>	
+	</delete>
 	
-	<select id="getReplyCnt" parameterType="int" resultType="int">
-		select count(*) from mReply where bno = #{bno}
-	</select>
+	<update id="checkArticle" parameterType="com.spring.petsitter.board.mboard.ReportArticleVO">
+		update report_article set processing = 'Y' where member_num=#{id}
+	</update>
+	
+	<update id="checkArticle2" parameterType="com.spring.petsitter.board.mboard.ReportArticleVO">
+		update report_article set processing = 'N' where member_num=#{id}
+	</update>
 </mapper>

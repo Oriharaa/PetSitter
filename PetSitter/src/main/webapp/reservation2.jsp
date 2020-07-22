@@ -1,7 +1,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!-- ***방문 돌봄*** -->
+<%@ page import="com.spring.petsitter.PetsitterVO" %>
+<%@ page import="java.util.*" %>
+<%@ page import="com.spring.petsitter.*" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%
+	PetsitterVO petsittervo = (PetsitterVO)request.getAttribute("petsittervo");
+	ArrayList<PetsitterVO> petsitterlist = (ArrayList<PetsitterVO>)request.getAttribute("petsitterlist");
+	ArrayList<UsinglistVO> usinglist = (ArrayList<UsinglistVO>)request.getAttribute("usinglist");
 
+%>
+
+
+<!-- 위탁 돌봄 -->
 <!doctype html>
 <html lang="en">
 
@@ -65,15 +76,128 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	  background: #e9e9e9!important; 
 	}
 	/*최하단바 종료*/
-	  
-/* 언택 추가 CSS *//* 언택 추가 CSS *//* 언택 추가 CSS */
-/* 언택 추가 CSS *//* 언택 추가 CSS *//* 언택 추가 CSS */ 
+
+	/*ajax 에서 사진 가운데 와 크기 지정 css 시작*/
+	.thumbnail-wrappper { 
+	width: 25%; 
+	} 
+	.thumbnail { 
+	position: relative; 
+	width : 350px;
+	height : 290px;
+	background : rgba(94,94,94,0.3);
+	overflow: hidden; 
+	margin-bottom : 4px;
+	border-radius : 3px;
+	} 
+	.thumbnail .centered { 
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	right: 0; 
+	bottom: 0; 
+	-webkit-transform: translate(50%,50%); 
+	-ms-transform: translate(50%,50%); 
+	transform: translate(50%,50%); 
+	} 
+	
+	.thumbnail .centered img { 
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	max-width: auto; 
+	max-height: auto; 
+	height: auto; 
+	-webkit-transform: translate(-50%,-50%); 
+	-ms-transform: translate(-50%,-50%);
+	 transform: translate(-50%,-50%); 
+	 }
 	 
+	 
+	.thumbnail02 { 
+	position: relative; 
+	width : 60px;
+	height : 60px;
+	background : rgba(94,94,94,0.3);
+	overflow: hidden; 
+	margin-bottom : 4px;
+	border-radius : 30px;
+	} 
+	.thumbnail02 .centered02 { 
+	position: relative; 
+	top: 0; 
+	left: 0; 
+	right: 0; 
+	bottom: 0; 
+	-webkit-transform: translate(50%,50%); 
+	-ms-transform: translate(50%,50%); 
+	transform: translate(50%,50%); 
+	} 
+	
+	.thumbnail02 .centered02 img { 
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	max-width: 60px; 
+	max-height: auto; 
+	height: 60px; 
+	-webkit-transform: translate(-50%,-50%); 
+	-ms-transform: translate(-50%,-50%);
+	 transform: translate(-50%,-50%); 
+	 }
+	 
+	/*ajax 에서 사진 가운데 와 크기 지정 css 종료*/
+	
+	/*carousel 고정 높이 조정*/
+	.slide {
+  height: 266px!important;
+  min-height: 266px!important;
+  background-size: cover;
+	}
+	
+	/*carousel 위치 보여주는 아이콘 바 설정*/
+	.carousel-indicators li {
+   box-sizing: content-box;
+   -ms-flex: 0 1 auto;
+   flex: 0 1 auto;
+   width: 18px!important;
+   height: 3px;
+   margin-right: 1.5px!important;
+   margin-left: 1.5px!important;
+   text-indent: -999px;
+   cursor: pointer;
+   background-color: #fff;
+   background-clip: padding-box;
+   border-top: 10px solid transparent;
+   border-bottom: 10px solid transparent;
+   opacity: .5;
+   transition: opacity .6s ease;
+   }
+
+	a#MOVE_TOP_BTN {
+   	/* position : 화면에 고정
+		right, bottom : 버튼의 위치 설정
+		display : 화면에서 숨김
+		z-index : 다른 태그들보다 위로 오도록 설정(z-index 가 설정된 다른 태그가 있다면 그 태그보다 커야 함)
+		*/
+		background: rgb(83, 220, 152);
+		color : white;
+		width : 90px;
+		height : 40px;
+    position: fixed; 
+    padding : 7px 0 0 30.8px;
+    border-radius : 22px;
+    right: 2%;
+    bottom: 50px;
+    display: none;
+    z-index: 999;
+	}
+	
 </style>
 
 
   <head>
-    <title>Depot &mdash;Website Template by Colorlib</title>
+    <title>방문 돌봄 예약 페이지</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -91,15 +215,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <!-- MAIN CSS 다양한 폰트크기보유 -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
     
-    <!-- 언택 CSS -->
-    <link rel="stylesheet" type="text/css" href="resources/css/UT_CSS/reservation2.css">
     
-    
-    
-		<!--     데이트피커 ver.1
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
-    
-    
+		<!--  언택 추가 CSS -->
+		<link rel="stylesheet" type="text/css" href="resources/css/UT_CSS/reservation2.css?after">
+		 
+
     
     <!-- 데이트피커 ver.2(bootstrap) -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
@@ -108,10 +228,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     
     <!-- 타임피커 -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
-		<link href="${pageContext.servletContext.contextPath}/resources/jquery/jquery-ui.css?version=1.3" rel="stylesheet" type="text/css" media="screen">
     
     
-    <title>petssiter basicform</title>
+    
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
   
@@ -137,11 +256,18 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
               <div class="float-right">
-
-                <a href="home.me" class=""><span>로그인</span></a>
+              	<%
+              		if(session.getAttribute("id") == null) {
+              	%>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 & 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
-                <a href="home.me" class=""><span>회원가입</span></a>
-
+                <%} else if(((String)session.getAttribute("id")).contains("@")){ %> <!-- 일반 회원 마이 페이지 -->
+                <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+                <%} else {%> <!-- 펫시터 마이 페이지 -->
+                <a href="petsitterinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+                <%} %>
               </div>
               
             </div>
@@ -161,11 +287,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               <nav class="site-navigation text-right ml-auto " role="navigation">
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
+                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
+                  <li><a href="reservation1.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
+                  <li><a href="proboard.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
+                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
+                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li> 
                 </ul>
               </nav>
 
@@ -175,13 +301,14 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
           </div>
         </div>
-
+				<!-- 스크롤 위로올라가기 버튼 html-->
+        <a id="MOVE_TOP_BTN" href="#">TOP</a>
       </header>
       
 <!-- 본 기능 추가 시작 -->
 
 <!-- top_box 시작 -->      
-<!-- 주소 검색 & 예약날짜 & 맞춤조건 등.. 시작-->      
+<!-- 주소 검색 & 예약날짜 & 맞춤조건 등.. 시작-->
 <form name="frm_ins" method="post" enctype="multipart/form-data" target="frm_hiddenFrame" onsubmit="return check_reservation();">
 <section class="top_box">
 	<div class="container">
@@ -192,7 +319,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			<div class="col-6">
 				<div class="top_box_title">
 					<h1 class="top_box_text1">방문 돌봄</h1>
-					<p class="top_box_text2">시터가 회원님 집으로 찾아가서 돌봐요!</p>
+					<p class="top_box_text2">시터가 회원님 집으로 방문하여 돌봐드립니다!</p>	
 				</div>
 			</div>
 			<div class="col-3">
@@ -201,160 +328,121 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		
 		<div class="row justify-content-center">
 			<div class="col">
-				<!-- 주소 검색 시작-->
-				<div class="address">
-					<h1 class="top_box_text3">어디에 사시나요?</h1>
-					<input type="text" id="sample5_address" placeholder="동 이름을 검색하세요 (예:논현동)">
-					<input type="button" id="sample5_button"onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
-					<div id="map" style="width:80%;height:300px;margin-top:10px;display:none">
-					</div>
-        </div>
-        <!-- 주소 검색 종료-->
-			</div>
-			
-			<div class="col">
 				<div class="date">
 					<h1 class="top_box_text3">날짜를 설정해주세요!</h1>
 					<input type="text" id="datePicker_start" class="form-control" placeholder="시작 날짜">
-					<i class="fas fa-arrow-right"></i>
-					<input type="text" id="datePicker_end" class="form-control" placeholder="종료 날짜">			
 				</div>
+			</div>
+			<div class="col">	
 				<div class="time">
 					<h1 class="top_box_text3">시간을 설정해주세요!</h1>
-					<input type="text" name="time" class="timepicker" id="timePicker_start" value="00:00">
+					<input type="text" name="time" class="timepicker" id="timePicker_start">
 					<i class="fas fa-arrow-right"></i>
-  				<input type="text" name="time" class="timepicker" id="timePicker_end" value="00:00">
+  				<input type="text" name="time" class="timepicker" id="timePicker_end">
 				</div>
 			</div>
 		</div>
-				
+		
+		<!-- 지역 선택 필터 -->
 		<div class="row">
+			<div class="col">
+				<div class="address">
+					<h1 class="top_box_text4">원하는 지역을 한군데 선택해주세요!</h1>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="fuckyou">
+					<label for="area_ck1" class="area_lb" id="area_lb1"> 서울/경기</label>
+						<input type="checkbox" name="area" id="area_ck1" value="서울/경기" class="hide" />
+					<label for="area_ck2" class="area_lb" id="area_lb2"> 인천</label>
+						<input type="checkbox" name="area" id="area_ck2" value="인천" class="hide" />
+					<label for="area_ck3" class="area_lb" id="area_lb3"> 강원</label>
+						<input type="checkbox" name="area" id="area_ck3" value="강원" class="hide" />
+					<label for="area_ck4" class="area_lb" id="area_lb4"> 부산/울산/경남</label>
+						<input type="checkbox" name="area" id="area_ck4" value="부산/울산/경남" class="hide" />
+					<label for="area_ck5" class="area_lb" id="area_lb5"> 대구/경북</label>
+						<input type="checkbox" name="area" id="area_ck5" value="대구/경북" class="hide" />
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="fuckyou">
+					<label for="area_ck6" class="area_lb" id="area_lb6"> 전북</label>
+						<input type="checkbox" name="area" id="area_ck6" value="전북" class="hide" />
+					<label for="area_ck7" class="area_lb" id="area_lb7"> 광주/전남</label>
+						<input type="checkbox" name="area" id="area_ck7" value="광주/전남" class="hide" />
+					<label for="area_ck8" class="area_lb" id="area_lb8"> 충북</label>
+						<input type="checkbox" name="area" id="area_ck8" value="충북" class="hide" />
+					<label for="area_ck9" class="area_lb" id="area_lb9"> 대전/충남</label>
+						<input type="checkbox" name="area" id="area_ck9" value="대전/충남" class="hide" />
+					<label for="area_ck10" class="area_lb" id="area_lb10"> 제주</label>
+						<input type="checkbox" name="area" id="area_ck10" value="제주" class="hide" />
+				</div>
+			</div>
+		</div>
+		
+		<!-- 픽업, 대형견, 마당, 노견 조건 필터 -->
+		<div class ="row">
 			<div class="col">
 				<div class="custom">
 					<h1 class="top_box_text4">원하는 조건을 선택해주세요!</h1>
-					<input type="button" class="custom_btn" id="custom_btn1" value="픽업 OK!">
-					<input type="button" class="custom_btn" id="custom_btn2" value="대형견 OK!">
-					<input type="button" class="custom_btn" id="custom_btn3" value="마당 OK!">
-					<input type="button" class="custom_btn" id="custom_btn4" value="노견 OK!">
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col">
+				<div class="fuckyou">
+					<label for="custom_ck1" class="custom_lb" id="custom_lb1"> 픽업 </label> 
+						<input type="checkbox" name="custom" id="custom_ck1" value="픽업" class="hide"/>
+					<label for="custom_ck2" class="custom_lb" id="custom_lb2"> 대형견</label>
+						<input type="checkbox" name="custom" id="custom_ck2" value="대형견" class="hide" />
+					<label for="custom_ck3" class="custom_lb" id="custom_lb3"> 마당 </label> 
+						<input type="checkbox" name="custom" id="custom_ck3" value="마당"  class="hide" />
+				  <label for="custom_ck4" class="custom_lb" id="custom_lb4"> 노견 </label> 
+				  	<input type="checkbox" name="custom" id="custom_ck4" value="대형견" class="hide"/>
+				</div>
+			</div>
+		</div>
+		
+			
 	</div>
-</section></form><hr>
+</section></form>
 
 
-<!-- 주소 검색 & 예약날짜 & 맞춤조건 등.. 종료-->      
+
+
+<!-- 예약날짜 & 맞춤조건 등.. 종료-->      
 <!-- top_box 종료 --> 
+
 
 <!-- middle_box 시작 -->
 <!-- 맞춤조건에 의한 펫시터 뷰 시작-->
 <section class="middle_box">
 	<div class="container">
-	
 		<div class="row">
 			<div class="col">
 				<div class="middle_box_title">
 					<h1 class="middle_box_text1">모든 펫시터를 만나보세요!</h1>
 				</div>
 			</div>
-			<div class="col">	
-				<div class="middle_box_btn">
-					<input type="button" class="middle_right_btn" id="newOrder" value="최신순">
-					<input type="button" class="middle_right_btn" id="gradeOrder" value="평점순">
+			<div class="col">
+		  	<div class="middle_box_btn">
+		  		<label for="order_ck1" class="order_lb" id="order_lb1">최신순</label>
+		  			<input type="radio" name="order" id="order_ck1" value="최신순" class="hide" />
+		  		<label for="order_ck2" class="order_lb" id="order_lb2">평점순</label>
+						<input type="radio" name="order" id="order_ck2" value="평점순" class="hide" />
 				</div>
 			</div>
 		</div>
+
 		
-		<div class="row">
-			<div class="col-12">
-				<div class="middle_box_row">
-					<div class="middle_box_img"><!--이미지를 background-image로 줌 -->
-					</div>	
-					<div class="middle_box_view">
-						<div class="middle_box_view_start">
-							<span class="v_location">서울 서초구 서초1동</span>
-							<span class="v_grade"> · 프로 펫시터</span><br>
-							<span class="v_title">정성을 다해 사랑으로 돌봐드려요</span>
-						</div>
-							<div class="middle_box_view_center">
-								<span class="v_option" id="option1">반려동물 있어요</span>
-								<span class="v_option" id="optionJum"> · </span>
-								<span class="v_option" id="option2">마당 있어요</span>
-							</div>
-							<div class="middle_box_view_end">
-								<img class="star" id="star1" src="resources/images/function/star.jpg">
-								<img class="star" id="star2" src="resources/images/function/star.jpg">
-								<img class="star" id="star3" src="resources/images/function/star.jpg">
-								<img class="star" id="star4" src="resources/images/function/star.jpg">
-								<img class="starhalf" id="star5" src="resources/images/function/starhalf.jpg">
-								<span class="v_review">후기55개</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div><br><br>
+		
+		<div class="row" id="petsitter_middle_box">
 			
-			<div class="row">
-			<div class="col-12">
-				<div class="middle_box_row">
-					<div class="middle_box_img"><!--이미지를 background-image로 줌 -->
-					</div>	
-					<div class="middle_box_view">
-						<div class="middle_box_view_start">
-							<span class="v_location">서울 서초구 서초1동</span>
-							<span class="v_grade"> · 프로 펫시터</span><br>
-							<span class="v_title">정성을 다해 사랑으로 돌봐드려요</span>
-						</div>
-							<div class="middle_box_view_center">
-								<span class="v_option" id="option1">반려동물 있어요</span>
-								<span class="v_option" id="optionJum"> · </span>
-								<span class="v_option" id="option2">마당 있어요</span>
-							</div>
-							<div class="middle_box_view_end">
-								<img class="star" id="star1" src="resources/images/function/star.jpg">
-								<img class="star" id="star2" src="resources/images/function/star.jpg">
-								<img class="star" id="star3" src="resources/images/function/star.jpg">
-								<img class="star" id="star4" src="resources/images/function/star.jpg">
-								<img class="starhalf" id="star5" src="resources/images/function/starhalf.jpg">
-								<span class="v_review">후기55개</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div><br><br>
-			
-			<div class="row">
-			<div class="col-12">
-				<div class="middle_box_row">
-					<div class="middle_box_img"><!--이미지를 background-image로 줌 -->
-					</div>	
-					<div class="middle_box_view">
-						<div class="middle_box_view_start">
-							<span class="v_location">서울 서초구 서초1동</span>
-							<span class="v_grade"> · 프로 펫시터</span><br>
-							<span class="v_title">정성을 다해 사랑으로 돌봐드려요</span>
-						</div>
-							<div class="middle_box_view_center">
-								<span class="v_option" id="option1">반려동물 있어요</span>
-								<span class="v_option" id="optionJum"> · </span>
-								<span class="v_option" id="option2">마당 있어요</span>
-							</div>
-							<div class="middle_box_view_end">
-								<img class="star" id="star1" src="resources/images/function/star.jpg">
-								<img class="star" id="star2" src="resources/images/function/star.jpg">
-								<img class="star" id="star3" src="resources/images/function/star.jpg">
-								<img class="star" id="star4" src="resources/images/function/star.jpg">
-								<img class="starhalf" id="star5" src="resources/images/function/starhalf.jpg">
-								<span class="v_review">후기55개</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div><br><br>
-			
-			
-			
-		</div>
+		</div></div><br><br>
 </section>
 
      
@@ -366,10 +454,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
 <!-- 본 기능 추가 종료 -->
-      
-      
-
-      
       <footer class="site-footer">
       <div class="container">
         <div class="row">
@@ -396,7 +480,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
             
 
-
+						<form>
             <h2 class="footer-heading mb-4" id="main_grayfont1">Follow Us</h2>
             <a href="https://www.facebook.com/" class="smoothscroll pl-0 pr-3" target="_blank"><span class="icon-facebook" id="main_grayfont2" ></span></a>
             <a href="https://twitter.com/" class="pl-3 pr-3" target="_blank"><span class="icon-twitter" id="main_grayfont2" ></span></a>
@@ -423,9 +507,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
 	
 
     <script src="<c:url value="./resources/js/aos.js"/>"></script><!-- nav 상단바 반응형웹 적용1 -->
@@ -435,224 +519,106 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <!-- 추가!! -->
     <script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
     <script src="<c:url value="/resources/js/jquery.sticky.js"/>"></script>  
-    
-    
-    
-    <!-- 다음 도로명 주소 -->
-		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-		<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cae553f70e30f760c188181ffee2356d&libraries=services"></script>
-		<script>
-		    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-		        mapOption = {
-		            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
-		            level: 5 // 지도의 확대 레벨
-		        };
-		
-		    //지도를 미리 생성
-		    var map = new daum.maps.Map(mapContainer, mapOption);
-		    //주소-좌표 변환 객체를 생성
-		    var geocoder = new daum.maps.services.Geocoder();
-		    //마커를 미리 생성
-		    var marker = new daum.maps.Marker({
-		        position: new daum.maps.LatLng(37.537187, 127.005476),
-		        map: map
-		    });
-		
-		
-		    function sample5_execDaumPostcode() {
-		        new daum.Postcode({
-		            oncomplete: function(data) {
-		                var addr = data.address; // 최종 주소 변수
-		
-		                // 주소 정보를 해당 필드에 넣는다.
-		                document.getElementById("sample5_address").value = addr;
-		                // 주소로 상세 정보를 검색
-		                geocoder.addressSearch(data.address, function(results, status) {
-		                    // 정상적으로 검색이 완료됐으면
-		                    if (status === daum.maps.services.Status.OK) {
-		
-		                        var result = results[0]; //첫번째 결과의 값을 활용
-		
-		                        // 해당 주소에 대한 좌표를 받아서
-		                        var coords = new daum.maps.LatLng(result.y, result.x);
-		                        // 지도를 보여준다.
-		                        mapContainer.style.display = "block";
-		                        map.relayout();
-		                        // 지도 중심을 변경한다.
-		                        map.setCenter(coords);
-		                        // 마커를 결과값으로 받은 위치로 옮긴다.
-		                        marker.setPosition(coords)
-		                    }
-		                });
-		            }
-		        }).open();
-		    }
-		</script>
-
-<!-- 데이트피커 ver.1 -->
-<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="./jquery-ui-1.12.1/datepicker-ko.js"></script>
-
-		<script type="text/javascript">
-
-		$(function(){
-    	$("#date1").datepicker();
-		});
-		</script> -->
-
-
-
-<!-- 데이트피커 ver.2 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-	<!-- 달력(한국어버젼_) -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script>
-	
-	<!-- 데이트피커 자스코드 -->
-	<script type="text/javascript">
-		$('#datePicker_start').datepicker({
-				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
-				language : "kr", // 언어(<ㅡ js추가필요해서 했음.)
-				orientation: "bottom auto"
-				
-		});
-		
-		$('#click-btn').on('click', function() { 
-				var date = $('#dateRangePicker').val(); //클릭이벤
-				alert(date);
-		});
-	</script>
   
-  <script type="text/javascript">
-		$('#datePicker_end').datepicker({
-				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
-				language : "kr", // 언어(<ㅡ js추가필요해서 했음.)
-				orientation: "bottom auto"
-		});
-		
-		$('#click-btn').on('click', function() { 
-				var date = $('#dateRangePicker').val(); //클릭이벤
-				alert(date);
-		});
-	</script>    
-	
-	
 
-	
-
-<!-- 타임피커 ver.1 -->
-<script src="${pageContext.servletContext.contextPath}/resources/js//jquery-1.8.3.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/resources/jquery/jquery-ui.js?version=1.3"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
-	<!-- 타임피커 자스코드 -->
-	<script type="text/javascript">
-	$('.timepicker').timepicker({
-	    timeFormat: 'p h:mm',
-	    interval: 60,
-	    minTime: '09',
-	    maxTime: '11:00pm',
-	    defaultTime: '14',
-	    startTime: '00:00',
-	    dynamic: false,
-	    dropdown: true,
-	    scrollbar: true
-	});
-	</script>
+  
+<!--
+		★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+		★★★★★★★★★★★★★★★★★★★★★기능구현 JS★★★★★★★★★★★★★★★★★★★★★
+		★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+-->
+	<script src="<c:url value="/resources/js/UT_JS/reservation_color.js"/>"></script>
+  <script src="<c:url value="/resources/js/UT_JS/reservation_view2.js"/>"></script>
+<!--
+		★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+		★★★★★★★★★★★★★★★★★★★★★기능구현 JS★★★★★★★★★★★★★★★★★★★★★
+		★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+--> 
 
 <!-- 아이콘 -->   
-<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>  
-
-
-<!-- 원하는 조건 선택시 버튼 색상 변화-->
-<script>
-       var btn1 = document.getElementById("custom_btn1");
-      		 btn1.addEventListener("click", function() {
-       			
-	       			if(btn1.style.background === "rgb(83, 220, 152)"){
-	       				btn1.style.background = "rgb(0, 200, 83)";
-	       			} else if(btn1.style.background === "rgb(0, 200, 83)") {
-	       				btn1.style.background = "rgb(83, 220, 152)";
-	       			} else {
-	       				btn1.style.background = "rgb(0, 200, 83)";
-	       			}
-       			});
-      		 
-      		 
-             var btn2 = document.getElementById("custom_btn2");
-      					 btn2.addEventListener("click", function() {
-       			
-	       			if(btn2.style.background === "rgb(83, 220, 152)"){
-	       				btn2.style.background = "rgb(0, 200, 83)";
-	       			} else if(btn2.style.background === "rgb(0, 200, 83)") {
-	       				btn2.style.background = "rgb(83, 220, 152)";
-	       			} else {
-	       				btn2.style.background = "rgb(0, 200, 83)";
-	       			}
-       			});
-      		 
-             var btn3 = document.getElementById("custom_btn3");
-      		 			 btn3.addEventListener("click", function() {
-       			
-	       			if(btn3.style.background === "rgb(83, 220, 152)"){
-	       				btn3.style.background = "rgb(0, 200, 83)";
-	       			} else if(btn3.style.background === "rgb(0, 200, 83)") {
-	       				btn3.style.background = "rgb(83, 220, 152)";
-	       			} else {
-	       				btn3.style.background = "rgb(0, 200, 83)";
-	       			}
-       			});
-      		 
-             var btn4 = document.getElementById("custom_btn4");
-      		 			 btn4.addEventListener("click", function() {
-       			
-	       			if(btn4.style.background === "rgb(83, 220, 152)"){
-	       				btn4.style.background = "rgb(0, 200, 83)";
-	       			} else if(btn4.style.background === "rgb(0, 200, 83)") {
-	       				btn4.style.background = "rgb(83, 220, 152)";
-	       			} else {
-	       				btn4.style.background = "rgb(0, 200, 83)";
-	       			}
-       			});
-</script>
-
-<!-- 최신순, 평점순 -->
-<script>
+	<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>  
 	
-	var btn5 = document.getElementById("newOrder");
-		 btn5.addEventListener("click", function() {
+<!-- 데이트피커 -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+	<!-- 달력(한국어버젼_) -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
 	
-	if(btn5.style.background === "rgb(83, 220, 152)"){
-		btn5.style.background = "rgb(0, 200, 83)";
-	} else if(btn5.style.background === "rgb(0, 200, 83)") {
-		btn5.style.background = "rgb(83, 220, 152)";
-	} else {
-		btn5.style.background = "rgb(0, 200, 83)";
-	}
-	});
+<!-- 타임피커 -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>	
+	
+	
+	
+	
+<!-- 데이트피커 자스코드 -->
+<!-- 시작날짜 -->
+	<script type="text/javascript">
+		$('#datePicker_start').datepicker({
+				format : "yyyy-mm-dd", 			//달력에서 클릭시 표시할 값 형식
+				language : "ko", 						//언어
+				orientation: "bottom auto", //아래에 뜨게
+				todayHighlight : true,			//오늘날짜 색상표시
+				autoclose : true						//날짜누르면 닫힘.
+		});
+	</script>	
+	
+	
+<!-- 타임피커 자스코드 -->
+<!-- 시작시간 -->
+	<script type="text/javascript">
+		$('#timePicker_start').timepicker({
+		    timeFormat: 'p h:mm',
+		    interval: 60,
+		    minTime: '09',
+		    maxTime: '11:00pm',
+		    defaultTime: '14',
+		    startTime: '00:00',
+		    dynamic: false,
+		    dropdown: true,
+		    scrollbar: true
+		});
+	</script>
+	<script type="text/javascript">
+<!-- 종료시간 -->		
+		$('#timePicker_end').timepicker({
+		    timeFormat: 'p h:mm',
+		    interval: 60,
+		    minTime: '09',
+		    maxTime: '11:00pm',
+		    defaultTime: '14',
+		    startTime: '00:00',
+		    dynamic: false,
+		    dropdown: true,
+		    scrollbar: true
+		});
+	</script>
+
+	<script>
+		/*스크롤 위로올라가기 버튼 시작 script*/
+		  $(function() {
+		   $(window).scroll(function() {
+		     if ($(this).scrollTop() > 500) {
+		         $('#MOVE_TOP_BTN').fadeIn();
+		     } else {
+		         $('#MOVE_TOP_BTN').fadeOut();
+		     }
+		   });
+		   
+		   $("#MOVE_TOP_BTN").click(function() {
+		     $('html, body').animate({
+		         scrollTop : 0
+		     }, 400);
+		     return false;
+		   });
+		  });
+		
+		  /*
+		scroll(function(): scroll 함수를 이용
+		첫 if문  : 스크롤 위치에 따라 화면에서 맨위로 올라가는 버튼을 나타내고, 사라지도록 설정
+		click(function() : 버튼 클릭 이벤트
+		animate({ });: animation 을 걸어서 화면 맨위로 이동하도록 설정
 		 
-		 var btn6 = document.getElementById("gradeOrder");
-		 btn6.addEventListener("click", function() {
-	
-	if(btn6.style.background === "rgb(83, 220, 152)"){
-		btn6.style.background = "rgb(0, 200, 83)";
-	} else if(btn6.style.background === "rgb(0, 200, 83)") {
-		btn6.style.background = "rgb(83, 220, 152)";
-	} else {
-		btn6.style.background = "rgb(0, 200, 83)";
-	}
-	});	 
-	
-</script>
-
-
-   
-      
-      
-      
-      
-
-
-
+		스크롤 위로올라가기 버튼 종료 script*/
+	</script>
 </body>
 </html>

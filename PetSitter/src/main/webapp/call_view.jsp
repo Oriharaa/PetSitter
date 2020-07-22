@@ -217,7 +217,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
               	<%
               		if(name == null) {
               	%>		
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 & 회원가입</span></a>
                 <%
               		} else {
                 %>

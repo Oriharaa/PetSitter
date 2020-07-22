@@ -19,4 +19,6 @@ public interface MemberBoardMapper {
 	public String getMemberName(String member_id);
 	public int reportInsert(ReportArticleVO report);
 	public int reportReply(ReportReplyVO report);
+	public List<ReportArticleVO> getReportArticleList(ReportArticleVO report);
+	public List<ReportReplyVO> getReportReplyList(ReportReplyVO report);
 }

@@ -6,7 +6,8 @@ public class ReportReplyVO {
    bno number,
    rno number,
    report_reason varchar2(4000),
-   member_id varchar2(30)
+   member_id varchar2(30),
+   btype varchar2(100)
 	);
 	 */
 	
@@ -14,6 +15,8 @@ public class ReportReplyVO {
 	private int RNO;
 	private String REPORT_REASON;
 	private String MEMBER_ID;
+	private String BTYPE;
+	
 	public int getBNO() {
 		return BNO;
 	}
@@ -37,6 +40,12 @@ public class ReportReplyVO {
 	}
 	public void setMEMBER_ID(String mEMBER_ID) {
 		MEMBER_ID = mEMBER_ID;
+	}
+	public String getBTYPE() {
+		return BTYPE;
+	}
+	public void setBTYPE(String bTYPE) {
+		BTYPE = bTYPE;
 	}
 	
 

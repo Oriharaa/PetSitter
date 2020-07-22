@@ -14,6 +14,10 @@
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
 	String rank = (String)session.getAttribute("rank");
+	String btype = "mboard";
+	
+	List<ReportArticleVO> ralist = (List<ReportArticleVO>)request.getAttribute("ra_list");
+	List<ReportReplyVO> rrlist = (List<ReportReplyVO>)request.getAttribute("rr_list");
 	
 //세션 종료시 홈으로
   if(session.getAttribute("id") == null) {
@@ -238,7 +242,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						</tr>
 						<tr> 
 							<td>작성자</td>
-							<td><%=mboard.getMEMBER_NAME() %></td>
+							<td><%=mboard.getMEMBER_NICKNAME() %></td>
 						</tr>
 						<tr>
 							<td>조회수</td>
@@ -282,6 +286,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
   	 		 <form action="./reportArticle.me" method="post" name="reportform">
   	 		 	<input type="hidden" name="MEMBER_ID" value="${id}">
 					<input type="hidden" name="MEMBER_NUM" value="<%=mboard.getMEMBER_NUM()%>">
+					<input type="hidden" name="BTYPE" value="mboard">
+					
 					<div class="modal fade" id="articleModal" tabindex="-1" role="dialog" aria-labelledby="articleModalLabel" aria-hidden="true">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">

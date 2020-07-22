@@ -45,8 +45,15 @@ public class MReplyServiceImpl implements MReplyService {
 	}
 
 	@Override
-	public int getReplyCnt(int rno) throws Exception {
+	public void checkArticle(String id) {
 		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
-		return mReplyMapper.getReplyCnt(rno);
+		mReplyMapper.checkArticle(id);
 	}
+
+	@Override
+	public void checkArticle2(String id) {
+		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
+		mReplyMapper.checkArticle2(id);
+	}
+
 }
