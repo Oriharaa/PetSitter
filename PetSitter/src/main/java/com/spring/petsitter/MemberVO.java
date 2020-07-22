@@ -15,8 +15,8 @@ create table member(
     MEMBER_DATE date default sysdate, --가입날짜
     MEMBER_PHOTO_FILE varchar2(100) DEFAULT 'N', --프로필사진
     MEMBER_REPORT number DEFAULT 0, --신고누적횟수
-    MEMBER_ADDRESS varchar2(100), -- 주소
-    MEMBER_GENDER varchar2(4) -- 성별
+    MEMBER_ADDRESS varchar2(100) DEFAULT 'N', -- 주소
+    MEMBER_GENDER varchar2(4) DEFAULT 'N'-- 성별
 );
 */
 

@@ -1,5 +1,6 @@
 package com.spring.petsitter;
 
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,6 +35,9 @@ public class MemberController {
 	@Autowired
 	private ReviewBoardService reviewboardService;
 	
+	@Autowired
+	private PetsitterService petsitterService;
+	
 	@RequestMapping(value = "notice.me")
 	public String notice(Model model) {
 		return "notice";
@@ -44,7 +48,7 @@ public class MemberController {
 		ModelAndView mv = new ModelAndView();
 		
 		MemberVO membervo = memberService.selectMember(id);
-		String[] tel = membervo.getMEMBER_TEL().split("-");
+		String tel = membervo.getMEMBER_TEL();
 		String[] address = membervo.getMEMBER_ADDRESS().split(",");
 		int review_count = reviewboardService.getReviewListCount_member(id);
 		
@@ -246,7 +250,11 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "home.me")
-	public String home() {
+	public String home(Model model) {
+		ArrayList<PetsitterVO> list = new ArrayList<PetsitterVO>();
+		list = petsitterService.petsitterList();
+		model.addAttribute("list",list);
+		
 		return "home";
 	}
 	
@@ -264,7 +272,7 @@ public class MemberController {
 			session.setAttribute("id", membervo.getMEMBER_ID());
 			session.setAttribute("name", membervo.getMEMBER_NAME());
 			session.setAttribute("rank", membervo.getMEMBER_RANK());
-			return "home";
+			return "redirect:/home.me";
 		}else {
 			return "loginform";
 		}
@@ -273,21 +281,26 @@ public class MemberController {
 
 	@RequestMapping(value = "memberUpdate.me")
 	public String member_update(MemberVO vo, HttpServletRequest request) throws Exception {
-		String[] tel = request.getParameterValues("MEMBER_TEL");
 		String[] address = request.getParameterValues("MEMBER_ADDRESS");
-		vo.setMEMBER_TEL(tel[0] + "-"  + tel[1] + "-" + tel[2]);
+		if(address[0].equals("N")) {
+			vo.setMEMBER_ADDRESS("N");
+		}else {
 		vo.setMEMBER_REAL_ADDRESS(address[0] + " " + address[1] + " " + address[2]);
-		
+		}
 		MultipartFile mf = vo.getMEMBER_PHOTO();
 		String uploadPath = "C:\\Project156\\upload\\";
-
+		
+		MemberVO member = memberService.selectMember(vo.getMEMBER_ID());
+		if(vo.getMEMBER_GENDER() == null) {
+			vo.setMEMBER_GENDER("N");
+		}
 		if(mf.getSize() != 0) {
 			String originalFileExtension = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));
 			String storedFileName = UUID.randomUUID().toString().replaceAll("-", "")+ originalFileExtension;
 			mf.transferTo(new File(uploadPath+storedFileName));
 			vo.setMEMBER_PHOTO_FILE(storedFileName);
 		} else {
-			vo.setMEMBER_PHOTO_FILE("N");
+			vo.setMEMBER_PHOTO_FILE(member.getMEMBER_PHOTO_FILE());
 		}
 		
 		memberService.updateMember(vo);
@@ -307,7 +320,7 @@ public class MemberController {
 		
 		return "home";
 	}
-	
 
-	
+
+
 }

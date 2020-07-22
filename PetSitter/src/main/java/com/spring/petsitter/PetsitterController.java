@@ -4,13 +4,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.petsitter.board.ReviewBoardVO;
@@ -26,6 +29,34 @@ public class PetsitterController {
 
 	@Autowired
 	private UsinglistService usinglistService;
+	
+	@RequestMapping(value = "map_addr.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public PetsitterVO[] getMap_addr(HttpServletRequest request){
+		String[] polyLine = (String[]) request.getParameterValues("polyLine");
+		ArrayList<PetsitterVO> list = new ArrayList<PetsitterVO>();
+		list = petsitterService.petsitterList();
+		PetsitterVO[] vo = new PetsitterVO[list.size()];
+		for(int i = 0 ; i < list.size(); i++) {
+			list.get(i).setPETISTTER_POLY(Double.parseDouble(polyLine[i]));
+			vo[i] = list.get(i);
+		}
+		PetsitterVO temp = new PetsitterVO();
+		for(int i =0;i< vo.length-1; i++) {
+			for(int j = i+1; j<vo.length; j++) {
+				if(vo[i].getPETISTTER_POLY() > vo[j].getPETISTTER_POLY()) {
+					temp = vo[i];
+					vo[i] = vo[j];
+					vo[j] = temp;
+				}
+			}
+		}
+		
+
+		
+		
+		return vo;
+	}
 	
 	@RequestMapping(value = "reflyUpdate.me")
 	public String reflyUpdate(HttpSession session,ReviewBoardVO vo) {
@@ -46,9 +77,6 @@ public class PetsitterController {
 		petsitter.setPETSITTER_ID(vo.getPETSITTER_ID()); 
 		petsitter = petsitterService.selectPetsitter(vo.getPETSITTER_ID());
 		String uploadPath = "C:\\Project156\\upload\\";
-		
-		
-		
 		MultipartFile mf = vo.getPhoto();
 		if(mf.getSize() != 0) {
 			String originalFileExtension = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));
@@ -152,7 +180,16 @@ public class PetsitterController {
 		}
 		
 		petsitter.setPETSITTER_PW(vo.getPw());
-		petsitter.setPETSITTER_NICKNAME(vo.getNickname());
+		if(TextUtils.isEmpty(vo.getGender())){
+			petsitter.setPETSITTER_GENDER("N");
+		}else {
+			petsitter.setPETSITTER_GENDER(vo.getGender());
+		}
+		if(TextUtils.isEmpty(vo.getNickname())) {
+			petsitter.setPETSITTER_NICKNAME("N");
+		}else {
+			petsitter.setPETSITTER_NICKNAME(vo.getNickname());
+		}
 		String email = String.join("@",vo.getEmail());
 		petsitter.setPETSITTER_EMAIL(email);
 		petsitter.setPETSITTER_ADDRESS(vo.getAddress());
@@ -164,7 +201,13 @@ public class PetsitterController {
 		String service = String.join(",", vo.getServicelist());
 		petsitter.setPETSITTER_SERVICE_LIST(service);
 		petsitter.setPETSITTER_INTRODUCE(vo.getIntroduce());
-		
+		petsitter.setPETSITTER_ADDRX(vo.getAddrX());
+		petsitter.setPETSITTER_ADDRY(vo.getAddrY());
+		if(vo.getSafeaddr().equals(",")) {
+			petsitter.setPETSITTER_SAFEADDR("N");
+		}else {
+			petsitter.setPETSITTER_SAFEADDR(vo.getSafeaddr());
+		}
 		int res = petsitterService.petsitterUpdate(petsitter);
 		if(res == 1) {
 			System.out.println("업데이트 성공");
@@ -255,7 +298,7 @@ public class PetsitterController {
 			session.setAttribute("name", vo.getPETSITTER_NAME());
 			System.out.println("로그인 성공");
 
-			return "home";
+			return "redirect:/home.me";
 		} else {
 			return "loginform";
 		}
@@ -269,7 +312,7 @@ public class PetsitterController {
 		vo.setPETSITTER_PHOTO_UPFILE("");
 		vo.setPETSITTER_PHOTO_PROFILE_FILE("");
 		vo.setPETSITTER_CERT_LIST("");
-
+		
 		MultipartFile mf = vo.getPETSITTER_PHOTO();
 		String uploadPath = "C:\\Project156\\upload\\";
 
@@ -294,7 +337,6 @@ public class PetsitterController {
 		ArrayList<String> CERT_PHOTO = new ArrayList<String>();
 		for (int i = 0; i < vo.getPETSITTER_PHOTO_CERT().length; i++) {
 			mf = vo.getPETSITTER_PHOTO_CERT()[i];
-			System.out.println(mf.getOriginalFilename());
 			if (mf.getSize() != 0) {
 				String originalFileExtension3 = mf.getOriginalFilename()
 						.substring(mf.getOriginalFilename().lastIndexOf("."));
@@ -341,14 +383,7 @@ public class PetsitterController {
 			vo.setPETSITTER_TYPE("N");
 		}
 
-		System.out.println("ID = " + vo.getPETSITTER_ID());
-		System.out.println("PW = " + vo.getPETSITTER_PW());
-		System.out.println("TEL = " + vo.getPETSITTER_TEL());
-		System.out.println("EMAIL = " + vo.getPETSITTER_EMAIL());
-		System.out.println("ADDRESS = " + vo.getPETSITTER_ADDRESS());
-		System.out.println("PRICE_30M = " + vo.getPETSITTER_PRICE_30M());
-		System.out.println("PRICE_60M = " + vo.getPETSITTER_PRICE_60M());
-
+	
 		if (vo.getPETSITTER_PHOTO_HOME_FILE().equals("")) {
 			vo.setPETSITTER_PHOTO_HOME_FILE("N");
 		}
@@ -370,11 +405,7 @@ public class PetsitterController {
 		if (vo.getPETSITTER_PHOTO_PROFILE_FILE().equals("")) {
 			vo.setPETSITTER_PHOTO_PROFILE_FILE("N");
 		}
-		System.out.println(vo.getPETSITTER_SERVICE_LIST());
-		System.out.println(vo.getPETSITTER_PHOTO_HOME_FILE());
-		System.out.println(vo.getPETSITTER_PHOTO_CERT_FILE());
-		System.out.println(vo.getPETSITTER_CERT_LIST());
-		System.out.println(vo.getPETSITTER_TYPE());
+
 
 		int res = petsitterService.petsitterInsert(vo);
 
@@ -382,6 +413,6 @@ public class PetsitterController {
 			System.out.println("회원가입 성공");
 		}
 
-		return "home";
+		return "redirect:/home.me";
 	}
 }

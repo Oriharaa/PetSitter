@@ -17,6 +17,26 @@
  	String[] email = vo.getPETSITTER_EMAIL().split("@");
  	String[] address = vo.getPETSITTER_ADDRESS().split(",");
  	String[] type = vo.getPETSITTER_TYPE().split(",");
+ 	String safeaddress = vo.getPETSITTER_SAFEADDR();
+ 	String[] safeaddr = new String[2];
+ 	if(safeaddress.equals("N")){
+ 		safeaddr[0] = "";
+ 		safeaddr[1] = "";
+ 	}else{
+ 		safeaddr = vo.getPETSITTER_SAFEADDR().split(",");
+ 	}
+ 	String mgender= "";
+ 	String wgender= "";
+ 	String nickname = "";
+ 	if(!vo.getPETSITTER_NICKNAME().equals("N")){
+ 		nickname = vo.getPETSITTER_NICKNAME();
+ 	}
+ 	if(vo.getPETSITTER_GENDER().equals("남")){
+ 		mgender = "checked";
+ 	}
+ 	if(vo.getPETSITTER_GENDER().equals("여")){
+ 		wgender = "checked";
+ 	}
  	
     if(session.getAttribute("id") == "") {
         out.println("<script>");
@@ -61,16 +81,16 @@
  	String bigsize = "";
  	String yard = "";
  	String olddog = "";
- 	if(Arrays.asList(service).contains("pickup")){
+ 	if(Arrays.asList(service).contains("픽업 가능")){
  		pickup = "checked";
  	}
- 	if(Arrays.asList(service).contains("bigsize")){
+ 	if(Arrays.asList(service).contains("대형견 케어 가능")){
  		bigsize = "checked";
  	}
- 	if(Arrays.asList(service).contains("yard")){
+ 	if(Arrays.asList(service).contains("마당 존재")){
  		yard = "checked";
  	}
- 	if(Arrays.asList(service).contains("olddog")){
+ 	if(Arrays.asList(service).contains("노견 케어 가능")){
  		olddog = "checked";
  	}
 %>
@@ -1410,7 +1430,7 @@ function handleImgFileSelect11(e){
 				  <div class = "col-04" style = "padding : 0 15px;">
 				    <h2 class="mpname float-left"><%=name %></h2>
 						<h5 class="mpneem float-none">님</h5>
-				    <h3 class="mpnick">닉네임 : <%=vo.getPETSITTER_NICKNAME() %></h3>
+				    <h3 class="mpnick">닉네임 : <%=nickname %></h3>
 				    <h5 class="mpgrade">등급 : <%=vo.getPETSITTER_RANK() %></h5>
 				    <h5 class="mpdate font-size-16">가입일 : <%=vo.getPETSITTER_DATE().substring(0,10) %></h5>
 				  </div>
@@ -1491,15 +1511,15 @@ function handleImgFileSelect11(e){
 	  </form>
 	</div>
 	
-  <table>
- 	<colgroup>
-	  <col style="width:15%">
-	  <col style="width:20%">
-	  <col style="width:20%">
-	  <col style="width:20%">
-	  <col style="width:15%">
-	  <col style="width:15%">
-	  <col style="width:15%">
+<table style="width:100%;">
+    <colgroup>
+     <col style="width: 15%;">
+     <col style="width: 15%;">
+     <col style="width: 15%;">
+     <col style="width: 15%;">
+     <col style="width: 12%;">
+     <col style="width: 12%;">
+     <col style="width: 16%;">
 	</colgroup> 
       <thead>
 		<tr class="table_headRow" style = "color : #5e5e5e;">
@@ -1524,7 +1544,7 @@ function handleImgFileSelect11(e){
 <!-- 이용현황 및 내역 끝!!-->
 
 <!-- Modal 스케쥴 관리 시작-->
-<div class="modal fade" id="staticBackdrop03" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop03" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -1574,7 +1594,7 @@ function handleImgFileSelect11(e){
 <!-- Modal 스케쥴 관리종료-->
 
 <!-- Modal 회원정보변경시작-->
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-scrollable">
     <div class="modal-content">
     
@@ -1587,23 +1607,29 @@ function handleImgFileSelect11(e){
       <div class="modal-body">
       	<div class = "row">
       		<div class = "col-12">
-      		    <form action = "petsitterUpdate.me" method = "post" id = "petsitterUpdate" enctype="multipart/form-data">
+      		    <form name = "petsitterUpdate" action = "petsitterUpdate.me" method = "post" id = "petsitterUpdate" enctype="multipart/form-data">
       			<input type = "hidden" value = <%=vo.getPETSITTER_ID() %> name = "PETSITTER_ID">
-      			
+      			<input type = "hidden" id = "addrX" value = <%=vo.getPETSITTER_ADDRX() %> name = "addrX">
+      			<input type = "hidden" id = "addrY" value = <%=vo.getPETSITTER_ADDRY() %> name = "addrY">
       			<table class="table table-sm table-hover table-striped" style = "font-size : 15px;">
       				<tr>
       					<th width = "300px">닉네임 :</th>
-      					<td colspan = "2" ><input id="userNickname" type = "text" size = "12" name = "nickname" class = "float-left" value = "<%=vo.getPETSITTER_NICKNAME() %>"><div class = "check_font" id = "nickname_check"></div></td>
+      					<td colspan = "2" ><input id="userNickname" type = "text" size = "12" name = "nickname" class = "float-left" value = "<%=nickname %>"><div class = "check_font" id = "nickname_check"></div></td>
       				</tr>
       				<tr>
       					<th>새 비밀번호 :</th>
-      					<td colspan = "2"><input type = "password" name = "pw" size = "12" class = "float-left" value = "<%=vo.getPETSITTER_PW()%>"></td>
+      					<td colspan = "2"><input id="pw1" type = "password" name = "pw" size = "12" class = "float-left" value = "<%=vo.getPETSITTER_PW()%>"></td>
       				</tr>
       				<tr>
       					<th>새 비밀번호 확인 :</th>
-      					<td colspan = "2"><input type = "password" size = "12" class = "float-left" value = "<%=vo.getPETSITTER_PW()%>">
-      					</td>
+      					<td colspan = "2"><input id="pw2" type = "password" size = "12" class = "float-left" value = "<%=vo.getPETSITTER_PW()%>">
+      					<input class="alert alert-danger" value="비밀 번호가 일치하지 않습니다." style="padding: 4px; margin-bottom: 0; width: 250px; height: 31px; text-align: center;">
       					
+      					</td>
+      				</tr>
+      				<tr>
+      					<th>성별 : </th>
+      					<td colspan = "2"><label class = "float-left"><input type = "radio" name = "gender" value = "남" <%=mgender %>>남자&nbsp;&nbsp;<input type = "radio" name = "gender" value = "여" <%=wgender %>>여자</label>
       				</tr>
       				<tr>
       					<th>이메일 변경 :</th>
@@ -1614,14 +1640,14 @@ function handleImgFileSelect11(e){
 						    
       				</tr>
 					<tr>
-      					<th>주소 변경 :</th>
-      					<td><input type = "text" name="address" value = "<%=address[0] %>" size = "30"  class = "float-left" id="sample4_postcode">
+      					<th>우편 번호 :</th>
+      					<td><input type = "text" name="address" value = "<%=address[0] %>" size = "30"  class = "float-left" id="sample4_postcode" readonly>
       					<input type="button" class="modalbt05 float-left" onclick="sample4_execDaumPostcode();" value="주소 검색 ">
       					</td>
       				</tr>
       				<tr>
       					<th>도로명 주소 :</th>
-      					<td><input type = "text" name = "address" value = "<%=address[1] %>" size = "30"  class = "float-left" id="sample4_roadAddress">
+      					<td><input type = "text" name = "address" value = "<%=address[1] %>" size = "30"  class = "float-left" id="sample4_roadAddress" readonly>
       					<input type="hidden" id="guide" style="color:#999;display:none">
       					<input type="hidden" id="sample4_extraAddress" class="inpt" placeholder="참고항목" readonly>
       					<input type="hidden" id="sample4_jibunAddress" class="inpt" placeholder="지번주소" readonly>
@@ -1631,6 +1657,18 @@ function handleImgFileSelect11(e){
       					<td colspan = "2" ><input type = "text" name="address" value = "<%=address[2] %>" size = "30" class = "float-left"></td>
       				</tr>
       				<tr>
+      					<th>도로명 주소(안심 주소) :</th>
+      					<td><input type = "text" placeholder="ex) 신논현역" name = "safeaddr" value = "<%=safeaddr[0] %>" size = "30"  class = "float-left" id="sample4_roadAddress1" readonly>
+      					<input type="button" class="modalbt05 float-left" onclick="sample4_execDaumPostcode1();" value="주소 검색 ">
+      					<input type="hidden" id="guide1" style="color:#999;display:none">
+      					<input type="hidden" id="sample4_extraAddress1" class="inpt" placeholder="참고항목" readonly>
+      					<input type="hidden" id="sample4_jibunAddress1" class="inpt" placeholder="지번주소" readonly>			
+      				</tr>
+      				<tr>
+      				    <th>상세 주소(안심 주소) :</th>
+      				    <td colspan = "2" ><input type = "text" placeholder="ex) 신논현역 5분거리" name="safeaddr" value = "<%=safeaddr[1] %>" size = "30" class = "float-left"></td>
+      				</tr>
+      				<tr>
       					<th>전화번호 :</th>
       					<td colspan = "2"><input type = "text" name = "tel" value = "<%=vo.getPETSITTER_TEL() %>" size = "10" class = "float-left">
       					</td>
@@ -1638,8 +1676,8 @@ function handleImgFileSelect11(e){
       				
       				<%for(int i = 0; i < 3;i++){ %>
       				<tr>
-      					<th>자격증<%=i+1 %> :</th>
-      					<td colspan = "2"><input name = "certName" type = "text" value = <%if(cert>i){ %>"<%=certName[i] %>"<% %>}else{ %>""<%} %>  size = "50" class = "float-left"></td>
+      					<th>자격증 이름<%=i+1 %> :</th>
+      					<td colspan = "2"><input name = "certName" type = "text" value = <%if(cert>i){ %><%=certName[i] %><%}else{ %>""<%} %>  size = "50" class = "float-left"></td>
       				</tr>
       				<tr>
       					<th>자격증 사진<%=i+1 %> :</th>
@@ -1648,8 +1686,12 @@ function handleImgFileSelect11(e){
 							<div class = "img_wrap" id = "img<%=i+1 %>" <%if(!(cert>i)){ %>style = "display:none"<%} %> >
       						<img id= "img" class="img<%=i+1 %>" <%if(cert>i){ %> src= "/filepath/<%=certFile[i] %>"<%} %>/>
       					</div>
-      						<input type= "text" name = "certState" class="upload-name" <%if(cert>i){ %>value="파일변경"<%}else{ %>value="파일선택"<%} %> readonly> 
-      						<label for="ex_filename0<%=i+1 %>">업로드</label><input type="file" name = "certFile" id="ex_filename0<%=i+1 %>" class="upload-hidden"> </div>
+      						<input type= "text" id = "certState<%=i+1 %>" name = "certState" class="upload-name" <%if(cert>i){ %>value="파일변경"<%}else{ %>value="파일선택"<%} %> readonly> 
+      						<label for="ex_filename0<%=i+1 %>">업로드</label><input type="file" name = "certFile" id="ex_filename0<%=i+1 %>" class="upload-hidden">
+      						<img src="resources/images/deleteimage.jpg" id="deleteimg<%=i+1 %>" onclick="deleteImage<%=i+1 %>()" 
+		      				style="position: absolute; width: 20px; margin-top: 16px; opacity: 0.5;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'"/> 
+      						
+      						 </div>
       					</td>
       				</tr>
       				<%} %>
@@ -1672,27 +1714,27 @@ function handleImgFileSelect11(e){
       				<tr>
       					<th>대형견 가능 : </th>
       					<td>
-									<input type="checkbox" name="servicelist" value="bigsize" class = "float-left radioC" <%if(bigsize.equals("checked")){ %>checked<%} %>/><div class = "float-left">가능</div>					
+									<input type="checkbox" name="servicelist" value="대형견 케어 가능" class = "float-left radioC" <%if(bigsize.equals("checked")){ %>checked<%} %>/><div class = "float-left">가능</div>					
 								</td>
 							</tr>
 							<tr>
       					<th>노견 케어가능 : </th>
       					<td>
-									<input type="checkbox" name="servicelist" value="olddog" class = "float-left radioC" <%if(olddog.equals("checked")){ %>checked<%} %>/><div class = "float-left">가능</div>
+									<input type="checkbox" name="servicelist" value="노견 케어 가능" class = "float-left radioC" <%if(olddog.equals("checked")){ %>checked<%} %>/><div class = "float-left">가능</div>
 									
 								</td>
 							</tr>
 							<tr>
       					<th>고객 집 픽업 : </th>
       					<td>
-									<input type="checkbox" name="servicelist" value="pickup" class = "float-left radioC" <%if(pickup.equals("checked")){ %>checked<%} %>/><div class = "float-left">가능</div>
+									<input type="checkbox" name="servicelist" value="픽업 가능" class = "float-left radioC" <%if(pickup.equals("checked")){ %>checked<%} %>/><div class = "float-left">가능</div>
 									
 								</td>
 							</tr>
 							<tr>
       					<th>마당 유무 : </th>
       					<td>
-									<input type="checkbox" name="servicelist" value="yard" class = "float-left radioC" <%if(yard.equals("checked")){ %>checked<%} %>/><div class = "float-left">있음</div>
+									<input type="checkbox" name="servicelist" value="마당 존재" class = "float-left radioC" <%if(yard.equals("checked")){ %>checked<%} %>/><div class = "float-left">있음</div>
 									
 								</td>
 							</tr>
@@ -1753,8 +1795,11 @@ function handleImgFileSelect11(e){
       						<img id= "img" class="img<%=j+6 %>" <%if(home>j){ %> src= "/filepath/<%=homeFile[j] %>"<%} %>/>
       					</div>
 									<div class="filebox float-left"> 
-      						<input class="upload-name" type ="text" name = "homeState" <%if(home>j){ %>value="파일변경"<%}else{ %>value="파일선택"<%} %> readonly> 
-      						<label for="ex_filename0<%=j+6 %>">업로드</label><input type="file" name = "photoHome" id="ex_filename0<%=j+6 %>" class="upload-hidden"> </div>
+      						<input class="upload-name" id="homeState<%=j+6 %>" type ="text" name = "homeState" <%if(home>j){ %>value="파일변경"<%}else{ %>value="파일선택"<%} %> readonly> 
+      						<label for="ex_filename0<%=j+6 %>">업로드</label><input type="file" name = "photoHome" id="ex_filename0<%=j+6 %>" class="upload-hidden">
+      						<img src="resources/images/deleteimage.jpg" id="deleteimg<%=j+6 %>" onclick="deleteImage<%=j+6 %>()" 
+		      				style="position: absolute; width: 20px; margin-top: 16px; opacity: 0.5;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'"/>
+      						 </div>
       						
       					</td>
       				</tr> 
@@ -1767,8 +1812,11 @@ function handleImgFileSelect11(e){
       						<img id= "img" class="img<%=k+9%>" <%if(appeal>k){ %> src= "/filepath/<%=appealFile[k] %>"<%} %>/>
       					</div>
 									<div class="filebox float-left"> 
-      						<input class="upload-name" type ="text" name = "AppealState" <%if(appeal>k){ %>value="파일변경"<%}else{ %>value="파일선택"<%} %> readonly> 
-      						<label for="ex_filename0<%=k+9%>">업로드</label><input type="file" name = "photoAppeal" id="ex_filename0<%=k+9%>" class="upload-hidden"> </div>
+      						<input class="upload-name" id="AppealState<%=k+9 %>" type ="text" name = "AppealState" <%if(appeal>k){ %>value="파일변경"<%}else{ %>value="파일선택"<%} %> readonly> 
+      						<label for="ex_filename0<%=k+9%>">업로드</label><input type="file" name = "photoAppeal" id="ex_filename0<%=k+9%>" class="upload-hidden">
+      						<img src="resources/images/deleteimage.jpg" id="deleteimg<%=k+9 %>" onclick="deleteImage<%=k+9 %>()" 
+		      				style="position: absolute; width: 20px; margin-top: 16px; opacity: 0.5;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'"/>
+      						 </div>
       						
       					</td>
       				</tr>
@@ -1781,7 +1829,7 @@ function handleImgFileSelect11(e){
 
       <div class="modal-footer">
         <button type="button" class="btn modalbt01" data-dismiss="modal">닫기</button>
-        <input type = "button" id = "Update_submit" onclick="document.getElementById('petsitterUpdate').submit();" class="btn modalbt02" value = "확인">
+        <input type = "button" id = "Update_submit" onclick="btnUpdate();" class="btn modalbt02" value = "확인">
       </div>
       
     </div>
@@ -1792,7 +1840,7 @@ function handleImgFileSelect11(e){
 
 
 <!-- Modal 답글 남기기 시작-->
-<div class="modal fade" id="staticBackdrop02" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop02" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -1911,6 +1959,91 @@ function handleImgFileSelect11(e){
       
 		<!-- 모달 구현 제이쿼리(부트스트랩용) 회원정보 수정 시작-->
     <script type="text/javascript">
+
+    
+    function deleteImage1(){
+			$("#ex_filename01").val("");
+			$("#certState1").val("파일선택");
+			$("#img1").hide();
+    };
+    
+    function deleteImage2(){
+		$("#ex_filename02").val("");
+		$("#certState2").val("파일선택");
+		$("#img2").hide();
+	};
+	
+    function deleteImage3(){
+		$("#ex_filename03").val("");
+		$("#certState3").val("파일선택");
+		$("#img3").hide();
+	};
+	
+    function deleteImage4(){
+		$("#ex_filename04").val("");
+		$("#certState4").val("파일선택");
+		$("#img4").hide();
+	};
+	
+    function deleteImage5(){
+		$("#ex_filename05").val("");
+		$("#certState5").val("파일선택");
+		$("#img5").hide();
+	};
+	
+    function deleteImage6(){
+		$("#ex_filename06").val("");
+		$("#homeState6").val("파일선택");
+		$("#img6").hide();
+	};
+	
+    function deleteImage7(){
+		$("#ex_filename07").val("");
+		$("#homeState7").val("파일선택");
+		$("#img7").hide();
+	};
+	
+    function deleteImage8(){
+		$("#ex_filename08").val("");
+		$("#homeState8").val("파일선택");
+		$("#img8").hide();
+	};
+	
+    function deleteImage9(){
+		$("#ex_filename09").val("");
+		$("#AppealState9").val("파일선택");
+		$("#img9").hide();
+	};
+	
+    function deleteImage10(){
+		$("#ex_filename010").val("");
+		$("#AppealState10").val("파일선택");
+		$("#img10").hide();
+	};
+	
+    function deleteImage11(){
+		$("#ex_filename011").val("");
+		$("#AppealState11").val("파일선택");
+		$("#img11").hide();
+	};
+	
+    
+    $(function(){
+    	$(".alert-danger").hide();
+    	$("#pw2").on("keyup", function() {
+			let pw1 = $("#pw1").val();
+			let pw2 = $("#pw2").val();
+			if(pw1 !== pw2) {
+				$(".alert-danger").show();
+				$("#Update_submit").attr("disabled", true);
+			} else {
+				$(".alert-danger").hide();
+				$("#Update_submit").attr("disabled", false);
+			}
+		});
+    	
+    });
+    
     $('#myModal').on('shown.bs.modal', function () {
     	  $('#myInput').trigger('focus')
     	})
@@ -1927,8 +2060,64 @@ function handleImgFileSelect11(e){
     
 		<!-- 주소 창 불러오기 api 시작-->    
 		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=24e91ec8fe5a3a10070597915f67d6ba&libraries=services"></script>
 <script>
     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+
+        function sample4_execDaumPostcode1() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("sample4_roadAddress1").value = roadAddr;
+                document.getElementById("sample4_jibunAddress1").value = data.jibunAddress;
+                
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if(roadAddr !== ''){
+                    document.getElementById("sample4_extraAddress1").value = extraRoadAddr;
+                } else {
+                    document.getElementById("sample4_extraAddress1").value = '';
+                }
+
+                var guideTextBox = document.getElementById("guide1");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+            }
+        }).open();
+    }
+    
     function sample4_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -1983,6 +2172,20 @@ function handleImgFileSelect11(e){
             }
         }).open();
     }
+    
+   	var geocoder = new kakao.maps.services.Geocoder();
+   	var callback = function(result, status){
+   		if (status === kakao.maps.services.Status.OK) {
+   	    	var coords = new kakao.maps.LatLng(result[0].x, result[0].y);
+   	    	$("#addrX").val(result[0].x);
+   	    	$("#addrY").val(result[0].y);
+   	    	document.petsitterUpdate.submit();
+   	    }
+   	};
+   	function btnUpdate(){
+   		geocoder.addressSearch($('#sample4_roadAddress').val(),callback);
+   	}
+
 		</script>
 		<!-- 주소 창 불러오기 api 종료-->
 		

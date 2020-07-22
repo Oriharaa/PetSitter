@@ -5,21 +5,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 /*
 create table PET(
-	MEMBER_ID varchar2(30), --����ID
-	PET_CATEGORY varchar2(20), --�ݷ����� ���� 
-	PET_KIND varchar2(20), --ǰ��
-	PET_NAME varchar2(20), --�̸�
-	PET_PHOTO varchar2(150), --����
-	PET_WEIGHT number(3), --����
-	PET_SIZE varchar2(5), --ũ��
-	PET_GENDER varchar2(6), --����
-	PET_BIRTH date, --�������
-	PET_NEUTERED varchar2(10), --�߼�ȭ ���� ����
-	PET_POTTYTRAN varchar2(10), --�躯 �Ʒ� ����
-	PET_VAOONE varchar2(10), --���� ���� ����
-	PET_QUESTION varchar2(30), --����?
-	PET_ETC varchar2(200), --��Ÿ?
-	PET_DATE date --��ϳ�¥
+	MEMBER_ID varchar2(30),
+	PET_CATEGORY varchar2(20), 
+	PET_KIND varchar2(20), 
+	PET_NAME varchar2(20), 
+	PET_PHOTO varchar2(150), 
+	PET_WEIGHT number(3), 
+	PET_SIZE varchar2(5), 
+	PET_GENDER varchar2(6), 
+	PET_BIRTH date, 
+	PET_NEUTERED varchar2(10),
+	PET_POTTYTRAN varchar2(10), 
+	PET_VAOONE varchar2(10),
+	PET_QUESTION varchar2(30), 
+	PET_ETC varchar2(200),
+	PET_DATE date 
 );
 */
 

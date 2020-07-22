@@ -6,8 +6,12 @@ public class PetsitterUpdateVO {
 	private String PETSITTER_ID;
 	private String nickname;
 	private String pw;
+	private double addrX;
+	private double addrY;
+	private String gender;
 	private String[] email;
 	private String address;
+	private String safeaddr;
 	private String tel;
 	private String introduce;
 	private String[] certName;
@@ -27,6 +31,30 @@ public class PetsitterUpdateVO {
 	
 	
 	
+	public String getSafeaddr() {
+		return safeaddr;
+	}
+	public void setSafeaddr(String safeaddr) {
+		this.safeaddr = safeaddr;
+	}
+	public double getAddrX() {
+		return addrX;
+	}
+	public void setAddrX(double addrX) {
+		this.addrX = addrX;
+	}
+	public double getAddrY() {
+		return addrY;
+	}
+	public void setAddrY(double addrY) {
+		this.addrY = addrY;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 	public String getIntroduce() {
 		return introduce;
 	}

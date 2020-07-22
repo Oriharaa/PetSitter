@@ -44,11 +44,12 @@ public class ProBoardController {
 		hashmap.put("endrow", endrow);
 		
 		List<ProBoardVO> boardlist = proboardService.getProBoardList(hashmap); // 다른 타입 2개를 전달해야하므로
-		
+
 		boardlist.get(0).getPRO_ORG_FILE().equals("N");
 		for(int i = 0; i < boardlist.size(); i++) {
 		boardlist.get(i).setREAL_DATE(new_Format.format(boardlist.get(i).getPRO_DATE()));
 		}
+
 		
 		//총 페이지 수
    		int maxpage=(int)((double)listcount/limit+0.95); //0.95를 더해서 올림 처리

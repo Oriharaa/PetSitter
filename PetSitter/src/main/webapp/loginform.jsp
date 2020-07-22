@@ -509,7 +509,7 @@ text-decoration:none;
         	</div>
 
         	<!-- 펫시터 회원가입1 -->
-			<form action="petsitter_join.me" method="post" onsubmit ="return petsitter_check_input();" enctype="multipart/form-data">
+			<form action="petsitter_join.me" id = "petsitter_submit_form" method="post" onsubmit ="return petsitter_check_input();" enctype="multipart/form-data">
 				<div class="signup-cont-cont cont">
 				
 				<input type="text" name="PETSITTER_ID" id="PETSITTER_ID" class="inpt" required="required" placeholder="아이디를 입력해주세요 ">
@@ -531,6 +531,9 @@ text-decoration:none;
 				<input type="hidden" id="guide" style="color:#999;display:none">
 				<input type="text" name="PETSITTER_ADDRESS" id="sample4_detailAddress" class="inpt" placeholder="상세주소">
 				<input type="hidden" id="sample4_extraAddress" class="inpt" placeholder="참고항목" readonly>
+				<input type="hidden" name = "PETSITTER_ADDRX" id="addrX" value = 0>
+				<input type="hidden" name = "PETSITTER_ADDRY" id="addrY" value = 0>
+
 <!-- 주소검색 api -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -715,10 +718,26 @@ text-decoration:none;
 		    <div class="half bg"></div>
 	</section>
 
-
-
+<script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript">
+  <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=24e91ec8fe5a3a10070597915f67d6ba&libraries=services"></script>
+<script>
+var geocoder = new kakao.maps.services.Geocoder();
+var callback = function(result, status) { //입력된 도로명주소의 좌표값을 구하는 함수
+    if (status === kakao.maps.services.Status.OK) {
+    	var coords = new kakao.maps.LatLng(result[0].x, result[0].y);
+    	$("#addrX").val(result[0].x);
+    	$("#addrY").val(result[0].y);
+    }
+};
+
+
+function geocoderAddr(){ //입력된 도로명주소의 좌표값을 구하는 함수
+	geocoder.addressSearch($("#sample4_roadAddress").val(), callback);
+};
+
+
 
 
 var regExpId = /^[a-zA-Z0-9]{4,12}$/;
@@ -1261,10 +1280,13 @@ $('.tabs .tab').click(function(){
         $('.signup-cont-cont2').show();
     }
     if ($(this).hasClass('signup-petsitter3')) {
+    	geocoder.addressSearch($("#sample4_roadAddress").val(), callback);
+    	alert($("#sample4_roadAddress").val());
         $('.tabs .tab').removeClass('active');
         $(this).addClass('active');
         $('.cont').hide();
         $('.signup-cont-cont3').show();
+        
     }
     if ($(this).hasClass('signup-petsitter4')) {
         $('.tabs .tab').removeClass('active');
