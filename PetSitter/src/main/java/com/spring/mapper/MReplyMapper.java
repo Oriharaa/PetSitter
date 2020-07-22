@@ -16,4 +16,6 @@ public interface MReplyMapper {
 	public void checkArticle2(String id);
 	public void checkReply(@Param("bno")String bno, @Param("rno")String rno);
 	public void checkReply2(@Param("bno")String bno, @Param("rno")String rno);
+	public int searchIdReportReply(@Param("id")String id, @Param("bno")int bno, @Param("rno")int rno);
+	public int searchIdReportArticle(@Param("id")String id, @Param("num")int num);
 }

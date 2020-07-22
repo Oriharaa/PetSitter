@@ -61,4 +61,12 @@
 	<update id="checkReply2" parameterType="com.spring.petsitter.board.mboard.ReportReplyVO">
 		update report_reply set processing = 'N' where bno=#{bno} and rno=#{rno}
 	</update>
+	
+	<select id="searchIdReportReply" parameterType="com.spring.petsitter.board.mboard.ReportReplyVO" resultType="int">
+		select count(*) from report_reply where member_id = #{id} and bno = #{bno} and rno = #{rno}
+	</select>
+	
+	<select id="searchIdReportArticle" parameterType="com.spring.petsitter.board.mboard.ReportArticleVO" resultType="int">
+		select count(*) from report_article where member_id = #{id} and member_num = #{num}
+	</select>
 </mapper>

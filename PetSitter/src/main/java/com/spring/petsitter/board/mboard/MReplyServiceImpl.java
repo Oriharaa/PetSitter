@@ -69,4 +69,16 @@ public class MReplyServiceImpl implements MReplyService {
 		mReplyMapper.checkReply2(bno, rno);
 		System.out.println("checkReply2 ServiceImpl");
 	}
+
+	@Override
+	public int searchIdReportReply(String id, int bno, int rno) {
+		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
+		return mReplyMapper.searchIdReportReply(id, bno, rno);
+	}
+
+	@Override
+	public int searchIdReportArticle(String id, int num) {
+		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
+		return mReplyMapper.searchIdReportArticle(id, num);
+	}
 }
