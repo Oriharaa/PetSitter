@@ -258,7 +258,7 @@ p {
                                     		<th width="7%">리플번호</th>
                                     		<th width="51%">신고이유</th>
                                     		<th width="15%">신고자</th>
-                                    		<th width="10%">게시판</th>
+                                    		<th width="13%">게시판</th>
                                     		<th width="10%">처리상태</th>
                                     	</thead>
 																			<tbody>
@@ -270,13 +270,26 @@ p {
 																						<td><%=rr.getRNO() %></td>
 																						<td><%=rr.getREPORT_REASON() %></td>
 																						<td><%=rr.getMEMBER_ID() %></td>
-																						<td><%=rr.getBTYPE() %></td>
 																						<td>
-																							<label class="switch">
-																							  <input type="checkbox">
-																							  <span class="slider round"></span>
-																							</label>
-																							<p>OFF</p><p style="display:none;">ON</p>
+																						<% 
+																							if(rr.getBTYPE().equals("mboard")) {
+																								out.println("이용자 문의 게시판");
+																							} else {
+																								out.println(rr.getBTYPE());
+																							}
+																						%>
+																						</td>
+																						<td>
+																						<%
+																						if(rr.getPROCESSING().equals("N")) {
+																						%>
+																						<a type="button" class="btn btn-sm btn-outline-primary" href="./checkReply.me?bno=<%=rr.getBNO()%>&rno=<%=rr.getRNO()%>">처리중</a>
+																						<%
+																							} else { %>
+																						<a type="button" class="btn btn-sm btn-outline-success" href="./checkReply2.me?bno=<%=rr.getBNO()%>&rno=<%=rr.getRNO()%>">처리완</a>																							
+																						<%
+																							}
+																						%>
 																						</td>
 																					</tr>
 																					<%} %>

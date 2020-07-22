@@ -190,6 +190,8 @@ $(document).ready(function() {
 																						<% 
 																							if(ra.getBTYPE().equals("mboard")) {
 																								out.println("이용자 문의 게시판");
+																							} else {
+																								out.println(ra.getBTYPE());
 																							}
 																						%>
 																						</td>

@@ -14,7 +14,7 @@
 	name = (String)session.getAttribute("name");
 	rank = (String)session.getAttribute("rank");
 	
-	List<ReportArticleVO> ralist = (List<ReportArticleVO>)request.getAttribute("ra_list");
+	List<ReportArticleVO> ralist = (List<ReportArticleVO>)request.getAttribute("ra_list");	
 	List<PetsitterVO> petsitterlist = (List<PetsitterVO>)request.getAttribute("petsitter_list");
 %>
 <%

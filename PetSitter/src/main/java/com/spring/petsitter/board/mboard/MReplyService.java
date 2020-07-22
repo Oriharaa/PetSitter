@@ -10,4 +10,6 @@ public interface MReplyService {
   public int deleteReply(int rno) throws Exception;
 	public void checkArticle(String id);
 	public void checkArticle2(String id);
+	public void checkReply(String bno, String rno);
+	public void checkReply2(String bno, String rno);
 }

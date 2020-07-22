@@ -6,7 +6,8 @@ public class ReportArticleVO {
     member_num number,
     report_reason varchar2(4000),
     member_id varchar2(30),
-    btype varchar2(100)
+    btype varchar2(100),
+    processing varchar2(10)
 	);
 	 */
 	

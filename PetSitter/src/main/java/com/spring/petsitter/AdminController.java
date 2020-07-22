@@ -201,7 +201,7 @@ public class AdminController {
 		System.out.println(id + " 변경 완료");
 	}
 	
-	/* 신고 처리 N -> Y*/
+	/* 본문 신고 처리 N -> Y */
 	@RequestMapping(value = "checkArticle.me")
 	public String report_article_check(@RequestParam(value="id", required=true) String id) throws Exception {
 		mreplyService.checkArticle(id);
@@ -211,7 +211,7 @@ public class AdminController {
 		return "redirect:/admin_reportArticle.me";
 	}
 	
-	/* 신고 처리 Y -> N*/
+	/* 본문 신고 처리 Y -> N */
 	@RequestMapping(value = "checkArticle2.me")
 	public String report_article_check2(@RequestParam(value="id", required=true) String id) throws Exception {
 		mreplyService.checkArticle2(id);
@@ -219,5 +219,21 @@ public class AdminController {
 		System.out.println(id + " 처리 완료");
 		
 		return "redirect:/admin_reportArticle.me";
+	}
+	
+	/* 리플 신고 처리 N -> Y */
+	@RequestMapping(value = "checkReply.me")
+	public String report_reply_check(@RequestParam(value="bno", required=true) String bno, @RequestParam(value="rno", required=true) String rno) throws Exception {
+		mreplyService.checkReply(bno, rno);
+		
+		return "redirect:/admin_reportReply.me";
+	}
+	
+	/* 리플 신고 처리 Y -> N */
+	@RequestMapping(value = "checkReply2.me")
+	public String report_reply_check2(@RequestParam(value="bno", required=true) String bno, @RequestParam(value="rno", required=true) String rno) throws Exception {
+		mreplyService.checkReply2(bno, rno);
+		
+		return "redirect:/admin_reportReply.me";
 	}
 }
