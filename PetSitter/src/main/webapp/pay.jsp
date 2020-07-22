@@ -86,7 +86,7 @@
 						var msg = '결제에 실패하였습니다. 에러내용 : ' + rsp.error_msg
 					}
 					alert(msg);
-					location.href='payConfirm.br';
+					location.href='payConfirm.br?mid=' + rsp.merchant_uid;
 				});
 			});
     </script>

@@ -37,6 +37,10 @@ public class PayController {
 	public void insertPay(PayVO payvo, HttpSession session) {
 		try {
 			payvo.setPAY_ID((String)session.getAttribute("id"));
+			String[] pay_start_date = payvo.getSTART_DATE().split(",");
+			String[] pay_end_date = payvo.getEND_DATE().split(",");
+			payvo.setSTART_DATE(pay_start_date[0] + " " + pay_start_date[1]);
+			payvo.setEND_DATE(pay_end_date[0] + " " + pay_end_date[1]);
 			payService.insertPay(payvo);
 			
 			PetsitterVO petsitter = petsitterService.selectPetsitter(payvo.getPETSITTER_ID());
@@ -73,7 +77,9 @@ public class PayController {
 	}
 	
 	@RequestMapping(value = "payConfirm.br")
-	public String payConfirm() {
+	public String payConfirm(@RequestParam(value = "mid") String merchant_uid, Model model) {
+		PayVO payvo = payService.selectPay(merchant_uid);
+		model.addAttribute("payvo", payvo);
 		return "payConfirm";
 	}
 	

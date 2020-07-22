@@ -34,11 +34,11 @@
 							merchant_uid: "<%=payvo.getMERCHANT_UID() %>"
 						},
 						success: function() {
-							console.log("결제 취소 성공");
+							alert("결제 취소 성공");
 							location.href='memberinfo.me?id=' + "<%=payvo.getPAY_ID() %>";
 						},
 						error: function() {
-							console.log("결제 취소 실패");
+							alert("결제 취소 실패");
 						}
 					});
 				}).fail(function(fail) {

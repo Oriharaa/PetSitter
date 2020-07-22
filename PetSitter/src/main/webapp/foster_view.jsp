@@ -510,7 +510,9 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 											<input type="hidden" name="PETSITTER_ID" id="PETSITTER_ID" value=<%=petsitter_id %> >
 											<input type="hidden" name="PAY_TYPE" id="PAY_TYPE" value="위탁" >
 											<input type="hidden" name="START_DATE" id="START_DATE" value=<%=start_date %>>
+											<input type="hidden" name="START_DATE" id="START_TIME">
 											<input type="hidden" name="END_DATE" id="END_DATE" value=<%=end_date %>>
+											<input type="hidden" name="END_DATE" id="END_TIME">
 											<input type="submit" style="background:#53dc98; color :white; width : 60%; height : 38px; margin : 4px 0 31px 0;" class="btn btn-sm font-size-14" value="예약 신청">
 										</form>
 									</div>
@@ -1224,6 +1226,15 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 				});
 			});
 			
+		</script>
+		
+		<script>
+			$(function() {
+				var start_time = (String) ($("#timePicker_start").timepicker("getTime"));
+				var end_time = (String) ($("#timePicker_end").timepicker("getTime"));
+				$("#START_TIME").val(start_time.substr(16, 5));
+				$("#END_TIME").val(end_time.substr(16, 5));
+			});
 		</script>
 </body>
 </html>
