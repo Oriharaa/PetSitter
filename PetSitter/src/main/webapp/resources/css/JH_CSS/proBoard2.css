@@ -189,27 +189,53 @@
 	}
 	
 	.pbtn01 {
-	background:#53dc98;
+	background:#53dc98!important;
 	color : white;
-	border : 1px solid #53DC98;
+	border : 1px solid #53DC98!important;
 	}	
 
+	
 	.pbtn02 {
-	background:#e67e22;
+	background:#e67e22!important;
 	color : white;
 	margin : 0 0 0 5px;
-	border : 1px solid #e67e22;
+	border : 1px solid #e67e22!important;
 	}		
-	
-	.pbtn02:hover {
-	color : #e67e22!important;
-	background : white;
-	}
-	
+
+	.pbtn03 {
+	background : rgb(224, 224, 224)!important;
+	color : #5e5e5e!important;
+	margin : 0 0 0 5px;
+	border : 1px solid rgb(224, 224, 224)!important;
+	}		
+
+	.pbtn04 {
+	background:#53dc98!important;
+	color : white;
+	border : 1px solid #53DC98!important;
+	margin : 0 0 23px 15px;
+	}	
+		
 	.pbtn01:hover {
 	color : #53dc98!important;
-	font-weight : bold;
-	background : white;
+	font-weight : bold!important;
+	background : white!important;
+	}	
+
+	.pbtn02:hover {
+	color : #e67e22!important;
+	background : white!important;
+	}
+	
+	.pbtn03:hover {
+	color : #5e5e5e!important;
+	background : white!important;
+	}
+	
+	.pbtn04:hover {
+	color : #53dc98!important;
+	font-weight : bold!important;
+	background : white!important;
 	}	
 	
 		/*파일 선택 css 시작*/
@@ -273,7 +299,7 @@ margin-bottom: 5px;
 	.filebox .upload-thumb-wrap { 
 	/* 추가될 이미지를 감싸는 요소 */ 
 	display: inline-block; 
-	width: 70px; 
+	width: 100px; 
 	padding: 2px; 
 	vertical-align: middle; 
 	border: 1px solid #ddd; 
@@ -308,6 +334,8 @@ margin-bottom: 5px;
 	/*모달 버튼 시작*/
 	.modalbt01 {
 	background : rgb(224, 224, 224)!important;
+	height : 33px!important;]
+	padding-top : 1px!important;
 	}
 	
 	.modalbt02 {
@@ -390,7 +418,107 @@ margin-bottom: 5px;
 	
 	
 	.detailimg {
+	margin-right : 8px;
 	max-width : 300px;
 	height : auto;
-	
 	}
+	
+	.reportcss{
+	font-size : 12px;
+	color : rgba(211,84,0)!important;
+	float : right;
+	}
+
+	.replycountcss01{
+	font-size : 13px;
+	color : #5e5e5e!important;
+	}	
+
+	.replycountcss02{
+	font-size : 14px;
+	color : rgba(211,84,0)!important;
+	}		
+
+	.viewcontentcss{
+	font-size : 14px!important;
+	color : #5e5e5e!important;
+	float : none;
+	paddint : 0 7px;
+	}
+	
+	.modifyimg {
+	width : 100px;
+	}
+	.swal2-content {
+	font-size : 14px!important;
+	}
+	/*댓글css 시작*/
+	.pb-cmnt-container {
+  font-family: Lato;
+  margin-top: 100px;
+  }
+
+  .pb-cmnt-textarea {
+  resize: none;
+  padding: 20px;
+  margin-bottom: 10px;
+  height: 80px;
+  width: 100%;
+  border: 1px solid #827979!important;
+  }
+  
+	.padd00 {
+	padding : 0 0 0 0;
+	margin : 3% 0 0 0;
+	}  
+  
+  .replyArea {
+  border-bottom:1px solid #d3d3d3; 
+  margin-bottom: 14px;
+  }
+  
+  .replyboldfloat {
+  font-weight : bold;
+  color : #5e5e5e;
+  font-size : 14px;
+  float : left;
+  }
+  
+  .replyfontfloat {
+  color : #5e5e5e;
+  font-size : 14px; 
+  float : left; 
+  }  
+  
+  .replyfontfloat02 {
+  color : #5e5e5e;
+  font-size : 11px;
+  margin : 5px 10px 0 0;
+  float : right;
+  }  
+
+  .replyfontfloat03 {
+  color : #5e5e5e;
+  font-size : 11px; 
+  margin : 5px 0 0 0;  
+  float : right;  
+  }  
+  
+  .replybold {
+  font-weight : bold;
+  color : #5e5e5e;
+  font-size : 14px;
+  }
+  
+  .replyfont {
+  color : #5e5e5e;
+  font-size : 14px; 
+  }
+  
+  .tacss {
+  width : 79%;
+  margin : 8px 0 0 0;
+  }  
+    
+  /*댓글css 종료*/
+  

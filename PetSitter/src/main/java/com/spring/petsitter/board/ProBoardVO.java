@@ -20,6 +20,28 @@ create table PRO_BOARD(
     BOARD_TYPE VARCHAR2(20) default 'PRO_BOARD', -- 게시판 타입 
     SECRET_CHECK VARCHAR2(4) default 'N' -- 비밀게시판 확인 
 );
+
+글신고 테이블
+    create table report_article (
+    member_num number,
+    report_reason varchar2(4000),
+    member_id varchar2(30),
+    btype varchar2(100),
+    processing varchar2(10) default 'N',
+    check_id varchar2(2000) default 'N'
+    );
+    
+리플 신고 테이블
+    create table report_reply (
+    bno number,
+    rno number,
+    report_reason varchar2(4000),
+    member_id varchar2(30),
+    btype varchar2(100),
+    processing varchar2(10) default 'N',
+    check_id varchar2(2000) default 'N'
+    );    
+
 */
 public class ProBoardVO {
 
@@ -43,6 +65,10 @@ public class ProBoardVO {
 	private int startpage2;
 	private int endpage2;
 	private String SECRET_CHECK;
+	private String REPORT_REASON;
+	private String PHOTO_CHECK01;
+	private String PHOTO_CHECK02;
+	
 	
 	
 	public int getPRO_NUM() {
@@ -165,6 +191,24 @@ public class ProBoardVO {
 	}
 	public void setEndpage2(int endpage2) {
 		this.endpage2 = endpage2;
+	}
+	public String getREPORT_REASON() {
+		return REPORT_REASON;
+	}
+	public void setREPORT_REASON(String rEPORT_REASON) {
+		REPORT_REASON = rEPORT_REASON;
+	}
+	public String getPHOTO_CHECK01() {
+		return PHOTO_CHECK01;
+	}
+	public void setPHOTO_CHECK01(String pHOTO_CHECK01) {
+		PHOTO_CHECK01 = pHOTO_CHECK01;
+	}
+	public String getPHOTO_CHECK02() {
+		return PHOTO_CHECK02;
+	}
+	public void setPHOTO_CHECK02(String pHOTO_CHECK02) {
+		PHOTO_CHECK02 = pHOTO_CHECK02;
 	}
 
 	
