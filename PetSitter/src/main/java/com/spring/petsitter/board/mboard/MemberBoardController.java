@@ -25,14 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberBoardController {
 	
 	@Autowired
-<<<<<<< HEAD
-	private MemberBoardService memberboardService;
-=======
 	private MemberBoardService memberboardService;		
 	
 	@Autowired 
 	private MReplyService mReplyService;
->>>>>>> origin/PGKIM
 		
 	@RequestMapping(value = "/mboardlist.me")
 	public String memberboard(Model model,
@@ -157,9 +153,6 @@ public class MemberBoardController {
 		}
 		return null;
 	}
-<<<<<<< HEAD
-=======
-	
 
 	// 글 신고하기
 	@RequestMapping("/reportArticle.me")
@@ -203,7 +196,6 @@ public class MemberBoardController {
 			return "redirect:/mboarddetail.me?num=" + report.getBNO();
 		}
 	}
->>>>>>> origin/PGKIM
 
 	@RequestMapping("/filedownload.bo")
   public void fileDownload(HttpServletRequest request, HttpServletResponse response) throws Exception{

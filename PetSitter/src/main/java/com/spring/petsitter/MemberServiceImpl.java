@@ -83,23 +83,6 @@ public class MemberServiceImpl implements MemberService{
 		List<MemberUsinglistVO> usinglist_ajax = memberMapper.getUsingList_Member_ajax(id, startrow, endrow);
 		
 		return usinglist_ajax;
-	@Override
-	public void suspendedMember(String id) {
-		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
-		memberMapper.suspendedMember(id);		
-	}
-
-	@Override
-	public void rollbackMember(String id) {
-		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
-		memberMapper.rollbackMember(id);				
-	}
-
-	@Override
-	public List<MemberVO> changeMember(String rank, String id) {
-		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
-		List<MemberVO> change_member = memberMapper.changeMember(rank, id);
-		return change_member;
 	}
 	
 	@Override
@@ -130,5 +113,23 @@ public class MemberServiceImpl implements MemberService{
 		List<MemberUsinglistVO> usinglist_ajax = memberMapper.getUsingList_Member_ajax_calendar(id, startdate, enddate);
 		return usinglist_ajax;
 	}
-	
+
+	@Override
+	public void suspendedMember(String id) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		memberMapper.suspendedMember(id);		
+	}
+
+	@Override
+	public void rollbackMember(String id) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		memberMapper.rollbackMember(id);				
+	}
+
+	@Override
+	public List<MemberVO> changeMember(String rank, String id) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		List<MemberVO> change_member = memberMapper.changeMember(rank, id);
+		return change_member;
+	}
 }
