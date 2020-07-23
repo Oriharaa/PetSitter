@@ -1,5 +1,6 @@
 package com.spring.petsitter;
 
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,14 +40,24 @@ public class MemberController {
 	private ReviewBoardService reviewboardService;
 	
 	@Autowired
+<<<<<<< HEAD
 	private PayService payService;
 
+=======
+	private PetsitterService petsitterService;
+	
+	@RequestMapping(value = "notice.me")
+	public String notice(Model model) {
+		return "notice";
+	}
+	
+>>>>>>> origin/MH
 	@RequestMapping(value = "memberinfo.me")
 	public ModelAndView profile(MemberVO vo, @RequestParam(value = "id") String id, Model model) {
 		ModelAndView mv = new ModelAndView();
 		
 		MemberVO membervo = memberService.selectMember(id);
-		String[] tel = membervo.getMEMBER_TEL().split("-");
+		String tel = membervo.getMEMBER_TEL();
 		String[] address = membervo.getMEMBER_ADDRESS().split(",");
 		int review_count = reviewboardService.getReviewListCount_member(id);
 		
@@ -262,6 +273,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "home.me")
 	public String home(Model model) {
+<<<<<<< HEAD
 		// 신규 추천 펫시터 3명
 		ArrayList<PetsitterVO> petsitter_list_date = petsitterService.petsitterList_date();
 		
@@ -289,6 +301,12 @@ public class MemberController {
 		model.addAttribute("petsitter_this_month", petsitter_this_month);
 		model.addAttribute("petsitter_this_month_score", petsitter_this_month_score);
 		model.addAttribute("petsitter_this_month_count", petsitter_this_month_count);
+=======
+		ArrayList<PetsitterVO> list = new ArrayList<PetsitterVO>();
+		list = petsitterService.petsitterList();
+		model.addAttribute("list",list);
+		
+>>>>>>> origin/MH
 		return "home";
 	}
 	
@@ -315,21 +333,26 @@ public class MemberController {
 
 	@RequestMapping(value = "memberUpdate.me")
 	public String member_update(MemberVO vo, HttpServletRequest request) throws Exception {
-		String[] tel = request.getParameterValues("MEMBER_TEL");
 		String[] address = request.getParameterValues("MEMBER_ADDRESS");
-		vo.setMEMBER_TEL(tel[0] + "-"  + tel[1] + "-" + tel[2]);
+		if(address[0].equals("N")) {
+			vo.setMEMBER_ADDRESS("N");
+		}else {
 		vo.setMEMBER_REAL_ADDRESS(address[0] + " " + address[1] + " " + address[2]);
-		
+		}
 		MultipartFile mf = vo.getMEMBER_PHOTO();
 		String uploadPath = "C:\\Project156\\upload\\";
-
+		
+		MemberVO member = memberService.selectMember(vo.getMEMBER_ID());
+		if(vo.getMEMBER_GENDER() == null) {
+			vo.setMEMBER_GENDER("N");
+		}
 		if(mf.getSize() != 0) {
 			String originalFileExtension = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));
 			String storedFileName = UUID.randomUUID().toString().replaceAll("-", "")+ originalFileExtension;
 			mf.transferTo(new File(uploadPath+storedFileName));
 			vo.setMEMBER_PHOTO_FILE(storedFileName);
 		} else {
-			vo.setMEMBER_PHOTO_FILE("N");
+			vo.setMEMBER_PHOTO_FILE(member.getMEMBER_PHOTO_FILE());
 		}
 		
 		memberService.updateMember(vo);
