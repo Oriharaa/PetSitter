@@ -169,11 +169,21 @@ public class MemberBoardController {
 		System.out.println("신고 사유 : " + report.getREPORT_REASON());
 		System.out.println("신고 게시판 : " + report.getBTYPE());
 		memberboardService.reportInsert(report);
-		return "redirect:/mboarddetail.me?num=" + report.getMEMBER_NUM();
+			if(report.getBTYPE().equals("mboard")) {
+				return "redirect:/mboarddetail.me?num=" + report.getMEMBER_NUM();
+			} else if(report.getBTYPE().equals("pqboard")) {
+				return "redirect:/pqboarddetail.me?bno=" + report.getMEMBER_NUM();
+			}
 		} else {
 			System.out.println("이미 신고한 사용자입니다.");
-			return "redirect:/mboarddetail.me?num=" + report.getMEMBER_NUM();
+			if(report.getBTYPE().equals("mboard")) {
+				return "redirect:/mboarddetail.me?num=" + report.getMEMBER_NUM();
+			} else if(report.getBTYPE().equals("pqboard")) {
+				return "redirect:/pqboarddetail.me?bno=" + report.getMEMBER_NUM();
+			}
 		}
+		
+		return null;
 	}
 	
 	// 댓글 신고하기
