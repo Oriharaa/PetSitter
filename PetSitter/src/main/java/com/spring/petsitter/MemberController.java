@@ -40,18 +40,8 @@ public class MemberController {
 	private ReviewBoardService reviewboardService;
 	
 	@Autowired
-<<<<<<< HEAD
 	private PayService payService;
 
-=======
-	private PetsitterService petsitterService;
-	
-	@RequestMapping(value = "notice.me")
-	public String notice(Model model) {
-		return "notice";
-	}
-	
->>>>>>> origin/MH
 	@RequestMapping(value = "memberinfo.me")
 	public ModelAndView profile(MemberVO vo, @RequestParam(value = "id") String id, Model model) {
 		ModelAndView mv = new ModelAndView();
@@ -273,7 +263,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "home.me")
 	public String home(Model model) {
-<<<<<<< HEAD
+
 		// 신규 추천 펫시터 3명
 		ArrayList<PetsitterVO> petsitter_list_date = petsitterService.petsitterList_date();
 		
@@ -301,12 +291,12 @@ public class MemberController {
 		model.addAttribute("petsitter_this_month", petsitter_this_month);
 		model.addAttribute("petsitter_this_month_score", petsitter_this_month_score);
 		model.addAttribute("petsitter_this_month_count", petsitter_this_month_count);
-=======
+
 		ArrayList<PetsitterVO> list = new ArrayList<PetsitterVO>();
 		list = petsitterService.petsitterList();
 		model.addAttribute("list",list);
 		
->>>>>>> origin/MH
+
 		return "home";
 	}
 	

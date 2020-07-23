@@ -41,12 +41,6 @@ public class ProBoardController {
 		hashmap.put("endrow", endrow);
 		
 		List<ProBoardVO> boardlist = proboardService.getProBoardList(hashmap); // 다른 타입 2개를 전달해야하므로
-<<<<<<< HEAD
-		
-=======
-
-		boardlist.get(0).getPRO_ORG_FILE().equals("N");
->>>>>>> origin/MH
 		for(int i = 0; i < boardlist.size(); i++) {
 		boardlist.get(i).setREAL_DATE(new_Format.format(boardlist.get(i).getPRO_DATE()));
 		}

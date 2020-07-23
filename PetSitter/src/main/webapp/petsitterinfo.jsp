@@ -1492,7 +1492,6 @@ function handleImgFileSelect11(e){
 				  <div class = "col-04" style = "padding : 0 15px;">
 				    <h2 class="mpname float-left"><%=name %></h2>
 						<h5 class="mpneem float-none">님</h5>
-<<<<<<< HEAD
 				    <h3 class="mpnick">닉네임 : <%=vo.getPETSITTER_NICKNAME() %></h3>
 				    <h5 class="mpgrade">등급 : <%=vo.getPETSITTER_RANK() %>
 				    	<%
@@ -1507,10 +1506,6 @@ function handleImgFileSelect11(e){
 				    		}
 				    	%>
 				    </h5>
-=======
-				    <h3 class="mpnick">닉네임 : <%=nickname %></h3>
-				    <h5 class="mpgrade">등급 : <%=vo.getPETSITTER_RANK() %></h5>
->>>>>>> origin/MH
 				    <h5 class="mpdate font-size-16">가입일 : <%=vo.getPETSITTER_DATE().substring(0,10) %></h5>
 				  </div>
 				  <div class = "col-md-5" style = "margin-top : 50px;">
@@ -1589,8 +1584,7 @@ function handleImgFileSelect11(e){
 		</div>			  
 	  </form>
 	</div>
-	
-<<<<<<< HEAD
+
   <table style="width:100%;">
  	<colgroup>
 	  <col style="width: 15%;">
@@ -1600,17 +1594,7 @@ function handleImgFileSelect11(e){
 	  <col style="width: 12%;">
 	  <col style="width: 12%;">
 	  <col style="width: 16%;">
-=======
-<table style="width:100%;">
-    <colgroup>
-     <col style="width: 15%;">
-     <col style="width: 15%;">
-     <col style="width: 15%;">
-     <col style="width: 15%;">
-     <col style="width: 12%;">
-     <col style="width: 12%;">
-     <col style="width: 16%;">
->>>>>>> origin/MH
+
 	</colgroup> 
       <thead>
 		<tr class="table_headRow" style = "color : #5e5e5e;">
@@ -1767,11 +1751,7 @@ function handleImgFileSelect11(e){
       				
       				<%for(int i = 0; i < 3;i++){ %>
       				<tr>
-<<<<<<< HEAD
-      					<th>자격증<%=i+1 %> :</th>
-=======
       					<th>자격증 이름<%=i+1 %> :</th>
->>>>>>> origin/MH
       					<td colspan = "2"><input name = "certName" type = "text" value = <%if(cert>i){ %><%=certName[i] %><%}else{ %>""<%} %>  size = "50" class = "float-left"></td>
       				</tr>
       				<tr>
@@ -2041,9 +2021,9 @@ function handleImgFileSelect11(e){
    
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 	
 		<script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
     <script src="<c:url value="/resources/js/jquery.sticky.js"/>"></script>	

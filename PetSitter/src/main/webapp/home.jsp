@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<<<<<<< HEAD
 <%@ page import="com.spring.petsitter.*" %>
 <%@ page import="java.util.*" %>
 <%
@@ -15,15 +14,10 @@
 	
 	// 이달의 실적왕
 	PetsitterVO petsitter_this_month_count = (PetsitterVO)request.getAttribute("petsitter_this_month_count");
-
+	
+	// 펫시터 목록
+	ArrayList<PetsitterVO> list = (ArrayList<PetsitterVO>)request.getAttribute("list");
 %>
-=======
-<%@ page import = "com.spring.petsitter.*" %>
-<%@ page import = "java.util.*" %>
-<% ArrayList<PetsitterVO> list = (ArrayList<PetsitterVO>)request.getAttribute("list"); %>
-
-
->>>>>>> origin/MH
 <!doctype html>
 <html lang="en">
 
@@ -155,9 +149,7 @@ border-radius:400px
     display: none;
     z-index: 999;
 	}
-<<<<<<< HEAD
-=======
-	
+
 #petsitter_list{
 	position : absolute;
 	left: 500px;
@@ -167,10 +159,6 @@ border-radius:400px
 	height: 100px;
 	z-index : 100;
 }
-</style>
-	
->>>>>>> origin/MH
-	
 </style>
 
   <head>
@@ -758,11 +746,7 @@ var callback = function(result, status) {
 
             <div class="col-12 col-lg-6 block__73422 order-lg-2" style="background-image: url('resources/images/dog02.jpg');" data-aos="fade-left" data-aos-delay=""></div>
             <div class="col-lg-6 mr-auto p-lg-5 mt-4 mt-lg-0 order-lg-1" data-aos="fade-right" data-aos-delay="">
-<<<<<<< HEAD
               <h2 class="mb-4 main_mintfont" style = "font-weight : bold">보살펴조</h2>
-=======
-              <h2 class="mb-4 main_mintfont" style = "font-weight : bold">pet sitter</h2>
->>>>>>> origin/MH
               <p class = "text-center main_mintfont" style="font-weight : bold;">저희 보살펴조에서는 신뢰있는 서비스를 위해 펫시터를 선별 및 지원하고 있습니다. 아래 조건들을 약속하겠습니다!</p>
 
               <ul class="ul-check primary list-unstyled mt-5 font-size-14 text-center">
