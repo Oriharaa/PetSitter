@@ -23,4 +23,13 @@ public interface MemberMapper {
 	
 	public ArrayList<UsinglistVO> getUsingList_Member_calendar(@Param("MEMBER_ID")String id, @Param("startdate") String startdate, @Param("enddate") String enddate);
 	public List<MemberUsinglistVO> getUsingList_Member_ajax_calendar(@Param("MEMBER_ID")String id, @Param("startdate") String startdate, @Param("enddate") String enddate);
+<<<<<<< HEAD
+=======
+	
+	/* 회원 관리 */
+	public void suspendedMember(String id);
+	public void rollbackMember(String id);
+	public List<MemberVO> changeMember(@Param("RANK")String rank, @Param("MEMBER_ID")String id);
+
+>>>>>>> origin/PGKIM
 }

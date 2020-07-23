@@ -12,4 +12,12 @@ public interface MemberBoardService {
 	public MemberBoardVO boardModifyForm(int num);
 	public int boardModify(MemberBoardVO modifyboard);
 	public int boardDelete(HashMap<String, String> hashmap);
+<<<<<<< HEAD
+=======
+	public int reportInsert(ReportArticleVO report);
+	public int reportReply(ReportReplyVO report);
+	public List<ReportArticleVO> getReportArticleList(ReportArticleVO report);
+	public List<ReportReplyVO> getReportReplyList(ReportReplyVO report);
+	
+>>>>>>> origin/PGKIM
 }

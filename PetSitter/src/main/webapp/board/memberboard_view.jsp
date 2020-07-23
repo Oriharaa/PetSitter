@@ -10,9 +10,16 @@
 <%
 	String name = (String)session.getAttribute("name");
 	MemberBoardVO mboard = (MemberBoardVO)request.getAttribute("vo");
+	ReportArticleVO report = (ReportArticleVO)request.getAttribute("report");	
 	
 	String id = (String)session.getAttribute("id");
+	String name = (String)session.getAttribute("name");
 	String rank = (String)session.getAttribute("rank");
+	String btype = "mboard";
+	
+	List<ReportArticleVO> ralist = (List<ReportArticleVO>)request.getAttribute("ra_list");
+	List<ReportReplyVO> rrlist = (List<ReportReplyVO>)request.getAttribute("rr_list");
+	
 //세션 종료시 홈으로
   if(session.getAttribute("id") == null) {
      out.println("<script>");
@@ -36,12 +43,6 @@
 
 
 <style>
-	#preview {
-		z-index: 9999; /* 필요시 설정 */
-		position: absoulte;
-		background: #999999!important;
-		padding: 2px;
-	}
 	button#prev, button#list, button#next, button#write {
 		color : white!important;
 	}
@@ -75,6 +76,10 @@
 	#main_grayfont2{
 	color : #949494!important;
 	}
+	
+	.main_redfont0{
+	color : rgba(211,84,0)!important;
+}
 	
 	
 	/*펫시터 메인 폰트컬러 끝*/
@@ -284,8 +289,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		}
 	 	.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
    	background-color: #F8F8F8;
-		}    
-					
+		}    					
     </style>  
 		
 		<div class="row">
@@ -343,7 +347,47 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			<% } else { %>
   			<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./mboardlist.me">목록</a>
   		<% } %>
- 		 
+  	 		<button type="button" class="btn btn-danger btn-sm float-right" name="main_redfont0" data-toggle="modal" data-target="#articleModal">신고</button>
+  	 		
+  	 		
+  	 			<!-- 신고 창 시작 -->
+  	 		 <form action="./reportArticle.me" method="post" name="reportform">
+  	 		 	<input type="hidden" name="MEMBER_ID" value="${id}">
+					<input type="hidden" name="MEMBER_NUM" value="<%=mboard.getMEMBER_NUM()%>">
+					<input type="hidden" name="BTYPE" value="mboard">
+					
+					<div class="modal fade" id="articleModal" tabindex="-1" role="dialog" aria-labelledby="articleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id ="articleModalLabel">글 신고하기</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<textarea id="REPORT_REASON" name="REPORT_REASON" rows="4" cols="63" placeholder="신고 사유를 적어주세요"></textarea>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기 </button>
+									<a type="button" class="btn btn-primary" href="javascript:addreport()">신고</a>
+								</div>
+							</div>
+						</div>
+					</div>
+	 		 	<!-- 신고 창 끝 -->	
+	 		 		</form>
+	 		 		
+	 		 		
+	 	<script language="javascript">
+			function addreport(){
+				reportform.submit();
+			}		
+			function addreport2() {
+				$("#reportreplyform").submit();
+			}
+		</script>
+    
 				</div>
 			</div>
 			

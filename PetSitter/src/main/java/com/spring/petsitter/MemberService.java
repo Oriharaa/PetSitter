@@ -20,4 +20,12 @@ public interface MemberService {
 	
 	public ArrayList<UsinglistVO> getUsingList_Member_calendar(String id, String startdate, String enddate);
 	public List<MemberUsinglistVO> getUsingList_Member_ajax_calendar(String id, String startdate, String enddate);
+<<<<<<< HEAD
+=======
+	
+	/* 회원 관리용 */
+	public void suspendedMember(String id);
+	public void rollbackMember(String id);
+	List<MemberVO> changeMember(String rank, String id);
+>>>>>>> origin/PGKIM
 }

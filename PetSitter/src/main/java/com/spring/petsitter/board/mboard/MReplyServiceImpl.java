@@ -44,4 +44,39 @@ public class MReplyServiceImpl implements MReplyService {
 		return mReplyMapper.deleteReply(rno);
 	}
 
+	@Override
+	public void checkArticle(String id, int num) {
+		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
+		mReplyMapper.checkArticle(id, num);
+	}
+
+	@Override
+	public void checkArticle2(String id, int num) {
+		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
+		mReplyMapper.checkArticle2(id, num);
+	}
+
+	@Override
+	public void checkReply(String bno, String rno, String id) {
+		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
+		mReplyMapper.checkReply(bno, rno, id);
+	}
+
+	@Override
+	public void checkReply2(String bno, String rno, String id) {
+		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
+		mReplyMapper.checkReply2(bno, rno, id);
+	}
+
+	@Override
+	public int searchIdReportReply(String id, int bno, int rno) {
+		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
+		return mReplyMapper.searchIdReportReply(id, bno, rno);
+	}
+
+	@Override
+	public int searchIdReportArticle(String id, int num) {
+		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
+		return mReplyMapper.searchIdReportArticle(id, num);
+	}
 }

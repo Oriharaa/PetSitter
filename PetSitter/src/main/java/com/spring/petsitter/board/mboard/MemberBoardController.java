@@ -25,7 +25,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberBoardController {
 	
 	@Autowired
+<<<<<<< HEAD
 	private MemberBoardService memberboardService;
+=======
+	private MemberBoardService memberboardService;		
+	
+	@Autowired 
+	private MReplyService mReplyService;
+>>>>>>> origin/PGKIM
 		
 	@RequestMapping(value = "/mboardlist.me")
 	public String memberboard(Model model,
@@ -129,10 +136,8 @@ public class MemberBoardController {
 	// 삭제
 	@RequestMapping("/mboardDelete.me")
 	public String boardDelete(@RequestParam(value="num", required=true) int num, HttpSession session, HttpServletResponse response) throws Exception {
-		System.out.println("num : " + num);
 		String id = (String)session.getAttribute("id");
-		System.out.println("id : " + id);
-		
+				
 		HashMap<String, String> hashmap = new HashMap<String, String>();
 		hashmap.put("member_num", Integer.toString(num));
 		hashmap.put("member_id", id);
@@ -152,6 +157,53 @@ public class MemberBoardController {
 		}
 		return null;
 	}
+<<<<<<< HEAD
+=======
+	
+
+	// 글 신고하기
+	@RequestMapping("/reportArticle.me")
+	public String reportInsert(ReportArticleVO report) throws Exception {
+		
+		int cnt = mReplyService.searchIdReportArticle(report.getMEMBER_ID(), report.getMEMBER_NUM());
+		
+		System.out.println(report.getMEMBER_ID() + "의 신고 횟수 : " + cnt);
+		
+		if (cnt < 1) {
+		System.out.println("신고자 : " + report.getMEMBER_ID());
+		System.out.println("신고 글 번호 : " + report.getMEMBER_NUM());
+		System.out.println("신고 사유 : " + report.getREPORT_REASON());
+		System.out.println("신고 게시판 : " + report.getBTYPE());
+		memberboardService.reportInsert(report);
+		return "redirect:/mboarddetail.me?num=" + report.getMEMBER_NUM();
+		} else {
+			System.out.println("이미 신고한 사용자입니다.");
+			return "redirect:/mboarddetail.me?num=" + report.getMEMBER_NUM();
+		}
+	}
+	
+	// 댓글 신고하기
+	@RequestMapping("/reportReply.me")
+	public String reportReply(ReportReplyVO report) throws Exception {		
+		
+		int cnt = mReplyService.searchIdReportReply(report.getMEMBER_ID(), report.getBNO(), report.getRNO());
+		
+		System.out.println("신고 횟수 : " + cnt);
+		
+		if(cnt < 1) {		
+			System.out.println("신고자 : " + report.getMEMBER_ID());
+			System.out.println("신고 글 번호 : " + report.getBNO());
+			System.out.println("신고 리플 번호 : " + report.getRNO());
+			System.out.println("신고 사유 : " + report.getREPORT_REASON());
+			System.out.println("신고 게시판 : " + report.getBTYPE());
+			memberboardService.reportReply(report);
+			return "redirect:/mboarddetail.me?num=" + report.getBNO();
+		} else {
+			System.out.println("이미 신고한 사용자입니다.");
+			return "redirect:/mboarddetail.me?num=" + report.getBNO();
+		}
+	}
+>>>>>>> origin/PGKIM
 
 	@RequestMapping("/filedownload.bo")
   public void fileDownload(HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -168,7 +220,7 @@ public class MemberBoardController {
      String fullPath = uploadPath + of;
      File downloadFile = new File(fullPath);
      
-     //파일 다운로드를 위해 컨테츠 타입을 application/download 설정
+     //파일 다운로드를 위해 컨텐츠 타입을 application/download 설정
      response.setContentType("application/download; charset=UTF-8");
      //파일 사이즈 지정
      response.setContentLength((int)downloadFile.length());
