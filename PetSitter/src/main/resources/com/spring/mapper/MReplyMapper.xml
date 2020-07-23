@@ -47,19 +47,19 @@
 	</delete>
 	
 	<update id="checkArticle" parameterType="com.spring.petsitter.board.mboard.ReportArticleVO">
-		update report_article set processing = 'Y' where member_num=#{id}
+		update report_article set processing = 'Y' where member_num=#{num} and member_id=#{id} 
 	</update>
 	
 	<update id="checkArticle2" parameterType="com.spring.petsitter.board.mboard.ReportArticleVO">
-		update report_article set processing = 'N' where member_num=#{id}
+		update report_article set processing = 'N' where member_num=#{num} and member_id=#{id}
 	</update>
 	
 	<update id="checkReply" parameterType="com.spring.petsitter.board.mboard.ReportReplyVO">
-		update report_reply set processing = 'Y' where bno=#{bno} and rno=#{rno}
+		update report_reply set processing = 'Y' where bno=#{bno} and rno=#{rno} and member_id = #{id}
 	</update>	
 	
 	<update id="checkReply2" parameterType="com.spring.petsitter.board.mboard.ReportReplyVO">
-		update report_reply set processing = 'N' where bno=#{bno} and rno=#{rno}
+		update report_reply set processing = 'N' where bno=#{bno} and rno=#{rno} and member_id = #{id}
 	</update>
 	
 	<select id="searchIdReportReply" parameterType="com.spring.petsitter.board.mboard.ReportReplyVO" resultType="int">

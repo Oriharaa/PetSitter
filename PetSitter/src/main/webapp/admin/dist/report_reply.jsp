@@ -283,10 +283,10 @@ p {
 																						<%
 																						if(rr.getPROCESSING().equals("N")) {
 																						%>
-																						<a type="button" class="btn btn-sm btn-outline-primary" href="./checkReply.me?bno=<%=rr.getBNO()%>&rno=<%=rr.getRNO()%>">처리중</a>
+																						<a type="button" class="btn btn-sm btn-outline-primary" href="./checkReply.me?bno=<%=rr.getBNO()%>&rno=<%=rr.getRNO()%>&id=<%=rr.getMEMBER_ID()%>">처리중</a>
 																						<%
 																							} else { %>
-																						<a type="button" class="btn btn-sm btn-outline-success" href="./checkReply2.me?bno=<%=rr.getBNO()%>&rno=<%=rr.getRNO()%>">처리완</a>																							
+																						<a type="button" class="btn btn-sm btn-outline-success" href="./checkReply2.me?bno=<%=rr.getBNO()%>&rno=<%=rr.getRNO()%>&id=<%=rr.getMEMBER_ID()%>">처리완</a>
 																						<%
 																							}
 																						%>

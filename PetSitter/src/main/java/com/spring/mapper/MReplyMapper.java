@@ -12,10 +12,10 @@ public interface MReplyMapper {
 	public int writeReply(MReplyVO vo) throws Exception;  // ¥Ò±€ ¿€º∫
 	public int updateReply(MReplyVO vo) throws Exception; // ¥Ò±€ ºˆ¡§
 	public int deleteReply(int rno) throws Exception; // ¥Ò±€ ªË¡¶
-	public void checkArticle(String id);
-	public void checkArticle2(String id);
-	public void checkReply(@Param("bno")String bno, @Param("rno")String rno);
-	public void checkReply2(@Param("bno")String bno, @Param("rno")String rno);
+	public void checkArticle(@Param("id")String id, @Param("num")int num);
+	public void checkArticle2(@Param("id")String id, @Param("num")int num);
+	public void checkReply(@Param("bno")String bno, @Param("rno")String rno, @Param("id")String id);
+	public void checkReply2(@Param("bno")String bno, @Param("rno")String rno, @Param("id")String id);
 	public int searchIdReportReply(@Param("id")String id, @Param("bno")int bno, @Param("rno")int rno);
 	public int searchIdReportArticle(@Param("id")String id, @Param("num")int num);
 }

@@ -199,10 +199,10 @@ $(document).ready(function() {
 																						<%
 																							if(ra.getPROCESSING().equals("N")) {
 																						%>
-																						<a type="button" class="btn btn-sm btn-outline-primary" href="./checkArticle.me?id=<%=ra.getMEMBER_NUM()%>">처리중</a>
+																						<a type="button" class="btn btn-sm btn-outline-primary" href="./checkArticle.me?id=<%=ra.getMEMBER_ID()%>&num=<%=ra.getMEMBER_NUM()%>">처리중</a>
 																						<%
 																							} else { %>
-																						<a type="button" class="btn btn-sm btn-outline-success" href="./checkArticle2.me?id=<%=ra.getMEMBER_NUM()%>">처리완</a>																							
+																						<a type="button" class="btn btn-sm btn-outline-success" href="./checkArticle2.me?id=<%=ra.getMEMBER_ID()%>&num=<%=ra.getMEMBER_NUM()%>">처리완</a>																							
 																						<%
 																							}
 																						%>

@@ -53,11 +53,8 @@ public class AdminController {
 		
 		ReportArticleVO report_a = new ReportArticleVO();		
 		List<ReportArticleVO> ra_list = memberboardService.getReportArticleList(report_a);
-		System.out.println("ra_list.size() : " + ra_list.size());
-
 		ReportReplyVO report_r = new ReportReplyVO();
 		List<ReportReplyVO> rr_list = memberboardService.getReportReplyList(report_r);
-		System.out.println("rr_list.size() : " + rr_list.size());
 		
 		model.addAttribute("page", page);
 		model.addAttribute("listcount", listcount);
@@ -74,11 +71,8 @@ public class AdminController {
 		
 		ReportArticleVO report_a = new ReportArticleVO();		
 		List<ReportArticleVO> ra_list = memberboardService.getReportArticleList(report_a);
-		System.out.println("ra_list.size() : " + ra_list.size());
-
 		ReportReplyVO report_r = new ReportReplyVO();
 		List<ReportReplyVO> rr_list = memberboardService.getReportReplyList(report_r);
-		System.out.println("rr_list.size() : " + rr_list.size());
 		
 		model.addAttribute("ra_list", ra_list);
 		model.addAttribute("rr_list", rr_list);
@@ -92,11 +86,8 @@ public class AdminController {
 		
 		ReportArticleVO report_a = new ReportArticleVO();		
 		List<ReportArticleVO> ra_list = memberboardService.getReportArticleList(report_a);
-		System.out.println("ra_list.size() : " + ra_list.size());
-
 		ReportReplyVO report_r = new ReportReplyVO();
 		List<ReportReplyVO> rr_list = memberboardService.getReportReplyList(report_r);
-		System.out.println("rr_list.size() : " + rr_list.size());
 		
 		model.addAttribute("ra_list", ra_list);
 		model.addAttribute("rr_list", rr_list);
@@ -110,12 +101,9 @@ public class AdminController {
 		
 		ReportArticleVO report_a = new ReportArticleVO();		
 		List<ReportArticleVO> ra_list = memberboardService.getReportArticleList(report_a);
-		System.out.println("ra_list.size() : " + ra_list.size());
-
 		ReportReplyVO report_r = new ReportReplyVO();
 		List<ReportReplyVO> rr_list = memberboardService.getReportReplyList(report_r);
-		System.out.println("rr_list.size() : " + rr_list.size());
-		
+
 		model.addAttribute("ra_list", ra_list);
 		model.addAttribute("rr_list", rr_list);
 		
@@ -137,12 +125,9 @@ public class AdminController {
 		
 		ReportArticleVO report_a = new ReportArticleVO();		
 		List<ReportArticleVO> ra_list = memberboardService.getReportArticleList(report_a);
-		System.out.println("ra_list.size() : " + ra_list.size());
-
 		ReportReplyVO report_r = new ReportReplyVO();
 		List<ReportReplyVO> rr_list = memberboardService.getReportReplyList(report_r);
-		System.out.println("rr_list.size() : " + rr_list.size());
-		
+
 		model.addAttribute("ra_list", ra_list);
 		model.addAttribute("rr_list", rr_list);
 		
@@ -203,8 +188,8 @@ public class AdminController {
 	
 	/* 본문 신고 처리 N -> Y */
 	@RequestMapping(value = "checkArticle.me")
-	public String report_article_check(@RequestParam(value="id", required=true) String id) throws Exception {
-		mreplyService.checkArticle(id);
+	public String report_article_check(@RequestParam(value="id", required=true) String id, @RequestParam(value="num", required=true) int num) throws Exception {
+		mreplyService.checkArticle(id, num);
 		
 		System.out.println(id + " 처리 완료");
 		
@@ -213,8 +198,8 @@ public class AdminController {
 	
 	/* 본문 신고 처리 Y -> N */
 	@RequestMapping(value = "checkArticle2.me")
-	public String report_article_check2(@RequestParam(value="id", required=true) String id) throws Exception {
-		mreplyService.checkArticle2(id);
+	public String report_article_check2(@RequestParam(value="id", required=true) String id, @RequestParam(value="num", required=true) int num) throws Exception {
+		mreplyService.checkArticle2(id, num);
 		
 		System.out.println(id + " 처리 완료");
 		
@@ -223,17 +208,15 @@ public class AdminController {
 	
 	/* 리플 신고 처리 N -> Y */
 	@RequestMapping(value = "checkReply.me")
-	public String report_reply_check(@RequestParam(value="bno", required=true) String bno, @RequestParam(value="rno", required=true) String rno) throws Exception {
-		mreplyService.checkReply(bno, rno);
-		
+	public String report_reply_check(@RequestParam(value="bno", required=true) String bno, @RequestParam(value="rno", required=true) String rno, @RequestParam(value="id", required=true) String id) throws Exception {
+		mreplyService.checkReply(bno, rno, id);
 		return "redirect:/admin_reportReply.me";
 	}
 	
 	/* 리플 신고 처리 Y -> N */
 	@RequestMapping(value = "checkReply2.me")
-	public String report_reply_check2(@RequestParam(value="bno", required=true) String bno, @RequestParam(value="rno", required=true) String rno) throws Exception {
-		mreplyService.checkReply2(bno, rno);
-		
+	public String report_reply_check2(@RequestParam(value="bno", required=true) String bno, @RequestParam(value="rno", required=true) String rno, @RequestParam(value="id", required=true) String id) throws Exception {
+		mreplyService.checkReply2(bno, rno, id);
 		return "redirect:/admin_reportReply.me";
 	}
 }
