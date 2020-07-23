@@ -131,6 +131,37 @@ create table PRO_BOARD(
 insert into PRO_BOARD values (1, 'roah631@member.com', 'nickname01','제목1','1안녕하세요 유기견을 입양했는데 아픈부분을 발견했어요 어떻게 치료할가요.',
 '123.jpg','12321312.jpg',0 ,sysdate, 0, 'PRO_BOARD', NVL(null, 'N'));
 
+CREATE TABLE PROREPLY (
+    BNO NUMBER, 
+    RNO NUMBER, 
+    CONTENT VARCHAR2(2000 BYTE), 
+    WRITER_ID VARCHAR2(30 BYTE), 
+    REGDATE DATE DEFAULT sysdate, 
+    WRITER_NICKNAME VARCHAR2(30 BYTE),
+    B_TYPE VARCHAR2(20) default 'PRO_BOARD' 
+);
+
+-- 글 신고 테이블
+create table report_article (
+	member_num number,
+	report_reason varchar2(4000),
+	member_id varchar2(30),
+	btype varchar2(100),
+	processing varchar2(10) default 'N',
+	check_id varchar2(2000) default 'N'
+);
+    
+-- 리플 신고 테이블
+create table report_reply (
+    bno number,
+    rno number,
+    report_reason varchar2(4000),
+    member_id varchar2(30),
+    btype varchar2(100),
+    processing varchar2(10) default 'N',
+    check_id varchar2(2000) default 'N'
+);
+
 create table MEMBER_BOARD(
     MEMBER_NUM number(10) PRIMARY KEY, -- 회원 게시판 글 번호
     MEMBER_ID varchar2(30), -- 회원 아이디
@@ -163,11 +194,19 @@ create table COMMUNICATION_BOARD(
 	PETSITTER_ID varchar2(30), -- 펫시터 회원 아이디
 	BOARD_SUBJECT varchar2(100), -- 제목
 	BOARD_CONTENT varchar2(4000), -- 내용
-	BOARD_READCOUNT number, -- 조회수
 	BOARD_DATE date default sysdate, -- 작성일
 	BOARD_CONDITION varchar2(10) default '답변 예정', -- 답변예정/답변완료
 	BOARD_TYPE varchar2(10) -- 글 구분(스케줄/기타)
 );
+
+-- 펫시터와의 소통 사진 게시판(하루에 3장 업로드 가능)
+create table COMMUNICATION_PHOTO_LIST(
+    USINGLIST_NUM number(10),
+    COMMUNICATION_PHOTO_FILE varchar2(100) default 'N', -- 업로드된 사진 파일
+    UPLOAD_DATE date default sysdate -- 업로드 일자
+);
+insert into communication_photo(usinglist_num, upload_date)
+values(16, to_date(sysdate, 'YYYY-MM-DD HH:mi'));
 
 create table pay(
     PAY_ID varchar2(30), -- 회원 아이디
@@ -329,3 +368,12 @@ where rownum = 1;
 
 insert into pay(PAY_ID, PAY_AMOUNT, PETSITTER_ID, MERCHANT_UID, PAY_DATE, PAY_TYPE, START_DATE, END_DATE)
 values('asdasd@naver.com', 50000, 'asdasd', 'yaIB5s', sysdate, '위탁', to_date('2020-07-29 14:00', 'YYYY-MM-DD HH:mi'), to_date('2020-07-30 14:00', 'YYYY-MM-DD HH:mi'));
+
+select * 
+from (select rownum as rnum, communication_board.*
+      from communication_board 
+      where (MEMBER_ID='N' or PETSITTER_ID='asdasd') and USINGLIST_NUM=16
+	  order by BOARD_NUM desc)
+where rnum >= 1 and rnum <= 5;
+
+select COMMUNICATION_PHOTO_LIST from communication_photo where usinglist_num = 16 and COMMUNICATION_PHOTO_LIST != 'N';

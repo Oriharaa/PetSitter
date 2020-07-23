@@ -76,10 +76,23 @@
 	text-align:center;
 	}
 	
+	.petsitter_picture_upload {
+	text-align:center;
+	}
+	
 	.photo_more{
 	background-color:#53DC98;
 	color:#ffffff;
 	width:15%;
+	height:35px;
+	border:0px;
+	border-radius:10px;
+	}
+	
+	.photo_upload{
+	background-color:#53DC98;
+	color:#ffffff;
+	width:10%;
 	height:35px;
 	border:0px;
 	border-radius:10px;

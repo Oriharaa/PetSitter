@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.spring.petsitter.board.ProBoardVO;
 import com.spring.petsitter.board.ProReplyVO;
-import com.spring.petsitter.board.mboard.MReplyVO;
 
 public interface ProBoardMapper {
 	public int getProListCount();

@@ -10,6 +10,7 @@
 	int startpage = ((Integer)request.getAttribute("startpage")).intValue();
 	int endpage = ((Integer)request.getAttribute("endpage")).intValue();
 	int usinglist_num = ((Integer)request.getAttribute("usinglist_num")).intValue();
+	ArrayList<String> photo_list = (ArrayList<String>)request.getAttribute("photo_list");
 	
 	// 세션 종료시 홈으로
 	if(session.getAttribute("id") == null) {
@@ -219,7 +220,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               <nav class="site-navigation text-right ml-auto " role="navigation">
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                   <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onmousedown="this.style.backgroundColor:'rgb(83, 220, 153)'">
+									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
 											돌봄
 									  </button>
 									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
@@ -271,7 +272,13 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		<div class="row">
 			<div class="col">
 				<div class="middle_box_right">
+					<%
+						if(((String)session.getAttribute("id")).contains("@")) {
+					%>
 					<a href="communicationWrite_member.bo?usinglist_num=<%=usinglist_num %>" id="question" class="right_btn">질문남기기</a>
+					<%
+						}
+					%>
 				</div>
 			
 				<div class="middle_table">
@@ -352,8 +359,48 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 </section>
 
 <section class="bottom_box">
-	<div class="container">
+	<%
+		String[] photo_upload_list;
+		if(photo_list.contains("N")) {
+			photo_upload_list = new String[1];
+			photo_upload_list[0] = "N";
+		}
+		else {
+			photo_upload_list = new String[photo_list.size() * 3];
+			for(int i = 0; i < photo_list.size() * 3; i++) {
+				if(photo_list.get(i) == null) {
+					break;
+				}
+				photo_upload_list[i] = photo_list.get(i);
+				if(photo_list.get(i).contains(",")) {
+					photo_upload_list[i] = photo_list.get(i).split(",")[0];
+					i = i + 1;
+					photo_upload_list[i+1] = photo_list.get(i).split(",")[1];
+					i = i + 1;
+					if(photo_list.get(i).split(",")[2] != null) {
+						photo_upload_list[i+2] = photo_list.get(i).split(",")[2];
+						i = i + 1;
+					}
+				}
+			}
+		}
 		
+		if(!((String)session.getAttribute("id")).contains("@")) {
+	%>
+	<div class="row justify-content-center">
+		<div class="col">
+			<form>
+				<div class="petsitter_picture_upload">
+					<button type="button" class="photo_upload" data-toggle="modal" data-target="#staticBackdrop">사진 올리기</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<%
+		}
+	%>
+	<div class="container">
+	
 		<div class="row justify-content-center">
 			<div class="col">
 				<div class="bottom_body1">
@@ -402,7 +449,77 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		
 	</div>
 </section>      
-      
+
+
+<form name="uploadPicture" action="./communicationUploadPhoto.bo" method="post" enctype="multipart/form-data">
+<input type="hidden" name="USINGLIST_NUM" id="usinglist_id" value=<%=usinglist_num %>> 
+<div class="modal fade" id="staticBackdrop" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" style="display: inline; text-align: center;">
+        <h5 class="modal-title main_mintfont" id="staticBackdropLabel" style="display: inline;">사진 올리기</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<div class="row">
+      		<div class="col-12">
+      			<table class="table table-sm table-hover table-striped" style="font-size: 15px;">
+      				<tr>
+      					<th height="70px">돌봄 사진 1</th>
+      					<td class = "tleft">
+	      					<div class="filebox">
+		      					<div class="img_wrap">
+													<img id="dolbom_img1" class="dolbom_img1" style="display: none; width: 130px;"/>
+										</div> 
+		      					<input class="upload-name01" value="파일선택" disabled="disabled"> 
+		      					<label for="ex_filename01">업로드</label><input type="file" name="COMMUNICATION_PHOTO_LIST" id="ex_filename01" class="upload-hidden">
+		      					<img src="resources/images/deleteimage.jpg" id="deleteimg1" onclick="deleteImage1()" 
+		      							style="position: absolute; width: 20px; margin-top: 16px; opacity: 0.5;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'"/>
+	      					</div>
+      					</td>
+      				</tr>
+      				<tr>
+      					<th height="70px">돌봄 사진 2</th>
+      					<td class = "tleft">
+	      					<div class="filebox">
+		      					<div class="img_wrap">
+													<img id="dolbom_img2" class="dolbom_img2" style="display: none; width: 130px;"/>
+										</div> 
+		      					<input class="upload-name02" value="파일선택" disabled="disabled"> 
+		      					<label for="ex_filename02">업로드</label><input type="file" name="COMMUNICATION_PHOTO_LIST" id="ex_filename02" class="upload-hidden">
+		      					<img src="resources/images/deleteimage.jpg" id="deleteimg2" onclick="deleteImage2()" 
+		      							style="position: absolute; width: 20px; margin-top: 16px; opacity: 0.5;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'"/>
+	      					</div>
+      					</td>
+      				</tr>
+      				<tr>
+      					<th height="70px">돌봄 사진 3</th>
+      					<td class = "tleft">
+	      					<div class="filebox">
+		      					<div class="img_wrap">
+													<img id="dolbom_img3" class="dolbom_img3" style="display: none; width: 130px;"/>
+										</div> 
+		      					<input class="upload-name03" value="파일선택" disabled="disabled"> 
+		      					<label for="ex_filename03">업로드</label><input type="file" name="COMMUNICATION_PHOTO_LIST" id="ex_filename03" class="upload-hidden">
+		      					<img src="resources/images/deleteimage.jpg" id="deleteimg3" onclick="deleteImage3()" 
+		      							style="position: absolute; width: 20px; margin-top: 16px; opacity: 0.5;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'"/>
+	      					</div>
+      					</td>
+      				</tr>
+       			</table>
+      		</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn modalbt01" data-dismiss="modal" style="padding: 2.5px;">닫기</button>
+        <button type="submit" class="btn modalbt02" id="updatebutton" style="padding: 2.5px;">확인</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
 <!-- 본 기능 추가 종료 -->
       
       <footer class="site-footer">
@@ -500,6 +617,101 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				});
 			});
 			
+		</script>
+		
+		<script>
+			$(document).ready(function() {
+				let sel_file01;
+				let sel_file02;
+				let sel_file03;
+				
+				$("#ex_filename01").on("change", handleImgFileSelect);
+				$("#ex_filename02").on("change", handleImgFileSelect02);
+				$("#ex_filename03").on("change", handleImgFileSelect03);
+			});	
+		
+		
+			function deleteImage1() {
+				$("#dolbom_img1").attr("src", "");
+				$("#ex_filename01").val($("#ex_filename01").prop("defaultValue"));
+				$(".upload-name01").val($(".upload-name01").prop("defaultValue"));
+			}
+			
+			function deleteImage2() {
+				$("#dolbom_img2").attr("src", "");
+				$("#ex_filename02").val($("#ex_filename02").prop("defaultValue"));
+				$(".upload-name02").val($(".upload-name02").prop("defaultValue"));
+			}
+			
+			function deleteImage3() {
+				$("#dolbom_img3").attr("src", "");
+				$("#ex_filename03").val($("#ex_filename03").prop("defaultValue"));
+				$(".upload-name03").val($(".upload-name03").prop("defaultValue"));
+			}
+		
+		
+			function handleImgFileSelect(e){
+				var files = e.target.files;
+				var filesArr = Array.prototype.slice.call(files);
+				
+				filesArr.forEach(function(f) {
+					if(!f.type.match("image.*")){
+						alert("확장자는 이미지 확장자만 가능합니다.");
+						return;
+					}
+					sel_file = f;
+					
+					var reader = new FileReader();
+					
+					reader.onload = function(e){
+						$(".dolbom_img1").attr("src",e.target.result);
+						$("#dolbom_img1").show();
+					}
+					reader.readAsDataURL(f);
+				});
+			}
+			
+			function handleImgFileSelect02(e){
+				var files = e.target.files;
+				var filesArr = Array.prototype.slice.call(files);
+				
+				filesArr.forEach(function(f) {
+					if(!f.type.match("image.*")){
+						alert("확장자는 이미지 확장자만 가능합니다.");
+						return;
+					}
+					sel_file = f;
+					
+					var reader = new FileReader();
+					
+					reader.onload = function(e){
+						$(".dolbom_img2").attr("src",e.target.result);
+						$("#dolbom_img2").show();
+					}
+					reader.readAsDataURL(f);
+				});
+			}
+			
+			function handleImgFileSelect03(e){
+				var files = e.target.files;
+				var filesArr = Array.prototype.slice.call(files);
+				
+				filesArr.forEach(function(f) {
+					if(!f.type.match("image.*")){
+						alert("확장자는 이미지 확장자만 가능합니다.");
+						return;
+					}
+					sel_file = f;
+					
+					var reader = new FileReader();
+					
+					reader.onload = function(e){
+						$(".dolbom_img3").attr("src",e.target.result);
+						$("#dolbom_img3").show();
+					}
+					reader.readAsDataURL(f);
+				});
+			}
 		</script>
 </body>
 </html>

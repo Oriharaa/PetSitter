@@ -22,17 +22,17 @@ create table PRO_BOARD(
 );
 
 글신고 테이블
-    create table report_article (
-    member_num number,
-    report_reason varchar2(4000),
-    member_id varchar2(30),
-    btype varchar2(100),
-    processing varchar2(10) default 'N',
-    check_id varchar2(2000) default 'N'
-    );
+create table report_article (
+	member_num number,
+	report_reason varchar2(4000),
+	member_id varchar2(30),
+	btype varchar2(100),
+	processing varchar2(10) default 'N',
+	check_id varchar2(2000) default 'N'
+);
     
 리플 신고 테이블
-    create table report_reply (
+create table report_reply (
     bno number,
     rno number,
     report_reason varchar2(4000),
@@ -40,7 +40,7 @@ create table PRO_BOARD(
     btype varchar2(100),
     processing varchar2(10) default 'N',
     check_id varchar2(2000) default 'N'
-    );    
+);
 
 */
 public class ProBoardVO {

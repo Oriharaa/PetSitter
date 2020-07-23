@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.mapper.CommunicationBoardMapper;
-import com.spring.petsitter.UsinglistVO;
 
 @Service("CommunicationBoardService")
 public class CommunicationBoardServiceImpl implements CommunicationBoardService {
@@ -16,18 +15,28 @@ public class CommunicationBoardServiceImpl implements CommunicationBoardService 
 	private SqlSession sqlSession;
 	
 	@Override
-	public int getListCount(String member, int usinglist_num) {
+	public ArrayList<String> getPhotoList(int usinglist_num) {
 		CommunicationBoardMapper boardMapper = sqlSession.getMapper(CommunicationBoardMapper.class);
-		int cnt = boardMapper.getListCount(member, usinglist_num);
+		ArrayList<String> list = boardMapper.getPhotoList(usinglist_num);
+		if(list.size() == 0) {
+			list.add("N");
+		}
+		return list;
+	}
+	
+	@Override
+	public int getListCount(String member, String petsitter, int usinglist_num) {
+		CommunicationBoardMapper boardMapper = sqlSession.getMapper(CommunicationBoardMapper.class);
+		int cnt = boardMapper.getListCount(member, petsitter, usinglist_num);
 		return cnt;
 	}
 	
 	@Override
-	public ArrayList<CommunicationBoardVO> getQuesionList(String member, int usinglist_num, int page, int limit) {
+	public ArrayList<CommunicationBoardVO> getQuesionList(String member, String petsitter, int usinglist_num, int page, int limit) {
 		CommunicationBoardMapper boardMapper = sqlSession.getMapper(CommunicationBoardMapper.class);
 		int startrow = (page - 1) * 5 + 1;
 		int endrow = startrow + limit - 1;
-		ArrayList<CommunicationBoardVO> boardList = boardMapper.getQuesionList(member, usinglist_num, startrow, endrow);
+		ArrayList<CommunicationBoardVO> boardList = boardMapper.getQuesionList(member, petsitter, usinglist_num, startrow, endrow);
 		return boardList;
 	}
 	
@@ -40,10 +49,16 @@ public class CommunicationBoardServiceImpl implements CommunicationBoardService 
 	}
 
 	@Override
-	public ArrayList<UsinglistVO> getUsingList_Member(String id) {
+	public String getUsingList_Member(int usinglist_num) {
 		CommunicationBoardMapper communicationboardMapper = sqlSession.getMapper(CommunicationBoardMapper.class);
-		ArrayList<UsinglistVO> usinglist = communicationboardMapper.getUsingList_Member(id);
-		return usinglist;
+		String petsitter_id = communicationboardMapper.getUsingList_Member(usinglist_num);
+		return petsitter_id;
+	}
+
+	@Override
+	public void uploadPhoto(CommunicationBoardVO boardvo) {
+		CommunicationBoardMapper communicationboardMapper = sqlSession.getMapper(CommunicationBoardMapper.class);
+		communicationboardMapper.uploadPhoto(boardvo);
 	}
 
 }

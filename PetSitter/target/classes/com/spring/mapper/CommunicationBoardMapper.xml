@@ -12,28 +12,34 @@
 		<result property="PETSITTER_ID" column="PETSITTER_ID" />
 		<result property="BOARD_SUBJECT" column="BOARD_SUBJECT" />
 		<result property="BOARD_CONTENT" column="BOARD_CONTENT" />
-		<result property="BOARD_READCOUNT" column="BOARD_READCOUNT" />
 		<result property="BOARD_DATE" column="BOARD_DATE" />
 	</resultMap>
 	
+	<select id="getPhotoList" parameterType="int" resultType="String">
+		select COMMUNICATION_PHOTO_FILE 
+		from COMMUNICATION_PHOTO 
+		where USINGLIST_NUM=#{USINGLIST_NUM} and COMMUNICATION_PHOTO_FILE != 'N' 
+		order by UPLOAD_DATE desc
+	</select>
+	
 	<select id="getListCount" parameterType="map" resultType="int">
 		select count(*) from communication_board
-		where MEMBER_ID=#{MEMBER_ID} and USINGLIST_NUM=#{USINGLIST_NUM}
+		where (MEMBER_ID=#{MEMBER_ID} or PETSITTER_ID=#{PETSITTER_ID}) and USINGLIST_NUM=#{USINGLIST_NUM}
 	</select>
 	
 	<select id="getQuesionList" parameterType="map" resultMap="CommunicationResult">
 		<![CDATA[
 		select * 
-		from (select rownum as rnum, BOARD_NUM, USINGLIST_NUM, BOARD_WRITER, MEMBER_ID, PETSITTER_ID, BOARD_SUBJECT, BOARD_CONTENT, BOARD_READCOUNT, BOARD_DATE, BOARD_CONDITION, BOARD_TYPE 
+		from (select rownum as rnum, communication_board.* 
 					from communication_board 
-					where MEMBER_ID=#{MEMBER_ID} and USINGLIST_NUM=#{USINGLIST_NUM}
+					where (MEMBER_ID=#{MEMBER_ID} or PETSITTER_ID=#{PETSITTER_ID}) and USINGLIST_NUM=#{USINGLIST_NUM}
 					order by BOARD_NUM desc)
 		where rnum >= #{startrow} and rnum <= #{endrow}
 		]]>
 	</select>
 	
-	<select id="getUsingList_Member" parameterType="String" resultType="UsinglistVO">
-		select * from usinglist where MEMBER_ID=#{MEMBER_ID}
+	<select id="getUsingList_Member" parameterType="int" resultType="String">
+		select PETSITTER_ID from usinglist where LIST_NUM=#{LIST_NUM}
 	</select>
 	
 	<insert id="boardInsert" parameterType="com.spring.petsitter.board.CommunicationBoardVO">
@@ -41,7 +47,11 @@
 			select nvl(max(BOARD_NUM), 0)+1 from communication_board
 		</selectKey>
 		insert into communication_board 
-		values(#{BOARD_NUM}, #{USINGLIST_NUM}, #{BOARD_WRITER}, #{MEMBER_ID}, #{PETSITTER_ID}, #{BOARD_SUBJECT}, #{BOARD_CONTENT}, 0, sysdate, '답변 예정', #{BOARD_TYPE})
+		values(#{BOARD_NUM}, #{USINGLIST_NUM}, #{BOARD_WRITER}, #{MEMBER_ID}, #{PETSITTER_ID}, #{BOARD_SUBJECT}, #{BOARD_CONTENT}, sysdate, '답변 예정', #{BOARD_TYPE})
 	</insert>
-	
+
+	<insert id="uploadPhoto" parameterType="com.spring.petsitter.board.CommunicationBoardVO">
+		insert into communication_photo
+		values(#{USINGLIST_NUM}, #{COMMUNICATION_PHOTO_FILE}, sysdate)
+	</insert>
 </mapper>

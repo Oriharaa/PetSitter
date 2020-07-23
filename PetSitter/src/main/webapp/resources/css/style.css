@@ -1215,6 +1215,7 @@ h1, h2, h3, h4, h5,
       background: #fff; }
 
 .top-bar {
+	height: 44px;
   padding-top: .5rem;
   background: #eee; }
   .top-bar a {

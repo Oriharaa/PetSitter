@@ -2,7 +2,6 @@ package com.spring.petsitter.board;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -337,7 +336,7 @@ public class ProBoardController {
 	public void fileDownload(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		response.setCharacterEncoding("utf-8");
 		
-		String num = request.getParameter("num");
+		request.getParameter("num");
 		String of = request.getParameter("of"); // 서버에 업로드된 변경된 실제 파일명
 	    String of2 = request.getParameter("of2"); // 오리지날 파일명
 	    

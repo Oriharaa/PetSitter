@@ -324,10 +324,10 @@ public class MemberController {
 	@RequestMapping(value = "memberUpdate.me")
 	public String member_update(MemberVO vo, HttpServletRequest request) throws Exception {
 		String[] address = request.getParameterValues("MEMBER_ADDRESS");
-		if(address[0].equals("N")) {
+		if(address[0].equals("")) {
 			vo.setMEMBER_ADDRESS("N");
 		}else {
-		vo.setMEMBER_REAL_ADDRESS(address[0] + " " + address[1] + " " + address[2]);
+			vo.setMEMBER_REAL_ADDRESS(address[0] + " " + address[1] + " " + address[2]);
 		}
 		MultipartFile mf = vo.getMEMBER_PHOTO();
 		String uploadPath = "C:\\Project156\\upload\\";
@@ -352,7 +352,9 @@ public class MemberController {
 	
 	@RequestMapping(value = "logout.me")
 	public String member_logout(HttpSession session) {
-		session.invalidate();
+		session.removeAttribute("id");
+		session.removeAttribute("name");
+		session.removeAttribute("rank");
 		return "redirect:/home.me";
 	}
 	

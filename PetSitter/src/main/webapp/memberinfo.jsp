@@ -712,7 +712,17 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			    <div class="mpbody">
 				  <div class="row" style = "margin-to">
 				  <div class = "col-04" style = "padding : 0 15px;">
+				  	<%
+				  		if(nickname.equals("")) {
+				  	%>
+				  	<h2 class="mpname float-left">닉네임</h2>
+				  	<%
+				  		} else {
+				  	%>
 				    <h2 class="mpname float-left"><%=nickname %></h2>
+				    <%
+				  		}
+				    %>
 				    <%
 				    	if(membervo.getMEMBER_RANK().equals("Green")) {
 				    %>

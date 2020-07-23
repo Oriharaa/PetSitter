@@ -2,19 +2,28 @@ package com.spring.petsitter.board;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 /*
+-- 펫시터와의 소통 게시판
 create table COMMUNICATION_BOARD(
 	BOARD_NUM number(10) PRIMARY KEY, -- 회원 게시판 글 번호
-	USINGLIST_NUM number(10), -- 이용 내역 번호
-	BOARD_WRITER varchar2(30), -- 작성자(일반 회원 닉네임 or 펫시터 닉네임)
+    USINGLIST_NUM number(10), -- 이용 내역 번호
+    BOARD_WRITER varchar2(30), -- 작성자(일반 회원 닉네임 or 펫시터 닉네임)
 	MEMBER_ID varchar2(30), -- 일반 회원 아이디
 	PETSITTER_ID varchar2(30), -- 펫시터 회원 아이디
 	BOARD_SUBJECT varchar2(100), -- 제목
 	BOARD_CONTENT varchar2(4000), -- 내용
-	BOARD_READCOUNT number, -- 조회수
 	BOARD_DATE date default sysdate, -- 작성일
 	BOARD_CONDITION varchar2(10) default '답변 예정', -- 답변예정/답변완료
 	BOARD_TYPE varchar2(10) -- 글 구분(스케줄/기타)
+);
+
+-- 펫시터와의 소통 사진 게시판
+create table COMMUNICATION_PHOTO(
+    USINGLIST_NUM number(10),
+    COMMUNICATION_PHOTO_FILE varchar2(100) default 'N', -- 업로드된 사진 파일
+    UPLOAD_DATE date default sysdate -- 업로드 일자
 );
 */
 public class CommunicationBoardVO {
@@ -25,11 +34,12 @@ public class CommunicationBoardVO {
 	private String PETSITTER_ID;
 	private String BOARD_SUBJECT;
 	private String BOARD_CONTENT;
-	private String BOARD_READCOUNT;
 	private Date BOARD_DATE;
 	private String BOARD_REALDATE;
 	private String BOARD_CONDITION;
 	private String BOARD_TYPE;
+	private MultipartFile[] COMMUNICATION_PHOTO_LIST;
+	private String COMMUNICATION_PHOTO_FILE;
 	
 	public int getBOARD_NUM() {
 		return BOARD_NUM;
@@ -73,12 +83,6 @@ public class CommunicationBoardVO {
 	public void setBOARD_CONTENT(String bOARD_CONTENT) {
 		BOARD_CONTENT = bOARD_CONTENT;
 	}
-	public String getBOARD_READCOUNT() {
-		return BOARD_READCOUNT;
-	}
-	public void setBOARD_READCOUNT(String bOARD_READCOUNT) {
-		BOARD_READCOUNT = bOARD_READCOUNT;
-	}
 	public Date getBOARD_DATE() {
 		return BOARD_DATE;
 	}
@@ -103,5 +107,16 @@ public class CommunicationBoardVO {
 	public void setBOARD_TYPE(String bOARD_TYPE) {
 		BOARD_TYPE = bOARD_TYPE;
 	}
-	
+	public MultipartFile[] getCOMMUNICATION_PHOTO_LIST() {
+		return COMMUNICATION_PHOTO_LIST;
+	}
+	public void setCOMMUNICATION_PHOTO_LIST(MultipartFile[] cOMMUNICATION_FILE) {
+		COMMUNICATION_PHOTO_LIST = cOMMUNICATION_FILE;
+	}
+	public String getCOMMUNICATION_PHOTO_FILE() {
+		return COMMUNICATION_PHOTO_FILE;
+	}
+	public void setCOMMUNICATION_PHOTO_FILE(String cOMMUNICATION_UPLOAD_FILE) {
+		COMMUNICATION_PHOTO_FILE = cOMMUNICATION_UPLOAD_FILE;
+	}
 }

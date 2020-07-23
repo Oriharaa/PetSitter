@@ -93,7 +93,7 @@ public class UsinglistController {
 		  	}
 		  	else{
 		  		list.get(i).setLIST_STATE("현재 돌봄 중");
-		  		list.get(i).setLIST_COMMUNICATION("<a href = 'home.me'><input type='button' class='pet_talk mybtn' value='고객과의 소통'>");
+		  		list.get(i).setLIST_COMMUNICATION("<a href = 'communication_petsitter.bo?usinglist_num=" + list.get(i).getLIST_NUM() + "'" + "><input type='button' class='pet_talk mybtn' value='고객과의 소통'>");
 		  	}
 		  }
 
@@ -150,7 +150,7 @@ public class UsinglistController {
 		  	}
 		  	else{
 		  		list.get(i).setLIST_STATE("현재 돌봄 중");
-		  		list.get(i).setLIST_COMMUNICATION("<a href = 'home.me'><input type='button' class='pet_talk mybtn' value='고객과의 소통'>");
+		  		list.get(i).setLIST_COMMUNICATION("<a href = 'communication_petsitter.bo?usinglist_num=" + list.get(i).getLIST_NUM() + "'" + "><input type='button' class='pet_talk mybtn' value='고객과의 소통'>");
 		  	}
 		  }
 
@@ -208,7 +208,7 @@ public class UsinglistController {
 		  	}
 		  	else{
 		  		list.get(i).setLIST_STATE("현재 돌봄 중");
-		  		list.get(i).setLIST_COMMUNICATION("<a href = 'home.me'><input type='button' class='pet_talk mybtn' value='고객과의 소통'>");
+		  		list.get(i).setLIST_COMMUNICATION("<a href = 'communication_petsitter.bo?usinglist_num=" + list.get(i).getLIST_NUM() + "'" + "><input type='button' class='pet_talk mybtn' value='고객과의 소통'>");
 		  	}
 		  }
 
@@ -266,7 +266,7 @@ public class UsinglistController {
 		  	}
 		  	else{
 		  		list.get(i).setLIST_STATE("현재 돌봄 중");
-		  		list.get(i).setLIST_COMMUNICATION("<a href = 'home.me'><input type='button' class='pet_talk mybtn' value='고객과의 소통'>");
+		  		list.get(i).setLIST_COMMUNICATION("<a href = 'communication_petsitter.bo?usinglist_num=" + list.get(i).getLIST_NUM() + "'" + "><input type='button' class='pet_talk mybtn' value='고객과의 소통'>");
 		  	}
 		  }
 
@@ -324,7 +324,7 @@ public class UsinglistController {
 		  	}
 		  	else{
 		  		list.get(i).setLIST_STATE("현재 돌봄 중");
-		  		list.get(i).setLIST_COMMUNICATION("<a href = 'home.me'><input type='button' class='pet_talk mybtn' value='고객과의 소통'>");
+		  		list.get(i).setLIST_COMMUNICATION("<a href = 'communication_petsitter.bo?usinglist_num=" + list.get(i).getLIST_NUM() + "'" + "><input type='button' class='pet_talk mybtn' value='고객과의 소통'>");
 		  	}
 		  }
 

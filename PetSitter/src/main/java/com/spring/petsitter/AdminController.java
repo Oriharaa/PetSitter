@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.petsitter.board.mboard.MReplyService;
 import com.spring.petsitter.board.mboard.MemberBoardService;
@@ -35,7 +34,7 @@ public class AdminController {
 	@Autowired
 	private UsinglistService usinglistService;
 	
-	/* ¸ÞÀÎ ÆäÀÌÁö */
+	/* ë©”ì¸ íŽ˜ì´ì§€ */
 	@RequestMapping(value = "/admin.me")
 	public String admin_main(Model model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
@@ -65,7 +64,7 @@ public class AdminController {
 		return "admin/dist/index";
 	}
 	
-	/* º»¹® ½Å°í ÆäÀÌÁö */
+	/* ë³¸ë¬¸ ì‹ ê³  íŽ˜ì´ì§€ */
 	@RequestMapping(value = "/admin_reportArticle.me")
 	public String admin_report_article(Model model) {
 		
@@ -80,7 +79,7 @@ public class AdminController {
 		return "admin/dist/report_article";
 	}
 	
-	/* ¸®ÇÃ ½Å°í ÆäÀÌÁö */
+	/* ë¦¬í”Œ ì‹ ê³  íŽ˜ì´ì§€ */
 	@RequestMapping(value = "/admin_reportReply.me")
 	public String admin_report_reply(Model model) {
 		
@@ -95,7 +94,7 @@ public class AdminController {
 		return "admin/dist/report_reply";
 	}
 	
-	/* È¸¿ø °ü¸® ÆäÀÌÁö */
+	/* íšŒì› ê´€ë¦¬ íŽ˜ì´ì§€ */
 	@RequestMapping(value = "admin_memberManage.me")
 	public String admin_member_manage(Model model) {
 		
@@ -119,7 +118,7 @@ public class AdminController {
 		return "admin/dist/member_manage";
 	}
 	
-	/* Æê½ÃÅÍ °ü¸® ÆäÀÌÁö */
+	/* íŽ«ì‹œí„° ê´€ë¦¬ íŽ˜ì´ì§€ */
 	@RequestMapping(value = "admin_petsitterManage.me")
 	public String admin_petsitter_manage(Model model) {
 		
@@ -143,37 +142,37 @@ public class AdminController {
 		return "admin/dist/petsitter_manage";
 	}
 	
-	/* °­Á¦ Å»Åð */
+	/* ê°•ì œ íƒˆí‡´ */
 	@RequestMapping(value = "/outmember.me")
 	public String member_out(@RequestParam(value="id", required=true) String id) throws Exception {
 		memberService.deleteMember(id);
 		
-		System.out.println(id + " »èÁ¦ ¿Ï·á");
+		System.out.println(id + " ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½");
 		
 		return "redirect:/admin_memberManage.me";
 	}
 	
-	/* È¸¿ø Á¤Áö */
+	/* íšŒì› ì •ì§€ */
 	@RequestMapping(value = "suspendedmember.me")
 	public String member_suspended(@RequestParam(value="id", required=true) String id) throws Exception {
 		memberService.suspendedMember(id);
 		
-		System.out.println(id + " Á¤Áö ¿Ï·á");
+		System.out.println(id + " ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½");
 		
 		return "redirect:/admin_memberManage.me";
 	}
 	
-	/* È¸¿ø º¹±Í */
+	/* íšŒì› ë³µê·€ */
 	@RequestMapping(value = "rollbackmember.me")
 	public String member_rollback(@RequestParam(value="id", required=true) String id) throws Exception {
 		memberService.rollbackMember(id);
 		
-		System.out.println(id + " ÇØÁ¦ ¿Ï·á");
+		System.out.println(id + " ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½");
 		
 		return "redirect:/admin_memberManage.me";
 	}
 	
-	/* µî±Þ º¯°æ */
+	/* ë“±ê¸‰ ë³€ê²½ */
 	@RequestMapping(value = "changemember.me")
 	// public void member_change(@RequestParam(value="rank", required=true) String rank, @RequestParam(value="id", required=true) String id) throws Exception {
 	public void member_change(String rank, String id) throws Exception {
@@ -183,37 +182,37 @@ public class AdminController {
 		
 		memberService.changeMember(rank, id);
 		
-		System.out.println(id + " º¯°æ ¿Ï·á");
+		System.out.println(id + " ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½");
 	}
 	
-	/* º»¹® ½Å°í Ã³¸® N -> Y */
+	/* ë³¸ë¬¸ ì‹ ê³  ì²˜ë¦¬ N -> Y */
 	@RequestMapping(value = "checkArticle.me")
 	public String report_article_check(@RequestParam(value="id", required=true) String id, @RequestParam(value="num", required=true) int num) throws Exception {
 		mreplyService.checkArticle(id, num);
 		
-		System.out.println(id + " Ã³¸® ¿Ï·á");
+		System.out.println(id + " Ã³ï¿½ï¿½ ï¿½Ï·ï¿½");
 		
 		return "redirect:/admin_reportArticle.me";
 	}
 	
-	/* º»¹® ½Å°í Ã³¸® Y -> N */
+	/* ë³¸ë¬¸ ì‹ ê³  ì²˜ë¦¬ Y -> N */
 	@RequestMapping(value = "checkArticle2.me")
 	public String report_article_check2(@RequestParam(value="id", required=true) String id, @RequestParam(value="num", required=true) int num) throws Exception {
 		mreplyService.checkArticle2(id, num);
 		
-		System.out.println(id + " Ã³¸® ¿Ï·á");
+		System.out.println(id + " Ã³ï¿½ï¿½ ï¿½Ï·ï¿½");
 		
 		return "redirect:/admin_reportArticle.me";
 	}
 	
-	/* ¸®ÇÃ ½Å°í Ã³¸® N -> Y */
+	/* ë¦¬í”Œ ì‹ ê³  ì²˜ë¦¬ N -> Y */
 	@RequestMapping(value = "checkReply.me")
 	public String report_reply_check(@RequestParam(value="bno", required=true) String bno, @RequestParam(value="rno", required=true) String rno, @RequestParam(value="id", required=true) String id) throws Exception {
 		mreplyService.checkReply(bno, rno, id);
 		return "redirect:/admin_reportReply.me";
 	}
 	
-	/* ¸®ÇÃ ½Å°í Ã³¸® Y -> N */
+	/* ë¦¬í”Œ ì‹ ê³  ì²˜ë¦¬ Y -> N */
 	@RequestMapping(value = "checkReply2.me")
 	public String report_reply_check2(@RequestParam(value="bno", required=true) String bno, @RequestParam(value="rno", required=true) String rno, @RequestParam(value="id", required=true) String id) throws Exception {
 		mreplyService.checkReply2(bno, rno, id);

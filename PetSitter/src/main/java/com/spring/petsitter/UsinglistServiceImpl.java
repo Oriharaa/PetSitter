@@ -105,6 +105,7 @@ public class UsinglistServiceImpl implements UsinglistService{
 	@Override
 	public int insertUsinglist(UsinglistVO usinglist) {
 		UsinglistMapper usinglistMapper = sqlSession.getMapper(UsinglistMapper.class);
+		usinglistMapper.defaultphoto();
 		return usinglistMapper.insertUsinglist(usinglist);
 	}
 
