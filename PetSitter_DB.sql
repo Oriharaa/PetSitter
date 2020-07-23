@@ -23,7 +23,7 @@ create table PETSITTER(
     PETSITTER_EMAIL varchar2(30) default 'N', --이메일
     PETSITTER_SCORE number(2,1) DEFAULT 0, --평점
     PETSITTER_COUNT number(5) DEFAULT 0, --활동횟수
-    PETSITTER_RANK varchar2(20) DEFAULT 'Pro', --등급('Pro', 'GoldPro')
+    PETSITTER_RANK varchar2(20) DEFAULT 'N', --등급('N','Pro', 'GoldPro')
     PETSITTER_ADDRESS varchar2(100) default 'N', --주소
     PETSITTER_INTRODUCE varchar2(2000) default 'N', --자기소개
     PETSITTER_PRICE_30M varchar2(10), --30분가격(방문 예약)
@@ -40,7 +40,10 @@ create table PETSITTER(
     PETSITTER_GENDER varchar2(4) default 'N',-- 성별, 추가
     PETSITTER_REVIEWCOUNT number(5) DEFAULT 0, --리뷰 개수
     PETSITTER_PHOTO_APPEAL varchar2(300) default 'N', --어필 사진
-    PETSITTER_AMOUNT number default 0 --총 매출 금액
+    PETSITTER_AMOUNT number default 0, --총 매출 금액
+    PETSITTER_ADDRX number default 0, -- 주소의 X좌표
+    PETSITTER_ADDRY number default 0, -- 주소의 Y좌표
+    PETSITTER_SAFEADDR varchar2(100) default 'N' -- 안심주소 (도로명주소, 상세주소)
 ); 
 
 create table petsitter_schedule(
@@ -324,4 +327,5 @@ select * from (select petsitter.*, rownum
                order by petsitter_count desc)
 where rownum = 1;
 
-select * from pay where MERCHANT_UID='wVy4dd';
+insert into pay(PAY_ID, PAY_AMOUNT, PETSITTER_ID, MERCHANT_UID, PAY_DATE, PAY_TYPE, START_DATE, END_DATE)
+values('asdasd@naver.com', 50000, 'asdasd', 'yaIB5s', sysdate, '위탁', to_date('2020-07-29 14:00', 'YYYY-MM-DD HH:mi'), to_date('2020-07-30 14:00', 'YYYY-MM-DD HH:mi'));
