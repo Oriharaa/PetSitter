@@ -654,14 +654,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		    minTime: '09',
 		    maxTime: '11:00pm',
 		});
-<<<<<<< HEAD
 		
 		<!-- 종료시간 -->	
-=======
-	</script>
-	<script type="text/javascript">
-<!-- 종료시간 -->
->>>>>>> origin/Hong
+
 		$('#timePicker_end').timepicker({
 		    timeFormat: 'p h:mm',
 		    interval: 60,

@@ -1,26 +1,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<<<<<<< HEAD
-=======
 <%@ page import="com.spring.petsitter.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.spring.petsitter.ReservationController.*" %>
-
->>>>>>> origin/Hong
 
 <%
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
 %>
 
-<<<<<<< HEAD
-<% 
-	 /* 펫시터정보 */ 
-	 String profile= request.getParameter("profile");	
-=======
 <%
-
 	ArrayList<PetVO> list = (ArrayList<PetVO>)request.getAttribute("list");
 	String memberId = (String)request.getAttribute("memberId");
 	String petPhoto = (String)request.getAttribute("petPhoto");
@@ -31,22 +21,10 @@
 <% 
 	 /*분류 (아이디 / 주소 / 닉네임 / 등급 / 후기개수 / 자격증이름 / 자격증여부x2 / 자기소개 / 가능서비스 / 자격증 보유개수)*/
 	 String petsitter_id= request.getParameter("petsitter_id");
->>>>>>> origin/Hong
 	 String address= request.getParameter("address");
 	 String nickname= request.getParameter("nickname");
 	 String rank= request.getParameter("rank");
 	 String review_count= request.getParameter("review_count");
-<<<<<<< HEAD
-	 String photo_cert_File= request.getParameter("photo_cert_File");
-	 String cert_check1= request.getParameter("cert_check1");
-	 String cert_check2= request.getParameter("cert_check2");
-	 String introduce= request.getParameter("introduce");
-	 String cert_list= request.getParameter("cert_list");
-	 String petsitter_id= request.getParameter("petsitter_id");
-	 
-	 
-	 /* 날짜정보 시간정보 */ 
-=======
 	 String cert_list= request.getParameter("cert_list");
 	 String introduce= request.getParameter("introduce");
 	 String service = request.getParameter("service");
@@ -66,14 +44,11 @@
 	 String proof = request.getParameter("photo_upfile");
 	 
 	 /*분류 (날짜  / 시간)*/ 
->>>>>>> origin/Hong
 	 String start_date= request.getParameter("start_date");
 	 String end_date= request.getParameter("end_date");
 	 String start_time= request.getParameter("start_time");
 	 String end_time= request.getParameter("end_time");
-<<<<<<< HEAD
-=======
-	  
+
 	 String radio_basic= request.getParameter("radio_basic");
 	 
 	 /*분류  (위탁60분가격 / 방문 3분가격 / 위탁1박가격 / 위탁1박가격(+대형견) / 방문60분가격 / 방문60분가격(+대형견)*/
@@ -83,8 +58,7 @@
 	 String bigPrice= request.getParameter("bigPrice");
 	 String price60= request.getParameter("price60");
 	 String bigPrice2= request.getParameter("bigPrice2");
-	 
->>>>>>> origin/Hong
+
 	 
 %> 
 
@@ -273,8 +247,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
     
     <!-- 추가CSS -->
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/UT_CSS/foster_view.css?after">
-	    
-<<<<<<< HEAD
+
     <style>
 			.dropdown:hover {
 				background-color: rgb(83, 220, 153);
@@ -324,9 +297,6 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 				font-weight: bold;
 			}
 		</style>
-=======
-    <title>pet sitter foster view</title>
->>>>>>> origin/Hong
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
   
@@ -413,12 +383,9 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
       </header>
       
    	<!-- 본 기능 추가 시작 -->
-<<<<<<< HEAD
-		<body>
-=======
+
 			<body>
 			<input type="hidden" value="${id }" id="MEMBER_ID" />
->>>>>>> origin/Hong
     	<div class = "container">
       	<div class = "row justify-content-center">
       		<div class = "col-md-5" style = "margin-top : 50px;">
@@ -507,20 +474,11 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
       							<div>자신의 애견정보를 기입하지 않으신 분은</div>
       							<span class = "mybold">나의 반려동물 등록하기</span><span>를 누르세요 </span>
       						</div>
-<<<<<<< HEAD
-      						<div class = "col-12 main_mint text-center petup">
-=======
       						<div class = "col-12 main_mint text-center petup" style="border-radius: 0px 50px 50px 0px;">
->>>>>>> origin/Hong
       							<a class = "font-size-21 main_whitefont mybold" href = "petRegister.me">나의 반려동물 등록하기 GO!</a>
       						</div>
       						<div class = "col-12 text-center">
       							<label for="custom_rd1" class="custom_lb" id="custom_lb1"> 위탁</label>
-<<<<<<< HEAD
-											<input type="radio" name="type" id="custom_rd1" value="위탁" class="hide" />
-      							<label for="custom_rd2" class="custom_lb" id="custom_lb2">방문</label>
-      								<input type="radio" name="type" id="custom_rd2" value="방문" class="hide" />
-=======
 											<input type="radio" name="type" id="custom_rd1" value="위탁" class="hide" 
 											
 											<%if(radio_basic.equals("we"))
@@ -545,7 +503,6 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 											{
 											%>	/>
 											<% }  %> <!-- radio default값 설정해주기(방문으로 들어왔을경우 default값 방문체크) -->
->>>>>>> origin/Hong
 									</div>
 
 									
@@ -555,11 +512,8 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 									<div class = "col-11 text-center">
 										<div class ="row justify-content-center">
 											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;"id="hide1">
-<<<<<<< HEAD
-												<input type="text" id="datePicker_start" class="form-control dateP" value="<%=start_date%>" style = "height : 41px;">
-=======
+
 												<input type="text" id="datePicker_start" class="form-control dateP" placeholder ="Check In Date" value="<%=start_date%>" style = "height : 41px;">
->>>>>>> origin/Hong
 											</div>
 											<div class = "col-1" id = "hide2" style = "padding : 0 0">
 												<svg class="bi bi-chevron-compact-right main_grayfont4" width="30px" height="30px" style = "margin-top : 11px;"viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -567,11 +521,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 												</svg>
 											</div>
 											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;">
-<<<<<<< HEAD
-												<input type="text" id="datePicker_end" class="form-control dateP" value="<%=end_date%>" style = "height : 41px;">
-=======
 												<input type="text" id="datePicker_end" class="form-control dateP" placeholder ="Check Out Date" value="<%=end_date%>" style = "height : 41px;">
->>>>>>> origin/Hong
 											</div>
 										</div>
 									</div>
@@ -593,11 +543,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 									<div class = "col-11 text-center">
 										<div class ="row justify-content-center">
 											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;">
-<<<<<<< HEAD
-												<input type="text" name="time" class="form-control timepicker dateP" id="timePicker_start" value="<%=start_time%>" style = "height : 41px;">
-=======
 												<input type="text" name="time" class="form-control timepicker dateP" id="timePicker_start" placeholder="Check In Time" value="<%=start_time%>" style = "height : 41px;">
->>>>>>> origin/Hong
 											</div>
 											<div class = "col-1" style = "padding : 0 0">
 												<svg class="bi bi-chevron-compact-right main_grayfont4" width="30px" height="30px" style = "margin-top : 11px;"viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -605,11 +551,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 												</svg>
 											</div>
 											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;">
-<<<<<<< HEAD
-												<input type="text" name="time" class="form-control timepicker dateP" id="timePicker_end" value="<%=end_time%>" style = "height : 41px;">
-=======
 												<input type="text" name="time" class="form-control timepicker dateP" id="timePicker_end" placeholder="Check Out Time" value="<%=end_time%>" style = "height : 41px;">
->>>>>>> origin/Hong
 											</div>
 										</div>
 									</div>
@@ -648,8 +590,9 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 										</div>
 										
 										<hr class = "my-hr3" style = "margin : 8px 0;">
-<<<<<<< HEAD
+										<div class="petcost2" id="cost2">
 										<p>예상 총 비용 : </p>
+										</div>
 										<form name="paycheck" action="./paycheck.br" method="post">
 											<input type="hidden" name="PAY_ID" id="PAY_ID" value=${id } >
 											<input type="hidden" name="PAY_AMOUNT" id="PAY_AMOUNT" value=50000 >
@@ -661,14 +604,6 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 											<input type="hidden" name="END_DATE" id="END_TIME">
 											<input type="submit" style="background:#53dc98; color :white; width : 60%; height : 38px; margin : 4px 0 31px 0;" class="btn btn-sm font-size-14" value="예약 신청">
 										</form>
-=======
-										
-										<div class="petcost2" id="cost2">
-											<p>예상 총 비용 : </p>
-										</div>
-										
-										<button type="button" style="background:#53dc98; color :white; width : 60%; height : 38px; margin : 4px 0 31px 0;" class="btn btn-sm font-size-14">예약 신청</button>
->>>>>>> origin/Hong
 									</div>
 									
       					</div>
@@ -682,40 +617,6 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 
 <br/><br/><hr class ="my-hr2" />
 
-
-<<<<<<< HEAD
-
-<!--펫시터 소개 프로필 자격증부분 시작  -->
-			<div class = "container">
-				<div class = "row justify-content-center">
-					<div class = "col-12"><hr class ="my-hr2" /><br/><br/></div>
-					<div class = "col-md-5">
-						<div class = "row align-items-center">
-							<div class = "col-4">
-								<!--profileimg01 는 petsitter-style.css 안에 기입 -->
-								<div class ="profileimg01" style = "margin : 2px 0;"><img src="resources/images/dog01.jpg" width ="100%" height ="100%"/></div>
-							</div>
-								<div class = "col-8 text-center main_grayfont3 font-size-14">
-									<!-- vo로 받아와서 수정해야할 부분 -->
-											<p><%=address%> 펫시터 : <%=nickname %> 님</p>
-											<p>등급 : <%=rank%>(활동 수 : <%=review_count%>회, <%=cert_check1%>)</p>
-								</div>
-						</div>
-					</div>
-					
-					<div class = "col-md-5">
-						<div class = "row align-items-center">
-							<div class = "col-6">
-								<!--profileimg01 는 petsitter-style.css 안에 기입 -->
-								<div class ="profileimg02" style = "margin : 2px 0;"><img src="resources/images/dog03.jpg" width ="100%" height ="100%"/></div>
-							</div>
-								<div class = "col-6 text-center main_grayfont3 font-size-14">
-									<!-- vo로 받아와서 수정해야할 부분 -->
-											<p><%=cert_check2%></p>
-											<p>등급 : <%=rank%> </p>
-											<p>(활동 수 : <%=review_count%>회, <%=cert_check1%>) </p>
-								</div>
-=======
 	
 	<div class="container">
 		<div class="row">
@@ -752,18 +653,9 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 									}
 								%>
 							</p>
->>>>>>> origin/Hong
 						</div>
 						
 					</div>
-<<<<<<< HEAD
-					
-					<div class = "col-8 text-center main_grayfont3">
-						<br/>
-						<p class = "font-size-16" style = "font-weight : bold;"><br/><%=nickname%> 펫시터 님을 소개합니다!</p>
-						<p class = "font-size-14"><%=introduce%></p>
-						<br/>
-=======
 				</div>
 				
 				<div class="bb">
@@ -785,7 +677,6 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 			<div class="col">
 					<div class="sibal2">
 						info
->>>>>>> origin/Hong
 					</div>
 			</div>
 		</div>
@@ -1513,38 +1404,15 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
   </script>  
   <script src="<c:url value="/resources/js/UT_JS/foster.js"/>"></script>    
 
-<<<<<<< HEAD
-=======
 	<!-- 아이콘 -->   
 	<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script> 
 
->>>>>>> origin/Hong
 	<!-- 데이트피커 ver.2 -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 	<!-- 달력(한국어버젼_) -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
 	
-<<<<<<< HEAD
-	<!-- 데이트피커 자스코드 -->
-	<script>
-	$(function() {
-		$('#datePicker_start').datepicker({
-				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
-				language : "ko", // 언어(<ㅡ js추가필요해서 했음.)
-				autoclose: true, // 날짜 선택하면 자동으로 닫힘
-				orientation: "bottom auto"
-		});
-		
-		$('#datePicker_end').datepicker({
-				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
-				language : "ko", // 언어(<ㅡ js추가필요해서 했음.)
-				autoclose: true, // 날짜 선택하면 자동으로 닫힘
-				orientation: "bottom auto"
-		});
-	});
-	</script>
-=======
 <!-- 데이트피커 자스코드 -->
 <!-- 시작날짜 -->
 	<script type="text/javascript">
@@ -1566,7 +1434,6 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 				autoclose : true						//날짜누르면 닫힘.
 		});
 	</script>    
->>>>>>> origin/Hong
 
 	<!-- 타임피커 ver.1 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js"></script>

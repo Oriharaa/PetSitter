@@ -28,6 +28,4 @@ public class PetServiceImpl implements PetService{
 		return list;
 	}
 	
-
-
 }

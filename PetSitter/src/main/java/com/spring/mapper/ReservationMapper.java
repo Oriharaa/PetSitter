@@ -14,9 +14,6 @@ public interface ReservationMapper {
 	  @Param(value="btn_a") String btn_a,@Param(value="btn_b") String btn_b,
 	  @Param(value="btn_c") String btn_c,@Param(value="btn_g")String btn_g,
 	  @Param(value="btn_type") String btn_type); 
-	
-	
-	
 	public List<PetsitterVO> timeDate(@Param(value="btn1") String btn1, @Param(value="btn2") String btn2);
 	
 }

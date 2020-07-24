@@ -2,21 +2,6 @@
 /* 언택 추가 CSS *//* 언택 추가 CSS *//* 언택 추가 CSS */
 /* 언택 추가 CSS *//* 언택 추가 CSS *//* 언택 추가 CSS */ 
 
-<<<<<<< HEAD
-.custom_lb{
-	margin-top:5%;
-	text-align:center;
-	width:20%;
-	height:26px;
-	border:0px;
-	border-radius:5px;
-	color:#ffffff;
-	font-size:13px;
-	line-height: 2;
-	transition: all 350ms ease-in-out;
-	cursor: pointer;
-}
-=======
 
 /* 사진 */
 #choiceimage{
@@ -57,7 +42,6 @@ transition: all 350ms ease-in-out;
 cursor: pointer;
 }
 
->>>>>>> origin/Hong
 #custom_lb1{
 margin-left:10px;
 background-color:#53DC98;	
@@ -67,13 +51,9 @@ background-color:#53DC98;
 background-color:#BEBEBE;	
 }	
 	
-/* .hide{
+.hide{
 visibility:hidden;
-<<<<<<< HEAD
-} */
-=======
-}   */
-
+}
 
 
 /* 가능 서비스 */
@@ -466,4 +446,3 @@ font-weight:bold;
 input::placeholder {font-size:13px;}
 input:focus {outline:none;}
 button:focus {outline:none;}
->>>>>>> origin/Hong

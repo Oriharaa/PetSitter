@@ -63,28 +63,12 @@ public class ReservationController {
 		return petsitter_list;
 	}
 
-<<<<<<< HEAD
-	@RequestMapping(value = "foster_view.me", method = RequestMethod.POST)
-	public String foster_view() {
-		
-=======
-
 	@RequestMapping(value = "foster_view.me", method = RequestMethod.POST)
 	public String foster_view(HttpSession session, Model model) {
 		String id = (String)session.getAttribute("id");
 		ArrayList<PetVO> list = petService.selectPet(id);
 		model.addAttribute("list", list);
->>>>>>> origin/Hong
 		return "foster_view";
-	}
-
-	
-	
-	
-	@RequestMapping(value = "call_view.me", method = RequestMethod.POST)
-	public String call_view() {
-				
-		return "call_view";
 	}
 
 }

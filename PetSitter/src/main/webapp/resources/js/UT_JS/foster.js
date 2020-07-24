@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-let date1 = document.getElementById("datePicker_start");
-let date2 = document.getElementById("datePicker_end");
-
-let hide1 = document.getElementById("hide1");
-let hide2 = document.getElementById("hide2");
-
-$(document).ready(function(){
-	    $("#custom_rd2").change(function(){
-	        if($("#custom_rd2").is(":checked"))
-=======
 
 //데이트피커
 let date1 = document.getElementById("datePicker_start");
@@ -47,20 +36,10 @@ $(document).ready(function(){
 	    //방문버튼
 		$("#custom_rd2").change(function(){
 	        if($("#custom_rd2").is(":checked") == true)
->>>>>>> origin/Hong
 	        {
 	        	date1.style.width = "330px";
 	        	date2.style.display = "none";
 	        	hide1.style.marginRight = '30px';
-<<<<<<< HEAD
-	        	hide2.style.display = "none";	
-	        }
-	    });
-	    
-	    $("#custom_rd1").change(function(){
-	        if($("#custom_rd1").is(":checked"))
-	        {
-=======
 	        	hide2.style.display = "none";
 	        	we.style.background = "rgb(190, 190, 190)";
 	        	bang.style.background = "rgb(83, 220, 152)";
@@ -71,18 +50,12 @@ $(document).ready(function(){
 	    $("#custom_rd1").change(function(){
 			if($("#custom_rd1").is(":checked") == true)
 	        {
-	        	
->>>>>>> origin/Hong
+
 	        	date1.style.width = "152px";
 	        	date2.style.display = "block";
 	     
 	        	hide2.style.display = "block";
 	        	hide2.style.marginLeft = '-25px';
-<<<<<<< HEAD
-	        }
-	    });
-	});
-=======
 	        	
 	        	we.style.background = "rgb(83, 220, 152)";
 	        	bang.style.background = "rgb(190, 190, 190)";
@@ -388,5 +361,3 @@ $(document).ready(function() {
 		"<span class='bak'>" +"총 "+test5+"시간, 비용 : " +price+ "원  <input type='button' class='x_btn' value='x'></span><br/>");
 	 */
 
-
->>>>>>> origin/Hong
