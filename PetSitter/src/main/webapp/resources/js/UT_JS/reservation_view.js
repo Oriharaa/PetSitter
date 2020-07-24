@@ -225,11 +225,11 @@ var k = 1;	//반복될시 carousel 맞춤 지정
 						output += '<span class="v_grade">';
 						if(item.petsitter_RANK == 'Pro') 
 						{
-							output += '<img src="resources/images/petsitter_pro.png">';
+							output += '<img src="resources/images/petsitter_pro.png" style="width: 20px; margin-bottom: 3px;">';
 						} 
 						else if(item.petsitter_RANK == 'GoldPro') 
 						{
-							output += '<img src="resources/images/petsitter_goldpro.png">';
+							output += '<img src="resources/images/petsitter_goldpro.png" style="width: 20px; margin-bottom: 3px;">';
 						}
 						output += '</span>';
 

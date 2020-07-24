@@ -323,12 +323,15 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 
               <div class="float-right">
               	<%
-              		if(id == null) {
+              		if(session.getAttribute("id") == "" || session.getAttribute("id") == null) {
               	%>
                 <a href="loginform.me" ><span class = "font-size-14" >로그인 &amp; 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
-                <%} else { %>
-                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
+                <%} else if(((String)session.getAttribute("id")).contains("@")){ %> <!-- 일반 회원 마이 페이지 -->
+                <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+                <%} else {%> <!-- 펫시터 마이 페이지 -->
+                <a href="petsitterinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} %>
               </div>
@@ -595,7 +598,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 										</div>
 										<form name="paycheck" action="./paycheck.br" method="post">
 											<input type="hidden" name="PAY_ID" id="PAY_ID" value=${id } >
-											<input type="hidden" name="PAY_AMOUNT" id="PAY_AMOUNT" value=50000 >
+											<input type="hidden" name="PAY_AMOUNT" id="PAY_AMOUNT" >
 											<input type="hidden" name="PETSITTER_ID" id="PETSITTER_ID" value=<%=petsitter_id %> >
 											<input type="hidden" name="PAY_TYPE" id="PAY_TYPE" value="위탁" >
 											<input type="hidden" name="START_DATE" id="START_DATE" value=<%=start_date %>>
@@ -1476,14 +1479,6 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 			});
 			
 		</script>
-		
-		<script>
-			$(function() {
-				var start_time = (String) ($("#timePicker_start").timepicker("getTime"));
-				var end_time = (String) ($("#timePicker_end").timepicker("getTime"));
-				$("#START_TIME").val(start_time.substr(16, 5));
-				$("#END_TIME").val(end_time.substr(16, 5));
-			});
-		</script>
+
 </body>
 </html>

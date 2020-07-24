@@ -137,14 +137,80 @@ var btn_type = "BANG";
 						output += '<div class="middle_box_row" onclick="go_foster(' +index+ ');">';
 						output += '<div class="middle_room_img">';
 						
-						if(item.petsitter_PHOTO_HOME_FILE === "N") 
-						{
-							output += '<img class="noImg" src="resources/images/room/noimg.png">';
-						}
-						else 
-						{
-							output  += '<img class="room" src="/filepath/' + item.petsitter_PHOTO_HOME_FILE + '">';
-						}		
+						output += '<div class = "col-12 float-none">';
+			    		output += '<center>';
+				    		
+				    		if(item.petsitter_PHOTO_HOME_FILE != "N" && home_photo[1] != null){
+				    		output += '<div id="carouselExampleIndicators'+k+'" class="carousel slide" data-ride="carousel"  >';
+				    		output += '<ol class="carousel-indicators">';
+				    		if(home_photo[2] != null){
+				    		output += '<li data-target="#carouselExampleIndicators'+k+'" data-slide-to="0" class="active"></li>';
+				    		output += '<li data-target="#carouselExampleIndicators'+k+'" data-slide-to="1"></li>';
+				    		output += '<li data-target="#carouselExampleIndicators'+k+'" data-slide-to="2"></li>';
+				    		output += '</ol>';
+				    		output += '<div class="carousel-inner">';
+				    		output += '<div class="carousel-item active">';
+				    		output += '<div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered">';
+				    		output += '<img src="/filepath/'+home_photo[0]+'" class="d-block w-100" alt="...">';
+				    		output += '</div></div></div>';
+				    		output += '</div>';
+				    		output += '<div class="carousel-item">';
+				    		output += '<div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered">';
+				    		output += '<img src="/filepath/'+home_photo[1]+'" class="d-block w-100" alt="...">';
+				    		output += '</div></div></div>';
+				    		output += '</div>';
+				    		
+				    		output += '<div class="carousel-item">';
+				    		output += '<div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered">';
+				    		output += '<img src="/filepath/'+home_photo[2]+'" class="d-block w-100" alt="...">';
+				    		output += '</div></div></div>';
+				    		output += '</div>';
+				    		
+				    		
+				    		}
+				    		if(home_photo[2] == null){
+				    		output += '<li data-target="#carouselExampleIndicators'+k+'" data-slide-to="0" class="active"></li>';
+				    		output += '<li data-target="#carouselExampleIndicators'+k+'" data-slide-to="1"></li>';
+				    		output += '</ol>';
+				    		output += '<div class="carousel-inner">';
+				    		output += '<div class="carousel-item active">';
+				    		output += '<div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered">';
+				    		output += '<img src="/filepath/'+home_photo[0]+'" class="d-block w-100" alt="...">';
+				    		output += '</div></div></div>';
+				    		output += '</div>';
+				    		output += '<div class="carousel-item">';
+				    		output += '<div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered">';
+				    		output += '<img src="/filepath/'+home_photo[1]+'" class="d-block w-100" alt="...">';
+				    		output += '</div></div></div>';
+				    		output += '</div>';
+				    		
+				    		}
+				    		
+				    		output += '<a class="carousel-control-prev" href="#carouselExampleIndicators'+k+'" role="button" data-slide="prev">';
+				    		output += '<svg style = "color : #949494; padding-right : 4px;"width="40px" height="32px" viewBox="0 0 16 16" class="bi bi-chevron-compact-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223z"/></svg>';
+				    		output += '<span class="sr-only">Previous</span>';
+				    		output += '</a>';
+				    		output += '<a class="carousel-control-next" href="#carouselExampleIndicators'+k+'" role="button" data-slide="next">';
+				    		output += '<svg style = "color : #949494; padding-left : 4px;"width="40px" height="32px" viewBox="0 0 16 16" class="bi bi-chevron-compact-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"/></svg>';
+				    		output += '<span class="sr-only">Next</span>';
+				    		output += '</a>';
+				    		output +=	'</div>';   	    		
+				    		}
+				    		
+				    		if(item.petsitter_PHOTO_HOME_FILE != "N" && home_photo[1] == null){
+			    			output += '<div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered">';
+				    		output += '<img src="/filepath/'+home_photo[0]+'" class="d-block w-100" alt="...">';
+				    		output += '</div></div></div>';	
+				    		}
+				    		
+				    		if(item.petsitter_PHOTO_HOME_FILE == "N"){
+				    		output += '<div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered">';
+				    		output += '<img src="resources/images/dogmark.png" class="d-block w-100" alt="...">';
+				    		output += '</div></div></div>';
+				    		}
+				    		
+				    		output += '</center>';
+				    		output += '</div>';		
 
 							output += '</div>';
 							output += '<a class="go_view">';
@@ -155,11 +221,11 @@ var btn_type = "BANG";
 							output += '<span class="v_grade">';
 							if(item.petsitter_RANK == 'Pro') 
 							{
-								output += '<img src="resources/images/petsitter_pro.png">';
+								output += '<img src="resources/images/petsitter_pro.png" style="width: 20px; margin-bottom: 3px;">';
 							} 
 							else if(item.petsitter_RANK == 'GoldPro') 
 							{
-								output += '<img src="resources/images/petsitter_goldpro.png">';
+								output += '<img src="resources/images/petsitter_goldpro.png" style="width: 20px; margin-bottom: 3px;">';
 							}
 							output += '</span>';
 	

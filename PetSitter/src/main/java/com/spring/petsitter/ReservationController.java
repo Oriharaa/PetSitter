@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ReservationController {
@@ -21,9 +20,6 @@ public class ReservationController {
 	
 	@Autowired
 	private PetService petService;
-	
-	@Autowired
-	private MemberService memberService;
 	
 	// 위탁 돌봄 예약 페이지 이동
 	@RequestMapping(value = "reservation1.br")

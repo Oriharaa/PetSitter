@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.petsitter.MemberService;
@@ -35,8 +36,6 @@ public class CommunicationBoardController {
 								@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 		String member = (String)session.getAttribute("id");
 		int limit = 5;
-		
-		ArrayList<String> photo_list = communicationboardService.getPhotoList(usinglist_num);
 		
 		ArrayList<CommunicationBoardVO> board_list = communicationboardService.getQuesionList(member, "N", usinglist_num, page, limit);
 		
@@ -62,7 +61,6 @@ public class CommunicationBoardController {
 		model.addAttribute("listcount", listcount); // 글 수
 		model.addAttribute("board_list", board_list);
 		model.addAttribute("usinglist_num", usinglist_num);
-		model.addAttribute("photo_list", photo_list);
 		return "board/communication";
 	}
 	
@@ -72,8 +70,6 @@ public class CommunicationBoardController {
 								@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 		String petsitter = (String)session.getAttribute("id");
 		int limit = 5;
-		
-		ArrayList<String> photo_list = communicationboardService.getPhotoList(usinglist_num);
 		
 		ArrayList<CommunicationBoardVO> board_list = communicationboardService.getQuesionList("N", petsitter, usinglist_num, page, limit);
 		
@@ -99,7 +95,6 @@ public class CommunicationBoardController {
 		model.addAttribute("listcount", listcount); // 글 수
 		model.addAttribute("board_list", board_list);
 		model.addAttribute("usinglist_num", usinglist_num);
-		model.addAttribute("photo_list", photo_list);
 		return "board/communication";
 	}
 	
@@ -154,7 +149,15 @@ public class CommunicationBoardController {
 		boardvo.setCOMMUNICATION_PHOTO_FILE(String.join(",", PHOTO_FILE));
 		communicationboardService.uploadPhoto(boardvo);
 		
-		return "redirect:/communication_petsitter?usinglist_num=" + num;
+		return "redirect:/communication_petsitter.bo?usinglist_num=" + num;
+	}
+	
+	@RequestMapping(value = "getPhotoListJSON.bo", produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public ArrayList<String> communicationPhotoList(int id) {
+		ArrayList<String> photo_list = communicationboardService.getPhotoList(id);
+		
+		return photo_list;
 	}
 	
 }

@@ -10,7 +10,6 @@
 	int startpage = ((Integer)request.getAttribute("startpage")).intValue();
 	int endpage = ((Integer)request.getAttribute("endpage")).intValue();
 	int usinglist_num = ((Integer)request.getAttribute("usinglist_num")).intValue();
-	ArrayList<String> photo_list = (ArrayList<String>)request.getAttribute("photo_list");
 	
 	// 세션 종료시 홈으로
 	if(session.getAttribute("id") == null) {
@@ -360,31 +359,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 <section class="bottom_box">
 	<%
-		String[] photo_upload_list;
-		if(photo_list.contains("N")) {
-			photo_upload_list = new String[1];
-			photo_upload_list[0] = "N";
-		}
-		else {
-			photo_upload_list = new String[photo_list.size() * 3];
-			for(int i = 0; i < photo_list.size() * 3; i++) {
-				if(photo_list.get(i) == null) {
-					break;
-				}
-				photo_upload_list[i] = photo_list.get(i);
-				if(photo_list.get(i).contains(",")) {
-					photo_upload_list[i] = photo_list.get(i).split(",")[0];
-					i = i + 1;
-					photo_upload_list[i+1] = photo_list.get(i).split(",")[1];
-					i = i + 1;
-					if(photo_list.get(i).split(",")[2] != null) {
-						photo_upload_list[i+2] = photo_list.get(i).split(",")[2];
-						i = i + 1;
-					}
-				}
-			}
-		}
-		
 		if(!((String)session.getAttribute("id")).contains("@")) {
 	%>
 	<div class="row justify-content-center">
@@ -399,54 +373,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	<%
 		}
 	%>
-	<div class="container">
+	<div class="container" id="photo_list_input">
 	
-		<div class="row justify-content-center">
-			<div class="col">
-				<div class="bottom_body1">
-					<div class="bottom_img1">
-						<img src="resources/images/dog03.jpg" class="bottom_imgs" id="bottom_imgs1" alt="...">
-						<img src="resources/images/dog03.jpg" class="bottom_imgs" id="bottom_imgs2" alt="...">
-						<img src="resources/images/dog03.jpg" class="bottom_imgs" id="bottom_imgs3" alt="...">
-					</div>
-				</div>
-			</div>
-		</div>
-				
-		<div class="row justify-content-center">
-			<div class="col">
-				<div class="bottom_body2">
-					<div class="bottom_img2">
-						<img src="resources/images/dog03.jpg" class="bottom_imgs" id="bottom_imgs4" alt="...">
-						<img src="resources/images/dog03.jpg" class="bottom_imgs" id="bottom_imgs5" alt="...">
-						<img src="resources/images/dog03.jpg" class="bottom_imgs" id="bottom_imgs6" alt="...">
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="row justify-content-center">
-			<div class="col">
-				<div class="bottom_body3">
-					<div class="bottom_img3">
-						<img src="resources/images/dog03.jpg" class="bottom_imgs" id="bottom_imgs7" alt="...">
-						<img src="resources/images/dog03.jpg" class="bottom_imgs" id="bottom_imgs8" alt="...">
-						<img src="resources/images/dog03.jpg" class="bottom_imgs" id="bottom_imgs9" alt="...">
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="row justify-content-center">
-			<div class="col">
-			<form>
-				<div class="bottom_button">
-					<button type="button" class="photo_more">사진 더보기</button>
-				</div>
-			</form>
-			</div>
-		</div>
-		
 	</div>
 </section>      
 
@@ -573,7 +501,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
 		
@@ -586,6 +514,79 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
  		
  		<!-- 아이콘 -->   
 		<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+		
+		<script>
+			function listDate() {
+				
+				$.ajax({
+					url: '/petsitter/getPhotoListJSON.bo',
+					type: 'post',
+					data: {
+						id: <%=usinglist_num %>
+					},
+					dataType: 'json',
+					contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+					success: function(data) {
+						
+						var i = 1;
+						$.each(data, function(index, item) {
+							var photo_list = item.split(',', 3);
+							
+							var output = '';
+							
+							output += '<div class="row justify-content-center">';
+							output += '<div class="col">';
+							output += '<div class="bottom_body'+(index+1)+'">';
+							output += '<div class="bottom_img'+(index+1)+'">';
+							if(photo_list[2] != null) {
+								output += '<img src="/filepath/' + photo_list[0] + '" class="bottom_imgs" id="botom_imgs'+i+'" alt="...">';
+								i += 1;
+								output += '<img src="/filepath/' + photo_list[1] + '" class="bottom_imgs" id="botom_imgs'+i+'" alt="...">';
+								i += 1;
+								output += '<img src="/filepath/' + photo_list[2] + '" class="bottom_imgs" id="botom_imgs'+i+'" alt="...">';
+							} else if(photo_list[2] == null && photo_list[1] != null) {
+								output += '<img src="/filepath/' + photo_list[0] + '" class="bottom_imgs" id="botom_imgs'+i+'" alt="...">';
+								i += 1;
+								output += '<img src="/filepath/' + photo_list[1] + '" class="bottom_imgs" id="botom_imgs'+i+'" alt="...">';
+							} else if(photo_list[1] == null) {
+								output += '<img src="/filepath/' + photo_list[0] + '" class="bottom_imgs" id="botom_imgs'+i+'" alt="...">';
+							} else if(photo_list[0] == null) {
+								output += '<img src="resources/images/dog03.jpg" class="bottom_imgs" id="botom_imgs'+i+'" alt="...">';
+							}
+							output += '</div>';
+							output += '</div>';
+							output += '</div>';
+							output += '</div>';
+							
+							i++;
+							$('#photo_list_input').append(output);
+						});
+						var photo_more = '';
+						
+						photo_more += '<div class="row justify-content-center">';
+						photo_more += '<div class="col">';
+						photo_more += '<form>';
+						photo_more += '<div class="bottom_button">';
+						photo_more += '<button type="button" class="photo_more" id="photo_more">사진 더보기</button>';
+						photo_more += '</div>';
+						photo_more += '</form>';
+						photo_more += '</div>';
+						photo_more += '</div>';
+						
+						$('#photo_list_input').append(photo_more);
+					},
+					error: function() {
+						alert("ajax 실패");
+					}
+				});
+			}
+			
+			$(function() {
+				listDate();
+				
+				
+			});
+		</script>
 		
 		<script>
 			/* 글 눌렀을 때 내용 보이기 함수 */

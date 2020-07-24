@@ -183,15 +183,14 @@ $(document).ready(function(){
 
 
 
-var price_all = 0;
 //펫시터 견적 보여주기 함수(위탁)
 $(document).ready(function() {
 	
 	var count = 1;
-
+	let price_all_1 = 0;
 	if($("#custom_rd1").is(":checked") == true)
 	{
-		var price_all = 0;
+		
 		$("#plus1").click(function(){
 
 			count++;
@@ -242,28 +241,37 @@ $(document).ready(function() {
 			$("#cost1").append("<p class='plusPet' id='p"+count+"'>" +selectOption+", " +bak+ "박" +ill+ "일, " +
 								"총 "+allTime+"시간, 비용 : " +price+ "원 <button type='button' class='x_btn' id='x"+count+"' value='"+price+"'>x</button></p>"); 
 			
-			price_all += price;
+			price_all_1 += price;
 			$("#cost2").empty();
-			$("#cost2").append("<p class='allCost'>예상 총 비용 : " +price_all+ "원</p>");
+			$("#cost2").append("<p class='allCost'>예상 총 비용 : " +price_all_1+ "원</p>");
 			
 			
 			//'x' 클릭시 해당p태그 삭제 예상 총비용 변화
 			$("#x"+count).click(function(){ 
 				
 				var price_select = parseInt($('#x'+count).val());
-				var price_update = price_all - price_select;
+				price_all_1 = price_all_1 - price_select;
 					
 				$("#p"+count).empty();
 				$("#cost2").empty();
-				$("#cost2").append("<p class='allCost'>예상 총 비용 : " +price_update+ "원</p>");
+				$("#cost2").append("<p class='allCost'>예상 총 비용 : " +price_all_1+ "원</p>");
 				
 			});
 			
+			$("#PAY_AMOUNT").val(price_all_1);
+			var start_date = (String)($("#datePicker_start").data('datepicker').getFormattedDate('yyyy-mm-dd'));
+			var end_date = (String)($("#datePicker_end").data('datepicker').getFormattedDate('yyyy-mm-dd'));
+			var start_time = (String) ($("#timePicker_start").timepicker("getTime"));
+			var end_time = (String) ($("#timePicker_end").timepicker("getTime"));
 			
-			
+			$("#START_DATE").val(start_date);
+			$("#END_DATE").val(end_date);
+			$("#START_TIME").val(start_time.substr(16, 5));
+			$("#END_TIME").val(end_time.substr(16, 5));
 		});
 	}
-
+	
+	
 });
 
 
@@ -277,9 +285,9 @@ $(document).ready(function() {
 //펫시터 견적 보여주기 함수(방문)
 $(document).ready(function() {
 	var count = 1;
+	let price_all_2 = 0;
 	if($("#custom_rd2").is(":checked") == true)
 	{
-		var price_all = 0;
 		$("#plus1").click(function(){
 
 			count++;
@@ -324,24 +332,37 @@ $(document).ready(function() {
 			$("#cost1").append("<p class='plusPet' id='p"+count+"'>" +selectOption+", 총" +test5+"시간, 비용 : " +price+ "원 " +
 							 "<input type='button' class='x_btn' id='x"+count+"' value='x'> </p>"); 
 
-			price_all += price;
+			price_all_2 += price;
 			$("#cost2").empty();
-			$("#cost2").append("<p class='allCost'>예상 총 비용 : " +price_all+ "원</p>");
+			$("#cost2").append("<p class='allCost'>예상 총 비용 : " +price_all_2+ "원</p>");
 			
 			
 			//'x' 클릭시 해당p태그 삭제 예상 총비용 변화
 			$("#x"+count).click(function(){ 
 
 			var price_select = parseInt($('#x'+count).val());
-			var price_update = price_all - price_select;
+			var price_update = price_all_2 - price_select;
 
 			$("#p"+count).empty();
 			$("#cost2").empty();
 			$("#cost2").append("<p class='allCost'>예상 총 비용 : " +price_update+ "원</p>");
 
 			});
+			
+			$("#PAY_AMOUNT").val(price_all_2);
+			$("#PAY_TYPE").val('방문');
+			var start_date = (String)($("#datePicker_start").data('datepicker').getFormattedDate('yyyy-mm-dd'));
+			var end_date = (String)($("#datePicker_end").data('datepicker').getFormattedDate('yyyy-mm-dd'));
+			var start_time = (String) ($("#timePicker_start").timepicker("getTime"));
+			var end_time = (String) ($("#timePicker_end").timepicker("getTime"));
+			
+			$("#START_DATE").val(start_date);
+			$("#END_DATE").val(end_date);
+			$("#START_TIME").val(start_time.substr(16, 5));
+			$("#END_TIME").val(end_time.substr(16, 5));
 		});
 	}
+	
 });
 
 
