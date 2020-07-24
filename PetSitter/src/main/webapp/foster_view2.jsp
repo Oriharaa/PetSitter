@@ -21,16 +21,18 @@
 
 
 <% 
-	 /*분류 (아이디 / 주소 / 닉네임 / 등급 / 후기개수 / 자격증이름 / 자격증여부x2 / 자기소개 / 가능서비스 / 자격증 보유개수)*/
+	 /*분류 (아이디 / 주소 / 닉네임 / 등급 / 후기개수 / 자격증이름 / 자격증여부x2 / 자기소개 / 가능서비스 / 60분가격 / 자격증 보유개수)*/
 	 String petsitter_id= request.getParameter("petsitter_id");
 	 String address= request.getParameter("address");
 	 String nickname= request.getParameter("nickname");
 	 String rank= request.getParameter("rank");
 	 String review_count= request.getParameter("review_count");
 	 String cert_list= request.getParameter("cert_list");
+	 String cert_check1= request.getParameter("cert_check1");
+	 String cert_check2= request.getParameter("cert_check2");
 	 String introduce= request.getParameter("introduce");
 	 String service = request.getParameter("service");
-
+	 String price = request.getParameter("price");
 	 
 	 String cert_count = request.getParameter("cert_count");
 	 
@@ -45,23 +47,14 @@
 	 String home_photo3 = request.getParameter("home_photo3");
 	 String proof = request.getParameter("photo_upfile");
 	 
-	 /*분류 (날짜  / 시간)*/ 
+	 /*분류 (날짜 / 시간)*/ 
 	 String start_date= request.getParameter("start_date");
 	 String end_date= request.getParameter("end_date");
 	 String start_time= request.getParameter("start_time");
 	 String end_time= request.getParameter("end_time");
 	  
 	 String radio_basic= request.getParameter("radio_basic");
-	 
-	 /*분류  (위탁60분가격 / 방문 3분가격 / 위탁1박가격 / 위탁1박가격(+대형견) / 방문60분가격 / 방문60분가격(+대형견)*/
-	 String price = request.getParameter("price");
-	 String price2 = request.getParameter("price2");
-	 String price24= request.getParameter("price24");
-	 String bigPrice= request.getParameter("bigPrice");
-	 String price60= request.getParameter("price60");
-	 String bigPrice2= request.getParameter("bigPrice2");
-	 
-	 
+
 %> 
 
 
@@ -393,17 +386,51 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 									</div>
 									
 									<hr class ="my-hr1" />
-	
+									<!-- 집 사진  3장-->
+									<div class="row">
+										<div class = "col-4">
+											<%if(cert_photo1.equals("N") || cert_photo1.equals("undefined"))
+											  {
+											%>	<a href = "#" onclick ="toggleImg4()"><img class="cert_photo" src = "resources/images/noimg.png"></a>										
+											<%}else
+												 {
+											%>	<a href = "#" onclick ="toggleImg4()"><img class="cert_photo" src = "/filepath/<%=cert_photo1%>"></a>
+											<% } %>		
+										</div>
+
+										<div class = "col-4">
+											<%if(cert_photo2.equals("N") || cert_photo2.equals("undefined"))
+											  {
+											%>	<a href = "#" onclick ="toggleImg5()"><img class="cert_photo" src = "resources/images/noimg.png"></a>										
+											<%}else
+												 {
+											%>	<a href = "#" onclick ="toggleImg5()"><img class="cert_photo" src = "/filepath/<%=cert_photo2%>"></a>
+											<% } %>		
+										</div>
+										
+										<div class = "col-4">
+											<%if(cert_photo3.equals("N") || cert_photo3.equals("undefined"))
+											  {
+											%>	<a href = "#" onclick ="toggleImg6()"><img class="cert_photo" src = "resources/images/noimg.png"></a>										
+											<%}else
+												 {
+											%>	<a href = "#" onclick ="toggleImg6()"><img class="cert_photo" src = "/filepath/<%=cert_photo3%>"></a>
+											<% } %>		
+										</div>
+									</div>
 								</div>	
 							</div>
 
+							<div>
+      				<hr class ="my-hr1" />
+      				</div>
       			</div>	
       		</div>			
   			 	<!-- 예약 폼 -->
       		<div class = "col-md-5" style = "margin-top : 50px;">
       			<div class ="row justify-content-center">
       				<!-- 본작업 시 height 지우고 하기 -->
-      				<div class = "col-10" style = "background : rgba(224, 224, 224, 0.65);  height : 100%; border-radius: 25px;">
+      				<div class = "col-10" style = "background : honeydew;  height : 100%; border-radius: 25px;">
       					<div class = "row justify-content-center">
       						<div class = "col-12 font-size-18 main_grayfont3 text-center mybold" style = "margin : 24px 0 3px 0;">
       							<div>예약하기</div>
@@ -432,12 +459,12 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 								
       							<label for="custom_rd2" class="custom_lb" id="custom_lb2">방문</label>
       								<input type="radio" name="type" id="custom_rd2" value="방문" class="hide"
-      								<%if(radio_basic.equals("bang"))
+      								<%if(!radio_basic.equals("we"))
 											{
 											%>
 												checked="checked"/>	
 											<% 
-											}else if(!radio_basic.equals("bang"))
+											}else if(radio_basic.equals("we"))
 											{
 											%>	/>
 											<% }  %> <!-- radio default값 설정해주기(방문으로 들어왔을경우 default값 방문체크) -->
@@ -462,7 +489,21 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 											</div>
 										</div>
 									</div>
-
+									
+<!-- 									<div class = "col-11 text-center">
+										<div class ="row justify-content-center">
+											<div class = "col-5 main_grayfont2 font-size-14" style = "padding : 0; margin : 4px 0 0 0;">
+												체크인 시간
+											</div>
+											<div class = "col-1">
+												펫시터 이용 시간
+											</div>
+											<div class = "col-5 main_grayfont2 font-size-14" style = "padding : 0; margin : 4px 0 0 0;">
+												체크아웃 시간
+											</div>
+										</div>
+									</div> -->
+									
 									<div class = "col-11 text-center">
 										<div class ="row justify-content-center">
 											<div class="col" style ="color: #5e5e5e; font-weight: bold; font-size: 15px;">
@@ -514,7 +555,6 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 											<div class = "col-2" style = "padding : 0; margin : 4px 0 0 0;">
 												<button type="button" class="plus" id="plus1">추가</button>
 												<input type="hidden" value="<%=price%>" id="price"/>
-												<input type="hidden" value="<%=price2%>" id="price2"/>
 												
 											</div>
 										</div>
@@ -574,7 +614,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 					<div class="introduce">
 						<div class="middle_div1">
 							<p class="middle_text1">
-								<%if(introduce.equals("N")){
+								<%if(introduce == null){
 								%>	등록된 자기소개가 없습니다.
 								<%
 									}else{
@@ -595,95 +635,63 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 				
 			</div>
 		</div>
-
-
-		<div class="row">	
+		
+		<div class="row">
 			<div class="col">
-				<div class="sibal1">
-					cert
+				<div class="middle_div3">
+					<p class="middle_text2">info</p>
 				</div>
-			</div>
-			
-			<div class="col">
-					<div class="sibal2">
-						info
-					</div>
-			</div>
-		</div>
-		
-		<div class="row">	
-		
-			<div class="col">
-				<div class="dddd">
-					<div class="fuckImg">
-							<%if(cert_photo1.equals("N") || cert_photo1.equals("undefined"))
-								  {
-								%>	<img src = "resources/images/noimg.png"  id ="choiceimage2">									
-								<%}else
-									 {
-								%>	<img src = "/filepath/<%=cert_photo1%>" id ="choiceimage2">
-								<% } %>	 
+				<div class="middle_div4"><br />
+				
+					<div class="one">
+						<p class="p_text0-1">
+						닉네임 :
+						</p>
+						<span class="span_text0-1">
+						<%if(nickname == null)
+							{
+						%>   -
+						<%}
+							 else
+							{
+						%>  <%=nickname%>
+						<% }	%>
+						</span>
 					</div>
 					
-					<div class="fuckImg2">
-						<%if(cert_photo1.equals("N") || cert_photo1.equals("undefined"))
-					  {
-						%>	<a href = "#none" onclick ="toggleImg4()"><img class="imgfuck" id="cert_photo1" src = "resources/images/noimg.png"></a>										
-						<%}else
-							 {
-						%>	<a href = "#none" onclick ="toggleImg4()"><img class="imgfuck" src = "/filepath/<%=cert_photo1%>"></a>
-						<% } %>		
-						
-						<%if(cert_photo2.equals("N") || cert_photo2.equals("undefined"))
-					  {
-						%>	<a href = "#none" onclick ="toggleImg5()"><img class="imgfuck" id="cert_photo2" src = "resources/images/noimg.png"></a>										
-						<%}else
-							 {
-						%>	<a href = "#none" onclick ="toggleImg5()"><img class="imgfuck" src = "/filepath/<%=cert_photo2%>"></a>
-						<% } %>	
-
-						<%if(cert_photo3.equals("N") || cert_photo3.equals("undefined"))
-					  {
-						%>	<a href = "#none" onclick ="toggleImg6()"><img class="imgfuck" id="cert_photo3" src = "resources/images/noimg.png"></a>										
-						<%}else
-							 {
-						%>	<a href = "#none" onclick ="toggleImg6()"><img class="imgfuck" src = "/filepath/<%=cert_photo3%>"></a>
-						<% } %>	
+					<div class="two">
+						<p class="p_text1-1">지역 : </p><span class="span_text1-1"><%=address%></span>
+					</div>
+					<div class="three">		
+						<p class="p_text2-1">등급 : </p><span class="span_text2-1"><%=rank%></span>
+					</div>
+					<div class="four">
+						<p class="p_text3-1">활동수 : </p><span class="span_text3-1"><%=review_count%></span>
+					</div>
+					<div class="five">
+						<p class="p_text4-1">자격증 : </p><span class="span_text4-1"><%=cert_count%>개 보유</span>
 					</div>
 				</div>
 			</div>
-
-			
-			<input type="hidden" id="track2" value="<%=radio_basic%>">
-			
-			<div class="col">
-				<div class="ffff">
-					<div class="fuckText">
-						<p>닉네임 : 
-							<span>
-							<%if(nickname.equals("N") || nickname.equals("undefined"))
-							{
-							%>   -
-							<%}
-								 else
-								{
-							%>  <%=nickname%>
-							<% }	%>
-							</span>
-						</p>
-							
-						<p>지역 : <span><%=address%></span></p>
-						<p>등급 : <span><%=rank%></span></p>
-					  <p>활동수 : <span><%=review_count%>회</span></p>
-						<p>자격증 : <span><%=cert_count%>개 보유</span></p>
-					</div>
-				</div>
 		</div>
-	</div>   	 
-</div>     	 
+		
+		
+		
+		
+	</div>
+	
+	
+	
+	
+	
+<!--펫시터 소개 프로필 자격증부분 종료  -->		
+		
+<br/>    	
+     	 
+     	 
 <!--펫시터 이용가능 서비스 요금 정보 시작 -->		
 			<!--펫시터 이용가능 서비스 -->	
-			<div class = "container" style="margin-top:-0px;">
+			<div class = "container" style="margin-top:-26px;">
 				<div class = "row justify-content-center" id="serviceRow">
  					<div class = "col-md-4">
  						<div class="c1">
@@ -705,11 +713,12 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 									</div>
 								</div>
 							</div>	
-
-						<div class="c3">
-						
-						</div>
-
+							
+							<div class="c1">
+								ddd
+							</div>
+							
+									
 						</div>	
 					</div> 
 
@@ -724,74 +733,17 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 						 	Price
 						 	</div>
 						 	
-						 		<div class = "col-12 font-size-14 main_grayfont3" style = "background : white;  height : 248px;">
-						 			<div class = "col-12 font-size-14 main_grayfont3">
-									 <svg class="bi bi-book" width="22px" height="22px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style = "margin-left : 10px; margin-top: 4px;">
+						 		<div class = "col-12 font-size-14 main_grayfont3" style = "background : honeydew;  height : 300px;">
+						 			<div class = "col-12 font-size-16 main_grayfont3">
+									 <svg class="bi bi-book" width="22px" height="22px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style = "margin-left : 10px; margin-top: 75px;">
 					  			 	<path fill-rule="evenodd" d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 0 1 8.5 2.5v11a.5.5 0 0 1-.854.354c-.843-.844-2.115-1.059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 0 1 0 13.5v-11a.5.5 0 0 1 .276-.447L.5 2.5l-.224-.447.002-.001.004-.002.013-.006a5.017 5.017 0 0 1 .22-.103 12.958 12.958 0 0 1 2.7-.869zM1 2.82v9.908c.846-.343 1.944-.672 3.074-.788 1.143-.118 2.387-.023 3.426.56V2.718c-1.063-.929-2.631-.956-4.09-.664A11.958 11.958 0 0 0 1 2.82z"/>
 					 		  		<path fill-rule="evenodd" d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 0 0 7.5 2.5v11a.5.5 0 0 0 .854.354c.843-.844 2.115-1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.276-.447L15.5 2.5l.224-.447-.002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 0 0-.799-.34 12.96 12.96 0 0 0-2.073-.609zM15 2.82v9.908c-.846-.343-1.944-.672-3.074-.788-1.143-.118-2.387-.023-3.426.56V2.718c1.063-.929 2.631-.956 4.09-.664A11.956 11.956 0 0 1 15 2.82z"/>
 									 </svg>
-									 	<p>위탁 기본 1박 : 
-										 	<% if(price24.equals("NaN") || price24.equals("null") || price24.equals("undefined") || price24.equals("N"))
-										 		{
-										 	%>	(미등록)  
-											<%}else {%>
-													<%=price24%>원
-											<%} %>			
-									 	</p>
-									 	<p>대형견 추가요금 : 1,000원</p>
+									 	<p class="we60">위탁 돌봄(60분) : <%=price%>원</p>
+									 	<p class="bang30">방문 돌봄(30분) : nnnnn원</p>
 									 	
-									 	<p>시간당 
-									 		<% if(price.equals("NaN") || price.equals("null") || price.equals("undefined") || price.equals("N")) 
-									 			{
-									 		%>	(미등록)
-									 		<%}else { %>
-									 			<%=price%>원 추가
-									 		<%} %> 
-									 		
-									 		(대형견	 
-									 			<% if(bigPrice.equals("NaN") || bigPrice.equals("null") || bigPrice.equals("undefined") || bigPrice.equals("N")) 
-									 			{
-									 			%> (미등록))
-									 			<%}else { %>
-									 			<%=bigPrice%>원)
-									 		<%} %>
-									 	</p>								 	
-									 <svg class="bi bi-book" width="22px" height="22px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style = "margin-left : 10px; margin-top: 4px;">
-					  			 	<path fill-rule="evenodd" d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 0 1 8.5 2.5v11a.5.5 0 0 1-.854.354c-.843-.844-2.115-1.059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 0 1 0 13.5v-11a.5.5 0 0 1 .276-.447L.5 2.5l-.224-.447.002-.001.004-.002.013-.006a5.017 5.017 0 0 1 .22-.103 12.958 12.958 0 0 1 2.7-.869zM1 2.82v9.908c.846-.343 1.944-.672 3.074-.788 1.143-.118 2.387-.023 3.426.56V2.718c-1.063-.929-2.631-.956-4.09-.664A11.958 11.958 0 0 0 1 2.82z"/>
-					 		  		<path fill-rule="evenodd" d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 0 0 7.5 2.5v11a.5.5 0 0 0 .854.354c.843-.844 2.115-1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.276-.447L15.5 2.5l.224-.447-.002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 0 0-.799-.34 12.96 12.96 0 0 0-2.073-.609zM15 2.82v9.908c-.846-.343-1.944-.672-3.074-.788-1.143-.118-2.387-.023-3.426.56V2.718c1.063-.929 2.631-.956 4.09-.664A11.956 11.956 0 0 1 15 2.82z"/>
-									 </svg>
-									 	
-									 	<p>방문 기본 1시간 : 
-									 		<% if(price60.equals("NaN") || price60.equals("null") || price60.equals("undefined") || price60.equals("N")) 
-									 			{
-									 		%>	(미등록)
-									 		<%}else { %>
-									 			<%=price60%>
-									 		<%} %> 
-									 	</p>
-									 	
-									 	<p>추가시간 30분 : 
-									 		<% if(price2.equals("NaN") || price2.equals("null") || price2.equals("undefined") || price2.equals("N")) 
-									 			{	
-									 		%>  (미등록)
-									 		<%}else { %>
-									 			<%=price2%>원 
-									 		<%} %>
-									 			
-									 		(대형견  
-									 			<% if(bigPrice2.equals("NaN") || bigPrice2.equals("null") || bigPrice2.equals("undefined") || bigPrice2.equals("N"))
-									 				{	
-									 			%> (미등록))
-									 			<%}else { %>
-									 				<%=bigPrice2%>원)
-									 			<%} %>
-										</p>										
 									 </div>
 								 	</div>
-								 	
-								 	<div class="c3">
-								 	</div>
-								 	
 								</div>
 							 </div> 
 							</div>
@@ -1260,11 +1212,11 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
     	var photo4 = "<%=cert_photo1%>";
     	if( (photo4 == "undefined") || (photo4 == "N"))
     	{
-    		document.getElementById("choiceimage2").src = "resources/images/noimg.png";
+    		document.getElementById("choiceimage").src = "resources/images/noimg.png";
     	}
     	else
     	{
-    		document.getElementById("choiceimage2").src = "/filepath/<%=cert_photo1%>";	
+    		document.getElementById("choiceimage").src = "/filepath/<%=cert_photo1%>";	
     	}
     }
     
@@ -1273,11 +1225,11 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
     	var photo5 = "<%=cert_photo2%>";
     	if( (photo5 == "undefined") || (photo5 == "N"))
     	{
-    		document.getElementById("choiceimage2").src = "resources/images/noimg.png";
+    		document.getElementById("choiceimage").src = "resources/images/noimg.png";
     	}
     	else
     	{
-    		document.getElementById("choiceimage2").src = "/filepath/<%=cert_photo2%>";	
+    		document.getElementById("choiceimage").src = "/filepath/<%=cert_photo2%>";	
     	}
     }
     
@@ -1286,11 +1238,11 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
     	var photo6 = "<%=cert_photo3%>";
     	if( (photo6 == "undefined") || (photo6 == "N"))
     	{
-    		document.getElementById("choiceimage2").src = "resources/images/noimg.png";
+    		document.getElementById("choiceimage").src = "resources/images/noimg.png";
     	}
     	else
     	{
-    		document.getElementById("choiceimage2").src = "/filepath/<%=cert_photo3%>";	
+    		document.getElementById("choiceimage").src = "/filepath/<%=cert_photo3%>";	
     	}
     }
 

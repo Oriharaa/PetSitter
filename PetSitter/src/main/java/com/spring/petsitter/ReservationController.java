@@ -1,21 +1,29 @@
 package com.spring.petsitter;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ReservationController {
 		
 	@Autowired
 	private PetsitterService petsitterService;
+	
+	@Autowired
+	private PetService petService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	// 위탁 돌봄 예약 페이지 이동
 	@RequestMapping(value = "reservation1.br")
@@ -55,11 +63,17 @@ public class ReservationController {
 		return petsitter_list;
 	}
 
-	@RequestMapping(value = "foster_view.me", method = RequestMethod.GET)
-	public String foster_view() {
-		
+
+	@RequestMapping(value = "foster_view.me", method = RequestMethod.POST)
+	public String foster_view(HttpSession session, Model model) {
+		String id = (String)session.getAttribute("id");
+		ArrayList<PetVO> list = petService.selectPet(id);
+		model.addAttribute("list", list);
 		return "foster_view";
 	}
+
+	
+	
 	
 	@RequestMapping(value = "call_view.me", method = RequestMethod.GET)
 	public String call_view() {

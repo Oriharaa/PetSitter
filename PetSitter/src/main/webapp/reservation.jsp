@@ -76,122 +76,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	  background: #e9e9e9!important; 
 	}
 	/*최하단바 종료*/
-	
-	/*ajax 에서 사진 가운데 와 크기 지정 css 시작*/
-	.thumbnail-wrappper { 
-	width: 25%; 
-	} 
-	.thumbnail { 
-	position: relative; 
-	width : 350px;
-	height : 290px;
-	background : rgba(94,94,94,0.3);
-	overflow: hidden; 
-	margin-bottom : 4px;
-	border-radius : 3px;
-	} 
-	.thumbnail .centered { 
-	position: absolute; 
-	top: 0; 
-	left: 0; 
-	right: 0; 
-	bottom: 0; 
-	-webkit-transform: translate(50%,50%); 
-	-ms-transform: translate(50%,50%); 
-	transform: translate(50%,50%); 
-	} 
-	
-	.thumbnail .centered img { 
-	position: absolute; 
-	top: 0; 
-	left: 0; 
-	max-width: auto; 
-	max-height: auto; 
-	height: auto; 
-	-webkit-transform: translate(-50%,-50%); 
-	-ms-transform: translate(-50%,-50%);
-	 transform: translate(-50%,-50%); 
-	 }
-	 
-	 
-	.thumbnail02 { 
-	position: relative; 
-	width : 60px;
-	height : 60px;
-	background : rgba(94,94,94,0.3);
-	overflow: hidden; 
-	margin-bottom : 4px;
-	border-radius : 30px;
-	} 
-	.thumbnail02 .centered02 { 
-	position: relative; 
-	top: 0; 
-	left: 0; 
-	right: 0; 
-	bottom: 0; 
-	-webkit-transform: translate(50%,50%); 
-	-ms-transform: translate(50%,50%); 
-	transform: translate(50%,50%); 
-	} 
-	
-	.thumbnail02 .centered02 img { 
-	position: absolute; 
-	top: 0; 
-	left: 0; 
-	max-width: 60px; 
-	max-height: auto; 
-	height: 60px; 
-	-webkit-transform: translate(-50%,-50%); 
-	-ms-transform: translate(-50%,-50%);
-	 transform: translate(-50%,-50%); 
-	 }
-	 
-	/*ajax 에서 사진 가운데 와 크기 지정 css 종료*/
-	
-	/*carousel 고정 높이 조정*/
-	.slide {
-  height: 266px!important;
-  min-height: 266px!important;
-  background-size: cover;
-	}
-	
-	/*carousel 위치 보여주는 아이콘 바 설정*/
-	.carousel-indicators li {
-   box-sizing: content-box;
-   -ms-flex: 0 1 auto;
-   flex: 0 1 auto;
-   width: 18px!important;
-   height: 3px;
-   margin-right: 1.5px!important;
-   margin-left: 1.5px!important;
-   text-indent: -999px;
-   cursor: pointer;
-   background-color: #fff;
-   background-clip: padding-box;
-   border-top: 10px solid transparent;
-   border-bottom: 10px solid transparent;
-   opacity: .5;
-   transition: opacity .6s ease;
-   }
 
-	a#MOVE_TOP_BTN {
-   	/* position : 화면에 고정
-		right, bottom : 버튼의 위치 설정
-		display : 화면에서 숨김
-		z-index : 다른 태그들보다 위로 오도록 설정(z-index 가 설정된 다른 태그가 있다면 그 태그보다 커야 함)
-		*/
-		background: rgb(83, 220, 152);
-		color : white;
-		width : 90px;
-		height : 40px;
-    position: fixed; 
-    padding : 7px 0 0 30.8px;
-    border-radius : 22px;
-    right: 2%;
-    bottom: 50px;
-    display: none;
-    z-index: 999;
-	}
 	
 </style>
 
@@ -309,7 +194,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 <!-- top_box 시작 -->      
 <!-- 주소 검색 & 예약날짜 & 맞춤조건 등.. 시작-->
-<form name="frm_ins" method="post" enctype="multipart/form-data" target="frm_hiddenFrame" onsubmit="return check_reservation();">
 <section class="top_box">
 	<div class="container">
 	
@@ -326,6 +210,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			</div>
 		</div>
 		
+		<form name ="emsi">			
 		<div class="row justify-content-center">
 			<div class="col">
 				<div class="date">
@@ -333,19 +218,20 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					<input type="text" id="datePicker_start" class="form-control" placeholder="시작 날짜">
 					<i class="fas fa-arrow-right"></i>
 					<input type="text" id="datePicker_end" class="form-control" placeholder="종료 날짜">	
-
 				</div>
 			</div>
+			
 			<div class="col">	
 				<div class="time">
 					<h1 class="top_box_text3">시간을 설정해주세요!</h1>
-					<input type="text" name="time" class="timepicker" id="timePicker_start">
+					<input type="text" name="time" class="timepicker" id="timePicker_start" placeholder="시작 시간">
 					<i class="fas fa-arrow-right"></i>
-  				<input type="text" name="time" class="timepicker" id="timePicker_end">
+  				<input type="text" name="time" class="timepicker" id="timePicker_end" placeholder="종료 시간">
 				</div>
 			</div>
 		</div>
-		
+		</form>
+			
 		<!-- 지역 선택 필터 -->
 		<div class="row">
 			<div class="col">
@@ -412,7 +298,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		
 			
 	</div>
-</section></form>
+</section>
 
 
 
@@ -581,27 +467,31 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	<script type="text/javascript">
 		$('#timePicker_start').timepicker({
 		    timeFormat: 'p h:mm',
-		    interval: 60,
-		    minTime: '09',
-		    maxTime: '11:00pm',
-		    defaultTime: '14',
-		    startTime: '00:00',
+ 		    interval: 60,
+		    startTime: '',  
 		    dynamic: false,
 		    dropdown: true,
-		    scrollbar: true
+		    scrollbar: true,
+		    minTime: '09',
+		    maxTime: '11:00pm',
 		});
-<!-- 종료시간 -->		
+	</script>
+	<script type="text/javascript">
+<!-- 종료시간 -->
 		$('#timePicker_end').timepicker({
 		    timeFormat: 'p h:mm',
 		    interval: 60,
 		    minTime: '09',
 		    maxTime: '11:00pm',
-		    defaultTime: '14',
+		    /* defaultTime: '14', */
 		    startTime: '00:00',
 		    dynamic: false,
 		    dropdown: true,
 		    scrollbar: true
 		});
+		
+	
+
 	</script>
 	
  	<script>

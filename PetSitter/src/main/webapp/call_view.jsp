@@ -233,6 +233,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
       </div>
       
       <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152,0.86);">
+      
 
         <div class="container">
           <div class="row align-items-center position-relative">

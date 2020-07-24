@@ -10,16 +10,8 @@ var btn_a = "F";
 var btn_b = "F";
 var btn_c = "F";
 var btn_g = "F";
-var btn_type = "WE";
+var btn_type = "BANG";
 
-	//펫시터 클릭시 예약페이지로 넘어감.
-	function go_foster(index)
-	{
-		let submit = document.getElementById("track_button"+index)
-		submit.click();
-		
-	}
-	
 	function selectData(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type) {
 		$('#petsitter_middle_box').empty();
 		
@@ -42,100 +34,13 @@ var btn_type = "WE";
 			success: function(data) {
 				
 				$.each(data, function(index, item) {
-					
-					//날짜, 시간 값
-					var start_date = $('#datePicker_start').val();
-					var end_date =  $('#datePicker_end').val();
-					var start_time = $('#timePicker_start').val();
-					var end_time = $('#timePicker_end').val();
-					
-					//위탁 방문 구분
-					var radio_basic = "we";
-					
-					//주소, 집사진x3, 자격증x3
 					var address = item.petsitter_ADDRESS.split(' ');
 					var real_addr = address[0] + ' ' + address[1];
 					var home_photo = item.petsitter_PHOTO_HOME_FILE.split(',');
-					var home_photo1 = home_photo[0];
-					var home_photo2 = home_photo[1];
-					var home_photo3 = home_photo[2];
-					
-					var cert_photo = item.petsitter_PHOTO_CERT_FILE.split(',');
-					var cert_photo1 = cert_photo[0];
-					var cert_photo2 = cert_photo[1];
-					var cert_photo3 = cert_photo[2];
-		
-					//자격증 개수
-					var cert_count = "";
-						if( !(cert_photo1==="N" || cert_photo1==="null") )
-						{
-							cert_count = "1";
-							
-							if( !(cert_photo2==="N" || cert_photo2==="null") )
-							{
-								cert_count = "2";
-								if( !(cert_photo3==="N" || cert_photo3==="null") )
-								{
-									cert_count = "3";
-								}
-							}
-								
-						}
-					
-					//위탁 1박 가격 , 대형견 1박 가격
-					var price24 = 24 * (parseInt)(item.petsitter_PRICE_60M);
-					var bigPrice = 1000 + (parseInt)(item.petsitter_PRICE_60M);
-						
-					//방문 1시간가격
-					var price60 = 2 * (parseInt)(item.petsitter_PRICE_30M);
-					var bigPrice2 = 1000 + (parseInt)(item.petsitter_PRICE_30M);
-					
 					var output = '';
-					//히든값으로 펫시터 정보 넘겨줌..
-						output += '<form action="foster_view.me" name="foster_form" method="POST" >';
-							
-					//분류 (아이디 / 주소 / 닉네임 / 등급 / 후기개수 / 자격증이름 / 자기소개 / 가능서비스 / 60분,30분가격 / 자격증개수)
-						output += '<input type="hidden" name="petsitter_id" value="' + item.petsitter_ID+ '">';						
-						output += '<input type="hidden" name="address" value="' + real_addr+ '">';
-						output += '<input type="hidden" name="nickname" value="' + item.petsitter_NICKNAME+ '">';
-						output += '<input type="hidden" name="rank" value="' + item.petsitter_RANK+ '">';
-						output += '<input type="hidden" name="review_count"  value="' + item.petsitter_REVIEWCOUNT+ '">';
-						output += '<input type="hidden" name="cert_list" value= "' + item.petsitter_CERT_LIST+ '">';
-						output += '<input type="hidden" name="introduce" value="' + item.petsitter_INTRODUCE+ '">';
-						output += '<input type="hidden" name="service" value="' + item.petsitter_SERVICE+ '">';
-						output += '<input type="hidden" name="price" value="' + item.petsitter_PRICE_60M+ '">';
-						output += '<input type="hidden" name="price2" value="' + item.petsitter_PRICE_30M+ '">';
-						output += '<input type="hidden" name="cert_count" value="' + cert_count+ '">';
-						
-
-					//분류 (사진 ㅡ 펫시터프로필 / 펫시터 집x3 / 펫시터 자격증x3 / 펫시터 증명사진)
-						output += '<input type="hidden" name="profile" value="' + item.petsitter_PHOTO_PROFILE_FILE+ '">';	
-						output += '<input type="hidden" name="home_photo1" value="' + home_photo1+ '">';
-						output += '<input type="hidden" name="home_photo2" value="' + home_photo2+ '">';
-						output += '<input type="hidden" name="home_photo3" value="' + home_photo3+ '">';
-						output += '<input type="hidden" name="cert_photo1"  value="' + cert_photo1+ '">';
-						output += '<input type="hidden" name="cert_photo2"  value="' + cert_photo2+ '">';
-						output += '<input type="hidden" name="cert_photo3"  value="' + cert_photo3+ '">';
-						output += '<input type="hidden" name="photo_upfile" value="' +item.petsitter_PHOTO_UPFILE+'">';
-
-					//분류 (날짜, 시간, 위탁방문라디오 )
-						output += '<input type="hidden" name="start_date" value="' + start_date+ '">';
-						output += '<input type="hidden" name="end_date" value="' + end_date+ '">';
-						output += '<input type="hidden" name="start_time" value="' + start_time+ '">';
-						output += '<input type="hidden" name="end_time" value="' + end_time+ '">';
-						output += '<input type="hidden" name="radio_basic" value="' +radio_basic+ '">';
-						
-					//분류 (위탁1박가격 / 위탁1박(대형견)가격 / 방문1시간 가격 / 방문1시간(대형견)가격
-						output += '<input type="hidden" name="price24" value="' +price24+ '">';
-						output += '<input type="hidden" name="bigPrice" value="' +bigPrice+ '">';
-						output += '<input type="hidden" name="price60" value="' +price60+ '">';
-						output += '<input type="hidden" name="bigPrice2" value="' +bigPrice2+ '">';
-						
-						
-						//펫시터뷰 기본틀
 						output += '<div class="row">'
 						output += '<div class="col">';
-						output += '<div class="middle_box_row" onclick="go_foster(' +index+ ');">';
+						output += '<div class="middle_box_row">';
 						output += '<div class="middle_room_img">';
 						
 						if(item.petsitter_PHOTO_HOME_FILE === "N") 
@@ -148,7 +53,7 @@ var btn_type = "WE";
 						}		
 
 						output += '</div>';
-						output += '<a class="go_view">';
+						output += '<a href ="call_view.me" class="go_view">';
 						output += '<div class="view_top">';
 						output += '<p class="v_location">' + real_addr;
 						output += '<span class="v_i"> · </span>';
@@ -165,20 +70,12 @@ var btn_type = "WE";
 						output += '</span>';
 
 						output += '</p>';
-						output += '<p class="v_introduce">' + item.petsitter_INTRODUCE.substr(0,26);
-						
-						if(item.petsitter_INTRODUCE.length > 26)
-						{
-							output += '...';
-						}
-
-						
-						//submit 버튼(display:hidden)
-						output += '<button type="submit" class="track_button" id="track_button' +index+'"></button></p>';
-						
+						output += '<p class="v_introduce">' + item.petsitter_INTRODUCE + '</p>';
 						output += '</div>';
 						output += '<div class="view_middle_left">';
 						output += '<div class="view_middle_left1">'; 
+					
+						//추가
 						output += '<div class="v_option">';
 						
 						if(item.petsitter_SERVICE !== null) {
@@ -302,10 +199,8 @@ var btn_type = "WE";
 							output += '<div class="view_middle_right2">';
 							output += '<p class="v_money2">₩' + item.petsitter_PRICE_60M + '</p>';
 							output += '<div class="v_1bak">';
-							output += '<p class="oneDay">60분</p>';		
-							output += '</div>';
-
-							output +='</div></div></div></a></div></div></div></form>';
+							output += '<p class="oneDay">60분</p>';
+							output += '</div></div></div></div></a></div></div></div>';
 							$('#petsitter_middle_box').append(output);		
 				});
 			},
@@ -318,7 +213,8 @@ var btn_type = "WE";
 	$(document).ready(function() {
 		selectData(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type);
 		
-		btn_type ="WE";
+		btn_type ="BANG";
+
 	
 	//픽업
 	let pick = document.getElementById("custom_lb1");
@@ -335,9 +231,7 @@ var btn_type = "WE";
 			btn1= "N";
 			selectData(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type);
 		}
-
 		});
-		
 	});
 
 	//대형견
@@ -355,9 +249,7 @@ var btn_type = "WE";
 			btn2= "N";
 			selectData(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type);
 		}
-		
 		});
-		
 	});
 	
 	//마당
@@ -376,8 +268,8 @@ var btn_type = "WE";
 			btn3= "N";
 			selectData(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type);
 		}
-		});
 		
+		});
 	});
 	
 	//노견
@@ -397,9 +289,7 @@ var btn_type = "WE";
 				selectData(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type);
 				
 			}
-
 			});
-			
 		});
 	
 
@@ -436,6 +326,7 @@ var btn_type = "WE";
 				
 				selectData(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type);
 			}
+			
 			});
 			
 		});
@@ -453,37 +344,39 @@ var btn_type = "WE";
 					btn_g="F";
 			
 					selectData(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type);
+					console.log("성공적으로 F값을줌");
 				}
 				else if($("order_ck2").is(":checked") == false)
 				{
 					btn_g="T";
 					selectData(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type);
+					console.log("성공적으로 T값을줌");
 				}
 		});
-			
 	});
 	
-	let newOrder = document.getElementById("order_lb1");
-	newOrder_ck = document.getElementById("order_ck1");
-	
-	grade.addEventListener("click", function() {
-		$("#order_ck1").change(function(){ 
-			if($("order_ck1").is(":checked") == true)
-			{
-				btn_g="T";
+		let newOrder = document.getElementById("order_lb1");
+		newOrder_ck = document.getElementById("order_ck1");
 		
-				selectData(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type);
-			}
-			else if($("order_ck1").is(":checked") == false)
-			{
-				btn_g="F";
-				selectData(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type);
-			}
-
-		});
+		grade.addEventListener("click", function() {
+			$("#order_ck1").change(function(){ 
+				if($("order_ck1").is(":checked") == true)
+				{
+					btn_g="T";
 			
+					selectData(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type);
+					console.log("성공적으로 T값을줌");
+				}
+				else if($("order_ck1").is(":checked") == false)
+				{
+					btn_g="F";
+					selectData(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type);
+					console.log("성공적으로 N값을줌");
+				}
+		});
 	});
-	
+			
+		
 });	//함수 종료태그
 		
 		

@@ -4,20 +4,24 @@
 
 <mapper namespace = "com.spring.mapper.PetMapper">
 	
+<!-- 	<resultMap type="PetVO" id="petResultMap">
+		<result property="MEMBER_ID" column="MEMBER_ID"/>
+		<result property="PET_NAME" column="PET_NAME"/>
+		<result property="PET_PHOTO" column="PET_PHOTO"/>
+	</resultMap> -->
+
+	
 	<insert id="insertPet" parameterType="PetVO">
-		insert into pet (MEMBER_ID, PET_CATEGORY, PET_KIND, PET_NAME, PET_WEIGHT, PET_SIZE, 
+		insert into PET (MEMBER_ID, PET_CATEGORY, PET_KIND, PET_NAME, PET_WEIGHT, PET_SIZE, 
 										 PET_BIRTH, PET_GENDER, PET_NEUTERED, PET_POTTYTRAN, PET_VAOONE, PET_PHOTO, PET_DATE)
 			 
 		values(#{MEMBER_ID}, #{PET_CATEGORY}, #{PET_KIND}, #{PET_NAME}, #{PET_WEIGHT}, #{PET_SIZE}, #{PET_BIRTH},
 					 #{PET_GENDER}, #{PET_NEUTERED}, #{PET_POTTYTRAN}, #{PET_VAOONE}, #{PET_PHOTO}, SYSDATE)
 	</insert>
 		
-	<select id="selectPetService" parameterType="String">
-		select * from petsitter where PETSITTER_TYPE like '%위탁%' order by PETSITTER_DATE
+	<select id="selectPet" parameterType="String" resultType="PetVO">
+		select * from PET where MEMBER_ID=#{MEMBER_ID}
 	</select>
 	
-
-
-
 
 </mapper>

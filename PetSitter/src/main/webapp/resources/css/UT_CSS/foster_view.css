@@ -1,0 +1,449 @@
+@charset "UTF-8"; 
+/* 언택 추가 CSS *//* 언택 추가 CSS *//* 언택 추가 CSS */
+/* 언택 추가 CSS *//* 언택 추가 CSS *//* 언택 추가 CSS */ 
+
+
+/* 사진 */
+#choiceimage{
+	width:100%;
+	height:365px;
+}
+
+#choiceimage2{
+	width:290px;
+	height:290px;
+}
+
+.home_photo{
+width:100px;
+height:100px;
+margin-top:9px;
+}
+
+.cert_photo{
+width:100px;
+height:100px;
+margin-top:9px;
+}
+
+
+/* 라벨 */
+.custom_lb{
+margin-top:5%;
+text-align:center;
+width:20%;
+height:26px;
+border:0px;
+border-radius:5px;
+color:#ffffff;
+font-size:13px;
+line-height: 2;
+transition: all 350ms ease-in-out;
+cursor: pointer;
+}
+
+#custom_lb1{
+margin-left:10px;
+background-color:#53DC98;	
+}
+
+#custom_lb2{
+background-color:#BEBEBE;	
+}	
+	
+/* .hide{
+visibility:hidden;
+}   */
+
+
+
+/* 가능 서비스 */
+.service{
+text-align:center;
+width:360px;	
+margin-top: -60px;
+}
+
+.serviceList{
+font-size:14px;
+margin-top:60px;
+margin-left:73px;
+}
+
+#serviceDiv{
+background-color:	white;
+height:300px;
+}
+
+#service2, #service3, #service4{
+margin-top:30px;
+}
+
+#check1, #check2, #check3, #check4{
+	color:#929292;
+}
+
+ #check1{
+	margin-left:48.5px;
+}
+
+#check2{
+	margin-left:32px;
+}
+
+#check3{
+	margin-left:45.5px;
+}
+
+#check4{
+	margin-left:11px;
+} 
+
+
+/* 프로필 */
+.top_title{
+margin-bottom:5%;
+} 
+ 
+.top_text1{
+font-size: 23px;
+text-align: center;
+color: #525252;
+font-weight: bold;
+width: 820px;
+margin-left: 11%;
+} 
+
+.imgDiv{
+width: 820px;
+margin-left: 11%;
+display: flex;
+}
+
+.profileImg{
+width:300px;
+height:300px;	
+}
+ 
+.introduce{
+height:150px;
+}
+
+
+.aa{
+	display:flex;
+	margin-top:5%;
+}
+
+.a1{
+width: 300px;
+background-color: #53DC98;
+margin-left: 11%;
+text-align: center;
+color: white;
+font-weight: bold;
+font-size: 16px;
+letter-spacing: 4px;
+height: 25px;
+border-radius: 7px 0px 0px 0px;
+}
+
+.a2{
+width:520px;
+background-color: #53DC98;
+text-align: center;
+color: white;
+font-weight: bold;
+font-size: 16px;
+letter-spacing: 4px;
+height: 25px;
+border-radius: 0px 7px 0px 0px;
+}
+
+.b1{
+background-color: #53DC98;
+height: 20px;
+width: 820px;
+margin-left: 11%;
+border-radius: 0px 0px 7px 7px;
+color: white;
+text-align: center;	
+}
+
+.c1{
+color: white;
+background-color: #53dc98;
+width: 380px;
+margin-left: -16px;
+text-align: center;
+font-weight: bold;
+border-radius: 7px 7px 0px 0px;	
+letter-spacing: 4px;
+font-size: 16px;
+}
+
+.c2{
+width: 395px;
+color: white;
+background-color: #53dc98;
+border-radius: 7px 7px 0px 0px;
+font-weight: bold;
+text-align: center;	
+letter-spacing: 4px;
+font-size: 16px;
+}
+.c3{
+color: white;
+background-color: #53dc98;
+width: 380px;
+height:27px;
+text-align: center;
+font-weight: bold;
+border-radius: 0px 0px 7px 7px;	
+letter-spacing: 4px;
+font-size: 16px;
+}
+
+.c3{
+color: white;
+background-color: #53dc98;
+width: 395px;
+height:27px;
+text-align: center;
+font-weight: bold;
+border-radius: 0px 0px 7px 7px;	
+letter-spacing: 4px;
+font-size: 16px;
+}
+
+
+
+
+
+.middle_text{
+margin-left:2%;	
+}
+
+.middle_text1{
+color: #525252;
+letter-spacing: 0.5px;
+font-weight: 900;
+font-size:13px;
+margin-left:2%;
+}
+
+.middle_text2{
+border-radius: 7px 7px 0px 0px;
+background-color: #53DC98;
+width: 820px;
+margin-left: 11%;
+font-size: 16px;
+letter-spacing: 5px;
+}
+
+
+
+.middle_div1{
+background-color:white;
+width:520px;
+height: 300px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+
+
+.middle_div3{
+text-align: center;
+color: white;
+font-weight: bold;
+font-size: 16px;
+letter-spacing: 4px;
+height: 25px;
+margin-top: 50px;
+}
+
+.middle_div4{
+display: flex;
+flex-direction: column;
+background-color: white;
+width: 820px;
+height:200px;
+margin-left: 11%;
+}
+
+
+.plus{
+width: 40px;
+height: 36px;
+background-color: #53dc98;
+color: white;
+border: 0px;
+font-weight: bold;
+font-size: 13px;
+border-radius: 100%;
+}
+
+.petcost1{
+height: 85px;
+}
+
+
+.p_view{
+padding: 30px;
+font-weight: bold;	
+}
+
+
+#timePicker_start, #timePicker_end{
+border: 1px solid lightgray;
+}
+
+#datePicker_start, #datePicker_end{
+border:1px solid lightgray;	
+}
+
+#choicepet{
+color:gray;
+font-size:13px;
+border: 1px solid lightgray;
+
+}
+
+.petOption{
+font-weight: bold;
+color: darkslategray;
+}
+
+
+/* *//* *//* */
+/* *//* *//* */
+.fuckyou{
+display:flex;
+width:820px;	
+height:300px;
+margin-left:11%;
+}
+
+.fuck1{
+width:410px;
+height:306px;
+display:flex;
+}
+
+.fuck2{
+width:410px;
+height:306px;
+}
+
+.fuckImg{
+width: 307px;
+height: 300px;
+}
+
+
+.imgfuck{
+width: 80px;
+height: 80px;
+margin-left: 10px;
+margin-top: 21px;
+}
+
+
+#cert_photo1, #cert_photo2, #cert_photo3{
+display:block;
+}
+
+
+.sibal1{
+background-color: #53dc98;
+width: 380px;
+margin-top: 5%;
+margin-left: 23.5%;
+border-radius: 7px 7px 0px 0px;
+text-align: center;
+color: white;
+font-weight: bold;
+}	
+
+
+
+.sibal2{
+background-color: #53dc98;
+width: 395px;
+margin-top: 5%;
+margin-left: -4.1%;
+border-radius: 7px 7px 0px 0px;
+text-align: center;
+color: white;
+font-weight: bold;
+}	
+
+.sibal3{
+background-color: #53dc98;
+width: 380px;
+margin-left: 23.5%;
+border-radius: 0px 0px 7px 7px;
+text-align: center;
+color: white;
+font-weight: bold;	
+}
+
+.sibal4{
+background-color: #53dc98;
+width: 380px;
+margin-left: -4.1%;
+border-radius: 0px 0px 7px 7px;
+text-align: center;
+color: white;
+font-weight: bold;	
+}
+
+
+
+.dddd{
+margin-left: 23.5%;
+width: 380px;
+height: 250px;	
+display:flex;
+}
+.ffff{
+width: 395px;
+height: 303px;
+margin-left: -23px;	
+}
+
+.fuckText{
+color:#5e5e5e;
+font-size:14px;
+padding-top: 55px;
+padding-left: 100px;	
+}
+
+.x_btn{
+border: 0px;
+border-radius: 100%;
+background-color: #53dc98;
+color: white;
+font-size: 12px;
+width: 20px;
+height: 20px;
+line-height: 1px;
+font-weight: bold;
+}	
+
+.plusPet{
+margin-bottom: 0rem;
+font-weight:bold;
+}
+
+.allCost{
+font-weight:bold;	
+}
+
+
+
+input::placeholder {font-size:13px;}
+input:focus {outline:none;}
+button:focus {outline:none;}
