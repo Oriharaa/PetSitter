@@ -128,9 +128,13 @@
 	height:80px;
 	}
 
+
+input[type=text]
+
+
 input::placeholder {text-align:center;}
-input[type=text] {padding-left:10%;}
-input[type=number] {padding-left:10%;}
+input[type=text] {padding-left:10%; color:#5e5e5e; font-weight:bold;}
+input[type=number] {padding-left:10%; color:#5e5e5e; font-weight:bold;}
 
 /*인풋&버튼 클릭시 색상 없애기*/
 input:focus {outline:none;}

@@ -30,4 +30,5 @@ public interface PetsitterService {
 	//위탁 펫시터 목록
 	public List<PetsitterVO> petsitterList_We(String btn1, String btn2, String btn3, String btn4, 
 			String btn_a, String btn_b, String btn_c, String btn_g, String btn_type); 
+	public List<PetsitterVO> timeDate(String btn1, String btn2);
 }

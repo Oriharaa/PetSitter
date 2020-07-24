@@ -1,24 +1,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<<<<<<< HEAD
-=======
 <%@ page import="com.spring.petsitter.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.spring.petsitter.ReservationController.*" %>
 
->>>>>>> origin/Hong
 
 <%
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
 %>
 
-<<<<<<< HEAD
-<% 
-	 /* 펫시터정보 */ 
-	 String profile= request.getParameter("profile");	
-=======
 <%
 
 	ArrayList<PetVO> list = (ArrayList<PetVO>)request.getAttribute("list");
@@ -29,28 +21,18 @@
 
 
 <% 
-	 /*분류 (아이디 / 주소 / 닉네임 / 등급 / 후기개수 / 자격증이름 / 자격증여부x2 / 자기소개 / 가능서비스 / 자격증 보유개수)*/
+	 /*분류 (아이디 / 주소 / 닉네임 / 등급 / 후기개수 / 자격증이름 / 자격증여부x2 / 자기소개 / 가능서비스 / 60분가격 / 자격증 보유개수)*/
 	 String petsitter_id= request.getParameter("petsitter_id");
->>>>>>> origin/Hong
 	 String address= request.getParameter("address");
 	 String nickname= request.getParameter("nickname");
 	 String rank= request.getParameter("rank");
 	 String review_count= request.getParameter("review_count");
-<<<<<<< HEAD
-	 String photo_cert_File= request.getParameter("photo_cert_File");
+	 String cert_list= request.getParameter("cert_list");
 	 String cert_check1= request.getParameter("cert_check1");
 	 String cert_check2= request.getParameter("cert_check2");
 	 String introduce= request.getParameter("introduce");
-	 String cert_list= request.getParameter("cert_list");
-	 String petsitter_id= request.getParameter("petsitter_id");
-	 
-	 
-	 /* 날짜정보 시간정보 */ 
-=======
-	 String cert_list= request.getParameter("cert_list");
-	 String introduce= request.getParameter("introduce");
 	 String service = request.getParameter("service");
-
+	 String price = request.getParameter("price");
 	 
 	 String cert_count = request.getParameter("cert_count");
 	 
@@ -65,27 +47,14 @@
 	 String home_photo3 = request.getParameter("home_photo3");
 	 String proof = request.getParameter("photo_upfile");
 	 
-	 /*분류 (날짜  / 시간)*/ 
->>>>>>> origin/Hong
+	 /*분류 (날짜 / 시간)*/ 
 	 String start_date= request.getParameter("start_date");
 	 String end_date= request.getParameter("end_date");
 	 String start_time= request.getParameter("start_time");
 	 String end_time= request.getParameter("end_time");
-<<<<<<< HEAD
-=======
 	  
 	 String radio_basic= request.getParameter("radio_basic");
-	 
-	 /*분류  (위탁60분가격 / 방문 3분가격 / 위탁1박가격 / 위탁1박가격(+대형견) / 방문60분가격 / 방문60분가격(+대형견)*/
-	 String price = request.getParameter("price");
-	 String price2 = request.getParameter("price2");
-	 String price24= request.getParameter("price24");
-	 String bigPrice= request.getParameter("bigPrice");
-	 String price60= request.getParameter("price60");
-	 String bigPrice2= request.getParameter("bigPrice2");
-	 
->>>>>>> origin/Hong
-	 
+
 %> 
 
 
@@ -243,7 +212,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 
 
   <head>
-    <title>위탁 예약 페이지</title>
+    <title>Depot &mdash;Website Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -269,64 +238,12 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
     
 		<!-- 타임피커 -->
 		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js">
+		<link href="${pageContext.servletContext.contextPath}/resources/jquery/jquery-ui.css?version=1.3" rel="stylesheet" type="text/css" media="screen">
     
     <!-- 추가CSS -->
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/UT_CSS/foster_view.css?after">
 	    
-<<<<<<< HEAD
-    <style>
-			.dropdown:hover {
-				background-color: rgb(83, 220, 153);
-			}
-			
-			.dropdown:active {
-				background-color: rgb(83, 220, 153);
-			}
-			.btn-secondary {
-				background-color: rgb(83, 220, 153);
-				border-color: rgb(83, 220, 153);
-				vertical-align: baseline;
-				font-weight: bold;
-			}
-			
-			.btn-secondary:hover {
-				background-color: rgb(83, 220, 153);
-				border-color: rgb(83, 220, 153);
-			}
-			
-			.btn-secondary:active {
-				background-color: rgb(83, 220, 153);
-				border-color: rgb(83, 220, 153);
-			}
-			
-			.btn-secondary:focus {
-				background-color: rgb(83, 220, 153);
-				border-color: rgb(83, 220, 153);
-				box-shadow: 0 0 0 0 rgb(83, 220, 153);
-			}
-			
-			.dropdown-menu {
-				min-width: 60px !important;
-			}
-		
-			.dropdown-item:hover {
-				background-color: rgb(83, 220, 153);
-				color: rgb(255, 255, 255) !important;
-			}
-			
-			.dropdown-item {
-				 color: #53dc99 !important;
-				 font-weight: bold;
-			}
-			
-			.main-menu li a {
-				font-weight: bold;
-			}
-		</style>
-=======
     <title>pet sitter foster view</title>
->>>>>>> origin/Hong
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
   
@@ -355,7 +272,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
               	<%
               		if(id == null) {
               	%>
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 &amp; 회원가입</span></a>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 & 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
                 <%} else { %>
                 <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
@@ -368,7 +285,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
         </div>
       </div>
       
-      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152);">
+      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152,0.86);">
 
         <div class="container">
           <div class="row align-items-center position-relative">
@@ -380,25 +297,10 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
               <nav class="site-navigation text-right ml-auto " role="navigation">
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
-											돌봄
-									  </button>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-									    <a href="reservation2.br" class="dropdown-item" style="font-size:15px;">방문 돌봄</a>
-                  		<a href="reservation1.br" class="dropdown-item" style="font-size:15px;" >위탁 돌봄</a>
-									  </div>
-									</li>
-									<li class="dropdown">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-											게시판
-									  </button>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-									    <a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
-                  		<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
-									  </div>
-									</li>
-                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>
+                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
+                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
+                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
+                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
                 </ul>
               </nav>
@@ -413,12 +315,8 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
       </header>
       
    	<!-- 본 기능 추가 시작 -->
-<<<<<<< HEAD
-		<body>
-=======
 			<body>
 			<input type="hidden" value="${id }" id="MEMBER_ID" />
->>>>>>> origin/Hong
     	<div class = "container">
       	<div class = "row justify-content-center">
       		<div class = "col-md-5" style = "margin-top : 50px;">
@@ -488,17 +386,51 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 									</div>
 									
 									<hr class ="my-hr1" />
-	
+									<!-- 집 사진  3장-->
+									<div class="row">
+										<div class = "col-4">
+											<%if(cert_photo1.equals("N") || cert_photo1.equals("undefined"))
+											  {
+											%>	<a href = "#" onclick ="toggleImg4()"><img class="cert_photo" src = "resources/images/noimg.png"></a>										
+											<%}else
+												 {
+											%>	<a href = "#" onclick ="toggleImg4()"><img class="cert_photo" src = "/filepath/<%=cert_photo1%>"></a>
+											<% } %>		
+										</div>
+
+										<div class = "col-4">
+											<%if(cert_photo2.equals("N") || cert_photo2.equals("undefined"))
+											  {
+											%>	<a href = "#" onclick ="toggleImg5()"><img class="cert_photo" src = "resources/images/noimg.png"></a>										
+											<%}else
+												 {
+											%>	<a href = "#" onclick ="toggleImg5()"><img class="cert_photo" src = "/filepath/<%=cert_photo2%>"></a>
+											<% } %>		
+										</div>
+										
+										<div class = "col-4">
+											<%if(cert_photo3.equals("N") || cert_photo3.equals("undefined"))
+											  {
+											%>	<a href = "#" onclick ="toggleImg6()"><img class="cert_photo" src = "resources/images/noimg.png"></a>										
+											<%}else
+												 {
+											%>	<a href = "#" onclick ="toggleImg6()"><img class="cert_photo" src = "/filepath/<%=cert_photo3%>"></a>
+											<% } %>		
+										</div>
+									</div>
 								</div>	
 							</div>
 
+							<div>
+      				<hr class ="my-hr1" />
+      				</div>
       			</div>	
       		</div>			
   			 	<!-- 예약 폼 -->
       		<div class = "col-md-5" style = "margin-top : 50px;">
       			<div class ="row justify-content-center">
       				<!-- 본작업 시 height 지우고 하기 -->
-      				<div class = "col-10" style = "background : rgba(224, 224, 224, 0.65);  height : 100%; border-radius: 25px;">
+      				<div class = "col-10" style = "background : honeydew;  height : 100%; border-radius: 25px;">
       					<div class = "row justify-content-center">
       						<div class = "col-12 font-size-18 main_grayfont3 text-center mybold" style = "margin : 24px 0 3px 0;">
       							<div>예약하기</div>
@@ -507,20 +439,11 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
       							<div>자신의 애견정보를 기입하지 않으신 분은</div>
       							<span class = "mybold">나의 반려동물 등록하기</span><span>를 누르세요 </span>
       						</div>
-<<<<<<< HEAD
-      						<div class = "col-12 main_mint text-center petup">
-=======
       						<div class = "col-12 main_mint text-center petup" style="border-radius: 0px 50px 50px 0px;">
->>>>>>> origin/Hong
       							<a class = "font-size-21 main_whitefont mybold" href = "petRegister.me">나의 반려동물 등록하기 GO!</a>
       						</div>
       						<div class = "col-12 text-center">
       							<label for="custom_rd1" class="custom_lb" id="custom_lb1"> 위탁</label>
-<<<<<<< HEAD
-											<input type="radio" name="type" id="custom_rd1" value="위탁" class="hide" />
-      							<label for="custom_rd2" class="custom_lb" id="custom_lb2">방문</label>
-      								<input type="radio" name="type" id="custom_rd2" value="방문" class="hide" />
-=======
 											<input type="radio" name="type" id="custom_rd1" value="위탁" class="hide" 
 											
 											<%if(radio_basic.equals("we"))
@@ -536,16 +459,15 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 								
       							<label for="custom_rd2" class="custom_lb" id="custom_lb2">방문</label>
       								<input type="radio" name="type" id="custom_rd2" value="방문" class="hide"
-      								<%if(radio_basic.equals("bang"))
+      								<%if(!radio_basic.equals("we"))
 											{
 											%>
 												checked="checked"/>	
 											<% 
-											}else if(!radio_basic.equals("bang"))
+											}else if(radio_basic.equals("we"))
 											{
 											%>	/>
 											<% }  %> <!-- radio default값 설정해주기(방문으로 들어왔을경우 default값 방문체크) -->
->>>>>>> origin/Hong
 									</div>
 
 									
@@ -555,11 +477,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 									<div class = "col-11 text-center">
 										<div class ="row justify-content-center">
 											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;"id="hide1">
-<<<<<<< HEAD
-												<input type="text" id="datePicker_start" class="form-control dateP" value="<%=start_date%>" style = "height : 41px;">
-=======
 												<input type="text" id="datePicker_start" class="form-control dateP" placeholder ="Check In Date" value="<%=start_date%>" style = "height : 41px;">
->>>>>>> origin/Hong
 											</div>
 											<div class = "col-1" id = "hide2" style = "padding : 0 0">
 												<svg class="bi bi-chevron-compact-right main_grayfont4" width="30px" height="30px" style = "margin-top : 11px;"viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -567,15 +485,25 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 												</svg>
 											</div>
 											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;">
-<<<<<<< HEAD
-												<input type="text" id="datePicker_end" class="form-control dateP" value="<%=end_date%>" style = "height : 41px;">
-=======
 												<input type="text" id="datePicker_end" class="form-control dateP" placeholder ="Check Out Date" value="<%=end_date%>" style = "height : 41px;">
->>>>>>> origin/Hong
 											</div>
 										</div>
 									</div>
-
+									
+<!-- 									<div class = "col-11 text-center">
+										<div class ="row justify-content-center">
+											<div class = "col-5 main_grayfont2 font-size-14" style = "padding : 0; margin : 4px 0 0 0;">
+												체크인 시간
+											</div>
+											<div class = "col-1">
+												펫시터 이용 시간
+											</div>
+											<div class = "col-5 main_grayfont2 font-size-14" style = "padding : 0; margin : 4px 0 0 0;">
+												체크아웃 시간
+											</div>
+										</div>
+									</div> -->
+									
 									<div class = "col-11 text-center">
 										<div class ="row justify-content-center">
 											<div class="col" style ="color: #5e5e5e; font-weight: bold; font-size: 15px;">
@@ -593,11 +521,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 									<div class = "col-11 text-center">
 										<div class ="row justify-content-center">
 											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;">
-<<<<<<< HEAD
-												<input type="text" name="time" class="form-control timepicker dateP" id="timePicker_start" value="<%=start_time%>" style = "height : 41px;">
-=======
 												<input type="text" name="time" class="form-control timepicker dateP" id="timePicker_start" placeholder="Check In Time" value="<%=start_time%>" style = "height : 41px;">
->>>>>>> origin/Hong
 											</div>
 											<div class = "col-1" style = "padding : 0 0">
 												<svg class="bi bi-chevron-compact-right main_grayfont4" width="30px" height="30px" style = "margin-top : 11px;"viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -605,11 +529,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 												</svg>
 											</div>
 											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;">
-<<<<<<< HEAD
-												<input type="text" name="time" class="form-control timepicker dateP" id="timePicker_end" value="<%=end_time%>" style = "height : 41px;">
-=======
 												<input type="text" name="time" class="form-control timepicker dateP" id="timePicker_end" placeholder="Check Out Time" value="<%=end_time%>" style = "height : 41px;">
->>>>>>> origin/Hong
 											</div>
 										</div>
 									</div>
@@ -635,7 +555,6 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 											<div class = "col-2" style = "padding : 0; margin : 4px 0 0 0;">
 												<button type="button" class="plus" id="plus1">추가</button>
 												<input type="hidden" value="<%=price%>" id="price"/>
-												<input type="hidden" value="<%=price2%>" id="price2"/>
 												
 											</div>
 										</div>
@@ -648,27 +567,12 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 										</div>
 										
 										<hr class = "my-hr3" style = "margin : 8px 0;">
-<<<<<<< HEAD
-										<p>예상 총 비용 : </p>
-										<form name="paycheck" action="./paycheck.br" method="post">
-											<input type="hidden" name="PAY_ID" id="PAY_ID" value=${id } >
-											<input type="hidden" name="PAY_AMOUNT" id="PAY_AMOUNT" value=50000 >
-											<input type="hidden" name="PETSITTER_ID" id="PETSITTER_ID" value=<%=petsitter_id %> >
-											<input type="hidden" name="PAY_TYPE" id="PAY_TYPE" value="위탁" >
-											<input type="hidden" name="START_DATE" id="START_DATE" value=<%=start_date %>>
-											<input type="hidden" name="START_DATE" id="START_TIME">
-											<input type="hidden" name="END_DATE" id="END_DATE" value=<%=end_date %>>
-											<input type="hidden" name="END_DATE" id="END_TIME">
-											<input type="submit" style="background:#53dc98; color :white; width : 60%; height : 38px; margin : 4px 0 31px 0;" class="btn btn-sm font-size-14" value="예약 신청">
-										</form>
-=======
 										
 										<div class="petcost2" id="cost2">
 											<p>예상 총 비용 : </p>
 										</div>
 										
 										<button type="button" style="background:#53dc98; color :white; width : 60%; height : 38px; margin : 4px 0 31px 0;" class="btn btn-sm font-size-14">예약 신청</button>
->>>>>>> origin/Hong
 									</div>
 									
       					</div>
@@ -683,39 +587,6 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 <br/><br/><hr class ="my-hr2" />
 
 
-<<<<<<< HEAD
-
-<!--펫시터 소개 프로필 자격증부분 시작  -->
-			<div class = "container">
-				<div class = "row justify-content-center">
-					<div class = "col-12"><hr class ="my-hr2" /><br/><br/></div>
-					<div class = "col-md-5">
-						<div class = "row align-items-center">
-							<div class = "col-4">
-								<!--profileimg01 는 petsitter-style.css 안에 기입 -->
-								<div class ="profileimg01" style = "margin : 2px 0;"><img src="resources/images/dog01.jpg" width ="100%" height ="100%"/></div>
-							</div>
-								<div class = "col-8 text-center main_grayfont3 font-size-14">
-									<!-- vo로 받아와서 수정해야할 부분 -->
-											<p><%=address%> 펫시터 : <%=nickname %> 님</p>
-											<p>등급 : <%=rank%>(활동 수 : <%=review_count%>회, <%=cert_check1%>)</p>
-								</div>
-						</div>
-					</div>
-					
-					<div class = "col-md-5">
-						<div class = "row align-items-center">
-							<div class = "col-6">
-								<!--profileimg01 는 petsitter-style.css 안에 기입 -->
-								<div class ="profileimg02" style = "margin : 2px 0;"><img src="resources/images/dog03.jpg" width ="100%" height ="100%"/></div>
-							</div>
-								<div class = "col-6 text-center main_grayfont3 font-size-14">
-									<!-- vo로 받아와서 수정해야할 부분 -->
-											<p><%=cert_check2%></p>
-											<p>등급 : <%=rank%> </p>
-											<p>(활동 수 : <%=review_count%>회, <%=cert_check1%>) </p>
-								</div>
-=======
 	
 	<div class="container">
 		<div class="row">
@@ -743,7 +614,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 					<div class="introduce">
 						<div class="middle_div1">
 							<p class="middle_text1">
-								<%if(introduce.equals("N")){
+								<%if(introduce == null){
 								%>	등록된 자기소개가 없습니다.
 								<%
 									}else{
@@ -752,18 +623,9 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 									}
 								%>
 							</p>
->>>>>>> origin/Hong
 						</div>
 						
 					</div>
-<<<<<<< HEAD
-					
-					<div class = "col-8 text-center main_grayfont3">
-						<br/>
-						<p class = "font-size-16" style = "font-weight : bold;"><br/><%=nickname%> 펫시터 님을 소개합니다!</p>
-						<p class = "font-size-14"><%=introduce%></p>
-						<br/>
-=======
 				</div>
 				
 				<div class="bb">
@@ -773,96 +635,63 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 				
 			</div>
 		</div>
-
-
-		<div class="row">	
+		
+		<div class="row">
 			<div class="col">
-				<div class="sibal1">
-					cert
+				<div class="middle_div3">
+					<p class="middle_text2">info</p>
 				</div>
-			</div>
-			
-			<div class="col">
-					<div class="sibal2">
-						info
->>>>>>> origin/Hong
-					</div>
-			</div>
-		</div>
-		
-		<div class="row">	
-		
-			<div class="col">
-				<div class="dddd">
-					<div class="fuckImg">
-							<%if(cert_photo1.equals("N") || cert_photo1.equals("undefined"))
-								  {
-								%>	<img src = "resources/images/noimg.png"  id ="choiceimage2">									
-								<%}else
-									 {
-								%>	<img src = "/filepath/<%=cert_photo1%>" id ="choiceimage2">
-								<% } %>	 
+				<div class="middle_div4"><br />
+				
+					<div class="one">
+						<p class="p_text0-1">
+						닉네임 :
+						</p>
+						<span class="span_text0-1">
+						<%if(nickname == null)
+							{
+						%>   -
+						<%}
+							 else
+							{
+						%>  <%=nickname%>
+						<% }	%>
+						</span>
 					</div>
 					
-					<div class="fuckImg2">
-						<%if(cert_photo1.equals("N") || cert_photo1.equals("undefined"))
-					  {
-						%>	<a href = "#none" onclick ="toggleImg4()"><img class="imgfuck" id="cert_photo1" src = "resources/images/noimg.png"></a>										
-						<%}else
-							 {
-						%>	<a href = "#none" onclick ="toggleImg4()"><img class="imgfuck" src = "/filepath/<%=cert_photo1%>"></a>
-						<% } %>		
-						
-						<%if(cert_photo2.equals("N") || cert_photo2.equals("undefined"))
-					  {
-						%>	<a href = "#none" onclick ="toggleImg5()"><img class="imgfuck" id="cert_photo2" src = "resources/images/noimg.png"></a>										
-						<%}else
-							 {
-						%>	<a href = "#none" onclick ="toggleImg5()"><img class="imgfuck" src = "/filepath/<%=cert_photo2%>"></a>
-						<% } %>	
-
-						<%if(cert_photo3.equals("N") || cert_photo3.equals("undefined"))
-					  {
-						%>	<a href = "#none" onclick ="toggleImg6()"><img class="imgfuck" id="cert_photo3" src = "resources/images/noimg.png"></a>										
-						<%}else
-							 {
-						%>	<a href = "#none" onclick ="toggleImg6()"><img class="imgfuck" src = "/filepath/<%=cert_photo3%>"></a>
-						<% } %>	
+					<div class="two">
+						<p class="p_text1-1">지역 : </p><span class="span_text1-1"><%=address%></span>
+					</div>
+					<div class="three">		
+						<p class="p_text2-1">등급 : </p><span class="span_text2-1"><%=rank%></span>
+					</div>
+					<div class="four">
+						<p class="p_text3-1">활동수 : </p><span class="span_text3-1"><%=review_count%></span>
+					</div>
+					<div class="five">
+						<p class="p_text4-1">자격증 : </p><span class="span_text4-1"><%=cert_count%>개 보유</span>
 					</div>
 				</div>
 			</div>
-
-			
-			<input type="hidden" id="track2" value="<%=radio_basic%>">
-			
-			<div class="col">
-				<div class="ffff">
-					<div class="fuckText">
-						<p>닉네임 : 
-							<span>
-							<%if(nickname.equals("N") || nickname.equals("undefined"))
-							{
-							%>   -
-							<%}
-								 else
-								{
-							%>  <%=nickname%>
-							<% }	%>
-							</span>
-						</p>
-							
-						<p>지역 : <span><%=address%></span></p>
-						<p>등급 : <span><%=rank%></span></p>
-					  <p>활동수 : <span><%=review_count%>회</span></p>
-						<p>자격증 : <span><%=cert_count%>개 보유</span></p>
-					</div>
-				</div>
 		</div>
-	</div>   	 
-</div>     	 
+		
+		
+		
+		
+	</div>
+	
+	
+	
+	
+	
+<!--펫시터 소개 프로필 자격증부분 종료  -->		
+		
+<br/>    	
+     	 
+     	 
 <!--펫시터 이용가능 서비스 요금 정보 시작 -->		
 			<!--펫시터 이용가능 서비스 -->	
-			<div class = "container" style="margin-top:-0px;">
+			<div class = "container" style="margin-top:-26px;">
 				<div class = "row justify-content-center" id="serviceRow">
  					<div class = "col-md-4">
  						<div class="c1">
@@ -884,11 +713,12 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 									</div>
 								</div>
 							</div>	
-
-						<div class="c3">
-						
-						</div>
-
+							
+							<div class="c1">
+								ddd
+							</div>
+							
+									
 						</div>	
 					</div> 
 
@@ -903,74 +733,17 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 						 	Price
 						 	</div>
 						 	
-						 		<div class = "col-12 font-size-14 main_grayfont3" style = "background : white;  height : 248px;">
-						 			<div class = "col-12 font-size-14 main_grayfont3">
-									 <svg class="bi bi-book" width="22px" height="22px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style = "margin-left : 10px; margin-top: 4px;">
+						 		<div class = "col-12 font-size-14 main_grayfont3" style = "background : honeydew;  height : 300px;">
+						 			<div class = "col-12 font-size-16 main_grayfont3">
+									 <svg class="bi bi-book" width="22px" height="22px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style = "margin-left : 10px; margin-top: 75px;">
 					  			 	<path fill-rule="evenodd" d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 0 1 8.5 2.5v11a.5.5 0 0 1-.854.354c-.843-.844-2.115-1.059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 0 1 0 13.5v-11a.5.5 0 0 1 .276-.447L.5 2.5l-.224-.447.002-.001.004-.002.013-.006a5.017 5.017 0 0 1 .22-.103 12.958 12.958 0 0 1 2.7-.869zM1 2.82v9.908c.846-.343 1.944-.672 3.074-.788 1.143-.118 2.387-.023 3.426.56V2.718c-1.063-.929-2.631-.956-4.09-.664A11.958 11.958 0 0 0 1 2.82z"/>
 					 		  		<path fill-rule="evenodd" d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 0 0 7.5 2.5v11a.5.5 0 0 0 .854.354c.843-.844 2.115-1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.276-.447L15.5 2.5l.224-.447-.002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 0 0-.799-.34 12.96 12.96 0 0 0-2.073-.609zM15 2.82v9.908c-.846-.343-1.944-.672-3.074-.788-1.143-.118-2.387-.023-3.426.56V2.718c1.063-.929 2.631-.956 4.09-.664A11.956 11.956 0 0 1 15 2.82z"/>
 									 </svg>
-									 	<p>위탁 기본 1박 : 
-										 	<% if(price24.equals("NaN") || price24.equals("null") || price24.equals("undefined") || price24.equals("N"))
-										 		{
-										 	%>	(미등록)  
-											<%}else {%>
-													<%=price24%>원
-											<%} %>			
-									 	</p>
-									 	<p>대형견 추가요금 : 1,000원</p>
+									 	<p class="we60">위탁 돌봄(60분) : <%=price%>원</p>
+									 	<p class="bang30">방문 돌봄(30분) : nnnnn원</p>
 									 	
-									 	<p>시간당 
-									 		<% if(price.equals("NaN") || price.equals("null") || price.equals("undefined") || price.equals("N")) 
-									 			{
-									 		%>	(미등록)
-									 		<%}else { %>
-									 			<%=price%>원 추가
-									 		<%} %> 
-									 		
-									 		(대형견	 
-									 			<% if(bigPrice.equals("NaN") || bigPrice.equals("null") || bigPrice.equals("undefined") || bigPrice.equals("N")) 
-									 			{
-									 			%> (미등록))
-									 			<%}else { %>
-									 			<%=bigPrice%>원)
-									 		<%} %>
-									 	</p>								 	
-									 <svg class="bi bi-book" width="22px" height="22px" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style = "margin-left : 10px; margin-top: 4px;">
-					  			 	<path fill-rule="evenodd" d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 0 1 8.5 2.5v11a.5.5 0 0 1-.854.354c-.843-.844-2.115-1.059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 0 1 0 13.5v-11a.5.5 0 0 1 .276-.447L.5 2.5l-.224-.447.002-.001.004-.002.013-.006a5.017 5.017 0 0 1 .22-.103 12.958 12.958 0 0 1 2.7-.869zM1 2.82v9.908c.846-.343 1.944-.672 3.074-.788 1.143-.118 2.387-.023 3.426.56V2.718c-1.063-.929-2.631-.956-4.09-.664A11.958 11.958 0 0 0 1 2.82z"/>
-					 		  		<path fill-rule="evenodd" d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 0 0 7.5 2.5v11a.5.5 0 0 0 .854.354c.843-.844 2.115-1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.276-.447L15.5 2.5l.224-.447-.002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 0 0-.799-.34 12.96 12.96 0 0 0-2.073-.609zM15 2.82v9.908c-.846-.343-1.944-.672-3.074-.788-1.143-.118-2.387-.023-3.426.56V2.718c1.063-.929 2.631-.956 4.09-.664A11.956 11.956 0 0 1 15 2.82z"/>
-									 </svg>
-									 	
-									 	<p>방문 기본 1시간 : 
-									 		<% if(price60.equals("NaN") || price60.equals("null") || price60.equals("undefined") || price60.equals("N")) 
-									 			{
-									 		%>	(미등록)
-									 		<%}else { %>
-									 			<%=price60%>
-									 		<%} %> 
-									 	</p>
-									 	
-									 	<p>추가시간 30분 : 
-									 		<% if(price2.equals("NaN") || price2.equals("null") || price2.equals("undefined") || price2.equals("N")) 
-									 			{	
-									 		%>  (미등록)
-									 		<%}else { %>
-									 			<%=price2%>원 
-									 		<%} %>
-									 			
-									 		(대형견  
-									 			<% if(bigPrice2.equals("NaN") || bigPrice2.equals("null") || bigPrice2.equals("undefined") || bigPrice2.equals("N"))
-									 				{	
-									 			%> (미등록))
-									 			<%}else { %>
-									 				<%=bigPrice2%>원)
-									 			<%} %>
-										</p>										
 									 </div>
 								 	</div>
-								 	
-								 	<div class="c3">
-								 	</div>
-								 	
 								</div>
 							 </div> 
 							</div>
@@ -1378,9 +1151,9 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
       
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	
 		<script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
     <script src="<c:url value="/resources/js/jquery.sticky.js"/>"></script>
@@ -1439,11 +1212,11 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
     	var photo4 = "<%=cert_photo1%>";
     	if( (photo4 == "undefined") || (photo4 == "N"))
     	{
-    		document.getElementById("choiceimage2").src = "resources/images/noimg.png";
+    		document.getElementById("choiceimage").src = "resources/images/noimg.png";
     	}
     	else
     	{
-    		document.getElementById("choiceimage2").src = "/filepath/<%=cert_photo1%>";	
+    		document.getElementById("choiceimage").src = "/filepath/<%=cert_photo1%>";	
     	}
     }
     
@@ -1452,11 +1225,11 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
     	var photo5 = "<%=cert_photo2%>";
     	if( (photo5 == "undefined") || (photo5 == "N"))
     	{
-    		document.getElementById("choiceimage2").src = "resources/images/noimg.png";
+    		document.getElementById("choiceimage").src = "resources/images/noimg.png";
     	}
     	else
     	{
-    		document.getElementById("choiceimage2").src = "/filepath/<%=cert_photo2%>";	
+    		document.getElementById("choiceimage").src = "/filepath/<%=cert_photo2%>";	
     	}
     }
     
@@ -1465,11 +1238,11 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
     	var photo6 = "<%=cert_photo3%>";
     	if( (photo6 == "undefined") || (photo6 == "N"))
     	{
-    		document.getElementById("choiceimage2").src = "resources/images/noimg.png";
+    		document.getElementById("choiceimage").src = "resources/images/noimg.png";
     	}
     	else
     	{
-    		document.getElementById("choiceimage2").src = "/filepath/<%=cert_photo3%>";	
+    		document.getElementById("choiceimage").src = "/filepath/<%=cert_photo3%>";	
     	}
     }
 
@@ -1498,14 +1271,13 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 		      img.style.cssText = 'width: 100%; height: auto; margin-left: 0;';
 		    }
 		  }
-		  /*
+		  
 		  var btn = document.querySelector('#btnToggleOverflow');
 		  btn.onclick = function() {
 		    var val = divs[0].style.overflow == 'hidden' ? 'visible' : 'hidden';
 		    for (var i = 0; i < divs.length; ++i)
 		      divs[i].style.overflow = val;
 		  };
-		  */
 		};
 		/*사진 가로 세로 이미지 크기 맞추고 가운데 위치로 보이게 하기  종료*/ 
     
@@ -1513,38 +1285,15 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
   </script>  
   <script src="<c:url value="/resources/js/UT_JS/foster.js"/>"></script>    
 
-<<<<<<< HEAD
-=======
 	<!-- 아이콘 -->   
 	<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script> 
 
->>>>>>> origin/Hong
 	<!-- 데이트피커 ver.2 -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 	<!-- 달력(한국어버젼_) -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
 	
-<<<<<<< HEAD
-	<!-- 데이트피커 자스코드 -->
-	<script>
-	$(function() {
-		$('#datePicker_start').datepicker({
-				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
-				language : "ko", // 언어(<ㅡ js추가필요해서 했음.)
-				autoclose: true, // 날짜 선택하면 자동으로 닫힘
-				orientation: "bottom auto"
-		});
-		
-		$('#datePicker_end').datepicker({
-				format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
-				language : "ko", // 언어(<ㅡ js추가필요해서 했음.)
-				autoclose: true, // 날짜 선택하면 자동으로 닫힘
-				orientation: "bottom auto"
-		});
-	});
-	</script>
-=======
 <!-- 데이트피커 자스코드 -->
 <!-- 시작날짜 -->
 	<script type="text/javascript">
@@ -1566,10 +1315,10 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 				autoclose : true						//날짜누르면 닫힘.
 		});
 	</script>    
->>>>>>> origin/Hong
 
 	<!-- 타임피커 ver.1 -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js"></script>
+	<script src="${pageContext.servletContext.contextPath}/resources/js//jquery-1.8.3.min.js"></script>
+	<script src="${pageContext.servletContext.contextPath}/resources/jquery/jquery-ui.js?version=1.3"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 
 	<!-- 타임피커 자스코드 -->
@@ -1599,24 +1348,6 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 	});
 	</script>	 
 
-	<script>
-			$(function() {
-				$(".btn-secondary").on("click mousedown", function() {
-					$(this).css("background-color", "rgb(83, 220, 153)");
-					$(this).css("border-color", "rgb(83, 220, 153)");
-					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
-				});
-			});
-			
-		</script>
-		
-		<script>
-			$(function() {
-				var start_time = (String) ($("#timePicker_start").timepicker("getTime"));
-				var end_time = (String) ($("#timePicker_end").timepicker("getTime"));
-				$("#START_TIME").val(start_time.substr(16, 5));
-				$("#END_TIME").val(end_time.substr(16, 5));
-			});
-		</script>
+
 </body>
 </html>

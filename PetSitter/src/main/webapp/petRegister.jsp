@@ -369,7 +369,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 									<button type="submit" class="btn_next" onclick="javascript:register">
 										<i class="fas fa-arrow-right" id="icon1"></i>펫 등록
 									</button>
-
 								</div>
 								<div class="div_file">
 									<div class="filebox">
@@ -377,16 +376,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 											<input type="file" name="PET_PHOTO" id="input-file" class="upload-hidden">																										
 									</div>
 								</div>
-
-								
-
-
-
-
 							</div>
-						</div>
-						
-						<br><br>				
+						</div><br><br>				
 		  		</form>
 				</div>
 	  	</div>

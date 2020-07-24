@@ -376,6 +376,13 @@ visibility: hidden;
 	background-color:#53DC98;
 }
 	
+.Pro, .goldPro{
+width: 25px; 
+margin-bottom: 5px;
+}		
 	
+.track_button{
+visibility:hidden
+}
 	
 	

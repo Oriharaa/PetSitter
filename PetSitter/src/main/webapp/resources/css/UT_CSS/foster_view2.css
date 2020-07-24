@@ -2,31 +2,11 @@
 /* 언택 추가 CSS *//* 언택 추가 CSS *//* 언택 추가 CSS */
 /* 언택 추가 CSS *//* 언택 추가 CSS *//* 언택 추가 CSS */ 
 
-<<<<<<< HEAD
-.custom_lb{
-	margin-top:5%;
-	text-align:center;
-	width:20%;
-	height:26px;
-	border:0px;
-	border-radius:5px;
-	color:#ffffff;
-	font-size:13px;
-	line-height: 2;
-	transition: all 350ms ease-in-out;
-	cursor: pointer;
-}
-=======
 
 /* 사진 */
 #choiceimage{
 	width:100%;
-	height:365px;
-}
-
-#choiceimage2{
-	width:290px;
-	height:290px;
+	height:303px;
 }
 
 .home_photo{
@@ -57,7 +37,6 @@ transition: all 350ms ease-in-out;
 cursor: pointer;
 }
 
->>>>>>> origin/Hong
 #custom_lb1{
 margin-left:10px;
 background-color:#53DC98;	
@@ -69,10 +48,7 @@ background-color:#BEBEBE;
 	
 /* .hide{
 visibility:hidden;
-<<<<<<< HEAD
 } */
-=======
-}   */
 
 
 
@@ -84,13 +60,14 @@ margin-top: -60px;
 }
 
 .serviceList{
-font-size:14px;
+font-size:16px;
+font-weight:bold;
 margin-top:60px;
 margin-left:73px;
 }
 
 #serviceDiv{
-background-color:	white;
+background-color:	honeydew;
 height:300px;
 }
 
@@ -102,7 +79,7 @@ margin-top:30px;
 	color:#929292;
 }
 
- #check1{
+#check1{
 	margin-left:48.5px;
 }
 
@@ -116,7 +93,7 @@ margin-top:30px;
 
 #check4{
 	margin-left:11px;
-} 
+}
 
 
 /* 프로필 */
@@ -164,7 +141,7 @@ font-weight: bold;
 font-size: 16px;
 letter-spacing: 4px;
 height: 25px;
-border-radius: 7px 0px 0px 0px;
+border-radius: 20px 0px 0px 0px;
 }
 
 .a2{
@@ -176,7 +153,7 @@ font-weight: bold;
 font-size: 16px;
 letter-spacing: 4px;
 height: 25px;
-border-radius: 0px 7px 0px 0px;
+border-radius: 0px 20px 0px 0px;
 }
 
 .b1{
@@ -184,7 +161,7 @@ background-color: #53DC98;
 height: 20px;
 width: 820px;
 margin-left: 11%;
-border-radius: 0px 0px 7px 7px;
+border-radius: 0px 0px 20px 20px;
 color: white;
 text-align: center;	
 }
@@ -196,7 +173,7 @@ width: 380px;
 margin-left: -16px;
 text-align: center;
 font-weight: bold;
-border-radius: 7px 7px 0px 0px;	
+border-radius: 20px 20px 0px 0px;	
 letter-spacing: 4px;
 font-size: 16px;
 }
@@ -205,38 +182,13 @@ font-size: 16px;
 width: 395px;
 color: white;
 background-color: #53dc98;
-border-radius: 7px 7px 0px 0px;
+border-radius: 20px 20px 0px 0px;
 font-weight: bold;
 text-align: center;	
 letter-spacing: 4px;
 font-size: 16px;
+
 }
-.c3{
-color: white;
-background-color: #53dc98;
-width: 380px;
-height:27px;
-text-align: center;
-font-weight: bold;
-border-radius: 0px 0px 7px 7px;	
-letter-spacing: 4px;
-font-size: 16px;
-}
-
-.c3{
-color: white;
-background-color: #53dc98;
-width: 395px;
-height:27px;
-text-align: center;
-font-weight: bold;
-border-radius: 0px 0px 7px 7px;	
-letter-spacing: 4px;
-font-size: 16px;
-}
-
-
-
 
 
 .middle_text{
@@ -252,7 +204,7 @@ margin-left:2%;
 }
 
 .middle_text2{
-border-radius: 7px 7px 0px 0px;
+border-radius: 20px 20px 0px 0px;
 background-color: #53DC98;
 width: 820px;
 margin-left: 11%;
@@ -263,7 +215,7 @@ letter-spacing: 5px;
 
 
 .middle_div1{
-background-color:white;
+background-color:mintcream;
 width:520px;
 height: 300px;
 display: flex;
@@ -286,10 +238,51 @@ margin-top: 50px;
 .middle_div4{
 display: flex;
 flex-direction: column;
-background-color: white;
+background-color: honeydew;
 width: 820px;
 height:200px;
 margin-left: 11%;
+}
+
+
+.one,
+.two,
+.three,
+.four,
+.five{
+	display: flex;
+	width: 400px;
+	margin-left: 335px;
+}
+
+.one p,
+.two p,
+.three p,
+.four p,
+.five p{
+	width: 100px;
+	margin: 0;
+	font-weight:600;
+}
+
+.one span,
+.two span,
+.three span,
+.four span,
+.five span{
+	display: block;
+	width: 190px;
+	font-weight:600;
+}
+
+.span_text0-1,
+.span_text1-1, 
+.span_text2-1, 
+.span_text3-1, 
+.span_text4-1{
+color: #525252;
+font-weight: bold;
+font-size:16px;
 }
 
 
@@ -314,6 +307,9 @@ padding: 30px;
 font-weight: bold;	
 }
 
+.petN, .bak, .allCost{
+font-weight:bold;	
+}
 
 #timePicker_start, #timePicker_end{
 border: 1px solid lightgray;
@@ -335,135 +331,19 @@ font-weight: bold;
 color: darkslategray;
 }
 
-
-/* *//* *//* */
-/* *//* *//* */
-.fuckyou{
-display:flex;
-width:820px;	
-height:300px;
-margin-left:11%;
-}
-
-.fuck1{
-width:410px;
-height:306px;
-display:flex;
-}
-
-.fuck2{
-width:410px;
-height:306px;
-}
-
-.fuckImg{
-width: 307px;
-height: 300px;
-}
-
-
-.imgfuck{
-width: 80px;
-height: 80px;
-margin-left: 10px;
-margin-top: 21px;
-}
-
-
-#cert_photo1, #cert_photo2, #cert_photo3{
-display:block;
-}
-
-
-.sibal1{
-background-color: #53dc98;
-width: 380px;
-margin-top: 5%;
-margin-left: 23.5%;
-border-radius: 7px 7px 0px 0px;
-text-align: center;
-color: white;
+.we60, .bang30{
+color: #5e5e5e;
 font-weight: bold;
-}	
-
-
-
-.sibal2{
-background-color: #53dc98;
-width: 395px;
-margin-top: 5%;
-margin-left: -4.1%;
-border-radius: 7px 7px 0px 0px;
-text-align: center;
-color: white;
-font-weight: bold;
-}	
-
-.sibal3{
-background-color: #53dc98;
-width: 380px;
-margin-left: 23.5%;
-border-radius: 0px 0px 7px 7px;
-text-align: center;
-color: white;
-font-weight: bold;	
+font-size: 16px;
 }
 
-.sibal4{
-background-color: #53dc98;
-width: 380px;
-margin-left: -4.1%;
-border-radius: 0px 0px 7px 7px;
-text-align: center;
-color: white;
-font-weight: bold;	
+.bang30{
+padding-top:15px;
 }
 
-
-
-.dddd{
-margin-left: 23.5%;
-width: 380px;
-height: 250px;	
-display:flex;
-}
-.ffff{
-width: 395px;
-height: 303px;
-margin-left: -23px;	
-}
-
-.fuckText{
-color:#5e5e5e;
-font-size:14px;
-padding-top: 55px;
-padding-left: 100px;	
-}
-
-.x_btn{
-border: 0px;
-border-radius: 100%;
-background-color: #53dc98;
-color: white;
-font-size: 12px;
-width: 20px;
-height: 20px;
-line-height: 1px;
-font-weight: bold;
-}	
-
-.plusPet{
-margin-bottom: 0rem;
-font-weight:bold;
-}
-
-.allCost{
-font-weight:bold;	
-}
 
 
 
 input::placeholder {font-size:13px;}
 input:focus {outline:none;}
 button:focus {outline:none;}
->>>>>>> origin/Hong

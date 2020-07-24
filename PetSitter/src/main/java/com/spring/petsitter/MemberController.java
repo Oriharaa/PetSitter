@@ -70,8 +70,8 @@ public class MemberController {
 	@RequestMapping(value = "petRegister2.me")
 	public String petRegister2(PetVO vo) {
 		int res = petService.petInsert(vo);
-		if(res ==1) {
-			System.out.println("complete!");
+		if(res != 0) {
+			System.out.println("Pet Insert Complete!");
 		}
 		return "petRegister2";
 	}

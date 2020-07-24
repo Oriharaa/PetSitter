@@ -372,7 +372,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 <!-- top_box 시작 -->      
 <!-- 주소 검색 & 예약날짜 & 맞춤조건 등.. 시작-->
-<form name="frm_ins" method="post" enctype="multipart/form-data" target="frm_hiddenFrame" onsubmit="return check_reservation();">
 <section class="top_box">
 	<div class="container">
 	
@@ -389,6 +388,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			</div>
 		</div>
 		
+		<form name ="emsi">			
 		<div class="row justify-content-center">
 			<div class="col">
 				<div class="date">
@@ -396,19 +396,20 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					<input type="text" id="datePicker_start" class="form-control" placeholder="시작 날짜">
 					<i class="fas fa-arrow-right"></i>
 					<input type="text" id="datePicker_end" class="form-control" placeholder="종료 날짜">	
-
 				</div>
 			</div>
+			
 			<div class="col">	
 				<div class="time">
 					<h1 class="top_box_text3">시간을 설정해주세요!</h1>
-					<input type="text" name="time" class="timepicker" id="timePicker_start">
+					<input type="text" name="time" class="timepicker" id="timePicker_start" placeholder="시작 시간">
 					<i class="fas fa-arrow-right"></i>
-  				<input type="text" name="time" class="timepicker" id="timePicker_end">
+  				<input type="text" name="time" class="timepicker" id="timePicker_end" placeholder="종료 시간">
 				</div>
 			</div>
 		</div>
-		
+		</form>
+			
 		<!-- 지역 선택 필터 -->
 		<div class="row">
 			<div class="col">
@@ -475,7 +476,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		
 			
 	</div>
-</section></form>
+</section>
 
 
 
@@ -645,28 +646,36 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	<script type="text/javascript">
 		$('#timePicker_start').timepicker({
 		    timeFormat: 'p h:mm',
+ 		    interval: 60,
+		    startTime: '',  
+		    dynamic: false,
+		    dropdown: true,
+		    scrollbar: true,
+		    minTime: '09',
+		    maxTime: '11:00pm',
+		});
+<<<<<<< HEAD
+		
+		<!-- 종료시간 -->	
+=======
+	</script>
+	<script type="text/javascript">
+<!-- 종료시간 -->
+>>>>>>> origin/Hong
+		$('#timePicker_end').timepicker({
+		    timeFormat: 'p h:mm',
 		    interval: 60,
 		    minTime: '09',
 		    maxTime: '11:00pm',
-		    defaultTime: '14',
+		    /* defaultTime: '14', */
 		    startTime: '00:00',
 		    dynamic: false,
 		    dropdown: true,
 		    scrollbar: true
 		});
 		
-		<!-- 종료시간 -->	
-		$('#timePicker_end').timepicker({
-		    timeFormat: 'p h:mm',
-		    interval: 60,
-		    minTime: '09',
-		    maxTime: '11:00pm',
-		    defaultTime: '14',
-		    startTime: '00:00',
-		    dynamic: false,
-		    dropdown: true,
-		    scrollbar: true
-		});
+	
+
 	</script>
 	
  	<script>
