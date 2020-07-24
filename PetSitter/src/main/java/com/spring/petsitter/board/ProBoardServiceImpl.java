@@ -16,14 +16,14 @@ public class ProBoardServiceImpl implements ProBoardService {
 	private SqlSession sqlSession;
 
 	@Override
-	public int getProListCount() {
+	public int getProListCount(HashMap<String, Object> hashmap) {
 		ProBoardMapper boardMapper = sqlSession.getMapper(ProBoardMapper.class);
-		int res = boardMapper.getProListCount();
+		int res = boardMapper.getProListCount(hashmap);
 		return res;
 	}
 
 	@Override
-	public List<ProBoardVO> getProBoardList(HashMap<String, Integer> hashmap) {
+	public List<ProBoardVO> getProBoardList(HashMap<String, Object> hashmap) {
 		ProBoardMapper boardMapper = sqlSession.getMapper(ProBoardMapper.class);
 		List<ProBoardVO> boardlist = boardMapper.getProBoardList(hashmap);
 		return boardlist;
@@ -68,11 +68,19 @@ public class ProBoardServiceImpl implements ProBoardService {
 		int res =  boardMapper.isProBoardWriter(hashmap);
 		int num = Integer.parseInt(hashmap.get("num"));
 		if (res == 1) {
+			boardMapper.proLikeDelete(num);
 			boardMapper.proBoardDelete(num);
 		}
 		return;
 	}	
 	
+
+	@Override
+	public int getProReportCountCheck(HashMap<String, Object> hashmap)throws Exception {
+		ProBoardMapper boardMapper = sqlSession.getMapper(ProBoardMapper.class);		
+		int count = boardMapper.getProReportCountCheck(hashmap);
+		return count;
+	}	
 	
 	@Override
 	public List<ProBoardVO> getProReportForm(int num) {
@@ -88,12 +96,20 @@ public class ProBoardServiceImpl implements ProBoardService {
 		boardMapper.proReportInsert(board);
 		return;
 	}
-
+	
+	@Override
+	public int getProReportReplyCountCheck(ProReplyVO vo)throws Exception{
+		ProBoardMapper boardMapper = sqlSession.getMapper(ProBoardMapper.class);		
+		int count = boardMapper.getProReportReplyCountCheck(vo);
+		return count;
+	}
+	
+	
+	
 	@Override
 	public List<ProReplyVO> getProReportReplyForm(ProReplyVO vo) {
 		ProBoardMapper boardMapper = sqlSession.getMapper(ProBoardMapper.class);	
 		List<ProReplyVO> boardlist = boardMapper.getProReportReplyForm(vo);
-		System.out.println("impl boardlist.get0.get = " + boardlist.get(0).getBno() + "," + boardlist.get(0).getWriter_nickname());
 		return boardlist;
 	}
 	
@@ -144,6 +160,45 @@ public class ProBoardServiceImpl implements ProBoardService {
 		ProBoardMapper boardMapper = sqlSession.getMapper(ProBoardMapper.class);
 		List<ProReplyVO> replycount = boardMapper.proReplyCount(bno);
 		return replycount;
+	}
+
+	@Override
+	public List<ProBoardVO> read_ProLikeCount(int bno) throws Exception {
+		ProBoardMapper boardMapper = sqlSession.getMapper(ProBoardMapper.class);
+		List<ProBoardVO> list = boardMapper.read_ProLikeCount(bno);
+		return list;
+	}
+
+	@Override
+	public List<ProBoardVO> update_Pro_LikeCount(ProBoardVO vo) throws Exception {
+		ProBoardMapper boardMapper = sqlSession.getMapper(ProBoardMapper.class);
+		String before_id = boardMapper.before_id(vo);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("before_id",before_id);
+		map.put("LIKE_ID",vo.getLIKE_ID());
+		map.put("PRO_NUM",vo.getPRO_NUM());
+		map.put("PRO_LIKECOUNT",vo.getPRO_LIKECOUNT());
+		boardMapper.update_Pro_LikeCount1(map);
+		boardMapper.update_Pro_LikeCount2(map);
+		List<ProBoardVO> list = boardMapper.read_ProLikeCount(vo.getPRO_NUM());
+		
+		return list;
+	}
+
+	@Override
+	public List<ProBoardVO> downdate_Pro_LikeCount(ProBoardVO vo) throws Exception {
+		ProBoardMapper boardMapper = sqlSession.getMapper(ProBoardMapper.class);
+		String before_id = boardMapper.before_id(vo);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("before_id",before_id);
+		map.put("LIKE_ID",vo.getLIKE_ID());
+		map.put("PRO_NUM",vo.getPRO_NUM());
+		map.put("PRO_LIKECOUNT",vo.getPRO_LIKECOUNT());
+		boardMapper.update_Pro_LikeCount1(map);
+		boardMapper.update_Pro_LikeCount3(map);
+		List<ProBoardVO> list = boardMapper.read_ProLikeCount(vo.getPRO_NUM());
+		
+		return list;
 	}
 
 	

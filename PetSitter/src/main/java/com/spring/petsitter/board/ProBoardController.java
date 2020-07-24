@@ -28,22 +28,27 @@ public class ProBoardController {
 	private ProBoardService proboardService;	
 	
 	@RequestMapping(value = "proboard.bo") 
-	public String getBoardlist(Model model, @RequestParam(value="page", required=false, 
-			defaultValue="1") int page) { 
+	public String getBoardlist(Model model, 
+			@RequestParam(value="page", required=false,defaultValue="1") int page,
+			@RequestParam(required = false, defaultValue = "title") String searchType,
+			@RequestParam(required = false) String keyword) {
+	
+	 
 		int limit=6;
 		
 		SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd");
 
-		int listcount=proboardService.getProListCount();
 		
 		int startrow = (page-1)*6+1;
 		int endrow = startrow+limit-1;
-		HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("startrow", startrow);
 		hashmap.put("endrow", endrow);
-		
+		hashmap.put("searchType", searchType);
+		hashmap.put("keyword", keyword);
+		int listcount=proboardService.getProListCount(hashmap);	
 		List<ProBoardVO> boardlist = proboardService.getProBoardList(hashmap); // 다른 타입 2개를 전달해야하므로
-
+	
 		
 		for(int i = 0; i < boardlist.size(); i++) {
 		boardlist.get(i).setREAL_DATE(new_Format.format(boardlist.get(i).getPRO_DATE()));
@@ -71,22 +76,25 @@ public class ProBoardController {
 
 	@RequestMapping(value="/proboard2.bo", produces="application/json;charset=UTF-8")
 	@ResponseBody
-	public List<ProBoardVO> getBoardlist2(@RequestParam(value="page", required=false, 
-			defaultValue="1") int page) { 
-		int limit=6;
+	public List<ProBoardVO> getBoardlist2(
+			@RequestParam(value="page", required=false, defaultValue="1") int page,
+			@RequestParam(value="searchType", required = false, defaultValue = "title") String searchType,
+			@RequestParam(required = false) String keyword) { 
 		
+		int limit=6;
 
 		SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd");
 		
-		int listcount=proboardService.getProListCount();
-		
 		int startrow = (page-1)*6+1; //7
 		int endrow = startrow+limit-1; //12
-		HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("startrow", startrow);
 		hashmap.put("endrow", endrow);
-
+		hashmap.put("searchType", searchType);
+		hashmap.put("keyword", keyword);
+		int listcount=proboardService.getProListCount(hashmap);
 		List<ProBoardVO> boardlist = proboardService.getProBoardList(hashmap); // 다른 타입 2개를 전달해야하므로
+
 		
 		for(int i = 0; i < boardlist.size(); i++) {
 		boardlist.get(i).setREAL_DATE(new_Format.format(boardlist.get(i).getPRO_DATE()));
@@ -101,13 +109,13 @@ public class ProBoardController {
    		
    		if (endpage>startpage+10-1) endpage=startpage+10-1;
    		
-
+   		if(boardlist.size() != 0) {
    		boardlist.get(0).setPage2(page);
    		boardlist.get(0).setListcount2(listcount);
    		boardlist.get(0).setMaxpage2(maxpage);
    		boardlist.get(0).setStartpage2(startpage);
    		boardlist.get(0).setEndpage2(endpage);
-   		
+   		}
    		for(int i = 1; i < boardlist.size(); i++) {
    			boardlist.get(i).setPage2(0);
    	   		boardlist.get(i).setListcount2(0);
@@ -162,7 +170,6 @@ public class ProBoardController {
         
 		
 		proboardService.proboardInsert(vo);
-		System.out.println("sql완료");
 		return "redirect:/proboard.bo";
 	}
 	
@@ -187,11 +194,6 @@ public class ProBoardController {
 	
 	@RequestMapping("/promodifyupdate.bo") 
 	public String boardInsert(ProBoardVO vo) throws Exception {
-		System.out.println("vo.getFile()=" + vo.getPRO_FILE());
-		System.out.println("vo.getFile02()=" + vo.getPRO_FILE02());
-		System.out.println("vo.getPRO_ORG_FILE()=" + vo.getPRO_ORG_FILE());
-		//System.out.println("vo.getPRO_UP_FILE()=" + vo.getPRO_UP_FILE());
-		//System.out.println("vo.getPRO_NUM()=" + vo.getPRO_NUM());
 		
 		MultipartFile mf = vo.getPRO_FILE();    
 		MultipartFile mf2 = vo.getPRO_FILE02();    
@@ -238,7 +240,6 @@ public class ProBoardController {
 	@RequestMapping("/proboarddelete.bo") 
 	public String proboardDelete(@RequestParam(value="num", required=true) int num, HttpSession session) throws Exception {
 		String id = (String)session.getAttribute("id");
-		
 		HashMap<String, String> hashmap = new HashMap<String, String>();
 		hashmap.put("num", Integer.toString(num));
 		hashmap.put("id", id);
@@ -250,8 +251,21 @@ public class ProBoardController {
 	/*신고 controller 시작*/
 	@RequestMapping("/proreportform.bo") 
 	@ResponseBody	
-	public List<ProBoardVO> getProReportForm(@RequestParam(value="num", required=true) int num) {
+	public List<ProBoardVO> getProReportForm(
+			@RequestParam(value="num", required=true) int num,
+			@RequestParam(value="sessionid", required=true) String sessionid) throws Exception {
+		
+		HashMap<String, Object> hashmap = new HashMap<String, Object>();
+		hashmap.put("num", num);
+		hashmap.put("sessionid", sessionid);
+		int count = proboardService.getProReportCountCheck(hashmap);
+		
 		List<ProBoardVO> boardlist = proboardService.getProReportForm(num);
+		if(count != 0) {
+			boardlist.get(0).setSECRET_CHECK("NN");
+		}
+		
+		
 		return boardlist;
 	}
 	
@@ -263,24 +277,25 @@ public class ProBoardController {
 	
 	@RequestMapping("/proreportreplyform.bo") 
 	@ResponseBody	
-	public List<ProReplyVO> getProReportReplyForm(@RequestParam(value="bno", required=true) int bno,
-	@RequestParam(value="rno", required=true) int rno) {
-		System.out.println("bno,rno = " + bno + "," + rno);
+	public List<ProReplyVO> getProReportReplyForm(
+			@RequestParam(value="bno", required=true) int bno,
+			@RequestParam(value="rno", required=true) int rno,
+			@RequestParam(value="sessionid", required=true) String sessionid) throws Exception {
 		
 		ProReplyVO comment = new ProReplyVO();
 		comment.setRno(rno);
 		comment.setBno(bno);
+		comment.setWriter_id(sessionid);
+		int count = proboardService.getProReportReplyCountCheck(comment);
 		List<ProReplyVO> boardlist = proboardService.getProReportReplyForm(comment);
+		if(count != 0) {
+			boardlist.get(0).setReport_reason("NN");
+		}
 		return boardlist;
 	}
 	@RequestMapping("/proreportreplyinsert.bo") 
 	public String proReportReplyInsert(ProReplyVO vo) throws Exception {
 		vo.getB_type();
-		System.out.println("vo.getB_type() cont = " + vo.getB_type());
-		System.out.println("vo.getReport_reason() cont = " + vo.getReport_reason());
-		System.out.println("vo.getWriter_id() cont = " + vo.getWriter_id());
-		System.out.println("vo.getWriter_id() cont = " + vo.getWriter_id());
-		System.out.println("vo.getWriter_id() cont = " + vo.getWriter_id());
 		proboardService.proReportReplyInsert(vo);
 		return "redirect:/proboard.bo";
 	}		
@@ -293,7 +308,6 @@ public class ProBoardController {
 	@ResponseBody
 	private List<ProReplyVO> proCommentServiceList(@RequestParam int bno, HttpSession session) throws Exception{
 	  	List<ProReplyVO> proReplyList = proboardService.readProReply(bno);
-	  	System.out.println(proReplyList.size());
 	  	return proReplyList;
 	}    
 	
@@ -332,7 +346,31 @@ public class ProBoardController {
 	
 	/*댓글 Controller 부분 종료*/ 
 
-
+	/*좋아요 기능 시작*/
+	@RequestMapping(value="/readprolikecount.bo", produces="application/json; charset=UTF-8")  //댓글 리스트
+	@ResponseBody	
+	private List<ProBoardVO> read_ProLikeCount(@RequestParam int bno, HttpSession session) throws Exception{
+	  	List<ProBoardVO> proLikeCount = proboardService.read_ProLikeCount(bno);
+	  	proLikeCount.get(0).getLIKE_ID();
+	  	return proLikeCount;
+	}
+	
+	@RequestMapping(value="/updateprolikecount.bo", produces="application/json;charset=UTF-8")
+	@ResponseBody	
+	public List<ProBoardVO> update_Pro_LikeCount(ProBoardVO vo)throws Exception {
+		List<ProBoardVO> list = proboardService.update_Pro_LikeCount(vo);
+		return list;
+	}
+	
+	@RequestMapping(value="/downdateprolikecount.bo", produces="application/json;charset=UTF-8")
+	@ResponseBody	
+	public List<ProBoardVO> downdate_Pro_LikeCount(ProBoardVO vo)throws Exception {
+		List<ProBoardVO> list = proboardService.downdate_Pro_LikeCount(vo);
+		return list;
+	}		
+	
+	/*좋아요 기능 종료*/	
+	
 	
 	//파일 다운로드 방식
 	@RequestMapping("/profiledownload.bo")

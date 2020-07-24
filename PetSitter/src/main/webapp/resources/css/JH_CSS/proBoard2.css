@@ -452,6 +452,26 @@ margin-bottom: 5px;
 	.swal2-content {
 	font-size : 14px!important;
 	}
+	.form-control-sm {
+    height: 30px!important;
+	}
+	
+	.padding0{
+	padding : 0 0 0 0;
+	}
+	
+	.frmargin{
+	margin : 0 9px 0 0;
+	}
+	
+	.frcss01 {
+	width : 100px!important;
+	}
+
+	.frcss02 {
+	width : 100px!important;
+	}
+		
 	/*댓글css 시작*/
 	.pb-cmnt-container {
   font-family: Lato;

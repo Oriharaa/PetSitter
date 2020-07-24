@@ -23,24 +23,55 @@
 		<result property="maxpage2" column="maxpage2" />
 		<result property="startpage2" column="startpage2" />
 		<result property="endpage2" column="endpage2" />
+		<result property="LIKE_ID" column="LIKE_ID" />
+		<result property="LIKE_NUM" column="LIKE_NUM" />
+
 		
 	</resultMap>
 
 
-	<select id="getProListCount" resultType="int">
+	<select id="getProListCount" parameterType="HashMap" resultType="int">
 		select count(*) from PRO_BOARD
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="keyword != null and keyword != '' ">
+				<if test="searchType=='title'">
+					AND PRO_SUBJECT like '%' ||  #{keyword} || '%'
+				</if>
+				<if test="searchType=='content'">
+					AND PRO_CONTENT like '%' ||  #{keyword} || '%'
+				</if>
+				<if test="searchType=='reg_id'">
+					AND MEMBER_ID like '%' ||  #{keyword} || '%'
+				</if>
+      </if>
+	</trim>
+
 	</select>
 	
 	<select id="getProBoardList" parameterType="HashMap" resultMap="proBoardResultMap">
-		<![CDATA[
+		
 		select rnum, PRO_NUM, MEMBER_ID, MEMBER_NICKNAME, PRO_SUBJECT, PRO_CONTENT, PRO_ORG_FILE, PRO_UP_FILE, PRO_READCOUNT, PRO_DATE, PRO_LIKECOUNT, BOARD_TYPE , SECRET_CHECK
 		from (select rownum rnum,PRO_NUM, MEMBER_ID, MEMBER_NICKNAME, PRO_SUBJECT, PRO_CONTENT, PRO_ORG_FILE, PRO_UP_FILE, PRO_READCOUNT, PRO_DATE, PRO_LIKECOUNT, BOARD_TYPE, SECRET_CHECK 
-		     from (select * from PRO_BOARD order by PRO_NUM desc))
-		where rnum>=#{startrow} and rnum<=#{endrow}		
-		]]>
+		     from (select * from PRO_BOARD 
+		     <trim prefix="WHERE" prefixOverrides="AND|OR">
+			     <if test="keyword != null and keyword != '' ">
+						 <if test="searchType=='title'">
+						 AND PRO_SUBJECT like '%' ||  #{keyword} || '%'
+						 </if>
+						 <if test="searchType=='Content'">
+						 AND PRO_CONTENT like '%' ||  #{keyword} || '%'
+					   </if>
+						 <if test="searchType=='reg_id'">
+						 AND MEMBER_ID like '%' ||  #{keyword} || '%'
+						 </if>
+	         </if>
+         </trim>
+		     order by PRO_NUM desc))
+		<![CDATA[where rnum>=#{startrow} and rnum<=#{endrow}]]>
 	</select>	
 	
-
+	
+		
 	<select id="nicknameFind" resultType="String" parameterType="ProBoardVO">
 			SELECT MEMBER_NICKNAME FROM MEMBER
 			WHERE MEMBER_ID = #{MEMBER_ID}
@@ -85,17 +116,29 @@
 	<delete id="proBoardDelete" parameterType="int">
 		delete from PRO_BOARD where PRO_NUM=#{num}
 	</delete>
+
+	<delete id="proLikeDelete" parameterType="int">
+		delete from PRO_LIKE_COUNT where LIKE_NUM=#{num}
+	</delete>
+
+	<select id="getProReportCountCheck" parameterType="HashMap" resultType="int">
+		select count(*) from report_article where member_id = #{sessionid} and member_num=#{num}
+	</select>
 	
 	<insert id="proReportInsert" parameterType="ProBoardVO">
-		insert into report_article values (#{PRO_NUM},#{REPORT_REASON},#{MEMBER_ID},#{BOARD_TYPE})
+		insert into report_article values (#{PRO_NUM},#{REPORT_REASON},#{MEMBER_ID},#{BOARD_TYPE}, 'N')
 	</insert>
 	
-	<select id="getProReportReplyForm" parameterType="com.spring.petsitter.board.ProReplyVO" resultType="com.spring.petsitter.board.ProReplyVO">
+	<select id="getProReportReplyForm" parameterType="ProReplyVO" resultType="com.spring.petsitter.board.ProReplyVO">
 		select * from PROREPLY where bno = #{bno} and rno = #{rno}
 	</select>
 	
+	<select id="getProReportReplyCountCheck" parameterType="ProReplyVO" resultType="int">
+		select count(*) from report_reply where member_id = #{writer_id} and bno=#{bno} and rno=#{rno}
+	</select>	
+	
 	<insert id="proReportReplyInsert" parameterType="ProBoardVO">
-		insert into report_reply values (#{bno},#{rno},#{report_reason},#{writer_id},#{b_type})
+		insert into report_reply values (#{bno},#{rno},#{report_reason},#{writer_id},#{b_type}, 'N')
 	</insert>	
 	
 	<!-- 하단부터 댓글 Mapper.xml 부분  -->
@@ -134,4 +177,28 @@
 	<select id="proReplyCount" resultType="com.spring.petsitter.board.ProReplyVO" parameterType="int">
 		select nvl(count(*), 0) as reply_count from PROREPLY where bno = #{bno}
 	</select>
+	
+	
+	<select id="read_ProLikeCount" parameterType="int" resultMap="proBoardResultMap">
+		select PB.PRO_NUM, PB.PRO_LIKECOUNT, NVL(PL.LIKE_ID, 'N') LIKE_ID
+    from  pro_board PB, PRO_LIKE_COUNT PL
+    WHERE PRO_NUM = #{bno} AND PB.PRO_NUM = PL.LIKE_NUM
+	</select>
+
+	<select id="before_id" parameterType="ProBoardVO" resultType="String">
+		select LIKE_ID from PRO_LIKE_COUNT WHERE LIKE_NUM=#{PRO_NUM} 
+	</select>
+	
+	<update id="update_Pro_LikeCount1" parameterType="HashMap">
+		UPDATE pro_board SET PRO_LIKECOUNT=#{PRO_LIKECOUNT} WHERE PRO_NUM=#{PRO_NUM}
+	</update>	
+
+	<update id="update_Pro_LikeCount2" parameterType="HashMap">
+		UPDATE PRO_LIKE_COUNT SET LIKE_ID = concat(#{before_id},#{LIKE_ID}) WHERE LIKE_NUM = #{PRO_NUM}
+	</update>
+	
+	<update id="update_Pro_LikeCount3" parameterType="HashMap">
+		UPDATE PRO_LIKE_COUNT SET LIKE_ID = REPLACE(LIKE_ID, #{LIKE_ID},'') WHERE LIKE_NUM = #{PRO_NUM}
+	</update>		
 </mapper>
+
