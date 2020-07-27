@@ -145,7 +145,13 @@ p {
                         <a class="dropdown-item" href="#">기능1</a>
                         <a class="dropdown-item" href="#">기능2</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="login.html">로그아웃</a>
+                        <%
+              						if(session.getAttribute("id") == "" || session.getAttribute("id") == null) {
+              					%>
+                        <a class="dropdown-item" href="loginform.me">로그인</a>
+                        <%} else { %>
+                        <a class="dropdown-item" href="logout.me">로그아웃</a>
+                        <%} %>
                     </div>
                 </li>
             </ul>

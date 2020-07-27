@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/java/com/spring/petsitter/MemberController.java=UTF-8
+encoding//src/main/java/com/spring/petsitter/PetsitterController.java=UTF-8
 encoding//src/main/java/com/spring/petsitter/board/mboard/MReplyVO.java=UTF-8
 encoding//src/main/java/com/spring/petsitter/board/mboard/MemberBoardController.java=UTF-8
 encoding//src/main/java/com/spring/petsitter/board/mboard/MemberBoardService.java=UTF-8

@@ -5,31 +5,34 @@ import org.springframework.web.multipart.MultipartFile;
 /*
 create table PETSITTER(
     PETSITTER_ID varchar2(30) primary key, --ID
-    PETSITTER_NICKNAME varchar2(30) DEFAULT 'N', --ë‹‰ë„¤ì„
-    PETSITTER_NAME varchar2(20) default 'N', --ì´ë¦„
+    PETSITTER_NICKNAME varchar2(30) DEFAULT 'N', --´Ğ³×ÀÓ
+    PETSITTER_NAME varchar2(20) default 'N', --ÀÌ¸§
     PETSITTER_PW varchar2(30) default 'N', --PW
-    PETSITTER_TEL varchar2(20) default 'N', --ì „í™”ë²ˆí˜¸
-    PETSITTER_EMAIL varchar2(30) default 'N', --ì´ë©”ì¼
-    PETSITTER_SCORE number(2,1) DEFAULT 0, --í‰ì 
-    PETSITTER_COUNT number(5) DEFAULT 0, --í™œë™íšŸìˆ˜
-    PETSITTER_RANK varchar2(20) DEFAULT 'Pro', --ë“±ê¸‰('Pro', 'GoldPro')
-    PETSITTER_ADDRESS varchar2(100) default 'N', --ì£¼ì†Œ
-    PETSITTER_INTRODUCE varchar2(2000) default 'N', --ìê¸°ì†Œê°œ
-    PETSITTER_PRICE_30M varchar2(10), --30ë¶„ê°€ê²©(ë°©ë¬¸ ì˜ˆì•½)
-    PETSITTER_PRICE_60M varchar2(10), --60ë¶„ê°€ê²©(ìœ„íƒ ì˜ˆì•½)
-    PETSITTER_SERVICE_LIST varchar2(60) default 'N', --ê°€ëŠ¥í•œ ì„œë¹„ìŠ¤
-    PETSITTER_PHOTO_UPFILE varchar2(100) default 'N', --ì¦ëª… ì‚¬ì§„
-    PETSITTER_PHOTO_PROFILE_FILE varchar2(100) default 'N', --í”„ë¡œí•„ ì‚¬ì§„
-    PETSITTER_CERT_LIST varchar2(100) default 'N', --ìê²©ì¦ì´ë¦„
-    PETSITTER_PHOTO_CERT_FILE varchar2(300) default 'N', --ìê²©ì¦ ì‚¬ì§„
-    PETSITTER_PHOTO_HOME_FILE varchar2(300) default 'N', --ì§‘ ì‚¬ì§„
-    PETSITTER_DATE date DEFAULT sysdate, --ê°€ì… ë‚ ì§œ
-    PETSITTER_TYPE varchar2(20) default 'N', -- ì¼€ì–´ì¢…ë¥˜
-    PETSITTER_REPORT number(2) default 0, --ì‹ ê³ ëˆ„ì íšŸìˆ˜, ì¶”ê°€
-    PETSITTER_GENDER varchar2(4) default 'N',-- ì„±ë³„, ì¶”ê°€
-    PETSITTER_REVIEWCOUNT number(5) DEFAULT 0, --ë¦¬ë·° ê°œìˆ˜
-    PETSITTER_PHOTO_APPEAL varchar2(300) default 'N', --ì–´í•„ ì‚¬ì§„
-    PETSITTER_AMOUNT number default 0 --ì´ ë§¤ì¶œ ê¸ˆì•¡
+    PETSITTER_TEL varchar2(20) default 'N', --ÀüÈ­¹øÈ£
+    PETSITTER_EMAIL varchar2(30) default 'N', --ÀÌ¸ŞÀÏ
+    PETSITTER_SCORE number(2,1) DEFAULT 0, --ÆòÁ¡
+    PETSITTER_COUNT number(5) DEFAULT 0, --È°µ¿È½¼ö
+    PETSITTER_RANK varchar2(20) DEFAULT 'N', --µî±Ş('N','Pro', 'GoldPro')
+    PETSITTER_ADDRESS varchar2(100) default 'N', --ÁÖ¼Ò
+    PETSITTER_INTRODUCE varchar2(2000) default 'N', --ÀÚ±â¼Ò°³
+    PETSITTER_PRICE_30M varchar2(10), --30ºĞ°¡°İ(¹æ¹® ¿¹¾à)
+    PETSITTER_PRICE_60M varchar2(10), --60ºĞ°¡°İ(À§Å¹ ¿¹¾à)
+    PETSITTER_SERVICE_LIST varchar2(60) default 'N', --°¡´ÉÇÑ ¼­ºñ½º
+    PETSITTER_PHOTO_UPFILE varchar2(100) default 'N', --Áõ¸í »çÁø
+    PETSITTER_PHOTO_PROFILE_FILE varchar2(100) default 'N', --ÇÁ·ÎÇÊ »çÁø
+    PETSITTER_CERT_LIST varchar2(100) default 'N', --ÀÚ°İÁõÀÌ¸§
+    PETSITTER_PHOTO_CERT_FILE varchar2(300) default 'N', --ÀÚ°İÁõ »çÁø
+    PETSITTER_PHOTO_HOME_FILE varchar2(300) default 'N', --Áı »çÁø
+    PETSITTER_DATE date DEFAULT sysdate, --°¡ÀÔ ³¯Â¥
+    PETSITTER_TYPE varchar2(20) default 'N', -- ÄÉ¾îÁ¾·ù
+    PETSITTER_REPORT number(2) default 0, --½Å°í´©ÀûÈ½¼ö, Ãß°¡
+    PETSITTER_GENDER varchar2(4) default 'N',-- ¼ºº°, Ãß°¡
+    PETSITTER_REVIEWCOUNT number(5) DEFAULT 0, --¸®ºä °³¼ö
+    PETSITTER_PHOTO_APPEAL varchar2(300) default 'N', --¾îÇÊ »çÁø
+    PETSITTER_AMOUNT number default 0, --ÃÑ ¸ÅÃâ ±İ¾×
+    PETSITTER_ADDRX number default 0, -- ÁÖ¼ÒÀÇ XÁÂÇ¥
+    PETSITTER_ADDRY number default 0, -- ÁÖ¼ÒÀÇ YÁÂÇ¥
+    PETSITTER_SAFEADDR varchar2(100) default 'N' -- ¾È½ÉÁÖ¼Ò (µµ·Î¸íÁÖ¼Ò, »ó¼¼ÁÖ¼Ò)
 );
 */
 
@@ -40,7 +43,11 @@ public class PetsitterVO {
 	private String PETSITTER_PW;
 	private String PETSITTER_TEL;
 	private String PETSITTER_EMAIL;
+	private String PETSITTER_SAFEADDR;
 	private double PETSITTER_SCORE;
+	private double PETSITTER_ADDRX;
+	private double PETSITTER_ADDRY;
+	private double PETISTTER_POLY;
 	private int PETSITTER_COUNT;
 	private int PETSITTER_REVIEWCOUNT;
 	private int PETSITTER_REPORT;
@@ -71,6 +78,31 @@ public class PetsitterVO {
 	private String PETSITTER_TYPE;
 	private String PETSITTER_GENDER;
 	
+	
+	public String getPETSITTER_SAFEADDR() {
+		return PETSITTER_SAFEADDR;
+	}
+	public void setPETSITTER_SAFEADDR(String pETSITTER_SAFEADDR) {
+		PETSITTER_SAFEADDR = pETSITTER_SAFEADDR;
+	}
+	public double getPETISTTER_POLY() {
+		return PETISTTER_POLY;
+	}
+	public void setPETISTTER_POLY(double pETISTTER_POLY) {
+		PETISTTER_POLY = pETISTTER_POLY;
+	}
+	public double getPETSITTER_ADDRX() {
+		return PETSITTER_ADDRX;
+	}
+	public void setPETSITTER_ADDRX(double pETSITTER_ADDRX) {
+		PETSITTER_ADDRX = pETSITTER_ADDRX;
+	}
+	public double getPETSITTER_ADDRY() {
+		return PETSITTER_ADDRY;
+	}
+	public void setPETSITTER_ADDRY(double pETSITTER_ADDRY) {
+		PETSITTER_ADDRY = pETSITTER_ADDRY;
+	}
 	public int getPETSITTER_AMOUNT() {
 		return PETSITTER_AMOUNT;
 	}

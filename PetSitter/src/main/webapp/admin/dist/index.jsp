@@ -3,19 +3,19 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.petsitter.*" %>
 <%@ page import="com.spring.petsitter.board.mboard.*" %>
+<%@ page import="java.io.PrintWriter" %>
 <%@ page import="javax.servlet.*,java.text.*" %>
 <% 
-	String id = null;
-	String name = null;
-	String rank = null;
-	
-	id = (String)session.getAttribute("id");
-	name = (String)session.getAttribute("name");
-	rank = (String)session.getAttribute("rank");
+	String id = (String)session.getAttribute("id");
+	String name = (String)session.getAttribute("name");
+	String rank = (String)session.getAttribute("rank");
 	
 	List<MemberBoardVO> mboardlist = (List<MemberBoardVO>)request.getAttribute("mboard_list");
 	List<ReportArticleVO> ralist = (List<ReportArticleVO>)request.getAttribute("ra_list");
 	List<ReportReplyVO> rrlist = (List<ReportReplyVO>)request.getAttribute("rr_list");
+%>
+<%
+
 %>
 <%
 	SimpleDateFormat format1;
@@ -67,7 +67,13 @@ overflow:hidden;
                         <a class="dropdown-item" href="#">기능1</a>
                         <a class="dropdown-item" href="#">기능2</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="login.html">로그아웃</a>
+                        <%
+              						if(session.getAttribute("id") == "" || session.getAttribute("id") == null) {
+              					%>
+                        <a class="dropdown-item" href="loginform.me">로그인</a>
+                        <%} else { %>
+                        <a class="dropdown-item" href="logout.me">로그아웃</a>
+                        <%} %>
                     </div>
                 </li>
             </ul>
@@ -130,8 +136,8 @@ overflow:hidden;
                                     </a>
                                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401.html">펫시터 목록</a>
-                                            <a class="nav-link" href="404.html">펫시터 신청 관리</a>
+                                            <!-- <a class="nav-link" href="401.html">펫시터 목록</a> -->
+                                            <a class="nav-link" href="admin_petsitterApply.me">펫시터 신청 관리</a>
                                         </nav>
                                     </div>
                                 </nav>
@@ -201,8 +207,8 @@ overflow:hidden;
                                     <div class="card-header">
 
 																			  <h2>신고 목록</h2>
-																			  <ul class="nav nav-tabs">
-																			    <li><a type="button" class="btn btn-primary btn-sm" data-toggle="tab" href="#reportArticle">글 신고</a></li>
+																			  <ul class="nav nav-tabs" style="padding:10px;">
+																			  	<li class="active"><a type="button" class="btn btn-primary btn-sm" data-toggle="tab" href="#reportArticle">글 신고</a></li>
 																			    <li><a type="button" class="btn btn-secondary btn-sm" data-toggle="tab" href="#reportReply">리플 신고</a></li>
 																			  </ul>
 

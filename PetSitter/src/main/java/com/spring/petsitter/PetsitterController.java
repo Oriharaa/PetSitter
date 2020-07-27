@@ -33,9 +33,9 @@ public class PetsitterController {
 		vo.setPETSITTER_ID(id);
 		int res = petsitterService.reflyUpdate(vo);
 		if(res == 1) {
-			System.out.println("리뷰 답변 작성성공");
+			System.out.println("由щ럭 �떟蹂� �옉�꽦�꽦怨�");
 		}else {
-			System.out.println("리뷰 답변 작성실패");
+			System.out.println("由щ럭 �떟蹂� �옉�꽦�떎�뙣");
 		}
 		return "redirect:/petsitterinfo.me";
 	}
@@ -68,9 +68,9 @@ public class PetsitterController {
 		String CertState="";
 		String CertNames = "";
 		for(int i = 0; i < 3; i++) {
-			if(vo.getCertState()[i].equals("파일선택")) {
+			if(vo.getCertState()[i].equals("�뙆�씪�꽑�깮")) {
 				break;
-			}else if(vo.getCertState()[i].equals("파일변경")) {
+			}else if(vo.getCertState()[i].equals("�뙆�씪蹂�寃�")) {
 				CertState += petsitter.getPETSITTER_PHOTO_CERT_FILE().split(",")[i]+",";
 				CertNames += petsitter.getPETSITTER_CERT_LIST().split(",")[i]+",";
 			}else {
@@ -103,9 +103,9 @@ public class PetsitterController {
 		
 		String homeState="";
 		for(int i = 0; i < 3; i++) {
-			if(vo.getHomeState()[i].equals("파일선택")) {
+			if(vo.getHomeState()[i].equals("�뙆�씪�꽑�깮")) {
 				break;
-			}else if(vo.getHomeState()[i].equals("파일변경")) {
+			}else if(vo.getHomeState()[i].equals("�뙆�씪蹂�寃�")) {
 				homeState += petsitter.getPETSITTER_PHOTO_HOME_FILE().split(",")[i]+",";
 			}else {
 				mf = vo.getPhotoHome()[i];
@@ -129,9 +129,9 @@ public class PetsitterController {
 		
 		String appealState="";
 		for(int i = 0; i < 3; i++) {
-			if(vo.getAppealState()[i].equals("파일선택")) {
+			if(vo.getAppealState()[i].equals("�뙆�씪�꽑�깮")) {
 				break;
-			}else if(vo.getAppealState()[i].equals("파일변경")) {
+			}else if(vo.getAppealState()[i].equals("�뙆�씪蹂�寃�")) {
 				appealState += petsitter.getPETSITTER_PHOTO_APPEAL().split(",")[i]+",";
 			}else {
 				mf = vo.getPhotoAppeal()[i];
@@ -167,9 +167,9 @@ public class PetsitterController {
 		
 		int res = petsitterService.petsitterUpdate(petsitter);
 		if(res == 1) {
-			System.out.println("업데이트 성공");
+			System.out.println("�뾽�뜲�씠�듃 �꽦怨�");
 		}else {
-			System.out.println("업데이트 실패");
+			System.out.println("�뾽�뜲�씠�듃 �떎�뙣");
 		}
 		return "redirect:/petsitterinfo.me";
 	}
@@ -178,7 +178,7 @@ public class PetsitterController {
 	public String petsitterSchedule(PetsitterScheduleVO vo) {
 		int res = petsitterService.petsitterSchedule(vo);
 		if (res == 1) {
-			System.out.println("스케줄 추가 성공");
+			System.out.println("�뒪耳�以� 異붽� �꽦怨�");
 		}
 		return "redirect:/petsitterinfo.me";
 	}
@@ -215,18 +215,18 @@ public class PetsitterController {
 	public String petsitterRefusal(PetsitterVO vo) {
 		int res = petsitterService.petsitterRefusal(vo);
 		if (res == 1) {
-			System.out.println("회원 거절 완료");
+			System.out.println("�쉶�썝 嫄곗젅 �셿猷�");
 		}
-		return "redirect:/admin_main.me";
+		return "redirect:/admin_petsitterApply.me";
 	}
 
 	@RequestMapping(value = "petsitter_approval.me")
 	public String petsitterApproval(PetsitterVO vo) {
 		int res = petsitterService.petsitterApproval(vo);
 		if (res == 1) {
-			System.out.println("회원 승인 완료");
+			System.out.println("�쉶�썝 �듅�씤 �셿猷�");
 		}
-		return "redirect:/admin_main.me";
+		return "redirect:/admin_petsitterApply.me";
 	}
 
 	@RequestMapping(value = "admin_main.me", method = RequestMethod.GET)
@@ -242,7 +242,7 @@ public class PetsitterController {
 		PetsitterVO petsitter = new PetsitterVO();
 		petsitter = petsitterService.selectPetsitter(vo.getPETSITTER_ID());
 		model.addAttribute("petsitter", petsitter);
-		return "apply_petsitter";
+		return "admin/dist/petsitter_introduce";
 	}
 
 	@RequestMapping(value = "petsitter_login.me")
@@ -253,7 +253,7 @@ public class PetsitterController {
 		if (res == 1) {
 			session.setAttribute("id", vo.getPETSITTER_ID());
 			session.setAttribute("name", vo.getPETSITTER_NAME());
-			System.out.println("로그인 성공");
+			System.out.println("濡쒓렇�씤 �꽦怨�");
 
 			return "home";
 		} else {
@@ -379,7 +379,7 @@ public class PetsitterController {
 		int res = petsitterService.petsitterInsert(vo);
 
 		if (res == 1) {
-			System.out.println("회원가입 성공");
+			System.out.println("�쉶�썝媛��엯 �꽦怨�");
 		}
 
 		return "home";

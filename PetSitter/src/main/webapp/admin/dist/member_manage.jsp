@@ -124,7 +124,7 @@ p {
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="./admin/dist/assets/demo/datatables-demo.js"></script>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-    	    <a class="navbar-brand" href="report_list.me">신고 관리 페이지</a>
+    	    <a class="navbar-brand" href="admin_memberManage.me">회원 정보 관리 페이지</a>
     	      <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
       	      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -137,7 +137,13 @@ p {
           	        	<a class="dropdown-item" href="#">기능1</a>
                       <a class="dropdown-item" href="#">기능2</a>
                     	  <div class="dropdown-divider"></div>
-                     	<a class="dropdown-item" href="login.html">로그아웃</a>
+                        <%
+              						if(session.getAttribute("id") == "" || session.getAttribute("id") == null) {
+              					%>
+                        <a class="dropdown-item" href="loginform.me">로그인</a>
+                        <%} else { %>
+                        <a class="dropdown-item" href="logout.me">로그아웃</a>
+                        <%} %>
                     </div>
            	    	</li>
             	</ul>

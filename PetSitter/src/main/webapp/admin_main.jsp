@@ -1,57 +1,31 @@
 <!-- 관리자 메인 페이지 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.petsitter.*" %>
-<%@ page import="com.spring.petsitter.board.*" %>
-<%@ page import="com.spring.petsitter.board.mboard.*" %>
-<%@ page import="java.io.PrintWriter" %>
 <%@ page import="javax.servlet.*,java.text.*" %>
-<%
-	PetsitterQnaBoardVO pqboard = (PetsitterQnaBoardVO)request.getAttribute("vo");
-	ReportArticleVO report = (ReportArticleVO)request.getAttribute("report");	
-	
-	ArrayList<MemberVO> memberList = (ArrayList<MemberVO>)request.getAttribute("member_list");
-	List<PetsitterVO> petsitterList = (List<PetsitterVO>)request.getAttribute("petsitter_list");
-	List<PetsitterQnaBoardVO> pqboardlist = (List<PetsitterQnaBoardVO>)request.getAttribute("pqboard_list"); 
-	
+<% 
+	ArrayList<PetsitterVO> petsitterList = (ArrayList<PetsitterVO>)request.getAttribute("petsitter_list"); 
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
-	String rank = (String)session.getAttribute("rank");
-	String btype = "pqboard";
-		
-//세션 종료시 홈으로
-  if(session.getAttribute("id") == null) {
-     out.println("<script>");
-     out.println("location.href = 'loginform.me'");
-     out.println("</script>");
-  }
-	/* if(mboard.getMEMBER_SECRET().equals("on") && !(mboard.getMEMBER_ID().equals(id))) {
-		out.println("<script>");
-		out.println("alert('권한이 없습니다.')");
-		out.println("history.go(-1)");
-		out.println("</script>");
-	} */
 %>
-<%
-	SimpleDateFormat format1;
-	format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-%>
-
 <!doctype html>
 <html lang="en">
 
 
 <style>
-	button#prev, button#list, button#next, button#write {
-		color : white!important;
+	h3#notice {
+		color: #5e5e5e;
 	}
-	button#write {
-		background-color:#53DC98!important;
-	}
-	h3#qna {
-		color : #5e5e5e!important;		
+	button#member_manage, button#report_manage, button#acc_manage {
+		color:white;
+	} 
+	
+	button#member_manage:hover, button#member_manage:focus, button#report_manage:hover, 
+	button#report_manage:focus, button#acc_manage:hover, button#acc_manage:focus {
+		border-width : medium;
+		border-color : #53dc98!important;
+		color : white;
 	}
 	/*펫시터 메인 폰트컬러 */
 	.main_mintfont{
@@ -77,10 +51,6 @@
 	#main_grayfont2{
 	color : #949494!important;
 	}
-	
-	.main_redfont0{
-	color : rgba(211,84,0)!important;
-}
 	
 	
 	/*펫시터 메인 폰트컬러 끝*/
@@ -127,19 +97,17 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	
 	
   <head>
-  	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-    
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     <title>Depot &mdash;Website Template by Colorlib</title>
-    
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
-		<!-- 아이콘 css -->
-		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css">
+	<!-- 아이콘 css -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
+    
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
@@ -180,22 +148,34 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
               <div class="float-right">
-
-                <a href="basicform.me" ><span class = "font-size-14" >로그인</span></a>
+              	<%
+              		if(id == null) {
+              	%>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
-                <a href="basicform.me" ><span class = "font-size-14">회원가입</span></a>
+                <%} else { %>
+                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+                <%} %>
               </div>
+
             </div>
+
           </div>
+
         </div>
-	    </div>
+      </div>
 
       <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152,0.86);">
+
         <div class="container" >
           <div class="row align-items-center position-relative" >
+
+
             <div class="site-logo">
-              <a href="./home.me" ><span class="main_whitefont">보살펴조</span></a>
+              <a href="./home_login.me" ><span class="main_whitefont">보살펴조</span></a>
             </div>
+
             <div class="col-12">
               <nav class="site-navigation text-right ml-auto " role="navigation" >
 
@@ -217,130 +197,254 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
         </div>
 
       </header>
-    <style>
-    td {
+      		<div class="container">      
+			<div class="row">
+    		<div class="col-md-12 p-3"></div>
+     </div>
+		
+	    <div class="row">
+	      <div class="col-md-2">
+	    		<button type="button" style="color:white; background:#e67e22;" class="btn btn-sm">관리자 페이지</button>
+	    	</div>
+		    <div class="col-md-7"></div>
+	      <div class="col-md-3">
+	    		<button type="button" onclick="location.href='member_info_list.me'" style="background:#D3D3D3;" class="btn btn-sm" id="member_manage">회원 관리</button>
+	    		<button type="button" style="background:#D3D3D3;" class="btn btn-sm" id="report_manage">신고 관리</button>
+	    		<button type="button" style="background:#D3D3D3;" class="btn btn-sm" id="acc_manage">회계 관리</button>
+	    	</div>
+	    </div>
+    </div>  
+    
+    
+    
+    <!-- 여백용 row -->
+    <div class="row">
+    <div class="col-md-12 p-3"></div>
+     </div>
+      <div class = "container">
+		<div class="row">
+    
+    <div class="col-md-12">
+    <h3 class="text-left" id="notice">관리자 공지사항</h3>
+    </div>
+    </div>
+    
+    
+    <div class="row">
+    
+    <div class="col-md-12">  
+		
+		<style>	  	
+		th, td {
 			color : #5e5e5e!important;
 		}
-	 	.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+		th {
+		 	text-align:center;
+			font-weight: bold;
+		}
+	
+   td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
+			text-align: center;
+  	}
+  	.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
    	background-color: #F8F8F8;
-		}    					
-    </style>  
+		}
+		</style>
+		
+		<!-- 관리자 공지사항 -->
+		<table class="table table-sm table-hover table-striped">
+		<thead>
+				<tr>
+					<th width="100px">번호</th>
+					
+					<th width="150px">닉네임</th>
+					<th>제목</th>
+					
+					<th width="100px">작성일자</th>
+					<th width="150px">조회수</th>
+				</tr>
+			</thead>
+			<tbody>
+		<c:forEach var="i" begin="1" end="15">
+			<tr>
+					<td><c:out value="${16-i}"></c:out></td>
+					
+					<td>매니저01</td>
+					<td>2020년 공지사항</td>
+					
+					<td>2020-05-11</td>
+					<td>535</td>
+					</tr>
+		</c:forEach>
+		</tbody>
+		</table>
+		
+		</div>
+		</div>
 		
 		<div class="row">
-			<div class="col-md-12 p-3"></div>
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+		<h3 class="text-center">1 2 3 4 5 6 7 8 9 10</h3>
+		</div>
+		<div class="col-md-2"></div>
 		</div>
 		
-    <div class="container">      
-			<div class="row justify-content-center">
-				<div class="col-md-10">
-					<table class="table table-sm">
-						<tr>
-							<td>제목</td>
-							<td><%=pqboard.getPETSITTER_QNA_SUBJECT() %></td>
-							</tr> 
-						<tr>
-							<td>작성일</td>
-							<td><%=format1.format(pqboard.getPETSITTER_QNA_DATE()) %></td>
-						</tr>
-						<tr> 
-							<td>작성자</td>
-							<td><%=pqboard.getMEMBER_NICKNAME() %></td>
-						</tr>
-						<tr>
-							<td>타겟 펫시터</td>
-							<td><%=pqboard.getPETSITTER_NICKNAME() %></td>
-						</tr>
-						<%-- <tr>
-							<td>첨부파일</td>
-							<td>
-									<%if(!(mboard.getMEMBER_ORG_FILE() == null)) { %>
-									<a href="./filedownload.bo?num=<%=mboard.getMEMBER_ORG_FILE()%>&of=<%=mboard.getMEMBER_UP_FILE()%>&of2=<%=mboard.getMEMBER_ORG_FILE()%>">
-										<%=mboard.getMEMBER_ORG_FILE() %>
-									</a>
-									<%} %>
-							</td>
-						</tr> --%>
-						</table>
-					</div>
-					<div class="col-md-10">
-						<table class="table table-borderless">
-							<tr>
-								<td><%=pqboard.getPETSITTER_QNA_CONTENT() %></td>
-							</tr>
-							<%-- <tr>
-								<td>
-									<img src="./upload/<%=mboard.getMEMBER_UP_FILE() %>">
-								</td> 
-							</tr> --%>
-					</table>
-					
-			<%if((pqboard.getMEMBER_ID().equals(id)) || rank.equals("admin") || rank.equals("manager")) {%>
-				<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnModify" href="./pqboardmodifyform.me?bno=<%=pqboard.getPETSITTER_QNA_BNO() %>">수정</a>
-	  		<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnDelete" href="./pqboardDelete.me?bno=<%=pqboard.getPETSITTER_QNA_BNO()%>">삭제</a>
-	  		<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./pqboardlist.me">목록</a>
-			<% } else { %>
-  			<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./pqboardlist.me">목록</a>
-  		<% } %>
-  	 		<button type="button" class="btn btn-danger btn-sm float-right" name="main_redfont0" data-toggle="modal" data-target="#articleModal">신고</button>
-  	 		
-  	 		
-  	 			<!-- 신고 창 시작 -->
-  	 		 <form action="./reportArticle.me" method="post" name="reportform">
-  	 		 	<input type="hidden" name="MEMBER_ID" value="${id}">
-					<input type="hidden" name="MEMBER_NUM" value="<%=pqboard.getPETSITTER_QNA_BNO() %>">
-					<input type="hidden" name="BTYPE" value="pqboard">
-					
-					<div class="modal fade" id="articleModal" tabindex="-1" role="dialog" aria-labelledby="articleModalLabel" aria-hidden="true">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id ="articleModalLabel">글 신고하기</h5>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">
-									<textarea id="REPORT_REASON" name="REPORT_REASON" rows="4" cols="63" placeholder="신고 사유를 적어주세요"></textarea>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기 </button>
-									<a type="button" class="btn btn-primary" href="javascript:addreport()">신고</a>
-								</div>
-							</div>
-						</div>
-					</div>
-	 		 	<!-- 신고 창 끝 -->	
-	 		 		</form>
-	 		 		
-	 		 		
-	 	<script language="javascript">
-			function addreport(){
-				reportform.submit();
-			}		
-			function addreport2() {
-				$("#reportreplyform").submit();
-			}
-		</script>
+		
+		<!-- 여백용 row -->
+		<div class="row">
+    <div class="col-md-12 p-3"></div>
+    </div>
+     
+     
+    <div class="row">
+    <div class="col-md-12">
+    <h3 class="text-left">펫시터 신청 목록</h3>
+    </div>
+    </div>
     
-				</div>
-			</div>
+    <div class="row">
+    <div class="col-md-12">
+    	
+    <!-- 펫시터 신청 목록 -->
+    <table class="table table-hover table-sm table-striped">
+		<thead>
+			<tr>
+				<th>글 번호</th>
+				<th>펫시터 아이디</th>
+				<th>닉네임</th>
+				<th>주소</th>
+				<th>연락처</th>
+				<th>가입일자</th>
+				<th>승인여부</th>
+			</tr>
+		</thead>
+		<tbody>
 			
-			<div class="row">
-			<div class="col-md-12 p-3"></div>
-		</div>
-	</div>	  
-	
-	<!-- 리플란 차후 수정 -->
-	<%-- <jsp:include page="./memberboard_comments.jsp">
-	<jsp:param name="bno" value="<%=mboard.getMEMBER_NUM() %>"/>
-</jsp:include> --%>
-	
-			<!-- 하단 넉넉하게 여백 주기 -->
-			<div class="row">
-		   <div class="col-md-12 p-5"></div>
-		  </div>
+			<%for(int i = 0; i < petsitterList.size(); i++){
+				if(petsitterList.get(i).getPETSITTER_RANK().equals("N")){
+					String[] address = petsitterList.get(i).getPETSITTER_ADDRESS().split(",");
+					
+				%>
+			
+			<tr onClick="location.href='apply_petsitter.me?PETSITTER_ID=<%=petsitterList.get(i).getPETSITTER_ID()%>'">
+				<td><%=i+1 %></td>
+				<td><%=petsitterList.get(i).getPETSITTER_ID() %></td>
+				<td><%=petsitterList.get(i).getPETSITTER_NICKNAME() %></td>
+				<td><%=address[0]+". "+address[1]+" ("+address[2]+")" %></td>
+				<td><%=petsitterList.get(i).getPETSITTER_TEL() %></td>
+				<td><%=petsitterList.get(i).getPETSITTER_DATE().substring(0,10) %></td>
+				<td><%=petsitterList.get(i).getPETSITTER_RANK() %></td>
+			</tr>
+			<%}} %>
+
+		</tbody>
+		</table>
+    </div>
+    </div>
+		
+				<div class="row">
+					<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<h3 class="text-center">1 2 3 4 5 6 7 8 9 10</h3>
+						</div>
+					<div class="col-md-2"></div>
+				</div>
+		
+				<div class="row">
+    			<div class="col-md-12 p-3"> 
+      </div>
+     </div>
+		
+			   
+	  <div class="row">
+	  <div class="col-md-1"></div>
+	  <div class="col-md-2">
+	  	<p>today : 5</p>
+	  	</div>
+	  	<div class="col-md-2">
+	  		<p>month : 15</p>
+	  	</div>
+	  	<div class="col-md-2">
+	  		<p>total : 1115</p>
+	  	</div>
+	  <div class="col-md-2"></div>
+	  <div class="col-md-2"></div>
+	  <div class="col-md-1"></div>
+	  </div>
+	  
+	  <div class="row">
+    <div class="col-md-12 p-1"></div>
+    </div>
     
-<!-- 하단 바 시작 -->
+	  <div class="row">
+	 
+	  <div class="col-md-12">
+	  <h1>월별 연결횟수 그래프</h1>
+	  </div>
+
+	  </div>
+	  
+	  <div class="row">
+    
+    <div class="col-md-12">
+		<canvas id="myChart" width="800px" height="400"></canvas>
+		<script>
+	var ctx = document.getElementById('myChart');
+	var myChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+			datasets: [{
+				label: '# of Votes',
+				data: [12, 19, 3, 5, 2, 3],
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)',
+					'rgba(153, 102, 255, 0.2)',
+					'rgba(255, 159, 64, 0.2)'
+				],
+				borderColor: [
+					'rgba(255, 99, 132, 1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)',
+					'rgba(153, 102, 255, 1)',
+					'rgba(255, 159, 64, 1)'
+				],
+				borderWidth: 1
+			}]
+		},
+		options: {
+			responsive: false,
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true
+					}
+				}]
+			},
+		}
+	});
+</script>
+
+
+    </div>
+    </div>
+	  	</div>
+	  
+		
+		<!-- 하단 넉넉하게 여백 주기 -->
+		<div class="row">
+    <div class="col-md-12 p-5"></div>
+    </div>
+    
+   
+	   
+
+  	<!-- 하단 바 시작 -->
     <footer class="site-footer">
       <div class="container">
         <div class="row">
@@ -393,7 +497,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	<!-- 하단 바 종료 -->
     </div>
 
-    
+    <%-- <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script> --%>
     <script src="<c:url value="/resources/js/popper.min.js"/>"></script>
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
     <script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
@@ -406,13 +510,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
     <script src="<c:url value="/resources/js/main.js"/>"></script>
 
-		<script>
-			$(".replyWriteBtn").on("click", function(){
-				  var formObj = $("form[name='replyForm']");
-				  formObj.attr("action", "/pqreplyWrite.me");
-				  formObj.submit();
-				});
-		</script>
 
   </body>
 

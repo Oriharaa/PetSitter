@@ -4,6 +4,7 @@
 <%@ page import="com.spring.petsitter.*" %>
 <%@ page import="com.spring.petsitter.board.mboard.*" %>
 <%@ page import="javax.servlet.*,java.text.*" %>
+<%@ page import="java.text.SimpleDateFormat"%>
 <% 
 	String id = null;
 	String name = null;
@@ -13,8 +14,8 @@
 	name = (String)session.getAttribute("name");
 	rank = (String)session.getAttribute("rank");
 	
-	List<ReportArticleVO> ralist = (List<ReportArticleVO>)request.getAttribute("ra_list");
-	List<ReportReplyVO> rrlist = (List<ReportReplyVO>)request.getAttribute("rr_list");
+	List<ReportArticleVO> ralist = (List<ReportArticleVO>)request.getAttribute("ra_list");	
+	List<PetsitterVO> petsitterList = (List<PetsitterVO>)request.getAttribute("petsitter_list");
 %>
 <%
 	SimpleDateFormat format1;
@@ -29,9 +30,73 @@
 	word-wrap:normal;
 	overflow:hidden;
 }
-$(document).ready(function() {
-    $('#example').DataTable();
-} );
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  vertical-align:middle;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+p {
+	margin:0px;
+	display:inline-block;
+	font-size:15px;
+	font-weight:bold;
+}
+
 </style>
 <html lang="en">
     <head>
@@ -40,15 +105,28 @@ $(document).ready(function() {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>신고 관리 페이지 - Petsitter</title>
+        <title>펫시터 신청 목록 페이지 - Petsitter</title>
         <link href="./admin/dist/css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+        
+        <!-- 부트스트랩 toggle -->
+        <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+				<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     </head>
 	
     <body class="sb-nav-fixed">
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="./admin/dist/js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="./admin/dist/assets/demo/chart-area-demo.js"></script>
+        <script src="./admin/dist/assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+        <script src="./admin/dist/assets/demo/datatables-demo.js"></script>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="admin_reportArticle.me">신고 관리 페이지</a>
+            <a class="navbar-brand" href="admin_applyPetsitter.me">펫시터 신청 목록 페이지</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -109,7 +187,16 @@ $(document).ready(function() {
                                             <a class="nav-link" href="admin_reportReply.me">리플 신고</a>
                                         </nav>
                                     </div>
-                                    <a class="nav-link" href="admin_memberManage.me">회원 정보 관리</a>
+                                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesMember" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                    회원 정보 관리
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                     <div class="collapse" id="pagesMember" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="admin_memberManage.me">회원 관리</a>
+                                            <a class="nav-link" href="admin_petsitterManage.me">펫시터 관리</a>
+                                        </nav>
+                                    </div>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -136,8 +223,7 @@ $(document).ready(function() {
                                     </a>
                                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401.html">펫시터 목록</a>
-                                            <a class="nav-link" href="404.html">펫시터 신청 관리</a>
+                                            <a class="nav-link" href="admin_petsitterApply.me">펫시터 신청 관리</a>
                                         </nav>
                                     </div>
                                 </nav>
@@ -162,61 +248,78 @@ $(document).ready(function() {
            
 						<!--사이드바 끝 -->
 			
-			
+
 			
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">신고 관리 페이지</h1>
+                        <h1 class="mt-4">펫시터 신청 관리</h1>
                         <!-- 글 신고 -->
 													<div class="card mb-4">
 														<div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
-                                글 신고
+                                펫시터 신청 목록
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered"  style="table-layout: fixed" id="dataTable" width="100%">
-                                    	<thead>
-                                    		<th width="7%">글번호</th>
-                                    		<th width="55%">신고이유</th>
-                                    		<th width="15%">신고자</th>
-                                    		<th width="13%">게시판</th>
-                                    		<th width="10%">처리상태</th>
-                                    	</thead>
-																			<tbody>
-																			<%for(int i = 0 ; i < ralist.size(); i++) {
-																					ReportArticleVO ra=(ReportArticleVO)ralist.get(i);
-																					%>
-																					<tr>
-																						<td><a href="./mboarddetail.me?num=<%=ra.getMEMBER_NUM() %>"><%=ra.getMEMBER_NUM() %></a></td>
-																						<td id="reasonArticle"><%=ra.getREPORT_REASON() %></td>
-																						<td><%=ra.getMEMBER_ID() %></td>
-																						<td>
-																						<% 
-																							if(ra.getBTYPE().equals("mboard")) {
-																								out.println("이용자 문의 게시판");
-																							} else {
-																								out.println(ra.getBTYPE());
-																							}
-																						%>
-																						</td>
-																						<td>
-																						<%
-																							if(ra.getPROCESSING().equals("N")) {
-																						%>
-																						<a type="button" class="btn btn-sm btn-outline-primary" href="./checkArticle.me?id=<%=ra.getMEMBER_ID()%>&num=<%=ra.getMEMBER_NUM()%>">처리중</a>
-																						<%
-																							} else { %>
-																						<a type="button" class="btn btn-sm btn-outline-success" href="./checkArticle2.me?id=<%=ra.getMEMBER_ID()%>&num=<%=ra.getMEMBER_NUM()%>">처리완</a>																							
-																						<%
-																							}
-																						%>
-																						</td>
-																					</tr>
-																					<%} %>
-																				</tbody>
-                                    </table>
+                                <table class="table table-bordered" style="table-layout:fixed" id="dataTable" width="100%">
+                                <thead>
+			<tr>
+				<th>글 번호</th>
+				<th>펫시터 아이디</th>
+				<th>닉네임</th>
+				<th>주소</th>
+				<th>연락처</th>
+				<th>가입일자</th>
+				<th>승인여부</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+			<%for(int i = 0; i < petsitterList.size(); i++){
+				if(petsitterList.get(i).getPETSITTER_RANK().equals("N")){
+					String[] address = petsitterList.get(i).getPETSITTER_ADDRESS().split(",");
+					
+				%>
+			
+			<tr onClick="location.href='apply_petsitter.me?PETSITTER_ID=<%=petsitterList.get(i).getPETSITTER_ID()%>'">
+				<td><%=i+1 %></td>
+				<td><%=petsitterList.get(i).getPETSITTER_ID() %></td>
+				<td><%=petsitterList.get(i).getPETSITTER_NICKNAME() %></td>
+				<td><%=petsitterList.get(i).getPETSITTER_ADDRESS() %></td>
+				<td><%=petsitterList.get(i).getPETSITTER_TEL() %></td>
+				<td><%=petsitterList.get(i).getPETSITTER_DATE().substring(0,10) %></td>
+				<td><%=petsitterList.get(i).getPETSITTER_RANK() %></td>
+			</tr>
+			<%}} %>
+
+		</tbody>
+                                </table>
+<%--                                 <table class="table table-bordered"  style="table-layout: fixed" id="dataTable" width="100%">
+                                <thead>
+                                <th width="7%">이름</th>
+                                <th width="7%">닉네임</th>
+                                <th width="5%">성별</th>
+                                <th width="10%">전화번호</th>
+                                <th width="5%">등급</th>
+                                <th>주소</th>
+                                <th width="15%">가입일자</th>
+                                </thead>
+                                	<tbody>
+																			<%for(int i = 0 ; i < petsitterlist.size(); i++) { 
+																			PetsitterVO ps = (PetsitterVO)petsitterlist.get(i); %>															
+																			<tr>
+																				<td><%=ps.getPETSITTER_NAME() %></td>
+																				<td><%=ps.getPETSITTER_NICKNAME() %></td>
+																				<td><%=ps.getPETSITTER_GENDER() %></td>
+																				<td><%=ps.getPETSITTER_TEL() %></td>
+																				<td><%=ps.getPETSITTER_RANK() %></td>
+																				<td><%=ps.getPETSITTER_ADDRESS() %></td>
+																				<td><%=ps.getPETSITTER_DATE() %></td>
+																						</tr>
+																			<%} %>
+																	</tbody>
+																	</table> --%>
                                 </div>
                               </div>
 	                        </div>
@@ -237,14 +340,6 @@ $(document).ready(function() {
                 </footer>
             </div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="./admin/dist/js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="./admin/dist/assets/demo/chart-area-demo.js"></script>
-        <script src="./admin/dist/assets/demo/chart-bar-demo.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-        <script src="./admin/dist/assets/demo/datatables-demo.js"></script>
+
     </body>
 </html>

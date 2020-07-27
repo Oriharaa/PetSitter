@@ -119,6 +119,18 @@ public class AdminController {
 		return "admin/dist/member_manage";
 	}
 	
+	/* 펫시터 신청 목록 페이지 */
+	@RequestMapping(value = "admin_petsitterApply.me")
+	public String admin_petsitter_apply(Model model) {
+		
+		ArrayList<PetsitterVO> petsitterList = new ArrayList<PetsitterVO>();
+		petsitterList = petsitterService.petsitterList();
+		model.addAttribute("petsitter_list", petsitterList);		
+		
+		return "admin/dist/apply_petsitter";
+	}
+	
+	
 	/* 펫시터 관리 페이지 */
 	@RequestMapping(value = "admin_petsitterManage.me")
 	public String admin_petsitter_manage(Model model) {
@@ -219,4 +231,6 @@ public class AdminController {
 		mreplyService.checkReply2(bno, rno, id);
 		return "redirect:/admin_reportReply.me";
 	}
+	
+	
 }
