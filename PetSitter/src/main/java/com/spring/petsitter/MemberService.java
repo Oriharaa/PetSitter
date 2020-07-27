@@ -9,6 +9,7 @@ public interface MemberService {
 	public ArrayList<MemberVO> memberList();
 	public MemberVO selectMember(String id);
 	public void updateMember(MemberVO membervo);
+	public void updateMemberRank(MemberVO membervo);
 	public void deleteMember(String id);
 	
 	public int getListCount(String id);

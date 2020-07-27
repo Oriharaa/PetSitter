@@ -18,4 +18,12 @@
 		set PAY_STATUS='결제 취소'
 		where MERCHANT_UID=#{MERCHANT_UID}
 	</update>
+	
+	<update id="memberAmount" parameterType="MemberVO">
+		update member set MEMBER_AMOUNT=MEMBER_AMOUNT + #{amount} where MEMBER_ID=#{MEMBER_ID}
+	</update>
+	
+	<update id="memberAmountRemove" parameterType="MemberVO">
+		update member set MEMBER_AMOUNT=MEMBER_AMOUNT + #{amount} where MEMBER_ID=#{MEMBER_ID}
+	</update>
 </mapper>

@@ -13,6 +13,7 @@ public interface MemberMapper {
 	public ArrayList<MemberVO> memberList();
 	public MemberVO selectMember(String id);
 	public void updateMember(MemberVO membervo);
+	public void updateMemberRank(MemberVO membervo);
 	public void deleteMember(String id);
 	public int getListCount(String id);
 	public ArrayList<UsinglistVO> getUsingList_Member(@Param("MEMBER_ID") String id, @Param("startrow") int startrow, @Param("endrow") int endrow);

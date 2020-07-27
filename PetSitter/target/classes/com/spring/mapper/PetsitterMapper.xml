@@ -23,7 +23,7 @@
 		<![CDATA[
 		select * from (select petsitter.*, rownum 
                from petsitter 
-               where petsitter_date >= trunc(add_months(sysdate, -1))
+               where petsitter_date >= trunc(add_months(sysdate, -1)) and petsitter_score != 0 and petsitter_count != 0
                order by petsitter_score desc, petsitter_count desc)
 		where rownum = 1
 		]]>
@@ -33,7 +33,7 @@
 		<![CDATA[
 		select * from (select petsitter.*, rownum
 									 from petsitter
-									 where petsitter_date >= trunc(add_months(sysdate, -1))
+									 where petsitter_date >= trunc(add_months(sysdate, -1)) and petsitter_score != 0 and petsitter_count != 0
 									 order by petsitter_score desc)
 		where rownum = 1
 		]]>
@@ -43,7 +43,7 @@
 		<![CDATA[
 		select * from (select petsitter.*, rownum
 									 from petsitter
-									 where petsitter_date >= trunc(add_months(sysdate, -1))
+									 where petsitter_date >= trunc(add_months(sysdate, -1)) and petsitter_score != 0 and petsitter_count != 0
 									 order by petsitter_count desc)
 		where rownum = 1
 		]]>

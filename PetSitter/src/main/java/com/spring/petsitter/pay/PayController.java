@@ -97,7 +97,6 @@ public class PayController {
 		PayCheck obj = new PayCheck();
 		String token = obj.getImportToken();
 		int res = obj.cancelPayment(token, merchant_uid);
-		System.out.println("res=" + res);
 		if (res == 1)
 			return "Success";
 		else

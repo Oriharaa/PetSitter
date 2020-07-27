@@ -88,6 +88,7 @@ public class MemberController {
 		String today = new_Format.format(date);
 		ArrayList<Integer> usinglist_num_member = reviewboardService.usinglist_num_List_member(id); // 리뷰를 남겼는지 확인하기 위한 리스트
 		
+		int count = 0; // 이용 횟수 갱신
 		for(int i = 0; i < usinglist_ajax.size(); i++) {
 			usinglist_ajax.get(i).setLIST_START_DATE(new_Format.format(usinglist.get(i).getLIST_START_DATE()));
 			usinglist_ajax.get(i).setLIST_END_DATE(new_Format.format(usinglist.get(i).getLIST_END_DATE()));
@@ -108,6 +109,7 @@ public class MemberController {
 				status = payService.selectPay(merchant_uid).getPAY_STATUS();
 			}
 			
+			
 			String ing = "";
 			int compare1 = usinglist_ajax.get(i).getLIST_START_DATE().compareTo(today);
 			int compare2 = today.compareTo(usinglist_ajax.get(i).getLIST_END_DATE());
@@ -124,6 +126,7 @@ public class MemberController {
   	  			}
   			} else {
   				ing = "이용 완료";
+  				count++;
   			}
 			usinglist_ajax.get(i).setLIST_ING(ing);
 			
@@ -138,6 +141,16 @@ public class MemberController {
 			}
 		}
 		
+		MemberVO member = memberService.selectMember(id);
+		member.setMEMBER_COUNT(count);
+		if(count >= 15 && count < 30) {
+			member.setMEMBER_RANK("Gold");
+		} else if(count >= 30) {
+			member.setMEMBER_RANK("VIP");
+		} else if(count == 0 && count < 15) {
+			member.setMEMBER_RANK("Green");
+		}
+		memberService.updateMemberRank(member);
 		
 		return usinglist_ajax;
 	}
@@ -153,6 +166,7 @@ public class MemberController {
 		
 		ArrayList<Integer> usinglist_num_member = reviewboardService.usinglist_num_List_member(id); // 리뷰를 남겼는지 확인하기 위한 리스트
 		
+		int count = 0; // 이용 횟수 갱신
 		for(int i = 0; i < usinglist_ajax.size(); i++) {
 			usinglist_ajax.get(i).setLIST_START_DATE(new_Format.format(usinglist.get(i).getLIST_START_DATE()));
 			usinglist_ajax.get(i).setLIST_END_DATE(new_Format.format(usinglist.get(i).getLIST_END_DATE()));
@@ -185,6 +199,7 @@ public class MemberController {
   	  			}
   			} else {
   				ing = "이용 완료";
+  				count++;
   			}
 			usinglist_ajax.get(i).setLIST_ING(ing);
 			
@@ -198,6 +213,18 @@ public class MemberController {
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 남기기");
 			}
 		}
+		
+		MemberVO member = memberService.selectMember(id);
+		member.setMEMBER_COUNT(count);
+		if(count >= 15 && count < 30) {
+			member.setMEMBER_RANK("Gold");
+		} else if(count >= 30) {
+			member.setMEMBER_RANK("VIP");
+		} else if(count == 0 && count < 15) {
+			member.setMEMBER_RANK("Green");
+		}
+		memberService.updateMemberRank(member);
+		
 		return usinglist_ajax;
 	}
 	
@@ -213,6 +240,7 @@ public class MemberController {
 		
 		ArrayList<Integer> usinglist_num_member = reviewboardService.usinglist_num_List_member(id); // 리뷰를 남겼는지 확인하기 위한 리스트
 		
+		int count = 0; // 이용 횟수 갱신
 		for(int i = 0; i < usinglist_ajax.size(); i++) {
 			usinglist_ajax.get(i).setLIST_START_DATE(new_Format.format(usinglist.get(i).getLIST_START_DATE()));
 			usinglist_ajax.get(i).setLIST_END_DATE(new_Format.format(usinglist.get(i).getLIST_END_DATE()));
@@ -245,6 +273,7 @@ public class MemberController {
   	  			}
   			} else {
   				ing = "이용 완료";
+  				count++;
   			}
 			usinglist_ajax.get(i).setLIST_ING(ing);
 			
@@ -258,6 +287,18 @@ public class MemberController {
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 남기기");
 			}
 		}
+		
+		MemberVO member = memberService.selectMember(id);
+		member.setMEMBER_COUNT(count);
+		if(count >= 15 && count < 30) {
+			member.setMEMBER_RANK("Gold");
+		} else if(count >= 30) {
+			member.setMEMBER_RANK("VIP");
+		} else if(count == 0 && count < 15) {
+			member.setMEMBER_RANK("Green");
+		}
+		memberService.updateMemberRank(member);
+		
 		return usinglist_ajax;
 	}
 	
@@ -266,26 +307,33 @@ public class MemberController {
 
 		// 신규 추천 펫시터 3명
 		ArrayList<PetsitterVO> petsitter_list_date = petsitterService.petsitterList_date();
-		
-		for(int i = 0; i < petsitter_list_date.size(); i++) {
-			String[] address = petsitter_list_date.get(i).getPETSITTER_ADDRESS().split(",")[1].split(" ");
-			petsitter_list_date.get(i).setPETSITTER_ADDRESS(address[0] + " " + address[1]);
+		if(petsitter_list_date.size() != 0) {
+			for(int i = 0; i < petsitter_list_date.size(); i++) {
+				String[] address = petsitter_list_date.get(i).getPETSITTER_ADDRESS().split(",")[1].split(" ");
+				petsitter_list_date.get(i).setPETSITTER_ADDRESS(address[0] + " " + address[1]);
+			}
 		}
 		
 		// 이달의 펫시터
 		PetsitterVO petsitter_this_month = petsitterService.petsitter_thisMonth();
-		petsitter_this_month.setPETSITTER_ADDRESS(petsitter_this_month.getPETSITTER_ADDRESS().split(",")[1].split(" ")[0] + " " + 
-												  petsitter_this_month.getPETSITTER_ADDRESS().split(",")[1].split(" ")[1]);
+		if(petsitter_this_month != null) {
+			petsitter_this_month.setPETSITTER_ADDRESS(petsitter_this_month.getPETSITTER_ADDRESS().split(",")[1].split(" ")[0] + " " + 
+					  								  petsitter_this_month.getPETSITTER_ADDRESS().split(",")[1].split(" ")[1]);
+		}
 		
 		// 이달의 평점왕
 		PetsitterVO petsitter_this_month_score = petsitterService.petsitter_thisMonth_score();
-		petsitter_this_month_score.setPETSITTER_ADDRESS(petsitter_this_month_score.getPETSITTER_ADDRESS().split(",")[1].split(" ")[0] + " " + 
-														petsitter_this_month_score.getPETSITTER_ADDRESS().split(",")[1].split(" ")[1]);
+		if(petsitter_this_month_score != null) {
+			petsitter_this_month_score.setPETSITTER_ADDRESS(petsitter_this_month_score.getPETSITTER_ADDRESS().split(",")[1].split(" ")[0] + " " + 
+															petsitter_this_month_score.getPETSITTER_ADDRESS().split(",")[1].split(" ")[1]);
+		}
 		
 		// 이달의 실적왕
 		PetsitterVO petsitter_this_month_count = petsitterService.petsitter_thisMonth_count();
-		petsitter_this_month_count.setPETSITTER_ADDRESS(petsitter_this_month_count.getPETSITTER_ADDRESS().split(",")[1].split(" ")[0] + " " + 
-														petsitter_this_month_count.getPETSITTER_ADDRESS().split(",")[1].split(" ")[1]);
+		if(petsitter_this_month_count != null) {
+			petsitter_this_month_count.setPETSITTER_ADDRESS(petsitter_this_month_count.getPETSITTER_ADDRESS().split(",")[1].split(" ")[0] + " " + 
+															petsitter_this_month_count.getPETSITTER_ADDRESS().split(",")[1].split(" ")[1]);
+		}
 		
 		model.addAttribute("petsitter_list_date", petsitter_list_date);
 		model.addAttribute("petsitter_this_month", petsitter_this_month);
@@ -296,7 +344,6 @@ public class MemberController {
 		list = petsitterService.petsitterList();
 		model.addAttribute("list",list);
 		
-
 		return "home";
 	}
 	

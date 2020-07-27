@@ -147,6 +147,10 @@
 		MEMBER_PW=#{MEMBER_PW}, MEMBER_GENDER=#{MEMBER_GENDER}, MEMBER_ADDRESS=#{MEMBER_ADDRESS} where MEMBER_ID=#{MEMBER_ID}
 	</update>
 	
+	<update id="updateMemberRank" parameterType="MemberVO">
+		update member set MEMBER_RANK=#{MEMBER_RANK}, MEMBER_COUNT=#{MEMBER_COUNT} where MEMBER_ID=#{MEMBER_ID}
+	</update>
+	
 	<delete id="deleteMember" parameterType="MemberVO">
 		delete from member where MEMBER_ID=#{MEMBER_ID}
 	</delete>

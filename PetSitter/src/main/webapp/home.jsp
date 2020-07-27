@@ -827,135 +827,235 @@ var callback = function(result, status) {
           </div>
           
           <%
-          	PetsitterVO petsitter_date1 = petsitter_list_date.get(0);
-          	PetsitterVO petsitter_date2 = petsitter_list_date.get(1);
-          	PetsitterVO petsitter_date3 = petsitter_list_date.get(2);
+          	PetsitterVO petsitter_date1 = null;
+          	PetsitterVO petsitter_date2 = null;
+          	PetsitterVO petsitter_date3 = null;
+          	if(petsitter_list_date.size() == 1) {
+	          	petsitter_date1 = petsitter_list_date.get(0);
+          	} else if(petsitter_list_date.size() == 2) {
+          		petsitter_date1 = petsitter_list_date.get(0);
+	          	petsitter_date2 = petsitter_list_date.get(1);
+          	} else if(petsitter_list_date.size() == 3) {
+          		petsitter_date1 = petsitter_list_date.get(0);
+	          	petsitter_date2 = petsitter_list_date.get(1);
+	          	petsitter_date3 = petsitter_list_date.get(2);
+          	}
           %>
           <div class="owl-carousel owl-all mb-5">
             <div class="block-team-member-1 text-center rounded h-100">
               <figure>
                <a href="#">
                <%
-               		if(petsitter_date1.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+               		if(petsitter_date1 == null) {
                %>
                <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               </figure>
+	             <a href="#"><h3 class="font-size-20 text-black">펫시터</h3></a>
+	             <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3">펫시터</span>
+	             <a href="#"><p class="mb-4" style = "color : #949494!important;">펫시터</p></a>
+	             <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">신규 추천 펫시터</div>
                <%
                		} else {
                %>
+               <%
+               			if(petsitter_date1.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+               %>
+               <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               <%
+               			} else {
+               %>
                <img src="/filepath/<%=petsitter_date1.getPETSITTER_PHOTO_PROFILE_FILE() %>" alt="Image" class="img-fluid rounded-circle"></a>
                <%
-               		}
+               			}
                %>
               </figure>
               <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_date1.getPETSITTER_NAME() %></h3></a>
               <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_date1.getPETSITTER_ADDRESS() %></span>
               <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_date1.getPETSITTER_INTRODUCE() %></p></a>
               <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">신규 추천 펫시터</div>
+              <%
+               		}
+              %>
             </div>
             
             <div class="block-team-member-1 text-center rounded h-100">
               <figure>
                <a href="#">
                <%
-               		if(petsitter_date2.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+               		if(petsitter_date2 == null) {
                %>
                <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               </figure>
+	             <a href="#"><h3 class="font-size-20 text-black">펫시터</h3></a>
+	             <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3">펫시터</span>
+	             <a href="#"><p class="mb-4" style = "color : #949494!important;">펫시터</p></a>
+	             <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">신규 추천 펫시터</div>
                <%
                		} else {
                %>
+               <%
+               			if(petsitter_date2.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+               %>
+               <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               <%
+               			} else {
+               %>
                <img src="/filepath/<%=petsitter_date2.getPETSITTER_PHOTO_PROFILE_FILE() %>" alt="Image" class="img-fluid rounded-circle"></a>
                <%
-               		}
+               			}
                %>
               </figure>
               <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_date2.getPETSITTER_NAME() %></h3></a>
               <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_date2.getPETSITTER_ADDRESS() %></span>
               <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_date2.getPETSITTER_INTRODUCE() %></p></a>
               <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">신규 추천 펫시터</div>
+              <%
+               		}
+              %>
             </div>
 
             <div class="block-team-member-1 text-center rounded h-100">
               <figure>
                <a href="#">
                <%
-               		if(petsitter_date3.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+               		if(petsitter_date3 == null) {
                %>
                <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               </figure>
+	             <a href="#"><h3 class="font-size-20 text-black">펫시터</h3></a>
+	             <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3">펫시터</span>
+	             <a href="#"><p class="mb-4" style = "color : #949494!important;">펫시터</p></a>
+	             <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">신규 추천 펫시터</div>
                <%
                		} else {
                %>
+               <%
+               			if(petsitter_date3.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+               %>
+               <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               <%
+               			} else {
+               %>
                <img src="/filepath/<%=petsitter_date3.getPETSITTER_PHOTO_PROFILE_FILE() %>" alt="Image" class="img-fluid rounded-circle"></a>
                <%
-               		}
+               			}
                %>
               </figure>
               <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_date3.getPETSITTER_NAME() %></h3></a>
               <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_date3.getPETSITTER_ADDRESS() %></span>
               <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_date3.getPETSITTER_INTRODUCE() %></p></a>
               <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">신규 추천 펫시터</div>
+              <%
+               		}
+              %>
             </div>
 
             <div class="block-team-member-1 text-center rounded h-100">
               <figure>
                <a href="#">
                <%
-               		if(petsitter_this_month.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+               		if(petsitter_this_month == null) {
                %>
                <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               </figure>
+	             <a href="#"><h3 class="font-size-20 text-black">펫시터</h3></a>
+	             <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3">펫시터</span>
+	             <a href="#"><p class="mb-4" style = "color : #949494!important;">펫시터</p></a>
+	             <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 펫시터</div>
                <%
                		} else {
                %>
+               <%
+               			if(petsitter_this_month.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+               %>
+               <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               <%
+               			} else {
+               %>
                <img src="/filepath/<%=petsitter_this_month.getPETSITTER_PHOTO_PROFILE_FILE() %>" alt="Image" class="img-fluid rounded-circle"></a>
                <%
-               		}
+               			}
                %>
               </figure>
               <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_this_month.getPETSITTER_NAME() %></h3></a>
               <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_this_month.getPETSITTER_ADDRESS() %></span>
               <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_this_month.getPETSITTER_INTRODUCE() %></p></a>
-              <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 추천 펫시터</div>
+              <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 펫시터</div>
+              <%
+               		}
+              %>
             </div>
             
             <div class="block-team-member-1 text-center rounded h-100">
               <figure>
                <a href="#">
                <%
-               		if(petsitter_this_month_score.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+               		if(petsitter_this_month_score == null) {
                %>
                <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               </figure>
+	             <a href="#"><h3 class="font-size-20 text-black">펫시터</h3></a>
+	             <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3">펫시터</span>
+	             <a href="#"><p class="mb-4" style = "color : #949494!important;">펫시터</p></a>
+	             <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 평점왕</div>
                <%
                		} else {
                %>
+               <%
+               			if(petsitter_this_month_score.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+               %>
+               <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               <%
+               			} else {
+               %>
                <img src="/filepath/<%=petsitter_this_month_score.getPETSITTER_PHOTO_PROFILE_FILE() %>" alt="Image" class="img-fluid rounded-circle"></a>
                <%
-               		}
+               			}
                %>
               </figure>
               <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_this_month_score.getPETSITTER_NAME() %></h3></a>
               <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_this_month_score.getPETSITTER_ADDRESS() %></span>
-              <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_this_month.getPETSITTER_INTRODUCE() %></p></a>
+              <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_this_month_score.getPETSITTER_INTRODUCE() %></p></a>
               <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 평점왕</div>
+              <%
+               		}
+              %>
             </div>
             
             <div class="block-team-member-1 text-center rounded h-100">
               <figure>
                <a href="#">
                <%
-               		if(petsitter_this_month_count.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+               		if(petsitter_this_month_count == null) {
                %>
                <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               </figure>
+	             <a href="#"><h3 class="font-size-20 text-black">펫시터</h3></a>
+	             <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3">펫시터</span>
+	             <a href="#"><p class="mb-4" style = "color : #949494!important;">펫시터</p></a>
+	             <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 실적왕</div>
                <%
                		} else {
                %>
+               <%
+               			if(petsitter_this_month_count.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
+               %>
+               <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               <%
+               			} else {
+               %>
                <img src="/filepath/<%=petsitter_this_month_count.getPETSITTER_PHOTO_PROFILE_FILE() %>" alt="Image" class="img-fluid rounded-circle"></a>
                <%
-               		}
+               			}
                %>
               </figure>
               <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_this_month_count.getPETSITTER_NAME() %></h3></a>
               <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_this_month_count.getPETSITTER_ADDRESS() %></span>
               <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_this_month_count.getPETSITTER_INTRODUCE() %></p></a>
               <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 실적왕</div>
+              <%
+               		}
+              %>
             </div>
             
           
