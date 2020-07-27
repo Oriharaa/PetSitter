@@ -451,7 +451,38 @@
 		    		reviewForm += '<table>';
 		    		reviewForm += '<tr>';
 		    		reviewForm += '<td class = "font-size-17 main_grayfont3 mybold" width = "145px">'+ item.member_NICKNAME + '<td>';
-		    		reviewForm += '<td style = "padding: 6px 0 0 10px; font-size: 12px;"><a class ="main_redfont0" href="#">신고</a><td>';
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		reviewForm += '<td style = "padding: 6px 0 0 10px; font-size: 12px;">';
+		    		reviewForm += '<a href = "./reviewreportform.bo?num='+item.list_NUM+'&sessionid='+sessionid+'" type="button" class="reportFormAjax main_redfont0">신고</a><td>';
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
+		    		
 		    		reviewForm += '<tr>';
 		    		reviewForm += '<tr>';
 		    		reviewForm += '<td colspan = "2" style = "padding: 0 0 7px 0;">';
@@ -764,7 +795,15 @@
 		    		reviewForm += '<table>';
 		    		reviewForm += '<tr>';
 		    		reviewForm += '<td class = "font-size-17 main_grayfont3 mybold" width = "145px">'+ item.member_NICKNAME + '<td>';
-		    		reviewForm += '<td style = "padding: 6px 0 0 10px; font-size: 12px;"><a class ="main_redfont0" href="#">신고</a><td>';
+		    		
+		    		
+		    		
+		    		reviewForm += '<td style = "padding: 6px 0 0 10px; font-size: 12px;">';
+		    		reviewForm += '<a href = "./reviewreportform.bo?num='+item.list_NUM+'&sessionid='+sessionid+'" type="button" class="reportFormAjax main_redfont0">신고</a><td>';
+		    		
+		    		
+		    		
+		    		
 		    		reviewForm += '<tr>';
 		    		reviewForm += '<tr>';
 		    		reviewForm += '<td colspan = "2" style = "padding: 0 0 7px 0;">';
@@ -953,9 +992,114 @@
 					}
 			})
 		});
-		
-	
+
+
+		//Modal reportForm 시작	
+		$(document).on('click', '.reportFormAjax', function(event){ //on이 동적인걸 실행해준다.
+			$('#reportForm').empty();
+			$.ajax({
+	      url:$(this).attr("href"),
+	      type : 'POST',
+	      dataType : 'json',
+	      contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+        success:function(data){
+        	var k = 1;
+        	$.each(data, function(index, item){
+							
+        			if(sessionid == 'null'){
+        				Swal.fire({
+	     					 	title: '로그인을 하시겠습니까?',
+	     					  text: "신고는 로그인 후 사용 가능합니다.",
+	     					  icon: 'warning',
+	     					  showCancelButton: true,
+	     					  confirmButtonColor: 'rgba(83, 220, 152)',
+	     					  cancelButtonColor: '#de7631',
+	     					  confirmButtonText: '<a href="loginform.me" style = "color : white;">로그인 페이지로</a>'
+	     					}).then((result) => {
+	     						  if (result.value) {
+	     							  window.location = "loginform.me";
+	     							}
+	     					})	
+        					return false;		
+        			}
+        			
+        			if(item.review_CONTENT == 'NN'){
+	    					Swal.fire({
+	    						  title: '신고가 접수된 게시글 입니다!',
+	    						  text: "고객님의 관심의 감사를 표하며 빠른시일 내에 처리하겠습니다.",
+	    						  icon: 'warning',
+	    						  confirmButtonColor: 'rgba(83, 220, 152)',
+	    						})
+        				return false;
+        			}
+        		
+        			var reportForm = '';
+	        		reportForm += '<div class="modal fade" id="staticBackdropReport" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">';
+	        		reportForm += '<div class="modal-dialog modal-sm">';
+	        		reportForm += '<div class="modal-content">';
+	        		reportForm += '<div class="modal-header">';
+	        		reportForm += '<h4 class="modal-title main_mintfont font-size-20" id="staticBackdropLabel">신고하기.</h4>';
+	        		reportForm += '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+	        		reportForm += '<span aria-hidden="true">&times;</span>';
+	        		reportForm += '</button>';
+	        		reportForm += '</div>';
+	        		reportForm += '<div class="modal-body">';
+	        		reportForm += '<form action="./reviewreportinsert.bo" style = "font-size : 0" method="post" name="reportFormSubmit" enctype="multipart/form-data">';
+	        		reportForm += '<div class = "row">';
+	        		reportForm += '<div class = "col-12 font-size-14 main_grayfont3">';
+	        		reportForm += '<input type="hidden" name="MEMBER_ID" value="${id}">';
+	        		reportForm += '<input type="hidden" name="LIST_NUM" value="'+item.list_NUM+'">';
+	        		reportForm += '<input type="hidden" name="BOARD_TYPE" value="'+item.board_TYPE+'">';
+	        		reportForm += '신고 글 번호 : '+item.list_NUM+'<br/>';
+	        		reportForm += '<br/><div>신고자</div>';
+	        		reportForm += '<div>${id}</div>';		        		
+	        		reportForm += '<div>${name}</div>';
+	        		reportForm += '</br><div>신고 사유</div>';
+	        		reportForm += '<textarea id="REPORT_REASON" name="REPORT_REASON" rows="4" cols="40" placeholder="신고 사유를 적어주세요."></textarea>';
+	        		reportForm += '</div>';
+	        		reportForm += '</div>';
+	        		reportForm += '</div>';
+	        		reportForm += '</form>';
+	        		reportForm += '<div class="modal-footer">';
+	        		reportForm += '<div class = "row">';
+	        		reportForm += '<div class = "col-12 font-size-14">';
+	        		reportForm += '<a type="button" class="btn btn-sm pbtn02 reportInsert" id="btnReportClose" href="javascript:addreportboard()">신고하기</a>';
+	        		reportForm += '<button type="button" class="btn btn-sm pbtn03" data-dismiss="modal" id="btnList">닫기</button>';
+	        		reportForm += '</div>';
+	        		reportForm += '</div>';
+	        		reportForm += '</div>';
+	        		reportForm += '</div>';
+	        		reportForm += '</div>';
+	        		reportForm += '</div>';
+   	       		$('#reportForm').append(reportForm);
+   	       		
+   	       		
+    			});
+	      	if( true ) { $('.staticBackdropReport').get(0).click(); }        	
+    		},
+	    	error:function(){
+	        alert("ajax통신 실패!!!");
+	    	}
+			}); 
+			//기본 이벤트 제거
+			event.preventDefault();				
+		});		
+		//Modal reportForm 종료			
 });
+		
+		  //글 신고 INSERT 버튼 시작
+		function addreportboard(){
+			var rpr = document.reportFormSubmit.REPORT_REASON.value
+			if (rpr.length < 2)
+			{
+				alert("신고 이유를 2자 이상 입력하세요.");
+				document.reportForm.reportFormSubmit.focus();
+				return false;
+			}
+			reportFormSubmit.submit();
+		}
+		//글 신고 INSERT 버튼 종료
+		
 </script>
 
 <style>
@@ -1137,6 +1281,12 @@
 			</div>
    	</div>
       
+      
+    <!-- Modal 글신고기능 시작-->
+		<!-- Modal 창 실행 a테그 -->
+		<a href = "#" class = "staticBackdropReport" data-toggle="modal" data-target="#staticBackdropReport"></a>	
+		<div id = "reportForm"></div>
+		<!-- Modal 글신고기능 종료-->      
       
       
       

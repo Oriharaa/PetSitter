@@ -17,4 +17,8 @@ public interface ReviewBoardMapper {
 	void updateLike_count3(HashMap<String, Object> map);
 	public List<ReviewBoardVO> getLikeSelect(HashMap<String, Object> map);
 	public ArrayList<Integer> usinglist_num_List_member(String id);
+	
+	public int getReviewReportCountCheck(HashMap<String, Object> hashmap) throws Exception;
+	public List<ReviewBoardVO> getReviewDetail(int num);
+	public void reviwReportInsert(ReviewBoardVO vo);
 }

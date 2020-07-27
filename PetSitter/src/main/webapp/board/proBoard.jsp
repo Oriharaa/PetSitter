@@ -133,8 +133,14 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			$('#proForm').empty(); 
       $('#proForm2').empty(); 
       $('#reportForm').empty(); 
+      
+      
+			var urlSearch = $(this).attr("href");
+			urlSearch = urlSearch + "&searchType=" + $('#searchType').val();
+			urlSearch = urlSearch + "&keyword=" + $('#keyword').val();
+
 				$.ajax({
-		      url:$(this).attr("href"),
+		      url:urlSearch,
 		      type : 'POST',
 		      dataType : 'json',
 		      contentType : 'application/x-www-form-urlencoded; charset=utf-8',
@@ -142,7 +148,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		      	$.each(data, function(index, item){
 		      		
 		      		var proForm = "";
-							proForm += '<div class="col-md-6" style = "margin-top : 20px">';
+							proForm += '<div class="col-lg-6" style = "margin-top : 20px">';
 							proForm += '<div class="bottom_table">';
 							proForm += '<table class="PRO_TABLE main_grayfont3 fixtable">';
 							proForm += '<thead>';
@@ -156,13 +162,10 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							proForm += '<!--PRO_READCOUNT  -->';
 							proForm += '<td scope="col" class = "font-size-14" id = "readcountajax'+item.pro_NUM+'">조회 수 : '+item.pro_READCOUNT+'</td>';
 							proForm += '<!-- PRO_LIKECOUNT -->';
-							proForm += '<td scope="col" class = "font-size-14">';
-							proForm += '<a href ="#" class="loginalert"><img src = "resources/images/heart.png" width = "15px" height = "15px" style = "margin-bottom : 5px;">';
-							proForm += '</a>&nbsp;:&nbsp;'+item.pro_LIKECOUNT+'</td>';
+							proForm += '<td scope="col" class = "font-size-14" id = "prolikecount'+item.pro_NUM+'"></td>';
 							proForm += '</tr>';
 							proForm += '</thead>';
 							proForm += '<tbody>';
-							
 						
 							var bls2 = item.secret_CHECK;
 							var blid2 = item.member_ID;
@@ -236,13 +239,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							proForm += '</table>';
 							proForm += '</div>';
 							proForm += '</div>';
-						
-							
 		      		
 		     	    $('#proForm').append(proForm);
 							
 							replyCount(item.pro_NUM);
-		     	    
+							proLikeCountRead(item.pro_NUM);
 		     	    //리스트 목록 순차 정의 시작
 							if(item.listcount2 != 0){
 								var listcount2 = item.listcount2;
@@ -301,9 +302,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								
 							}	
 				      //리스트 목록 순차 정의 종료		
-				     	    	     	    
 	    			});
-
 		      },
 			   	error:function(){
 			       alert("ajax통신 실패!!!");
@@ -314,8 +313,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			});
 			//전문가 게시판 목차 페이징 처리 종료		
 
-			
-			
 			//Modal proboard_view 시작		
 			$(document).on('click', '.detailView', function(event){ //on이 동적인걸 실행해준다.
 			  $('#detailForm').empty();
@@ -342,6 +339,10 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							detailForm += '<div class="modal-body">';
 							      
 							detailForm += '<div class="row justify-content-center">';
+							
+							detailForm += '<div class="col-md-10 font-size-14" id = "prolikecount2'+item.pro_NUM+'">';
+							detailForm += '</div>';
+							
 							detailForm += '<div class="col-md-10">';
 							detailForm += '<table class="table table-sm main_grayfont3 font-size-14">';
 							detailForm += '<tr>';
@@ -391,7 +392,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							detailForm += '</div>';
 							detailForm += '<div class="col-md-10">';
 								if(id != 'null' && item.member_ID != id){
-									detailForm += '<a href = "./proreportform.bo?num='+item.pro_NUM+'" type="button" class="reportFormAjax reportcss">신고</a>';
+									detailForm += '<a href = "./proreportform.bo?num='+item.pro_NUM+'&sessionid='+id+'" type="button" class="reportFormAjax reportcss">신고</a>';
 								}
 							detailForm += '</div>';
 							detailForm += '<div class="col-md-10">';
@@ -417,12 +418,10 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							detailForm += ' </div>';
 							detailForm += ' <hr>';
 							
-							
 							detailForm += '</div>';
 							
 							//댓글  시작
 							detailForm += '<div class="row justify-content-center" id = "replyProList"></div>';	
-
 							detailForm += '<div class="row justify-content-center">';	
 							detailForm += '<div class="col-9">';	
 							detailForm += '<form method="post" enctype="multipart/form-data" name="replyInsertForm" id = "replyInsertForm">';
@@ -438,8 +437,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							//댓글  종료
 							
 							detailForm += '</div>';
-
-							
 							
 							detailForm += '<div class="modal-footer">';
 							detailForm += '<div class = "row">';
@@ -465,8 +462,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							detailForm += '</div>';
 							detailForm += '</div>';
 							
-
-							
 							$('#detailForm').append(detailForm);	
 							//Modal proboard_view 종료	
 							
@@ -477,7 +472,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							
 			   	 		$('#readcountajax'+item.pro_NUM+'').append(readcountajax);
 			   			//조회수 카운트 표시 종료
-			     	  replyList(item.pro_NUM);  
+			     	  replyList(item.pro_NUM);
+			     	 	proLikeCountRead2(item.pro_NUM);
 	    			});
 			      	if( true ) { $('.staticBackdropDetail').get(0).click(); }
 		      },
@@ -489,7 +485,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					event.preventDefault();
 			});				
 			//Modal proboard_view 종료
-			
 		
 
 			//댓글 기능 시작
@@ -549,7 +544,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							a += '<div class = "replyboldfloat" >작성자 :&nbsp; </div><div class = "replyfontfloat"> '+value.writer_nickname +'&nbsp&nbsp;</div>';
 							var wid = value.writer_id;
 							if(id != 'null' && wid != id){
-								a += '<a href = "./proreportreplyform.bo?bno='+bno+'&rno='+value.rno+'" type="button" class="reportReplyFormAjax reportcss float-right">신고</a>';
+								a += '<a href = "./proreportreplyform.bo?bno='+bno+'&rno='+value.rno+'&sessionid='+id+'" type="button" class="reportReplyFormAjax reportcss float-right">신고</a>';
 							}
 							
 							num = num + 1;
@@ -673,15 +668,15 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						alert("ajax 통신 실패(List)");
 					}
 				});
-			 event.preventDefault();
+			
 			}			
 			
 			//댓글 기능 종료
 		
 			//좋아용 기능 시작
-			function proLikeCount(bno){
+			function proLikeCountRead(bno){
 				$.ajax({
-					url : '/petsitter/prolikecount.bo?bno=' + bno,
+					url : '/petsitter/readprolikecount.bo?bno=' + bno,
 					type : 'post',
 					data : {'bno': bno},
 					dataType : 'json',
@@ -693,34 +688,50 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						$.each(data, function(key, value) {						
 							
 	    		   	//좋아요 아이디 추출
-	    		   	if(item.like_ID != "N"){
-        		   	var likeids = item.like_ID;
+	    		   	if(value.like_ID != "N"){
+        		   	var likeids = value.like_ID;
         		   	var likeid = likeids.split(',');
 	        		}
-							
+					
 	    		   	if(sessionid == "null" ){
-								a = '<a href ="#" class="likeloginalert"><img src = "resources/images/heart.png" width = "15px" height = "15px" style = "margin-bottom : 5px;">';
-								a = '</a>&nbsp;:&nbsp;'+value.pro_LIKECOUNT+'';
+								a += '<a href ="#" class="likeloginalert">';
+								a += '<img src = "resources/images/heart.png" width = "15px" height = "15px" style = "margin-bottom : 5px;">'
+								a += '</a>&nbsp;&nbsp;'+value.pro_LIKECOUNT+'';
 		    			}							
-
 			    		//idcheck 는  좋아요를 누른 아이디 일시 2로 바뀜
 			    		var idcheck = 1;
 			    		//첫 split된 인데스 0번째는 'N' 으로 1인덱스부터 시작과 il에 1추가로 필요한 길이 맞춤
-			    		if (sessionid != "null" && item.like_ID != "N"){
-			    			var lc = item.like_COUNT;
-			    			var ln = item.list_NUM;
-			    			for(j = 1; j < lc+1; j++){
+			    		if (sessionid != "null" && likeids != "N"){
+			    			var plc = value.pro_LIKECOUNT;
+			    			var pn = value.pro_NUM;
+			    			for(j = 1; j < plc+1; j++){
 				    			if(likeid[j] == sessionid) {
-										a = '<a href ="#"><img src = "resources/images/fullheart.png" width = "15px" height = "15px" style = "margin-bottom : 5px;">';
-										a = '</a>&nbsp;:&nbsp;'+value.pro_LIKECOUNT+'';
+				    				a += '<form id = "proLikeForm">';
+				    				a += '<a href ="./downdateprolikecount.bo" class = "downdateLike_count">';
+										a += '<img src = "resources/images/fullheart.png" width = "15px" height = "15px" style = "margin-bottom : 5px;">'
+										a += '</a>&nbsp;&nbsp;'+value.pro_LIKECOUNT+'';
 							    		//input으로 serialize 이용 값을 sql문에 대입 가능하게 전송
 						    		a += '<input type = "hidden" name = "LIKE_ID" id = "LIKE_ID" value= "'+ sessionid2 +'">';
-						    		a += '<input type = "hidden" name = "LIKE_COUNT" id = "LIKE_COUNT'+ln+'" value= "'+ (lc-1) +'">';
-						    		a += '<input type = "hidden" name = "LIST_NUM" id = "LIST_NUM" value= "'+ ln + '">';
+						    		a += '<input type = "hidden" name = "PRO_LIKECOUNT" id = "PRO_LIKECOUNT'+pn+'" value= "'+ (plc-1) +'">';
+						    		a += '<input type = "hidden" name = "PRO_NUM" id = "LIST_NUM" value= "'+ pn + '">';
+						    		a += '</form>';
+						    		idcheck = 2; //아이디확인 값 2로
 				    			}
 			    			}
 			    		}
-							
+			    		if(sessionid != "null" && idcheck == 1){
+			    			var plc = value.pro_LIKECOUNT;
+			    			var pn = value.pro_NUM;
+			    			a += '<form id = "proLikeForm">';
+								a += '<a href ="./updateprolikecount.bo" class = "updateLike_count">';
+								a += '<img src = "resources/images/heart.png"  width = "15px" height = "15px" style = "margin-bottom : 5px;">'
+								a += '</a>&nbsp;&nbsp;'+value.pro_LIKECOUNT+'';
+				    		a += '<input type = "hidden" name = "LIKE_ID" id = "LIKE_ID" value= "'+ sessionid2 +'">';
+				    		a += '<input type = "hidden" name = "PRO_LIKECOUNT" id = "PRO_LIKECOUNT'+pn+'" value= "'+ (plc+1) +'">';
+				    		a += '<input type = "hidden" name = "PRO_NUM" id = "PRO_NUM" value= "'+ pn + '">';
+				    		a += '</form>';
+			    		}
+			    		
 						$('#prolikecount'+bno).html(a);	
 						}); 
 					}, 
@@ -729,12 +740,137 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						alert("ajax 통신 실패(List)");
 					}
 				});
-			 event.preventDefault();
 			}			
-			//좋아용 기능 종료
+	
+
+			function proLikeCountRead2(bno){
+				$.ajax({
+					url : '/petsitter/readprolikecount.bo?bno=' + bno,
+					type : 'post',
+					data : {'bno': bno},
+					dataType : 'json',
+					contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+					success : function(data) {
+						$('#prolikecount2'+bno).empty();
+						var a = '';
+						var num = 1;
+						$.each(data, function(key, value) {						
+							
+	    		   	//좋아요 아이디 추출
+	    		   	if(value.like_ID != "N"){
+        		   	var likeids = value.like_ID;
+        		   	var likeid = likeids.split(',');
+	        		}
+					
+	    		   	if(sessionid == "null" ){
+								a += '<a href ="#" class="likeloginalert">';
+								a += '<img src = "resources/images/heart.png" width = "15px" height = "15px" style = "margin-bottom : 5px;">'
+								a += '</a>&nbsp;&nbsp;'+value.pro_LIKECOUNT+'';
+		    			}							
+			    		//idcheck 는  좋아요를 누른 아이디 일시 2로 바뀜
+			    		var idcheck = 1;
+			    		//첫 split된 인데스 0번째는 'N' 으로 1인덱스부터 시작과 il에 1추가로 필요한 길이 맞춤
+			    		if (sessionid != "null" && likeids != "N"){
+			    			var plc = value.pro_LIKECOUNT;
+			    			var pn = value.pro_NUM;
+			    			for(j = 1; j < plc+1; j++){
+				    			if(likeid[j] == sessionid) {
+				    				a += '<form id = "proLikeForm">';
+				    				a += '<div class = "float-right">'
+				    				a += '<a href ="./downdateprolikecount.bo" class = "downdateLike_count">';
+										a += '<img src = "resources/images/fullheart.png" width = "20px" height = "20px" style = "margin-bottom : 5px;">'
+										a += '</a>&nbsp;&nbsp;'+value.pro_LIKECOUNT+'';
+							    		//input으로 serialize 이용 값을 sql문에 대입 가능하게 전송
+						    		a += '<input type = "hidden" name = "LIKE_ID" id = "LIKE_ID" value= "'+ sessionid2 +'">';
+						    		a += '<input type = "hidden" name = "PRO_LIKECOUNT" id = "PRO_LIKECOUNT'+pn+'" value= "'+ (plc-1) +'">';
+						    		a += '<input type = "hidden" name = "PRO_NUM" id = "LIST_NUM" value= "'+ pn + '">';
+						    		a += '</div>'
+						    		a += '</form>';
+						    		idcheck = 2; //아이디확인 값 2로
+				    			}
+			    			}
+			    		}
+			    		if(sessionid != "null" && idcheck == 1){
+			    			var plc = value.pro_LIKECOUNT;
+			    			var pn = value.pro_NUM;
+			    			a += '<form id = "proLikeForm">';
+			    			a += '<div class = "float-right">'
+								a += '<a href ="./updateprolikecount.bo" class = "updateLike_count">';
+								a += '<img src = "resources/images/heart.png"  width = "20px" height = "20px" style = "margin-bottom : 5px;">'
+								a += '</a>&nbsp;&nbsp;'+value.pro_LIKECOUNT+'';
+				    		a += '<input type = "hidden" name = "LIKE_ID" id = "LIKE_ID" value= "'+ sessionid2 +'">';
+				    		a += '<input type = "hidden" name = "PRO_LIKECOUNT" id = "PRO_LIKECOUNT'+pn+'" value= "'+ (plc+1) +'">';
+				    		a += '<input type = "hidden" name = "PRO_NUM" id = "PRO_NUM" value= "'+ pn + '">';
+				    		a += '</div>'
+				    		a += '</form>';
+			    		}
+			    		
+						$('#prolikecount2'+bno).html(a);	
+						}); 
+					}, 
+					error:function(request, status, error){
+						console.log("ajax 통신 실패");
+						alert("ajax 통신 실패(List)");
+					}
+				});
+			}				
+	
 			
 		$(document).ready(function(){
+			//좋아요 수 증가
+		 	$(document).on('click', '.updateLike_count', function(event){
+		 		var params;
+		 		params = $(this).parents('#proLikeForm').serialize();
+		 		
+		 		jQuery.ajax({
+		 			url : $(this).attr("href"),
+					type : 'post',
+					data : params,
+			    dataType : 'json',
+					contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+					success : function(data) {
+						$.each(data, function(index, item){
+						proLikeCountRead(item.pro_NUM); // 댓글 삭제 후 목록 출력
+						proLikeCountRead2(item.pro_NUM);
+						});
+					},
+					error:function() {
+						alert("ajax 통신 실패!!");			
+					}		
+				});
+				  //기본 이벤트 제거
+				  event.preventDefault();		 		
+			});
+					
 			
+				//좋아요 수 감소
+			 	$(document).on('click', '.downdateLike_count', function(event){
+			 		var params;
+			 		params = $(this).parents('#proLikeForm').serialize();
+			 		
+			 		jQuery.ajax({
+			 			url : $(this).attr("href"),
+						type : 'post',
+						data : params,
+				    dataType : 'json',
+						contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+						success : function(data) {
+							$.each(data, function(index, item){
+							proLikeCountRead(item.pro_NUM); // 댓글 삭제 후 목록 출력
+							proLikeCountRead2(item.pro_NUM); // 댓글 삭제 후 목록 출력
+							});
+						},
+						error:function() {
+							alert("ajax 통신 실패!!");			
+						}		
+					});
+					  //기본 이벤트 제거
+					  event.preventDefault();		 		
+				});
+				
+				
+				
+		//좋아용 기능 종료				
 		
 			//Modal reportForm 시작	
 			$(document).on('click', '.reportFormAjax', function(event){ //on이 동적인걸 실행해준다.
@@ -747,7 +883,18 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	        success:function(data){
 	        	var k = 1;
 	        	$.each(data, function(index, item){
-								var reportForm = '';
+								
+	        			if(item.secret_CHECK == 'NN'){
+		    					Swal.fire({
+		    						  title: '신고가 접수된 게시글 입니다!',
+		    						  text: "고객님의 관심의 감사를 표하며 빠른시일 내에 처리하겠습니다.",
+		    						  icon: 'warning',
+		    						  confirmButtonColor: 'rgba(83, 220, 152)',
+		    						})
+	        				return false;
+	        			}
+	        		
+	        			var reportForm = '';
 		        		reportForm += '<div class="modal fade" id="staticBackdropReport" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">';
 		        		reportForm += '<div class="modal-dialog modal-sm">';
 		        		reportForm += '<div class="modal-content">';
@@ -812,46 +959,57 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	        success:function(data){
 	        	var k = 1;
 	        	$.each(data, function(index, item){
-								var reportForm = '';
-		        		reportForm += '<div class="modal fade" id="modalReplyReport" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">';
-		        		reportForm += '<div class="modal-dialog modal-sm">';
-		        		reportForm += '<div class="modal-content">';
-		        		reportForm += '<div class="modal-header">';
-		        		reportForm += '<h4 class="modal-title main_mintfont font-size-20" id="staticBackdropLabel">신고하기.</h4>';
-		        		reportForm += '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
-		        		reportForm += '<span aria-hidden="true">&times;</span>';
-		        		reportForm += '</button>';
-		        		reportForm += '</div>';
-		        		reportForm += '<div class="modal-body">';
-		        		reportForm += '<form action="./proreportreplyinsert.bo" style = "font-size : 0" method="post" name="reportReplyFormSubmit" enctype="multipart/form-data">';
-		        		reportForm += '<div class = "row">';
-		        		reportForm += '<div class = "col-12 font-size-14 main_grayfont3">';
-		        		reportForm += '<input type="hidden" name="writer_id" value="${id}">';
-		        		reportForm += '<input type="hidden" name="bno" value="'+item.bno+'">';
-		        		reportForm += '<input type="hidden" name="rno" value="'+item.rno+'">';
-		        		reportForm += '<input type="hidden" name="b_type" value="'+item.b_type+'">';
-		        		reportForm += '신고 댓글 번호 : '+item.rno+'<br/>';
-		        		reportForm += '<br/><div>신고자</div>';
-		        		reportForm += '<div>${id}</div>';		        		
-		        		reportForm += '<div>${name}</div>';
-		        		reportForm += '</br><div>신고 사유</div>';
-		        		reportForm += '<textarea id="report_reason" name="report_reason" rows="4" cols="40" placeholder="신고 사유를 적어주세요."></textarea>';
-		        		reportForm += '</div>';
-		        		reportForm += '</div>';
-		        		reportForm += '</div>';
-		        		reportForm += '</form>';
-		        		reportForm += '<div class="modal-footer">';
-		        		reportForm += '<div class = "row">';
-		        		reportForm += '<div class = "col-12 font-size-14">';
-		        		reportForm += '<a type="button" class="btn btn-sm pbtn02 reportInsert" id="btnReportClose" href="javascript:addreportreplyboard()">신고하기</a>';
-		        		reportForm += '<button type="button" class="btn btn-sm pbtn03" data-dismiss="modal" id="btnList">닫기</button>';
-		        		reportForm += '</div>';
-		        		reportForm += '</div>';
-		        		reportForm += '</div>';
-		        		reportForm += '</div>';
-		        		reportForm += '</div>';
-		        		reportForm += '</div>';
-	   	       		$('#reportReplyForm').append(reportForm);
+        			
+	        		if(item.report_reason == 'NN'){
+    						Swal.fire({
+    						  title: '신고가 접수된 댓글 입니다!',
+    						  text: "고객님의 관심의 감사를 표하며 빠른시일 내에 처리하겠습니다.",
+    						  icon: 'warning',
+    						  confirmButtonColor: 'rgba(83, 220, 152)',
+    						})
+    						return false;
+    					}
+	        	
+							var reportForm = '';
+	        		reportForm += '<div class="modal fade" id="modalReplyReport" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">';
+	        		reportForm += '<div class="modal-dialog modal-sm">';
+	        		reportForm += '<div class="modal-content">';
+	        		reportForm += '<div class="modal-header">';
+	        		reportForm += '<h4 class="modal-title main_mintfont font-size-20" id="staticBackdropLabel">신고하기.</h4>';
+	        		reportForm += '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+	        		reportForm += '<span aria-hidden="true">&times;</span>';
+	        		reportForm += '</button>';
+	        		reportForm += '</div>';
+	        		reportForm += '<div class="modal-body">';
+	        		reportForm += '<form action="./proreportreplyinsert.bo" style = "font-size : 0" method="post" name="reportReplyFormSubmit" enctype="multipart/form-data">';
+	        		reportForm += '<div class = "row">';
+	        		reportForm += '<div class = "col-12 font-size-14 main_grayfont3">';
+	        		reportForm += '<input type="hidden" name="writer_id" value="${id}">';
+	        		reportForm += '<input type="hidden" name="bno" value="'+item.bno+'">';
+	        		reportForm += '<input type="hidden" name="rno" value="'+item.rno+'">';
+	        		reportForm += '<input type="hidden" name="b_type" value="'+item.b_type+'">';
+	        		reportForm += '신고 댓글 번호 : '+item.rno+'<br/>';
+	        		reportForm += '<br/><div>신고자</div>';
+	        		reportForm += '<div>${id}</div>';		        		
+	        		reportForm += '<div>${name}</div>';
+	        		reportForm += '</br><div>신고 사유</div>';
+	        		reportForm += '<textarea id="report_reason" name="report_reason" rows="4" cols="40" placeholder="신고 사유를 적어주세요."></textarea>';
+	        		reportForm += '</div>';
+	        		reportForm += '</div>';
+	        		reportForm += '</div>';
+	        		reportForm += '</form>';
+	        		reportForm += '<div class="modal-footer">';
+	        		reportForm += '<div class = "row">';
+	        		reportForm += '<div class = "col-12 font-size-14">';
+	        		reportForm += '<a type="button" class="btn btn-sm pbtn02 reportInsert" id="btnReportClose" href="javascript:addreportreplyboard()">신고하기</a>';
+	        		reportForm += '<button type="button" class="btn btn-sm pbtn03" data-dismiss="modal" id="btnList">닫기</button>';
+	        		reportForm += '</div>';
+	        		reportForm += '</div>';
+	        		reportForm += '</div>';
+	        		reportForm += '</div>';
+	        		reportForm += '</div>';
+	        		reportForm += '</div>';
+   	       		$('#reportReplyForm').append(reportForm);
 	   	       		
 	   	       		
 	    			});
@@ -1123,17 +1281,43 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 	<div class="container">
 	
-		<div class="row">
-			<div class="col">
+		<div class="row justify-content-center">
+			<div class="col-7">
 				<div class="bottom_title">
-				<h3 class="bottom_text1">전문가 Q&A</h3>
+				<h3 class="bottom_text2">전문가 Q&A</h3>
 				</div>
+			</div>
+			<div class="col-4 offset-1 padding0">
+				<!-- search{s} -->
+				<div class = "row">
+					<div class="col-4 float-right padding0" style="padding-right:10px">
+						<select class="form-control form-control-sm float-right" name="searchType" id="searchType">
+							<option value="title">제목</option>
+							<option value="Content">본문</option>
+							<option value="reg_id">아이디</option>
+						</select>
+					</div>	
+									
+					<div class="col-6 float-right padding0" style="padding-right:10px">
+						<input type="text" class="form-control form-control-sm float-right" name="keyword" id="keyword">
+					</div>
+					
+					<div class = "col-2 float-right padding0">
+						<a href = "./proboard2.bo?page=1" class="updateform_data btn btn-sm btn frmargin pbtn01"  
+						 id="btnSearch">검색
+						</a>
+					</div>
+				</div>
+				<!-- search{e} -->
+
+
+
 			</div>
 		</div>
 	</div>
 	
 	<div class="container">
-	<form id ="update_form" method="post">	
+	<div id ="update_form" method="post">	
 		<div class="row" id = "proForm" style = "width : 1140px; height : 100%">	
 		<!-- 게시판 반복 -->
 			
@@ -1146,7 +1330,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		%>
 		
 	
-				<div class="col-md-6" style = "margin-top : 20px">
+				<div class="col-lg-6" style = "margin-top : 20px">
 					<div class="bottom_table">
 						<table class="PRO_TABLE main_grayfont3 fixtable">
 						<thead>
@@ -1159,11 +1343,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								<td scope="col" class = "font-size-14"><%=bl.getREAL_DATE() %></td>
 								<!--PRO_READCOUNT  -->
 								<td scope="col" class = "font-size-14" id = "readcountajax<%=bl.getPRO_NUM() %>">조회 수 : <%=bl.getPRO_READCOUNT() %></td>
-								<!-- PRO_LIKECOUNT -->
-								<td scope="col" class = "font-size-14" id = "prolikecount<%=bl.getPRO_NUM() %>">
-								<a href ="#" class="likeloginalert"><img src = "resources/images/heart.png" width = "15px" height = "15px" style = "margin-bottom : 5px;">
-								</a>&nbsp;:&nbsp;<%=bl.getPRO_LIKECOUNT() %>
-								</td>
+								<!-- PRO_LIKECOUNT READ AJAX -->
+								<td scope="col" class = "font-size-14" id = "prolikecount<%=bl.getPRO_NUM() %>"></td>
 							</tr>
 						</thead>
 						<tbody>
@@ -1245,11 +1426,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				</div>
 				<script>
 					replyCount(<%=bl.getPRO_NUM() %>);
+					proLikeCountRead(<%=bl.getPRO_NUM()%>);
 				</script>
 		<%	num--;
 			} %>			
 			</div>
-				</form>		
+				</div>		
 		
 					
 			
@@ -1308,21 +1490,19 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		<!-- Modal view 시작 -->
 		<!-- Modal 창 실행 a테그 -->
 		<a href = "#" class = "staticBackdropDetail" data-toggle="modal" data-target="#staticBackdropDetail"></a>		
-		<form id = "detailForm"></form>
+		<div id = "detailForm"></div>
 		<!-- Modal view 종료 -->		
 		
 		
 		<!-- Modal 글신고기능 시작-->
 		<!-- Modal 창 실행 a테그 -->
 		<a href = "#" class = "staticBackdropReport" data-toggle="modal" data-target="#staticBackdropReport"></a>	
-
 		<div id = "reportForm"></div>
 		<!-- Modal 글신고기능 종료--> 	
 
 		<!-- Modal 리플신고기능 시작-->
 		<!-- Modal 창 실행 a테그 -->
 		<a href = "#" class = "modalReplyReport" data-toggle="modal" data-target="#modalReplyReport"></a>	
-
 		<div id = "reportReplyForm"></div>
 		<!-- Modal 글신고기능 종료--> 
 		
@@ -1395,171 +1575,172 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 		<script> 
 		 /*사진 가로 세로 이미지 크기 맞추고 가운데 위치로 보이게 하기  시작*/ 
-			window.onload = function() {
-			  var divs = document.querySelectorAll('.aspect_1_1');
-			  for (var i = 0; i < divs.length; ++i) {
-			    var div = divs[i];
-			    var divAspect = div.offsetHeight / div.offsetWidth;
-			    div.style.overflow = 'hidden';
-			    
-			    var img = div.querySelector('img');
-			    var imgAspect = img.height / img.width;
-		
-			    if (imgAspect <= divAspect) {
-			      // 이미지가 div보다 납작한 경우 세로를 div에 맞추고 가로는 잘라낸다
-			      var imgWidthActual = div.offsetHeight / imgAspect;
-			      var imgWidthToBe = div.offsetHeight / divAspect;
-			      var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2)
-			      img.style.cssText = 'width: auto; height: 100%; margin-left: '
-			                      + marginLeft + 'px;'
-			    } else {
-			      // 이미지가 div보다 길쭉한 경우 가로를 div에 맞추고 세로를 잘라낸다
-			      img.style.cssText = 'width: 100%; height: auto; margin-left: 0;';
-			    }
-			  }
-			  
-			  var btn = document.querySelector('#btnToggleOverflow');
-			  btn.onclick = function() {
-			    var val = divs[0].style.overflow == 'hidden' ? 'visible' : 'hidden';
-			    for (var i = 0; i < divs.length; ++i)
-			      divs[i].style.overflow = val;
-			  };
-			};
-			/*사진 가로 세로 이미지 크기 맞추고 가운데 위치로 보이게 하기  종료*/
-
-			$(document).ready(function(){				
-				/*스크롤 위로올라가기 버튼 시작 script*/
-			  $(function() {
-			   $(window).scroll(function() {
-			     if ($(this).scrollTop() > 500) {
-			     	 $('#MOVE_TOP_BTN').fadeIn();
-			     } else {
-			       $('#MOVE_TOP_BTN').fadeOut();
-			     }
-			   });
-		   
-		     $("#MOVE_TOP_BTN").click(function() {
-		       $('html, body').animate({
-		         scrollTop : 0
-		     	 }, 400);
-		     return false;
-		     });
-		   });
-		   /*
-			 scroll(function(): scroll 함수를 이용
-			  첫 if문  : 스크롤 위치에 따라 화면에서 맨위로 올라가는 버튼을 나타내고, 사라지도록 설정
-			 click(function() : 버튼 클릭 이벤트
-			 animate({ });: animation 을 걸어서 화면 맨위로 이동하도록 설정
-		 
-		      스크롤 위로올라가기 버튼 종료 script*/
-
-				$(document).on('click', '.loginalert', function(event){
-					Swal.fire({
-					  title: '로그인을 하시겠습니까?',
-					  text: "글쓰기는 로그인 후 사용 가능합니다.",
-					  icon: 'warning',
-					  showCancelButton: true,
-					  confirmButtonColor: 'rgba(83, 220, 152)',
-					  cancelButtonColor: '#de7631',
-					  confirmButtonText: '<a href="loginform.me" style = "color : white;">로그인 페이지로</a>'
-					}).then((result) => {
-						if (result.value) {
-							window.location = "loginform.me";
-						}
-					})
-				});	
-				
-				$(document).on('click', '.likeloginalert', function(event){
-					Swal.fire({
-					  title: '로그인을 하시겠습니까?',
-					  text: "좋아요는 로그인 후 사용 가능합니다.",
-					  icon: 'warning',
-					  showCancelButton: true,
-					  confirmButtonColor: 'rgba(83, 220, 152)',
-					  cancelButtonColor: '#de7631',
-					  confirmButtonText: '<a href="loginform.me" style = "color : white;">로그인 페이지로</a>'
-					}).then((result) => {
-						if (result.value) {
-							window.location = "loginform.me";
-						}
-					})
-				});
-				
-				
-			});
-			 
-			 
-			//모달 구현 제이쿼리(부트스트랩용) 시작
-		  $('#myModal').on('shown.bs.modal', function () {
-		  	$('#myInput').trigger('focus')
-		  })
-		  //모달 구현 제이쿼리(부트스트랩용) 종료
-		  
-			//Bootstrap multiple modal 이중 모달 창 순서 시작
-		  var count = 0; // 모달이 열릴 때 마다 count 해서  z-index값을 높여줌
-
-		  $(document).on('show.bs.modal', '.modal', function () {
-	      var zIndex = 1040 + (10 * count);
-	      $(this).css('z-index', zIndex);
-	      setTimeout(function() {
-	          $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
-	      }, 0);
-	      count = count + 1
-		  });
-
-		  // multiple modal Scrollbar fix
-		  $(document).on('hidden.bs.modal', '.modal', function () {
-	      $('.modal:visible').length && $(document.body).addClass('modal-open');
-		  });
-			//Bootstrap multiple modal 이중 모달 창 순서 종료
+		window.onload = function() {
+		  var divs = document.querySelectorAll('.aspect_1_1');
+		  for (var i = 0; i < divs.length; ++i) {
+		    var div = divs[i];
+		    var divAspect = div.offsetHeight / div.offsetWidth;
+		    div.style.overflow = 'hidden';
+		    
+		    var img = div.querySelector('img');
+		    var imgAspect = img.height / img.width;
 	
-			
-		  //글 신고 INSERT 버튼 시작
-			function addreportboard(){
-				var rpr = document.reportFormSubmit.REPORT_REASON.value
-				if (rpr.length < 2)
-				{
-					alert("신고 이유를 2자 이상 입력하세요.");
-					document.reportForm.reportFormSubmit.focus();
-					return false;
-				}
-				
-				reportFormSubmit.submit();
-			}
-			//글 신고 INSERT 버튼 종료		  
+		    if (imgAspect <= divAspect) {
+		      // 이미지가 div보다 납작한 경우 세로를 div에 맞추고 가로는 잘라낸다
+		      var imgWidthActual = div.offsetHeight / imgAspect;
+		      var imgWidthToBe = div.offsetHeight / divAspect;
+		      var marginLeft = -Math.round((imgWidthActual - imgWidthToBe) / 2)
+		      img.style.cssText = 'width: auto; height: 100%; margin-left: '
+		                      + marginLeft + 'px;'
+		    } else {
+		      // 이미지가 div보다 길쭉한 경우 가로를 div에 맞추고 세로를 잘라낸다
+		      img.style.cssText = 'width: 100%; height: auto; margin-left: 0;';
+		    }
+		  }
+		  
+		  var btn = document.querySelector('#btnToggleOverflow');
+		  btn.onclick = function() {
+		    var val = divs[0].style.overflow == 'hidden' ? 'visible' : 'hidden';
+		    for (var i = 0; i < divs.length; ++i)
+		      divs[i].style.overflow = val;
+		  };
+		};
+		/*사진 가로 세로 이미지 크기 맞추고 가운데 위치로 보이게 하기  종료*/
 
-			  //댓글 신고 INSERT 버튼 시작
-			function addreportreplyboard(){
-				var rpr = document.reportReplyFormSubmit.report_reason.value
-				if (rpr.length < 2)
-				{
-					alert("신고 이유를 2자 이상 입력하세요.");
-					document.reportForm.reportReplyFormSubmit.focus();
-					return false;
-				}
-				
-				reportReplyFormSubmit.submit();
+		$(document).ready(function(){				
+			/*스크롤 위로올라가기 버튼 시작 script*/
+		  $(function() {
+		   $(window).scroll(function() {
+		     if ($(this).scrollTop() > 500) {
+		     	 $('#MOVE_TOP_BTN').fadeIn();
+		     } else {
+		       $('#MOVE_TOP_BTN').fadeOut();
+		     }
+		   });
+	   
+	     $("#MOVE_TOP_BTN").click(function() {
+	       $('html, body').animate({
+	         scrollTop : 0
+	     	 }, 400);
+	     return false;
+	     });
+	   });
+	   /*
+		 scroll(function(): scroll 함수를 이용
+		  첫 if문  : 스크롤 위치에 따라 화면에서 맨위로 올라가는 버튼을 나타내고, 사라지도록 설정
+		 click(function() : 버튼 클릭 이벤트
+		 animate({ });: animation 을 걸어서 화면 맨위로 이동하도록 설정
+	 
+	      스크롤 위로올라가기 버튼 종료 script*/
+
+			$(document).on('click', '.loginalert', function(event){
+				Swal.fire({
+				  title: '로그인을 하시겠습니까?',
+				  text: "글쓰기는 로그인 후 사용 가능합니다.",
+				  icon: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: 'rgba(83, 220, 152)',
+				  cancelButtonColor: '#de7631',
+				  confirmButtonText: '<a href="loginform.me" style = "color : white;">로그인 페이지로</a>'
+				}).then((result) => {
+					if (result.value) {
+						window.location = "loginform.me";
+					}
+				})
+			});	
+			
+			$(document).on('click', '.likeloginalert', function(event){
+				Swal.fire({
+				  title: '로그인을 하시겠습니까?',
+				  text: "좋아요는 로그인 후 사용 가능합니다.",
+				  icon: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: 'rgba(83, 220, 152)',
+				  cancelButtonColor: '#de7631',
+				  confirmButtonText: '<a href="loginform.me" style = "color : white;">로그인 페이지로</a>'
+				}).then((result) => {
+					if (result.value) {
+						window.location = "loginform.me";
+					}
+				})
+			});
+			
+			
+		});
+		 
+		 
+		//모달 구현 제이쿼리(부트스트랩용) 시작
+	  $('#myModal').on('shown.bs.modal', function () {
+	  	$('#myInput').trigger('focus')
+	  })
+	  //모달 구현 제이쿼리(부트스트랩용) 종료
+	  
+		//Bootstrap multiple modal 이중 모달 창 순서 시작
+	  var count = 0; // 모달이 열릴 때 마다 count 해서  z-index값을 높여줌
+
+	  $(document).on('show.bs.modal', '.modal', function () {
+      var zIndex = 1040 + (10 * count);
+      $(this).css('z-index', zIndex);
+      setTimeout(function() {
+          $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+      }, 0);
+      count = count + 1
+	  });
+
+	  // multiple modal Scrollbar fix
+	  $(document).on('hidden.bs.modal', '.modal', function () {
+      $('.modal:visible').length && $(document.body).addClass('modal-open');
+	  });
+		//Bootstrap multiple modal 이중 모달 창 순서 종료
+
+		
+	  //글 신고 INSERT 버튼 시작
+		function addreportboard(){
+			var rpr = document.reportFormSubmit.REPORT_REASON.value
+			if (rpr.length < 2)
+			{
+				alert("신고 이유를 2자 이상 입력하세요.");
+				document.reportForm.reportFormSubmit.focus();
+				return false;
 			}
-			//댓글 신고 INSERT 버튼 종료				
 			
+			reportFormSubmit.submit();
+		}
+		//글 신고 INSERT 버튼 종료		  
+
+		  //댓글 신고 INSERT 버튼 시작
+		function addreportreplyboard(){
+			var rpr = document.reportReplyFormSubmit.report_reason.value
+			if (rpr.length < 2)
+			{
+				alert("신고 이유를 2자 이상 입력하세요.");
+				document.reportForm.reportReplyFormSubmit.focus();
+				return false;
+			}
 			
-			//전문가 상담 게시판 리스트 바로가기 시작
-      $("#pickgo").click(function() {
+			reportReplyFormSubmit.submit();
+		}
+		//댓글 신고 INSERT 버튼 종료				
+		
+		
+		//전문가 상담 게시판 리스트 바로가기 시작
+	  $("#pickgo").click(function() {
 	      var offset = $("#pickme").offset();
 	      $('html, body').animate({scrollTop : offset.top}, 300);
-      });
+	  });
 		//전문가 상담 게시판 리스트 바로가기 종료
-			
-	</script>     
-    
-    <script>
-			$(function() {
-				$(".btn-secondary").on("click mousedown", function() {
-					$(this).css("background-color", "rgb(83, 220, 153)");
-					$(this).css("border-color", "rgb(83, 220, 153)");
-					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
-				});
+		
+		</script>     
+
+		<script>
+		$(function() {
+			$(".btn-secondary").on("click mousedown", function() {
+				$(this).css("background-color", "rgb(83, 220, 153)");
+				$(this).css("border-color", "rgb(83, 220, 153)");
+				$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
 			});
+		});
+
 			
 		</script>
 </body>

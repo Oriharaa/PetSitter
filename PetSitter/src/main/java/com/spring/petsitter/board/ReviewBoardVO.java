@@ -55,9 +55,12 @@ public class ReviewBoardVO {
 	private String PETSITTER_ADDRESS;
 	private String PETSITTER_PHOTO_PROFILE_FILE;
 	private String LIKE_ID;
+	
 	private int LIKE_NUM;
 	private String LIKE_TYPE;
 	private String REVIEW_REFLY;
+	
+	private String REPORT_REASON;
 	
 	public int getLIST_NUM() {
 		return LIST_NUM;
@@ -178,6 +181,12 @@ public class ReviewBoardVO {
 	}
 	public void setREVIEW_REFLY(String rEVIEW_REFLY) {
 		REVIEW_REFLY = rEVIEW_REFLY;
+	}
+	public String getREPORT_REASON() {
+		return REPORT_REASON;
+	}
+	public void setREPORT_REASON(String rEPORT_REASON) {
+		REPORT_REASON = rEPORT_REASON;
 	}
 	
 }
