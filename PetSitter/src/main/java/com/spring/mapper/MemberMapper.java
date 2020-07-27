@@ -13,6 +13,7 @@ public interface MemberMapper {
 	public ArrayList<MemberVO> memberList();
 	public MemberVO selectMember(String id);
 	public void updateMember(MemberVO membervo);
+	public void updateMemberRank(MemberVO membervo);
 	public void deleteMember(String id);
 	public int getListCount(String id);
 	public ArrayList<UsinglistVO> getUsingList_Member(@Param("MEMBER_ID") String id, @Param("startrow") int startrow, @Param("endrow") int endrow);
@@ -23,8 +24,7 @@ public interface MemberMapper {
 	
 	public ArrayList<UsinglistVO> getUsingList_Member_calendar(@Param("MEMBER_ID")String id, @Param("startdate") String startdate, @Param("enddate") String enddate);
 	public List<MemberUsinglistVO> getUsingList_Member_ajax_calendar(@Param("MEMBER_ID")String id, @Param("startdate") String startdate, @Param("enddate") String enddate);
-	
-	/* 회원 관리 */
+
 	public void suspendedMember(String id);
 	public void rollbackMember(String id);
 	public List<MemberVO> changeMember(@Param("RANK")String rank, @Param("MEMBER_ID")String id);

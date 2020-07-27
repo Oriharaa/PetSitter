@@ -99,6 +99,12 @@ public class PetsitterServiceImpl implements PetsitterService{
 		List<PetsitterVO> petsitter_list = reservationMapper.petsitterList_We(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type);
 		return petsitter_list;
 	}
+	@Override
+	public List<PetsitterVO> timeDate(String btn1, String btn2) {
+		ReservationMapper reservationMapper = sqlSession.getMapper(ReservationMapper.class);
+		List<PetsitterVO> timeDate = reservationMapper.timeDate(btn1, btn2);
+		return timeDate;
+	}
 	
 	// 리뷰 등록 후 펫시터 평점 수정
 	@Override
@@ -106,5 +112,33 @@ public class PetsitterServiceImpl implements PetsitterService{
 		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class); 
 		petsitterMapper.petsitterscoreupdate(id, score);
 	}
+
+	// 가장 최근에 가입한 펫시터
+	@Override
+	public ArrayList<PetsitterVO> petsitterList_date() {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		ArrayList<PetsitterVO> petsitter_list = petsitterMapper.petsitterList_date();
+		return petsitter_list;
+	}
 	
+	@Override
+	public PetsitterVO petsitter_thisMonth() {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		PetsitterVO petsitter = petsitterMapper.petsitter_thisMonth();
+		return petsitter;
+	}
+
+	@Override
+	public PetsitterVO petsitter_thisMonth_score() {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		PetsitterVO petsitter = petsitterMapper.petsitter_thisMonth_score();
+		return petsitter;
+	}
+
+	@Override
+	public PetsitterVO petsitter_thisMonth_count() {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		PetsitterVO petsitter = petsitterMapper.petsitter_thisMonth_count();
+		return petsitter;
+	}
 }

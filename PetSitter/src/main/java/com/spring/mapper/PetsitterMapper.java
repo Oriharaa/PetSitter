@@ -21,4 +21,13 @@ public interface PetsitterMapper {
 	public int petsitterUpdate(PetsitterVO petsitter); //펫시터 정보변경
 	public int reflyUpdate(ReviewBoardVO vo); //리뷰 답변
 	public int petsitterNicknameCheck(PetsitterVO petsitter);
+	
+	// 신규 추천 펫시터 
+	public ArrayList<PetsitterVO> petsitterList_date();
+	// 이달의 펫시터
+	public PetsitterVO petsitter_thisMonth();
+	// 이달의 평점왕
+	public PetsitterVO petsitter_thisMonth_score();
+	// 이달의 실적왕
+	public PetsitterVO petsitter_thisMonth_count();
 }

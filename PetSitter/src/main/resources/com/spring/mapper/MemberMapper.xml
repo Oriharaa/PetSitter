@@ -161,4 +161,8 @@
 	<update id="changeMember" parameterType="Map">
 		update member set member_rank = #{RANK} where member_id = #{MEMBER_ID}
 	</update>	
+	
+	<update id="updateMemberRank" parameterType="MemberVO">
+		update member set MEMBER_RANK=#{MEMBER_RANK}, MEMBER_COUNT=#{MEMBER_COUNT} where MEMBER_ID=#{MEMBER_ID}
+	</update>
 </mapper>

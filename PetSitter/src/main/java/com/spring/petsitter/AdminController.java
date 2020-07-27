@@ -9,13 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.petsitter.board.mboard.MReplyService;
 import com.spring.petsitter.board.mboard.MemberBoardService;
 import com.spring.petsitter.board.mboard.MemberBoardVO;
 import com.spring.petsitter.board.mboard.ReportArticleVO;
 import com.spring.petsitter.board.mboard.ReportReplyVO;
+import com.spring.petsitter.pay.PayService;
+import com.spring.petsitter.pay.PayVO;
 
 @Controller
 public class AdminController {
@@ -34,6 +35,9 @@ public class AdminController {
 
 	@Autowired
 	private UsinglistService usinglistService;
+	
+	@Autowired
+	private PayService payService;
 	
 	/* 관리자 메인 페이지 */
 	@RequestMapping(value = "/admin.me")
@@ -63,6 +67,18 @@ public class AdminController {
 		model.addAttribute("rr_list", rr_list);
 
 		return "admin/dist/index";
+	}
+	
+	
+	/* 완료된 거래 페이지 */
+	@RequestMapping(value = "admin_orderClosed.me")
+	public String admin_order_closed(Model model) {
+
+		PayVO pvo = new PayVO();
+		List<PayVO> pvoList = payService.getPayList(pvo);
+		model.addAttribute("pvoList", pvoList);	
+		
+		return "admin/dist/order_closed";
 	}
 	
 	/* 글 신고 페이지 */

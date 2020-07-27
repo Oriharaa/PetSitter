@@ -101,6 +101,12 @@ public class UsinglistServiceImpl implements UsinglistService{
 		return usinglistMapper.petsitterSelectUsingList_3m(Usinglist);
 	}
 
-
+	// 이용 내역 추가
+	@Override
+	public int insertUsinglist(UsinglistVO usinglist) {
+		UsinglistMapper usinglistMapper = sqlSession.getMapper(UsinglistMapper.class);
+		usinglistMapper.defaultphoto();
+		return usinglistMapper.insertUsinglist(usinglist);
+	}
 	
 }

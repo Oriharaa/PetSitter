@@ -1,17 +1,38 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.spring.petsitter.*" %>
+<%@ page import="com.spring.petsitter.pay.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.spring.petsitter.MemberController.*" %>
 <%
+	List<PayVO> pvo = (List<PayVO>)request.getAttribute("pvolist");
 	MemberVO membervo = (MemberVO)request.getAttribute("membervo");
 	ArrayList<PetsitterVO> petsitterlist = (ArrayList<PetsitterVO>)request.getAttribute("petsitterlist");
 	ArrayList<UsinglistVO> usinglist = (ArrayList<UsinglistVO>)request.getAttribute("usinglist");
 	int review_count = ((Integer)request.getAttribute("review_count")).intValue();
-	String[] tel = (String[])request.getAttribute("tel");
+	String tel = (String)request.getAttribute("tel");
 	String[] address = (String[])request.getAttribute("address");
+	if(address[0].equals("N")){
+		address[0] = "";
+	}
 	int listcount = ((Integer)request.getAttribute("listcount")).intValue();
+	String gender = membervo.getMEMBER_GENDER();
+	String man = "";
+	String woman = "";
+	if(gender.equals("남")){
+		man = "checked";
+	}
+	if(gender.equals("여")){
+		woman = "checked";
+	}
+	String nickname = "";
+	if(!membervo.getMEMBER_NICKNAME().equals("N")){
+		nickname = membervo.getMEMBER_NICKNAME();
+	}else{
+		
+	}
+	
 	// 세션 종료시 홈으로
 	if(session.getAttribute("id") == "") {
 		out.println("<script>");
@@ -511,7 +532,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 </style>
 
   <head>
-    <title>회원 내 정보 페이지</title>
+    <title>회원 정보</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -535,6 +556,55 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css">
 
+	<style>
+		.dropdown:hover {
+			background-color: rgb(83, 220, 153);
+		}
+		
+		.dropdown:active {
+			background-color: rgb(83, 220, 153);
+		}
+		.btn-secondary {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+			vertical-align: baseline;
+			font-weight: bold;
+		}
+		
+		.btn-secondary:hover {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+		}
+		
+		.btn-secondary:active {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+		}
+		
+		.btn-secondary:focus {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+			box-shadow: 0 0 0 0 rgb(83, 220, 153);
+		}
+		
+		.dropdown-menu {
+			min-width: 60px !important;
+		}
+	
+		.dropdown-item:hover {
+			background-color: rgb(83, 220, 153);
+			color: rgb(255, 255, 255) !important;
+		}
+		
+		.dropdown-item {
+			 color: #53dc99 !important;
+			 font-weight: bold;
+		}
+		
+		.main-menu li a {
+			font-weight: bold;
+		}
+	</style>
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
   
@@ -569,7 +639,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
         </div>
       </div>
       
-      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152,0.86);">
+      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152);">
 
         <div class="container">
           <div class="row align-items-center position-relative">
@@ -579,12 +649,26 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
             <div class="col-12">
               <nav class="site-navigation text-right ml-auto " role="navigation">
-
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
-                  <li><a href="reservation1.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
-                  <li><a href="proboard.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
-                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
+                  <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
+										<button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											돌봄
+									  </button>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+									    <a href="reservation2.br" class="dropdown-item" style="font-size:15px;">방문 돌봄</a>
+                  		<a href="reservation1.br" class="dropdown-item" style="font-size:15px;" >위탁 돌봄</a>
+									  </div>
+									</li>
+									<li class="dropdown">
+									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+											게시판
+									  </button>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+									    <a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
+                  		<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
+									  </div>
+									</li>
+                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>
                   <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li> 
                 </ul>
               </nav>
@@ -630,7 +714,17 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			    <div class="mpbody">
 				  <div class="row" style = "margin-to">
 				  <div class = "col-04" style = "padding : 0 15px;">
-				    <h2 class="mpname float-left">${membervo.MEMBER_NICKNAME }</h2>
+				  	<%
+				  		if(nickname.equals("")) {
+				  	%>
+				  	<h2 class="mpname float-left">닉네임</h2>
+				  	<%
+				  		} else {
+				  	%>
+				    <h2 class="mpname float-left"><%=nickname %></h2>
+				    <%
+				  		}
+				    %>
 				    <%
 				    	if(membervo.getMEMBER_RANK().equals("Green")) {
 				    %>
@@ -717,15 +811,15 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	</div>
 		
 			
-  <table>
+  <table style="width:100%;">
  	<colgroup>
 	  <col style="width: 15%;">
-	  <col style="width: 20%;">
-	  <col style="width: 20%;">
-	  <col style="width: 20%;">
 	  <col style="width: 15%;">
 	  <col style="width: 15%;">
 	  <col style="width: 15%;">
+	  <col style="width: 12%;">
+	  <col style="width: 12%;">
+	  <col style="width: 16%;">
 	</colgroup> 
       <thead>
 		<tr class="table_headRow" style="color: #5e5e5e;">
@@ -739,7 +833,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		</tr>	
 	  </thead>
 	  <tbody id="petsitterList">
-	  	<input type="hidden" id="id" value=${id } />
+	  	<input type="hidden" id="id" value=${id } >
 	  </tbody>
 	</table>
   </div>
@@ -769,43 +863,46 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       				<tr>
       					<th width="200px">닉네임</th>
       					<td colspan="2" >
-      						<input type="text" value="${membervo.MEMBER_NICKNAME }" size="12" name="MEMBER_NICKNAME" class="float-left">
+      						<input type="text" value="<%=nickname %>" size="12" name="MEMBER_NICKNAME" class="float-left">
       					</td>
       				</tr>
       				<tr>
       					<th width="200px">성별</th>
       					<td colspan="2" >
       						<label for="man" class="float-left" style="margin: 0;">남&nbsp;</label>
-      						<input type="radio" value="남" id="man" name="MEMBER_GENDER" class="float-left" style="margin-top: 6px;" checked="checked">
+      						<input type="radio" value="남" id="man" name="MEMBER_GENDER" class="float-left" style="margin-top: 6px;" <%=man %>>
       						<label for="woman" class="float-left" style="margin: 0;">&emsp;여&nbsp;</label>
-      						<input type="radio" value="여" id="woman" name="MEMBER_GENDER" class="float-left" style="margin-top: 6px;">
+      						<input type="radio" value="여" id="woman" name="MEMBER_GENDER" class="float-left" style="margin-top: 6px;" <%=woman%>>
       					</td>
       				</tr>
       				<tr>
       					<th width="200px">비밀번호</th>
       					<td colspan="2">
-      						<input type="password" name="MEMBER_PW" id="pw1" value="" size="20" class="float-left">
+      						<input type="password" name="MEMBER_PW" id="pw1" value=<%=membervo.getMEMBER_PW() %> size="20" class="float-left">
       					</td>
       				</tr>
       				<tr>
       					<th width="200px">비밀번호 확인</th>
       					<td colspan="2">
-	      					<input type="password" size ="20" id="pw2" class="float-left">
+	      					<input type="password" size ="20" id="pw2" value = <%=membervo.getMEMBER_PW() %> class="float-left">
 	      					<input class="alert alert-danger" value="비밀 번호가 일치하지 않습니다." style="padding: 4px; margin-bottom: 0; width: 250px; height: 31px; text-align: center;">
       					</td>
       				</tr>
 							<tr>
       					<th width="200px">주소</th>
       					<td colspan="2">
-      						<input type="text" placeholder="우편 번호 검색" size="15" name="MEMBER_ADDRESS" class="float-left" id="sample5_address" value="${address[0] }" readonly>
+      						<input type="text" placeholder="우편 번호 검색" size="15" name="MEMBER_ADDRESS" class="float-left" id="sample4_postcode" value="${address[0] }" readonly>
       						
-      						<input type="button" class="btn modalbt03 float-left" onclick="sample5_execDaumPostcode();" value="우편 번호 검색" style="width: 130px; padding: 2.5px;" >
+      						<input type="button" class="btn modalbt03 float-left" onclick="sample4_execDaumPostcode();" value="우편 번호 검색" style="width: 130px; padding: 2.5px;" >
       					</td>
       				</tr>
       				<tr>
       					<th width="200px"></th>
       					<td colspan="2">
-      						<input type="text" placeholder="도로명 주소" size="30" name="MEMBER_ADDRESS" id="road_address" class="float-left" value="${address[1] }" readonly>
+      						<input type="text" placeholder="도로명 주소" size="30" name="MEMBER_ADDRESS" id="sample4_roadAddress" class="float-left" value="${address[1] }" readonly>
+      						<input type="hidden" id="guide" style="color:#999;display:none">
+      					<input type="hidden" id="sample4_extraAddress" class="inpt" placeholder="참고항목" readonly>
+      					<input type="hidden" id="sample4_jibunAddress" class="inpt" placeholder="지번주소" readonly>
       					</td>
       				</tr>
       				<tr>
@@ -817,18 +914,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       				<tr>
       					<th width="200px">전화 번호</th>
       					<td colspan="2" class="float-left">
-      						<select style="height: 31px;" name="MEMBER_TEL" value="${tel[0] }">
-      							<option>010
-      							<option>011
-      							<option>02
-      							<option>031
-      							<option>032
-      							<option>033
-      						</select>
-      						&nbsp;-&nbsp;
-      						<input type="text" size="4" name="MEMBER_TEL" value="${tel[1] }">
-      						&nbsp;-&nbsp;
-      						<input type="text" size="4" name="MEMBER_TEL" value="${tel[2] }">
+      						<input type="text" size="11" name="MEMBER_TEL" value="${tel}">
       					</td>
       				</tr>
       				<tr>
@@ -1161,38 +1247,60 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		<!-- 주소 창 불러오기 api 시작-->    
 		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script>
-		function sample5_execDaumPostcode() {
-    new daum.Postcode({
-        oncomplete: function(data) {
-        		// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+		function sample4_execDaumPostcode() {
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-            var roadAddr = data.roadAddress; // 도로명 주소 변수
-            var extraRoadAddr = ''; // 참고 항목 변수
+	                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	                var roadAddr = data.roadAddress; // 도로명 주소 변수
+	                var extraRoadAddr = ''; // 참고 항목 변수
 
-            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                extraRoadAddr += data.bname;
-            }
-            // 건물명이 있고, 공동주택일 경우 추가한다.
-            if(data.buildingName !== '' && data.apartment === 'Y'){
-               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-            }
-            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-            if(extraRoadAddr !== ''){
-                extraRoadAddr = ' (' + extraRoadAddr + ')';
-            }
+	                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+	                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+	                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                    extraRoadAddr += data.bname;
+	                }
+	                // 건물명이 있고, 공동주택일 경우 추가한다.
+	                if(data.buildingName !== '' && data.apartment === 'Y'){
+	                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                }
+	                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	                if(extraRoadAddr !== ''){
+	                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+	                }
 
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('sample5_address').value = data.zonecode;
-            document.getElementById("road_address").value = roadAddr;
-            document.getElementById("jibun_address").value = data.jibunAddress;
-            
-        }
-    }).open();
-		}
+	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	                document.getElementById('sample4_postcode').value = data.zonecode;
+	                document.getElementById("sample4_roadAddress").value = roadAddr;
+	                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+	                
+	                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+	                if(roadAddr !== ''){
+	                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+	                } else {
+	                    document.getElementById("sample4_extraAddress").value = '';
+	                }
+
+	                var guideTextBox = document.getElementById("guide");
+	                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+	                if(data.autoRoadAddress) {
+	                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+	                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+	                    guideTextBox.style.display = 'block';
+
+	                } else if(data.autoJibunAddress) {
+	                    var expJibunAddr = data.autoJibunAddress;
+	                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+	                    guideTextBox.style.display = 'block';
+	                } else {
+	                    guideTextBox.innerHTML = '';
+	                    guideTextBox.style.display = 'none';
+	                }
+	            }
+	        }).open();
+	    }
 		</script>
 		<!-- 주소 창 불러오기 api 종료-->
 		
@@ -1355,6 +1463,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								output += '<input type="hidden" id="review_petsitter_id'+index+'" value="' + item.petsitter_ID + '">';
 								output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.list_NUM + '">';
 								output += '</td>';
+							} else if(item.list_COMPLETE === '예약 취소') {
+								if(item.list_ING === '예약 취소') {
+									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
+								} else {
+									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" style="background: #03adfc !important;" onclick="location.href=\'cancel.br?merchant_uid=' + item.merchant_UID + '\'"></td>';
+								}
 							} else {
 								output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
 							}
@@ -1362,7 +1476,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							output += '<tr style="color: #5e5e5e;">';
 							if(item.list_ING === ing1) {
 								output += '<td><b style="color: #0d47a1;">' + item.list_ING + '</b></td>';
-							} else {
+							} else if(item.list_ING === '위탁 대기 중' || item.list_ING === '방문 대기 중') {
+								output += '<td><b style="color: #03adfc;">' + item.list_ING + '</b></td>';
+							} else if(item.list_ING === '예약 취소') {
+								output += '<td><b>' + item.list_ING + '</b></td>';
+							} 
+							else {
 								output += '<td><b>' + item.list_ING + '</b></td>';
 							}
 							output += '<td><b>' + item.petsitter_NAME + '</b></td>';
@@ -1407,8 +1526,10 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						
 						$('#pagenum_table').append(pagenum);
 					},
-					error: function() {
+					error: function(request,status,error) {
 						alert("ajax 통신 실패!");
+				        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
 					}
 				});
 			}
@@ -1472,6 +1593,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 									output += '<input type="hidden" id="review_petsitter_id'+index+'" value="' + item.petsitter_ID + '">';
 									output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.list_NUM + '">';
 									output += '</td>';
+								} else if(item.list_COMPLETE === '예약 취소') {
+									if(item.list_ING === '예약 취소') {
+										output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
+									} else {
+										output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" style="background: #03adfc !important;" onclick="location.href=\'cancel.br?merchant_uid=' + item.merchant_UID + '\'"></td>';
+									}
 								} else {
 									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
 								}
@@ -1479,7 +1606,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								output += '<tr style="color: #5e5e5e;">';
 								if(item.list_ING === ing1) {
 									output += '<td><b style="color: #0d47a1;">' + item.list_ING + '</b></td>';
-								} else {
+								} else if(item.list_ING === '위탁 대기 중' || item.list_ING === '방문 대기 중') {
+									output += '<td><b style="color: #03adfc;">' + item.list_ING + '</b></td>';
+								} else if(item.list_ING === '예약 취소') {
+									output += '<td><b>' + item.list_ING + '</b></td>';
+								} 
+								else {
 									output += '<td><b>' + item.list_ING + '</b></td>';
 								}
 								output += '<td><b>' + item.petsitter_NAME + '</b></td>';
@@ -1595,6 +1727,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 									output += '<input type="hidden" id="review_petsitter_id'+index+'" value="' + item.petsitter_ID + '">';
 									output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.list_NUM + '">';
 									output += '</td>';
+								} else if(item.list_COMPLETE === '예약 취소') {
+									if(item.list_ING === '예약 취소') {
+										output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
+									} else {
+										output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" style="background: #03adfc !important;" onclick="location.href=\'cancel.br?merchant_uid=' + item.merchant_UID + '\'"></td>';
+									}
 								} else {
 									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
 								}
@@ -1602,7 +1740,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								output += '<tr style="color: #5e5e5e;">';
 								if(item.list_ING === ing1) {
 									output += '<td><b style="color: #0d47a1;">' + item.list_ING + '</b></td>';
-								} else {
+								} else if(item.list_ING === '위탁 대기 중' || item.list_ING === '방문 대기 중') {
+									output += '<td><b style="color: #03adfc;">' + item.list_ING + '</b></td>';
+								} else if(item.list_ING === '예약 취소') {
+									output += '<td><b>' + item.list_ING + '</b></td>';
+								} 
+								else {
 									output += '<td><b>' + item.list_ING + '</b></td>';
 								}
 								output += '<td><b>' + item.petsitter_NAME + '</b></td>';
@@ -2000,6 +2143,17 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			animate({ });: animation 을 걸어서 화면 맨위로 이동하도록 설정
 			 
 			스크롤 위로올라가기 버튼 종료 script*/
+		</script>
+		
+		<script>
+			$(function() {
+				$(".btn-secondary").on("click mousedown", function() {
+					$(this).css("background-color", "rgb(83, 220, 153)");
+					$(this).css("border-color", "rgb(83, 220, 153)");
+					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
+				});
+			});
+			
 		</script>
 </body>
 </html>

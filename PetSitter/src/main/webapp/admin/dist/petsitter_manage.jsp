@@ -223,7 +223,6 @@ p {
                                     </a>
                                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401.html">펫시터 목록</a>
                                             <a class="nav-link" href="404.html">펫시터 신청 관리</a>
                                         </nav>
                                     </div>

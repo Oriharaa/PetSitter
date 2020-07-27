@@ -20,5 +20,8 @@ public interface UsinglistMapper {
 	public int petsitterSelectUsinglistCount_3m(UsinglistVO Usinglist);
 	public int petsitterSelectUsinglistCount_select(UsinglistVO Usinglist);
 
-	
+//이용 내역 추가
+	public int insertUsinglist(UsinglistVO usinglist);
+	public void defaultphoto();
+
 }

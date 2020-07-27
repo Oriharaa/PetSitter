@@ -9,6 +9,7 @@ public interface MemberService {
 	public ArrayList<MemberVO> memberList();
 	public MemberVO selectMember(String id);
 	public void updateMember(MemberVO membervo);
+	public void updateMemberRank(MemberVO membervo);
 	public void deleteMember(String id);
 	
 	public int getListCount(String id);
@@ -20,8 +21,7 @@ public interface MemberService {
 	
 	public ArrayList<UsinglistVO> getUsingList_Member_calendar(String id, String startdate, String enddate);
 	public List<MemberUsinglistVO> getUsingList_Member_ajax_calendar(String id, String startdate, String enddate);
-	
-	/* 회원 관리용 */
+
 	public void suspendedMember(String id);
 	public void rollbackMember(String id);
 	List<MemberVO> changeMember(String rank, String id);

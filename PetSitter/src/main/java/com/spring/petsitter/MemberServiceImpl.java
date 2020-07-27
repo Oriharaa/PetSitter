@@ -44,6 +44,12 @@ public class MemberServiceImpl implements MemberService{
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
 		memberMapper.updateMember(membervo);
 	}
+	
+	@Override
+	public void updateMemberRank(MemberVO membervo) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		memberMapper.updateMemberRank(membervo);
+	}
 
 	@Override
 	public ArrayList<MemberVO> memberList() {
