@@ -18,9 +18,9 @@
 	
 	<select id="getBoardList" parameterType="HashMap" resultMap="noticeboardResultMap">
 	<![CDATA[
-		select NOTICE_NUM, NOTICE_NICKNAME, NOTICE_SUBJECT, NOTICE_CONTENT, NOTICE_ORG_FILE, NOTICE_UP_FILE, NOTICE_READCOUNT, NOTICE_DATE
-		 	from (select rownum rnum, NOTICE_NUM, NOTICE_NICKNAME, NOTICE_SUBJECT, NOTICE_CONTENT, NOTICE_ORG_FILE, NOTICE_UP_FILE, NOTICE_READCOUNT, NOTICE_DATE
-		 		from (select * from notice_board order by NOTICE_NUM desc))
+		select NOTICE_NUM, NOTICE_NICKNAME, NOTICE_SUBJECT, NOTICE_CONTENT, NOTICE_ORG_FILE, NOTICE_UP_FILE, NOTICE_READCOUNT, NOTICE_DATE, NOTI
+		 	from (select rownum rnum, NOTICE_NUM, NOTICE_NICKNAME, NOTICE_SUBJECT, NOTICE_CONTENT, NOTICE_ORG_FILE, NOTICE_UP_FILE, NOTICE_READCOUNT, NOTICE_DATE, NOTI
+		 		from (select * from notice_board order by noti desc, NOTICE_NUM desc))
 		 			where rnum >= #{startrow} and rnum <= #{endrow}
 		]]>
 	</select>
@@ -43,8 +43,8 @@
 		</selectKey>
 		<![CDATA[
 		insert into notice_board
-		(notice_num, notice_id, notice_subject, notice_content, notice_org_file, notice_up_file, notice_readcount, notice_date, notice_nickname)
-		values (#{NOTICE_NUM},#{NOTICE_ID},#{NOTICE_SUBJECT},#{NOTICE_CONTENT},#{NOTICE_ORG_FILE},#{NOTICE_UP_FILE}, #{NOTICE_READCOUNT}, sysdate, #{NOTICE_NICKNAME})
+		(notice_num, notice_id, notice_subject, notice_content, notice_org_file, notice_up_file, notice_readcount, notice_date, notice_nickname, noti)
+		values (#{NOTICE_NUM},#{NOTICE_ID},#{NOTICE_SUBJECT},#{NOTICE_CONTENT},#{NOTICE_ORG_FILE},#{NOTICE_UP_FILE}, #{NOTICE_READCOUNT}, sysdate, #{NOTICE_NICKNAME}, #{NOTI})
 		]]>
 	</insert>
 	

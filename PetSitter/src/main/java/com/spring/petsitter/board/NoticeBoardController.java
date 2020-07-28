@@ -68,6 +68,19 @@ public class NoticeBoardController {
 	
 	@RequestMapping("/noticeboardwrite.me")
 	public String boardInsert(NoticeBoardVO vo) throws Exception {
+		System.out.println("vo.getNOTICE_ID() = " + vo.getNOTICE_ID());
+		System.out.println("vo.getNOTICE_NICKNAME() = " + vo.getNOTICE_NICKNAME());
+		System.out.println("vo.getNOTICE_FILE() = " + vo.getNOTICE_FILE());
+		System.out.println("vo.getNOTI() = " + vo.getNOTI());
+		
+		if(vo.getNOTI() == null) {
+			System.out.println("vo.getNOTI is off");
+			vo.setNOTI("N");
+		} else {
+			System.out.println("vo.getNOTI is on");
+			vo.setNOTI("Y");
+		}
+		
 				
 		MultipartFile mf = vo.getNOTICE_FILE();
 		System.out.println("mf.getSize() : " + mf.getSize());

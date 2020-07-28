@@ -328,9 +328,13 @@ margin-bottom: 5px;
 	   <form>
 	    <div class="row">
 	     	<div class="col-md-12">
-	    		
+	    		<div class="checkbox">
+	    			<label>
+	      			<input type="checkbox" name="NOTI">상단 고정
+	    			</label>
+	  			</div>
 	  		</div>
-	    </div>
+	  	</div>
     </form>
     
     <!-- 여백용 row -->

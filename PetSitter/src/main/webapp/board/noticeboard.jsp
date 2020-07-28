@@ -264,9 +264,24 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							NoticeBoardVO nv = (NoticeBoardVO)nboardlist.get(i);
 						%>
 						<tr>
-							<td><%=num %></td>
+							<td>
+							<%
+							if(nv.getNOTI().equals("Y")) {%>
+							공지
+							<%} else {
+							out.println(num);
+							}
+							%>
+							</td>
 							<td><%=nv.getNOTICE_NICKNAME() %></td>
-							<td><a href="./noticeboarddetail.me?num=<%=nv.getNOTICE_NUM()%>"><%=nv.getNOTICE_SUBJECT()%></a></td>
+							<td>
+							<%
+							if(nv.getNOTI().equals("Y")) {%>
+							<b><a style="color:#26bd72;" href="./noticeboarddetail.me?num=<%=nv.getNOTICE_NUM()%>"><%=nv.getNOTICE_SUBJECT()%></a></b>
+							<%} else { %> 
+							<a href="./noticeboarddetail.me?num=<%=nv.getNOTICE_NUM()%>"><%=nv.getNOTICE_SUBJECT()%></a>
+							<%} %>
+							</td>
 							<td><%=format1.format(nv.getNOTICE_DATE()) %></td>
 							<td><%=nv.getNOTICE_READCOUNT()%></td>
 							<% num--; %>

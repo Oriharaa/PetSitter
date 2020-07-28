@@ -16,7 +16,8 @@ CREATE TABLE NOTICE_BOARD (
     NOTICE_UP_FILE    VARCHAR2(100), -- 업로드 파일 
     NOTICE_READCOUNT  NUMBER, -- 조회 수
     NOTICE_DATE       DATE, -- 작성일자
-    NOTICE_NAME       VARCHAR2(30)
+    NOTICE_NAME       VARCHAR2(30),
+    NOTI							VARCHAR2(10) -- 상단 고정 여부
 );
 */
 public class NoticeBoardVO {
@@ -30,6 +31,7 @@ public class NoticeBoardVO {
 	private String NOTICE_UP_FILE;
 	private int NOTICE_READCOUNT;
 	private Date NOTICE_DATE;
+	private String NOTI;
 	
 	public int getNOTICE_NUM() {
 		return NOTICE_NUM;
@@ -90,6 +92,12 @@ public class NoticeBoardVO {
 	}
 	public void setNOTICE_DATE(Date nOTICE_DATE) {
 		NOTICE_DATE = nOTICE_DATE;
+	}
+	public String getNOTI() {
+		return NOTI;
+	}
+	public void setNOTI(String nOTI) {
+		NOTI = nOTI;
 	}
 
 }
