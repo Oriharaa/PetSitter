@@ -414,6 +414,7 @@ button:focus {outline:none;}
 										  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
 										    <a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
 	                  		<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
+	                  		<a href="pqboardlist.me" class="dropdown-item" style="font-size:15px;" >펫시터 게시판</a>
 										  </div>
 										</li>
 	                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>
