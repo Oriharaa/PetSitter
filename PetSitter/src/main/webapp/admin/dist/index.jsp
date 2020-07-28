@@ -134,9 +134,9 @@ overflow:hidden;
                                     </a>
                                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">예약된 거래</a>
-                                            <a class="nav-link" href="register.html">진행중인 거래</a>
-                                            <a class="nav-link" href="password.html">완료된 거래</a>
+                                            <a class="nav-link" href="admin_orderReserved.me">예약된 거래</a>
+                                            <a class="nav-link" href="admin_orderProgress.me">진행중인 거래</a>
+                                            <a class="nav-link" href="admin_orderClosed.me">완료된 거래</a>
                                         </nav>
                                     </div>
                                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">

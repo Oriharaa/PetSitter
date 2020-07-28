@@ -75,6 +75,11 @@ public class AdminController {
 	public String admin_order_closed(Model model) {
 
 		PayVO pvo = new PayVO();
+		
+		UsinglistVO uvo = new UsinglistVO();
+		List<UsinglistVO> uvoList = usinglistService.getUsinglistList(uvo);
+		model.addAttribute("uvoList", uvoList);
+		
 		List<PayVO> pvoList = payService.getPayList(pvo);
 		model.addAttribute("pvoList", pvoList);	
 		
@@ -89,6 +94,10 @@ public class AdminController {
 		List<PayVO> pvoList = payService.getPayList(pvo);
 		model.addAttribute("pvoList", pvoList);	
 		
+		UsinglistVO uvo = new UsinglistVO();
+		List<UsinglistVO> uvoList = usinglistService.getUsinglistList(uvo);
+		model.addAttribute("uvoList", uvoList);
+		
 		return "admin/dist/order_progress";
 	}
 	
@@ -99,6 +108,10 @@ public class AdminController {
 		PayVO pvo = new PayVO();
 		List<PayVO> pvoList = payService.getPayList(pvo);
 		model.addAttribute("pvoList", pvoList);	
+		
+		UsinglistVO uvo = new UsinglistVO();
+		List<UsinglistVO> uvoList = usinglistService.getUsinglistList(uvo);
+		model.addAttribute("uvoList", uvoList);
 		
 		return "admin/dist/order_reserved";
 	}

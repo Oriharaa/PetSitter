@@ -102,4 +102,7 @@ from usinglist A,member B where petsitter_id = #{PETSITTER_ID} and A.member_id =
 		values(#{USINGLIST_NUM), sysdate)
 	</insert>
 	
+	<select id="getUsinglistList" resultType="UsinglistVO">
+		select * from usinglist
+	</select>
 </mapper>
