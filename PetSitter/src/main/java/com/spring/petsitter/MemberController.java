@@ -2,6 +2,7 @@ package com.spring.petsitter;
 
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,23 +45,32 @@ public class MemberController {
 	private PayService payService;
 
 	@RequestMapping(value = "memberinfo.me")
-	public ModelAndView profile(MemberVO vo, @RequestParam(value = "id") String id, Model model) {
-		ModelAndView mv = new ModelAndView();
-		
-		MemberVO membervo = memberService.selectMember(id);
-		String tel = membervo.getMEMBER_TEL();
-		String[] address = membervo.getMEMBER_ADDRESS().split(",");
-		int review_count = reviewboardService.getReviewListCount_member(id);
-		
-		int listcount = memberService.getListCount(id);
-		
-		mv.addObject("listcount", listcount);
-		mv.addObject("review_count", review_count);
-		mv.addObject("membervo", membervo);
-		mv.addObject("tel", tel);
-		mv.addObject("address", address);
-		mv.setViewName("memberinfo");
-		return mv;
+	public ModelAndView profile(MemberVO vo, @RequestParam(value = "id") String id, Model model, HttpSession session, HttpServletResponse response) throws Exception {
+		PrintWriter writer = response.getWriter();
+		if(session.getAttribute("id") != null) {
+			ModelAndView mv = new ModelAndView();
+			
+			MemberVO membervo = memberService.selectMember(id);
+			String tel = membervo.getMEMBER_TEL();
+			String[] address = membervo.getMEMBER_ADDRESS().split(",");
+			int review_count = reviewboardService.getReviewListCount_member(id);
+			
+			int listcount = memberService.getListCount(id);
+			
+			mv.addObject("listcount", listcount);
+			mv.addObject("review_count", review_count);
+			mv.addObject("membervo", membervo);
+			mv.addObject("tel", tel);
+			mv.addObject("address", address);
+			mv.setViewName("memberinfo");
+			return mv;
+		} else {
+			writer.write("<script>");
+			writer.write("alert('로그인 시간이 만료되어 자동 로그아웃 됩니다.')");
+			writer.write("location.href='loginform.me'");
+			writer.write("</script>");
+			return null;
+		}
 	}
 	
 	@RequestMapping(value = "petRegister.me")
@@ -115,6 +126,7 @@ public class MemberController {
 			int compare2 = today.compareTo(usinglist_ajax.get(i).getLIST_END_DATE());
 			if(compare1 < 0 && compare2 < 0) {
   				ing = "현재 이용중";
+  				count++;
   			} else if(compare1 > 0) {
   				if(usinglist_ajax.get(i).getLIST_TYPE().equals("위탁")) {
   					ing = "위탁 대기 중";
@@ -165,8 +177,7 @@ public class MemberController {
 		String today = new_Format.format(date);
 		
 		ArrayList<Integer> usinglist_num_member = reviewboardService.usinglist_num_List_member(id); // 리뷰를 남겼는지 확인하기 위한 리스트
-		
-		int count = 0; // 이용 횟수 갱신
+
 		for(int i = 0; i < usinglist_ajax.size(); i++) {
 			usinglist_ajax.get(i).setLIST_START_DATE(new_Format.format(usinglist.get(i).getLIST_START_DATE()));
 			usinglist_ajax.get(i).setLIST_END_DATE(new_Format.format(usinglist.get(i).getLIST_END_DATE()));
@@ -199,7 +210,6 @@ public class MemberController {
   	  			}
   			} else {
   				ing = "이용 완료";
-  				count++;
   			}
 			usinglist_ajax.get(i).setLIST_ING(ing);
 			
@@ -213,17 +223,6 @@ public class MemberController {
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 남기기");
 			}
 		}
-		
-		MemberVO member = memberService.selectMember(id);
-		member.setMEMBER_COUNT(count);
-		if(count >= 15 && count < 30) {
-			member.setMEMBER_RANK("Gold");
-		} else if(count >= 30) {
-			member.setMEMBER_RANK("VIP");
-		} else if(count == 0 && count < 15) {
-			member.setMEMBER_RANK("Green");
-		}
-		memberService.updateMemberRank(member);
 		
 		return usinglist_ajax;
 	}
@@ -240,7 +239,6 @@ public class MemberController {
 		
 		ArrayList<Integer> usinglist_num_member = reviewboardService.usinglist_num_List_member(id); // 리뷰를 남겼는지 확인하기 위한 리스트
 		
-		int count = 0; // 이용 횟수 갱신
 		for(int i = 0; i < usinglist_ajax.size(); i++) {
 			usinglist_ajax.get(i).setLIST_START_DATE(new_Format.format(usinglist.get(i).getLIST_START_DATE()));
 			usinglist_ajax.get(i).setLIST_END_DATE(new_Format.format(usinglist.get(i).getLIST_END_DATE()));
@@ -273,7 +271,6 @@ public class MemberController {
   	  			}
   			} else {
   				ing = "이용 완료";
-  				count++;
   			}
 			usinglist_ajax.get(i).setLIST_ING(ing);
 			
@@ -287,17 +284,6 @@ public class MemberController {
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 남기기");
 			}
 		}
-		
-		MemberVO member = memberService.selectMember(id);
-		member.setMEMBER_COUNT(count);
-		if(count >= 15 && count < 30) {
-			member.setMEMBER_RANK("Gold");
-		} else if(count >= 30) {
-			member.setMEMBER_RANK("VIP");
-		} else if(count == 0 && count < 15) {
-			member.setMEMBER_RANK("Green");
-		}
-		memberService.updateMemberRank(member);
 		
 		return usinglist_ajax;
 	}

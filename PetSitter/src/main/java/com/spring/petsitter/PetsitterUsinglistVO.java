@@ -18,6 +18,7 @@ public class PetsitterUsinglistVO {
 	private String LIST_STATE;
 	private String LIST_STRING_START_DATE;
 	private String LIST_STRING_END_DATE;
+	private String MERCHANT_UID;
 	private int PAGE;
 	private int LIMIT;
 	private int START_NUMBER;
@@ -31,6 +32,12 @@ public class PetsitterUsinglistVO {
 	
 
 
+	public String getMERCHANT_UID() {
+		return MERCHANT_UID;
+	}
+	public void setMERCHANT_UID(String mERCHANT_UID) {
+		MERCHANT_UID = mERCHANT_UID;
+	}
 	public String getMEMBER_PHOTO_FILE() {
 		return MEMBER_PHOTO_FILE;
 	}

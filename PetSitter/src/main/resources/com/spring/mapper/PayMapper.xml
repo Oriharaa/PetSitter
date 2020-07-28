@@ -19,11 +19,19 @@
 		where MERCHANT_UID=#{MERCHANT_UID}
 	</update>
 	
-	<update id="memberAmount" parameterType="MemberVO">
+	<update id="memberAmount" parameterType="map">
 		update member set MEMBER_AMOUNT=MEMBER_AMOUNT + #{amount} where MEMBER_ID=#{MEMBER_ID}
 	</update>
 	
-	<update id="memberAmountRemove" parameterType="MemberVO">
-		update member set MEMBER_AMOUNT=MEMBER_AMOUNT + #{amount} where MEMBER_ID=#{MEMBER_ID}
+	<update id="memberAmountRemove" parameterType="map">
+		update member set MEMBER_AMOUNT=MEMBER_AMOUNT - #{amount} where MEMBER_ID=#{MEMBER_ID}
+	</update>
+	
+	<update id="petsitterAmount" parameterType="map">
+		update petsitter set PETSITTER_AMOUNT=PETSITTER_AMOUNT + #{amount} where PETSITTER_ID=#{PETSITTER_ID}
+	</update>
+	
+	<update id="petsitterAmountRemove" parameterType="map">
+		update petsitter set PETSITTER_AMOUNT=PETSITTER_AMOUNT - #{amount} where PETSITTER_ID=#{PETSITTER_ID}
 	</update>
 </mapper>

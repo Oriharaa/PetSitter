@@ -1,10 +1,12 @@
 package com.spring.petsitter;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.http.util.TextUtils;
@@ -26,9 +28,6 @@ public class PetsitterController {
 
 	@Autowired
 	private MemberService memberService;
-
-	@Autowired
-	private UsinglistService usinglistService;
 	
 	@RequestMapping(value = "map_addr.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
@@ -227,18 +226,28 @@ public class PetsitterController {
 	}
 
 	@RequestMapping(value = "petsitterinfo.me")
-	public String petsitterinfo(HttpSession session, Model model) {
+	public String petsitterinfo(HttpSession session, Model model, HttpServletResponse response) throws Exception {
 		String id = (String) session.getAttribute("id");
-		PetsitterVO vo = petsitterService.selectPetsitter(id);
-
-		ArrayList<PetsitterUsinglistVO> list = new ArrayList<PetsitterUsinglistVO>();
-		UsinglistVO usinglist = new UsinglistVO();
-		usinglist.setPETSITTER_ID(id);
-		list = usinglistService.petsitterSelectUsingList(usinglist);
-		model.addAttribute("vo", vo);
-		model.addAttribute("list", list);
-		return "petsitterinfo";
-
+		
+		PrintWriter writer = response.getWriter();
+		if(id != null) {
+			PetsitterVO vo = petsitterService.selectPetsitter(id);
+			PetsitterVO petsitter = petsitterService.this_month_countAmount(id);
+			int m_count = petsitter.getM_count();
+			int m_amount = petsitter.getM_amount();
+			UsinglistVO usinglist = new UsinglistVO();
+			usinglist.setPETSITTER_ID(id);
+			model.addAttribute("vo", vo);
+			model.addAttribute("m_count", m_count); // 이번달 돌봄 수
+			model.addAttribute("m_amount", m_amount); // 이번달 돌봄 금액
+			return "petsitterinfo";
+		} else {
+			writer.write("<script>");
+			writer.write("alert('로그인 시간이 만료되어 자동 로그아웃 됩니다.')");
+			writer.write("location.href='loginform.me'");
+			writer.write("</script>");
+			return null;
+		}
 	}
 
 	@RequestMapping(value = "member_info_list.me")

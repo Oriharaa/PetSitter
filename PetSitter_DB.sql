@@ -176,6 +176,23 @@ create table MEMBER_BOARD(
     MEMBER_SECRET varchar2(2) default 'N' -- 비밀 글
 );
 
+create table report_article (
+    member_num number,
+    report_reason varchar2(4000),
+    member_id varchar2(30),
+    btype varchar2(100),
+    processing varchar2(10)
+);
+
+create table report_reply (
+   bno number,
+   rno number,
+   report_reason varchar2(4000),
+   member_id varchar2(30),
+   btype varchar2(100),
+   processing varchar2(10)
+);
+
 create table mreply(
     BNO number,
     RNO number,
@@ -203,10 +220,16 @@ create table COMMUNICATION_BOARD(
 create table COMMUNICATION_PHOTO_LIST(
     USINGLIST_NUM number(10),
     COMMUNICATION_PHOTO_FILE varchar2(100) default 'N', -- 업로드된 사진 파일
-    UPLOAD_DATE date default sysdate -- 업로드 일자
+    UPLOAD_DATE date default sysdate, -- 업로드 일자
+    PETSITTER_ID varchar2(30) -- 펫시터 회원 아이디
 );
 insert into communication_photo(usinglist_num, upload_date)
 values(16, to_date(sysdate, 'YYYY-MM-DD HH:mi'));
+
+select COMMUNICATION_PHOTO_FILE 
+from COMMUNICATION_PHOTO_LIST 
+where USINGLIST_NUM=2 and COMMUNICATION_PHOTO_FILE != 'N' 
+order by UPLOAD_DATE desc;
 
 create table pay(
     PAY_ID varchar2(30), -- 회원 아이디
@@ -376,4 +399,41 @@ from (select rownum as rnum, communication_board.*
 	  order by BOARD_NUM desc)
 where rnum >= 1 and rnum <= 5;
 
-select COMMUNICATION_PHOTO_LIST from communication_photo where usinglist_num = 16 and COMMUNICATION_PHOTO_LIST != 'N';
+select COMMUNICATION_PHOTO_FILE from communication_photo where usinglist_num = 16 and COMMUNICATION_PHOTO_FILE != 'N';
+
+select * from (select petsitter.*, rownum 
+               from petsitter 
+               where petsitter_date >= trunc(add_months(sysdate, -1)) and petsitter_score != 0 and petsitter_count != 0
+               order by petsitter_score desc, petsitter_count desc)
+where rownum = 1;
+
+insert into pay
+values('asdasd@naver.com', 37500, 'asd111', '7Tpbg9', sysdate, '위탁', to_date('2020-07-29 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-30 15:00', 'YYYY-MM-DD HH24:mi'), '결제 완료');
+
+insert into pay
+values('asdasd@naver.com', 120000, 'asd111', 'Eng82o', sysdate, '위탁', to_date('2020-07-25 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-29 15:00', 'YYYY-MM-DD HH24:mi'), '결제 완료');
+
+insert into pay
+values('asdasd@naver.com', 75000, 'asd111', 'iaPgv1', sysdate, '위탁', to_date('2020-07-21 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-23 15:00', 'YYYY-MM-DD HH24:mi'), '결제 완료');
+
+insert into usinglist
+values(1, 'asd111', '경기 성남시', 'asdasd@naver.com', 75000, to_date('2020-07-21 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-23 15:00', 'YYYY-MM-DD HH24:mi'), '위탁', 'iaPgv1');
+
+insert into usinglist
+values(2, 'asd111', '경기 성남시', 'asdasd@naver.com', 120000, to_date('2020-07-25 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-29 15:00', 'YYYY-MM-DD HH24:mi'), '위탁', 'Eng82o');
+
+insert into usinglist
+values(3, 'asd111', '경기 성남시', 'asdasd@naver.com', 37500, to_date('2020-07-29 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-30 15:00', 'YYYY-MM-DD HH24:mi'), '위탁', '7Tpbg9');
+
+insert into petsitter
+values('asd111', 'N', '볼리베어', '123123', '01011112222', 'asd111@asd111.com', 0, 0,	'N', '13494,경기 성남시 분당구 판교역로 233-1,101호',	'ㅎㅇㅎㅇㅎㅇ 볼리베어입니다', 15000,	1500, '픽업 가능,마당 존재,대형견 케어 가능,노견 케어 가능', '715744dd7f8347c6a7a87b0855129ece.jpg', '44353bd42b3849e8ae8849d4c60edc89.jpg', 'N', 'N', 'b0520cdf66144c63a6d989c192c21b3c.jpg,5b3deed78e754722ad2316740f95dff2.jpg', sysdate, '방문,위탁', 0, 'N', 0, 'N', 0, 127.109420804531, 37.4016559594071, 'N');
+
+insert into member
+values('asdasd@naver.com', '호이잇', '123123', '둘리', '01011112222', 'Green', 1, 37500, sysdate, 'cf58b71ad91c4eb1a4372de3b2bfdf62.png', 0, '남', '18132,경기 오산시 운암로 122,106동 1803호');
+commit;
+
+select sum(pay_amount) from pay where petsitter_id='asd222';
+
+select sum(list_price) sum, count(*) count 
+from usinglist 
+where petsitter_id='asd111' and list_start_date < sysdate;

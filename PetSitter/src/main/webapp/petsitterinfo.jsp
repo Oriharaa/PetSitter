@@ -5,10 +5,9 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 
 <%
-	String id = (String)session.getAttribute("id");
-	String name = (String)session.getAttribute("name");
 	PetsitterVO vo = (PetsitterVO)request.getAttribute("vo");
-	ArrayList<PetsitterUsinglistVO> list = (ArrayList<PetsitterUsinglistVO>)request.getAttribute("list");
+	int m_amount = (int)request.getAttribute("m_amount");
+	int m_count = (int)request.getAttribute("m_count");
 	String[] certFile = vo.getPETSITTER_PHOTO_CERT_FILE().split(",");
 	String[] certName = vo.getPETSITTER_CERT_LIST().split(",");
 	String[] homeFile = vo.getPETSITTER_PHOTO_HOME_FILE().split(",");
@@ -37,13 +36,6 @@
  	if(vo.getPETSITTER_GENDER().equals("여")){
  		wgender = "checked";
  	}
- 	
-    if(session.getAttribute("id") == "") {
-        out.println("<script>");
-        out.println("location.href = 'home.me'");
-        out.println("alert('로그인 시간이 만료되어 자동 로그아웃 됩니다.')");
-        out.println("</script>");
-     }
  	
  	int appeal;
  	if(appealFile[0].equals("N")){
@@ -722,13 +714,21 @@ function selectData(page){
        	       	output += '<td rowspan="3">'+item.list_NUM+'</td>';
        	       	output += '<td rowspan="3">'+item.list_PRICE+'원</td>';
        	       	output += '<td rowspan="3">'+item.list_COMMUNICATION+'</a></td></tr>';
-       	       	output += '<td><b>'+item.list_STATE+'</b></td>';
+       	       	if(item.list_STATE === "현재 돌봄 중") {
+       	       		output += '<td><b style="color: #0d47a1;">'+item.list_STATE+'</b></td>';
+       	       	}else{ 
+       	       		output += '<td><b>'+item.list_STATE+'</b></td>';
+       	       	}
 	       	    output += '<td><b>'+item.member_NICKNAME+'</b></td><td>~</td></tr>';
   	     	    output += '<tr style = "color : #5e5e5e;">';
   		     	output += '<td class="grade" style = "margin-bottom : 5px;">신고</td>';
    	        	output += '<td>'+item.member_TEL+'</td>';
    	        	output += '<td>'+item.list_STRING_END_DATE+'</td></tr>';
+   	        	if(item.list_STATE === "현재 돌봄 중") {
+   	        		$('#output').prepend(output);
+       	      }else{ 
        	       	$('#output').append(output);
+       	      }
        	  	});
         	for(var i =1; i <= num ; i++){
         		$('#output1').append('<a id='+i+' href="javascript:;" onclick="button_all(this.id);">'+i+'</a>&nbsp&nbsp');	
@@ -768,13 +768,21 @@ function button_7d(page){
        	       	output += '<td rowspan="3">'+item.list_NUM+'</td>';
        	       	output += '<td rowspan="3">'+item.list_PRICE+'원</td>';
        	       	output += '<td rowspan="3">'+item.list_COMMUNICATION+'</a></td></tr>';
-       	       	output += '<td><b>'+item.list_STATE+'</b></td>';
+       	     	if(item.list_STATE === "현재 돌봄 중") {
+    	       		output += '<td><b style="color: #0d47a1;">'+item.list_STATE+'</b></td>';
+    	       	}else{ 
+    	       		output += '<td><b>'+item.list_STATE+'</b></td>';
+    	       	}
 	       	    output += '<td><b>'+item.member_NICKNAME+'</b></td><td>~</td></tr>';
   	     	    output += '<tr style = "color : #5e5e5e;">';
   		     	output += '<td class="grade" style = "margin-bottom : 5px;">신고</td>';
    	        	output += '<td>'+item.member_TEL+'</td>';
    	        	output += '<td>'+item.list_STRING_END_DATE+'</td></tr>';
+   	        	if(item.list_STATE === "현재 돌봄 중") {
+   	        		$('#output').prepend(output);
+       	      }else{ 
        	       	$('#output').append(output);
+       	      }
        	  	});
         	for(var i =1; i <= num ; i++){
         		$('#output1').append('<a id='+i+' href="javascript:;" onclick="button_7d(this.id);">'+i+'</a>&nbsp&nbsp');	
@@ -814,13 +822,21 @@ function button_1m(page){
        	       	output += '<td rowspan="3">'+item.list_NUM+'</td>';
        	       	output += '<td rowspan="3">'+item.list_PRICE+'원</td>';
        	       	output += '<td rowspan="3">'+item.list_COMMUNICATION+'</a></td></tr>';
-       	       	output += '<td><b>'+item.list_STATE+'</b></td>';
+       	     	if(item.list_STATE === "현재 돌봄 중") {
+    	       		output += '<td><b style="color: #0d47a1;">'+item.list_STATE+'</b></td>';
+    	       	}else{ 
+    	       		output += '<td><b>'+item.list_STATE+'</b></td>';
+    	       	}
 	       	    output += '<td><b>'+item.member_NICKNAME+'</b></td><td>~</td></tr>';
   	     	    output += '<tr style = "color : #5e5e5e;">';
   		     	output += '<td class="grade" style = "margin-bottom : 5px;">신고</td>';
    	        	output += '<td>'+item.member_TEL+'</td>';
    	        	output += '<td>'+item.list_STRING_END_DATE+'</td></tr>';
+   	        	if(item.list_STATE === "현재 돌봄 중") {
+   	        		$('#output').prepend(output);
+       	      }else{ 
        	       	$('#output').append(output);
+       	      }
        	  	});
         	for(var i =1; i <= num ; i++){
         		$('#output1').append('<a id='+i+' href="javascript:;" onclick="button_1m(this.id);">'+i+'</a>&nbsp&nbsp');	
@@ -860,13 +876,21 @@ function button_3m(page){
        	       	output += '<td rowspan="3">'+item.list_NUM+'</td>';
        	       	output += '<td rowspan="3">'+item.list_PRICE+'원</td>';
        	       	output += '<td rowspan="3">'+item.list_COMMUNICATION+'</a></td></tr>';
-       	       	output += '<td><b>'+item.list_STATE+'</b></td>';
+       	    	 if(item.list_STATE === "현재 돌봄 중") {
+    	       		output += '<td><b style="color: #0d47a1;">'+item.list_STATE+'</b></td>';
+    	       	}else{ 
+    	       		output += '<td><b>'+item.list_STATE+'</b></td>';
+    	       	}
 	       	    output += '<td><b>'+item.member_NICKNAME+'</b></td><td>~</td></tr>';
   	     	    output += '<tr style = "color : #5e5e5e;">';
   		     	output += '<td class="grade" style = "margin-bottom : 5px;">신고</td>';
    	        	output += '<td>'+item.member_TEL+'</td>';
    	        	output += '<td>'+item.list_STRING_END_DATE+'</td></tr>';
+   	        	if(item.list_STATE === "현재 돌봄 중") {
+   	        		$('#output').prepend(output);
+       	      }else{ 
        	       	$('#output').append(output);
+       	      }
        	  	});
         	for(var i =1; i <= num ; i++){
         		$('#output1').append('<a id='+i+' href="javascript:;" onclick="button_3m(this.id);">'+i+'</a>&nbsp&nbsp');	
@@ -906,13 +930,21 @@ function button_all(page){
        	       	output += '<td rowspan="3">'+item.list_NUM+'</td>';
        	       	output += '<td rowspan="3">'+item.list_PRICE+'원</td>';
        	       	output += '<td rowspan="3">'+item.list_COMMUNICATION+'</a></td></tr>';
-       	       	output += '<td><b>'+item.list_STATE+'</b></td>';
+       	    	 if(item.list_STATE === "현재 돌봄 중") {
+    	       		output += '<td><b style="color: #0d47a1;">'+item.list_STATE+'</b></td>';
+    	       	}else{ 
+    	       		output += '<td><b>'+item.list_STATE+'</b></td>';
+    	       	}
 	       	    output += '<td><b>'+item.member_NICKNAME+'</b></td><td>~</td></tr>';
   	     	    output += '<tr style = "color : #5e5e5e;">';
   		     	output += '<td class="grade" style = "margin-bottom : 5px;">신고</td>';
    	        	output += '<td>'+item.member_TEL+'</td>';
    	        	output += '<td>'+item.list_STRING_END_DATE+'</td></tr>';
+   	        	if(item.list_STATE === "현재 돌봄 중") {
+   	        		$('#output').prepend(output);
+       	      }else{ 
        	       	$('#output').append(output);
+       	      }
         	});
         	for(var i =1; i <= num ; i++){
         		$('#output1').append('<a id='+i+' href="javascript:;" onclick="button_all(this.id);">'+i+'</a>&nbsp&nbsp');	
@@ -954,13 +986,21 @@ function button_select(page){
        	       	output += '<td rowspan="3">'+item.list_NUM+'</td>';
        	       	output += '<td rowspan="3">'+item.list_PRICE+'원</td>';
        	       	output += '<td rowspan="3">'+item.list_COMMUNICATION+'</a></td></tr>';
-       	       	output += '<td><b>'+item.list_STATE+'</b></td>';
+	       	     	if(item.list_STATE === "현재 돌봄 중") {
+	    	       		output += '<td><b style="color: #0d47a1;">'+item.list_STATE+'</b></td>';
+	    	       	}else{ 
+	    	       		output += '<td><b>'+item.list_STATE+'</b></td>';
+	    	       	}
 	       	    output += '<td><b>'+item.member_NICKNAME+'</b></td><td>~</td></tr>';
   	     	    output += '<tr style = "color : #5e5e5e;">';
   		     	output += '<td class="grade" style = "margin-bottom : 5px;">신고</td>';
    	        	output += '<td>'+item.member_TEL+'</td>';
    	        	output += '<td>'+item.list_STRING_END_DATE+'</td></tr>';
+   	        	if(item.list_STATE === "현재 돌봄 중") {
+   	        		$('#output').prepend(output);
+       	      }else{ 
        	       	$('#output').append(output);
+       	      }
        	  	});
         	for(var i =1; i <= num ; i++){
         		$('#output1').append('<a id='+i+' href="javascript:;" onclick="button_select(this.id);">'+i+'</a>&nbsp&nbsp');	
@@ -1490,7 +1530,7 @@ function handleImgFileSelect11(e){
 			    <div class="mpbody">
 				  <div class="row" style = "margin-to">
 				  <div class = "col-04" style = "padding : 0 15px;">
-				    <h2 class="mpname float-left"><%=name %></h2>
+				    <h2 class="mpname float-left">${name }</h2>
 						<h5 class="mpneem float-none">님</h5>
 				    <h3 class="mpnick">닉네임 : <%=vo.getPETSITTER_NICKNAME() %></h3>
 				    <h5 class="mpgrade">등급 : <%=vo.getPETSITTER_RANK() %>
@@ -1526,19 +1566,19 @@ function handleImgFileSelect11(e){
 			<div class="mptext">
 			  <div class="row">
 			  <div class = "col-6">
-				<h5 class="font-size-15">돌본 횟수 : <%=vo.getPETSITTER_COUNT() %></h5>
+				<h5 class="font-size-15">돌봄 수 : <%=vo.getPETSITTER_COUNT() %></h5>
 				</div>
 				<div class = "col-6">
-				<h5 class="font-size-15">이번달 돌본 횟수 : </h5>
+				<h5 class="font-size-15">이번달 돌봄 수 : <%=m_count %></h5>
 				</div>
 				<div class = "col-12">
 				<hr class ="line" color="#949494" width="100%">
 				</div>
 				<div class = "col-6">
-				<h5 class="font-size-15">총 매출금액 : <%=vo.getPETSITTER_AMOUNT() %></h5>
+				<h5 class="font-size-15">총 돌봄금액 : <%=vo.getPETSITTER_AMOUNT() %></h5>
 				</div>
 				<div class = "col-6">
-				<h5 class="font-size-15">이번달 매출 금액: </h5>
+				<h5 class="font-size-15">이번달 돌봄 금액: <%=m_amount %></h5>
 				</div>
 				<div class = "col-12">
 				<hr class ="line" color="#949494" width="100%">
@@ -1572,7 +1612,7 @@ function handleImgFileSelect11(e){
 		  </div>
 		</div>
 		<form id = "search_form" method="post">
-		<input type="hidden" name = "PETSITTER_ID" value = '<%=id %>'>
+		<input type="hidden" name = "PETSITTER_ID" value = '${id }'>
 		<div class = "col-3 float-left" style = "padding : 8px 0 0 3px">	
 	      	<input type="text" name = "STRING_STARTDATE" id="datePicker_start1" class="form-control dateP" placeholder="시작 날짜" style = "height : 41px;" width ="150px" autocomplete=off>
 	    </div>

@@ -57,17 +57,17 @@
 	margin-bottom:5%;
 	}
 	
-	.bottom_body1, .bottom_body2, .bottom_body3{
+	.bottom_body{
 	text-align:center;	
 	}
 	
 	.bottom_imgs{
-		width:25.226%;
+		width:90%;
 		height:280px;
 		margin:1%;
 	}
 	
-	.bottom_img1, .bottom_img2, .bottom_img3{
+	.bottom_img{
 		width:100%;
 		margin-bottom:1%;
 	}

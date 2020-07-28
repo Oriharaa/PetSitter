@@ -39,6 +39,8 @@ public class CommunicationBoardController {
 		
 		ArrayList<CommunicationBoardVO> board_list = communicationboardService.getQuesionList(member, "N", usinglist_num, page, limit);
 		
+		String petsitter_id = communicationboardService.getUsingList_Member(usinglist_num);
+		
 		SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		for(int i = 0; i < board_list.size(); i++) {
 			board_list.get(i).setBOARD_REALDATE(new_Format.format(board_list.get(i).getBOARD_DATE()));
@@ -61,6 +63,7 @@ public class CommunicationBoardController {
 		model.addAttribute("listcount", listcount); // 글 수
 		model.addAttribute("board_list", board_list);
 		model.addAttribute("usinglist_num", usinglist_num);
+		model.addAttribute("petsitter_id", petsitter_id);
 		return "board/communication";
 	}
 	
@@ -68,17 +71,17 @@ public class CommunicationBoardController {
 	public String communication_petsitter(@RequestParam(value = "usinglist_num") int usinglist_num, Model model, CommunicationBoardVO boardvo,
 								HttpSession session,
 								@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
-		String petsitter = (String)session.getAttribute("id");
+		String petsitter_id = (String)session.getAttribute("id");
 		int limit = 5;
 		
-		ArrayList<CommunicationBoardVO> board_list = communicationboardService.getQuesionList("N", petsitter, usinglist_num, page, limit);
+		ArrayList<CommunicationBoardVO> board_list = communicationboardService.getQuesionList("N", petsitter_id, usinglist_num, page, limit);
 		
 		SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		for(int i = 0; i < board_list.size(); i++) {
 			board_list.get(i).setBOARD_REALDATE(new_Format.format(board_list.get(i).getBOARD_DATE()));
 		}
 		
-		int listcount = communicationboardService.getListCount("N", petsitter, usinglist_num);
+		int listcount = communicationboardService.getListCount("N", petsitter_id, usinglist_num);
 
 		int maxpage = (int) ((double)listcount / limit + 0.95);
 
@@ -95,6 +98,7 @@ public class CommunicationBoardController {
 		model.addAttribute("listcount", listcount); // 글 수
 		model.addAttribute("board_list", board_list);
 		model.addAttribute("usinglist_num", usinglist_num);
+		model.addAttribute("petsitter_id", petsitter_id);
 		return "board/communication";
 	}
 	
@@ -156,8 +160,23 @@ public class CommunicationBoardController {
 	@ResponseBody
 	public ArrayList<String> communicationPhotoList(int id) {
 		ArrayList<String> photo_list = communicationboardService.getPhotoList(id);
+		ArrayList<String> real_photo_list = new ArrayList<String>();
+
+		for(int i = 0; i < photo_list.size(); i++) {
+			String[] photo = photo_list.get(i).split(",", 3);
+			if(photo[0].equals("N")) {
+				break;
+			}
+			real_photo_list.add(photo[0]);
+			if(photo.length == 2) {
+				real_photo_list.add(photo[1]);
+			}
+			if(photo.length == 3) {
+				real_photo_list.add(photo[2]);
+			}
+		}
 		
-		return photo_list;
+		return real_photo_list;
 	}
 	
 }

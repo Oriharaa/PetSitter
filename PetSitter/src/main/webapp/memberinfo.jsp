@@ -31,13 +31,6 @@
 		
 	}
 	
-	// 세션 종료시 홈으로
-	if(session.getAttribute("id") == "") {
-		out.println("<script>");
-		out.println("alert('로그인 시간이 만료되어 자동 로그아웃 됩니다.')");
-		out.println("location.href='logout.me'");
-		out.println("</script>");
-	}
 %>
 <!doctype html>
 <html lang="en">

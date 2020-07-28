@@ -10,7 +10,7 @@
 	int startpage = ((Integer)request.getAttribute("startpage")).intValue();
 	int endpage = ((Integer)request.getAttribute("endpage")).intValue();
 	int usinglist_num = ((Integer)request.getAttribute("usinglist_num")).intValue();
-	
+	String petsitter_id = (String)request.getAttribute("petsitter_id");
 	// 세션 종료시 홈으로
 	if(session.getAttribute("id") == null) {
 		out.println("<script>");
@@ -329,7 +329,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								<%if(nowpage <= 1) { %>
 								<
 								<%}else { %>
-								<a href="./communication_member.bo?usinglist_num=<%=usinglist_num %>&page=<%=nowpage - 1 %>"> < </a>
+								<a href="./communication_member.bo?usinglist_num=<%=usinglist_num %>&page=<%=nowpage - 1 %>"> &#60; </a>
 								<%} %>
 								
 								<%
@@ -345,7 +345,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								<%if(nowpage >= maxpage) { %>
 								>
 								<%}else { %>
-								<a href = "./communication_member.bo?usinglist_num=<%=usinglist_num %>&page=<%=nowpage + 1 %>"> > </a>
+								<a href = "./communication_member.bo?usinglist_num=<%=usinglist_num %>&page=<%=nowpage + 1 %>"> &#62; </a>
 								<%} %> 
 							</td>
 						</tr>
@@ -373,8 +373,19 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	<%
 		}
 	%>
-	<div class="container" id="photo_list_input">
+	<div class="container">
+		<div class="row"  id="photo_list_input" style="margin: 10px auto;">
+		</div>
+	</div>
 	
+	<div class="row justify-content-center">
+		<div class="col">
+			<form>
+				<div class="bottom_button">
+					<button type="button" class="photo_more" id="photo_more" onclick="plus_photo()" style="width: 150px;">사진 더보기</button>
+				</div>
+			</form>
+		</div>
 	</div>
 </section>      
 
@@ -394,11 +405,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       	<div class="row">
       		<div class="col-12">
       			<table class="table table-sm table-hover table-striped" style="font-size: 15px;">
+      				<input type="hidden" name="PETSITTER_ID" value="<%=petsitter_id %>">
       				<tr>
       					<th height="70px">돌봄 사진 1</th>
       					<td class = "tleft">
 	      					<div class="filebox">
-		      					<div class="img_wrap">
+		      					<div class="img_wrap" style="margin-bottom: 10px;">
 													<img id="dolbom_img1" class="dolbom_img1" style="display: none; width: 130px;"/>
 										</div> 
 		      					<input class="upload-name01" value="파일선택" disabled="disabled"> 
@@ -412,7 +424,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       					<th height="70px">돌봄 사진 2</th>
       					<td class = "tleft">
 	      					<div class="filebox">
-		      					<div class="img_wrap">
+		      					<div class="img_wrap" style="margin-bottom: 10px;">
 													<img id="dolbom_img2" class="dolbom_img2" style="display: none; width: 130px;"/>
 										</div> 
 		      					<input class="upload-name02" value="파일선택" disabled="disabled"> 
@@ -426,7 +438,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       					<th height="70px">돌봄 사진 3</th>
       					<td class = "tleft">
 	      					<div class="filebox">
-		      					<div class="img_wrap">
+		      					<div class="img_wrap" style="margin-bottom: 10px;">
 													<img id="dolbom_img3" class="dolbom_img3" style="display: none; width: 130px;"/>
 										</div> 
 		      					<input class="upload-name03" value="파일선택" disabled="disabled"> 
@@ -516,8 +528,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 		
 		<script>
+			let num = 6;
+			let num2 = 12;
 			function listDate() {
-				
 				$.ajax({
 					url: '/petsitter/getPhotoListJSON.bo',
 					type: 'post',
@@ -530,50 +543,28 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						
 						var i = 1;
 						$.each(data, function(index, item) {
-							var photo_list = item.split(',', 3);
-							
 							var output = '';
-							
-							output += '<div class="row justify-content-center">';
-							output += '<div class="col">';
-							output += '<div class="bottom_body'+(index+1)+'">';
-							output += '<div class="bottom_img'+(index+1)+'">';
-							if(photo_list[2] != null) {
-								output += '<img src="/filepath/' + photo_list[0] + '" class="bottom_imgs" id="botom_imgs'+i+'" alt="...">';
-								i += 1;
-								output += '<img src="/filepath/' + photo_list[1] + '" class="bottom_imgs" id="botom_imgs'+i+'" alt="...">';
-								i += 1;
-								output += '<img src="/filepath/' + photo_list[2] + '" class="bottom_imgs" id="botom_imgs'+i+'" alt="...">';
-							} else if(photo_list[2] == null && photo_list[1] != null) {
-								output += '<img src="/filepath/' + photo_list[0] + '" class="bottom_imgs" id="botom_imgs'+i+'" alt="...">';
-								i += 1;
-								output += '<img src="/filepath/' + photo_list[1] + '" class="bottom_imgs" id="botom_imgs'+i+'" alt="...">';
-							} else if(photo_list[1] == null) {
-								output += '<img src="/filepath/' + photo_list[0] + '" class="bottom_imgs" id="botom_imgs'+i+'" alt="...">';
-							} else if(photo_list[0] == null) {
-								output += '<img src="resources/images/dog03.jpg" class="bottom_imgs" id="botom_imgs'+i+'" alt="...">';
+							if(index < 6) {
+								output += '<div class="col-md-4">';
+								output += '<div class="row justify-content-center">';
+								output += '<div class="col">';
+								output += '<div class="bottom_body'+(index+1)+'">';
+								output += '<div class="bottom_img'+(index+1)+'" style="text-align: center;">';
+								if(item == "N") {
+									output += '<img src="resources/images/dog03.jpg" class="bottom_imgs" id="botom_imgs'+i+'" alt="...">';
+								} else {
+									output += '<img src="/filepath/' + item + '" class="bottom_imgs" id="botom_imgs'+i+'" alt="...">';
+								}
+								output += '</div>';
+								output += '</div>';
+								output += '</div>';
+								output += '</div>';
+								output += '</div>';
 							}
-							output += '</div>';
-							output += '</div>';
-							output += '</div>';
-							output += '</div>';
 							
 							i++;
 							$('#photo_list_input').append(output);
 						});
-						var photo_more = '';
-						
-						photo_more += '<div class="row justify-content-center">';
-						photo_more += '<div class="col">';
-						photo_more += '<form>';
-						photo_more += '<div class="bottom_button">';
-						photo_more += '<button type="button" class="photo_more" id="photo_more">사진 더보기</button>';
-						photo_more += '</div>';
-						photo_more += '</form>';
-						photo_more += '</div>';
-						photo_more += '</div>';
-						
-						$('#photo_list_input').append(photo_more);
 					},
 					error: function() {
 						alert("ajax 실패");
@@ -584,7 +575,59 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			$(function() {
 				listDate();
 				
-				
+			});
+			
+			function plus_photo() {
+				$.ajax({
+					url: '/petsitter/getPhotoListJSON.bo',
+					type: 'post',
+					data: {
+						id: <%=usinglist_num %>
+					},
+					dataType: 'json',
+					contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+					success: function(data) {
+						var i = 7;
+						$.each(data, function(index, item) {
+							var output = '';
+							if(index >= num && index < num2) {
+								output += '<div class="row justify-content-center">';
+								output += '<div class="col">';
+								output += '<div class="bottom_body'+(index+1)+'">';
+								output += '<div class="bottom_img'+(index+1)+'">';
+								if(item == "N") {
+									output += '<img src="resources/images/dog03.jpg" class="bottom_imgs" id="botom_imgs'+i+'" alt="...">';
+								} else {
+									output += '<img src="/filepath/' + item + '" class="bottom_imgs" id="botom_imgs'+i+'" alt="...">';
+								}
+								output += '</div>';
+								output += '</div>';
+								output += '</div>';
+								output += '</div>';
+							}
+							
+							i++;
+							$('#photo_list_input').append(output);
+						});
+						num2 += 6; //다음 더보기시 사진 6개 추가 생성
+				    num += 6; //다음 더보기시 사진 6개 추가 생성
+					},
+					error: function() {
+						alert('더보기 실패');
+					}
+				});
+				//기본 이벤트 제거
+				event.preventDefault();
+			}
+			
+			$("#photo_more").click(function() {
+				   //현재 스크롤 값 구하기
+				   var scrollValue = $(document).scrollTop();
+				   //지정값으로 가기
+				   $('html, body').animate({
+				         scrollTop : scrollValue
+				     }, );
+				     return false;
 			});
 		</script>
 		

@@ -780,19 +780,28 @@
 		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
 		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
 		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		   				reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
 						}
 		   			if(item.review_SCORE == 3){
 		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
 		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
 		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		   				reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		   				reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
 						}   
 		   			if(item.review_SCORE == 2){
 		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
 		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		   				reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		   				reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		   				reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
 						}
 		   			if(item.review_SCORE == 1){
 		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
-		   				reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		   				reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		   				reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		   				reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		   				reviewForm += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
 						}
 	   	    	if(item.review_SCORE > 4 && item.review_SCORE < 5){
 							reviewForm += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
@@ -1300,9 +1309,6 @@
 					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
 				});
 			});
-			
-			
-			
 			
 		</script>
 </body>

@@ -14,9 +14,11 @@ public interface PetsitterService {
 	public int petsitterApproval(PetsitterVO petsitter);
 	public int petsitterRefusal(PetsitterVO petsitter);
 	public void petsitterscoreupdate(String id, double score);
+	public void petsitterCountRank(PetsitterVO petsitter);
 	public int petsitterUpdate(PetsitterVO petsitter);
 	public int reflyUpdate(ReviewBoardVO vo);
 	public int petsitterNicknameCheck(PetsitterVO petsitter);
+	public PetsitterVO this_month_countAmount(String id); // 이번달 돌봄횟수, 매출
 	
 	// 신규 추천 펫시터 
 	public ArrayList<PetsitterVO> petsitterList_date();

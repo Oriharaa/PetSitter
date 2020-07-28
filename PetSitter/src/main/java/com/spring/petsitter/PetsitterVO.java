@@ -77,8 +77,22 @@ public class PetsitterVO {
 	private String[] PETSITTER_TYPE_LIST;
 	private String PETSITTER_TYPE;
 	private String PETSITTER_GENDER;
+	private int m_count; // 이번달 돌본 횟수 (컬럼X)
+	private int m_amount; // 이번달 매출 (컬럼X)
 	
 	
+	public int getM_count() {
+		return m_count;
+	}
+	public void setM_count(int m_count) {
+		this.m_count = m_count;
+	}
+	public int getM_amount() {
+		return m_amount;
+	}
+	public void setM_amount(int m_amount) {
+		this.m_amount = m_amount;
+	}
 	public String getPETSITTER_SAFEADDR() {
 		return PETSITTER_SAFEADDR;
 	}

@@ -18,8 +18,8 @@ public class MemberUsinglistVO {
 	private String LIST_START_DATE;
 	private String LIST_END_DATE;
 	private int LIST_PRICE;
-	private String LIST_ING; // 현재 이용중, 이용 완료
-	private String LIST_COMPLETE; // 리뷰 남기기, 펫시터와의 소통
+	private String LIST_ING; // 현재 이용중, 이용 완료, 위탁 대기중
+	private String LIST_COMPLETE; // 리뷰 남기기, 펫시터와의 소통, 리뷰 완료, 예약 취소
 	private String MERCHANT_UID;
 	
 	public int getLISTCOUNT() {

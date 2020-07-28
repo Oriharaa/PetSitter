@@ -31,7 +31,10 @@
 						type: "post",
 						contentType : 'application/x-www-form-urlencoded; charset=utf-8',
 						data: {
-							merchant_uid: "<%=payvo.getMERCHANT_UID() %>"
+							merchant_uid: "<%=payvo.getMERCHANT_UID() %>",
+							amount: <%=payvo.getPAY_AMOUNT() %>,
+							m_id: "<%=payvo.getPAY_ID() %>",
+							p_id: "<%=payvo.getPETSITTER_ID() %>"
 						},
 						success: function() {
 							alert("결제 취소 성공");

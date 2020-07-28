@@ -17,7 +17,7 @@
 	
 	<select id="getPhotoList" parameterType="int" resultType="String">
 		select COMMUNICATION_PHOTO_FILE 
-		from COMMUNICATION_PHOTO 
+		from COMMUNICATION_PHOTO_LIST 
 		where USINGLIST_NUM=#{USINGLIST_NUM} and COMMUNICATION_PHOTO_FILE != 'N' 
 		order by UPLOAD_DATE desc
 	</select>
@@ -51,7 +51,7 @@
 	</insert>
 
 	<insert id="uploadPhoto" parameterType="com.spring.petsitter.board.CommunicationBoardVO">
-		insert into communication_photo
-		values(#{USINGLIST_NUM}, #{COMMUNICATION_PHOTO_FILE}, sysdate)
+		insert into communication_photo_list
+		values(#{USINGLIST_NUM}, #{COMMUNICATION_PHOTO_FILE}, sysdate, #{PETSITTER_ID})
 	</insert>
 </mapper>

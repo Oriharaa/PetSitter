@@ -17,8 +17,6 @@ public class PetsitterServiceImpl implements PetsitterService{
 	@Autowired
 	private SqlSession sqlSession;
 	
-	
-	
 	@Override
 	public int petsitterNicknameCheck(PetsitterVO petsitter) {
 		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
@@ -90,7 +88,13 @@ public class PetsitterServiceImpl implements PetsitterService{
 		int res = petsitterMapper.petsitterRefusal(petsitter);
 		return res;
 	}
-
+	
+	@Override
+	public void petsitterCountRank(PetsitterVO petsitter) {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		petsitterMapper.petsitterCountRank(petsitter);
+	}
+	
 	// 위탁 펫시터 목록
 	@Override
 	public List<PetsitterVO> petsitterList_We(String btn1, String btn2, String btn3, String btn4, 
@@ -139,6 +143,13 @@ public class PetsitterServiceImpl implements PetsitterService{
 	public PetsitterVO petsitter_thisMonth_count() {
 		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
 		PetsitterVO petsitter = petsitterMapper.petsitter_thisMonth_count();
+		return petsitter;
+	}
+
+	@Override
+	public PetsitterVO this_month_countAmount(String id) {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		PetsitterVO petsitter = petsitterMapper.this_month_countAmount(id);
 		return petsitter;
 	}
 }

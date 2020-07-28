@@ -4,6 +4,11 @@
 	 
 <mapper namespace = "com.spring.mapper.PetsitterMapper">
 	
+	<resultMap type="PetsitterVO" id="thisMonthCountAmount">
+		<result property="m_count" column="count" />
+		<result property="m_amount" column="sum" />
+	</resultMap>
+	
 	<select id="petsitterCheck" parameterType = "PetsitterVO" resultType = "int">
 		select count(*) from petsitter where PETSITTER_ID = #{PETSITTER_ID} and PETSITTER_PW = #{PETSITTER_PW}
 	</select>
@@ -24,7 +29,7 @@
 		select * from (select petsitter.*, rownum 
                from petsitter 
                where petsitter_date >= trunc(add_months(sysdate, -1)) and petsitter_score != 0 and petsitter_count != 0
-               order by petsitter_score desc, petsitter_count desc)
+               order by petsitter_score desc, petsitter_count desc, petsitter_amount desc)
 		where rownum = 1
 		]]>
 	</select>
@@ -44,7 +49,7 @@
 		select * from (select petsitter.*, rownum
 									 from petsitter
 									 where petsitter_date >= trunc(add_months(sysdate, -1)) and petsitter_score != 0 and petsitter_count != 0
-									 order by petsitter_count desc)
+									 order by petsitter_count desc, petsitter_amount desc)
 		where rownum = 1
 		]]>
 	</select>
@@ -55,6 +60,12 @@
 	
 	<select id="selectPetsitter" parameterType="String" resultType="PetsitterVO">
 		select * from petsitter where PETSITTER_ID = #{PETSITTER_ID}
+	</select>
+	
+	<select id="this_month_countAmount" parameterType="String" resultMap="thisMonthCountAmount">
+		<![CDATA[
+		select sum(list_price) sum, count(*) count from usinglist where PETSITTER_ID=#{PETSITTER_ID} and list_start_date < sysdate
+		]]>
 	</select>
 	
 	<insert id = "petsitterSchedule" parameterType = "PetsitterScheduleVO">
@@ -100,4 +111,9 @@
 	<update id="petsitterscoreupdate" parameterType="map">
 		update petsitter set PETSITTER_SCORE=#{PETSITTER_SCORE}, PETSITTER_REVIEWCOUNT=PETSITTER_REVIEWCOUNT+1 where PETSITTER_ID=#{PETSITTER_ID}
 	</update>
+	
+	<update id="petsitterCountRank" parameterType="PetsitterVO">
+		update petsitter set PETSITTER_COUNT=#{PETSITTER_COUNT}, PETSITTER_RANK=#{PETSITTER_RANK} where PETSITTER_ID=#{PETSITTER_ID}
+	</update>
+	
 </mapper>

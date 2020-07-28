@@ -30,4 +30,28 @@ public class PayServiceImpl implements PayService {
 		PayMapper payMapper = sqlsession.getMapper(PayMapper.class);
 		payMapper.updatePay(id);
 	}
+
+	@Override
+	public void memberAmount(int amount, String m_id) {
+		PayMapper payMapper = sqlsession.getMapper(PayMapper.class);
+		payMapper.memberAmount(amount, m_id);
+	}
+
+	@Override
+	public void memberAmountRemove(int amount, String m_id) {
+		PayMapper payMapper = sqlsession.getMapper(PayMapper.class);
+		payMapper.memberAmountRemove(amount, m_id);
+	}
+
+	@Override
+	public void petsitterAmount(int amount, String p_id) {
+		PayMapper payMapper = sqlsession.getMapper(PayMapper.class);
+		payMapper.petsitterAmount(amount, p_id);
+	}
+
+	@Override
+	public void petsitterAmountRemove(int amount, String p_id) {
+		PayMapper payMapper = sqlsession.getMapper(PayMapper.class);
+		payMapper.petsitterAmountRemove(amount, p_id);
+	}
 }

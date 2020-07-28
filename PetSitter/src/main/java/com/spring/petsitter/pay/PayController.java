@@ -42,6 +42,8 @@ public class PayController {
 			payvo.setSTART_DATE(pay_start_date[0] + " " + pay_start_date[1]);
 			payvo.setEND_DATE(pay_end_date[0] + " " + pay_end_date[1]);
 			payService.insertPay(payvo);
+			payService.memberAmount(payvo.getPAY_AMOUNT(), payvo.getPAY_ID());
+			payService.petsitterAmount(payvo.getPAY_AMOUNT(), payvo.getPETSITTER_ID());
 			
 			PetsitterVO petsitter = petsitterService.selectPetsitter(payvo.getPETSITTER_ID());
 			String addr = petsitter.getPETSITTER_ADDRESS().split(",")[1].split(" ")[0] + " " + petsitter.getPETSITTER_ADDRESS().split(",")[1].split(" ")[1];
@@ -93,7 +95,6 @@ public class PayController {
 	@RequestMapping(value = "payCancel.br", method = RequestMethod.POST)
 	@ResponseBody
 	public String cancel(String merchant_uid) {
-		System.out.println("merchant_uid=" + merchant_uid);
 		PayCheck obj = new PayCheck();
 		String token = obj.getImportToken();
 		int res = obj.cancelPayment(token, merchant_uid);
@@ -105,7 +106,9 @@ public class PayController {
 	
 	@RequestMapping(value = "payUpdate.br", method = RequestMethod.POST)
 	@ResponseBody
-	public void payUpdate(String merchant_uid) {
+	public void payUpdate(String merchant_uid, int amount, String m_id, String p_id) {
 		payService.updatePay(merchant_uid);
+		payService.memberAmountRemove(amount, m_id);
+		payService.petsitterAmountRemove(amount, p_id);
 	}
 }
