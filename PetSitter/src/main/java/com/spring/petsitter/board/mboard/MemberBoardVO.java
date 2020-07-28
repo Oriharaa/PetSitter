@@ -7,8 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 /* */
 
 /*
-  CREATE TABLE "MEMBER_MEMBER" 
-   (	"MEMBER_NUM" NUMBER(10,0), -- 회원 게시판 글 번호
+  CREATE TABLE "MEMBER_BOARD" (	
+  "MEMBER_NUM" NUMBER(10,0), -- 회원 게시판 글 번호
 	"MEMBER_ID" VARCHAR2(20 BYTE), -- 회원 아이디
 	"MEMBER_SUBJECT" VARCHAR2(100 BYTE), -- 글 제목
 	"MEMBER_CONTENT" VARCHAR2(4000 BYTE), -- 글 내용

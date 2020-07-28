@@ -80,6 +80,28 @@ public class AdminController {
 		
 		return "admin/dist/order_closed";
 	}
+
+	/* 진행중 거래 페이지 */
+	@RequestMapping(value = "admin_orderProgress.me")
+	public String admin_order_progress(Model model) {
+
+		PayVO pvo = new PayVO();
+		List<PayVO> pvoList = payService.getPayList(pvo);
+		model.addAttribute("pvoList", pvoList);	
+		
+		return "admin/dist/order_progress";
+	}
+	
+	/* 예약된 거래 페이지 */
+	@RequestMapping(value = "admin_orderReserved.me")
+	public String admin_order_reserved(Model model) {
+
+		PayVO pvo = new PayVO();
+		List<PayVO> pvoList = payService.getPayList(pvo);
+		model.addAttribute("pvoList", pvoList);	
+		
+		return "admin/dist/order_reserved";
+	}
 	
 	/* 글 신고 페이지 */
 	@RequestMapping(value = "/admin_reportArticle.me")

@@ -8,12 +8,24 @@
 <%@ page import="javax.servlet.*,java.text.*" %>
 <%
 MemberBoardVO mboard = (MemberBoardVO)request.getAttribute("vo");
-System.out.println(mboard.getMEMBER_SUBJECT());
-//세션 종료시 홈으로
+
+/* 세션 id값이 null일 경우 로그인 요구 */
 if(session.getAttribute("id") == null) {
    out.println("<script>");
    out.println("location.href = 'loginform.me'");
    out.println("</script>");
+}
+
+String id = (String)session.getAttribute("id");
+String name = (String)session.getAttribute("name");
+String rank = (String)session.getAttribute("rank");
+String btype = "mboard";
+
+/* 글쓴이가 다르고 회원 등급이 manager도 admin도 아닐 경우 메인페이지로 리다이렉트 */
+if(!(mboard.getMEMBER_ID().equals(id)) && !(rank.equals("manager")) && !(rank.equals("admin"))) {
+	out.println("<script>");
+  out.println("location.href = 'home.me'");
+  out.println("</script>");
 }
 %>
 
@@ -132,7 +144,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
   	
   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-    <title>Depot &mdash;Website Template by Colorlib</title>
+    <title>이용자 상담/문의 | PetSitter</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     

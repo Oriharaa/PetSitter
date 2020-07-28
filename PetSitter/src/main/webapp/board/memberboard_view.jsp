@@ -11,11 +11,6 @@
 	MemberBoardVO mboard = (MemberBoardVO)request.getAttribute("vo");
 	ReportArticleVO report = (ReportArticleVO)request.getAttribute("report");	
 	
-	String id = (String)session.getAttribute("id");
-	String name = (String)session.getAttribute("name");
-	String rank = (String)session.getAttribute("rank");
-	String btype = "mboard";
-	
 	List<ReportArticleVO> ralist = (List<ReportArticleVO>)request.getAttribute("ra_list");
 	List<ReportReplyVO> rrlist = (List<ReportReplyVO>)request.getAttribute("rr_list");
 	
@@ -25,11 +20,23 @@
      out.println("location.href = 'loginform.me'");
      out.println("</script>");
   }
-	if(mboard.getMEMBER_SECRET().equals("on") && !(mboard.getMEMBER_ID().equals(id))) {
-		out.println("<script>");
-		out.println("alert('권한이 없습니다.')");
-		out.println("history.go(-1)");
-		out.println("</script>");
+
+	String id = (String)session.getAttribute("id");
+	String name = (String)session.getAttribute("name");
+	String rank = (String)session.getAttribute("rank");
+	String btype = "mboard";
+	
+	if(mboard.getMEMBER_SECRET().equals("on")) {
+		
+		if((mboard.getMEMBER_ID().equals(id)) || rank.equals("manager") || rank.equals("admin")) {
+			System.out.println("허가");
+		} else {
+			out.println("<script>");
+			out.println("alert('권한이 없습니다.')");
+			out.println("history.go(-1)");
+			out.println("</script>");
+		}
+		
 	}
 %>
 <%
@@ -129,7 +136,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     
-    <title>Depot &mdash;Website Template by Colorlib</title>
+    <title>이용자 상담/문의 | PetSitter</title>
     
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  

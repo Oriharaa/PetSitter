@@ -2,26 +2,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.petsitter.*" %>
+<%@ page import="com.spring.petsitter.pay.*" %>
 <%@ page import="com.spring.petsitter.board.mboard.*" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="javax.servlet.*,java.text.*" %>
 <% 
+	
+
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
 	String rank = (String)session.getAttribute("rank");
 	
+	List<PayVO> pvolist = (List<PayVO>)request.getAttribute("pvoList");
 	List<MemberBoardVO> mboardlist = (List<MemberBoardVO>)request.getAttribute("mboard_list");
 	List<ReportArticleVO> ralist = (List<ReportArticleVO>)request.getAttribute("ra_list");
 	List<ReportReplyVO> rrlist = (List<ReportReplyVO>)request.getAttribute("rr_list");
 %>
 <%
-
-%>
-<%
 	SimpleDateFormat format1;
-	format1 = new SimpleDateFormat("yyyy-MM-dd");
-	
-	System.out.println(rank);
+	format1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");	
 %>
 <!DOCTYPE html>
 <html>
@@ -35,12 +34,22 @@ overflow:hidden;
 </style>
 <html lang="en">
     <head>
+    		<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="./admin/dist/js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="./admin/dist/assets/demo/chart-area-demo.js"></script>
+        <script src="./admin/dist/assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+        <script src="./admin/dist/assets/demo/datatables-demo.js"></script>
+    
         <meta charset="utf-8" />	
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>대시보드 - Petsitter</title>
+        <title>진행중 거래 페이지 - Petsitter</title>
         <link href="./admin/dist/css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
@@ -48,7 +57,7 @@ overflow:hidden;
 	
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="admin.me">관리자 페이지</a>
+            <a class="navbar-brand" href="admin_orderProgress.me">진행중 거래 페이지</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -134,9 +143,9 @@ overflow:hidden;
                                     </a>
                                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">예약된 거래</a>
-                                            <a class="nav-link" href="register.html">진행중인 거래</a>
-                                            <a class="nav-link" href="password.html">완료된 거래</a>
+                                            <a class="nav-link" href="admin_orderReserved.me">예약된 거래</a>
+                                            <a class="nav-link" href="admin_orderProgress.me">진행중인 거래</a>
+                                            <a class="nav-link" href="admin_orderClosed.me">완료된 거래</a>
                                         </nav>
                                     </div>
                                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
@@ -178,101 +187,7 @@ overflow:hidden;
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">대시보드</li>
                         </ol>
-                          <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-area mr-1"></i>
-                                        Q&A 게시판
-                                    </div>
-                                    <div class="card-body">
-                                    	<table class="table table-sm table-hover table-striped" height="40">
-                                    		<thead>
-                                    		<th>작성자</th>
-                                    		<th>제목</th>
-                                    		<th>작성일</th>
-                                    		</thead>
-																				<tbody>
-																					<%for(int i = 0 ; i < mboardlist.size(); i++) {
-																					MemberBoardVO bl=(MemberBoardVO)mboardlist.get(i);
-																					%>
-																					<tr>
-																						<td><%=bl.getMEMBER_NICKNAME() %> </td>
-																						<td><a href="./mboarddetail.me?num=<%=bl.getMEMBER_NUM()%>"><%=bl.getMEMBER_SUBJECT() %></a></td>
-																						<td><%=format1.format(bl.getMEMBER_DATE()) %></td>
-																					</tr>
-																					<%} %>
-																					<tr>
-																						<td colspan="3" style="text-align:center;"><a href="./mboardlist.me">더보기</a></td>
-																					</tr> 
-																				</tbody>
-																			</table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-
-																			  <h2>신고 목록</h2>
-																			  <ul class="nav nav-tabs" style="padding:10px;">
-																			  	<li class="active"><a type="button" class="btn btn-primary btn-sm" data-toggle="tab" href="#reportArticle">글 신고</a></li>
-																			    <li><a type="button" class="btn btn-secondary btn-sm" data-toggle="tab" href="#reportReply">리플 신고</a></li>
-																			  </ul>
-
-                                    </div>
-                                    <div class="card-body"><div class="tab-content">
-																     <div id="reportArticle" class="tab-pane fade">
-																      	<table class="table table-sm table-hover table-striped"  style="table-layout: fixed" height="40">
-                                    		<thead>
-                                    		<th width="15%">글번호</th>
-                                    		<th width="55%">신고이유</th>
-                                    		<th width="15%">신고자</th>
-                                    		<th width="15%">게시판</th>
-                                    		</thead>
-																				<tbody>
-																				<%for(int i = 0 ; i < ralist.size(); i++) {
-																					ReportArticleVO ra=(ReportArticleVO)ralist.get(i);
-																					%>
-																					<tr>
-																						<td><%=ra.getMEMBER_NUM() %> </td>
-																						<td id="reasonArticle"><%=ra.getREPORT_REASON() %></td>
-																						<td id="idArticle"><%=ra.getMEMBER_ID() %></td>
-																						<td><%=ra.getBTYPE() %>
-																					</tr>
-																					<%} %>
-																				</tbody>
-																				</table>
-																    </div>
-																    <div id="reportReply" class="tab-pane fade">
-																   	  <table class="table table-sm table-hover table-striped" style="table-layout: fixed" height="40">
-                                    		<thead>
-                                    		<th width="12%">글번호</th>
-                                    		<th width="15%">리플번호</th>
-                                    		<th width="43%">신고이유</th>
-                                    		<th width="15%">신고자</th>
-                                    		<th width="15%">게시판</th>
-                                    		</thead>
-																				<tbody>
-																				<%for(int i = 0 ; i < rrlist.size(); i++) {
-																					ReportReplyVO rr=(ReportReplyVO)rrlist.get(i);
-																					%>
-																					<tr>
-																						<td><%=rr.getBNO() %></td>
-																						<td><%=rr.getRNO() %></td>
-																						<td id="reasonReply"><%=rr.getREPORT_REASON() %></td>
-																						<td id="idReply"><%=rr.getMEMBER_ID() %></td>
-																						<td><%=rr.getBTYPE() %></td>
-																					</tr>
-																					<%} %>
-																				</tbody>
-																			</table> 
-																    </div>
-																    
-																  </div></div>
-                                </div>
-                            </div>
-                        </div>
+                          
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
@@ -280,28 +195,33 @@ overflow:hidden;
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered"  style="table-layout: fixed" id="dataTable" width="100%">
-                                    	<thead>
-                                    		<th width="15%">글번호</th>
-                                    		<th width="15%">리플번호</th>
-                                    		<th width="40%">신고이유</th>
-                                    		<th width="15%">신고자</th>
-                                    		<th width="15%">게시판</th>
-                                    	</thead>
-																			<tbody>
-																			<%for(int i = 0 ; i < rrlist.size(); i++) {
-																					ReportReplyVO rr=(ReportReplyVO)rrlist.get(i);
-																					%>
-																					<tr>
-																						<td><%=rr.getBNO() %></td>
-																						<td><%=rr.getRNO() %></td>
-																						<td id="reasonReply2"><%=rr.getREPORT_REASON() %></td>
-																						<td id="idReply2"><%=rr.getMEMBER_ID() %></td>
-																						<td><%=rr.getBTYPE() %></td>
-																					</tr>
-																					<%} %>
-																				</tbody>
-                                    </table>
+                             <table class="table table-bordered"  style="table-layout: fixed" id="dataTable" width="100%">
+                                <thead>
+                                <th>의뢰인</th>
+                                <th>펫시터</th>
+																<th>거래고유번호</th>
+																<th>시작일</th>
+																<th>종료일</th>
+																<th>결제일</th>
+																<th>돌봄종류</th>
+																<th>가격</th>																
+                                </thead>
+                                	<tbody>
+																			<%for(int i = 0 ; i < pvolist.size(); i++) { 
+																			PayVO pvo = (PayVO)pvolist.get(i); %>															
+																			<tr>
+																				<td><%=pvo.getPAY_ID() %></td>
+																				<td><%=pvo.getPETSITTER_ID() %></td>
+																				<td><%=pvo.getMERCHANT_UID() %></td>
+																				<td><%=pvo.getSTART_DATE() %></td>
+																				<td><%=pvo.getEND_DATE() %></td>
+																				<td><%=format1.format(pvo.getPAY_DATE()) %></td>
+																				<td><%=pvo.getPAY_TYPE() %></td>
+																				<td><%=String.format("%,d", pvo.getPAY_AMOUNT()) %></td>
+																			</tr>
+																			<%} %>
+																	</tbody>
+																	</table>  
                                 </div>
                             </div>
                         </div>
@@ -321,14 +241,10 @@ overflow:hidden;
                 </footer>
             </div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="./admin/dist/js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="./admin/dist/assets/demo/chart-area-demo.js"></script>
-        <script src="./admin/dist/assets/demo/chart-bar-demo.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-        <script src="./admin/dist/assets/demo/datatables-demo.js"></script>
     </body>
+    <script>
+			function numberWithCommas(x) {
+			    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			}
+			</script>
 </html>

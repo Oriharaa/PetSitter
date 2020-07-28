@@ -3,7 +3,6 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.petsitter.*" %>
 <%@ page import="com.spring.petsitter.board.*" %>
-
 <%@ page import="javax.servlet.*,java.text.*" %>
 
 <%
@@ -17,14 +16,18 @@ if(session.getAttribute("id") == null) {
 String id = (String)session.getAttribute("id");
 String name = (String)session.getAttribute("name");
 String rank = (String)session.getAttribute("rank");
-String btype = "mboard";
+String btype = "noticeboard";
+
+/* 회원 등급이 manager도 admin도 아닐 경우 메인페이지로 리다이렉트 */
+if(!(rank.equals("manager")) && !(rank.equals("admin"))) {
+	out.println("<script>");
+  out.println("location.href = 'home.me'");
+  out.println("</script>");
+}
 %>
-
-
 
 <!doctype html>
 <html lang="en">
-
 
 <style>
 	button#prev, button#list, button#next, button#write {
@@ -190,9 +193,9 @@ margin-bottom: 5px;
 	
 	
   <head>
-  <form action="./mboardwrite.me" method="post" name="boardform" enctype="multipart/form-data">
-  <input type="hidden" name="MEMBER_ID" value="${id}">
-  <input type="hidden" name="MEMBER_NAME" value="${name}">
+  <form action="./noticeboardwrite.me" method="post" name="boardform" enctype="multipart/form-data">
+  <input type="hidden" name="NOTICE_ID" value="${id}">
+  <input type="hidden" name="NOTICE_NICKNAME" value="${name}">
   
   
   	<!-- CKEDITOR 사용 위한 스크립트 -->
@@ -202,7 +205,7 @@ margin-bottom: 5px;
   	
   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-    <title>이용자 상담/문의 | PetSitter</title>
+    <title>공지사항 작성 | PetSitter</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -317,7 +320,7 @@ margin-bottom: 5px;
    		<div class="col-md-12">
    			<span class="glyphicon glyphicon-pencil"></span>
   			<div class="input-group">  		
- 					<input name="MEMBER_SUBJECT" type="text" class="form-control" aria-describedby="sizing-addon1">
+ 					<input name="NOTICE_SUBJECT" type="text" class="form-control" aria-describedby="sizing-addon1">
 				</div>
    		</div>
     </div>
@@ -325,11 +328,7 @@ margin-bottom: 5px;
 	   <form>
 	    <div class="row">
 	     	<div class="col-md-12">
-	    		<div class="checkbox">
-	    			<label>
-	      			<input type="checkbox" name="MEMBER_SECRET">비밀글
-	    			</label>
-	  			</div>
+	    		
 	  		</div>
 	    </div>
     </form>
@@ -342,8 +341,8 @@ margin-bottom: 5px;
     <!-- 본문 textarea를 ckeditor로 교체 -->
     <div class="row">
     	<div class="col-md-12">
-    		<textarea name = "MEMBER_CONTENT"></textarea>
-					<script>CKEDITOR.replace('MEMBER_CONTENT');</script>
+    		<textarea name = "NOTICE_CONTENT"></textarea>
+					<script>CKEDITOR.replace('NOTICE_CONTENT');</script>
     		</div>
     </div>
     
@@ -358,7 +357,7 @@ margin-bottom: 5px;
 							<div class = "col-12 filebox padd0 filebox preview-image">
 				         <label for="input-file">업로드</label> 
 				         <input class="upload-name" value="파일선택" disabled="disabled" style = "text-align : right" > 
-				         <input type="file" id="input-file" class="upload-hidden" name = "MEMBER_FILE"> 
+				         <input type="file" id="input-file" class="upload-hidden" name = "NOTICE_FILE"> 
 					    </div>
     				</td>
     			</tr>
