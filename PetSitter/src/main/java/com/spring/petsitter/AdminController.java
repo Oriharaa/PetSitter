@@ -59,6 +59,9 @@ public class AdminController {
 		List<ReportArticleVO> ra_list = memberboardService.getReportArticleList(report_a);
 		ReportReplyVO report_r = new ReportReplyVO();
 		List<ReportReplyVO> rr_list = memberboardService.getReportReplyList(report_r);
+		UsinglistVO uvo = new UsinglistVO();
+		List<UsinglistVO> uvoList = usinglistService.getUsinglistList(uvo);
+		model.addAttribute("uvoList", uvoList);		
 		
 		model.addAttribute("page", page);
 		model.addAttribute("listcount", listcount);

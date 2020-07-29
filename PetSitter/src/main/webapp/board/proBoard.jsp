@@ -145,7 +145,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				$.ajax({
 		      url:$(this).attr("href"),
 		      type : 'POST',
-		      dataType : 'json',
+		      dataType : 'JSON',
 		      contentType : 'application/x-www-form-urlencoded; charset=utf-8',
 		      success:function(data){
 		      	$.each(data, function(index, item){
