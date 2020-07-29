@@ -1,6 +1,7 @@
 package com.spring.mapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.spring.petsitter.PetsitterUsinglistVO;
 import com.spring.petsitter.UsinglistVO;
@@ -23,4 +24,5 @@ public interface UsinglistMapper {
 	// 이용 내역 추가
 	public int insertUsinglist(UsinglistVO usinglist);
 	public void defaultphoto(String petsitter_id);
+	public List<UsinglistVO> getUsinglistList();
 }

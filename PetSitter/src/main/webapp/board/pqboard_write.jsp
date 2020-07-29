@@ -7,6 +7,7 @@
 <%@ page import="javax.servlet.*,java.text.*" %>
 
 <% String name = (String)session.getAttribute("name");
+	String nickname = (String)request.getAttribute("nickname");
 //세션 종료시 홈으로
 if(session.getAttribute("id") == null) {
    out.println("<script>");
@@ -178,14 +179,10 @@ margin-bottom: 5px;
 	 
 	
 </style>
-
-
-	
-	
   <head>
   <form action="./pqboardwrite.me" method="post" name="boardform" enctype="multipart/form-data">
   <input type="hidden" name="MEMBER_ID" value="${id}">
-  <input type="hidden" name="MEMBER_NICKNAME" value="${name}">
+  <input type="hidden" name="MEMBER_NICKNAME" value="<%=nickname %>">
   <input type="hidden" name="PETSITTER_ID" value="aaaa">
   <input type="hidden" name="PETSITTER_NICKNAME" value="aabaa">
   
@@ -297,8 +294,11 @@ margin-bottom: 5px;
               	%>
                 <a href="loginform.me" ><span class = "font-size-14" >로그인 &amp; 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
-                <%} else if(((String)session.getAttribute("id")).contains("@")){ %> <!-- 일반 회원 마이 페이지 -->
-                <a href="memberinfo.me?id=${id}"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <%} else if(!((String)session.getAttribute("rank")).contains("admin") && ((String)session.getAttribute("id")).contains("@")) { %> <!-- 일반 회원 마이 페이지 -->
+                <a href="memberinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+                <%} else if(((String)session.getAttribute("id")).contains("admin")) {%>
+                <a href="admin.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} else {%> <!-- 펫시터 마이 페이지 -->
                 <a href="petsitterinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
@@ -372,7 +372,7 @@ margin-bottom: 5px;
     	</div>
     </div>  
     ${id}  로그인 중
-    닉네임 : ${name} 
+    닉네임 : <%=nickname %>
     <!-- 여백용 row -->
     <div class="row">
     	<div class="col-md-12 p-3"></div>

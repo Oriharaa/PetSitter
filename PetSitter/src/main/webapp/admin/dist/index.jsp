@@ -17,19 +17,9 @@
 	List<MemberBoardVO> mboardlist = (List<MemberBoardVO>)request.getAttribute("mboard_list");
 	List<ReportArticleVO> ralist = (List<ReportArticleVO>)request.getAttribute("ra_list");
 	List<ReportReplyVO> rrlist = (List<ReportReplyVO>)request.getAttribute("rr_list");
-<<<<<<< HEAD
-%>
-<%
-	SimpleDateFormat format1;
-	format1 = new SimpleDateFormat("yyyy-MM-dd");
-	
-	System.out.println(rank);
-=======
 	List<UsinglistVO> uvolist = (List<UsinglistVO>)request.getAttribute("uvoList");
 
-
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
->>>>>>> origin/PGKIM
 %>
 <!DOCTYPE html>
 <html>
@@ -41,7 +31,6 @@ word-wrap:normal;
 overflow:hidden;
 }
 </style>
-<html lang="en">
     <head>
         <meta charset="utf-8" />	
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -50,8 +39,8 @@ overflow:hidden;
         <meta name="author" content="" />
         <title>대시보드 - Petsitter</title>
         <link href="./admin/dist/css/styles.css" rel="stylesheet" />
-        <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+        <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
     </head>
 	
     <body class="sb-nav-fixed">
@@ -147,12 +136,7 @@ overflow:hidden;
                                     </a>
                                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-<<<<<<< HEAD
-                                            <a class="nav-link" href="401.html">펫시터 목록</a>
-                                            <a class="nav-link" href="404.html">펫시터 신청 관리</a>
-=======
                                             <a class="nav-link" href="admin_petsitterApply.me">펫시터 신청 관리</a>
->>>>>>> origin/PGKIM
                                         </nav>
                                     </div>
                                 </nav>

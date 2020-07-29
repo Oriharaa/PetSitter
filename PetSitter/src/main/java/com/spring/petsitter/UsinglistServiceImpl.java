@@ -110,14 +110,10 @@ public class UsinglistServiceImpl implements UsinglistService{
 		return usinglistMapper.insertUsinglist(usinglist);
 	}
 
-
-<<<<<<< HEAD
-=======
 	@Override
 	public List<UsinglistVO> getUsinglistList(UsinglistVO uvo) {
 		UsinglistMapper usinglistMapper = sqlSession.getMapper(UsinglistMapper.class);
-		return usinglistMapper.getUsinglistList(uvo);
+		return usinglistMapper.getUsinglistList();
 	}
->>>>>>> origin/PGKIM
 	
 }

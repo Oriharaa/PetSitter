@@ -1,6 +1,5 @@
 package com.spring.petsitter;
 
-
 import java.io.File;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -45,10 +43,10 @@ public class MemberController {
 	private PayService payService;
 
 	@RequestMapping(value = "memberinfo.me")
-	public ModelAndView profile(MemberVO vo, @RequestParam(value = "id") String id, Model model, HttpSession session, HttpServletResponse response) throws Exception {
+	public ModelAndView profile(MemberVO vo, Model model, HttpSession session, HttpServletResponse response) throws Exception {
 		PrintWriter writer = response.getWriter();
 		if(session.getAttribute("id") != null) {
-			
+			String id = (String)session.getAttribute("id");
 			PayVO pvo = new PayVO();
 			List<PayVO> pvoList = payService.getPayList(pvo);
 			model.addAttribute("pvoList", pvoList);	
@@ -343,23 +341,15 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="member_login.me")
-	public String memberLogin(MemberVO vo, HttpSession session, HttpServletResponse response) throws Exception {
+	public String memberLogin(MemberVO vo, HttpSession session) {
 		int res = memberService.memberCheck(vo);
 		MemberVO membervo = memberService.selectMember(vo.getMEMBER_ID());
 		
-		PrintWriter writer = response.getWriter();
 		if(res == 1) {
 			session.setAttribute("id", membervo.getMEMBER_ID());
 			session.setAttribute("name", membervo.getMEMBER_NAME());
 			session.setAttribute("rank", membervo.getMEMBER_RANK());
-			if(membervo.getMEMBER_ID().equals("admin1@admin.admin")) {
-				writer.write("<script>");
-				writer.write("location.href='admin.me'");
-				writer.write("</script>");
-				return null;
-			} else {
 			return "redirect:/home.me";
-			}
 		}else {
 			return "loginform";
 		}

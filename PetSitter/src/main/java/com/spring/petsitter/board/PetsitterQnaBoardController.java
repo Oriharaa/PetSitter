@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,11 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.spring.petsitter.MemberService;
+
 @Controller
 public class PetsitterQnaBoardController {
 
 	@Autowired
 	private PetsitterQnaBoardService petsitterQnaBoardService;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@RequestMapping(value = "/pqboardlist.me")
 	public String pqboard(Model model, 
@@ -80,12 +87,6 @@ public class PetsitterQnaBoardController {
 		if (endpage > startpage + 10 - 1)
 			endpage = startpage + 10 - 1;
 
-		pqboard_list.get(0).setPage2(page);
-		pqboard_list.get(0).setListcount2(listcount);
-		pqboard_list.get(0).setMaxpage2(maxpage);
-		pqboard_list.get(0).setStartpage2(startpage);
-		pqboard_list.get(0).setEndpage2(endpage);
-		
 		for(int i = 1 ; i < pqboard_list.size(); i++) {
 			pqboard_list.get(i).setPage2(0);
 			pqboard_list.get(i).setListcount2(0);
@@ -98,8 +99,9 @@ public class PetsitterQnaBoardController {
 	}
 	
 	@RequestMapping("/pqboardwriteform.me")
-	public String pqboardInsertForm() {
-		
+	public String pqboardInsertForm(HttpSession session, Model model) {
+		String nickname = memberService.selectMember((String)session.getAttribute("id")).getMEMBER_NICKNAME();
+		model.addAttribute("nickname", nickname);
 		return "board/pqboard_write";
 	}	
 	

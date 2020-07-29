@@ -34,6 +34,9 @@ public class AdminController {
 	private PetsitterService petsitterService;
 
 	@Autowired
+	private UsinglistService usinglistService;
+	
+	@Autowired
 	private PayService payService;
 	
 	/* 관리자 메인 페이지 */
