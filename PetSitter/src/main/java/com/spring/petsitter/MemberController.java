@@ -25,6 +25,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.petsitter.board.ReviewBoardService;
 import com.spring.petsitter.pay.PayService;
+<<<<<<< HEAD
+=======
+import com.spring.petsitter.pay.PayVO;
+>>>>>>> origin/PGKIM
 
 @Controller
 public class MemberController {
@@ -45,6 +49,7 @@ public class MemberController {
 	private PayService payService;
 
 	@RequestMapping(value = "memberinfo.me")
+<<<<<<< HEAD
 	public ModelAndView profile(MemberVO vo, @RequestParam(value = "id") String id, Model model, HttpSession session, HttpServletResponse response) throws Exception {
 		PrintWriter writer = response.getWriter();
 		if(session.getAttribute("id") != null) {
@@ -71,6 +76,29 @@ public class MemberController {
 			writer.write("</script>");
 			return null;
 		}
+=======
+	public ModelAndView profile(MemberVO vo, @RequestParam(value = "id") String id, Model model) {
+		PayVO pvo = new PayVO();
+		List<PayVO> pvoList = payService.getPayList(pvo);
+		model.addAttribute("pvoList", pvoList);			
+		
+		ModelAndView mv = new ModelAndView();
+		
+		MemberVO membervo = memberService.selectMember(id);
+		String tel = membervo.getMEMBER_TEL();
+		String[] address = membervo.getMEMBER_ADDRESS().split(",");
+		int review_count = reviewboardService.getReviewListCount_member(id);
+		
+		int listcount = memberService.getListCount(id);
+		
+		mv.addObject("listcount", listcount);
+		mv.addObject("review_count", review_count);
+		mv.addObject("membervo", membervo);
+		mv.addObject("tel", tel);
+		mv.addObject("address", address);
+		mv.setViewName("memberinfo");
+		return mv;
+>>>>>>> origin/PGKIM
 	}
 	
 	@RequestMapping(value = "petRegister.me")
@@ -177,7 +205,12 @@ public class MemberController {
 		String today = new_Format.format(date);
 		
 		ArrayList<Integer> usinglist_num_member = reviewboardService.usinglist_num_List_member(id); // 리뷰를 남겼는지 확인하기 위한 리스트
+<<<<<<< HEAD
 
+=======
+		
+		int count = 0; // 이용 횟수 갱신
+>>>>>>> origin/PGKIM
 		for(int i = 0; i < usinglist_ajax.size(); i++) {
 			usinglist_ajax.get(i).setLIST_START_DATE(new_Format.format(usinglist.get(i).getLIST_START_DATE()));
 			usinglist_ajax.get(i).setLIST_END_DATE(new_Format.format(usinglist.get(i).getLIST_END_DATE()));
@@ -210,6 +243,7 @@ public class MemberController {
   	  			}
   			} else {
   				ing = "이용 완료";
+  				count++;
   			}
 			usinglist_ajax.get(i).setLIST_ING(ing);
 			
@@ -224,6 +258,20 @@ public class MemberController {
 			}
 		}
 		
+<<<<<<< HEAD
+=======
+		MemberVO member = memberService.selectMember(id);
+		member.setMEMBER_COUNT(count);
+		if(count >= 15 && count < 30) {
+			member.setMEMBER_RANK("Gold");
+		} else if(count >= 30) {
+			member.setMEMBER_RANK("VIP");
+		} else if(count == 0 && count < 15) {
+			member.setMEMBER_RANK("Green");
+		}
+		memberService.updateMemberRank(member);
+		
+>>>>>>> origin/PGKIM
 		return usinglist_ajax;
 	}
 	
@@ -239,6 +287,7 @@ public class MemberController {
 		
 		ArrayList<Integer> usinglist_num_member = reviewboardService.usinglist_num_List_member(id); // 리뷰를 남겼는지 확인하기 위한 리스트
 		
+		int count = 0; // 이용 횟수 갱신
 		for(int i = 0; i < usinglist_ajax.size(); i++) {
 			usinglist_ajax.get(i).setLIST_START_DATE(new_Format.format(usinglist.get(i).getLIST_START_DATE()));
 			usinglist_ajax.get(i).setLIST_END_DATE(new_Format.format(usinglist.get(i).getLIST_END_DATE()));
@@ -271,6 +320,7 @@ public class MemberController {
   	  			}
   			} else {
   				ing = "이용 완료";
+  				count++;
   			}
 			usinglist_ajax.get(i).setLIST_ING(ing);
 			
@@ -285,6 +335,20 @@ public class MemberController {
 			}
 		}
 		
+<<<<<<< HEAD
+=======
+		MemberVO member = memberService.selectMember(id);
+		member.setMEMBER_COUNT(count);
+		if(count >= 15 && count < 30) {
+			member.setMEMBER_RANK("Gold");
+		} else if(count >= 30) {
+			member.setMEMBER_RANK("VIP");
+		} else if(count == 0 && count < 15) {
+			member.setMEMBER_RANK("Green");
+		}
+		memberService.updateMemberRank(member);
+		
+>>>>>>> origin/PGKIM
 		return usinglist_ajax;
 	}
 	
@@ -397,4 +461,8 @@ public class MemberController {
 		
 		return "redirect:/home.me";
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/PGKIM

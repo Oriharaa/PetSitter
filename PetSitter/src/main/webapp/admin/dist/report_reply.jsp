@@ -187,7 +187,16 @@ p {
                                             <a class="nav-link" href="admin_reportReply.me">리플 신고</a>
                                         </nav>
                                     </div>
-                                    <a class="nav-link" href="admin_memberManage.me">회원 정보 관리</a>
+                                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesMember" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                    회원 정보 관리
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                     <div class="collapse" id="pagesMember" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="admin_memberManage.me">회원 관리</a>
+                                            <a class="nav-link" href="admin_petsitterManage.me">펫시터 관리</a>
+                                        </nav>
+                                    </div>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -214,8 +223,7 @@ p {
                                     </a>
                                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="401.html">펫시터 목록</a>
-                                            <a class="nav-link" href="404.html">펫시터 신청 관리</a>
+                                            <a class="nav-link" href="admin_petsitterApply.me">펫시터 신청 관리</a>
                                         </nav>
                                     </div>
                                 </nav>

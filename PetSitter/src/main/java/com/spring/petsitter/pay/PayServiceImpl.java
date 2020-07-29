@@ -1,5 +1,6 @@
 package com.spring.petsitter.pay;
 
+import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,7 @@ public class PayServiceImpl implements PayService {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void memberAmount(int amount, String m_id) {
 		PayMapper payMapper = sqlsession.getMapper(PayMapper.class);
 		payMapper.memberAmount(amount, m_id);
@@ -55,3 +57,10 @@ public class PayServiceImpl implements PayService {
 		payMapper.petsitterAmountRemove(amount, p_id);
 	}
 }
+=======
+	public List<PayVO> getPayList(PayVO pay) {
+		PayMapper payMapper = sqlsession.getMapper(PayMapper.class);
+		return payMapper.getPayList(pay);
+		}
+}
+>>>>>>> origin/PGKIM

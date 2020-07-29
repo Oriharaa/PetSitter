@@ -1,5 +1,6 @@
 package com.spring.petsitter.pay;
 
+import java.util.List;
 public interface PayService {
 	public void insertPay(PayVO pay);
 	public PayVO selectPay(String id);
@@ -9,3 +10,4 @@ public interface PayService {
 	public void petsitterAmount(int amount, String p_id);
 	public void petsitterAmountRemove(int amount, String p_id);
 }
+	public List<PayVO> getPayList(PayVO pay);

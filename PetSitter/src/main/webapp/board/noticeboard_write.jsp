@@ -1,15 +1,11 @@
-<!-- 관리자 메인 페이지 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.petsitter.*" %>
-<%@ page import="com.spring.petsitter.board.mboard.*" %>
-
+<%@ page import="com.spring.petsitter.board.*" %>
 <%@ page import="javax.servlet.*,java.text.*" %>
-<%
-String id = (String)session.getAttribute("id");
-MemberBoardVO mboard = (MemberBoardVO)request.getAttribute("vo");
 
+<%
 /* 세션 id값이 null일 경우 로그인 요구 */
 if(session.getAttribute("id") == null) {
    out.println("<script>");
@@ -20,20 +16,18 @@ if(session.getAttribute("id") == null) {
 String id = (String)session.getAttribute("id");
 String name = (String)session.getAttribute("name");
 String rank = (String)session.getAttribute("rank");
-String btype = "mboard";
+String btype = "noticeboard";
 
-/* 글쓴이가 다르고 회원 등급이 manager도 admin도 아닐 경우 메인페이지로 리다이렉트 */
-if(!(mboard.getMEMBER_ID().equals(id)) && !(rank.equals("manager")) && !(rank.equals("admin"))) {
+/* 회원 등급이 manager도 admin도 아닐 경우 메인페이지로 리다이렉트 */
+if(!(rank.equals("manager")) && !(rank.equals("admin"))) {
 	out.println("<script>");
   out.println("location.href = 'home.me'");
   out.println("</script>");
 }
 %>
 
-
 <!doctype html>
 <html lang="en">
-
 
 <style>
 	button#prev, button#list, button#next, button#write {
@@ -110,45 +104,112 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	}
 	/*최하단바 종료*/
 	 
+	 
+	 		/*파일 선택 css 시작*/
+	.filebox input[type="file"] { 
+	position: absolute;
+	width: 1px; 
+	height: 1px; 
+	padding: 0; 
+	margin: -1px; 
+	overflow: hidden; 
+	clip:rect(0,0,0,0); border: 0; 
+	} 
+	
+	.filebox label { 
+	display: inline-block; 
+	padding: .3em .75em; 
+	margin : 0;
+	color: #ffffff; 
+	font-size: inherit; 
+	line-height: normal; 
+	vertical-align: middle; 
+	background-color: rgb(83,220,152); 
+	cursor: pointer; 
+	border: 1px solid #ebebeb; 
+	border-bottom-color: #e2e2e2; 
+	border-radius: .25em; 
+	} 
+	/*파일 선택 css 종료*/
+	
+	/* named upload */ 
+	.filebox .upload-name { 
+	display: inline-block; 
+	padding: .3em .75em; 
+	/* label의 패딩값과 일치 */ 
+	font-size: inherit; 
+  line-height: normal; 
+  vertical-align: middle; 
+  background-color: #f5f5f5; 
+  border: 1px solid #ebebeb; 
+  border-bottom-color: #e2e2e2; 
+  border-radius: .25em; 
+  -webkit-appearance: none; 
+  /* 네이티브 외형 감추기 */ 
+  -moz-appearance: none; 
+  appearance: none; 
+  }
+	/*파일 선택 css 종료*/
+		/*파일 선택 css 시작*/
+		
+/* imaged preview */ 
+.filebox .upload-display { 
+/* 이미지가 표시될 지역 */ 
+margin-bottom: 5px; 
+} 
+@media(min-width: 768px) { 
+	.filebox .upload-display { 
+	display: inline-block; 
+	margin-right: 5px; 
+	margin-bottom: 0; } 
+	} 
+	.filebox .upload-thumb-wrap { 
+	/* 추가될 이미지를 감싸는 요소 */ 
+	display: inline-block; 
+	width: 70px; 
+	padding: 2px; 
+	vertical-align: middle; 
+	border: 1px solid #ddd; 
+	border-radius: 5px; 
+	background-color: #fff; 
+	} 
+	.filebox .upload-display img { 
+	/* 추가될 이미지 */ 
+	display: block; 
+	max-width: 100%; 
+	width: 100%; 
+	height: auto; 
+	}
+	/*파일 선택 css 종료*/	
+	.padd0 {
+	padding : 0 0 0 0;
+	margin : 4px 0 0 0;
+	}
+	 
 	
 </style>
 
+
+	
 	
   <head>
-  	
-  	<form action="./mboardmodify.me" method="post" name="modifyform">
-	<input type="hidden" name="MEMBER_NUM" value="<%=mboard.getMEMBER_NUM() %>">
-	<input type="hidden" name="MEMBER_ID" value="${id}">
-  	
-  	<script>
-			function modifyboard(){
-				modifyform.submit();
-		}
-		</script>
+  <form action="./noticeboardwrite.me" method="post" name="boardform" enctype="multipart/form-data">
+  <input type="hidden" name="NOTICE_ID" value="${id}">
+  <input type="hidden" name="NOTICE_NICKNAME" value="${name}">
   
   
   	<!-- CKEDITOR 사용 위한 스크립트 -->
   	<script src = "${pageContext.request.contextPath}/resources/js/ckeditor/ckeditor.js"></script>
-		<script type="text/javascript">
-			$(function(){
-				CKEDITOR.replace('MEMBER_CONTENT', {
-					filebrowserUploadUrl : '${pageContext.request.contextPath}/board/imageupload.do'
-				});
-				
-				window.parent.CKEDITOR.tools.callFunction(1, "${url}", "전송완료");
-			});					
-		</script>
+
   		
   	
   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-<<<<<<< HEAD
-    <title>회원 게시판</title>
-=======
-    <title>이용자 상담/문의 | PetSitter</title>
->>>>>>> origin/PGKIM
+    <title>공지사항 작성 | PetSitter</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
     
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
@@ -165,55 +226,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <!-- MAIN CSS 다양한 폰트크기보유 -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 	
-	<style>
-		.dropdown:hover {
-			background-color: rgb(83, 220, 153);
-		}
-		
-		.dropdown:active {
-			background-color: rgb(83, 220, 153);
-		}
-		.btn-secondary {
-			background-color: rgb(83, 220, 153);
-			border-color: rgb(83, 220, 153);
-			vertical-align: baseline;
-			font-weight: bold;
-		}
-		
-		.btn-secondary:hover {
-			background-color: rgb(83, 220, 153);
-			border-color: rgb(83, 220, 153);
-		}
-		
-		.btn-secondary:active {
-			background-color: rgb(83, 220, 153);
-			border-color: rgb(83, 220, 153);
-		}
-		
-		.btn-secondary:focus {
-			background-color: rgb(83, 220, 153);
-			border-color: rgb(83, 220, 153);
-			box-shadow: 0 0 0 0 rgb(83, 220, 153);
-		}
-		
-		.dropdown-menu {
-			min-width: 60px !important;
-		}
-	
-		.dropdown-item:hover {
-			background-color: rgb(83, 220, 153);
-			color: rgb(255, 255, 255) !important;
-		}
-		
-		.dropdown-item {
-			 color: #53dc99 !important;
-			 font-weight: bold;
-		}
-		
-		.main-menu li a {
-			font-weight: bold;
-		}
-	</style>
+
+		  
   </head>
 	
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -238,22 +252,17 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
               <div class="float-right">
-								<%
-              		if(id == null) {
-              	%>
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 &amp; 회원가입</span></a>
+
+                <a href="basicform.me" ><span class = "font-size-14" >로그인</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
-                <%} else { %>
-                <a href="profile.me?id=${id }"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
-                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
-                <%} %>
+                <a href="basicform.me" ><span class = "font-size-14">회원가입</span></a>
               </div>
             </div>
           </div>
         </div>
 	    </div>
 
-      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152);">
+      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152,0.86);">
         <div class="container" >
           <div class="row align-items-center position-relative" >
             <div class="site-logo">
@@ -263,26 +272,10 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               <nav class="site-navigation text-right ml-auto " role="navigation" >
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
-										<button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onmousedown="this.style.backgroundColor:'rgb(83, 220, 153)'">
-											돌봄
-									  </button>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-									    <a href="reservation2.br" class="dropdown-item" style="font-size:15px;">방문 돌봄</a>
-                  		<a href="reservation1.br" class="dropdown-item" style="font-size:15px;" >위탁 돌봄</a>
-									  </div>
-									</li>
-									<li class="dropdown">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-											게시판
-									  </button>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-									    <a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
-                  		<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
-                  		<a href="pqboardlist.me" class="dropdown-item" style="font-size:15px;" >펫시터 게시판</a>
-									  </div>
-									</li>
-                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>
+                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
+                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
+                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
+                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
                   <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
                   
                 </ul>
@@ -317,6 +310,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     	</div>
     </div>  
     ${id}  로그인 중
+    닉네임 : ${name} 
     <!-- 여백용 row -->
     <div class="row">
     	<div class="col-md-12 p-3"></div>
@@ -326,7 +320,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
    		<div class="col-md-12">
    			<span class="glyphicon glyphicon-pencil"></span>
   			<div class="input-group">  		
- 					<input name="MEMBER_SUBJECT" type="text" class="form-control" value="<%=mboard.getMEMBER_SUBJECT() %>" aria-describedby="sizing-addon1" >
+ 					<input name="NOTICE_SUBJECT" type="text" class="form-control" aria-describedby="sizing-addon1">
 				</div>
    		</div>
     </div>
@@ -336,11 +330,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	     	<div class="col-md-12">
 	    		<div class="checkbox">
 	    			<label>
-	      			<input type="checkbox"> 필수사항
+	      			<input type="checkbox" name="NOTI">상단 고정
 	    			</label>
 	  			</div>
 	  		</div>
-	    </div>
+	  	</div>
     </form>
     
     <!-- 여백용 row -->
@@ -351,9 +345,29 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <!-- 본문 textarea를 ckeditor로 교체 -->
     <div class="row">
     	<div class="col-md-12">
-    		<textarea name = "MEMBER_CONTENT"><%=mboard.getMEMBER_CONTENT() %></textarea>
-					<script>CKEDITOR.replace('MEMBER_CONTENT');</script>
+    		<textarea name = "NOTICE_CONTENT"></textarea>
+					<script>CKEDITOR.replace('NOTICE_CONTENT');</script>
     		</div>
+    </div>
+    
+    <div class="row">
+    	<div class="col-md-12">
+    		<table>
+    			<tr>
+    				<td>
+    					<div align="center">미리 보기	</div>
+    				</td>
+    				<td>
+							<div class = "col-12 filebox padd0 filebox preview-image">
+				         <label for="input-file">업로드</label> 
+				         <input class="upload-name" value="파일선택" disabled="disabled" style = "text-align : right" > 
+				         <input type="file" id="input-file" class="upload-hidden" name = "NOTICE_FILE"> 
+					    </div>
+    				</td>
+    			</tr>
+  
+    		</table>
+    	</div>
     </div>
 
 		<!-- 여백용 row -->
@@ -363,8 +377,10 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     
     <div class="row">
     	<div class="col-md-12">
-				<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnSave" href="javascript:modifyboard()">등록</a>
-  			<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="javascript:history.go(-1)">취소</a>
+    		<div class="text-right">
+					<a type="button" style="background:#53dc98; color:white;" class="btn btn-sm" id="btnSave" href="javascript:addboard()">등록</a>
+	  			<a type="button" style="background:#e67e22; color:white;" class="btn btn-sm" id="btnList" href="javascript:history.go(-1)">취소</a>
+	  		</div>
     	</div>
     </div>
    </div>
@@ -372,10 +388,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		<!-- 하단 넉넉하게 여백 주기 -->
 		<div class="row">
     	<div class="col-md-12 p-5"></div>
-    </div>
+    </div>   
    
-	   
-
   	<!-- 하단 바 시작 -->
     <footer class="site-footer">
       <div class="container">
@@ -426,7 +440,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	<!-- 하단 바 종료 -->
     </div>
 
-    <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
+  	<script language="javascript">
+		function addboard(){
+			boardform.submit();
+		}		
+		</script>
+    
     <script src="<c:url value="/resources/js/popper.min.js"/>"></script>
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
     <script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
@@ -438,17 +457,48 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <script src="<c:url value="./resources/js/aos.js"/>"></script>
 
     <script src="<c:url value="/resources/js/main.js"/>"></script>
-
+		
 		<script>
-			$(function() {
-				$(".btn-secondary").on("click mousedown", function() {
-					$(this).css("background-color", "rgb(83, 220, 153)");
-					$(this).css("border-color", "rgb(83, 220, 153)");
-					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
-				});
-			});
+		$(document).ready(function() { 
+			var fileTarget = $('.filebox .upload-hidden'); 
+			fileTarget.on('change', function() { // 값이 변경되면
+				if(window.FileReader) { // modern browser 
+				var filename = $(this)[0].files[0].name; 
+				} else { 
+				// old IE 
+				var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
+			  } 
 			
+				// 추출한 파일명 삽입
+				$(this).siblings('.upload-name').val(filename); 
+		  }); 
+		});
+
+		//preview image 
+		var imgTarget = $('.preview-image .upload-hidden'); 
+		imgTarget.on('change', function(){ 
+			var parent = $(this).parent(); 
+			parent.children('.upload-display').remove(); 
+			if(window.FileReader){ //image 파일만 
+				if (!$(this)[0].files[0].type.match(/image\//)) return;
+			var reader = new FileReader(); 
+			reader.onload = function(e){ 
+				var src = e.target.result; 
+				parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img src="'+src+'" class="upload-thumb"></div></div>'); 
+				} 
+			reader.readAsDataURL($(this)[0].files[0]); 
+			} 
+			else { 
+				$(this)[0].select(); 
+				$(this)[0].blur(); 
+				var imgSrc = document.selection.createRange().text; 
+				parent.prepend('<div class="upload-display"><div class="upload-thumb-wrap"><img class="upload-thumb"></div></div>'); 
+				var img = $(this).siblings('.upload-display').find('img'); 
+				img[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(enable='true',sizingMethod='scale',src=\""+imgSrc+"\")"; 
+				} 
+			});
 		</script>
+
   </body>
 
 </html>

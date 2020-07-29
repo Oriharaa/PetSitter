@@ -1,6 +1,7 @@
 package com.spring.mapper;
 
 import org.apache.ibatis.annotations.Param;
+import java.util.List;
 
 import com.spring.petsitter.pay.PayVO;
 
@@ -12,4 +13,5 @@ public interface PayMapper {
 	public void memberAmountRemove(@Param("amount") int amount, @Param("MEMBER_ID") String m_id);
 	public void petsitterAmount(@Param("amount") int amount, @Param("PETSITTER_ID") String p_id);
 	public void petsitterAmountRemove(@Param("amount") int amount, @Param("PETSITTER_ID") String p_id);
+	public List<PayVO> getPayList(PayVO pay);
 }

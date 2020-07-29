@@ -22,6 +22,7 @@
 	ArrayList<MemberVO> memberList = (ArrayList<MemberVO>)request.getAttribute("member_list");
 	List<MemberBoardVO> mboardlist=(List<MemberBoardVO>)request.getAttribute("mboard_list");
 	List<MReplyVO> mReplyList =(List<MReplyVO>)request.getAttribute("mReplyList"); 
+<<<<<<< HEAD
 	int listcount = 0;
 	int nowpage = 0;
 	int maxpage = 0;
@@ -34,6 +35,14 @@
 		startpage=((Integer)request.getAttribute("startpage")).intValue();
 		endpage=((Integer)request.getAttribute("endpage")).intValue();
 	}
+=======
+		
+	int listcount=((Integer)request.getAttribute("listcount")).intValue();
+	int nowpage=((Integer)request.getAttribute("page")).intValue();
+	int maxpage=((Integer)request.getAttribute("maxpage")).intValue();
+	int startpage=((Integer)request.getAttribute("startpage")).intValue();
+	int endpage=((Integer)request.getAttribute("endpage")).intValue();
+>>>>>>> origin/PGKIM
 %>
 <%
 	SimpleDateFormat format1;
@@ -126,7 +135,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
   <head>
   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+<<<<<<< HEAD
     <title>회원 게시판</title>
+=======
+    <title>이용자 상담/문의 | PetSitter</title>
+>>>>>>> origin/PGKIM
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -296,8 +309,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		    
 					<div class="row">
 			     	<div class="col-md-12">
-			    		<a href="#"><h3 class="text-left" id="qna">이용자 상담&문의 게시판</h3></a>
-			    		<h6>글 갯수 :  ${listcount }</h6>
+			    		<a href="#"><h3 class="text-left" id="qna">이용자 상담/문의</h3></a>
 			    	</div>
 			    </div>
 			    
