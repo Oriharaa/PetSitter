@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.spring.petsitter.board.PetsitterQnaBoardVO;
-import com.spring.petsitter.board.ProBoardVO;
 
 public interface PetsitterQnaBoardMapper {
 	public int pqboardInsert(PetsitterQnaBoardVO board);

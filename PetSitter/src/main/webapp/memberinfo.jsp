@@ -29,19 +29,6 @@
 	String nickname = "";
 	if(!membervo.getMEMBER_NICKNAME().equals("N")){
 		nickname = membervo.getMEMBER_NICKNAME();
-	}else{
-		
-<<<<<<< HEAD
-=======
-	}
-	
-	// 세션 종료시 홈으로
-	if(session.getAttribute("id") == "") {
-		out.println("<script>");
-		out.println("alert('로그인 시간이 만료되어 자동 로그아웃 됩니다.')");
-		out.println("location.href='logout.me'");
-		out.println("</script>");
->>>>>>> origin/PGKIM
 	}
 	
 %>
@@ -670,10 +657,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
 									    <a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
                   		<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
-<<<<<<< HEAD
                   		<a href="pqboardlist.me" class="dropdown-item" style="font-size:15px;" >펫시터 게시판</a>
-=======
->>>>>>> origin/PGKIM
+
 									  </div>
 									</li>
                   <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>

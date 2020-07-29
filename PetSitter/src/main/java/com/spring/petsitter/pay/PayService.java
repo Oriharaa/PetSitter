@@ -9,5 +9,6 @@ public interface PayService {
 	public void memberAmountRemove(int amount, String m_id);
 	public void petsitterAmount(int amount, String p_id);
 	public void petsitterAmountRemove(int amount, String p_id);
-}
 	public List<PayVO> getPayList(PayVO pay);
+}
+	

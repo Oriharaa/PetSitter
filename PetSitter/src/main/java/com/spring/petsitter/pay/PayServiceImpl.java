@@ -33,7 +33,6 @@ public class PayServiceImpl implements PayService {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public void memberAmount(int amount, String m_id) {
 		PayMapper payMapper = sqlsession.getMapper(PayMapper.class);
 		payMapper.memberAmount(amount, m_id);
@@ -56,11 +55,9 @@ public class PayServiceImpl implements PayService {
 		PayMapper payMapper = sqlsession.getMapper(PayMapper.class);
 		payMapper.petsitterAmountRemove(amount, p_id);
 	}
-}
-=======
+
 	public List<PayVO> getPayList(PayVO pay) {
 		PayMapper payMapper = sqlsession.getMapper(PayMapper.class);
 		return payMapper.getPayList(pay);
-		}
+	}
 }
->>>>>>> origin/PGKIM

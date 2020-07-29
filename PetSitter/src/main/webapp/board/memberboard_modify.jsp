@@ -10,14 +10,6 @@
 String id = (String)session.getAttribute("id");
 MemberBoardVO mboard = (MemberBoardVO)request.getAttribute("vo");
 
-/* 세션 id값이 null일 경우 로그인 요구 */
-if(session.getAttribute("id") == null) {
-   out.println("<script>");
-   out.println("location.href = 'loginform.me'");
-   out.println("</script>");
-}
-
-String id = (String)session.getAttribute("id");
 String name = (String)session.getAttribute("name");
 String rank = (String)session.getAttribute("rank");
 String btype = "mboard";
@@ -142,11 +134,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
   	
   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-<<<<<<< HEAD
-    <title>회원 게시판</title>
-=======
+
     <title>이용자 상담/문의 | PetSitter</title>
->>>>>>> origin/PGKIM
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     

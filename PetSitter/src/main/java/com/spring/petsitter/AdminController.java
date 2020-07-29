@@ -34,15 +34,8 @@ public class AdminController {
 	private PetsitterService petsitterService;
 
 	@Autowired
-	private UsinglistService usinglistService;
-<<<<<<< HEAD
-
-=======
-	
-	@Autowired
 	private PayService payService;
 	
->>>>>>> origin/PGKIM
 	/* 관리자 메인 페이지 */
 	@RequestMapping(value = "/admin.me")
 	public String admin_main(Model model,

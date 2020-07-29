@@ -151,11 +151,9 @@
 		update member set MEMBER_RANK=#{MEMBER_RANK}, MEMBER_COUNT=#{MEMBER_COUNT} where MEMBER_ID=#{MEMBER_ID}
 	</update>
 	
-	<delete id="deleteMember" parameterType="MemberVO">
+	<delete id="deleteMember" parameterType="String">
 		delete from member where MEMBER_ID=#{MEMBER_ID}
 	</delete>
-<<<<<<< HEAD
-=======
 	
 	<update id="suspendedMember" parameterType="MemberVO">
 		update member set member_rank = 'suspended' where member_id = #{MEMBER_ID}
@@ -168,9 +166,5 @@
 	<update id="changeMember" parameterType="Map">
 		update member set member_rank = #{RANK} where member_id = #{MEMBER_ID}
 	</update>	
-	
-	<update id="updateMemberRank" parameterType="MemberVO">
-		update member set MEMBER_RANK=#{MEMBER_RANK}, MEMBER_COUNT=#{MEMBER_COUNT} where MEMBER_ID=#{MEMBER_ID}
-	</update>
->>>>>>> origin/PGKIM
+
 </mapper>

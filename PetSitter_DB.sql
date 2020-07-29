@@ -13,7 +13,7 @@ create table member(
     MEMBER_GENDER varchar2(4) DEFAULT 'N', -- 성별, 추가
     MEMBER_ADDRESS varchar2(100) DEFAULT 'N'-- 주소, 추가
 ); 
-select * from member;
+
 create table PETSITTER(
     PETSITTER_ID varchar2(30) primary key, --ID
     PETSITTER_NICKNAME varchar2(30) DEFAULT 'N', --닉네임
@@ -51,20 +51,6 @@ create table petsitter_schedule(
     START_DATE date,
     END_DATE date
 );
-
-select * from petsitter
-where petsitter_type like '%방문%';
-select * from petsitter
-where petsitter_type like '%위탁%';
-
-insert into petsitter(petsitter_id, petsitter_nickname, petsitter_name, petsitter_pw, petsitter_tel, petsitter_email)
-values('asd111', '길동', '홍길동', '123123', '010-1111-2222', 'asd111@naver.com');
-insert into petsitter(petsitter_id, petsitter_nickname, petsitter_name, petsitter_pw, petsitter_tel, petsitter_email)
-values('asd222', '몽룡', '이몽룡', '123123', '010-2222-4444', 'asd222@naver.com');
-insert into petsitter(petsitter_id, petsitter_nickname, petsitter_name, petsitter_pw, petsitter_tel, petsitter_email)
-values('asd333', '향', '춘향', '123123', '010-3333-6666', 'asd333@naver.com');
-insert into petsitter(petsitter_id, petsitter_nickname, petsitter_name, petsitter_pw, petsitter_tel, petsitter_email)
-values('asd444', '흥', '흥부', '123123', '010-4444-8888', 'asd444@naver.com');
 
 create table PET(
 	MEMBER_ID varchar2(30),
@@ -128,9 +114,6 @@ create table PRO_BOARD(
     SECRET_CHECK VARCHAR2(4) default 'N' -- 비밀게시판 확인 
 );
 
-insert into PRO_BOARD values (1, 'roah631@member.com', 'nickname01','제목1','1안녕하세요 유기견을 입양했는데 아픈부분을 발견했어요 어떻게 치료할가요.',
-'123.jpg','12321312.jpg',0 ,sysdate, 0, 'PRO_BOARD', NVL(null, 'N'));
-
 CREATE TABLE PROREPLY (
     BNO NUMBER, 
     RNO NUMBER, 
@@ -176,6 +159,7 @@ create table MEMBER_BOARD(
     MEMBER_SECRET varchar2(2) default 'N' -- 비밀 글
 );
 
+-- 최신화 안됨
 create table report_article (
     member_num number,
     report_reason varchar2(4000),
@@ -184,6 +168,7 @@ create table report_article (
     processing varchar2(10)
 );
 
+-- 최신화 안됨
 create table report_reply (
    bno number,
    rno number,
@@ -223,13 +208,6 @@ create table COMMUNICATION_PHOTO_LIST(
     UPLOAD_DATE date default sysdate, -- 업로드 일자
     PETSITTER_ID varchar2(30) -- 펫시터 회원 아이디
 );
-insert into communication_photo(usinglist_num, upload_date)
-values(16, to_date(sysdate, 'YYYY-MM-DD HH:mi'));
-
-select COMMUNICATION_PHOTO_FILE 
-from COMMUNICATION_PHOTO_LIST 
-where USINGLIST_NUM=2 and COMMUNICATION_PHOTO_FILE != 'N' 
-order by UPLOAD_DATE desc;
 
 create table pay(
     PAY_ID varchar2(30), -- 회원 아이디
@@ -257,61 +235,14 @@ create table USINGLIST(
 
 -- usinglist 예시 데이터
 insert into usinglist
-values('1', 'asd222', 'N', 'asdasd@naver.com', '90000', '2020/02/21', '2020/02/22', '위탁');
-insert into usinglist
-values('2', 'asd111', 'N', 'asdasd@naver.com', '70000', '2020/05/21', '2020/05/22', '위탁');
-insert into usinglist
-values('3', 'asd444', 'N', 'asdasd@naver.com', '80000', '2020/06/25', '2020/06/26', '위탁');
-insert into usinglist
-values('4', 'asd333', 'N', 'asdasd@naver.com', '40000', '2020/06/27', '2020/06/28', '위탁');
-insert into usinglist
-values('5', 'asd111', 'N', 'asdasd@naver.com', '30000', '2020/06/29', '2020/06/30', '위탁');
-insert into usinglist
-values('6', 'asd111', 'N', 'asdasd@naver.com', '20000', '2020/06/29', '2020/06/29', '방문');
-insert into usinglist
-values('7', 'asd222', 'N', 'asdasd@naver.com', '60000', '2020/06/30', '2020/07/01', '위탁');
-insert into usinglist
-values('8', 'asd333', 'N', 'asdasd@naver.com', '80000', '2020/07/01', '2020/07/02', '위탁');
-insert into usinglist
-values('9', 'asd111', 'N', 'asdasd@naver.com', '70000', '2020/07/02', '2020/07/03', '위탁');
-insert into usinglist
-values('10', 'asd333', 'N', 'asdasd@naver.com', '120000', '2020/07/02', '2020/07/05', '위탁');
-insert into usinglist
-values('11', 'asd888', '경기 오산시', 'asdasd@naver.com', '150000', '2020/07/07', '2020/07/17', '위탁');
+values(1, 'asd111', '경기 성남시', 'asdasd@naver.com', 75000, to_date('2020-07-21 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-23 15:00', 'YYYY-MM-DD HH24:mi'), '위탁', 'iaPgv1');
 
-select * from usinglist where member_id='asdasd@naver.com' order by list_num desc;
-select * from petsitter where petsitter_id='asd444';
-commit;
+insert into usinglist
+values(2, 'asd111', '경기 성남시', 'asdasd@naver.com', 120000, to_date('2020-07-25 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-29 15:00', 'YYYY-MM-DD HH24:mi'), '위탁', 'Eng82o');
 
-select list_num, member_id, petsitter_id, list_price, list_type, petsitter_nickname, petsitter_name, petsitter_tel 
-from usinglist natural join petsitter
-where member_id='asdasd@naver.com'
-order by list_num desc;
+insert into usinglist
+values(3, 'asd111', '경기 성남시', 'asdasd@naver.com', 37500, to_date('2020-07-29 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-30 15:00', 'YYYY-MM-DD HH24:mi'), '위탁', '7Tpbg9');
 
-select list_num, member_id, list_price, list_start_date, list_end_date, list_type, petsitter_nickname, petsitter_name, petsitter_tel 
-from usinglist natural join petsitter  
-where member_id='asdasd@naver.com' and list_start_date >= trunc(add_months(sysdate,-1))
-order by list_num desc;
-
-select * from usinglist 
-where MEMBER_ID='asdasd@naver.com' and list_start_date >= trunc(add_months(sysdate, -1)) 
-order by LIST_NUM desc;
-
-select * from usinglist 
-where MEMBER_ID='asdasd@naver.com'
-order by LIST_NUM desc;
-
-select * from usinglist
-where MEMBER_ID='asdasd@naver.com' and 
-      (list_start_date between to_date('2020-07-03', 'YYYY-MM-DD') and to_date('2020-07-05', 'YYYY-MM-DD') or
-      list_end_date between to_date('2020-07-03', 'YYYY-MM-DD') and to_date('2020-07-05', 'YYYY-MM-DD'));
-      
-select list_num, member_id, list_price, list_start_date, list_end_date, list_type, petsitter_nickname, petsitter_name, petsitter_tel 
-from usinglist , petsitter 
-where MEMBER_ID='asdasd@naver.com' and usinglist.PETSITTER_ID=petsitter.PETSITTER_ID and 
-      (list_start_date between to_date('2020-07-03', 'YYYY-MM-DD') and to_date('2020-07-04', 'YYYY-MM-DD') or
-      list_end_date between to_date('2020-07-03', 'YYYY-MM-DD') and to_date('2020-07-04', 'YYYY-MM-DD'))
-order by LIST_NUM desc;
 
 -- review_board 예시 데이터
 insert into REVIEW_BOARD
@@ -329,83 +260,10 @@ values(3, 3, 'asdasd@naver.com', 'asd444', '2따뜻한 봄바람을 불어 보내는 것은 청
 insert into REVIEW_BOARD
 values(5, 9, 'asdasd@naver.com', 'asd111', '2따뜻한 봄바람을 불어 보내는 것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 풀이 없으면 인간은 사막이다 오아이스도 없는 사막이다', 
 3.5, 'dog05.jpg', '','2020/07/04', 0, 'REVIEW_BOARD');
-    
-commit;
-
-select * 
-from (select rownum as rnum, usinglist_num, petsitter_id, member_id, 
-             list_price, list_start_date, list_end_date, list_type
-      from usinglist 
-      where MEMBER_ID='asdasd@naver.com'
-      order by LIST_NUM desc) 
-where rnum >= 1 and rnum <= 5;
-
-select r_num, list_num, member_id, petsitter_id, list_price, list_type, petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, petsitter_address, petsitter_photo_profile_file 
-from (select rownum as r_num, list_num, member_id, petsitter_id, list_price, list_type, 
-             petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, 
-             petsitter_address, petsitter_photo_profile_file
-       from (select usinglist_num, member_id, petsitter_id, list_price, list_type, 
-                    petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, 
-                    petsitter_address, petsitter_photo_profile_file
-             from usinglist natural join petsitter 
-             where MEMBER_ID='asdasd@naver.com' order by LIST_NUM desc))
-where r_num >= 1 and r_num <= 20;
-
-select list_num, member_id, petsitter_id, list_price, list_type, petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, petsitter_address, petsitter_photo_profile_file 
-		from (select rownum as rnum, list_num, member_id, petsitter_id, list_price, list_type, 
-                     petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, 
-                     petsitter_address, petsitter_photo_profile_file
-              from (select list_num, member_id, petsitter_id, list_price, list_type, 
-                           petsitter_nickname, petsitter_name, petsitter_tel, petsitter_score, 
-                           petsitter_address, petsitter_photo_profile_file
-                    from usinglist natural join petsitter 
-                    where MEMBER_ID='asdasd@naver.com' and (list_start_date between to_date('20/06/24') and to_date('20/07/09') or
-                                    list_end_date between to_date('20/06/24') and to_date('20/07/09'))
-                    order by LIST_NUM desc))
-where rnum >= 1 and rnum <= 5;
-
-commit;
-select * 
-		from (select rownum as rnum, usinglist_num, petsitter_id, member_id, 
-                     list_price, list_start_date, list_end_date, list_type
-              from (select * 
-                    from usinglist 
-                    where MEMBER_ID='asdasd@naver.com'
-                    order by LIST_NUM desc))
-where rnum >= 6 and rnum <= 10 and (list_start_date between to_date('20/06/20') and to_date('20/07/09') or
-                          list_end_date between to_date('20/06/20') and to_date('20/07/09'));
-                          
-                          
-select * from (select petsitter.*, rownum from petsitter order by petsitter_date desc) where rownum = 1;
-select * from (select petsitter.*, rownum 
-               from petsitter 
-               where petsitter_date >= trunc(add_months(sysdate, -1))
-               order by petsitter_score desc, petsitter_count desc)
-where rownum = 1;
-
-select * from (select petsitter.*, rownum 
-               from petsitter 
-               where petsitter_date >= trunc(add_months(sysdate, -1))
-               order by petsitter_count desc)
-where rownum = 1;
 
 insert into pay(PAY_ID, PAY_AMOUNT, PETSITTER_ID, MERCHANT_UID, PAY_DATE, PAY_TYPE, START_DATE, END_DATE)
 values('asdasd@naver.com', 50000, 'asdasd', 'yaIB5s', sysdate, '위탁', to_date('2020-07-29 14:00', 'YYYY-MM-DD HH:mi'), to_date('2020-07-30 14:00', 'YYYY-MM-DD HH:mi'));
 
-select * 
-from (select rownum as rnum, communication_board.*
-      from communication_board 
-      where (MEMBER_ID='N' or PETSITTER_ID='asdasd') and USINGLIST_NUM=16
-	  order by BOARD_NUM desc)
-where rnum >= 1 and rnum <= 5;
-
-select COMMUNICATION_PHOTO_FILE from communication_photo where usinglist_num = 16 and COMMUNICATION_PHOTO_FILE != 'N';
-
-select * from (select petsitter.*, rownum 
-               from petsitter 
-               where petsitter_date >= trunc(add_months(sysdate, -1)) and petsitter_score != 0 and petsitter_count != 0
-               order by petsitter_score desc, petsitter_count desc)
-where rownum = 1;
 
 insert into pay
 values('asdasd@naver.com', 37500, 'asd111', '7Tpbg9', sysdate, '위탁', to_date('2020-07-29 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-30 15:00', 'YYYY-MM-DD HH24:mi'), '결제 완료');
@@ -416,24 +274,9 @@ values('asdasd@naver.com', 120000, 'asd111', 'Eng82o', sysdate, '위탁', to_date(
 insert into pay
 values('asdasd@naver.com', 75000, 'asd111', 'iaPgv1', sysdate, '위탁', to_date('2020-07-21 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-23 15:00', 'YYYY-MM-DD HH24:mi'), '결제 완료');
 
-insert into usinglist
-values(1, 'asd111', '경기 성남시', 'asdasd@naver.com', 75000, to_date('2020-07-21 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-23 15:00', 'YYYY-MM-DD HH24:mi'), '위탁', 'iaPgv1');
-
-insert into usinglist
-values(2, 'asd111', '경기 성남시', 'asdasd@naver.com', 120000, to_date('2020-07-25 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-29 15:00', 'YYYY-MM-DD HH24:mi'), '위탁', 'Eng82o');
-
-insert into usinglist
-values(3, 'asd111', '경기 성남시', 'asdasd@naver.com', 37500, to_date('2020-07-29 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-30 15:00', 'YYYY-MM-DD HH24:mi'), '위탁', '7Tpbg9');
-
 insert into petsitter
 values('asd111', 'N', '볼리베어', '123123', '01011112222', 'asd111@asd111.com', 0, 0,	'N', '13494,경기 성남시 분당구 판교역로 233-1,101호',	'ㅎㅇㅎㅇㅎㅇ 볼리베어입니다', 15000,	1500, '픽업 가능,마당 존재,대형견 케어 가능,노견 케어 가능', '715744dd7f8347c6a7a87b0855129ece.jpg', '44353bd42b3849e8ae8849d4c60edc89.jpg', 'N', 'N', 'b0520cdf66144c63a6d989c192c21b3c.jpg,5b3deed78e754722ad2316740f95dff2.jpg', sysdate, '방문,위탁', 0, 'N', 0, 'N', 0, 127.109420804531, 37.4016559594071, 'N');
 
 insert into member
 values('asdasd@naver.com', '호이잇', '123123', '둘리', '01011112222', 'Green', 1, 37500, sysdate, 'cf58b71ad91c4eb1a4372de3b2bfdf62.png', 0, '남', '18132,경기 오산시 운암로 122,106동 1803호');
 commit;
-
-select sum(pay_amount) from pay where petsitter_id='asd222';
-
-select sum(list_price) sum, count(*) count 
-from usinglist 
-where petsitter_id='asd111' and list_start_date < sysdate;
