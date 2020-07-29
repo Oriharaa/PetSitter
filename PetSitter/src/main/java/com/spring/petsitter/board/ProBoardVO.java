@@ -21,8 +21,24 @@ create table PRO_BOARD(
     SECRET_CHECK VARCHAR2(4) default 'N' -- 비밀게시판 확인 
 );
 
+프로보드 좋아요 테이블
+CREATE TABLE PRO_LIKE_COUNT(
+    LIKE_NUM NUMBER primary key, --좋아요 번호
+    LIKE_ID varchar2(4000) DEFAULT 'N' -- 좋아요 아이디
+);
+
+프로보드 좋아요 트리거
+CREATE OR REPLACE TRIGGER PRO_LIKE_INSERT_TRG1
+BEFORE INSERT ON PRO_BOARD
+BEGIN
+INSERT into PRO_LIKE_COUNT
+VALUES ((SELECT NVL(MAX(PRO_NUM),0)+1 FROM PRO_BOARD),'N');
+END;
+/
+
 글신고 테이블
 create table report_article (
+<<<<<<< HEAD
 	member_num number,
 	report_reason varchar2(4000),
 	member_id varchar2(30),
@@ -33,15 +49,31 @@ create table report_article (
     
 리플 신고 테이블
 create table report_reply (
+=======
+    member_num number,
+    report_reason varchar2(4000),
+    member_id varchar2(30),
+    btype varchar2(100),
+    processing varchar2(10) default 'N'
+);
+ 
+댓글 신고 테이블    
+    create table report_reply (
+>>>>>>> origin/JH
     bno number,
     rno number,
     report_reason varchar2(4000),
     member_id varchar2(30),
     btype varchar2(100),
+<<<<<<< HEAD
     processing varchar2(10) default 'N',
     check_id varchar2(2000) default 'N'
 );
 
+=======
+    processing varchar2(10) default 'N'
+); 
+>>>>>>> origin/JH
 */
 public class ProBoardVO {
 
@@ -59,16 +91,24 @@ public class ProBoardVO {
 	private String REAL_DATE;
 	private int PRO_LIKECOUNT;
 	private String BOARD_TYPE;
+	
+	private String searchType;
+	private String keyword;
+	
 	private int page2;
 	private int listcount2;
 	private int maxpage2;
 	private int startpage2;
 	private int endpage2;
+	
 	private String SECRET_CHECK;
 	private String REPORT_REASON;
 	private String PHOTO_CHECK01;
 	private String PHOTO_CHECK02;
-	
+
+	private String LIKE_ID;
+	private int LIKE_NUM;
+
 	
 	
 	public int getPRO_NUM() {
@@ -156,6 +196,19 @@ public class ProBoardVO {
 	public void setBOARD_TYPE(String bOARD_TYPE) {
 		BOARD_TYPE = bOARD_TYPE;
 	}
+	
+	public String getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 	public int getPage2() {
 		return page2;
 	}
@@ -210,6 +263,19 @@ public class ProBoardVO {
 	public void setPHOTO_CHECK02(String pHOTO_CHECK02) {
 		PHOTO_CHECK02 = pHOTO_CHECK02;
 	}
+	public String getLIKE_ID() {
+		return LIKE_ID;
+	}
+	public void setLIKE_ID(String lIKE_ID) {
+		LIKE_ID = lIKE_ID;
+	}
+	public int getLIKE_NUM() {
+		return LIKE_NUM;
+	}
+	public void setLIKE_NUM(int lIKE_NUM) {
+		LIKE_NUM = lIKE_NUM;
+	}
+
 
 	
 

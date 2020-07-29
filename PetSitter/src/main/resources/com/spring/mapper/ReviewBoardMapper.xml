@@ -61,7 +61,7 @@
 	</update>
 	
 	<update id="updateLike_count3" parameterType="HashMap">
-		UPDATE LIKE_COUNT SET LIKE_ID = REPLACE(LIKE_ID,#{LIKE_ID} ,'') WHERE LIKE_NUM = #{LIST_NUM}
+		UPDATE LIKE_COUNT SET LIKE_ID = REPLACE(LIKE_ID, #{LIKE_ID},'') WHERE LIKE_NUM = #{LIST_NUM}
 	</update>
 	
 	<insert id="insertReview" parameterType="com.spring.petsitter.board.ReviewBoardVO" >
