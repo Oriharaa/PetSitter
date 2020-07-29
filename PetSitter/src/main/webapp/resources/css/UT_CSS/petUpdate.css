@@ -17,9 +17,6 @@ p {
 
 
 
-
-
-
 /* top_box */
 	.top_box {
 	margin:10% 0 0 0 ;
@@ -89,10 +86,6 @@ p {
   font-size: 18px;
   margin: 20% 0 0 0;
   margin-left: 85px;
-	}
-
-	.yes, .no{
-	color:#525252;
 	}
 
 	.noimg {
@@ -165,13 +158,6 @@ p {
 	height:80px;
 	}
 
-
-/*  .tooltip-inner{
-background-color:#53dc98;
-} 
- */
-
-
 input[type=text]
 
 
@@ -182,3 +168,6 @@ input[type=number] {padding-left:10%; color:#5e5e5e; font-weight:bold;}
 /*인풋&버튼 클릭시 색상 없애기*/
 input:focus {outline:none;}
 button:focus {outline:none;} 
+
+/*인풋 색상 변경*/
+/* input:focus {outline:2px solid #d50000;} */

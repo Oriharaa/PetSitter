@@ -1,5 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.spring.petsitter.*" %>
+<%@ page import="java.util.*" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.spring.petsitter.MemberController.*" %>
+
+
 <%
 	//세션 종료시 홈으로
 	if(session.getAttribute("id") == null) {
@@ -8,10 +14,24 @@
 		out.println("</script>");
 	}
 %>
-<!-- 반려동물 등록 완료 페이지 -->
 
+<%
+	String id = (String)session.getAttribute("id");
+	String name = (String)session.getAttribute("name");
+%>
+
+<%
+	@SuppressWarnings("unchecked")
+	ArrayList<PetVO> list = (ArrayList<PetVO>)request.getAttribute("list");
+	String memberId = (String)request.getAttribute("memberId");
+	String petPhoto = (String)request.getAttribute("petPhoto");
+	String petName = (String)request.getAttribute("petName");	
+%>
+
+
+<!-- 반려동물 등록 -->
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 
 
 <style>
@@ -73,11 +93,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	  background: #e9e9e9!important; 
 	}
 	/*최하단바 종료*/
+
 </style>
 
 
   <head>
-    <title>Depot &mdash;Website Template by Colorlib</title>
+    <title>반려동물 등록 페이지</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -96,57 +117,16 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
     
     <!-- 언택 추가 CSS -->
-		<link rel="stylesheet" type="text/css" href="resources/css/UT_CSS/petRegister2.css?after">
+		<link rel="stylesheet" type="text/css" href="resources/css/UT_CSS/myPet.css?after">
 
-	<style>
-		.dropdown:hover {
-			background-color: rgb(83, 220, 153);
-		}
-		
-		.dropdown:active {
-			background-color: rgb(83, 220, 153);
-		}
-		.btn-secondary {
-			background-color: rgb(83, 220, 153);
-			border-color: rgb(83, 220, 153);
-			vertical-align: baseline;
-			font-weight: bold;
-		}
-		
-		.btn-secondary:hover {
-			background-color: rgb(83, 220, 153);
-			border-color: rgb(83, 220, 153);
-		}
-		
-		.btn-secondary:active {
-			background-color: rgb(83, 220, 153);
-			border-color: rgb(83, 220, 153);
-		}
-		
-		.btn-secondary:focus {
-			background-color: rgb(83, 220, 153);
-			border-color: rgb(83, 220, 153);
-			box-shadow: 0 0 0 0 rgb(83, 220, 153);
-		}
-		
-		.dropdown-menu {
-			min-width: 60px !important;
-		}
-	
-		.dropdown-item:hover {
-			background-color: rgb(83, 220, 153);
-			color: rgb(255, 255, 255) !important;
-		}
-		
-		.dropdown-item {
-			 color: #53dc99 !important;
-			 font-weight: bold;
-		}
-		
-		.main-menu li a {
-			font-weight: bold;
-		}
-	</style>
+
+
+		<!-- 모달창 제이쿼리 UI -->
+		<link href="/resources/jqueryui/jquery-ui.css" rel="stylesheet">
+		<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="/resources/jqueryui/jquery-ui.js"></script>
+
+
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
   
@@ -172,7 +152,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
               <div class="float-right">
-                <a href="memberinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="memberinfo.me?id=${id }"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
               </div>
               
@@ -181,7 +161,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
         </div>
       </div>
       
-      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152);">
+      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152,0.86);">
 
         <div class="container">
           <div class="row align-items-center position-relative">
@@ -193,27 +173,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               <nav class="site-navigation text-right ml-auto " role="navigation">
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onmousedown="this.style.backgroundColor:'rgb(83, 220, 153)'">
-											돌봄
-									  </button>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-									    <a href="reservation2.br" class="dropdown-item" style="font-size:15px;">방문 돌봄</a>
-                  		<a href="reservation1.br" class="dropdown-item" style="font-size:15px;" >위탁 돌봄</a>
-									  </div>
-									</li>
-									<li class="dropdown">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-											게시판
-									  </button>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-									    <a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
-                  		<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
-                  		<a href="pqboardlist.me" class="dropdown-item" style="font-size:15px;" >펫시터 게시판</a>
-									  </div>
-									</li>
-                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>
-                  <li><a href="noticeboardlist.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
+                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
+	                <li><a href="reservation1.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
+                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
+                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
+                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
                 </ul>
               </nav>
 
@@ -227,54 +191,167 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       </header>
       
 <!-- 본 기능 추가 시작 -->
-<section class="one_box">
+<section class="top_box">
 	<div class="container">
-	
-		<div class="row justify-content-center">
-			<div class="col-3">
-				<div class="left">
-					<img class ="left_dog" src="resources/images/pet/PET8.jpg">
+		<div class="row">
+		
+			<div class="col-4">
+				<div class="insert">
+					<div class="p1">
+						<p><i class="fas fa-paw" id="i_1"></i></p>
+					</div>
+					<div class="p2">
+						<p>서비스 이용을 위해서</p>
+						<p>마이펫 등록을 해주세요</p>
+					</div>
+					<div class="insert_div">
+						<a href="petRegister.me" class="insert_btn">마이펫 등록	</a>
+					</div>
+				</div>
+			</div>
+												  	
+			<div class="col-4">
+				<div class="update">
+					<div class="p1">
+						<p><i class="fas fa-pencil-alt" id="i_2"></i></p>
+					</div>
+					<div class="p2">
+						<p>1년 주기로</p>
+						<p>정보 수정을 권장합니다</p>
+					</div>
+					<div class="update_div">
+						<a href="#" class="update_btn" onclick="openModalUp();">마이펫 수정</a>
+					</div>
 				</div>
 			</div>
 			
-			<div class="col-6">
-				<div class="one_title">
-					<h1 class="one_text1">환영합니다!</h1>
-					<!-- ID값 받아오기 -->
-					<p class="one_text2">
-						${id }님 마이펫 등록을 축하합니다!<br>
-						보살펴조에서는 항상 회원님들의 입장에서<br>
-						보다 좋은 서비스를 받으실 수 있도록 노력하겠습니다.<br>
-						감사합니다:)	
-					</p>
-				</div>
-			</div>
-			
-			<div class="col-3">
-				<div class="right">
-					<img class="right_dog" src="resources/images/pet/PET7.jpg">
+			<div class="col-4">
+				<div class="delete">
+					<div class="p1">
+						<p><i class="far fa-trash-alt" id="i_3"></i></p>
+					</div>
+					<div class="p2">
+						<p>삭제가 필요할 경우</p>
+						<p>아래 버튼을 눌러주세요</p>
+					</div>
+					<div class="delete_div">
+						<a href="#" class="delete_btn" onclick="openModalDel();">마이펫 삭제</a>
+					</div>
 				</div>
 			</div>
 		</div>
 		
-		<div class="row justify-content-center">
+		
+		<div class="row">
 			<div class="col">
-				<div class="one_a">
-					<a href="home.me" class="go_main">메인으로</a>
+				<div class="lr">
+					<div class="left">
+						<div class="l-1">
+							<a href="memberinfo.me?id=${id}" class="left-btn"><i class="far fa-hand-point-left" id="left-icon"></i></a>
+						</div>
+						<div class="l-2">
+							<a href="memberinfo.me?id=${id}" class="left-text">마이페이지</a>
+						</div>
+					</div>
+
+					<div class="right">
+						<div class="r-1">
+							<a href="reservation1.br" class="right-text">예약하기</a>
+						</div>
+						<div class="r-2">
+							<a href="reservation1.br" class="right-btn"><i class="far fa-hand-point-right" id="right-icon"></i></a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-		
-		
 	</div>
 </section>
 
 
-<!-- 본 기능 추가 종료 -->
-      
-      
 
-      
+<!-- 모달 모달 모달 --><!-- 모달 모달 모달 --><!-- 모달 모달 모달 -->
+<!-- 모달 모달 모달 --><!-- 모달 모달 모달 --><!-- 모달 모달 모달 -->
+<!-- 수정 모달창 -->
+<!-- 모달창 백그라운드 -->
+<div id="modalUp" class="searchModalUp">
+	<!-- 모달창 내용물 -->
+	<div class="search-modal-content">
+		<div class="page-header">
+			<h1 class="md-header">마이펫 현황</h1>
+			<p class="md-header-p">정보수정을 원하는 펫을 선택해주세요!</p>
+		</div>
+		<div class="row">
+			
+			<%
+  			for(int i=0; i<list.size(); i++) {
+	  		PetVO pet = list.get(i);
+			%>
+			<div class="col-4">
+				<div class="list-div">
+					<div class="pet-div">
+						<div class="petName">
+							<%=pet.getPET_NAME()%>
+						</div>
+						<div class="petPhoto">
+							 <a href ="petSelect.me?name=<%=pet.getPET_NAME()%>"><img class="petImg" id="pet-<%=i%>" src="/filepath/<%=pet.getPET_PHOTO()%>"></a> 
+						</div>
+					</div>
+				</div>
+			</div>
+		<% } %>
+		</div>
+		<div class="row">
+			<div class="close" onClick="closeModalUp();">
+				<span class="close_btn">닫기</span>
+			</div>
+		</div>
+	</div><hr>
+</div>
+
+
+<!-- 삭제 모달창  시작-->
+<!-- 모달창 백그라운드 -->
+<div id="modalDel" class="searchModalDel">
+	<!-- 모달창 내용물 -->
+	<div class="search-modal-content">
+		<div class="page-header">
+			<h1 class="md-header">마이펫 현황</h1>
+			<p class="md-header-p">정보삭제를 원하는 펫을 선택해주세요!</p>
+		</div>
+		<div class="row">
+			
+			<%
+  			for(int i=0; i<list.size(); i++) {
+	  		PetVO pet = list.get(i);
+			%>
+			<div class="col-4">
+				<div class="list-div">
+					<div class="pet-div">
+						<div class="petName">
+							<%=pet.getPET_NAME()%>
+						</div>
+						<div class="petPhoto">
+							 <a href ="petDelete.me?name=<%=pet.getPET_NAME()%>"><img class="petImg" id="pet-<%=i%>" src="/filepath/<%=pet.getPET_PHOTO()%>"></a> 
+						</div>
+					</div>
+				</div>
+			</div>
+		<% } %>
+					
+		</div>
+		<div class="row">
+			<div class="close" onClick="closeModalDel();">
+				<span class="close_btn">닫기</span>
+			</div>
+		</div>
+	</div><hr>
+</div>
+<!-- 모달 모달 모달 --><!-- 모달 모달 모달 --><!-- 모달 모달 모달 -->
+<!-- 모달 모달 모달 --><!-- 모달 모달 모달 --><!-- 모달 모달 모달 -->
+
+<!-- 본 기능 추가 종료 -->
+
       <footer class="site-footer">
       <div class="container">
         <div class="row">
@@ -301,13 +378,13 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
             
 
-						<form>
+
             <h2 class="footer-heading mb-4" id="main_grayfont1">Follow Us</h2>
             <a href="https://www.facebook.com/" class="smoothscroll pl-0 pr-3" target="_blank"><span class="icon-facebook" id="main_grayfont2" ></span></a>
             <a href="https://twitter.com/" class="pl-3 pr-3" target="_blank"><span class="icon-twitter" id="main_grayfont2" ></span></a>
             <a href="https://www.instagram.com/" class="pl-3 pr-3" target="_blank"><span class="icon-instagram" id="main_grayfont2" ></span></a>
             <a href="https://www.linkedin.com/" class="pl-3 pr-3" target="_blank"><span class="icon-linkedin" id="main_grayfont2" ></span></a>
-            </form>
+            <!-- </form> -->
           </div>
         </div>
         <div class="row pt-5 mt-5 text-center">
@@ -338,17 +415,42 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <script src="<c:url value="./resources/js/aos.js"/>"></script><!-- nav 상단바 반응형웹 적용1 -->
 
     <script src="<c:url value="/resources/js/main.js"/>"></script><!-- nav 상단바 반응형웹 적용2 -->
-      
-		<script>
-			$(function() {
-				$(".btn-secondary").on("click mousedown", function() {
-					$(this).css("background-color", "rgb(83, 220, 153)");
-					$(this).css("border-color", "rgb(83, 220, 153)");
-					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
-				});
-			});
-			
-		</script>
+    
+    <!-- 아이콘 -->   
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    
+    
+<!-- 툴팁창 -->
+<script>
+  $(function () {
+		$('[data-toggle="tooltip"]').tooltip()
+	});
+</script>
 
+<!-- 모델 열고 닫기 (수정)-->
+<script>
+	function openModalUp() {
+		$("#modalUp").show();
+	};
+
+	function closeModalUp() {
+		$('.searchModalUp').hide();
+	};
+</script>
+
+<!-- 모델 열고 닫기 (삭제)-->
+<script>
+	function openModalDel() {
+		$("#modalDel").show();
+	};
+
+	function closeModalDel() {
+		$('.searchModalDel').hide();
+	};
+</script>
+
+
+
+   
 </body>
 </html>

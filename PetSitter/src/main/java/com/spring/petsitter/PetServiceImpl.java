@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.mapper.MemberMapper;
 import com.spring.mapper.PetMapper;
 
 @Service("petService")
@@ -28,4 +29,27 @@ public class PetServiceImpl implements PetService{
 		return list;
 	}
 	
+<<<<<<< HEAD
 }
+=======
+	@Override
+	public PetVO selectPet2(String id, String name) {
+		PetMapper petMapper = sqlSession.getMapper(PetMapper.class);
+		PetVO vo = petMapper.selectPet2(id, name);
+		return vo;
+	}
+	
+	@Override
+	public void updatePet(PetVO petvo) {
+		PetMapper petMapper = sqlSession.getMapper(PetMapper.class);
+		petMapper.updatePet(petvo);
+	}
+	
+	@Override
+	public void deletePet(String id, String name) {
+		PetMapper petMapper = sqlSession.getMapper(PetMapper.class);
+		petMapper.deletePet(id, name);
+	}
+	
+}
+>>>>>>> origin/Hong

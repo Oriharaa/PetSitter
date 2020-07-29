@@ -23,5 +23,21 @@
 		select * from PET where MEMBER_ID=#{MEMBER_ID}
 	</select>
 	
+	<select id="selectPet2" parameterType="String" resultType="PetVO">
+		select * from PET where MEMBER_ID=#{id} and PET_NAME=#{name}
+	</select>
+
+	<update id="updatePet" parameterType="PetVO">
+		update PET set PET_CATEGORY=#{PET_CATEGORY}, PET_KIND=#{PET_KIND}, PET_PHOTO=#{PET_PHOTO},
+		PET_WEIGHT=#{PET_WEIGHT}, PET_SIZE=#{PET_SIZE}, PET_GENDER=#{PET_GENDER}, PET_BIRTH=#{PET_BIRTH}, PET_NEUTERED=#{PET_NEUTERED},
+		PET_POTTYTRAN=#{PET_POTTYTRAN}, PET_VAOONE=#{PET_VAOONE} 
+		WHERE MEMBER_ID=#{MEMBER_ID}  AND PET_NAME=#{PET_NAME}
+	</update>
+
+	<delete id="deletePet" parameterType="PetVO">
+		delete from PET where MEMBER_ID=#{id} AND PET_NAME=#{name}
+	</delete>
+
+
 
 </mapper>

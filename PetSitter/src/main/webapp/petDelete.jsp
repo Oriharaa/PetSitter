@@ -98,55 +98,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <!-- 언택 추가 CSS -->
 		<link rel="stylesheet" type="text/css" href="resources/css/UT_CSS/petRegister.css?after">
 
-	<style>
-		.dropdown:hover {
-			background-color: rgb(83, 220, 153);
-		}
-		
-		.dropdown:active {
-			background-color: rgb(83, 220, 153);
-		}
-		.btn-secondary {
-			background-color: rgb(83, 220, 153);
-			border-color: rgb(83, 220, 153);
-			vertical-align: baseline;
-			font-weight: bold;
-		}
-		
-		.btn-secondary:hover {
-			background-color: rgb(83, 220, 153);
-			border-color: rgb(83, 220, 153);
-		}
-		
-		.btn-secondary:active {
-			background-color: rgb(83, 220, 153);
-			border-color: rgb(83, 220, 153);
-		}
-		
-		.btn-secondary:focus {
-			background-color: rgb(83, 220, 153);
-			border-color: rgb(83, 220, 153);
-			box-shadow: 0 0 0 0 rgb(83, 220, 153);
-		}
-		
-		.dropdown-menu {
-			min-width: 60px !important;
-		}
-	
-		.dropdown-item:hover {
-			background-color: rgb(83, 220, 153);
-			color: rgb(255, 255, 255) !important;
-		}
-		
-		.dropdown-item {
-			 color: #53dc99 !important;
-			 font-weight: bold;
-		}
-		
-		.main-menu li a {
-			font-weight: bold;
-		}
-	</style>
 
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -173,7 +124,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
               <div class="float-right">
-                <a href="memberinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="memberinfo.me?id=${id }"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
               </div>
               
@@ -182,7 +133,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
         </div>
       </div>
       
-      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152);">
+      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152,0.86);">
 
         <div class="container">
           <div class="row align-items-center position-relative">
@@ -194,27 +145,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               <nav class="site-navigation text-right ml-auto " role="navigation">
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
-											돌봄
-									  </button>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-									    <a href="reservation2.br" class="dropdown-item" style="font-size:15px;">방문 돌봄</a>
-                  		<a href="reservation1.br" class="dropdown-item" style="font-size:15px;" >위탁 돌봄</a>
-									  </div>
-									</li>
-									<li class="dropdown">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-											게시판
-									  </button>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-									    <a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
-                  		<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
-                  		<a href="pqboardlist.me" class="dropdown-item" style="font-size:15px;" >펫시터 게시판</a>ㄴ
-									  </div>
-									</li>
-                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>
-                  <li><a href="noticeboardlist.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
+                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
+	                <li><a href="reservation1.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
+                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
+                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
+                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
                 </ul>
               </nav>
 
@@ -230,165 +165,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 <!-- 본 기능 추가 시작 -->
 <section class="top_box">
   <div class="container">
-    <div class="row justify-content-start">     
-	  	<div class="col-8">
-	    	<div class="top_box_title">
-	      	<h1 class="top_box_text1">My Pet 등록</h1>
-		  		<p class="top_box_text2">지금 바로 반려동물을 등록해보세요.</p>
-	    	</div>
-	  	</div>
-	  	
-	 	  <div class="col-3">
-	  	</div>
-	  	
-		</div>
-  </div>
-</section>
-
-<section class="middle_box">
-  <div class="container">
-    <div class="row">
-      <div class="col">
-	    	<div class="inner">
-		  		<form name="petRegister2" action="petRegister2.me" enctype="multipart/form-data" method="post">
-		    		<div class="row">
-			 	 			<div class="col">
-			  				<div class="div_txt">
-			  					<input type="text" name="MEMBER_ID" id="MEMBER_ID" class="input_txt" value=${id } readonly>
-			  					<span class="span_txt" id="input_id">ID</span>
-			  				</div>
-			  			</div>
-			  			<div class="col">
-			  				<div class="div_txt">
-			  					<input type="text" name="PET_CATEGORY" id="PET_CATEGORY" class="input_txt" 
-			  						data-toggle="tooltip" data-placement="top" title="예 : 강아지">
-			    				<span class="span_txt" id="input">종류</span>	
-			  				</div>
-			  			</div>
-			  		</div>
-						
-						<div class="row">
-							<div class="col">
-								<div class="div_txt">
-									<input type="text" name="PET_KIND" id="PET_KIND" class="input_txt"
-										data-toggle="tooltip" data-placement="top" title="예 : 푸들">
-									<span class="span_txt" id="input">품종</span>
-								</div>
-							</div>
-							<div class="col">
-								<div class="div_txt">
-									<input type="text" name="PET_NAME" id="PET_NAME" class="input_txt"
-										data-toggle="tooltip" data-placement="top" title="예 : 밍키">
-									<span class="span_txt" id="input">이름 </span>
-								</div>	
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col">
-								<div class="div_txt">
-									<input type="number" name="PET_WEIGHT" id="PET_WEIGHT" class="input_txt"
-										data-toggle="tooltip" data-placement="top" title="예: 9 (단위 :KG)">
-									
-									<span class="span_txt" id="input">체중</span>
-								</div>
-								<div class="div_txt">
-									<input type="text" name="PET_SIZE" id="PET_SIZE" class="input_txt"
-										data-toggle="tooltip" data-placement="top" title="예 : (대형 / 중형  / 소형)">
-									<span class="span_txt" id="input">크기</span>
-								</div>
-								
-							</div>	
-							<div class="col">
-								<div class="div_txt">
-									<input type="text" name="PET_BIRTH" id="PET_BIRTH" class="input_txt"
-										data-toggle="tooltip" data-placement="top" title="예 : 2020-06-16">
-									<span class="span_txt" id="input">생년월일</span>			
-								</div>
-							</div>			
-						</div>
-						
-						<br><br><br>
-						
-						<div class="row">
-							<div class="col">
-								<div class="div_txt2">
-									<span class="span_txt2" id="checkbox1">성별</span>
-									<input type="text" name="pet_sex" id="pet_sex" class="input_txt" disabled/>
-										<div class="div_rd" id="div_rd1">
-											<input type="radio" name="PET_GENDER" id="PET_GENDER" class="input_rd" value="수컷">
-												<span class="yes">수컷</span>
-											<input type="radio" name="PET_GENDER" id="PET_GENDER" class="input_rd" value="암컷">
-												<span class="no">암컷</span>
-										</div>
-								</div>
-							</div>
-
-							<div class="col">
-								<div class="div_txt2">
-									<span class="span_txt2" id="checkbox2">중성화 수술 여부</span>
-									<input type="text" name="pet_operation" id="pet_operation" class="input_txt" disabled/>
-										<div class="div_rd">
-											<input type="radio" name="PET_NEUTERED" id="PET_NEUTERED" class="input_rd" value="Y">
-												<span class="yes">했음</span>
-											<input type="radio" name="PET_NEUTERED" id="PET_NEUTERED" class="input_rd" value="N">
-												<span class="no">안했음</span>
-										</div>
-								</div>
-							</div>
-							
-							<div class="col">
-								<div class="div_txt2">
-									<span class="span_txt2">배변훈련 여부</span>
-									<input type="text" name="pet_shit" id="pet_shit" class="input_txt" disabled/>
-										<div class="div_rd">
-											<input type="radio" name="PET_POTTYTRAN" id="PET_POTTYTRAN" class="input_rd" value="Y">
-												<span class="yes">했음</span>
-											<input type="radio" name="PET_POTTYTRAN" id="PET_POTTYTRAN" class="input_rd" value="N">
-												<span class="no">안했음</span>
-										</div>
-								</div>
-							</div>
-					
-							<div class="col">
-								<div class="div_txt2">
-									<span class="span_txt2">예방접종 여부</span>
-									<input type="text" name="pet_prevent" id="pet_prevent" class="input_txt" disabled/>
-										<div class="div_rd">
-											<input type="radio" name="PET_VAOONE" id="PET_VAOONE" class="input_rd" value="Y">
-												<span class="yes">했음</span>
-											<input type="radio" name="PET_VAOONE" id="PET_VAOONE" class="input_rd" value="N">
-												<span class="no">안했음</span>
-										</div>	
-								</div>
-							</div>
-						</div>	
-					
-						<br><br><br>
-						
-						<div class="row">
-							<div class="col">
-								<div class="div_txt3">
-									<span class="span_txt3" id="file">사진 업로드</span>
-								</div>
-								<div class="div_txt3">
-									<img class="noimg" id="noimg" src="resources/images/noimg.png">
-									<button type="submit" class="btn_next" onclick="javascript:register">
-										<i class="fas fa-arrow-right" id="icon1"></i>펫 등록
-									</button>
-								</div>
-								<div class="div_file">
-									<div class="filebox">
-										<label for="input-file" class="upload">업로드</label>
-											<input type="file" name="PET_PHOTO_PROFILE" id="input-file" class="upload-hidden">																										
-									</div>
-								</div>
-							</div>
-						</div><br><br>				
-		  		</form>
-				</div>
-	  	</div>
-    </div>
+    
   </div>
 </section>
 
@@ -504,18 +281,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <!-- 아이콘 -->   
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
     
-<<<<<<< HEAD
-    <script>
-			$(function() {
-				$(".btn-secondary").on("click mousedown", function() {
-					$(this).css("background-color", "rgb(83, 220, 153)");
-					$(this).css("border-color", "rgb(83, 220, 153)");
-					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
-				});
-			});
-			
-		</script>
-=======
     
       <script>
   $(function () {
@@ -532,6 +297,5 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       
 
 
->>>>>>> origin/Hong
 </body>
 </html>
