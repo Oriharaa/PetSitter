@@ -123,5 +123,10 @@ public class ReviewBoardController {
 		ReviewboardService.reviwReportInsert(vo);
 		return "redirect:/review_board.bo";
 	}	
-	
+
+	@RequestMapping("/reviewreportinsert2.bo") 
+	public String reviwReportInsert2(ReviewBoardVO vo) throws Exception {
+		ReviewboardService.reviwReportInsert(vo);
+		return "redirect:/reservation1.br";
+	}	
 }

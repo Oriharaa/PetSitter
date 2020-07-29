@@ -248,8 +248,10 @@
         success:function(data){
         	$.each(data, function(index, item){
         		
-        		//주소 문자열 추출 2자리
+        		
     				if(index < num) {
+    				
+    				//주소 문자열 추출 2자리	
     				var address = item.petsitter_ADDRESS;
     		   	var Paddress = address.split(',', 2);
     		   	var real_address = Paddress[1].split(' ');
@@ -451,37 +453,8 @@
 		    		reviewForm += '<table>';
 		    		reviewForm += '<tr>';
 		    		reviewForm += '<td class = "font-size-17 main_grayfont3 mybold" width = "145px">'+ item.member_NICKNAME + '<td>';
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
 		    		reviewForm += '<td style = "padding: 6px 0 0 10px; font-size: 12px;">';
-		    		reviewForm += '<a href = "./reviewreportform.bo?num='+item.list_NUM+'&sessionid='+sessionid+'" type="button" class="reportFormAjax main_redfont0">신고</a><td>';
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
-		    		
+		    		reviewForm += '<a href = "./reviewreportform.bo?num='+item.list_NUM+'&sessionid='+sessionid+'" type="button" class="reportFormAjax main_redfont0">신고</a><td>';	    		
 		    		
 		    		reviewForm += '<tr>';
 		    		reviewForm += '<tr>';

@@ -47,6 +47,7 @@ public class ReviewBoardVO {
 	private MultipartFile[] REVIEW_PHOTO;
 	private String REVIEW_UP_PHOTO;
 	private Date REVIEW_DATE;
+	private String REAL_DATE;	
 	private int LIKE_COUNT;
 	private String BOARD_TYPE;
 	private String MEMBER_NICKNAME;
@@ -61,6 +62,8 @@ public class ReviewBoardVO {
 	private String REVIEW_REFLY;
 	
 	private String REPORT_REASON;
+	
+	private String AVG_REVIEW_SCORE;
 	
 	public int getLIST_NUM() {
 		return LIST_NUM;
@@ -115,6 +118,12 @@ public class ReviewBoardVO {
 	}
 	public void setREVIEW_DATE(Date rEVIEW_DATE) {
 		REVIEW_DATE = rEVIEW_DATE;
+	}
+	public String getREAL_DATE() {
+		return REAL_DATE;
+	}
+	public void setREAL_DATE(String rEAL_DATE) {
+		REAL_DATE = rEAL_DATE;
 	}
 	public int getLIKE_COUNT() {
 		return LIKE_COUNT;
@@ -187,6 +196,12 @@ public class ReviewBoardVO {
 	}
 	public void setREPORT_REASON(String rEPORT_REASON) {
 		REPORT_REASON = rEPORT_REASON;
+	}
+	public String getAVG_REVIEW_SCORE() {
+		return AVG_REVIEW_SCORE;
+	}
+	public void setAVG_REVIEW_SCORE(String aVG_REVIEW_SCORE) {
+		AVG_REVIEW_SCORE = aVG_REVIEW_SCORE;
 	}
 	
 }
