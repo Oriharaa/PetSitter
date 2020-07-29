@@ -99,6 +99,7 @@ VALUES ((SELECT NVL(MAX(LIST_NUM),0)+1 FROM REVIEW_BOARD),'N','REVIEW_BOARD');
 END;
 /
 
+-- 전문가 게시판 테이블
 create table PRO_BOARD(
     PRO_NUM number(6) primary key, -- 글 번호  
     MEMBER_ID varchar2(30), -- 아이디
@@ -114,6 +115,21 @@ create table PRO_BOARD(
     SECRET_CHECK VARCHAR2(4) default 'N' -- 비밀게시판 확인 
 );
 
+-- 프로보드 좋아요 테이블
+CREATE TABLE PRO_LIKE_COUNT(
+    LIKE_NUM NUMBER primary key, --좋아요 번호
+    LIKE_ID varchar2(4000) DEFAULT 'N' -- 좋아요 아이디
+);
+
+-- 프로보드 좋아요 트리거
+CREATE OR REPLACE TRIGGER PRO_LIKE_INSERT_TRG1
+BEFORE INSERT ON PRO_BOARD
+BEGIN
+INSERT into PRO_LIKE_COUNT
+VALUES ((SELECT NVL(MAX(PRO_NUM),0)+1 FROM PRO_BOARD),'N');
+END;
+/
+
 CREATE TABLE PROREPLY (
     BNO NUMBER, 
     RNO NUMBER, 
@@ -126,25 +142,24 @@ CREATE TABLE PROREPLY (
 
 -- 글 신고 테이블
 create table report_article (
-	member_num number,
-	report_reason varchar2(4000),
-	member_id varchar2(30),
-	btype varchar2(100),
-	processing varchar2(10) default 'N',
-	check_id varchar2(2000) default 'N'
+    member_num number,
+    report_reason varchar2(4000),
+    member_id varchar2(30),
+    btype varchar2(100),
+    processing varchar2(10) default 'N'
 );
     
--- 리플 신고 테이블
+-- 댓글 신고 테이블    
 create table report_reply (
     bno number,
     rno number,
     report_reason varchar2(4000),
     member_id varchar2(30),
     btype varchar2(100),
-    processing varchar2(10) default 'N',
-    check_id varchar2(2000) default 'N'
+    processing varchar2(10) default 'N'
 );
 
+-- 회원 게시판 테이블
 create table MEMBER_BOARD(
     MEMBER_NUM number(10) PRIMARY KEY, -- 회원 게시판 글 번호
     MEMBER_ID varchar2(30), -- 회원 아이디
@@ -159,6 +174,18 @@ create table MEMBER_BOARD(
     MEMBER_SECRET varchar2(2) default 'N' -- 비밀 글
 );
 
+-- 펫시터 게시판 테이블
+CREATE TABLE petsitter_qna_board (
+    petsitter_id           VARCHAR2(30),
+    petsitter_nickname      VARCHAR2(30),
+    member_id              VARCHAR2(30),
+    member_nickname        VARCHAR2(30),
+    petsitter_qna_subject  VARCHAR2(100),
+    petsitter_qna_content  VARCHAR2(4000),
+    petsitter_qna_date     DATE,
+    petsitter_qna_bno      NUMBER
+);
+
 -- 최신화 안됨
 create table report_article (
     member_num number,
@@ -166,16 +193,6 @@ create table report_article (
     member_id varchar2(30),
     btype varchar2(100),
     processing varchar2(10)
-);
-
--- 최신화 안됨
-create table report_reply (
-   bno number,
-   rno number,
-   report_reason varchar2(4000),
-   member_id varchar2(30),
-   btype varchar2(100),
-   processing varchar2(10)
 );
 
 create table mreply(
@@ -209,6 +226,21 @@ create table COMMUNICATION_PHOTO_LIST(
     PETSITTER_ID varchar2(30) -- 펫시터 회원 아이디
 );
 
+-- 공지사항 테이블
+CREATE TABLE NOTICE_BOARD (
+    NOTICE_NUM        NUMBER, -- 회원 게시판 글 번호
+    NOTICE_ID         VARCHAR2(30), -- 회원 아이디
+    NOTICE_SUBJECT    VARCHAR2(100), -- 글 제목
+    NOTICE_CONTENT    VARCHAR2(4000), -- 글 내용
+    NOTICE_ORG_FILE   VARCHAR2(100), -- 원본 파일
+    NOTICE_UP_FILE    VARCHAR2(100), -- 업로드 파일 
+    NOTICE_READCOUNT  NUMBER, -- 조회 수
+    NOTICE_DATE       DATE, -- 작성일자
+    NOTICE_NICKNAME   VARCHAR2(30),
+    NOTI			  VARCHAR2(10) -- 상단 고정 여부
+);
+
+-- 결제 테이블
 create table pay(
     PAY_ID varchar2(30), -- 회원 아이디
     PAY_AMOUNT number, -- 예약 금액
@@ -221,6 +253,7 @@ create table pay(
     PAY_STATUS varchar2(10) default '결제 완료' -- 결제 완료 or 결제 취소
 );
 
+-- 이용 내역 테이블
 create table USINGLIST(
     LIST_NUM number(10) primary key,
     PETSITTER_ID varchar2(30),

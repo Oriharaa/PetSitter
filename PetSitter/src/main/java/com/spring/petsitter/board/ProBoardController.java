@@ -75,16 +75,11 @@ public class ProBoardController {
 
 	@RequestMapping(value="/proboard2.bo", produces="application/json;charset=UTF-8")
 	@ResponseBody
-<<<<<<< HEAD
-	public List<ProBoardVO> getBoardlist2(@RequestParam(value="page", required=false, 
-			defaultValue="1") int page) { 
-=======
 	public List<ProBoardVO> getBoardlist2(
 			@RequestParam(value="page", required=false, defaultValue="1") int page,
 			@RequestParam(value="searchType", required = false, defaultValue = "title") String searchType,
 			@RequestParam(required = false) String keyword) { 
-		
->>>>>>> origin/JH
+
 		int limit=6;
 
 		SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd");

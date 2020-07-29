@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.web.multipart.MultipartFile;
 // 전문가 상담 게시판 VO
 /*
-전문가 상담 게시판 DB
+-- 전문가 상담 게시판 DB
 create table PRO_BOARD(
     PRO_NUM number(6) primary key, -- 글 번호  
     MEMBER_ID varchar2(30), -- 아이디
@@ -21,13 +21,13 @@ create table PRO_BOARD(
     SECRET_CHECK VARCHAR2(4) default 'N' -- 비밀게시판 확인 
 );
 
-프로보드 좋아요 테이블
+-- 프로보드 좋아요 테이블
 CREATE TABLE PRO_LIKE_COUNT(
     LIKE_NUM NUMBER primary key, --좋아요 번호
     LIKE_ID varchar2(4000) DEFAULT 'N' -- 좋아요 아이디
 );
 
-프로보드 좋아요 트리거
+-- 프로보드 좋아요 트리거
 CREATE OR REPLACE TRIGGER PRO_LIKE_INSERT_TRG1
 BEFORE INSERT ON PRO_BOARD
 BEGIN
@@ -36,20 +36,8 @@ VALUES ((SELECT NVL(MAX(PRO_NUM),0)+1 FROM PRO_BOARD),'N');
 END;
 /
 
-글신고 테이블
+-- 글신고 테이블
 create table report_article (
-<<<<<<< HEAD
-	member_num number,
-	report_reason varchar2(4000),
-	member_id varchar2(30),
-	btype varchar2(100),
-	processing varchar2(10) default 'N',
-	check_id varchar2(2000) default 'N'
-);
-    
-리플 신고 테이블
-create table report_reply (
-=======
     member_num number,
     report_reason varchar2(4000),
     member_id varchar2(30),
@@ -57,23 +45,15 @@ create table report_reply (
     processing varchar2(10) default 'N'
 );
  
-댓글 신고 테이블    
-    create table report_reply (
->>>>>>> origin/JH
+-- 댓글 신고 테이블    
+create table report_reply (
     bno number,
     rno number,
     report_reason varchar2(4000),
     member_id varchar2(30),
     btype varchar2(100),
-<<<<<<< HEAD
-    processing varchar2(10) default 'N',
-    check_id varchar2(2000) default 'N'
-);
-
-=======
     processing varchar2(10) default 'N'
 ); 
->>>>>>> origin/JH
 */
 public class ProBoardVO {
 

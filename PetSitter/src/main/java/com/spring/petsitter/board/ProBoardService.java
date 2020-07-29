@@ -3,12 +3,6 @@ package com.spring.petsitter.board;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.spring.petsitter.board.ProBoardVO;
-
 public interface ProBoardService {
 	public int getProListCount(HashMap<String, Object> hashmap);
 	public List<ProBoardVO> getProBoardList(HashMap<String, Object> hashmap);

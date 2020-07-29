@@ -3,13 +3,7 @@ package com.spring.mapper;
 import java.util.HashMap;
 import java.util.List;
 
-import com.spring.petsitter.board.ProBoardVO;
-import com.spring.petsitter.board.ProReplyVO;
-<<<<<<< HEAD
-=======
-import com.spring.petsitter.board.ReviewBoardVO;
-import com.spring.petsitter.board.mboard.MReplyVO;
->>>>>>> origin/JH
+import com.spring.petsitter.board.*;
 
 public interface ProBoardMapper {
 	public int getProListCount(HashMap<String, Object> hashmap);
