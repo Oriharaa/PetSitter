@@ -5,13 +5,12 @@ var btn1= "N";
 var btn2= "N";
 var btn3= "N";
 var btn4= "N";
-   
 var btn_a = "F";
 var btn_b = "F";
 var btn_c = "F";
 var btn_g = "F";
 var btn_type = "BANG";
-
+var k = 1;
 	//펫시터 클릭시 예약페이지로 넘어감.
 	function go_foster(index)
 	{
@@ -20,6 +19,7 @@ var btn_type = "BANG";
 	
 	}
 
+	
 	function selectData(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type) {
 		$('#petsitter_middle_box').empty();
 		
@@ -53,7 +53,11 @@ var btn_type = "BANG";
 					var radio_basic = "bang";
 					
 					//주소, 집사진x3, 자격증x3
+					var startdate = item.start_DATE;
+					var enddate = item.end_DATE;
 					var address = item.petsitter_ADDRESS.split(' ');
+					var addr = item.petsitter_ADDRESS;
+					var safeaddr = item.petsitter_SAFEADDR;
 					var real_addr = address[0] + ' ' + address[1];
 					var home_photo = item.petsitter_PHOTO_HOME_FILE.split(',');
 					var home_photo1 = home_photo[0];
@@ -93,9 +97,12 @@ var btn_type = "BANG";
 					var output = '';
 					//히든값으로 펫시터 정보 넘겨줌..
 						output += '<form action="foster_view.me" name="foster_form" method="POST" >';
-					
 					//분류 (아이디 / 주소 / 닉네임 / 등급 / 후기개수 / 자격증이름 / 자기소개 / 가능서비스 / 60분,30분가격 / 자격증개수)
 						output += '<input type="hidden" name="petsitter_id" value="' + item.petsitter_ID+ '">';						
+						output += '<input type="hidden" name="addr" value="'+addr+'">';
+						output += '<input type="hidden" name="startdate" value="'+startdate+'">';
+						output += '<input type="hidden" name="enddate" value="'+enddate+'">';
+						output += '<input type="hidden" name="safeaddr" value="'+safeaddr+'">';
 						output += '<input type="hidden" name="address" value="' + real_addr+ '">';
 						output += '<input type="hidden" name="nickname" value="' + item.petsitter_NICKNAME+ '">';
 						output += '<input type="hidden" name="rank" value="' + item.petsitter_RANK+ '">';

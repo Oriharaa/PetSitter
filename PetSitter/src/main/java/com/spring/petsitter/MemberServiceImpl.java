@@ -15,6 +15,29 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private SqlSession sqlSession;
 	
+	
+	
+	@Override
+	public int memberPwUpdate(MemberVO member) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		int res = memberMapper.memberPwUpdate(member);
+		return res;
+	}
+
+	@Override
+	public String memberIdFind(MemberVO member) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		String res = memberMapper.memberIdFind(member);
+		return res;
+	}
+
+	@Override
+	public int memberPwFind(MemberVO member) {
+		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);
+		int res = memberMapper.memberPwFind(member);
+		return res;
+	}
+
 	@Override
 	public int memberInsert(MemberVO member) {
 		MemberMapper memberMapper = sqlSession.getMapper(MemberMapper.class);

@@ -1,15 +1,21 @@
 package com.spring.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.spring.petsitter.PetsitterScheduleVO;
 import com.spring.petsitter.PetsitterVO;
+import com.spring.petsitter.board.CommunicationBoardVO;
 import com.spring.petsitter.board.ReviewBoardVO;
 
 public interface PetsitterMapper {
-	
+	public ArrayList<PetsitterVO> getSchedule(PetsitterVO petsitter);
+	public int petsitterPwUpdate(PetsitterVO petsitter);
+	public String petsitterIdFind(PetsitterVO petsitter);
+	public int petsitterPwFind(PetsitterVO petsitter);
 	public int insertPetsitter(PetsitterVO petsitter); //펫시터 회원가입 insert
 	public int petsitterCheck(PetsitterVO petsitter); //펫시터 회원 확인
 	public ArrayList<PetsitterVO> petsitterList(); //펫시터 목록
@@ -30,4 +36,12 @@ public interface PetsitterMapper {
 	public PetsitterVO petsitter_thisMonth_score();
 	// 이달의 실적왕
 	public PetsitterVO petsitter_thisMonth_count();
+	
+	//갤러리 및 후기 (start)
+	public List<ReviewBoardVO> getReviewRating(HashMap<String, String> hashmap);
+	public List<ReviewBoardVO> reviewList(String petsitterid);
+	public int write_ReviewReply(ReviewBoardVO reply) throws Exception;
+	public List<CommunicationBoardVO> galleryList(String petsitterid);
+	public List<ReviewBoardVO> readReviewLikeCount(int reviewListNum) throws Exception;
+	//갤러리 및 후기 (end)	
 }

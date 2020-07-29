@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Param;
 import com.spring.petsitter.*;
 
 public interface MemberMapper {
+	public int memberPwUpdate(MemberVO member);
+	public String memberIdFind(MemberVO member);
+	public int memberPwFind(MemberVO member);
 	public int insertMember(MemberVO member);
 	public int memberCheck(MemberVO member);
 	public ArrayList<MemberVO> memberList();

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface MemberService {
+	public int memberPwUpdate(MemberVO member);
+	public String memberIdFind(MemberVO member);
+	public int memberPwFind(MemberVO member);
 	public int memberInsert(MemberVO member);
 	public int memberCheck(MemberVO member);
 	public ArrayList<MemberVO> memberList();
