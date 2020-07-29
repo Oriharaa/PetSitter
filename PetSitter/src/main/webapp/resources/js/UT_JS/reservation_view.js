@@ -56,7 +56,11 @@ var k = 1;	//반복될시 carousel 맞춤 지정
 					var radio_basic = "we";
 					
 					//주소, 집사진x3, 자격증x3
+					var startdate = item.start_DATE;
+					var enddate = item.end_DATE;
 					var address = item.petsitter_ADDRESS.split(' ');
+					var addr = item.petsitter_ADDRESS;
+					var safeaddr = item.petsitter_SAFEADDR;
 					var real_addr = address[0] + ' ' + address[1];
 					var home_photo = item.petsitter_PHOTO_HOME_FILE.split(',');
 					var home_photo1 = home_photo[0];
@@ -99,6 +103,10 @@ var k = 1;	//반복될시 carousel 맞춤 지정
 							
 					//분류 (아이디 / 주소 / 닉네임 / 등급 / 후기개수 / 자격증이름 / 자기소개 / 가능서비스 / 60분,30분가격 / 자격증개수)
 						output += '<input type="hidden" name="petsitter_id" value="' + item.petsitter_ID+ '">';						
+						output += '<input type="hidden" name="addr" value="'+addr+'">';
+						output += '<input type="hidden" name="startdate" value="'+startdate+'">';
+						output += '<input type="hidden" name="enddate" value="'+enddate+'">';
+						output += '<input type="hidden" name="safeaddr" value="'+safeaddr+'">';
 						output += '<input type="hidden" name="address" value="' + real_addr+ '">';
 						output += '<input type="hidden" name="nickname" value="' + item.petsitter_NICKNAME+ '">';
 						output += '<input type="hidden" name="rank" value="' + item.petsitter_RANK+ '">';

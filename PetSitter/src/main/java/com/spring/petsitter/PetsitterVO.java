@@ -77,6 +77,7 @@ public class PetsitterVO {
 	private String[] PETSITTER_TYPE_LIST;
 	private String PETSITTER_TYPE;
 	private String PETSITTER_GENDER;
+<<<<<<< HEAD
 	private int m_count; // 이번달 돌본 횟수 (컬럼X)
 	private int m_amount; // 이번달 매출 (컬럼X)
 	
@@ -92,6 +93,26 @@ public class PetsitterVO {
 	}
 	public void setM_amount(int m_amount) {
 		this.m_amount = m_amount;
+=======
+	private String START_DATE;
+	private String END_DATE;
+	
+	
+	
+	
+
+	public String getSTART_DATE() {
+		return START_DATE;
+	}
+	public void setSTART_DATE(String sTART_DATE) {
+		START_DATE = sTART_DATE;
+	}
+	public String getEND_DATE() {
+		return END_DATE;
+	}
+	public void setEND_DATE(String eND_DATE) {
+		END_DATE = eND_DATE;
+>>>>>>> origin/MH
 	}
 	public String getPETSITTER_SAFEADDR() {
 		return PETSITTER_SAFEADDR;

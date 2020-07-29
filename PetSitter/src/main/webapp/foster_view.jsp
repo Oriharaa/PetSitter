@@ -20,47 +20,66 @@
 
 <% 
 	 /*분류 (아이디 / 주소 / 닉네임 / 등급 / 후기개수 / 자격증이름 / 자격증여부x2 / 자기소개 / 가능서비스 / 자격증 보유개수)*/
-	 String petsitter_id= request.getParameter("petsitter_id");
-	 String address= request.getParameter("address");
-	 String nickname= request.getParameter("nickname");
-	 String rank= request.getParameter("rank");
-	 String review_count= request.getParameter("review_count");
-	 String cert_list= request.getParameter("cert_list");
-	 String introduce= request.getParameter("introduce");
-	 String service = request.getParameter("service");
+	 String startdate = (String)request.getAttribute("startdate");
+	 String enddate = (String)request.getAttribute("enddate");
+	 String petsitter_id= (String)request.getAttribute("petsitter_id");
+	 String addr = (String)request.getAttribute("addr");
+	 String mapaddr1 = "";
+	 String mapaddr2 = ""; //상세주소
+	 String ad = (String)request.getAttribute("safeaddr");
+	 String[] safeaddr = ad.split(",");
+	 String address= (String)request.getAttribute("address");
+ 	 if(safeaddr[0].equals("N")){
+ 		 mapaddr1 = addr; //도로명
+ 		 mapaddr2 = address; //경기 안산시
+	 }else{
+	 	 mapaddr1 = safeaddr[0];
+	 	 mapaddr2 = safeaddr[1];
+	 }
+	 String nickname= (String)request.getAttribute("nickname");
+	 String rank= (String)request.getAttribute("rank");
+	 int review_count= (int)request.getAttribute("review_count");
+	 String cert_list= (String)request.getAttribute("cert_list");
+	 String introduce= (String)request.getAttribute("introduce");
+	 String service = (String)request.getAttribute("service");
 
 	 
-	 String cert_count = request.getParameter("cert_count");
+	 String cert_count = (String)request.getAttribute("cert_count");
 	 
 	 
 	 /*분류 (사진 ㅡ 프로필 / 자격증 / 집 / 증명사진)*/
-	 String profile= request.getParameter("profile");	
-	 String cert_photo1= request.getParameter("cert_photo1");
-	 String cert_photo2= request.getParameter("cert_photo2");
-	 String cert_photo3= request.getParameter("cert_photo3");
-	 String home_photo1 = request.getParameter("home_photo1");
-	 String home_photo2 = request.getParameter("home_photo2");
-	 String home_photo3 = request.getParameter("home_photo3");
-	 String proof = request.getParameter("photo_upfile");
+	 String profile= (String)request.getAttribute("profile");	
+	 String cert_photo1= (String)request.getAttribute("cert_photo1");
+	 String cert_photo2= (String)request.getAttribute("cert_photo2");
+	 String cert_photo3= (String)request.getAttribute("cert_photo3");
+	 String home_photo1 = (String)request.getAttribute("home_photo1");
+	 String home_photo2 = (String)request.getAttribute("home_photo2");
+	 String home_photo3 = (String)request.getAttribute("home_photo3");
+	 String proof = (String)request.getAttribute("photo_upfile");
 	 
 	 /*분류 (날짜  / 시간)*/ 
-	 String start_date= request.getParameter("start_date");
-	 String end_date= request.getParameter("end_date");
-	 String start_time= request.getParameter("start_time");
-	 String end_time= request.getParameter("end_time");
+	 String start_date= (String)request.getAttribute("start_date");
+	 String end_date= (String)request.getAttribute("end_date");
+	 String start_time= (String)request.getAttribute("start_time");
+	 String end_time= (String)request.getAttribute("end_time");
 
-	 String radio_basic= request.getParameter("radio_basic");
+	 String radio_basic= (String)request.getAttribute("radio_basic");
 	 
 	 /*분류  (위탁60분가격 / 방문 3분가격 / 위탁1박가격 / 위탁1박가격(+대형견) / 방문60분가격 / 방문60분가격(+대형견)*/
-	 String price = request.getParameter("price");
-	 String price2 = request.getParameter("price2");
-	 String price24= request.getParameter("price24");
-	 String bigPrice= request.getParameter("bigPrice");
-	 String price60= request.getParameter("price60");
-	 String bigPrice2= request.getParameter("bigPrice2");
+	 String price = (String)request.getAttribute("price");
+	 String price2 = (String)request.getAttribute("price2");
+	 int eprice24= (int)request.getAttribute("price24");
+	 String price24 = String.valueOf(eprice24);
+	 int ebigPrice= (int)request.getAttribute("bigPrice");
+	 String bigPrice = String.valueOf(ebigPrice);
+	 int eprice60= (int)request.getAttribute("price60");
+	 String price60 = String.valueOf(eprice60);
+	 int ebigPrice2= (int)request.getAttribute("bigPrice2");
+	 String bigPrice2 = String.valueOf(ebigPrice2);
 
 	 
 %> 
+
 
 
 <!doctype html>
@@ -68,8 +87,19 @@
 
 
 <style>
-	
-	
+		
+.datepicker table{
+	width : 330px!important;
+	height : 330px!important;
+}
+.disabled-date{
+	background-color : rgb(83, 220, 152)!important;
+}
+.datepicker table tr td.active.active.focus, .datepicker table tr td.active.active:focus, .datepicker table tr td.active.active:hover, .datepicker table tr td.active.highlighted.active.focus, .datepicker table tr td.active.highlighted.active:focus, .datepicker table tr td.active.highlighted.active:hover, .datepicker table tr td.active.highlighted:active.focus, .datepicker table tr td.active.highlighted:active:focus, .datepicker table tr td.active.highlighted:active:hover, .datepicker table tr td.active:active.focus, .datepicker table tr td.active:active:focus, .datepicker table tr td.active:active:hover {
+    background-color: rgb(83, 220, 152)!important;
+    border-color: rgb(83, 220, 152)!important;
+}
+
 	/* 제이쿼리 로인해 색 폰트 사이즈 수정을 위해 jsp파일안에 스타일 오버라이트 
 resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style로 적용 됨) */
 .site-mobile-menu {
@@ -247,7 +277,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
     
     <!-- 추가CSS -->
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/UT_CSS/foster_view.css?after">
-
+		<link rel="stylesheet" type="text/css" href="resources/css/JH_CSS/foster_view.css?after">
     <style>
 			.dropdown:hover {
 				background-color: rgb(83, 220, 153);
@@ -437,7 +467,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 										</div>
 										
 										<div class = "col-4">
-											<%if(home_photo2.equals("N") || home_photo2.equals("undefined"))
+											<%if(home_photo2==null)
 											  {
 											%>	<a href = "#" onclick ="toggleImg2()"><img class="home_photo" src = "resources/images/noimg.png"></a>										
 											<%}else
@@ -447,7 +477,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 										</div>
 										
 										<div class = "col-4">
-											<%if(home_photo3.equals("N") || home_photo3.equals("undefined"))
+											<%if(home_photo3==null)
 											  {
 											%>	<a href = "#" onclick ="toggleImg3()"><img class="home_photo" src = "resources/images/noimg.png"></a>										
 											<%}else
@@ -708,7 +738,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 						%>	<a href = "#none" onclick ="toggleImg4()"><img class="imgfuck" src = "/filepath/<%=cert_photo1%>"></a>
 						<% } %>		
 						
-						<%if(cert_photo2.equals("N") || cert_photo2.equals("undefined"))
+						<%if(cert_photo2==null || cert_photo2.equals("undefined"))
 					  {
 						%>	<a href = "#none" onclick ="toggleImg5()"><img class="imgfuck" id="cert_photo2" src = "resources/images/noimg.png"></a>										
 						<%}else
@@ -716,7 +746,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 						%>	<a href = "#none" onclick ="toggleImg5()"><img class="imgfuck" src = "/filepath/<%=cert_photo2%>"></a>
 						<% } %>	
 
-						<%if(cert_photo3.equals("N") || cert_photo3.equals("undefined"))
+						<%if(cert_photo3==null || cert_photo2.equals("undefined"))
 					  {
 						%>	<a href = "#none" onclick ="toggleImg6()"><img class="imgfuck" id="cert_photo3" src = "resources/images/noimg.png"></a>										
 						<%}else
@@ -882,7 +912,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 									<div class = "col-12">
 										<p class = "font-size-16 main_grayfont3 text-center" style = "font-weight : bold;"><br/><br/><br/>펫시터 스케줄</p>
 									</div>
-									<div class = "col-11" style = "height :363px; background : rgba(224, 224, 224, 0.65); overflow : hidden;"></div>
+									<div class = "col-11" id = "schedule" style = "height :363px; background : rgba(224, 224, 224, 0.65); overflow : hidden;"></div>
 								</div>
 							</div>	
 						</div>
@@ -895,9 +925,9 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 									<p class = "font-size-16 main_grayfont3 text-center" style = "font-weight : bold;"><br/><br/><br/>펫시터 주거지역</p>
 							</div>				
 							<div class = "col-12 font-size-14 main_grayfont3 text-center">
-								<p>신논현 5번출구에서 5분거리.</p>
+								<p><%=mapaddr2 %></p>
 							</div>
-							<div class = "col-8" style = "height : 326px; background : rgba(224, 224, 224, 0.65); overflow : hidden;"></div>
+							<div class = "col-8" id = "map" style = "height : 326px; background : rgba(224, 224, 224, 0.65); overflow : hidden;"></div>
 						</div>
 					</div>
 <!--펫시터 스케쥴과 펫시터 지역 종료-->								
@@ -913,46 +943,18 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 						<div class ="col-12 font-size-16 main_grayfont3 text-center" style = "font-weight : bold;"><br/><br/><br/>펫시터 갤러리<br/><br/>
 						</div>
 							<div class ="row">
-							<%
-								int[] i_array = new int[30];
-								//얼레이리스트로 가져와서 6개 먼저 뿌려주는 방식으로 예정
-								if(i_array[0] != 1){
-									for(int i=0; i < 3; i++ ) {
-							%>
-								<div class ="col-lg-4" style = "margin-top : 10px">
-									<div class ="row justify-content-center">
-										<div class = "col-5" style ="height : 110%; margin : 12px 24px 0 0; padding : 0;">
-										<img src = "resources/images/dog02.jpg" width = "100%" height = "100%" style ="border-radius : 5px;">
-										</div>
-										<div class = "col-5" style ="height : 110%; margin-top : 12px;  padding : 0;">
-										<img src = "resources/images/dog02.jpg" width = "100%" height = "100%" style ="border-radius : 5px;">
-										</div>
-									</div>
+
+								<div class ="col-lg-12" style = "margin-top : 10px">
+								
+									<!-- galleryList 출력 -->
+									<div class ="row" id = "galleryList"></div>
+									
 								</div>
-							<%}  %>	
-							<%	} %>
-							<%//여기서 6개 이후로 더있으면 뿌려줌 그후 더보기 로 뿌릴지 결정
-								if(i_array[6] != 1){
-									for(int i=0; i < 3; i++ ) {
-							%>
-								<div class ="col-lg-4" style = " margin-top : 10px">
-									<div class ="row justify-content-center">
-										<div class = "col-5" style ="height : 110%; margin : 12px 24px 0 0; padding : 0;">
-										<img src = "resources/images/dog02.jpg" width = "100%" height = "100%" style ="border-radius : 5px;">
-										</div>
-										<div class = "col-5" style ="height : 110%; margin-top : 12px;  padding : 0;">
-										<img src = "resources/images/dog02.jpg" width = "100%" height = "100%" style ="border-radius : 5px;">
-										</div>
-									</div>
-								</div>
-							<%}  %>	
-							<%	} %>	
 							</div>
-							
 					</div>
 						<div class = "col-12 text-center">
 						<br/>
-							<button type="button" style="background:#53dc98; color :white; width : 20%;" class="btn btn-sm">더 보기</button>
+									<a href="galleryList.bo"type="button" class= "plus_gallery btn btn-sm" style="background:#53dc98; color :white; width : 20%;">더 보기</a>
 						</div>
 				</div>
 			</div>
@@ -970,193 +972,31 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 									<div class = "col-5 main_mint main_whitefont font-size-20 postscript">펫시터 후기
 									</div>							
 									
-									<div class = "col-5 text-right" style = "margin : 4px 0 0 0; padding : 0;">
-										<img src = "resources/images/star.jpg" class ="" width = "17px" height = "17px" style = ""/>
-										<img src = "resources/images/star.jpg" class ="" width = "17px" height = "17px" style = ""/>
-										<img src = "resources/images/star.jpg" class ="" width = "17px" height = "17px" style = ""/>
-										<img src = "resources/images/star.jpg" class ="" width = "17px" height = "17px" style = ""/>
-										<img src = "resources/images/starhalf.jpg" class ="" width = "17px" height = "17px" style = ""/>
+									<div class = "col-5 text-right" id = "reviewStar" style = "font-size : 0px; margin : 11px 0 0 0; padding : 0;">
 									</div>	
 									<div class = "col-1 text-right" style = "margin : 4px 0 0 0; padding : 0;">
-										<div class ="main_grayfont3"  class = ""style = "padding-top : 12%; font-size : 72%">평점 : 4.74</div>
+										<div class ="main_grayfont3" id = "reviewRating" style = "padding-top : 12%; font-size : 72%">평점 : 4.74</div>
 									</div>
 									
 										
 									</div>
 
 
-								<div class = "row justify-content-center">
-									<div class = "col-11">
-										<div class = "row">
-										
-											<div class = "col-lg-5" style ="padding :0; margin-top: 17px;">
-												<div class = "row justify-content-center">		
-													<div class = "col-6" style = "padding : 0 0 0 10px;">
-														<div class = "aspect_1_1 postscriptimg">
-															<img src = "resources/images/dog03.jpg"/>
-														</div>
-													</div>
-													
-													<div class = "col-6" style = "padding : 0;">
-														<div class = "aspect_1_1 postscriptimg">
-															<img src = "resources/images/dog03.jpg"/>
-														</div>
-													</div>
-												</div>
-											</div>
-											
-											<div class = "col-lg-5" style ="padding :0 0 0 3%; margin-top: 17px;">
-												<div class = "row justify-content-center">		
-													<div class = "col-6" style = "padding : 0;">
-														<div class = "aspect_1_1 postscriptimg">
-															<img src = "resources/images/dog03.jpg"/>
-														</div>
-													</div>
-													
-													<div class = "col-6" style = "width : 130px; height : 130px; padding : 0;">
-														<div class = "aspect_1_1 postscriptimg">
-														<a href = "#">
-															<img src = "resources/images/dog03.jpg" class="img-responsive" alt="test">
-														</a>
-														</div>
-														<a href = "#" class = "main_whitefont font-size-30">
-															<div class="carousel-caption" style = "background: rgba(0,0,0,0.45); border-radius : 5px;">
-															+ 40
-															</div>
-														</a>
-													</div>
-												</div>
-											</div>								
-										</div>
-									</div>					
-								</div>
 <!-- 후기 상단 종료-->								
 								
 								
 <!-- 후기작성 하나 시작  (여기서 부터 if 문과 for문으로 반복 5회 적영후 더보기시 전부 생성)-->	
-								<%
-									int[] postscript_array = new int[30];
-									if(postscript_array[0] != 1){
-										for(int j=0; j < 3; j++ ) {
-								%>
 								<hr class ="my-hr3"/>
-								<div class ="col-12">
-									<div class = "row justify-content-center">
-										<div class = "col-md-8">
-											<div class = "float-left circleprofileimg"></div>
-											<div class = "float-left" style= "padding : 3px 0 0 3px; margin-left : 10px;">
-											
-												<table>
-													<tr>
-														<td class = "font-size-18 main_grayfont3 mybold"  align = "center">닉네임<td>
-														<td style = "padding: 6px 0 0 10px; font-size: 12px;"><a class ="main_redfont0" href="#">신고</a><td>
-													<tr>
-													<tr>
-														<td style = "padding: 0 0 7px 0;">
-															<% 
-																int star = 5;
-																for(int i = 0; i < star; i++) {
-															%>
-															<img src = "resources/images/star.jpg" width = "17px" height = "17px">
-															<%} %>
-														<td>
-														<td style = "padding: 0 0 0 10px;"> 10점<td>
-													<tr>
-												</table>
-												
-											</div>	
-										</div>
-										<div class = "col-md-4">	
-											<div class = "float-right font-size-12" style = "margin : 20px 0 0 0;">기입날짜 : 2020.06.24</div>
-											<div class ="float-none"><br/><br/><br/></div>
-										</div>
-									
-									
-										<div class = "font-size-14 main_grayfont3" style ="padding : 0 15px;">
-											<p>따뜻한 봄바람을 불어 보내는 것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 풀이 없으면 인간은 사막이다 오아이스도 없는 사막이다</p>
-										</div>
-									
-									
-										<div class = "col-12">
-										
-											<%
-												String[] checkimg = new String[3];
-												if(checkimg[0] == null){
-													for(int i = 0; i < 3; i++) {
-											%>
-											
-											<div class = "aspect_1_1 postscriptimg02 float-left">
-												<img src = "resources/images/dog03.jpg"/>
-											</div>
-											
-											<%}  %>	
-											<%	} %>
-										
-										</div>							
-									</div>
-	
-									<!-- 후기작성의 펫시터 답 출력  시작  (if 문 이용 펫시터 답 있을 시 출력)-->
-									<%
-										String petsittercomment = null;
-										if(petsittercomment == null) {
-									%>
-									<div class = "col-12" style = "width : 100%; background :rgba(224, 224, 224, 0.65)!important; padding : 13px 50px 1px 50px; margin : 17px 0 0 0;">
-										<div class = "row">
-											<div class = "col-md-8" style = "height : 100%; margin-bottom : 6px;">
-												<div class = "float-left circleprofileimg02"></div>
-												<div class = "float-left" style= "padding : 17px 0 0 3px; margin-left : 10px; height : 100%">
-													<table>
-														<tr>
-															<td class = "font-size-16 main_grayfont3 mybold"  align = "center">닉네임<td>
-															<td style = "padding: 3px 0 0 10px; font-size: 12px;"><a class ="main_redfont0" href="#">신고</a><td>
-														<tr>									
-													</table>
-												</div>
-											</div>
-											<div class = "col-md-4" style = "height : 100%">
-												<div class = "float-right font-size-12" style = "margin : 23px 0 0 0;">기입날짜 : 2020.06.24</div>
-												<div class ="float-none" style = "height : 100%"><br/><br/></div>
-											</div>
-												<div class = "font-size-14 main_grayfont3" style ="padding : 0 15px;">
-													<p>따뜻한 봄바람을 불어 보내는 것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 풀이 없으면 인간은 사막이다 오아이스도 없는 사막이다</p>
-												</div>
-										</div>			
-									</div>
-									<%} %>
-									<!-- 후기작성의 펫시터 답  출력 종료  (if 문 이용 펫시터 답 있을 시 출력)-->
-									<!-- 후기작성의 펫시터 답  쓰기 시작  (if 문 이용 펫시터 없고 펫시터 일시 출력)-->
-									<%
-										String petsitter = "y";
-										if(petsittercomment != null && petsitter == "y") {
-									%>
-									
-									<div class = "col-12" style = "background :rgba(224, 224, 224, 0.65)!important; height : 100px; margin : 10px 0 0 0; ">
-										<div class = "row  justify-content-center">
-											<div class = "col-11" style = "padding : 11px 0 0 0;">
-											<table style = "width : 100%">
-												<tr>
-													<td style ="font-size : 1%; width : 11%">답변 :</td><td><textarea name="inputstr2" style = "width : 89%; height : 70px; font-size : 12px;"></textarea></td>
-												</tr>
-											</table>
-											</div>
-										</div>
-									</div>
-									<div class = "col-12 text-right" style ="margin-top : 10px;">
-										<button type="button" style="background:#53dc98; color :white; width : 150px;" class="btn btn-sm">펫시터 답글 남기기</button>
-									</div>			
-									<%} %>
-									<!-- 후기작성의 펫시터 답  쓰기 종료  (if 문 이용 펫시터 없고 펫시터 일시 출력)-->
-								</div>
-								<%	} %>
-								<%} %>
-								<hr class ="my-hr3"/>
+								
+								<div class = "row" id = "reviewList"></div>
+
 								<div class = "col-12 text-center" style ="margin-top : 15px;">
-									<button type="button" style="background:#53dc98; color :white; width : 100px;" class="btn btn-sm">더 보기</button>
+									<a href="reviewList.bo"type="button" class= "plus_review btn btn-sm" style="background:#53dc98; color :white; width : 100px;">더 보기</a>
 								</div>
 <!-- 후기작성 하나 종료  (여기서 부터 if 문과 for문으로 반복 5회 적영후 더보기시 전부 생성)-->	
 														
 								
-							</div>	
+							</div>
 <!-- 후기 종료 -->
 
 
@@ -1213,6 +1053,12 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 					</div>
 				</div>
 			</div>
+
+    	<!-- Modal 글신고기능 시작-->
+		<!-- Modal 창 실행 a테그 -->
+		<a href = "#" class = "staticBackdropReport" data-toggle="modal" data-target="#staticBackdropReport"></a>	
+		<div id = "reportForm"></div>
+		<!-- Modal 글신고기능 종료--> 
 
 </body>
       
@@ -1273,7 +1119,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
       
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 	
@@ -1284,9 +1130,64 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
     <script src="<c:url value="./resources/js/aos.js"/>"></script><!-- nav 상단바 반응형웹 적용1 -->
 
     <script src="<c:url value="/resources/js/main.js"/>"></script><!-- nav 상단바 반응형웹 적용2 -->
-      
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=24e91ec8fe5a3a10070597915f67d6ba&libraries=services"></script>
+    
     
   <script>
+	var scheduleDate = new Array();
+	<%
+	if(!startdate.equals("")){
+	String[] startdates = startdate.split(",");
+	String[] enddates = enddate.split(",");
+	String DATE_PATTERN = "yyyy-MM-dd";
+	for(int i = 0 ; i < startdates.length; i++){
+		String inputStartDate = startdates[i];
+		String inputEndDate = enddates[i];
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN);
+		Date startDate = sdf.parse(inputStartDate);
+		Date endDate = sdf.parse(inputEndDate);
+		
+		ArrayList<String> dates = new ArrayList<String>();
+		Date currentDate = startDate;
+		while(currentDate.compareTo(endDate) <=0){
+			dates.add(sdf.format(currentDate));
+			Calendar c =Calendar.getInstance();
+			c.setTime(currentDate);
+			c.add(Calendar.DAY_OF_MONTH, 1);
+			currentDate = c.getTime();
+		}
+		for(String date : dates){
+			%> scheduleDate.push('<%=date%>');<%
+		}
+	}
+	}
+%>
+  var geocoder = new kakao.maps.services.Geocoder();
+  var callback = function(result, status) {
+	    if (status === kakao.maps.services.Status.OK) {
+	    	var coords = new kakao.maps.LatLng(result[0].x, result[0].y);
+	    	  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	    	  mapOption = { 
+	    	      center: new kakao.maps.LatLng(result[0].y, result[0].x), // 지도의 중심좌표
+	    	      level: 3 // 지도의 확대 레벨
+	    	  };
+
+	    	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+	    	//마커가 표시될 위치입니다 
+	    	var markerPosition  = new kakao.maps.LatLng(result[0].y, result[0].x); 
+
+	    	//마커를 생성합니다
+	    	var marker = new kakao.maps.Marker({
+	    	  position: markerPosition
+	    	});
+
+	    	//마커가 지도 위에 표시되도록 설정합니다
+	    	marker.setMap(map);
+	    }
+	};
+	
+	geocoder.addressSearch('<%=mapaddr1%>', callback);
   /*css 적인 script는 하단인 이위치에 기입*/
  
 	/*상단 사진 정보 클릭시 선택 시작*/
@@ -1419,7 +1320,23 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 	
 <!-- 데이트피커 자스코드 -->
 <!-- 시작날짜 -->
+
 	<script type="text/javascript">
+
+	$(document).ready(function(){
+		$('#schedule').datepicker({
+			format : "yyyy-mm-dd", //달력에서 클릭시 표시할 값 형식
+			language : "ko", // 언어(<ㅡ js추가필요해서 했음.)
+			todayHighlight : false,
+			datesDisabled : scheduleDate,
+			startDate : '-3d',
+			autoclose: false,
+			toggleActive : true,
+			orientation: "bottom auto"
+	});
+
+	});
+	
 		$('#datePicker_start').datepicker({
 				format : "yyyy-mm-dd", 			//달력에서 클릭시 표시할 값 형식
 				language : "ko", 						//언어
@@ -1427,6 +1344,8 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 				todayHighlight : true,			//오늘날짜 색상표시
 				autoclose : true						//날짜누르면 닫힘.
 		});
+
+		
 	</script>   
 <!-- 종료날짜 -->
 	<script type="text/javascript">
@@ -1481,5 +1400,970 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 			
 		</script>
 
+	<!--갤러리 및 후기 (Start)-->	
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script><!-- sweetalert2 -->
+	<script type="text/javascript">
+	var sessionid = '<%=id%>';
+	var sessionid2 = ',<%=id%>';
+	//평점 AJAX
+	var petsitter_id = '<%=petsitter_id%>';
+		function ReviewRating(petsitterid){
+			$('#reviewRating').empty();
+			$('#reviewStar').empty();
+			$.ajax({
+        url:'/petsitter/getReviewRating.bo',
+        type:'POST',
+        data : {petsitterid: petsitterid},
+        dataType : 'json',
+        contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+        success:function(data){
+        	$.each(data, function(index, item){
+        		if(item.avg_REVIEW_SCORE != null){
+	        		var Rating = '';
+	        		Rating += '평점 :&nbsp;'+ item.avg_REVIEW_SCORE + '';
+	       	  	$('#reviewRating').append(Rating);
+	       	  	
+	       	  	var reviewStar = '';
+	   	    		if(item.review_SCORE == 5){
+	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    		}
+	   	    		if(item.review_SCORE == 4){
+	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		    			}
+	   	    		if(item.review_SCORE == 3){
+	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	    				}   
+	   	    		if(item.review_SCORE == 2){
+	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+								reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+								reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							}
+	   	    		if(item.review_SCORE == 1){
+	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+								reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px; margin-top: 1px;">';
+								reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							}
+	   	    		if(item.review_SCORE > 4 && item.review_SCORE < 5){
+	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							}
+	   	    		if(item.review_SCORE > 3 && item.review_SCORE < 4){
+	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							}
+	   	    		if(item.review_SCORE > 2 && item.review_SCORE < 3){
+	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							}
+	   	    		if(item.review_SCORE > 1 && item.review_SCORE < 2){
+	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							}
+	   	    		if(item.review_SCORE > 0 && item.review_SCORE < 1){
+	   	    			reviewStar += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewStar += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							}	
+	   	    		$('#reviewStar').html(reviewStar);
+        		}
+        		
+        		
+         	});
+        },
+   	    error:function(){
+   	    	alert("ajax통신 실패!!!");
+   	    }
+    	}); 
+    }
+		
+		
+		var startnum = 4;
+		var endnum = 8;
+		//후기 리스트 및 펫시터 답변 작성
+		function selectReview(petsitterid){
+			$('#reviewList').empty();
+			$.ajax({
+        url:'/petsitter/reviewList.bo',
+        type:'POST',
+        data : {petsitterid: petsitterid},
+        dataType : 'json',
+        contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+        success:function(data){
+        	$.each(data, function(index, item){
+        		//리스트 개수 지정 출력
+        		if(index < startnum) {	
+        			//사진 개 수 별 업로드 문자열 추출
+	    		   	if(item.review_UP_PHOTO != "N"){
+	    		   	var upphoto = item.review_UP_PHOTO;
+	    		   	var Pphoto = upphoto.split(',', 3);
+	    		   	}
+	    		   	
+	    		   	
+	        		var reviewList = '';
+	        		reviewList += '<div class ="col-12">';
+	        	  reviewList += '<div class = "row justify-content-center">';
+	        		reviewList += '<div class = "col-md-12">';
+	        		if(item.member_PHOTO_FILE != "N"){
+		        		reviewList += '<div class="float-left thumbnail-wrapper"> <div class="thumbnail02"> <div class="centered02">';
+		        		reviewList += '<img src = "/petsitter/upload/'+item.member_PHOTO_FILE+'" />';
+		        		reviewList += '</div></div></div>';
+		        		reviewList += '<div class = "float-left" style= "padding : 3px 0 0 3px; margin-left : 10px;">';
+		    			}
+	        		else {
+	        			reviewList += '<div class="float-left thumbnail-wrapper"> <div class="thumbnail02"> <div class="centered02">';
+	        			reviewList +=	'<img src = "resources/images/defaultprofile.jpg">';
+	        			reviewList += '</div></div></div>';	
+		        		reviewList += '<div class = "float-left" style= "padding : 3px 0 0 3px; margin-left : 10px;">';
+		    			}
+	        		
+	        		reviewList += '<table>';
+	        		reviewList += '<tr>';
+	        		reviewList += '<td class = "font-size-18 main_grayfont3 mybold"  align = "center">'+ item.member_NICKNAME + '</td>';
+	        		reviewList += '<td style = "padding: 6px 0 0 10px; font-size: 12px;">';
+	        		reviewList += '<a href = "./reviewreportform.bo?num='+item.list_NUM+'&sessionid='+sessionid+'" type="button" class="reportFormAjax main_redfont0">신고</a></td>';	
+	        		reviewList += '</tr>';
+	        		reviewList += '<tr>';
+	        		
+	        		//별 자리
+	        		reviewList += '<td style = "padding: 2px 0 0 0;">';
+	   	    		if(item.review_SCORE == 5){
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    		}
+	   	    		if(item.review_SCORE == 4){
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		    			}
+	   	    		if(item.review_SCORE == 3){
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	    				}   
+	   	    		if(item.review_SCORE == 2){
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							}
+	   	    		if(item.review_SCORE == 1){
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+	   	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px; margin-top: 1px;">';
+	   	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							}
+	   	    		if(item.review_SCORE > 4 && item.review_SCORE < 5){
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							}
+	   	    		if(item.review_SCORE > 3 && item.review_SCORE < 4){
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewList += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							}
+	   	    		if(item.review_SCORE > 2 && item.review_SCORE < 3){
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							}
+	   	    		if(item.review_SCORE > 1 && item.review_SCORE < 2){
+	   	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							}
+	   	    		if(item.review_SCORE > 0 && item.review_SCORE < 1){
+	   	    			reviewList += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+	   	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+							}	
+							reviewList += '</td>';
+							
+							reviewList += '<td style = "padding: 0 0 0 10px;"> '+item.review_SCORE+'점</td>';
+							reviewList += '</tr>';
+							reviewList += '</table>';
+								
+							reviewList += '</div>';
+							
+							
+							reviewList += '<div class = "float-right" style = "margin : 10px 0 0 0;">';
+							reviewList += '<table><tr><td class= "rtablecss" id = "reviewlikecount'+item.list_NUM+'"></td></tr>';
+							reviewList += '<tr><td class= "rtablecss">기입날짜 : '+item.real_DATE+'</td></tr></table></div>';
+							reviewList += '<div class ="float-none"><br/><br/><br/></div>';
+							reviewList += '</div>';
+							
+							
+
+					
+					
+							reviewList += '<div class = "font-size-14 main_grayfont3" style ="padding : 0 15px;">';
+							reviewList += '<p>'+item.review_CONTENT+'</p>';
+							reviewList += '</div>';
+					
+					
+							reviewList += '<div class = "col-12">';
+	
+							//이미지 3장 보이게
+				    	if(item.review_UP_PHOTO != "N" && Pphoto[1] == null){
+				    		reviewList += '<div class="thumbnail-wrapper reviewimg"> <div class="thumbnail"> <div class="centered">';
+				    		reviewList += '<img src = "/petsitter/upload/'+Pphoto[0]+'" />';
+				    		reviewList += '</div></div></div>';	
+					    }
+				    	if(item.review_UP_PHOTO != "N" && Pphoto[1] != null){
+				    		reviewList += '<div class="thumbnail-wrapper reviewimg"> <div class="thumbnail"> <div class="centered">';
+				    		reviewList += '<img src = "/petsitter/upload/'+Pphoto[0]+'" />';
+					    	reviewList += '</div></div></div>';			    		
+					    	reviewList += '<div class="thumbnail-wrapper reviewimg"> <div class="thumbnail"> <div class="centered">';
+					    	reviewList += '<img src = "/petsitter/upload/'+Pphoto[1]+'" />';
+					    	reviewList += '</div></div></div>';
+					    	if(Pphoto[2] != null){
+					    		reviewList += '<div class="thumbnail-wrapper reviewimg"> <div class="thumbnail"> <div class="centered">';
+					    		reviewList += '<img src = "/petsitter/upload/'+Pphoto[2]+'" />';
+					    		reviewList += '</div></div></div>';	
+					    	}
+				    	}
+							reviewList += '</div>';							
+							reviewList += '</div>';
+	
+							
+							//후기작성의 펫시터 답 출력  시작  (if 문 이용 펫시터 답 있을 시 출력)
+							if(item.review_REFLY != 'N'){
+							reviewList += '<div class = "col-12" style = "width : 100%; background :rgba(224, 224, 224, 0.65)!important; padding : 13px 50px 1px 50px; margin : 17px 0 0 0;">';
+							reviewList += '<div class = "row">';
+							reviewList += '<div class = "col-md-12" style = "height : 100%; margin-bottom : 6px;">';
+							
+							if(item.petsitter_PHOTO_PROFILE_FILE != "N"){
+				        		reviewList += '<div class="float-left thumbnail-wrapper"> <div class="thumbnail03"> <div class="centered03">';
+				        		reviewList += '<img src = "/petsitter/upload/'+item.petsitter_PHOTO_PROFILE_FILE+'" />';
+				        		reviewList += '</div></div></div>';
+				    	}
+	        		else {
+	        			reviewList += '<div class="float-left thumbnail-wrapper"> <div class="thumbnail02"> <div class="centered02">';
+	        			reviewList +=	'<img src = "resources/images/defaultprofile02.png">';
+	        			reviewList += '</div></div></div>';	
+		    			}						
+							
+							reviewList += '<div class = "float-left" style= "padding : 17px 0 0 3px; margin-left : 10px; height : 100%;">';
+							reviewList += '<table>';
+							reviewList += '<tr>';
+							reviewList += '<td class = "font-size-16 main_grayfont3 mybold"  align = "center">' + item.petsitter_NICKNAME + ' 펫시터님 답변<td>';
+							reviewList += '<tr>';								
+							reviewList += '</table>';
+							reviewList += '</div>';
+			        reviewList += '<div class = "reportPFFcss" >';
+			        reviewList += '<a href = "./reviewreportform.bo?num='+item.list_NUM+'&sessionid='+sessionid+'" type="button" class="reportFormAjax main_redfont0">신고</a></div>';	
+							reviewList += '</div>';
+	
+							reviewList += '<div class = "font-size-14 main_grayfont3" style ="padding : 0 15px;">';
+							reviewList += '<p>' + item.review_REFLY + '</p>';
+							reviewList += '</div>';
+							reviewList += '</div>';			
+							reviewList += '</div>';
+							}
+							//후기작성의 펫시터 답  출력 종료  (if 문 이용 펫시터 답 있을 시 출력)
+							
+							//후기작성의 펫시터 답  쓰기 시작  (if 문 이용 펫시터 없고 펫시터 일시 출력)
+							if(item.review_REFLY == 'N' && sessionid == item.petsitter_ID){
+							reviewList += '<div class = "col-12" style = "background :rgba(224, 224, 224, 0.65)!important; height : 100px; margin : 10px 0 0 0; ">';
+							reviewList += '<div class = "row  justify-content-center">';
+							reviewList += '<div class = "col-11" style = "padding : 11px 0 0 0;">';
+							reviewList += '<form method="post" enctype="multipart/form-data" name="replyInsertForm'+item.list_NUM+'" id = "replyInsertForm'+item.list_NUM+'">';
+							reviewList += '<table style = "width : 100%">';
+							reviewList += '<tr>';
+							reviewList += '<td style ="font-size : 1.5%; width : 11%">답변 :</td>';
+							reviewList += '<td><textarea class= "ttareacss" name="REVIEW_REFLY"></textarea></td>';
+							reviewList += '</tr>';
+							reviewList += '</table>';
+							reviewList += '<input type="hidden" name="LIST_NUM" value="'+item.list_NUM+'"/>';
+							reviewList += '<input type="hidden" name="PETSITTER_ID" value="'+item.petsitter_ID+'"/>';
+							reviewList += '</form>';
+							reviewList += '</div>';
+							reviewList += '</div>';
+							reviewList += '</div>';
+							reviewList += '<div class = "col-12 text-right" style ="margin-top : 10px;">';
+							reviewList += '<a href="javascript:void(0);" onclick="replyInsert('+item.list_NUM+');" type="button" class="replybuttoncss btn btn-sm">펫시터 답글 남기기</a>';
+							reviewList += '</div>';
+							}
+							//후기작성의 펫시터 답  쓰기 종료  (if 문 이용 펫시터 없고 펫시터 일시 출력)
+							reviewList += '</div>'; 
+							reviewList += '<hr class ="my-hr3"/>';
+	        		
+	        		
+	   	    		$('#reviewList').append(reviewList);
+	   	        reviewLikeCountRead(item.list_NUM);
+        		}
+         	});
+
+        },
+   	    error:function(){
+   	    	alert("ajax통신 실패!!!");
+   	    }
+    	}); 
+    }		
+			
+		$('.plus_review').on('click', function(event){ //on이 동적인걸 실행해준다.
+			var petsitterid = petsitter_id;
+			$.ajax({
+	      url:$(this).attr("href"),
+	      data : {petsitterid: petsitterid},
+	      type:'POST',
+	      dataType : 'json',
+	      contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+	      success:function(data){
+	      	$.each(data, function(index, item){	
+	      		
+	      		if(index >= startnum && index < endnum) {
+			       	var reviewList = '';	 
+			       	  
+		  				//사진 개 수 별 업로드 문자열 추출
+		  		   	if(item.review_UP_PHOTO != "N"){
+		  		   	var upphoto = item.review_UP_PHOTO;
+		  		   	var Pphoto = upphoto.split(',', 3);
+		  		   	}
+		  		   	
+		  		   	
+		      		var reviewList = '';
+		      		reviewList += '<div class ="col-12">';
+		      	  reviewList += '<div class = "row justify-content-center">';
+		      		reviewList += '<div class = "col-md-12">';
+		      		if(item.member_PHOTO_FILE != "N"){
+			        		reviewList += '<div class="float-left thumbnail-wrapper"> <div class="thumbnail02"> <div class="centered02">';
+			        		reviewList += '<img src = "/petsitter/upload/'+item.member_PHOTO_FILE+'" />';
+			        		reviewList += '</div></div></div>';
+			        		reviewList += '<div class = "float-left" style= "padding : 3px 0 0 3px; margin-left : 10px;">';
+			    			}
+		      		else {
+		      			reviewList += '<div class="float-left thumbnail-wrapper"> <div class="thumbnail02"> <div class="centered02">';
+		      			reviewList +=	'<img src = "resources/images/defaultprofile.jpg">';
+		      			reviewList += '</div></div></div>';	
+			        		reviewList += '<div class = "float-left" style= "padding : 3px 0 0 3px; margin-left : 10px;">';
+			    			}
+		      		
+		      		reviewList += '<table>';
+		      		reviewList += '<tr>';
+		      		reviewList += '<td class = "font-size-18 main_grayfont3 mybold"  align = "center">'+ item.member_NICKNAME + '<td>';
+			        reviewList += '<td style = "padding: 6px 0 0 10px; font-size: 12px;">';
+			        reviewList += '<a href = "./reviewreportform.bo?num='+item.list_NUM+'&sessionid='+sessionid+'" type="button" class="reportFormAjax main_redfont0">신고</a></td>';	
+		      		reviewList += '</tr>';
+		      		reviewList += '<tr>';
+		      		
+		      		//별 자리
+		      		reviewList += '<td style = "padding: 2px 0 0 0;">';
+		 	    		if(item.review_SCORE == 5){
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		 	    		}
+		 	    		if(item.review_SCORE == 4){
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		 	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+			    			}
+		 	    		if(item.review_SCORE == 3){
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		 	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		  				}   
+		 	    		if(item.review_SCORE == 2){
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		 	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								}
+		 	    		if(item.review_SCORE == 1){
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
+		 	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px; margin-top: 1px;">';
+		 	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								}
+		 	    		if(item.review_SCORE > 4 && item.review_SCORE < 5){
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								}
+		 	    		if(item.review_SCORE > 3 && item.review_SCORE < 4){
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+									reviewList += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+									reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								}
+		 	    		if(item.review_SCORE > 2 && item.review_SCORE < 3){
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+									reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+									reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								}
+		 	    		if(item.review_SCORE > 1 && item.review_SCORE < 2){
+		 	    			reviewList += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								}
+		 	    		if(item.review_SCORE > 0 && item.review_SCORE < 1){
+		 	    			reviewList += '<img src="resources/images/starhalf.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+		 	    			reviewList += '<img src="resources/images/star_empty.png" width="17px" height="17px" style="margin-bottom : 8px;">';
+								}	
+								reviewList += '<td>';
+								
+								reviewList += '<td style = "padding: 0 0 0 10px;"> '+item.review_SCORE+'점<td>';
+								reviewList += '</tr>';
+								reviewList += '</table>';
+									
+								reviewList += '</div>';
+								reviewList += '<div class = "float-right" style = "margin : 10px 0 0 0;">';
+								reviewList += '<table><tr><td class= "rtablecss" id = "reviewlikecount'+item.list_NUM+'"></td></tr>';
+								reviewList += '<tr><td class= "rtablecss">기입날짜 : '+item.real_DATE+'</td></tr></table></div>';
+								reviewList += '<div class ="float-none"><br/><br/><br/></div>';
+								reviewList += '</div>';
+		
+						
+						
+								reviewList += '<div class = "font-size-14 main_grayfont3" style ="padding : 0 15px;">';
+								reviewList += '<p>'+item.review_CONTENT+'</p>';
+								reviewList += '</div>';
+						
+						
+								reviewList += '<div class = "col-12">';
+		
+								//이미지 3장 보이게
+					    	if(item.review_UP_PHOTO != "N" && Pphoto[1] == null){
+					    		reviewList += '<div class="thumbnail-wrapper reviewimg"> <div class="thumbnail"> <div class="centered">';
+					    		reviewList += '<img src = "/petsitter/upload/'+Pphoto[0]+'" />';
+					    		reviewList += '</div></div></div>';	
+						    }
+					    	if(item.review_UP_PHOTO != "N" && Pphoto[1] != null){
+					    		reviewList += '<div class="thumbnail-wrapper reviewimg"> <div class="thumbnail"> <div class="centered">';
+					    		reviewList += '<img src = "/petsitter/upload/'+Pphoto[0]+'" />';
+						    	reviewList += '</div></div></div>';			    		
+						    	reviewList += '<div class="thumbnail-wrapper reviewimg"> <div class="thumbnail"> <div class="centered">';
+						    	reviewList += '<img src = "/petsitter/upload/'+Pphoto[1]+'" />';
+						    	reviewList += '</div></div></div>';
+						    	if(Pphoto[2] != null){
+						    		reviewList += '<div class="thumbnail-wrapper reviewimg"> <div class="thumbnail"> <div class="centered">';
+						    		reviewList += '<img src = "/petsitter/upload/'+Pphoto[2]+'" />';
+						    		reviewList += '</div></div></div>';	
+						    	}
+					    	}
+								reviewList += '</div>';							
+								reviewList += '</div>';
+		
+								
+								//후기작성의 펫시터 답 출력  시작  (if 문 이용 펫시터 답 있을 시 출력)
+								if(item.review_REFLY != 'N'){
+								reviewList += '<div class = "col-12" style = "width : 100%; background :rgba(224, 224, 224, 0.65)!important; padding : 13px 50px 1px 50px; margin : 17px 0 0 0;">';
+								reviewList += '<div class = "row">';
+								reviewList += '<div class = "col-md-12" style = "height : 100%; margin-bottom : 6px;">';
+								
+								if(item.petsitter_PHOTO_PROFILE_FILE != "N"){
+				        		reviewList += '<div class="float-left thumbnail-wrapper"> <div class="thumbnail03"> <div class="centered03">';
+				        		reviewList += '<img src = "/petsitter/upload/'+item.petsitter_PHOTO_PROFILE_FILE+'" />';
+				        		reviewList += '</div></div></div>';
+					    	}
+		      			else {
+				      			reviewList += '<div class="float-left thumbnail-wrapper"> <div class="thumbnail02"> <div class="centered02">';
+				      			reviewList +=	'<img src = "resources/images/defaultprofile02.png">';
+				      			reviewList += '</div></div></div>';	
+			    			}						
+								
+								reviewList += '<div class = "float-left" style= "padding : 17px 0 0 3px; margin-left : 10px; height : 100%">';
+								reviewList += '<table>';
+								reviewList += '<tr>';
+								reviewList += '<td class = "font-size-16 main_grayfont3 mybold"  align = "center">' + item.petsitter_NICKNAME + ' 펫시터님 답변<td>';
+								reviewList += '<tr>';								
+								reviewList += '</table>';
+								reviewList += '</div>';
+						    reviewList += '<div class = "reportPFFcss" >';
+						    reviewList += '<a href = "./reviewreportform.bo?num='+item.list_NUM+'&sessionid='+sessionid+'" type="button" class="reportFormAjax main_redfont0">신고</a></div>';	
+								reviewList += '</div>';
+		
+								reviewList += '<div class = "font-size-14 main_grayfont3" style ="padding : 0 15px;">';
+								reviewList += '<p>' + item.review_REFLY + '</p>';
+								reviewList += '</div>';
+								reviewList += '</div>';			
+								reviewList += '</div>';
+								}
+								//후기작성의 펫시터 답  출력 종료  (if 문 이용 펫시터 답 있을 시 출력)
+								
+								//후기작성의 펫시터 답  쓰기 시작  (if 문 이용 펫시터 없고 펫시터 일시 출력)
+								if(item.review_REFLY == 'N' && sessionid == item.petsitter_ID){
+								reviewList += '<div class = "col-12" style = "background :rgba(224, 224, 224, 0.65)!important; height : 100px; margin : 10px 0 0 0; ">';
+								reviewList += '<div class = "row  justify-content-center">';
+								reviewList += '<div class = "col-11" style = "padding : 11px 0 0 0;">';
+								reviewList += '<form method="post" enctype="multipart/form-data" name="replyInsertForm'+item.list_NUM+'" id = "replyInsertForm'+item.list_NUM+'">';
+								reviewList += '<table style = "width : 100%">';
+								reviewList += '<tr>';
+								reviewList += '<td style ="font-size : 1.5%; width : 11%">답변 :</td>';
+								reviewList += '<td><textarea class= "ttareacss" name="REVIEW_REFLY"></textarea></td>';
+								reviewList += '</tr>';
+								reviewList += '</table>';
+								reviewList += '<input type="hidden" name="LIST_NUM" value="'+item.list_NUM+'"/>';
+								reviewList += '<input type="hidden" name="PETSITTER_ID" value="'+item.petsitter_ID+'"/>';
+								reviewList += '</form>';
+								reviewList += '</div>';
+								reviewList += '</div>';
+								reviewList += '</div>';
+								reviewList += '<div class = "col-12 text-right" style ="margin-top : 10px;">';
+								reviewList += '<a href="javascript:void(0);" onclick="replyInsert('+item.list_NUM+');" type="button" class="replybuttoncss btn btn-sm">펫시터 답글 남기기</a>';
+								reviewList += '</div>';
+								}
+								//후기작성의 펫시터 답  쓰기 종료  (if 문 이용 펫시터 없고 펫시터 일시 출력)
+								reviewList += '</div>'; 
+								reviewList += '<hr class ="my-hr3"/>';	       	  
+			       	  
+			      		$('#reviewList').append(reviewList);
+			   	      reviewLikeCountRead(item.list_NUM);			      		
+		      		}	
+	     	  	});
+		      	startnum += 4; //다음 더보기시 데이터 4개 추가 생성
+		      	endnum += 4; //다음 더보기시 데이터 4개 추가 생성
+	  			},
+			   	error:function(){
+			       alert("ajax통신 실패!!!");
+			   	}
+			  }); 
+				//기본 이벤트 제거
+			 event.preventDefault();
+			});
+		
+		
+		function replyInsert(listNum) {
+			var insertData = $('#replyInsertForm'+listNum+'').serialize();
+			$.ajax({		
+				url : '/petsitter/write_ReviewReply.bo',
+				type : 'POST',
+				data : insertData,
+				contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+				success : function(data) {
+					if(data == 1) {
+						// 댓글 작성 후 댓글 목록 reload
+						selectReview(petsitter_id);
+					}
+				},
+				error:function() {
+					alert("ajax 통신 실패(write)");			
+				}
+			});
+		}		
+		
+		$(document).ready(function(){ 
+			
+			//더보기 버튼 누를시 현재 스크롤 을 구해서 그 위치를 유지 시작
+		  $(".plus_review").click(function() {
+				//현재 스크롤 값 구하기
+				var scrollValue = $(document).scrollTop();
+				//지정값으로 가기
+			  $('html, body').animate({
+			  	scrollTop : scrollValue
+			  },);
+			     return false;
+		  });
+			//종료
+			
+			//더보기 버튼 누를시 현재 스크롤 을 구해서 그 위치를 유지 시작
+		  $(".plus_gallery").click(function() {
+				//현재 스크롤 값 구하기
+				var scrollValue = $(document).scrollTop();
+				//지정값으로 가기
+			  $('html, body').animate({
+			  	scrollTop : scrollValue
+			  },);
+			     return false;
+		  });
+			//종료	
+			
+			//페이지 로드시  출력 리스트
+			ReviewRating(petsitter_id);
+			selectReview(petsitter_id);
+			selectGallery(petsitter_id);
+			
+		});	  
+		
+		var galleryStart = 12;
+		var galleryEnd = 24;
+		var gallerylimit = 0;
+		
+		//후기 리스트 및 펫시터 답변 작성
+		function selectGallery(petsitterid){
+			$('#reviewList').empty();
+			$.ajax({
+        url:'/petsitter/galleryList.bo',
+        type:'POST',
+        data : {petsitterid: petsitterid},
+        dataType : 'json',
+        contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+        success:function(data){
+        	$.each(data, function(index, item){
+
+	    		   var galleryList = '';
+        			//사진 개 수 별 업로드 문자열 추출
+	    		   	if(item.communication_PHOTO_FILE != "N"){
+	    		   	var upphoto = item.communication_PHOTO_FILE;
+	    		   	var Pphoto = upphoto.split(',');
+								for(var i = 0; i < Pphoto.length; i++){
+									if(gallerylimit < galleryStart) {
+									galleryList += '<div class = "col-2-lg" style ="padding : 7px 7px;">';
+									galleryList += '<div class="thumbnail-wrapper"> <div class="thumbnail04"> <div class="centered04">';
+									galleryList += '<img src = "/petsitter/upload/'+Pphoto[i]+'">';
+									galleryList += '</div></div></div>';
+									galleryList += '</div>';
+									gallerylimit = gallerylimit + 1;
+									}
+								}
+	    		   	}
+        			
+		      		$('#galleryList').append(galleryList);        			
+
+         	});
+        },
+   	    error:function(){
+   	    	alert("ajax통신 실패!!!");
+   	    }
+    	}); 
+    }			
+		
+
+		$('.plus_gallery').on('click', function(event){ //on이 동적인걸 실행해준다.
+			var gallerylimit2 = 0;
+			var petsitterid = petsitter_id;
+			$.ajax({
+	      url:$(this).attr("href"),
+	      data : {petsitterid: petsitterid},
+	      type:'POST',
+	      dataType : 'json',
+	      contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+	      success:function(data){
+	      	$.each(data, function(index, item){	
+	      		
+	    		  var galleryList = '';
+       			//사진 개 수 별 업로드 문자열 추출
+	    		   	if(item.communication_PHOTO_FILE != "N"){
+	    		   	var upphoto = item.communication_PHOTO_FILE;
+	    		   	var Pphoto = upphoto.split(',');
+								for(var i = 0; i < Pphoto.length; i++){
+										gallerylimit2 = gallerylimit2 +1;
+										if(gallerylimit2 >= galleryStart && gallerylimit2 < galleryEnd) {
+										galleryList += '<div class = "col-2-lg" style ="padding : 7px 7px;">';
+										galleryList += '<div class="thumbnail-wrapper"> <div class="thumbnail04"> <div class="centered04">';
+										galleryList += '<img src = "/petsitter/upload/'+Pphoto[i]+'">';
+										galleryList += '</div></div></div>';
+										galleryList += '</div>';
+									}
+								}
+	    		   	}
+	    		   
+		      		$('#galleryList').append(galleryList);   
+      		
+ 	  			});
+	      	galleryStart += 12; //다음 더보기시 데이터 12개 추가 생성
+	      	galleryEnd += 12; //다음 더보기시 데이터 12개 추가 생성
+				},
+	   		error:function(){
+	       alert("ajax통신 실패!!!");
+	   		}
+	    }); 
+			//기본 이벤트 제거
+			event.preventDefault();
+		});	      		
+	      		
+
+		//좋아용 기능 시작
+		function reviewLikeCountRead(reviewListNum){
+			$.ajax({
+				url : '/petsitter/readReviewLikeCount.bo?reviewListNum=' + reviewListNum,
+				type : 'post',
+				data : {'reviewListNum': reviewListNum},
+				dataType : 'json',
+				contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+				success : function(data) {
+					$('#reviewlikecount'+reviewListNum).empty();
+					var a = '';
+					var num = 1;
+					$.each(data, function(key, value) {						
+						
+    		   	//좋아요 아이디 추출
+    		   	if(value.like_ID != "N"){
+    		   	var likeids = value.like_ID;
+    		   	var likeid = likeids.split(',');
+        		}
+						
+    		  	//좋아요 유무 확인및 list
+    		   	if(sessionid == "null" ){
+							a += '<a href ="#" class="likeloginalert">';
+							a += '<img src = "resources/images/heart.png" width = "15px" height = "15px" style = "margin-bottom : 5px;">'
+							a += '</a>&nbsp;&nbsp;'+value.like_COUNT+'';
+	    			}							
+		    		//idcheck 는  좋아요를 누른 아이디 일시 2로 바뀜
+		    		var idcheck = 1;
+		    		//첫 split된 인데스 0번째는 'N' 으로 1인덱스부터 시작과 il에 1추가로 필요한 길이 맞춤
+		    		if (sessionid != "null" && likeids != "N"){
+		    			var lc = value.like_COUNT;
+		    			var ln = value.list_NUM;
+		    			for(j = 1; j < lc+1; j++){
+			    			if(likeid[j] == sessionid) {
+			    				a += '<form id = "reviewLikeForm">';
+			    				a += '<a href ="./updateLike_count2.bo" class = "downdateLike_count">';
+									a += '<img src = "resources/images/fullheart.png" width = "15px" height = "15px" style = "margin-bottom : 5px;">'
+									a += '</a>&nbsp;&nbsp;'+value.like_COUNT+'';
+						    		//input으로 serialize 이용 값을 sql문에 대입 가능하게 전송
+					    		a += '<input type = "hidden" name = "LIKE_ID" id = "LIKE_ID" value= "'+ sessionid2 +'">';
+					    		a += '<input type = "hidden" name = "LIKE_COUNT" id = "LIKE_COUNT'+ln+'" value= "'+ (lc-1) +'">';
+					    		a += '<input type = "hidden" name = "LIST_NUM" id = "LIST_NUM" value= "'+ ln + '">';
+					    		a += '</form>';
+					    		idcheck = 2; //아이디확인 값 2로
+			    			}
+		    			}
+		    		}
+		    		if(sessionid != "null" && idcheck == 1){
+		    			var lc = value.like_COUNT;
+		    			var ln = value.list_NUM;
+		    			a += '<form id = "reviewLikeForm">';
+							a += '<a href ="./updateLike_count.bo" class = "updateLike_count">';
+							a += '<img src = "resources/images/heart.png"  width = "15px" height = "15px" style = "margin-bottom : 5px;">'
+							a += '</a>&nbsp;&nbsp;'+value.like_COUNT+'';
+			    		a += '<input type = "hidden" name = "LIKE_ID" id = "LIKE_ID" value= "'+ sessionid2 +'">';
+			    		a += '<input type = "hidden" name = "LIKE_COUNT" id = "LIKE_COUNT'+ln+'" value= "'+ (lc+1) +'">';
+			    		a += '<input type = "hidden" name = "LIST_NUM" id = "LIST_NUM" value= "'+ ln + '">';
+			    		a += '</form>';
+		    		}
+		    		
+					$('#reviewlikecount'+reviewListNum).html(a);	
+					}); 
+				}, 
+				error:function(request, status, error){
+					console.log("ajax 통신 실패");
+					alert("ajax 통신 실패(List)");
+				}
+			});
+		}	
+		
+		
+		$(document).ready(function(){
+			//좋아요 수 증가
+		 	$(document).on('click', '.updateLike_count', function(event){
+		 		var params;
+		 		params = $(this).parents('#reviewLikeForm').serialize();
+		 		jQuery.ajax({
+		 			url : $(this).attr("href"),
+					type : 'post',
+					data : params,
+			    dataType : 'json',
+					contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+					success : function(data) {
+						$.each(data, function(index, item){
+							// 좋아요 후 좋아요 정보 출력
+							reviewLikeCountRead(item.list_NUM);
+						});
+					},
+					error:function() {
+						alert("ajax 통신 실패!!");			
+					}		
+				});
+				  //기본 이벤트 제거
+				  event.preventDefault();		 		
+			});
+					
+			
+				//좋아요 수 감소
+			 	$(document).on('click', '.downdateLike_count', function(event){
+			 		var params;
+			 		params = $(this).parents('#reviewLikeForm').serialize();
+			 		
+			 		jQuery.ajax({
+			 			url : $(this).attr("href"),
+						type : 'post',
+						data : params,
+				    dataType : 'json',
+						contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+						success : function(data) {
+							$.each(data, function(index, item){
+								// 좋아요 취소 후 좋아요 정보 출력
+								reviewLikeCountRead(item.list_NUM);
+							});
+						},
+						error:function() {
+							alert("ajax 통신 실패!!");			
+						}		
+					});
+					  //기본 이벤트 제거
+					  event.preventDefault();		 		
+				});
+				//좋아용 기능 종료
+				
+				
+				//Modal reportForm 시작	
+				$(document).on('click', '.reportFormAjax', function(event){ //on이 동적인걸 실행해준다.
+					$('#reportForm').empty();
+					$.ajax({
+			      url:$(this).attr("href"),
+			      type : 'POST',
+			      dataType : 'json',
+			      contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+		        success:function(data){
+		        	var k = 1;
+		        	$.each(data, function(index, item){
+									
+		        			if(sessionid == 'null'){
+		        				Swal.fire({
+			     					 	title: '로그인을 하시겠습니까?',
+			     					  text: "신고는 로그인 후 사용 가능합니다.",
+			     					  icon: 'warning',
+			     					  showCancelButton: true,
+			     					  confirmButtonColor: 'rgba(83, 220, 152)',
+			     					  cancelButtonColor: '#de7631',
+			     					  confirmButtonText: '<a href="loginform.me" style = "color : white;">로그인 페이지로</a>'
+			     					}).then((result) => {
+			     						  if (result.value) {
+			     							  window.location = "loginform.me";
+			     							}
+			     					})	
+		        					return false;		
+		        			}
+		        			
+		        			if(item.review_CONTENT == 'NN'){
+			    					Swal.fire({
+			    						  title: '신고가 접수된 게시글 입니다!',
+			    						  text: "고객님의 관심의 감사를 표하며 빠른시일 내에 처리하겠습니다.",
+			    						  icon: 'warning',
+			    						  confirmButtonColor: 'rgba(83, 220, 152)',
+			    						})
+		        				return false;
+		        			}
+		        		
+		        			var reportForm = '';
+			        		reportForm += '<div class="modal fade" id="staticBackdropReport" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">';
+			        		reportForm += '<div class="modal-dialog modal-sm">';
+			        		reportForm += '<div class="modal-content">';
+			        		reportForm += '<div class="modal-header">';
+			        		reportForm += '<h4 class="modal-title main_mintfont font-size-20" id="staticBackdropLabel">신고하기.</h4>';
+			        		reportForm += '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+			        		reportForm += '<span aria-hidden="true">&times;</span>';
+			        		reportForm += '</button>';
+			        		reportForm += '</div>';
+			        		reportForm += '<div class="modal-body">';
+			        		reportForm += '<form action="./reviewreportinsert2.bo" style = "font-size : 0" method="post" name="reportFormSubmit" enctype="multipart/form-data">';
+			        		reportForm += '<div class = "row">';
+			        		reportForm += '<div class = "col-12 font-size-14 main_grayfont3">';
+			        		reportForm += '<input type="hidden" name="MEMBER_ID" value="${id}">';
+			        		reportForm += '<input type="hidden" name="LIST_NUM" value="'+item.list_NUM+'">';
+			        		reportForm += '<input type="hidden" name="BOARD_TYPE" value="'+item.board_TYPE+'">';
+			        		reportForm += '<input type="hidden" name="petsitter_id" value="' + petsitter_id + '">';	
+			        		reportForm += '신고 글 번호 : '+item.list_NUM+'<br/>';
+			        		reportForm += '<br/><div>신고자</div>';
+			        		reportForm += '<div>${id}</div>';		        		
+			        		reportForm += '<div>${name}</div>';
+			        		reportForm += '</br><div>신고 사유</div>';
+			        		reportForm += '<textarea id="REPORT_REASON" name="REPORT_REASON" rows="4" cols="40" placeholder="신고 사유를 적어주세요."></textarea>';
+			        		reportForm += '</div>';
+			        		reportForm += '</div>';
+			        		reportForm += '</div>';
+			        		reportForm += '</form>';
+			        		reportForm += '<div class="modal-footer">';
+			        		reportForm += '<div class = "row">';
+			        		reportForm += '<div class = "col-12 font-size-14">';
+			        		reportForm += '<a type="button" class="btn btn-sm pbtn02 reportInsert" id="btnReportClose" href="javascript:addreportboard()">신고하기</a>';
+			        		reportForm += '<button type="button" class="btn btn-sm pbtn03" data-dismiss="modal" id="btnList">닫기</button>';
+			        		reportForm += '</div>';
+			        		reportForm += '</div>';
+			        		reportForm += '</div>';
+			        		reportForm += '</div>';
+			        		reportForm += '</div>';
+			        		reportForm += '</div>';
+		   	       		$('#reportForm').append(reportForm);
+		   	       		
+		   	       		
+		    			});
+			      	if( true ) { $('.staticBackdropReport').get(0).click(); }        	
+		    		},
+			    	error:function(){
+			        alert("ajax통신 실패!!!");
+			    	}
+					}); 
+					//기본 이벤트 제거
+					event.preventDefault();				
+				});		
+				//Modal reportForm 종료							
+				
+				
+		});			
+		
+		
+		  //글 신고 INSERT 버튼 시작
+		function addreportboard(){
+			var rpr = document.reportFormSubmit.REPORT_REASON.value;
+			if (rpr.length < 2)
+			{
+				alert("신고 이유를 2자 이상 입력하세요.");
+				document.reportForm.reportFormSubmit.focus();
+				return false;
+			}
+			reportFormSubmit.submit();
+		}
+		//글 신고 INSERT 버튼 종료			
+	</script> 
 </body>
 </html>

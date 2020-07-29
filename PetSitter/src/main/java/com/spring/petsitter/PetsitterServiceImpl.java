@@ -1,6 +1,7 @@
 package com.spring.petsitter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.mapper.PetsitterMapper;
+import com.spring.petsitter.board.CommunicationBoardVO;
 import com.spring.petsitter.board.ReviewBoardVO;
 import com.spring.mapper.ReservationMapper;
 
@@ -17,6 +19,34 @@ public class PetsitterServiceImpl implements PetsitterService{
 	@Autowired
 	private SqlSession sqlSession;
 	
+	@Override
+	public int petsitterPwUpdate(PetsitterVO petsitter) {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		int res = petsitterMapper.petsitterPwUpdate(petsitter);
+		return res;
+	}
+
+	@Override
+	public ArrayList<PetsitterVO> getSchedule(PetsitterVO petsitter) {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		
+		return petsitterMapper.getSchedule(petsitter);
+	}
+
+	@Override
+	public String petsitterIdFind(PetsitterVO petsitter) {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		String res = petsitterMapper.petsitterIdFind(petsitter);
+		return res;
+	}
+
+	@Override
+	public int petsitterPwFind(PetsitterVO petsitter) {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		int res = petsitterMapper.petsitterPwFind(petsitter);
+		return res;
+	}
+
 	@Override
 	public int petsitterNicknameCheck(PetsitterVO petsitter) {
 		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
@@ -145,6 +175,7 @@ public class PetsitterServiceImpl implements PetsitterService{
 		PetsitterVO petsitter = petsitterMapper.petsitter_thisMonth_count();
 		return petsitter;
 	}
+<<<<<<< HEAD
 
 	@Override
 	public PetsitterVO this_month_countAmount(String id) {
@@ -152,4 +183,42 @@ public class PetsitterServiceImpl implements PetsitterService{
 		PetsitterVO petsitter = petsitterMapper.this_month_countAmount(id);
 		return petsitter;
 	}
+=======
+	
+	//갤러리 및 후기 (start)
+	@Override
+	public List<ReviewBoardVO> getReviewRating(HashMap<String, String> hashmap) {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		List<ReviewBoardVO> reviewRating = petsitterMapper.getReviewRating(hashmap);
+		return reviewRating;
+	}
+	
+	@Override
+	public List<ReviewBoardVO> reviewList(String petsitterid) {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		List<ReviewBoardVO> list = petsitterMapper.reviewList(petsitterid);	
+		return list;
+	}
+	@Override
+	public int write_ReviewReply(ReviewBoardVO reply) throws Exception {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		return petsitterMapper.write_ReviewReply(reply);
+	}
+	
+	@Override	
+	public List<CommunicationBoardVO> galleryList(String petsitterid){
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		List<CommunicationBoardVO> list = petsitterMapper.galleryList(petsitterid);
+		return list;		
+	}	
+
+	@Override
+	public List<ReviewBoardVO> readReviewLikeCount(int reviewListNum) throws Exception {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		List<ReviewBoardVO> list = petsitterMapper.readReviewLikeCount(reviewListNum);	
+		return list;
+	}
+	//갤러리 및 후기 (end)	
+	
+>>>>>>> origin/MH
 }

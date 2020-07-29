@@ -430,7 +430,20 @@ var nickname = new Array();
 var addr1 = new Array();
 var count = new Array();
 var score = new Array();
-var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+var id = new Array();
+var imageSrc = "resources/images/marker.png"; 
+var imageOption = {offset: new kakao.maps.Point(45, 60)};
+// 마커 이미지의 이미지 크기 입니다
+var imageSize = new kakao.maps.Size(100, 100); 
+
+// 마커 이미지를 생성합니다    
+var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize,imageOption);
+// 마커를 생성합니다
+/*  var marker1 = new kakao.maps.Marker({
+    map: map, // 마커를 표시할 지도
+    position: latlng1[i], // 마커를 표시할 위치
+});
+*/
 <%for(int i = 0; i < list.size(); i++){%>
 addrX.push(<%=list.get(i).getPETSITTER_ADDRX()%>);
 addrY.push(<%=list.get(i).getPETSITTER_ADDRY()%>);
@@ -442,9 +455,14 @@ title.push('<%=list.get(i).getPETSITTER_ID()%>');
 <%for(int i = 0; i < list.size(); i++){%>
 latlng1.push(new kakao.maps.LatLng(addrY[<%=i%>],addrX[<%=i%>]));
 nickname.push('<%=list.get(i).getPETSITTER_NICKNAME()%>');
-addr1.push('<%=list.get(i).getPETSITTER_ADDRESS().split(",")[1]%>');
+<%if(!list.get(i).getPETSITTER_SAFEADDR().equals("N")){%>
+	addr1.push('<%=list.get(i).getPETSITTER_SAFEADDR().split(",")[0]%>');
+<%}else{%>
+addr1.push('<%=list.get(i).getPETSITTER_ADDRESS().split(",")[1].split(" ")[0]%> '+'<%=list.get(i).getPETSITTER_ADDRESS().split(",")[1].split(" ")[1]%>');
+<%}%>
 count.push(<%=list.get(i).getPETSITTER_COUNT()%>);
 score.push(<%=list.get(i).getPETSITTER_SCORE()%>);
+id.push('<%=list.get(i).getPETSITTER_ID()%>');
 <%
 }
 %>
@@ -469,7 +487,8 @@ var callback = function(result, status) {
     //마커를 미리 생성
     var marker = new daum.maps.Marker({
         position: new daum.maps.LatLng(37.537187, 127.005476),
-        map: map
+        map: map,
+        image:markerImage
     });
     var output = '<table></table>';
     var radius = 6000; //제한할 반경(m)
@@ -494,12 +513,12 @@ var callback = function(result, status) {
                         circle = new kakao.maps.Circle({
                             center : coords,  // 원의 중심좌표 입니다 
                             radius: radius, // 미터 단위의 원의 반지름입니다 
-                            strokeWeight: 5, // 선의 두께입니다 
-                            strokeColor: '#75B8FA', // 선의 색깔입니다
+                            strokeWeight: 2, // 선의 두께입니다 
+                            strokeColor: '#26bd72', // 선의 색깔입니다
                             strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-                            strokeStyle: 'dashed', // 선의 스타일 입니다
-                            fillColor: '#CFE7FF', // 채우기 색깔입니다
-                            fillOpacity: 0.7  // 채우기 불투명도 입니다   
+                            strokeStyle: 'solid', // 선의 스타일 입니다
+                            fillColor: 'rgb(83, 220, 153)', // 채우기 색깔입니다
+                            fillOpacity: 0.3  // 채우기 불투명도 입니다   
                         }); 
                         
                         // 지도를 보여준다.
@@ -517,18 +536,7 @@ var callback = function(result, status) {
 						var listcount = 0;
                          for (var i = 0; i < addrX.length; i ++) {
                             
-                            // 마커 이미지의 이미지 크기 입니다
-                            var imageSize = new kakao.maps.Size(24, 35); 
-                            
-                            // 마커 이미지를 생성합니다    
-                            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-                            
-                            // 마커를 생성합니다
-/*                              var marker1 = new kakao.maps.Marker({
-                                map: map, // 마커를 표시할 지도
-                                position: latlng1[i], // 마커를 표시할 위치
-                            });
- */
+
                             var c1 = map.getCenter(); //중심점 좌표
                             var c2 = latlng1[i]; //마커의 좌표
                             var poly = new kakao.maps.Polyline({ //선을 그리는 함수
@@ -545,12 +553,12 @@ var callback = function(result, status) {
                             	lengthKm = 'KM';
                             }
                             if(dist < radius){
-                            output += '<table id="output">';
-							output += '<tr><th>닉네임</th><th>'+nickname[i]+'</th></tr>';
-							output += '<tr><th>주소</th><th>'+addr1[i]+'</th></tr>';
-							output += '<tr><th>거리</th><th>'+addrLength+'('+lengthKm+')</th></tr>';
-							output += '<tr><th>평점</th><th>'+score[i]+'</th></tr>';
-							output += '</table>';
+                            	output += '<table id="output" onclick="location.href=\'mapfoster_view.me?PETSITTER_ID='+id[i]+'\'">';
+                    			output += '<tr><th width=54>닉네임</th><th width=235>'+nickname[i]+'</th></tr>';
+                    			output += '<tr><th width=50>주소</th><th width=235>'+addr1[i]+'</th></tr>';
+                    			output += '<tr><th width=50>거리</th><th width=235>'+addrLength+'('+lengthKm+')</th></tr>';
+                    			output += '<tr><th width=50>평점</th><th width=235>'+score[i]+'</th></tr>';
+                    			output += '</table>';
 							listcount = 1;
                             }else{
                             }
@@ -591,14 +599,20 @@ var callback = function(result, status) {
     	addr1.length = 0;
     	count.length = 0;
     	score.length = 0;
+    	id.length = 0;
 		<%
 		
 		for(int i =0; i < voList.length; i ++){%>
 		latlng1.push(new kakao.maps.LatLng(<%=voList[i].getPETSITTER_ADDRY()%>,<%=voList[i].getPETSITTER_ADDRX()%>));
 		nickname.push('<%=voList[i].getPETSITTER_NICKNAME()%>');
-		addr1.push('<%=voList[i].getPETSITTER_ADDRESS().split(",")[1]%>');
+		<%if(!voList[i].getPETSITTER_SAFEADDR().equals("N")){%>
+		addr1.push('<%=voList[i].getPETSITTER_SAFEADDR().split(",")[0]%>');
+		<%}else{%>
+		addr1.push('<%=voList[i].getPETSITTER_ADDRESS().split(",")[1].split(" ")[0]%> '+'<%=list.get(i).getPETSITTER_ADDRESS().split(",")[1].split(" ")[1]%>');
+		<%}%>
 		count.push(<%=voList[i].getPETSITTER_COUNT()%>);
 		score.push(<%=voList[i].getPETSITTER_SCORE()%>);
+		id.push('<%=voList[i].getPETSITTER_ID()%>');
 		<%
 		}
 		%>
@@ -622,12 +636,12 @@ var callback = function(result, status) {
             	lengthKm = 'KM';
             }
             if(dist < radius){
-            output += '<table id="output">';
-			output += '<tr><th>닉네임</th><th>'+nickname[i]+'</th></tr>';
-			output += '<tr><th>주소</th><th>'+addr1[i]+'</th></tr>';
-			output += '<tr><th>거리</th><th>'+addrLength+'('+lengthKm+')</th></tr>';
-			output += '<tr><th>평점</th><th>'+score[i]+'</th></tr>';
-			output += '</table>';
+            	output += '<table id="output" onclick="location.href=\'mapfoster_view.me?PETSITTER_ID='+id[i]+'\'">';
+    			output += '<tr><th width=54>닉네임</th><th width=235>'+nickname[i]+'</th></tr>';
+    			output += '<tr><th width=50>주소</th><th width=235>'+addr1[i]+'</th></tr>';
+    			output += '<tr><th width=50>거리</th><th width=235>'+addrLength+'('+lengthKm+')</th></tr>';
+    			output += '<tr><th width=50>평점</th><th width=235>'+score[i]+'</th></tr>';
+    			output += '</table>';
 			
             }else{
             }
@@ -648,14 +662,19 @@ var callback = function(result, status) {
 	addr1.length = 0;
 	count.length = 0;
 	score.length = 0;
+	id.length = 0;
 	<%
 	
 	for(int i =0; i < voList1.length; i ++){%>
 	latlng1.push(new kakao.maps.LatLng(<%=voList1[i].getPETSITTER_ADDRY()%>,<%=voList1[i].getPETSITTER_ADDRX()%>));
 	nickname.push('<%=voList1[i].getPETSITTER_NICKNAME()%>');
-	addr1.push('<%=voList1[i].getPETSITTER_ADDRESS().split(",")[1]%>');
-	count.push(<%=voList1[i].getPETSITTER_COUNT()%>);
+	<%if(!voList[i].getPETSITTER_SAFEADDR().equals("N")){%>
+	addr1.push('<%=voList[i].getPETSITTER_SAFEADDR().split(",")[0]%>');
+	<%}else{%>
+	addr1.push('<%=voList[i].getPETSITTER_ADDRESS().split(",")[1].split(" ")[0]%> '+'<%=list.get(i).getPETSITTER_ADDRESS().split(",")[1].split(" ")[1]%>');
+	<%}%>	count.push(<%=voList1[i].getPETSITTER_COUNT()%>);
 	score.push(<%=voList1[i].getPETSITTER_SCORE()%>);
+	id.push('<%=voList1[i].getPETSITTER_ID()%>');
 	<%
 	}
 	%>
@@ -688,10 +707,16 @@ var callback = function(result, status) {
 			addr1.length = 0;
 			count.length = 0;
 			score.length = 0;
+			id.length = 0;
 			$.each(data,function(index, item){
 				latlng1.push(new kakao.maps.LatLng(item.petsitter_ADDRY,item.petsitter_ADDRX));
 				nickname.push(item.petsitter_NICKNAME);
-				addr1.push(item.petsitter_ADDRESS.split(",")[1]);
+				if(item.petsitter_SAFEADDR == "N"){
+					addr1.push(item.petsitter_ADDRESS.split(",")[1].split(" ")[0]+' '+item.petsitter_ADDRESS.split(",")[1].split(" ")[1]);
+				}else{
+					addr1.push(item.petsitter_SAFEADDR.split(",")[0]);
+				}
+				id.push(item.petsitter_ID);
 				count.push(item.petsitter_COUNT);
 				score.push(item.petsitter_SCORE);
 			});
@@ -716,12 +741,12 @@ var callback = function(result, status) {
 		        	lengthKm = 'KM';
 		        }
 		        if(dist < radius){
-		        output += '<table id="output">';
-				output += '<tr><th>닉네임</th><th>'+nickname[i]+'</th></tr>';
-				output += '<tr><th>주소</th><th>'+addr1[i]+'</th></tr>';
-				output += '<tr><th>거리</th><th>'+addrLength+'('+lengthKm+')</th></tr>';
-				output += '<tr><th>평점</th><th>'+score[i]+'</th></tr>';
-				output += '</table>';
+		        	output += '<table id="output" onclick="location.href=\'mapfoster_view.me?PETSITTER_ID='+id[i]+'\'">';
+        			output += '<tr><th width=54>닉네임</th><th width=235>'+nickname[i]+'</th></tr>';
+        			output += '<tr><th width=50>주소</th><th width=235>'+addr1[i]+'</th></tr>';
+        			output += '<tr><th width=50>거리</th><th width=235>'+addrLength+'('+lengthKm+')</th></tr>';
+        			output += '<tr><th width=50>평점</th><th width=235>'+score[i]+'</th></tr>';
+        			output += '</table>';
 				
 		        }else{
 		        }

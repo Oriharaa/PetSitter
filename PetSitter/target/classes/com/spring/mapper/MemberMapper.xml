@@ -25,6 +25,14 @@
 		<result property="MERCHANT_UID" column="MERCHANT_UID" />
 	</resultMap>
 	
+	<select id ="memberIdFind" parameterType="MemberVO" resultType="String">
+		select MEMBER_ID from member where MEMBER_NAME = #{MEMBER_NAME} and MEMBER_TEL = #{MEMBER_TEL}
+	</select>
+	
+	<select id ="memberPwFind" parameterType="MemberVO" resultType="int">
+		select count(*) from member where MEMBER_ID = #{MEMBER_ID} and MEMBER_NAME = #{MEMBER_NAME} and MEMBER_TEL = #{MEMBER_TEL}
+	</select>
+	
 	<select id="memberCheck" parameterType="MemberVO" resultType="int">
 		select count(*) from member where MEMBER_ID = #{MEMBER_ID} and MEMBER_PW = #{MEMBER_PW}
 	</select>
@@ -141,6 +149,10 @@
 		insert into member (MEMBER_ID,MEMBER_PW,MEMBER_NAME,MEMBER_TEL) values
 				(#{MEMBER_ID},#{MEMBER_PW},#{MEMBER_NAME},#{MEMBER_TEL})
 	</insert>
+	
+	<update id="memberPwUpdate" parameterType ="MemberVO">
+		update member set MEMBER_PW = #{MEMBER_PW} where MEMBER_ID =#{MEMBER_ID}
+	</update>
 	
 	<update id="updateMember" parameterType="MemberVO">
 		update member set MEMBER_NICKNAME=#{MEMBER_NICKNAME}, MEMBER_TEL=#{MEMBER_TEL}, MEMBER_PHOTO_FILE=#{MEMBER_PHOTO_FILE},

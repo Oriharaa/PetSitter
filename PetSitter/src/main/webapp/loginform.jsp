@@ -477,7 +477,7 @@ text-decoration:none;
                     <label for="remember1">Remember me</label>
                     <div class="submit-wrap">
                         <input type="submit" value="Sign in" class="submit">
-                        <a href="#" class="more">Forgot your password?</a>
+                        <a href="memberFind.jsp" class="more">Forgot your password?</a>
                     </div>
 		        </form>
 		        <form action="petsitter_login.me" method="post"  id="Signinform2">
@@ -487,7 +487,7 @@ text-decoration:none;
                     <label for="remember2">Remember me</label>
                     <div class="submit-wrap">
                     <input type="submit" value="Sign in" class="submit" >
-                    <a href="#" class="more">Forgot your password?</a>
+                    <a href="petsitterFind.jsp" class="more">Forgot your password?</a>
                     </div>
 		        </form>
 	        </div>

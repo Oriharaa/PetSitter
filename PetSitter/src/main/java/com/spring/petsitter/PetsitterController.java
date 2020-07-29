@@ -3,14 +3,18 @@ package com.spring.petsitter;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.UUID;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.http.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +32,61 @@ public class PetsitterController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	JavaMailSender mailSender;
+	
+	@RequestMapping(value = "petsitterPwUpdate.me")
+	public String petsitterPwUpdate(PetsitterVO vo) {
+		petsitterService.petsitterPwUpdate(vo);
+		return "redirect:/home.me";
+	}
+	
+	@RequestMapping(value = "petsitterPwFind.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String petsitterPwFind(PetsitterVO vo) {
+		int res = petsitterService.petsitterPwFind(vo);
+		if(res == 1) {
+			Random r = new Random();
+			int num = r.nextInt(999999);
+			String setfrom = "mho415@naver.com"; //본인 이메일 아이디(naver)
+			String title = "비밀번호 찾기 인증 이메일 입니다.";
+			String content = System.getProperty("line.separator") 
+            		+"안녕하세요 회원님 저희 홈페이지를 찾아주셔서 감사합니다"
+            		+System.getProperty("line.separator") 
+            		+" 인증번호는 <" + num + "> 입니다."
+            		+System.getProperty("line.separator") 
+            		+"받으신 인증번호를 홈페이지에 입력해 주시면 다음으로 넘어갑니다.";
+			try {
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"UTF-8");
+				
+				messageHelper.setFrom(setfrom);
+				messageHelper.setTo(vo.getPETSITTER_EMAIL());
+				messageHelper.setSubject(title);
+				messageHelper.setText(content);
+				
+				mailSender.send(message);
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+			return String.valueOf(num);
+		}else {
+			return "N";
+		}
+	}
+	
+	@RequestMapping(value = "petsitterIdFind.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String petsitterIdFind(PetsitterVO vo){
+
+		String res = petsitterService.petsitterIdFind(vo);
+		if(res == null) {
+			return "N";
+		}else {
+			return res.substring(0, res.length()-3)+"***";
+		}
+	}
 	
 	@RequestMapping(value = "map_addr.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
@@ -50,10 +109,7 @@ public class PetsitterController {
 				}
 			}
 		}
-		
-
-		
-		
+	
 		return vo;
 	}
 	
