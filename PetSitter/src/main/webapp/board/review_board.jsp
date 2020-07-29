@@ -1016,7 +1016,7 @@
         			}
         		
         			var reportForm = '';
-	        		reportForm += '<div class="modal fade" id="staticBackdropReport" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">';
+	        		reportForm += '<div class="modal fade" id="staticBackdropReport" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">';
 	        		reportForm += '<div class="modal-dialog modal-sm">';
 	        		reportForm += '<div class="modal-content">';
 	        		reportForm += '<div class="modal-header">';

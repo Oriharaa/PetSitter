@@ -640,7 +640,7 @@ button:focus {outline:none;}
 			$(function() {
 				console.log('${id}');
 				$("#mypage").on("click", function() {
-					location.href="memberinfo.me?id=" + '${id}';
+					location.href="memberinfo.me";
 				});
 			});
 		</script>

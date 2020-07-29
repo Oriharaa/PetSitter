@@ -95,12 +95,12 @@ from usinglist A,member B where petsitter_id = #{PETSITTER_ID} and A.member_id =
 		values(#{LIST_NUM}, #{PETSITTER_ID}, #{PETSITTER_ADDR}, #{MEMBER_ID}, #{LIST_PRICE}, to_date(#{STRING_STARTDATE}, 'YYYY-MM-DD HH24:mi'), to_date(#{STRING_ENDDATE}, 'YYYY-MM-DD HH24:mi'), #{LIST_TYPE}, #{MERCHANT_UID})
 	</insert>
 	
-	<insert id="defaultphoto" parameterType="String">
-		<selectKey keyProperty="USINGLIST_NUM" order="BEFORE" resultType="int">
+	<insert id="defaultphoto" parameterType="UsinglistVO">
+		<selectKey keyProperty="LIST_NUM" order="BEFORE" resultType="int">
 			select nvl(max(LIST_NUM), 0)+1 from usinglist
 		</selectKey>
 		insert into communication_photo_list(USINGLIST_NUM, UPLOAD_DATE, PETSITTER_ID)
-		values(#{USINGLIST_NUM}, sysdate, #{PETSITTER_ID})
+		values(#{LIST_NUM}, sysdate, #{PETSITTER_ID})
 	</insert>
 	
 	<select id="getUsinglistList" resultType="UsinglistVO">

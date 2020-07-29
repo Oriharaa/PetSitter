@@ -382,7 +382,7 @@ public class MemberController {
 		
 		memberService.updateMember(vo);
 
-		return "redirect:/memberinfo.me?id=" + vo.getMEMBER_ID();
+		return "redirect:/memberinfo.me";
 	}
 	
 	@RequestMapping(value = "logout.me")

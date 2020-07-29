@@ -23,6 +23,6 @@ public interface UsinglistMapper {
 	
 	// 이용 내역 추가
 	public int insertUsinglist(UsinglistVO usinglist);
-	public void defaultphoto(String petsitter_id);
+	public void defaultphoto(UsinglistVO usinglist);
 	public List<UsinglistVO> getUsinglistList();
 }

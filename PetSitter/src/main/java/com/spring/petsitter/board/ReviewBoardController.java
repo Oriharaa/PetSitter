@@ -60,7 +60,7 @@ public class ReviewBoardController {
 		}
 		ReviewboardService.insertReview(vo);
 		
-		return "redirect:/memberinfo.me?id=" + vo.getMEMBER_ID();
+		return "redirect:/memberinfo.me";
 	}
 	
 	@RequestMapping(value = "review_board.bo", method = RequestMethod.GET)

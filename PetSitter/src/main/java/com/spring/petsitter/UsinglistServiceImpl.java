@@ -106,7 +106,7 @@ public class UsinglistServiceImpl implements UsinglistService{
 	@Override
 	public int insertUsinglist(UsinglistVO usinglist) {
 		UsinglistMapper usinglistMapper = sqlSession.getMapper(UsinglistMapper.class);
-		usinglistMapper.defaultphoto(usinglist.getPETSITTER_ID());
+		usinglistMapper.defaultphoto(usinglist);
 		return usinglistMapper.insertUsinglist(usinglist);
 	}
 

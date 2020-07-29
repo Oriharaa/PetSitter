@@ -220,7 +220,7 @@ create table COMMUNICATION_BOARD(
 
 -- 펫시터와의 소통 사진 게시판(하루에 3장 업로드 가능)
 create table COMMUNICATION_PHOTO_LIST(
-    USINGLIST_NUM number(10),
+    USINGLIST_NUM number(10), -- 이용 내역 번호
     COMMUNICATION_PHOTO_FILE varchar2(100) default 'N', -- 업로드된 사진 파일
     UPLOAD_DATE date default sysdate, -- 업로드 일자
     PETSITTER_ID varchar2(30) -- 펫시터 회원 아이디
