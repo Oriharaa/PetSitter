@@ -69,8 +69,7 @@
 					from (select * 
 								from usinglist 
 								where MEMBER_ID=#{MEMBER_ID}
-								order by LIST_NUM desc)) 
-		where rnum >= #{startrow} and rnum <= #{endrow}
+								order by LIST_NUM desc))
 		]]>
 	</select>
 	
@@ -85,7 +84,6 @@
 								 			 petsitter_address, petsitter_photo_profile_file
 								from usinglist natural join petsitter 
 								where MEMBER_ID=#{MEMBER_ID} order by LIST_NUM desc))
-		where rnum >= #{startrow} and rnum <= #{endrow}
 		]]>
 	</select>
 	

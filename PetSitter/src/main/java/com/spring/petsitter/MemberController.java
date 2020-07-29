@@ -1,13 +1,11 @@
 package com.spring.petsitter;
 
 import java.io.File;
-<<<<<<< HEAD
 import java.io.PrintWriter;
-=======
-import java.io.IOException;
->>>>>>> origin/Hong
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -40,9 +38,6 @@ public class MemberController {
 	
 	@Autowired
 	private PetsitterService petsitterService;
-	
-	@Autowired
-	private PetService petService;
 	
 	@Autowired
 	private ReviewBoardService reviewboardService;
@@ -87,17 +82,6 @@ public class MemberController {
 		}
 	}
 	
-	
-<<<<<<< HEAD
-	@RequestMapping(value = "petRegister2.me")
-	public String petRegister2(PetVO vo) {
-		int res = petService.petInsert(vo);
-		if(res != 0) {
-			System.out.println("Pet Insert Complete!");
-		}
-		return "petRegister2";
-	}
-	
 	@RequestMapping(value = "memberPwUpdate.me")
 	public String memberPwUpdate(MemberVO vo) {
 		memberService.memberPwUpdate(vo);
@@ -138,8 +122,6 @@ public class MemberController {
 			return "N";
 		}
 	}
-=======
->>>>>>> origin/Hong
 	
 	@RequestMapping(value = "memberIdFind.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
@@ -157,11 +139,9 @@ public class MemberController {
 	
 	@RequestMapping(value = "getUsingList.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public List<MemberUsinglistVO> getUsinglist(String id, int page) {
-		int limit = 5;
-		
-		ArrayList<UsinglistVO> usinglist = memberService.getUsingList_Member(id, page, limit);
-		List<MemberUsinglistVO> usinglist_ajax = memberService.getUsingList_Member_ajax(id, page, limit);
+	public List<MemberUsinglistVO> getUsinglist(String id) {
+		ArrayList<UsinglistVO> usinglist = memberService.getUsingList_Member(id);
+		List<MemberUsinglistVO> usinglist_ajax = memberService.getUsingList_Member_ajax(id);
 		SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date date = new Date();
 		String today = new_Format.format(date);
@@ -194,18 +174,23 @@ public class MemberController {
 			int compare2 = today.compareTo(usinglist_ajax.get(i).getLIST_END_DATE());
 			if(compare1 < 0 && compare2 < 0) {
   				ing = "현재 이용중";
+  				usinglist_ajax.get(i).setPosition(5); // 5번
   				count++;
   			} else if(compare1 > 0) {
   				if(usinglist_ajax.get(i).getLIST_TYPE().equals("위탁")) {
   					ing = "위탁 대기 중";
+  					usinglist_ajax.get(i).setPosition(4); // 4번
   				} else if(usinglist_ajax.get(i).getLIST_TYPE().equals("방문")) {
   					ing = "방문 대기 중";
+  					usinglist_ajax.get(i).setPosition(3); // 3번
   				}
   				if(status.equals("결제 취소")) {
   	  				ing = "예약 취소";
+  	  				usinglist_ajax.get(i).setPosition(1); // 1번
   	  			}
   			} else {
   				ing = "이용 완료";
+  				usinglist_ajax.get(i).setPosition(2); // 2번
   				count++;
   			}
 			usinglist_ajax.get(i).setLIST_ING(ing);
@@ -219,6 +204,7 @@ public class MemberController {
 			} else {
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 남기기");
 			}
+			
 		}
 		
 		MemberVO member = memberService.selectMember(id);
@@ -232,12 +218,19 @@ public class MemberController {
 		}
 		memberService.updateMemberRank(member);
 		
+		Collections.sort(usinglist_ajax, new Comparator<MemberUsinglistVO>() {
+			@Override
+			public int compare(MemberUsinglistVO o1, MemberUsinglistVO o2) {
+				return o2.getPosition() - o1.getPosition();
+			}
+        });
+		
 		return usinglist_ajax;
 	}
 	
 	@RequestMapping(value = "getUsingList_month.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public List<MemberUsinglistVO> getUsinglist_month(String id, int month, int page) {
+	public List<MemberUsinglistVO> getUsinglist_month(String id, int month) {
 		ArrayList<UsinglistVO> usinglist = memberService.getUsingList_Member_month(id, -month);
 		List<MemberUsinglistVO> usinglist_ajax = memberService.getUsingList_Member_ajax_month(id, -month);
 		SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -268,16 +261,22 @@ public class MemberController {
 			int compare2 = today.compareTo(usinglist_ajax.get(i).getLIST_END_DATE());
 			if(compare1 < 0 && compare2 < 0) {
   				ing = "현재 이용중";
+  				usinglist_ajax.get(i).setPosition(5); // 5번
   			} else if(compare1 > 0) {
   				if(usinglist_ajax.get(i).getLIST_TYPE().equals("위탁")) {
   					ing = "위탁 대기 중";
+  					usinglist_ajax.get(i).setPosition(4); // 4번
   				} else if(usinglist_ajax.get(i).getLIST_TYPE().equals("방문")) {
   					ing = "방문 대기 중";
-  				} if(status.equals("결제 취소")) {
+  					usinglist_ajax.get(i).setPosition(3); // 3번
+  				}
+  				if(status.equals("결제 취소")) {
   	  				ing = "예약 취소";
+  	  				usinglist_ajax.get(i).setPosition(1); // 1번
   	  			}
   			} else {
   				ing = "이용 완료";
+  				usinglist_ajax.get(i).setPosition(2); // 2번
   			}
 			usinglist_ajax.get(i).setLIST_ING(ing);
 			
@@ -291,13 +290,19 @@ public class MemberController {
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 남기기");
 			}
 		}
+		Collections.sort(usinglist_ajax, new Comparator<MemberUsinglistVO>() {
+			@Override
+			public int compare(MemberUsinglistVO o1, MemberUsinglistVO o2) {
+				return o2.getPosition() - o1.getPosition();
+			}
+        });
 		
 		return usinglist_ajax;
 	}
 	
 	@RequestMapping(value = "getUsingList_calendar.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public List<MemberUsinglistVO> getUsinglist_calendar(String id, String startdate, String enddate, int page, Model model) {
+	public List<MemberUsinglistVO> getUsinglist_calendar(String id, String startdate, String enddate, Model model) {
 		
 		ArrayList<UsinglistVO> usinglist = memberService.getUsingList_Member_calendar(id, startdate, enddate);
 		List<MemberUsinglistVO> usinglist_ajax = memberService.getUsingList_Member_ajax_calendar(id, startdate, enddate);
@@ -328,17 +333,23 @@ public class MemberController {
 			int compare1 = usinglist_ajax.get(i).getLIST_START_DATE().compareTo(today);
 			int compare2 = today.compareTo(usinglist_ajax.get(i).getLIST_END_DATE());
 			if(compare1 < 0 && compare2 < 0) {
-  				ing = "현재 이용중";
+				ing = "현재 이용중";
+  				usinglist_ajax.get(i).setPosition(5); // 5번
   			} else if(compare1 > 0) {
   				if(usinglist_ajax.get(i).getLIST_TYPE().equals("위탁")) {
   					ing = "위탁 대기 중";
+  					usinglist_ajax.get(i).setPosition(4); // 4번
   				} else if(usinglist_ajax.get(i).getLIST_TYPE().equals("방문")) {
   					ing = "방문 대기 중";
-  				} if(status.equals("결제 취소")) {
+  					usinglist_ajax.get(i).setPosition(3); // 3번
+  				}
+  				if(status.equals("결제 취소")) {
   	  				ing = "예약 취소";
+  	  				usinglist_ajax.get(i).setPosition(1); // 1번
   	  			}
   			} else {
   				ing = "이용 완료";
+  				usinglist_ajax.get(i).setPosition(2); // 2번
   			}
 			usinglist_ajax.get(i).setLIST_ING(ing);
 			
@@ -352,7 +363,13 @@ public class MemberController {
 				usinglist_ajax.get(i).setLIST_COMPLETE("리뷰 남기기");
 			}
 		}
-
+		Collections.sort(usinglist_ajax, new Comparator<MemberUsinglistVO>() {
+			@Override
+			public int compare(MemberUsinglistVO o1, MemberUsinglistVO o2) {
+				return o2.getPosition() - o1.getPosition();
+			}
+        });
+		
 		return usinglist_ajax;
 	}
 	
@@ -467,9 +484,5 @@ public class MemberController {
 		
 		return "redirect:/home.me";
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/Hong
 }
 

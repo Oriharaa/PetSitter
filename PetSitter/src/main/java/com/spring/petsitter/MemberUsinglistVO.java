@@ -21,6 +21,7 @@ public class MemberUsinglistVO {
 	private String LIST_ING; // 현재 이용중, 이용 완료, 위탁 대기중
 	private String LIST_COMPLETE; // 리뷰 남기기, 펫시터와의 소통, 리뷰 완료, 예약 취소
 	private String MERCHANT_UID;
+	private int position; // 출력 순서
 	
 	public int getLISTCOUNT() {
 		return LISTCOUNT;
@@ -129,6 +130,12 @@ public class MemberUsinglistVO {
 	}
 	public void setMERCHANT_UID(String mERCHANT_UID) {
 		MERCHANT_UID = mERCHANT_UID;
+	}
+	public int getPosition() {
+		return position;
+	}
+	public void setPosition(int position) {
+		this.position = position;
 	}
 	
 }
