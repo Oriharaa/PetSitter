@@ -32,8 +32,8 @@ public class MemberBoardController {
 		
 	@RequestMapping(value = "/mboardlist.me")
 	public String memberboard(Model model,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
-		
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page, HttpServletResponse response, HttpSession session) throws Exception{
+		PrintWriter writer = response.getWriter();
 		int limit = 10;
 
 		int listcount = memberboardService.getListCount();
@@ -59,8 +59,15 @@ public class MemberBoardController {
 		model.addAttribute("startpage", startpage);
 		model.addAttribute("endpage", endpage);
 
-		
-		return "board/memberboard";
+		if(session.getAttribute("id") != null) {
+			return "board/memberboard";
+		} else {
+			writer.write("<script>");
+			writer.write("alert('로그인 시간이 만료되어 자동 로그아웃 됩니다.')");
+			writer.write("location.href='loginform.me'");
+			writer.write("</script>");
+			return null;
+		}
 	}	
 	
 	@RequestMapping("/mboardwriteform.me")

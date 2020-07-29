@@ -280,7 +280,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
             </div>
             <div class="col-12">
               <nav class="site-navigation text-right ml-auto " role="navigation" >
-
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                   <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
 									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -302,11 +301,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 									  </div>
 									</li>
                   <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>
-                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
-                  
+                  <li><a href="noticeboardlist.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
                 </ul>
               </nav>
-
             </div>
 
             <div class="toggle-button d-inline-block d-lg-none"><a href="#" class="site-menu-toggle py-5 js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>

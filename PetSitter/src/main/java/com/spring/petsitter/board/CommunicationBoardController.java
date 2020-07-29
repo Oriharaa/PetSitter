@@ -33,7 +33,9 @@ public class CommunicationBoardController {
 	@RequestMapping(value = "communication_member.bo")
 	public String communication_member(@RequestParam(value = "usinglist_num") int usinglist_num, Model model, CommunicationBoardVO boardvo,
 								HttpSession session,
-								@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+								@RequestParam(value = "page", required = false, defaultValue = "1") int page, 
+								HttpServletResponse response) throws Exception {
+		PrintWriter writer = response.getWriter();
 		String member = (String)session.getAttribute("id");
 		int limit = 5;
 		
@@ -64,7 +66,15 @@ public class CommunicationBoardController {
 		model.addAttribute("board_list", board_list);
 		model.addAttribute("usinglist_num", usinglist_num);
 		model.addAttribute("petsitter_id", petsitter_id);
-		return "board/communication";
+		if(session.getAttribute("id") != null) {
+			return "board/communication";
+		} else {
+			writer.write("<script>");
+			writer.write("alert('로그인 시간이 만료되어 자동 로그아웃 됩니다.')");
+			writer.write("location.href='loginform.me'");
+			writer.write("</script>");
+			return null;
+		}
 	}
 	
 	@RequestMapping(value = "communication_petsitter.bo")

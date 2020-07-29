@@ -4,8 +4,6 @@ import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
-/* */
-
 /*
 CREATE TABLE NOTICE_BOARD (
     NOTICE_NUM        NUMBER, -- 회원 게시판 글 번호
@@ -16,8 +14,8 @@ CREATE TABLE NOTICE_BOARD (
     NOTICE_UP_FILE    VARCHAR2(100), -- 업로드 파일 
     NOTICE_READCOUNT  NUMBER, -- 조회 수
     NOTICE_DATE       DATE, -- 작성일자
-    NOTICE_NAME       VARCHAR2(30),
-    NOTI							VARCHAR2(10) -- 상단 고정 여부
+    NOTICE_NICKNAME   VARCHAR2(30),
+    NOTI			  VARCHAR2(10) -- 상단 고정 여부
 );
 */
 public class NoticeBoardVO {

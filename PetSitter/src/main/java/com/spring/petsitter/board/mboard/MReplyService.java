@@ -2,8 +2,6 @@ package com.spring.petsitter.board.mboard;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 public interface MReplyService {
 	public int replyCount() throws Exception;
 	public List<MReplyVO> readReply(int bno) throws Exception;

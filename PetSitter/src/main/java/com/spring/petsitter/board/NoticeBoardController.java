@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-
-
 @Controller
 public class NoticeBoardController {
 	
@@ -29,7 +27,9 @@ public class NoticeBoardController {
 			
 	@RequestMapping(value = "/noticeboardlist.me")
 	public String memberboard(Model model,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page, 
+			HttpServletResponse response, HttpSession session) throws Exception {
+		PrintWriter writer = response.getWriter();
 		
 		int limit = 10;
 
@@ -56,8 +56,15 @@ public class NoticeBoardController {
 		model.addAttribute("startpage", startpage);
 		model.addAttribute("endpage", endpage);
 
-		
-		return "board/noticeboard";
+		if(session.getAttribute("id") != null) {
+			return "board/noticeboard";
+		} else {
+			writer.write("<script>");
+			writer.write("alert('로그인 시간이 만료되어 자동 로그아웃 됩니다.')");
+			writer.write("location.href='loginform.me'");
+			writer.write("</script>");
+			return null;
+		}
 	}	
 	
 	@RequestMapping("/noticeboardwriteform.me")
