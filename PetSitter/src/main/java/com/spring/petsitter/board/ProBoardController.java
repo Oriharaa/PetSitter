@@ -340,7 +340,7 @@ public class ProBoardController {
 	@ResponseBody
 	private List<ProReplyVO> proReplyCount(@RequestParam int bno) throws Exception {
 		List<ProReplyVO> replycount = proboardService.proReplyCount(bno);
-	return replycount;
+		return replycount;
 	} 
 	
 	/*댓글 Controller 부분 종료*/ 
@@ -350,7 +350,6 @@ public class ProBoardController {
 	@ResponseBody	
 	private List<ProBoardVO> read_ProLikeCount(@RequestParam int bno, HttpSession session) throws Exception{
 	  	List<ProBoardVO> proLikeCount = proboardService.read_ProLikeCount(bno);
-	  	proLikeCount.get(0).getLIKE_ID();
 	  	return proLikeCount;
 	}
 	

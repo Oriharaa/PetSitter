@@ -326,7 +326,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							
 		      		var detailForm = '';
 							//Modal proboard_view시작
-							detailForm += '<div class="modal fade" id="staticBackdropDetail" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">';
+							detailForm += '<div class="modal fade" id="staticBackdropDetail" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">';
 							detailForm += '<div class="modal-dialog modal-lg modal-dialog-scrollable">';
 							detailForm += '<div class="modal-content">';
 							detailForm += '<div class="modal-header">';
@@ -675,7 +675,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			//좋아용 기능 시작
 			function proLikeCountRead(bno){
 				$.ajax({
-					url : '/petsitter/readprolikecount.bo?bno=' + bno,
+					url : '/petsitter/readprolikecount.bo',
 					type : 'post',
 					data : {'bno': bno},
 					dataType : 'json',
@@ -894,7 +894,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	        			}
 	        		
 	        			var reportForm = '';
-		        		reportForm += '<div class="modal fade" id="staticBackdropReport" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">';
+		        		reportForm += '<div class="modal fade" id="staticBackdropReport" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">';
 		        		reportForm += '<div class="modal-dialog modal-sm">';
 		        		reportForm += '<div class="modal-content">';
 		        		reportForm += '<div class="modal-header">';
@@ -970,7 +970,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     					}
 	        	
 							var reportForm = '';
-	        		reportForm += '<div class="modal fade" id="modalReplyReport" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">';
+	        		reportForm += '<div class="modal fade" id="modalReplyReport" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">';
 	        		reportForm += '<div class="modal-dialog modal-sm">';
 	        		reportForm += '<div class="modal-content">';
 	        		reportForm += '<div class="modal-header">';
