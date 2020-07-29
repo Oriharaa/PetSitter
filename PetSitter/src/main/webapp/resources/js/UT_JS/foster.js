@@ -192,7 +192,7 @@ $(document).ready(function() {
 	{
 		
 		$("#plus1").click(function(){
-
+			
 			count++;
 			
 			//select 선택값(펫이름,사이즈) 변수로 지정.
@@ -229,7 +229,10 @@ $(document).ready(function() {
 				 allTime = ( ((parseInt)(dayTime)) + (test5) );
 				 price = ( (parseInt(sixty)) * (allTime) );
 			}
-			
+			if(isNaN(price) || isNaN(allTime)) {
+				price = 0;
+				allTime = 0;
+			}
 			
 			
 			//'추가'클릭시 추가되는 태그
@@ -256,6 +259,7 @@ $(document).ready(function() {
 				$("#cost2").empty();
 				$("#cost2").append("<p class='allCost'>예상 총 비용 : " +price_all_1+ "원</p>");
 				
+				count--;
 			});
 			
 			$("#PAY_AMOUNT").val(price_all_1);
@@ -268,6 +272,8 @@ $(document).ready(function() {
 			$("#END_DATE").val(end_date);
 			$("#START_TIME").val(start_time.substr(16, 5));
 			$("#END_TIME").val(end_time.substr(16, 5));
+			
+			
 		});
 	}
 	
@@ -284,13 +290,13 @@ $(document).ready(function() {
 
 //펫시터 견적 보여주기 함수(방문)
 $(document).ready(function() {
-	var count = 1;
+	var count_2 = 1;
 	let price_all_2 = 0;
 	if($("#custom_rd2").is(":checked") == true)
 	{
 		$("#plus1").click(function(){
 
-			count++;
+			count_2++;
 			
 			//select 선택값 변수로 지정.(option:이름)
 			var selectOption = document.getElementById("choicepet");
@@ -319,18 +325,21 @@ $(document).ready(function() {
 				 sixty += 1000;
 				 price = sixty * test5;
 			}
-			
+			if(isNaN(price) || isNaN(test5)) {
+				price = 0;
+				test5 = 0;
+			}
 			
 			
 			//'추가'클릭시 추가되는 태그
-			if(count == 2)
+			if(count_2 == 2)
 			{
 				//처음에만 비워줌
 				$("#cost1").empty();
 			}
 
-			$("#cost1").append("<p class='plusPet' id='p"+count+"'>" +selectOption+", 총" +test5+"시간, 비용 : " +price+ "원 " +
-							 "<input type='button' class='x_btn' id='x"+count+"' value='x'> </p>"); 
+			$("#cost1").append("<p class='plusPet' id='p"+count_2+"'>" +selectOption+", 총" +test5+"시간, 비용 : " +price+ "원 " +
+							 "<button type='button' class='x_btn' id='x"+count_2+"' value='"+price+"'>x</button></p>"); 
 
 			price_all_2 += price;
 			$("#cost2").empty();
@@ -338,15 +347,16 @@ $(document).ready(function() {
 			
 			
 			//'x' 클릭시 해당p태그 삭제 예상 총비용 변화
-			$("#x"+count).click(function(){ 
+			$("#x"+count_2).click(function(){ 
 
-			var price_select = parseInt($('#x'+count).val());
-			var price_update = price_all_2 - price_select;
-
-			$("#p"+count).empty();
-			$("#cost2").empty();
-			$("#cost2").append("<p class='allCost'>예상 총 비용 : " +price_update+ "원</p>");
-
+				var price_select = parseInt($('#x'+count_2).val());
+				price_all_2 = price_all_2 - price_select;
+		
+				$("#p"+count_2).empty();
+				$("#cost2").empty();
+				$("#cost2").append("<p class='allCost'>예상 총 비용 : " +price_all_2+ "원</p>");
+				
+				count_2--;
 			});
 			
 			$("#PAY_AMOUNT").val(price_all_2);

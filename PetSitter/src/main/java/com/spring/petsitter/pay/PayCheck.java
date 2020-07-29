@@ -84,8 +84,7 @@ public class PayCheck {
 			ObjectMapper mapper = new ObjectMapper(); 
 			String enty = EntityUtils.toString(res.getEntity()); 
 			JsonNode rootNode = mapper.readTree(enty); 
-			asd = rootNode.get("response").asText(); 
-			System.out.println("asd= " + asd);
+			asd = rootNode.get("response").asText();
 		} catch (Exception e) { 
 			e.printStackTrace(); 
 		} 

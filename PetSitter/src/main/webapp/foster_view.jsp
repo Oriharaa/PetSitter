@@ -247,7 +247,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 
 
   <head>
-    <title>위탁 예약 페이지</title>
+    <title>돌봄 예약 페이지</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     

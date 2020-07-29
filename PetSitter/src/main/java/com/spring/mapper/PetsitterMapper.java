@@ -25,6 +25,7 @@ public interface PetsitterMapper {
 	public void petsitterscoreupdate(@Param(value="PETSITTER_ID") String id, @Param(value="PETSITTER_SCORE") double score); // 리뷰 작성 후 펫시터 평점 수정
 	public void petsitterCountRank(PetsitterVO petsitter); // 펫시터 돌봄 횟수, 등급 업데이트
 	public int petsitterSchedule(PetsitterScheduleVO petsitterSchedule); //펫시터 스케줄 추가
+	public void deleteschedule(PetsitterScheduleVO petsitterschedule); // 결제 취소로 인한 스케줄 취소
 	public int petsitterUpdate(PetsitterVO petsitter); //펫시터 정보변경
 	public int reflyUpdate(ReviewBoardVO vo); //리뷰 답변
 	public int petsitterNicknameCheck(PetsitterVO petsitter);

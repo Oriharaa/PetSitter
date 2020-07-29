@@ -75,7 +75,13 @@ public class PetsitterServiceImpl implements PetsitterService{
 		
 		return res;
 	}
-
+	
+	@Override
+	public void deleteschedule(PetsitterScheduleVO petsitterschedule) {
+		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
+		petsitterMapper.deleteschedule(petsitterschedule);
+	}
+	
 	@Override
 	public int petsitterInsert(PetsitterVO petsitter) {
 		PetsitterMapper petsitterMapper = sqlSession.getMapper(PetsitterMapper.class);
@@ -175,7 +181,6 @@ public class PetsitterServiceImpl implements PetsitterService{
 		PetsitterVO petsitter = petsitterMapper.petsitter_thisMonth_count();
 		return petsitter;
 	}
-<<<<<<< HEAD
 
 	@Override
 	public PetsitterVO this_month_countAmount(String id) {
@@ -183,7 +188,6 @@ public class PetsitterServiceImpl implements PetsitterService{
 		PetsitterVO petsitter = petsitterMapper.this_month_countAmount(id);
 		return petsitter;
 	}
-=======
 	
 	//갤러리 및 후기 (start)
 	@Override
@@ -219,6 +223,4 @@ public class PetsitterServiceImpl implements PetsitterService{
 		return list;
 	}
 	//갤러리 및 후기 (end)	
-	
->>>>>>> origin/MH
 }

@@ -127,12 +127,11 @@
 	<update id="petsitterscoreupdate" parameterType="map">
 		update petsitter set PETSITTER_SCORE=#{PETSITTER_SCORE}, PETSITTER_REVIEWCOUNT=PETSITTER_REVIEWCOUNT+1 where PETSITTER_ID=#{PETSITTER_ID}
 	</update>
-	
-<<<<<<< HEAD
+
 	<update id="petsitterCountRank" parameterType="PetsitterVO">
 		update petsitter set PETSITTER_COUNT=#{PETSITTER_COUNT}, PETSITTER_RANK=#{PETSITTER_RANK} where PETSITTER_ID=#{PETSITTER_ID}
 	</update>
-=======
+
 	<select id = "getReviewRating" parameterType = "HashMap" resultType="ReviewBoardVO">
 		select REVIEW_SCORE from REVIEW_BOARD where PETSITTER_ID = #{PETSITTER_ID}
 	</select>	
@@ -164,7 +163,9 @@
 		select RB.LIST_NUM, RB.LIKE_COUNT, NVL(L.LIKE_ID, 'N') LIKE_ID
     from  REVIEW_BOARD RB, LIKE_COUNT L
     WHERE LIST_NUM = #{reviewListNum} AND RB.LIST_NUM = L.LIKE_NUM
-	</select>	
->>>>>>> origin/MH
+	</select>
 	
+	<delete id="deleteschedule" parameterType="PetsitterScheduleVO">
+		delete from petsitter_schedule where PETSITTER_ID=#{PETSITTER_ID} and START_DATE=#{START_DATE} and END_DATE=#{END_DATE}
+	</delete>
 </mapper>

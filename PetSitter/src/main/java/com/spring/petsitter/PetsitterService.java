@@ -13,6 +13,7 @@ public interface PetsitterService {
 	public String petsitterIdFind(PetsitterVO petsitter);
 	public int petsitterPwFind(PetsitterVO petsitter);
 	public int petsitterSchedule(PetsitterScheduleVO petsitterSchedule);
+	public void deleteschedule(PetsitterScheduleVO petsitterschedule);
 	public int petsitterInsert(PetsitterVO petsitter);
 	public int petsitterCheck(PetsitterVO petsitter);
 	public ArrayList<PetsitterVO> petsitterList();

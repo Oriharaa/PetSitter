@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.petsitter.MemberService;
 import com.spring.petsitter.MemberVO;
+import com.spring.petsitter.PetsitterScheduleVO;
 import com.spring.petsitter.PetsitterService;
 import com.spring.petsitter.PetsitterVO;
 import com.spring.petsitter.UsinglistService;
@@ -47,6 +48,11 @@ public class PayController {
 			
 			PetsitterVO petsitter = petsitterService.selectPetsitter(payvo.getPETSITTER_ID());
 			String addr = petsitter.getPETSITTER_ADDRESS().split(",")[1].split(" ")[0] + " " + petsitter.getPETSITTER_ADDRESS().split(",")[1].split(" ")[1];
+			PetsitterScheduleVO petsitterschedule = new PetsitterScheduleVO();
+			petsitterschedule.setPETSITTER_ID(payvo.getPETSITTER_ID());
+			petsitterschedule.setSTART_DATE(pay_start_date[0]);
+			petsitterschedule.setEND_DATE(pay_end_date[0]);
+			petsitterService.petsitterSchedule(petsitterschedule);
 			
 			UsinglistVO usinglist = new UsinglistVO();
 			usinglist.setPETSITTER_ID(payvo.getPETSITTER_ID());
@@ -110,5 +116,16 @@ public class PayController {
 		payService.updatePay(merchant_uid);
 		payService.memberAmountRemove(amount, m_id);
 		payService.petsitterAmountRemove(amount, p_id);
+		
+		PetsitterScheduleVO petsitterschedule = new PetsitterScheduleVO();
+		PayVO pay = payService.selectPay(merchant_uid);
+		String[] pay_start_date = pay.getSTART_DATE().split(" ");
+		String[] pay_end_date = pay.getEND_DATE().split(" ");
+		pay.setSTART_DATE(pay_start_date[0] + " " + pay_start_date[1]);
+		pay.setEND_DATE(pay_end_date[0] + " " + pay_end_date[1]);
+		petsitterschedule.setPETSITTER_ID(pay.getPETSITTER_ID());
+		petsitterschedule.setSTART_DATE(pay_start_date[0]);
+		petsitterschedule.setEND_DATE(pay_end_date[0]);
+		petsitterService.deleteschedule(petsitterschedule);
 	}
 }

@@ -170,6 +170,9 @@ public class ReservationController {
 	@RequestMapping(value = "foster_view.me", method = RequestMethod.POST)
 	public String foster_view(HttpSession session, Model model,HttpServletRequest request) {
 		String id = (String)session.getAttribute("id");
+		if(id == null) {
+			return "loginform";
+		}
 		model.addAttribute("petsitter_id",request.getParameter("petsitter_id"));
 		model.addAttribute("addr",request.getParameter("addr"));
 		model.addAttribute("startdate",request.getParameter("startdate"));
