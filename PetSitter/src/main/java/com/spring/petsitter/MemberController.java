@@ -1,6 +1,7 @@
 package com.spring.petsitter;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,24 +60,7 @@ public class MemberController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "petRegister.me")
-	public String petRegister() {
-		return "petRegister";
-	}
 	
-	@RequestMapping(value = "petRegister2.me")
-	public String petRegister2(PetVO vo) {
-		int res = petService.petInsert(vo);
-		if(res != 0) {
-			System.out.println("Pet Insert Complete!");
-		}
-		return "petRegister2";
-	}
-	
-	@RequestMapping(value = "call_view.me")
-	public String call_view() {
-		return "call_view";
-	}
 	
 
 	@RequestMapping(value = "getUsingList.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
@@ -295,6 +279,8 @@ public class MemberController {
 		return "redirect:/memberinfo.me?id=" + vo.getMEMBER_ID();
 	}
 	
+	
+	
 	@RequestMapping(value = "logout.me")
 	public String member_logout(HttpSession session) {
 		session.invalidate();
@@ -307,7 +293,4 @@ public class MemberController {
 		
 		return "home";
 	}
-	
-
-	
 }

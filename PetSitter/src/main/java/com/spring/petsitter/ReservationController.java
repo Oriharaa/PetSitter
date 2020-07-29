@@ -72,13 +72,5 @@ public class ReservationController {
 		return "foster_view";
 	}
 
-	
-	
-	
-	@RequestMapping(value = "call_view.me", method = RequestMethod.GET)
-	public String call_view() {
-				
-		return "call_view";
-	}
 
 }

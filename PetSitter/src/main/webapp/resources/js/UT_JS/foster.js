@@ -222,7 +222,7 @@ $(document).ready(function() {
 			
 			var sixty = parseInt(document.getElementById("price").value);
 			var allTime = ( ((parseInt)(dayTime)) + (test5) );
-			var price =  ( (parseInt(sixty)) * (allTime) );
+			var	price =  ( (parseInt(sixty)) * (allTime) );
 			
 			if(selectOption.includes( '대형' ) == true)
 			{

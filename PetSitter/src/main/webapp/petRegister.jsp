@@ -185,8 +185,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <div class="row">
       <div class="col">
 	    	<div class="inner">
-		  		<form name="petRegister2" action="petRegister2.me" method="post">
-		    
+		  		<form name="petRegister2" action="petRegister2.me" enctype="multipart/form-data" method="post">
 		    		<div class="row">
 			 	 			<div class="col">
 			  				<div class="div_txt">
@@ -196,7 +195,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			  			</div>
 			  			<div class="col">
 			  				<div class="div_txt">
-			  					<input type="text" name="PET_CATEGORY" id="PET_CATEGORY" class="input_txt" placeholder="예 : 강아지">
+			  					<input type="text" name="PET_CATEGORY" id="PET_CATEGORY" class="input_txt" 
+			  						data-toggle="tooltip" data-placement="top" title="예 : 강아지">
 			    				<span class="span_txt" id="input">종류</span>	
 			  				</div>
 			  			</div>
@@ -205,14 +205,16 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						<div class="row">
 							<div class="col">
 								<div class="div_txt">
-									<input type="text" name="PET_KIND" id="PET_KIND" class="input_txt" placeholder="예 : 푸들">
+									<input type="text" name="PET_KIND" id="PET_KIND" class="input_txt"
+										data-toggle="tooltip" data-placement="top" title="예 : 푸들">
 									<span class="span_txt" id="input">품종</span>
 								</div>
 							</div>
 							<div class="col">
 								<div class="div_txt">
-									<input type="text" name="PET_NAME" id="PET_NAME" class="input_txt" placeholder="예 : 밍키">
-									<span class="span_txt" id="input">이름</span>
+									<input type="text" name="PET_NAME" id="PET_NAME" class="input_txt"
+										data-toggle="tooltip" data-placement="top" title="예 : 밍키">
+									<span class="span_txt" id="input">이름 </span>
 								</div>	
 							</div>
 						</div>
@@ -220,18 +222,22 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						<div class="row">
 							<div class="col">
 								<div class="div_txt">
-									<input type="number" name="PET_WEIGHT" id="PET_WEIGHT" class="input_txt" placeholder="예(단위 :kg) : 9">
+									<input type="number" name="PET_WEIGHT" id="PET_WEIGHT" class="input_txt"
+										data-toggle="tooltip" data-placement="top" title="예: 9 (단위 :KG)">
+									
 									<span class="span_txt" id="input">체중</span>
 								</div>
 								<div class="div_txt">
-									<input type="text" name="PET_SIZE" id="PET_SIZE" class="input_txt" placeholder="예(대/중/소) : 대형">
+									<input type="text" name="PET_SIZE" id="PET_SIZE" class="input_txt"
+										data-toggle="tooltip" data-placement="top" title="예 : (대형 / 중형  / 소형)">
 									<span class="span_txt" id="input">크기</span>
 								</div>
 								
 							</div>	
 							<div class="col">
 								<div class="div_txt">
-									<input type="text" name="PET_BIRTH" id="PET_BIRTH" class="input_txt" placeholder="예 : 2020-06-16">
+									<input type="text" name="PET_BIRTH" id="PET_BIRTH" class="input_txt"
+										data-toggle="tooltip" data-placement="top" title="예 : 2020-06-16">
 									<span class="span_txt" id="input">생년월일</span>			
 								</div>
 							</div>			
@@ -242,52 +248,52 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 						<div class="row">
 							<div class="col">
 								<div class="div_txt2">
-									<span class="span_txt2" id="checkbox">성별</span>
+									<span class="span_txt2" id="checkbox1">성별</span>
 									<input type="text" name="pet_sex" id="pet_sex" class="input_txt" disabled/>
-										<div class="div_rd">
+										<div class="div_rd" id="div_rd1">
 											<input type="radio" name="PET_GENDER" id="PET_GENDER" class="input_rd" value="수컷">
-											<span>수컷</span>
+												<span class="yes">수컷</span>
 											<input type="radio" name="PET_GENDER" id="PET_GENDER" class="input_rd" value="암컷">
-											<span>암컷</span>
+												<span class="no">암컷</span>
 										</div>
 								</div>
 							</div>
 
 							<div class="col">
 								<div class="div_txt2">
-									<span class="span_txt2" id="checkbox">중성화 수술 여부</span>
+									<span class="span_txt2" id="checkbox2">중성화 수술 여부</span>
 									<input type="text" name="pet_operation" id="pet_operation" class="input_txt" disabled/>
 										<div class="div_rd">
 											<input type="radio" name="PET_NEUTERED" id="PET_NEUTERED" class="input_rd" value="Y">
-											<span>했음</span>
+												<span class="yes">했음</span>
 											<input type="radio" name="PET_NEUTERED" id="PET_NEUTERED" class="input_rd" value="N">
-											<span>안했음</span>
+												<span class="no">안했음</span>
 										</div>
 								</div>
 							</div>
 							
 							<div class="col">
 								<div class="div_txt2">
-									<span class="span_txt2" id="checkbox">배변훈련 여부</span>
+									<span class="span_txt2">배변훈련 여부</span>
 									<input type="text" name="pet_shit" id="pet_shit" class="input_txt" disabled/>
 										<div class="div_rd">
 											<input type="radio" name="PET_POTTYTRAN" id="PET_POTTYTRAN" class="input_rd" value="Y">
-											<span>했음</span>
+												<span class="yes">했음</span>
 											<input type="radio" name="PET_POTTYTRAN" id="PET_POTTYTRAN" class="input_rd" value="N">
-											<span>안했음</span>
+												<span class="no">안했음</span>
 										</div>
 								</div>
 							</div>
 					
 							<div class="col">
 								<div class="div_txt2">
-									<span class="span_txt2" id="checkbox">예방접종 여부</span>
+									<span class="span_txt2">예방접종 여부</span>
 									<input type="text" name="pet_prevent" id="pet_prevent" class="input_txt" disabled/>
 										<div class="div_rd">
 											<input type="radio" name="PET_VAOONE" id="PET_VAOONE" class="input_rd" value="Y">
-											<span>했음</span>
+												<span class="yes">했음</span>
 											<input type="radio" name="PET_VAOONE" id="PET_VAOONE" class="input_rd" value="N">
-											<span>안했음</span>
+												<span class="no">안했음</span>
 										</div>	
 								</div>
 							</div>
@@ -309,7 +315,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 								<div class="div_file">
 									<div class="filebox">
 										<label for="input-file" class="upload">업로드</label>
-											<input type="file" name="PET_PHOTO" id="input-file" class="upload-hidden">																										
+											<input type="file" name="PET_PHOTO_PROFILE" id="input-file" class="upload-hidden">																										
 									</div>
 								</div>
 							</div>
@@ -434,7 +440,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
     
     
-    
+      <script>
+  $(function () {
+		$('[data-toggle="tooltip"]').tooltip()
+	});
+</script>
     
     
     

@@ -172,7 +172,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		<div class="row justify-content-center">
 			<div class="col-3">
 				<div class="left">
-					<img class ="left_dog" src="resources/images/pet/wsdog1.png">
+					<img class ="left_dog" src="resources/images/pet/PET8.jpg">
 				</div>
 			</div>
 			
@@ -191,7 +191,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			
 			<div class="col-3">
 				<div class="right">
-					<img class="right_dog" src="resources/images/pet/wscat2.PNG">
+					<img class="right_dog" src="resources/images/pet/PET7.jpg">
 				</div>
 			</div>
 		</div>
