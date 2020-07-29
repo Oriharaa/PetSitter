@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.petsitter.*" %>
+<%@ page import="com.spring.petsitter.board.*" %>
 <%@ page import="com.spring.petsitter.board.mboard.*" %>
 <%@ page import="javax.servlet.*,java.text.*" %>
 <% 
@@ -16,12 +17,19 @@
 	List<MemberBoardVO> mboardlist = (List<MemberBoardVO>)request.getAttribute("mboard_list");
 	List<ReportArticleVO> ralist = (List<ReportArticleVO>)request.getAttribute("ra_list");
 	List<ReportReplyVO> rrlist = (List<ReportReplyVO>)request.getAttribute("rr_list");
+<<<<<<< HEAD
 %>
 <%
 	SimpleDateFormat format1;
 	format1 = new SimpleDateFormat("yyyy-MM-dd");
 	
 	System.out.println(rank);
+=======
+	List<UsinglistVO> uvolist = (List<UsinglistVO>)request.getAttribute("uvoList");
+
+
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+>>>>>>> origin/PGKIM
 %>
 <!DOCTYPE html>
 <html>
@@ -64,8 +72,8 @@ overflow:hidden;
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">기능1</a>
-                        <a class="dropdown-item" href="#">기능2</a>
+<!--                         <a class="dropdown-item" href="#">기능1</a>
+                        <a class="dropdown-item" href="#">기능2</a> -->
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="logout.me">로그아웃</a>
                     </div>
@@ -81,7 +89,7 @@ overflow:hidden;
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.jsp">
+                            <a class="nav-link" href="admin.me">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 대시보드
                             </a>
@@ -128,9 +136,9 @@ overflow:hidden;
                                     </a>
                                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">예약된 거래</a>
-                                            <a class="nav-link" href="register.html">진행중인 거래</a>
-                                            <a class="nav-link" href="password.html">완료된 거래</a>
+                                            <a class="nav-link" href="admin_orderReserved.me">예약된 거래</a>
+                                            <a class="nav-link" href="admin_orderProgress.me">진행중인 거래</a>
+                                            <a class="nav-link" href="admin_orderClosed.me">완료된 거래</a>
                                         </nav>
                                     </div>
                                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
@@ -198,7 +206,7 @@ overflow:hidden;
 																					<tr>
 																						<td><%=bl.getMEMBER_NICKNAME() %> </td>
 																						<td><a href="./mboarddetail.me?num=<%=bl.getMEMBER_NUM()%>"><%=bl.getMEMBER_SUBJECT() %></a></td>
-																						<td><%=format1.format(bl.getMEMBER_DATE()) %></td>
+																						<td><%=sdf.format(bl.getMEMBER_DATE()) %></td>
 																					</tr>
 																					<%} %>
 																					<tr>
@@ -279,28 +287,43 @@ overflow:hidden;
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered"  style="table-layout: fixed" id="dataTable" width="100%">
-                                    	<thead>
-                                    		<th width="15%">글번호</th>
-                                    		<th width="15%">리플번호</th>
-                                    		<th width="40%">신고이유</th>
-                                    		<th width="15%">신고자</th>
-                                    		<th width="15%">게시판</th>
-                                    	</thead>
-																			<tbody>
-																			<%for(int i = 0 ; i < rrlist.size(); i++) {
-																					ReportReplyVO rr=(ReportReplyVO)rrlist.get(i);
-																					%>
-																					<tr>
-																						<td><%=rr.getBNO() %></td>
-																						<td><%=rr.getRNO() %></td>
-																						<td id="reasonReply2"><%=rr.getREPORT_REASON() %></td>
-																						<td id="idReply2"><%=rr.getMEMBER_ID() %></td>
-																						<td><%=rr.getBTYPE() %></td>
-																					</tr>
-																					<%} %>
-																				</tbody>
-                                    </table>
+																<table class="table table-bordered"  style="table-layout: fixed" id="dataTable" width="100%">
+                                <thead>
+                                <th>의뢰인</th>
+                                <th>펫시터</th>
+																<th>거래고유번호</th>
+																<th>시작일</th>
+																<th>종료일</th>
+																<th>돌봄종류</th>
+																<th>가격</th>																
+                                </thead>
+                                	<tbody>
+																			<%for(int i = 0 ; i < uvolist.size(); i++) { 
+																			UsinglistVO uvo = (UsinglistVO)uvolist.get(i); %>
+																			
+																			<%
+																				Date startDate = uvo.getLIST_START_DATE(); // 시작날짜
+																				Date endDate = uvo.getLIST_END_DATE(); // 종료날짜
+																				Date day = new Date(); // 현재 서버시간
+																				
+																				String toStartDate = sdf.format(startDate);
+																				String toEndDate = sdf.format(endDate);
+																				String today = sdf.format(day);
+																				
+																				if((toEndDate.compareTo(today) > 0) && (toStartDate.compareTo(today) < 0)) { // 시작날짜 < 서버시간 < 종료날짜
+																				%>  
+																			<tr>
+																				<td><%=uvo.getMEMBER_ID() %></td>
+																				<td><%=uvo.getPETSITTER_ID() %></td>
+																				<td><%=uvo.getMERCHANT_UID() %></td>
+																				<td><%=sdf.format(uvo.getLIST_START_DATE()) %></td>
+																				<td><%=sdf.format(uvo.getLIST_END_DATE()) %></td>
+																				<td><%=uvo.getLIST_TYPE() %></td>
+																				<td><%=String.format("%,d", uvo.getLIST_PRICE()) %> 원</td>
+																			</tr>
+																			<%}}%>
+																	</tbody>
+																	</table>  
                                 </div>
                             </div>
                         </div>
@@ -309,11 +332,11 @@ overflow:hidden;
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                            <div class="text-muted">Copyright &copy; 보살펴조 2020</div>
                             <div>
-                                <a href="#">Privacy Policy</a>
+                                <a href="#">보살펴조</a>
                                 &middot;
-                                <a href="#">Terms &amp; Conditions</a>
+                                <a href="#">보살펴조</a>
                             </div>
                         </div>
                     </div>

@@ -339,7 +339,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							<td>
 							<%
 							if(nv.getNOTI().equals("Y")) {%>
-							공지
+							<div style="font-size: 14px">주요공지</div>
 							<%} else {
 							out.println(num);
 							}
@@ -351,7 +351,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							if(nv.getNOTI().equals("Y")) {%>
 							<b><a style="color:#26bd72;" href="./noticeboarddetail.me?num=<%=nv.getNOTICE_NUM()%>"><%=nv.getNOTICE_SUBJECT()%></a></b>
 							<%} else { %> 
-							<a href="./noticeboarddetail.me?num=<%=nv.getNOTICE_NUM()%>"><%=nv.getNOTICE_SUBJECT()%></a>
+							<a style="color:#26bd72;" href="./noticeboarddetail.me?num=<%=nv.getNOTICE_NUM()%>"><%=nv.getNOTICE_SUBJECT()%></a>
 							<%} %>
 							</td>
 							<td><%=format1.format(nv.getNOTICE_DATE()) %></td>

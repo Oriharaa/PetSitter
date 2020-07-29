@@ -1,6 +1,7 @@
 package com.spring.petsitter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,5 +111,13 @@ public class UsinglistServiceImpl implements UsinglistService{
 	}
 
 
+<<<<<<< HEAD
+=======
+	@Override
+	public List<UsinglistVO> getUsinglistList(UsinglistVO uvo) {
+		UsinglistMapper usinglistMapper = sqlSession.getMapper(UsinglistMapper.class);
+		return usinglistMapper.getUsinglistList(uvo);
+	}
+>>>>>>> origin/PGKIM
 	
 }

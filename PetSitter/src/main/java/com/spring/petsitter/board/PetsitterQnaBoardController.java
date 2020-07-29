@@ -1,5 +1,6 @@
 package com.spring.petsitter.board;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class PetsitterQnaBoardController {
@@ -47,11 +49,59 @@ public class PetsitterQnaBoardController {
 		return "board/pqboard";
 	}
 	
+	@RequestMapping(value = "/pqboardlist2.bo", produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public List<PetsitterQnaBoardVO> getBoardList2(@RequestParam(value = "page", required = false,
+	defaultValue = "1") int page) {
+		
+		int limit = 10;
+		
+		SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd");
+		
+		int listcount = petsitterQnaBoardService.getListCount();
+				
+		int startrow = (page - 1) * 10 + 1;
+		int endrow = startrow + limit - 1;
+		HashMap<String, Integer> hashmap = new HashMap<String, Integer>();
+		hashmap.put("startrow", startrow);
+		hashmap.put("endrow", endrow);
+		
+		List<PetsitterQnaBoardVO> pqboard_list = petsitterQnaBoardService.getpqBoardList(hashmap);
+		System.out.println(pqboard_list.size());
+		
+		for(int i = 0; i < pqboard_list.size(); i++) {
+		pqboard_list.get(i).setREAL_DATE(new_Format.format(pqboard_list.get(i).getPETSITTER_QNA_DATE()));
+		}
+		
+		int maxpage = (int) ((double) listcount / limit + 0.95);
+		int startpage = (((int) ((double) page / 10 + 0.9)) - 1) * 10 + 1;
+		int endpage = maxpage;
+
+		if (endpage > startpage + 10 - 1)
+			endpage = startpage + 10 - 1;
+
+		pqboard_list.get(0).setPage2(page);
+		pqboard_list.get(0).setListcount2(listcount);
+		pqboard_list.get(0).setMaxpage2(maxpage);
+		pqboard_list.get(0).setStartpage2(startpage);
+		pqboard_list.get(0).setEndpage2(endpage);
+		
+		for(int i = 1 ; i < pqboard_list.size(); i++) {
+			pqboard_list.get(i).setPage2(0);
+			pqboard_list.get(i).setListcount2(0);
+			pqboard_list.get(i).setMaxpage2(0);
+			pqboard_list.get(i).setStartpage2(0);
+			pqboard_list.get(i).setEndpage2(0);
+		}
+		
+		return pqboard_list;
+	}
+	
 	@RequestMapping("/pqboardwriteform.me")
 	public String pqboardInsertForm() {
 		
 		return "board/pqboard_write";
-	}
+	}	
 	
 	@RequestMapping("/pqboardwrite.me")
 	public String pqboardInsert(PetsitterQnaBoardVO vo) throws Exception {

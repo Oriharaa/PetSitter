@@ -7,8 +7,6 @@
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="javax.servlet.*,java.text.*" %>
 <% 
-	
-
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
 	String rank = (String)session.getAttribute("rank");
@@ -17,10 +15,9 @@
 	List<MemberBoardVO> mboardlist = (List<MemberBoardVO>)request.getAttribute("mboard_list");
 	List<ReportArticleVO> ralist = (List<ReportArticleVO>)request.getAttribute("ra_list");
 	List<ReportReplyVO> rrlist = (List<ReportReplyVO>)request.getAttribute("rr_list");
-%>
-<%
-	SimpleDateFormat format1;
-	format1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");	
+	List<UsinglistVO> uvolist = (List<UsinglistVO>)request.getAttribute("uvoList");
+
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 %>
 <!DOCTYPE html>
 <html>
@@ -49,7 +46,7 @@ overflow:hidden;
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>진행중 거래 페이지 - Petsitter</title>
+        <title>진행중 거래 페이지 | PetSitter</title>
         <link href="./admin/dist/css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
@@ -183,15 +180,11 @@ overflow:hidden;
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">대시보드</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">대시보드</li>
-                        </ol>
-                          
-                        <div class="card mb-4">
+                        <h1 class="mt-4">진행중 거래 페이지</h1>
+	                       <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
-                                거래중인 내역
+                                진행중 거래 내역
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -202,24 +195,34 @@ overflow:hidden;
 																<th>거래고유번호</th>
 																<th>시작일</th>
 																<th>종료일</th>
-																<th>결제일</th>
 																<th>돌봄종류</th>
 																<th>가격</th>																
                                 </thead>
                                 	<tbody>
-																			<%for(int i = 0 ; i < pvolist.size(); i++) { 
-																			PayVO pvo = (PayVO)pvolist.get(i); %>															
+																			<%for(int i = 0 ; i < uvolist.size(); i++) { 
+																			UsinglistVO uvo = (UsinglistVO)uvolist.get(i); %>
+																			
+																			<%
+																				Date startDate = uvo.getLIST_START_DATE(); // 시작날짜
+																				Date endDate = uvo.getLIST_END_DATE(); // 종료날짜
+																				Date day = new Date(); // 현재 서버시간
+																				
+																				String toStartDate = sdf.format(startDate);
+																				String toEndDate = sdf.format(endDate);
+																				String today = sdf.format(day);
+																				
+																				if((toEndDate.compareTo(today) > 0) && (toStartDate.compareTo(today) < 0)) { // 시작날짜 < 서버시간 < 종료날짜
+																				%>  
 																			<tr>
-																				<td><%=pvo.getPAY_ID() %></td>
-																				<td><%=pvo.getPETSITTER_ID() %></td>
-																				<td><%=pvo.getMERCHANT_UID() %></td>
-																				<td><%=pvo.getSTART_DATE() %></td>
-																				<td><%=pvo.getEND_DATE() %></td>
-																				<td><%=format1.format(pvo.getPAY_DATE()) %></td>
-																				<td><%=pvo.getPAY_TYPE() %></td>
-																				<td><%=String.format("%,d", pvo.getPAY_AMOUNT()) %></td>
+																				<td><%=uvo.getMEMBER_ID() %></td>
+																				<td><%=uvo.getPETSITTER_ID() %></td>
+																				<td><%=uvo.getMERCHANT_UID() %></td>
+																				<td><%=sdf.format(uvo.getLIST_START_DATE()) %></td>
+																				<td><%=sdf.format(uvo.getLIST_END_DATE()) %></td>
+																				<td><%=uvo.getLIST_TYPE() %></td>
+																				<td><%=String.format("%,d", uvo.getLIST_PRICE()) %> 원</td>
 																			</tr>
-																			<%} %>
+																			<%}}%>
 																	</tbody>
 																	</table>  
                                 </div>

@@ -1,6 +1,7 @@
 package com.spring.petsitter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.spring.petsitter.board.ReviewBoardVO;
 
@@ -20,4 +21,7 @@ public interface UsinglistService {
 	
 	// 이용 내역 추가
 	public int insertUsinglist(UsinglistVO usinglist);
+
+	// List 뽑아오기
+	public List<UsinglistVO> getUsinglistList(UsinglistVO uvo);
 }

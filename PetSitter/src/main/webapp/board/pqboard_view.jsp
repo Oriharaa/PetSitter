@@ -345,8 +345,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 					</table>
 					
 			<%if((pqboard.getMEMBER_ID().equals(id)) || rank.equals("admin") || rank.equals("manager")) {%>
-				<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnModify" href="./pqboardmodifyform.me?bno=<%=pqboard.getPETSITTER_QNA_BNO() %>">수정</a>
-	  		<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnDelete" href="./pqboardDelete.me?bno=<%=pqboard.getPETSITTER_QNA_BNO()%>">삭제</a>
+				<%-- <a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnModify" href="./pqboardmodifyform.me?bno=<%=pqboard.getPETSITTER_QNA_BNO() %>">수정</a> --%>
+	  		<%-- <a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnDelete" href="./pqboardDelete.me?bno=<%=pqboard.getPETSITTER_QNA_BNO()%>">삭제</a> --%>
 	  		<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./pqboardlist.me">목록</a>
 			<% } else { %>
   			<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./pqboardlist.me">목록</a>
