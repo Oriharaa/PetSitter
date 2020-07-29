@@ -80,6 +80,27 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 		ReviewBoardMapper reviewMapper =  sqlSession.getMapper(ReviewBoardMapper.class);
 		int review_count = reviewMapper.getReviewListCount_member(id);
 		return review_count;
+	}
+
+	@Override
+	public int getReviewReportCountCheck(HashMap<String, Object> hashmap) throws Exception {
+		ReviewBoardMapper reviewMapper =  sqlSession.getMapper(ReviewBoardMapper.class);
+		int count = reviewMapper.getReviewReportCountCheck(hashmap);
+		return count;
 	}	
+	
+	@Override
+	public List<ReviewBoardVO> getReviewReportForm(int num){
+		ReviewBoardMapper reviewMapper =  sqlSession.getMapper(ReviewBoardMapper.class);	
+		List<ReviewBoardVO> boardlist = reviewMapper.getReviewDetail(num);
+		return boardlist;
+	}
+
+	@Override
+	public void reviwReportInsert(ReviewBoardVO vo) throws Exception {
+		ReviewBoardMapper reviewMapper =  sqlSession.getMapper(ReviewBoardMapper.class);		
+		reviewMapper.reviwReportInsert(vo);
+		return;
+	}
 
 }

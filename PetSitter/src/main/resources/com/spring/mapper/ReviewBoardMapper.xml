@@ -82,4 +82,18 @@
 	<select id="usinglist_num_List_member" resultType="int" parameterType="String">
 		select usinglist_num from review_board where MEMBER_ID=#{MEMBER_ID}
 	</select>
+	
+	<select id="getReviewReportCountCheck" parameterType="HashMap" resultType="int">
+		select count(*) from report_article where member_id = #{sessionid} and member_num=#{num}
+	</select>		
+	
+	<select id="getReviewDetail" parameterType="int" resultType="ReviewBoardVO">
+		select * from REVIEW_BOARD where LIST_NUM = #{num}
+	</select>
+	
+	<insert id="reviwReportInsert" parameterType="ReviewBoardVO">
+		insert into report_article values (#{LIST_NUM},#{REPORT_REASON},#{MEMBER_ID},#{BOARD_TYPE}, 'N')
+	</insert>	
+	
+	
 </mapper>
