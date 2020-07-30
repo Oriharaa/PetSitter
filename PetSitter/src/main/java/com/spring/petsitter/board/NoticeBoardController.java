@@ -56,15 +56,8 @@ public class NoticeBoardController {
 		model.addAttribute("startpage", startpage);
 		model.addAttribute("endpage", endpage);
 
-		if(session.getAttribute("id") != null) {
+		
 			return "board/noticeboard";
-		} else {
-			writer.write("<script>");
-			writer.write("alert('로그인 시간이 만료되어 자동 로그아웃 됩니다.')");
-			writer.write("location.href='loginform.me'");
-			writer.write("</script>");
-			return null;
-		}
 	}	
 	
 	@RequestMapping("/noticeboardwriteform.me")
