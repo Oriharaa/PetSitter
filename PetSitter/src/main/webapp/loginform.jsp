@@ -2,8 +2,8 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>http://www.blueb.co.kr</title>
-<!-- Test -->
+	<title>PetSitter Login Page</title>
+
 <style rel="stylesheet">
 @charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700);
@@ -477,7 +477,7 @@ text-decoration:none;
                     <label for="remember1">Remember me</label>
                     <div class="submit-wrap">
                         <input type="submit" value="Sign in" class="submit">
-                        <a href="#" class="more">Forgot your password?</a>
+                        <a href="memberFind.bo" class="more">Forgot your password?</a>
                     </div>
 		        </form>
 		        <form action="petsitter_login.me" method="post"  id="Signinform2">
@@ -487,15 +487,15 @@ text-decoration:none;
                     <label for="remember2">Remember me</label>
                     <div class="submit-wrap">
                     <input type="submit" value="Sign in" class="submit" >
-                    <a href="#" class="more">Forgot your password?</a>
+                    <a href="petsitterFind.bo" class="more">Forgot your password?</a>
                     </div>
 		        </form>
 	        </div>
+	        
 	        <!-- 일반회원 회원가입 -->
-
 	        <div class="signup-cont cont">
-	        	        <form action="member_join.me" method="post" onsubmit ="return member_check_input();" enctype="multipart/form-data" id="Signinform3">
-                    <input type="email" name="MEMBER_ID" class="inpt" required="required" placeholder="이메일을 입력해주세요">
+	  	      <form action="member_join.me" method="post" onsubmit="return member_check_input();" enctype="multipart/form-data" id="Signinform3">
+	          <input type="email" name="MEMBER_ID" class="inpt" required="required" placeholder="이메일을 입력해주세요">
 					<input type="password" name="MEMBER_PW" id="MEMBER_PW1" class="inpt" required="required" placeholder="패스워드를 입력해주세요">
                     <input type="password" name="password2" id="MEMBER_PW2" class="inpt" required="required" placeholder="패스워드를 확인해주세요">
 				    <input type="text" name="MEMBER_NAME" id="MEMBER_NAME" class="inpt" required="required" placeholder="이름을 입력해주세요">
@@ -509,7 +509,7 @@ text-decoration:none;
         	</div>
 
         	<!-- 펫시터 회원가입1 -->
-			<form action="petsitter_join.me" method="post" onsubmit ="return petsitter_check_input();" enctype="multipart/form-data">
+			<form action="petsitter_join.me" id = "petsitter_submit_form" method="post" onsubmit ="return petsitter_check_input();" enctype="multipart/form-data">
 				<div class="signup-cont-cont cont">
 				
 				<input type="text" name="PETSITTER_ID" id="PETSITTER_ID" class="inpt" required="required" placeholder="아이디를 입력해주세요 ">
@@ -531,6 +531,9 @@ text-decoration:none;
 				<input type="hidden" id="guide" style="color:#999;display:none">
 				<input type="text" name="PETSITTER_ADDRESS" id="sample4_detailAddress" class="inpt" placeholder="상세주소">
 				<input type="hidden" id="sample4_extraAddress" class="inpt" placeholder="참고항목" readonly>
+				<input type="hidden" name = "PETSITTER_ADDRX" id="addrX" value = 0>
+				<input type="hidden" name = "PETSITTER_ADDRY" id="addrY" value = 0>
+
 <!-- 주소검색 api -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -601,8 +604,8 @@ text-decoration:none;
    	<input type = "checkbox" name = "PETSITTER_TYPE_LIST" id = "pet1" value = "방문"> 방문
    	<input type = "checkbox" name = "PETSITTER_TYPE_LIST" id = "pet2" value = "위탁"> 위탁
    	</div>
-   	<input type="text" name="PETSITTER_PRICE_30M" id="30mP" class="inpt" placeholder="30분 가격  ex) 15000">
-   	<input type="text" name="PETSITTER_PRICE_60M" id="60mP" class="inpt" placeholder="60분 가격  ex) 15000">
+   	<input type="text" name="PETSITTER_PRICE_30M" id="30mP" class="inpt" placeholder="방문 30분 가격  ex) 15000">
+   	<input type="text" name="PETSITTER_PRICE_60M" id="60mP" class="inpt" placeholder="위탁 60분 가격  ex) 15000">
    	<input type="text" name="PETSITTER_PRICE_12H" id="12hP" class="inpt" placeholder="데이케어 가격  ex) 15000">
    	<input type="text" name="PETSITTER_PRICE_24H" id="24hP" class="inpt" placeholder="1박케어 가격  ex) 15000">
 		<div class="tabs">
@@ -613,16 +616,16 @@ text-decoration:none;
    	<!-- 펫시터 회원가입4 -->
 <div class="signup-cont-cont4 cont">
 	<div class="box" id = "box1">
-        <input type = "checkbox" name = "PETSITTER_SERVICE" id = "pickup" value = "pickup"> 픽업 여부
+        <input type = "checkbox" name = "PETSITTER_SERVICE" id="pickup" value="픽업 가능"> 픽업 여부
         </div>
         <div class="box" id = "box2">
-        <input type = "checkbox" name = "PETSITTER_SERVICE" id = "yard" value = "yard"> 마당 유무
+        <input type = "checkbox" name = "PETSITTER_SERVICE" id="yard" value="마당 존재"> 마당 유무
         </div>
         <div class="box">
-        <input type = "checkbox" name = "PETSITTER_SERVICE" id = "bigsize" value = "bigsize"> 대형견 케어 가능 유무
+        <input type = "checkbox" name = "PETSITTER_SERVICE" id="bigsize" value="대형견 케어 가능"> 대형견 케어 가능 유무
        	</div>
         <div class="box">
-        <input type = "checkbox" name = "PETSITTER_SERVICE" id = "olddog" value = "olddog"> 노견 케어 가능 유무
+        <input type = "checkbox" name = "PETSITTER_SERVICE" id="olddog" value="노견 케어 가능"> 노견 케어 가능 유무
        	</div>
        	<div class="tabs">
        	<span class="tab signup-petsitter5-back"><a href="#signup-petsitter5">이전</a></span>
@@ -715,10 +718,26 @@ text-decoration:none;
 		    <div class="half bg"></div>
 	</section>
 
-
-
+<script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript">
+  <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=24e91ec8fe5a3a10070597915f67d6ba&libraries=services"></script>
+<script>
+var geocoder = new kakao.maps.services.Geocoder();
+var callback = function(result, status) { //입력된 도로명주소의 좌표값을 구하는 함수
+    if (status === kakao.maps.services.Status.OK) {
+    	var coords = new kakao.maps.LatLng(result[0].x, result[0].y);
+    	$("#addrX").val(result[0].x);
+    	$("#addrY").val(result[0].y);
+    }
+};
+
+
+function geocoderAddr(){ //입력된 도로명주소의 좌표값을 구하는 함수
+	geocoder.addressSearch($("#sample4_roadAddress").val(), callback);
+};
+
+
 
 
 var regExpId = /^[a-zA-Z0-9]{4,12}$/;
@@ -1205,7 +1224,7 @@ $(document).ready(function(){
  		$('#pet1').change(function(){ //방문 체크박스 변경시 실행되는 함수
  			if($("#pet1").is(":checked")){ //방문 체크박스 체크시 true
  				$("#30mP").show();
- 		 		$("#60mP").show();
+ 		 		
 
  			}else{
 	
@@ -1217,15 +1236,11 @@ $(document).ready(function(){
  		
  		$('#pet2').change(function(){ //위탁 체크박스 변경시 실행되는 함수
  			if($("#pet2").is(":checked")){ //위탁 체크박스 체크시 true
- 			  	$("#12hP").show();
- 		 	 	$("#24hP").show();
-
+ 				$("#60mP").show();
   		 		$("#box1").show();
  		 		$("#box2").show();
  			}else{
-
- 		 		$("#12hP").hide();
- 		 		$("#24hP").hide();
+ 				$("#60mP").hide();
  		 		$("#box1").hide();
  		 		$("#box2").hide();
  			}
@@ -1265,10 +1280,13 @@ $('.tabs .tab').click(function(){
         $('.signup-cont-cont2').show();
     }
     if ($(this).hasClass('signup-petsitter3')) {
+    	geocoder.addressSearch($("#sample4_roadAddress").val(), callback);
+    	alert($("#sample4_roadAddress").val());
         $('.tabs .tab').removeClass('active');
         $(this).addClass('active');
         $('.cont').hide();
         $('.signup-cont-cont3').show();
+        
     }
     if ($(this).hasClass('signup-petsitter4')) {
         $('.tabs .tab').removeClass('active');

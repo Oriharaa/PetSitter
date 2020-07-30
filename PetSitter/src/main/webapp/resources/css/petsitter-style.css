@@ -1,128 +1,129 @@
 @charset "UTF-8";
 
 /*주 민트 메인글자 */	
-.main_mintfont{
+	.main_mintfont{
 	color : #53DC98!important;
 	}
 
 /*보라색 글자 */	
-.main_violetfont{
+	.main_violetfont{
 	color : #867FA0!important;
-}
+	}
 
-/*진한 보라색 글자 */
-.main_violetfont2{
+	/*진한 보라색 글자 */
+	.main_violetfont2{
 	color : #5F4B8B!important;
-}
+	}
 	
-.main_whitefont{
+	.main_whitefont{
 	color : #ffffff!important;
 	}
 	
-#main_whitefont2{
+	#main_whitefont2{
 	color : #ffffff!important;
 	}
 	
 	/*연한회색 글자 */
-#main_grayfont0{
+	#main_grayfont0{
 	color : #666666!important;
 	}
 	
 	/*회색 글자 */
-#main_grayfont1{
+	#main_grayfont1{
 	color : #707070!important;
 	}
 	/*진한 회색 글자 */
-#main_grayfont2{
+	#main_grayfont2{
 	color : #707070!!important;
 	}	
 	
-#main_grayfont2{
+	#main_grayfont2{
 	color : #949494!important;
-	}		
+	}
+	
 
 	/*회색 글자 */
-.main_grayfont0{
+	.main_grayfont0{
 	color : #666666!important;
 	}
 	
 	/*회색 글자 */
-.main_grayfont1{
+	.main_grayfont1{
 	color : #707070!important;
 	}
 	
 	/*연한 회색 글자 */
-.main_grayfont2{
+	.main_grayfont2{
 	color : #7f7f7f!important;
 	}
 
 	/*진한 회색 글자 */	
-.main_grayfont3{
-	color : rgba(94,94,94)!important;
-	}
+	.main_grayfont3{
+	color : #5e5e5e; 
+	}			
 	
-.main_grayfont4{
+	.main_grayfont4{
 	color : #a0a0a0!important;
 	}			
 
-.main_redfont0{
+	.main_redfont0{
 	color : rgba(211,84,0)!important;
-}
+	}
 	/*주 민트색 배경 색상 */
-.main_mint{
+	.main_mint{
 	background : rgba(83,220,152);
 	}
 	
-.main_mint2{
+	.main_mint2{
 	background : rgba(83,220,152)!important;
-}	
+	}	
 		
 	/*주 민트색 배경 색상 */
-#main_mint{
+	#main_mint{
 	background : rgba(83,220,152,0.86);
 	}
 	
 	/*주 연보라색 배경 색상 */
-#main_violet{
+	#main_violet{
 	background : rgba(209,192,191,1);
 	}
 	
 	/*보라색 배경 색상 */
-#main_violet2{
+	#main_violet2{
 	background : rgba(134,127,160);
 	}
 	
 	/*연한 회색*/
-#main_gray0{
+	#main_gray0{
 	background : rgba(102, 102, 102)!important;
 	}
 	
-.my-hr1 {
+	.my-hr1 {
 	border: 0;
   height: 1.7px;
   width : 97%;
   background: #ccc;    
-}		
+	}		
 	
-.my-hr2 {
+	.my-hr2 {
 	border: 0;
   height: 1.5px;
   width : 97%;
   background: #ccc;
-}	 
+	}	 
 
 	.my-hr3 {
 	border: 0;
   height: 1.5px;
   width : 100%;
   background: #ccc;   
-}	
+	}	
 
-.mybold {
+	.mybold {
 	font-weight : bold;
-}
+	}
  
-.profileimg01{
+	.profileimg01{
 	width : 100%; 
 	height : 100%; 
 	background : rgba(224, 224, 224, 0.65); 
@@ -130,7 +131,7 @@
 	overflow : hidden;
 	}
 	
-.profileimg02{
+	.profileimg02{
 	width : 100%; 
 	height : 100%; 
 	background : rgba(224, 224, 224, 0.65); 
@@ -138,7 +139,7 @@
 	overflow : hidden;
 	}
 	
-.serviceimg01{
+	.serviceimg01{
 	width : 40px; 
 	height : 40px; 
 	background : rgba(224, 224, 224, 0.65); 
@@ -147,14 +148,14 @@
 	margin-bottom : 12px;
 	}	
 	
-.schedule01{
+	.schedule01{
 	width : 350px; 
 	height : 350px; 
 	background : rgba(224, 224, 224, 0.65); 
 	overflow : hidden;
 	}
 	
-.schedule02{
+	.schedule02{
 	width : 240px; 
 	height : 240px; 
 	background : rgba(224, 224, 224, 0.65); 
@@ -162,25 +163,26 @@
 	}
 	
 	/* 제이쿼리 로인해 색 폰트 사이즈 수정을 위해 jsp파일안에 스타일 오버라이트 
-resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style로 적용 됨) */
-.site-mobile-menu {
-	  width: 300px;
-	  position: fixed;
-	  right: 0;
-	  z-index: 2000;
-	  padding-top: 20px;
-	  background: #d3d3d3!important;
-	  height: calc(100vh);
-	  -webkit-transform: translateX(110%);
-	  -ms-transform: translateX(110%);
-	  transform: translateX(110%);
-	  -webkit-box-shadow: -10px 0 20px -10px rgba(0, 0, 0, 0.1);
-	  box-shadow: -10px 0 20px -10px rgba(0, 0, 0, 0.1);
-	  -webkit-transition: .3s all ease-in-out;
-	  -o-transition: .3s all ease-in-out;
-	  transition: .3s all ease-in-out; }
+	resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style로 적용 됨) */
+	.site-mobile-menu {
+  width: 300px;
+  position: fixed;
+  right: 0;
+  z-index: 2000;
+  padding-top: 20px;
+  background: #d3d3d3!important;
+  height: calc(100vh);
+  -webkit-transform: translateX(110%);
+  -ms-transform: translateX(110%);
+  transform: translateX(110%);
+  -webkit-box-shadow: -10px 0 20px -10px rgba(0, 0, 0, 0.1);
+  box-shadow: -10px 0 20px -10px rgba(0, 0, 0, 0.1);
+  -webkit-transition: .3s all ease-in-out;
+  -o-transition: .3s all ease-in-out;
+  transition: .3s all ease-in-out; 
+  }
 	  
-.site-mobile-menu .site-mobile-menu-body {
+	.site-mobile-menu .site-mobile-menu-body {
 	background: #d3d3d3!important;
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
@@ -188,11 +190,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	padding: 0 20px 20px 20px;
 	height: calc(100vh - 52px);
 	padding-bottom: 150px; }
-	  /* 기본 상단바 끝*/
+	/* 기본 상단바 끝*/
 	  
 	/*최하단바 시작*/
-.site-footer {
-	  padding: 4em 0;
-	  background: #e9e9e9!important; 
+	.site-footer {
+  padding: 4em 0;
+  background: #e9e9e9!important; 
 	}
 	/*최하단바 종료*/

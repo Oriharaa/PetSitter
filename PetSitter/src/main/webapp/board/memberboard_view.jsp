@@ -1,14 +1,44 @@
 <!-- 관리자 메인 페이지 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.petsitter.*" %>
-<%@ page import="com.spring.petsitter.board.*" %>
-
+<%@ page import="com.spring.petsitter.board.mboard.*" %>
+<%@ page import="java.io.PrintWriter" %>
 <%@ page import="javax.servlet.*,java.text.*" %>
-<% 
+<%
 	MemberBoardVO mboard = (MemberBoardVO)request.getAttribute("vo");
+	ReportArticleVO report = (ReportArticleVO)request.getAttribute("report");	
+	
+	List<ReportArticleVO> ralist = (List<ReportArticleVO>)request.getAttribute("ra_list");
+	List<ReportReplyVO> rrlist = (List<ReportReplyVO>)request.getAttribute("rr_list");
+
+	String id = (String)session.getAttribute("id");
+	String name = (String)session.getAttribute("name");
+	String rank = (String)session.getAttribute("rank");
+	String btype = "mboard";
+	
+	if(rank == null) {
+		rank = "guest";
+	}
+	
+	if(mboard.getMEMBER_SECRET().equals("on")) {
+		
+		if((mboard.getMEMBER_ID().equals(id)) || rank.equals("manager") || rank.equals("admin")) {
+			System.out.println("허가");
+		} else {
+			out.println("<script>");
+			out.println("alert('권한이 없습니다.')");
+			out.println("history.go(-1)");
+			out.println("</script>");
+		}
+		
+	}
+%>
+<%
+	SimpleDateFormat format1;
+	format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 %>
 
 <!doctype html>
@@ -49,6 +79,10 @@
 	#main_grayfont2{
 	color : #949494!important;
 	}
+	
+	.main_redfont0{
+	color : rgba(211,84,0)!important;
+}
 	
 	
 	/*펫시터 메인 폰트컬러 끝*/
@@ -95,17 +129,19 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	
 	
   <head>
+  	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-    <title>Depot &mdash;Website Template by Colorlib</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+
+    <title>이용자 상담/문의 | PetSitter</title>
     
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
-	<!-- 아이콘 css -->
+		<!-- 아이콘 css -->
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
-    
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
@@ -116,8 +152,55 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <!-- MAIN CSS 다양한 폰트크기보유 -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 	
+	<style>
+		.dropdown:hover {
+			background-color: rgb(83, 220, 153);
+		}
+		
+		.dropdown:active {
+			background-color: rgb(83, 220, 153);
+		}
+		.btn-secondary {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+			vertical-align: baseline;
+			font-weight: bold;
+		}
+		
+		.btn-secondary:hover {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+		}
+		
+		.btn-secondary:active {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+		}
+		
+		.btn-secondary:focus {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+			box-shadow: 0 0 0 0 rgb(83, 220, 153);
+		}
+		
+		.dropdown-menu {
+			min-width: 60px !important;
+		}
 	
-		  
+		.dropdown-item:hover {
+			background-color: rgb(83, 220, 153);
+			color: rgb(255, 255, 255) !important;
+		}
+		
+		.dropdown-item {
+			 color: #53dc99 !important;
+			 font-weight: bold;
+		}
+		
+		.main-menu li a {
+			font-weight: bold;
+		}
+	</style>
   </head>
 	
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -146,17 +229,28 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
               <div class="float-right">
-
-                <a href="basicform.me" ><span class = "font-size-14" >로그인</span></a>
+              	<%
+              		if(id == null) {
+              	%>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 &amp; 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
-                <a href="basicform.me" ><span class = "font-size-14">회원가입</span></a>
+                <%} else if(((String)session.getAttribute("id")).contains("admin")) {%>
+                <a href="admin.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+                <%} else if(!((String)session.getAttribute("rank")).contains("admin") && ((String)session.getAttribute("id")).contains("@")) { %> <!-- 일반 회원 마이 페이지 -->
+                <a href="memberinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+                <%} else {%> <!-- 펫시터 마이 페이지 -->
+                <a href="petsitterinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+                <%} %>
               </div>
             </div>
           </div>
         </div>
 	    </div>
 
-      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152,0.86);">
+      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152);">
         <div class="container" >
           <div class="row align-items-center position-relative" >
             <div class="site-logo">
@@ -166,11 +260,27 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               <nav class="site-navigation text-right ml-auto " role="navigation" >
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
-                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
-                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
-                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
-                  <li><a href="basicform.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
+                  <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
+									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
+											돌봄
+									  </button>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+									    <a href="reservation2.br" class="dropdown-item" style="font-size:15px;">방문 돌봄</a>
+                  		<a href="reservation1.br" class="dropdown-item" style="font-size:15px;" >위탁 돌봄</a>
+									  </div>
+									</li>
+									<li class="dropdown">
+									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+											게시판
+									  </button>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+									    <a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
+                  		<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
+                  		<a href="pqboardlist.me" class="dropdown-item" style="font-size:15px;" >펫시터 게시판</a>
+									  </div>
+									</li>
+                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>
+                  <li><a href="noticeboardlist.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
                   
                 </ul>
               </nav>
@@ -189,41 +299,122 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		}
 	 	.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
    	background-color: #F8F8F8;
-		}    
+		}    					
     </style>  
 		
 		<div class="row">
 			<div class="col-md-12 p-3"></div>
 		</div>
-		  
+		
     <div class="container">      
-			<div class="row">
-				<div class="col-md-12">
-					<table class="table table-sm table-striped">
+			<div class="row justify-content-center">
+				<div class="col-md-10">
+					<table class="table table-sm">
 						<tr>
 							<td>제목</td>
 							<td><%=mboard.getMEMBER_SUBJECT()%></td>
-						</tr> 
+							</tr> 
 						<tr>
 							<td>작성일</td>
-							<td><%=mboard.getMEMBER_DATE() %></td>
+							<td><%=format1.format(mboard.getMEMBER_DATE()) %></td>
 						</tr>
 						<tr> 
 							<td>작성자</td>
-							<td><%=mboard.getMEMBER_ID() %></td>
+							<td><%=mboard.getMEMBER_NICKNAME() %></td>
+						</tr>
+						<tr>
+							<td>조회수</td>
+							<td><%=mboard.getMEMBER_READCOUNT() %></td>
+						</tr>
+						<tr>
+							<td>첨부파일</td>
+							<td>
+									<%if(!(mboard.getMEMBER_ORG_FILE() == null)) { %>
+									<a href="./filedownload.bo?num=<%=mboard.getMEMBER_ORG_FILE()%>&of=<%=mboard.getMEMBER_UP_FILE()%>&of2=<%=mboard.getMEMBER_ORG_FILE()%>">
+										<%=mboard.getMEMBER_ORG_FILE() %>
+									</a>
+									<%} %>
+							</td>
 						</tr>
 						</table>
 					</div>
-					<div class="col-md-12">
-						<table class="table table-borderless">						
-						<tr>						
-							<td><%=mboard.getMEMBER_CONTENT() %></td>
-						</tr>
+					<div class="col-md-10">
+						<table class="table table-borderless">
+							<tr>
+								<td><%=mboard.getMEMBER_CONTENT() %></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="./upload/<%=mboard.getMEMBER_UP_FILE() %>">
+								</td> 
+							</tr>
 					</table>
+					
+			<%if((mboard.getMEMBER_ID().equals(id)) || rank.equals("admin") || rank.equals("manager")) {%>
+				<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnModify" href="./mboardmodifyform.me?num=<%=mboard.getMEMBER_NUM() %>">수정</a>
+	  		<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnDelete" href="./mboardDelete.me?num=<%=mboard.getMEMBER_NUM() %>">삭제</a>
+	  		<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./mboardlist.me">목록</a>
+			<% } else { %>
+  			<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./mboardlist.me">목록</a>
+  		<% } %>
+	  		<%
+					if(!rank.equals("guest")) {
+				%>
+  	 		<button type="button" class="btn btn-danger btn-sm float-right" name="main_redfont0" data-toggle="modal" data-target="#articleModal">신고</button>
+  	 		<%
+					}
+				%>
+  	 		
+  	 			<!-- 신고 창 시작 -->
+  	 		 <form action="./reportArticle.me" method="post" name="reportform">
+  	 		 	<input type="hidden" name="MEMBER_ID" value="${id}">
+					<input type="hidden" name="MEMBER_NUM" value="<%=mboard.getMEMBER_NUM()%>">
+					<input type="hidden" name="BTYPE" value="mboard">
+					
+					<div class="modal fade" id="articleModal" tabindex="-1" role="dialog" aria-labelledby="articleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id ="articleModalLabel">글 신고하기</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<textarea id="REPORT_REASON" name="REPORT_REASON" rows="4" cols="63" placeholder="신고 사유를 적어주세요"></textarea>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기 </button>
+									<a type="button" class="btn btn-primary" href="javascript:addreport()">신고</a>
+								</div>
+							</div>
+						</div>
+					</div>
+	 		 	<!-- 신고 창 끝 -->	
+	 		 		</form>
+	 		 		
+	 		 		
+	 	<script language="javascript">
+			function addreport(){
+				reportform.submit();
+			}		
+			function addreport2() {
+				$("#reportreplyform").submit();
+			}
+		</script>
+    
 				</div>
-			</div>	  
-		</div>
+			</div>
 			
+			<div class="row">
+			<div class="col-md-12 p-3"></div>
+		</div>
+	</div>	  
+	
+	<jsp:include page="./memberboard_comments.jsp">
+	<jsp:param name="bno" value="<%=mboard.getMEMBER_NUM() %>"/>
+</jsp:include>
+	
 			<!-- 하단 넉넉하게 여백 주기 -->
 			<div class="row">
 		   <div class="col-md-12 p-5"></div>
@@ -282,7 +473,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	<!-- 하단 바 종료 -->
     </div>
 
-    <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
+    
     <script src="<c:url value="/resources/js/popper.min.js"/>"></script>
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
     <script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
@@ -295,7 +486,24 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
     <script src="<c:url value="/resources/js/main.js"/>"></script>
 
-
+		<script>
+			$(".replyWriteBtn").on("click", function(){
+				  var formObj = $("form[name='replyForm']");
+				  formObj.attr("action", "/replyWrite.me");
+				  formObj.submit();
+				});
+		</script>
+		
+		<script>
+			$(function() {
+				$(".btn-secondary").on("click mousedown", function() {
+					$(this).css("background-color", "rgb(83, 220, 153)");
+					$(this).css("border-color", "rgb(83, 220, 153)");
+					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
+				});
+			});
+			
+		</script>
   </body>
 
 </html>

@@ -57,17 +57,17 @@
 	margin-bottom:5%;
 	}
 	
-	.bottom_body1, .bottom_body2, .bottom_body3{
+	.bottom_body{
 	text-align:center;	
 	}
 	
 	.bottom_imgs{
-		width:25.226%;
+		width:90%;
 		height:280px;
 		margin:1%;
 	}
 	
-	.bottom_img1, .bottom_img2, .bottom_img3{
+	.bottom_img{
 		width:100%;
 		margin-bottom:1%;
 	}
@@ -76,10 +76,23 @@
 	text-align:center;
 	}
 	
+	.petsitter_picture_upload {
+	text-align:center;
+	}
+	
 	.photo_more{
 	background-color:#53DC98;
 	color:#ffffff;
 	width:15%;
+	height:35px;
+	border:0px;
+	border-radius:10px;
+	}
+	
+	.photo_upload{
+	background-color:#53DC98;
+	color:#ffffff;
+	width:10%;
 	height:35px;
 	border:0px;
 	border-radius:10px;

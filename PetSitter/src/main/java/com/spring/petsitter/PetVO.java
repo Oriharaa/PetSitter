@@ -3,6 +3,7 @@ package com.spring.petsitter;
 
 import org.springframework.web.multipart.MultipartFile;
 
+<<<<<<< HEAD
 //create table PET(
 //	    MEMBER_ID varchar2(30), --주인ID
 //	    PET_CATEGORY varchar2(20), --반려동물 종류 
@@ -20,6 +21,27 @@ import org.springframework.web.multipart.MultipartFile;
 //	    PET_ETC varchar2(200), --기타?
 //	    PET_DATE date --등록날짜
 //	);
+=======
+/*
+create table PET(
+	MEMBER_ID varchar2(30),
+	PET_CATEGORY varchar2(20), 
+	PET_KIND varchar2(20), 
+	PET_NAME varchar2(20), 
+	PET_PHOTO varchar2(150), 
+	PET_WEIGHT number(3), 
+	PET_SIZE varchar2(5), 
+	PET_GENDER varchar2(6), 
+	PET_BIRTH date, 
+	PET_NEUTERED varchar2(10),
+	PET_POTTYTRAN varchar2(10), 
+	PET_VAOONE varchar2(10),
+	PET_QUESTION varchar2(30), 
+	PET_ETC varchar2(200),
+	PET_DATE date 
+);
+*/
+>>>>>>> Hong
 
 public class PetVO {
 

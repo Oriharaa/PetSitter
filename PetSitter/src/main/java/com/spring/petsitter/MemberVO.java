@@ -1,6 +1,5 @@
 package com.spring.petsitter;
 
-import java.util.Date;
 import org.springframework.web.multipart.MultipartFile;
 
 /*
@@ -10,12 +9,14 @@ create table member(
     MEMBER_PW varchar2(30), --PW
     MEMBER_NAME varchar2(20), --이름
     MEMBER_TEL varchar2(20), --전화번호
-    MEMBER_RANK varchar2(30) DEFAULT 'NOMAL', --등급
+    MEMBER_RANK varchar2(30) DEFAULT 'Green', --등급('Green', 'Gold', 'VIP')
     MEMBER_COUNT number DEFAULT 0, --활동횟수
     MEMBER_AMOUNT number DEFAULT 0, --총 금액
     MEMBER_DATE date default sysdate, --가입날짜
-    MEMBER_PHOTO varchar2(100) DEFAULT 'N', --프로필사진
-    MEMBER_REPORT number DEFAULT 0 --신고누적횟수
+    MEMBER_PHOTO_FILE varchar2(100) DEFAULT 'N', --프로필사진
+    MEMBER_REPORT number DEFAULT 0, --신고누적횟수
+    MEMBER_ADDRESS varchar2(100) DEFAULT 'N', -- 주소
+    MEMBER_GENDER varchar2(4) DEFAULT 'N'-- 성별
 );
 */
 
@@ -29,9 +30,12 @@ public class MemberVO {
 	private int MEMBER_COUNT;
 	private int MEMBER_AMOUNT;
 	private String MEMBER_DATE;
-	private MultipartFile MEMBER_PHOTO_FILE;
-	private String MEMBER_PHOTO;
+	private MultipartFile MEMBER_PHOTO;
+	private String MEMBER_PHOTO_FILE;
 	private int MEMBER_REPORT;
+	private String MEMBER_ADDRESS;
+	private String MEMBER_REAL_ADDRESS;
+	private String MEMBER_GENDER;
 	
 	public String getMEMBER_ID() {
 		return MEMBER_ID;
@@ -87,16 +91,16 @@ public class MemberVO {
 	public void setMEMBER_DATE(String mEMBER_DATE) {
 		MEMBER_DATE = mEMBER_DATE;
 	}
-	public MultipartFile getMEMBER_PHOTO_FILE() {
+	public String getMEMBER_PHOTO_FILE() {
 		return MEMBER_PHOTO_FILE;
 	}
-	public void setMEMBER_PHOTO_FILE(MultipartFile mEMBER_PHOTO_FILE) {
+	public void setMEMBER_PHOTO_FILE(String mEMBER_PHOTO_FILE) {
 		MEMBER_PHOTO_FILE = mEMBER_PHOTO_FILE;
 	}
-	public String getMEMBER_PHOTO() {
+	public MultipartFile getMEMBER_PHOTO() {
 		return MEMBER_PHOTO;
 	}
-	public void setMEMBER_PHOTO(String mEMBER_PHOTO) {
+	public void setMEMBER_PHOTO(MultipartFile mEMBER_PHOTO) {
 		MEMBER_PHOTO = mEMBER_PHOTO;
 	}
 	public int getMEMBER_REPORT() {
@@ -105,4 +109,23 @@ public class MemberVO {
 	public void setMEMBER_REPORT(int mEMBER_REPORT) {
 		MEMBER_REPORT = mEMBER_REPORT;
 	}
+	public String getMEMBER_ADDRESS() {
+		return MEMBER_ADDRESS;
+	}
+	public void setMEMBER_ADDRESS(String mEMBER_ADDRESS) {
+		MEMBER_ADDRESS = mEMBER_ADDRESS;
+	}
+	public String getMEMBER_REAL_ADDRESS() {
+		return MEMBER_REAL_ADDRESS;
+	}
+	public void setMEMBER_REAL_ADDRESS(String mEMBER_REAL_ADDRESS) {
+		MEMBER_REAL_ADDRESS = mEMBER_REAL_ADDRESS;
+	}
+	public String getMEMBER_GENDER() {
+		return MEMBER_GENDER;
+	}
+	public void setMEMBER_GENDER(String mEMBER_GENDER) {
+		MEMBER_GENDER = mEMBER_GENDER;
+	}
+	
 }

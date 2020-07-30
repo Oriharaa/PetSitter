@@ -2,6 +2,27 @@
 /* 언택 추가 CSS *//* 언택 추가 CSS *//* 언택 추가 CSS */
 /* 언택 추가 CSS *//* 언택 추가 CSS *//* 언택 추가 CSS */ 
 
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+body {
+  font-family: "Noto Sans KR", sans-serif !important;
+}
+
+h1 {
+  font-size: 60px;
+}
+
+p {
+  font-size: 20px;
+}
+
+
+
+
+
+
+
+
+
 /* one_box */
 	.one_box{
 	margin-top:5%;
@@ -9,7 +30,7 @@
 	}
 
 	.one_text1{
-	color:#53DC98;
+	color:#525252;
 	font-weight:bold;
 	font-size:100px;
 	}
