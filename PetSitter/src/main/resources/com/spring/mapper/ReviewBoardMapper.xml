@@ -84,7 +84,7 @@
 	</select>
 	
 	<select id="getReviewReportCountCheck" parameterType="HashMap" resultType="int">
-		select count(*) from report_article where member_id = #{sessionid} and member_num=#{num}
+		select count(*) from report_article where member_id = #{sessionid} and member_num=#{num} and btype = #{boardType}
 	</select>		
 	
 	<select id="getReviewDetail" parameterType="int" resultType="ReviewBoardVO">

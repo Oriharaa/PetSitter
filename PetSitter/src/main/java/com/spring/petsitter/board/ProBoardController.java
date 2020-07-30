@@ -252,11 +252,12 @@ public class ProBoardController {
 	@ResponseBody	
 	public List<ProBoardVO> getProReportForm(
 			@RequestParam(value="num", required=true) int num,
-			@RequestParam(value="sessionid", required=true) String sessionid) throws Exception {
-		
+			@RequestParam(value="sessionid", required=true) String sessionid,
+			@RequestParam(value="boardType", required=true) String boardType) throws Exception {
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("num", num);
 		hashmap.put("sessionid", sessionid);
+		hashmap.put("boardType", boardType);
 		int count = proboardService.getProReportCountCheck(hashmap);
 		
 		List<ProBoardVO> boardlist = proboardService.getProReportForm(num);
@@ -279,12 +280,13 @@ public class ProBoardController {
 	public List<ProReplyVO> getProReportReplyForm(
 			@RequestParam(value="bno", required=true) int bno,
 			@RequestParam(value="rno", required=true) int rno,
-			@RequestParam(value="sessionid", required=true) String sessionid) throws Exception {
-		
+			@RequestParam(value="sessionid", required=true) String sessionid,
+			@RequestParam(value="boardType", required=true) String boardType) throws Exception {
 		ProReplyVO comment = new ProReplyVO();
 		comment.setRno(rno);
 		comment.setBno(bno);
 		comment.setWriter_id(sessionid);
+		comment.setB_type(boardType);
 		int count = proboardService.getProReportReplyCountCheck(comment);
 		List<ProReplyVO> boardlist = proboardService.getProReportReplyForm(comment);
 		if(count != 0) {
@@ -305,20 +307,20 @@ public class ProBoardController {
 	/*댓글 Controller 부분 시작*/ 	
 	@RequestMapping(value="/read_ProReply.bo", produces="application/json; charset=UTF-8")  //댓글 리스트
 	@ResponseBody
-	private List<ProReplyVO> proCommentServiceList(@RequestParam int bno, HttpSession session) throws Exception{
+	private List<ProReplyVO> proCommentServiceList(@RequestParam int bno) throws Exception{
 	  	List<ProReplyVO> proReplyList = proboardService.readProReply(bno);
 	  	return proReplyList;
 	}    
 	
 	@RequestMapping(value="/write_ProReply.bo", produces="application/json; charset=UTF-8") //댓글 작성 
 	@ResponseBody
-	private int writeProReply(ProReplyVO comment, HttpSession session) throws Exception{
+	private int writeProReply(ProReplyVO comment) throws Exception{
 		return proboardService.writeProReply(comment);
 	 }
 	  
 	@RequestMapping(value="/update_ProReply.bo", produces="application/json; charset=UTF-8") //댓글 수정)
 	@ResponseBody
-	private int updateProReply(@RequestParam int bno, @RequestParam int rno,  @RequestParam String content) throws Exception{
+	private int updateProReply(int bno, int rno, String content) throws Exception{
 		ProReplyVO comment = new ProReplyVO();
 		comment.setRno(rno);
 		comment.setBno(bno);
@@ -329,7 +331,7 @@ public class ProBoardController {
 	  
 	@RequestMapping(value="/delete_ProReply.bo",  produces="application/json; charset=UTF-8") //댓글 삭제
 	@ResponseBody
-	private int deleteProReply(@RequestParam int rno, @RequestParam int bno) throws Exception {
+	private int deleteProReply( int rno, int bno) throws Exception {
 		ProReplyVO comment = new ProReplyVO();
 		comment.setRno(rno);
 		comment.setBno(bno);
@@ -338,7 +340,7 @@ public class ProBoardController {
 	
 	@RequestMapping(value="/proreplycount.bo",  produces="application/json; charset=UTF-8") //댓글 삭제
 	@ResponseBody
-	private List<ProReplyVO> proReplyCount(@RequestParam int bno) throws Exception {
+	private List<ProReplyVO> proReplyCount(int bno) throws Exception {
 		List<ProReplyVO> replycount = proboardService.proReplyCount(bno);
 		return replycount;
 	} 
@@ -348,7 +350,7 @@ public class ProBoardController {
 	/*좋아요 기능 시작*/
 	@RequestMapping(value="/readprolikecount.bo", produces="application/json; charset=UTF-8")  //댓글 리스트
 	@ResponseBody	
-	private List<ProBoardVO> read_ProLikeCount(@RequestParam int bno, HttpSession session) throws Exception{
+	private List<ProBoardVO> read_ProLikeCount(int bno) throws Exception{
 	  	List<ProBoardVO> proLikeCount = proboardService.read_ProLikeCount(bno);
 	  	return proLikeCount;
 	}

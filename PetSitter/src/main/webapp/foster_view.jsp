@@ -1424,6 +1424,8 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 	       	  	$('#reviewRating').append(Rating);
 	       	  	
 	       	  	var reviewStar = '';
+	       	  	
+	       	  	//후기 평점에 따라 보이는 별 개수
 	   	    		if(item.review_SCORE == 5){
 	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
 	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
@@ -1550,7 +1552,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 	        		reviewList += '<tr>';
 	        		reviewList += '<td class = "font-size-18 main_grayfont3 mybold"  align = "center">'+ item.member_NICKNAME + '</td>';
 	        		reviewList += '<td style = "padding: 6px 0 0 10px; font-size: 12px;">';
-	        		reviewList += '<a href = "./reviewreportform.bo?num='+item.list_NUM+'&sessionid='+sessionid+'" type="button" class="reportFormAjax main_redfont0">신고</a></td>';	
+	        		reviewList += '<a href = "./reviewreportform.bo?num='+item.list_NUM+'&sessionid='+sessionid+'&boardType='+item.board_TYPE+'" type="button" class="reportFormAjax main_redfont0">신고</a></td>';	
 	        		reviewList += '</tr>';
 	        		reviewList += '<tr>';
 	        		
@@ -2136,7 +2138,6 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 			$.ajax({
 				url : '/petsitter/readReviewLikeCount.bo?reviewListNum=' + reviewListNum,
 				type : 'post',
-				data : {'reviewListNum': reviewListNum},
 				dataType : 'json',
 				contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 				success : function(data) {
