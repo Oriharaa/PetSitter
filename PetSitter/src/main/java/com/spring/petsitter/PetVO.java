@@ -1,27 +1,7 @@
 package com.spring.petsitter;
 
-
 import org.springframework.web.multipart.MultipartFile;
 
-<<<<<<< HEAD
-//create table PET(
-//	    MEMBER_ID varchar2(30), --주인ID
-//	    PET_CATEGORY varchar2(20), --반려동물 종류 
-//	    PET_KIND varchar2(20), --품종
-//	    PET_NAME varchar2(20), --이름
-//	    PET_PHOTO varchar2(150), --사진
-//	    PET_WEIGHT number(3), --무게
-//	    PET_SIZE varchar2(5), --크기
-//	    PET_GENDER varchar2(6), --성별
-//	    PET_BIRTH date, --생년월일
-//	    PET_NEUTERED varchar2(10), --중성화 수술 여부
-//	    PET_POTTYTRAN varchar2(10), --배변 훈련 여부
-//	    PET_VAOONE varchar2(10), --예방 접종 여부
-//	    PET_QUESTION varchar2(30), --질문?
-//	    PET_ETC varchar2(200), --기타?
-//	    PET_DATE date --등록날짜
-//	);
-=======
 /*
 create table PET(
 	MEMBER_ID varchar2(30),
@@ -41,7 +21,6 @@ create table PET(
 	PET_DATE date 
 );
 */
->>>>>>> Hong
 
 public class PetVO {
 

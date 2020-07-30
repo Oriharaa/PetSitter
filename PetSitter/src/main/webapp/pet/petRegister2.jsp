@@ -1,17 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-<<<<<<< HEAD:PetSitter/src/main/webapp/petRegister2.jsp
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
-=======
-	//세션 종료시 홈으로
-	if(session.getAttribute("id") == null) {
-		out.println("<script>");
-		out.println("location.href = 'home.me'");
-		out.println("</script>");
-	}
->>>>>>> Hong:PetSitter/src/main/webapp/pet/petRegister2.jsp
+
 %>
 <!-- 반려동물 등록 완료 페이지 -->
 

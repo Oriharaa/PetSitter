@@ -1,10 +1,7 @@
 package com.spring.petsitter;
 
-<<<<<<< HEAD
-=======
 import java.util.ArrayList;
 
->>>>>>> Hong
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,11 +20,6 @@ public class PetServiceImpl implements PetService{
 		int res = petMapper.insertPet(pet);
 		return res;
 	}
-<<<<<<< HEAD
-
-	
-	
-=======
 	
 	@Override
 	public ArrayList<PetVO> selectPet(String id) {
@@ -54,6 +46,5 @@ public class PetServiceImpl implements PetService{
 		PetMapper petMapper = sqlSession.getMapper(PetMapper.class);
 		petMapper.deletePet(id, name);
 	}
->>>>>>> Hong
 	
 }
