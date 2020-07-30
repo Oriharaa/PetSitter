@@ -81,21 +81,21 @@ public class PayController {
 		
 		model.addAttribute("member", member);
 		model.addAttribute("payvo", payvo);
-		return "pay";
+		return "pay/pay";
 	}
 	
 	@RequestMapping(value = "payConfirm.br")
 	public String payConfirm(@RequestParam(value = "mid") String merchant_uid, Model model) {
 		PayVO payvo = payService.selectPay(merchant_uid);
 		model.addAttribute("payvo", payvo);
-		return "payConfirm";
+		return "pay/payConfirm";
 	}
 	
 	@RequestMapping(value = "cancel.br")
 	public String patCalcel(@RequestParam(value = "merchant_uid") String merchant_uid, Model model) {
 		PayVO payvo = payService.selectPay(merchant_uid);
 		model.addAttribute("payvo", payvo);
-		return "payCancel";
+		return "pay/payCancel";
 	}
 	
 	@RequestMapping(value = "payCancel.br", method = RequestMethod.POST)
