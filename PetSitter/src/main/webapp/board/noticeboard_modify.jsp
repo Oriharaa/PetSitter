@@ -246,7 +246,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       </div>
    </div>
 
-    <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152,0.86);">
+    <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152);">
       <div class="container" >
         <div class="row align-items-center position-relative" >
           <div class="site-logo">

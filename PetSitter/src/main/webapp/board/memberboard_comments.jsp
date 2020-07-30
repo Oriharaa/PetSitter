@@ -15,6 +15,9 @@ String rank = (String)session.getAttribute("rank");
 String name = (String)session.getAttribute("name");
 String btype = "mboard";
 
+if(rank == null) {
+	rank = "guest";
+}
 %>
 <!-- 댓글 입력란 -->
 <style> 
@@ -37,9 +40,17 @@ String btype = "mboard";
 </style>
 
 <div>	
-	<div class="replyList"></div>	
+	<%
+ 		if(!rank.equals("guest")) {
+ 	%>
+	<div class="replyList"></div>
+	<%
+ 		}
+	%>
 </div>
-
+<%
+	if(!rank.equals("guest")) {
+%>
 <div class="container">
     	<div class="row justify-content-center">
     		<div class="col-md-10">	
@@ -57,6 +68,9 @@ String btype = "mboard";
         </div>
     </div>
 </div>
+<%
+	}
+%>
 
 <!-- 댓글 시작 -->
 <script>

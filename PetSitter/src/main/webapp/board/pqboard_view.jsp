@@ -12,6 +12,14 @@
 	PetsitterQnaBoardVO pqboard = (PetsitterQnaBoardVO)request.getAttribute("vo");
 	ReportArticleVO report = (ReportArticleVO)request.getAttribute("report");	
 	
+	SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	String StringDate = new_Format.format(pqboard.getPETSITTER_QNA_DATE());
+	String date = StringDate.split(" ")[0]; // 연, 월, 일
+	String time = StringDate.split(" ")[1]; // 시, 분
+	
+	String[] realDate = date.split("-");
+	String[] realTime = time.split(":");
+	
 	ArrayList<MemberVO> memberList = (ArrayList<MemberVO>)request.getAttribute("member_list");
 	List<PetsitterVO> petsitterList = (List<PetsitterVO>)request.getAttribute("petsitter_list");
 	List<PetsitterQnaBoardVO> pqboardlist = (List<PetsitterQnaBoardVO>)request.getAttribute("pqboard_list"); 
@@ -21,12 +29,9 @@
 	String rank = (String)session.getAttribute("rank");
 	String btype = "pqboard";
 		
-//세션 종료시 홈으로
-  if(session.getAttribute("id") == null) {
-     out.println("<script>");
-     out.println("location.href = 'loginform.me'");
-     out.println("</script>");
-  }
+	if(rank == null) {
+		rank = "guest";
+	}
 	/* if(mboard.getMEMBER_SECRET().equals("on") && !(mboard.getMEMBER_ID().equals(id))) {
 		out.println("<script>");
 		out.println("alert('권한이 없습니다.')");
@@ -313,7 +318,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							</tr> 
 						<tr>
 							<td>작성일</td>
-							<td><%=format1.format(pqboard.getPETSITTER_QNA_DATE()) %></td>
+							<td><%=realDate[0] %>년 <%=realDate[1] %>월 <%=realDate[2] %>일&nbsp;<%=realTime[0] %>시 <%=realTime[1] %>분</td>
 						</tr>
 						<tr> 
 							<td>작성자</td>
@@ -354,8 +359,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			<% } else { %>
   			<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./pqboardlist.me">목록</a>
   		<% } %>
+  			<%if(!rank.equals("guest")) {%>
   	 		<button type="button" class="btn btn-danger btn-sm float-right" name="main_redfont0" data-toggle="modal" data-target="#articleModal">신고</button>
-  	 		
+  	 		<%} %>
   	 		
   	 			<!-- 신고 창 시작 -->
   	 		 <form action="./reportArticle.me" method="post" name="reportform">

@@ -1,16 +1,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	//세션 종료시 홈으로
-	if(session.getAttribute("id") == null) {
-		out.println("<script>");
-		out.println("location.href = 'home.me'");
-		out.println("</script>");
-	}
+	String id = (String)session.getAttribute("id");
+	String name = (String)session.getAttribute("name");
+
 %>
-<!-- 반려동물 등록 -->
+<!-- 반려동물 등록 완료 페이지 -->
+
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 
 
 <style>
@@ -72,12 +70,11 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	  background: #e9e9e9!important; 
 	}
 	/*최하단바 종료*/
-
 </style>
 
 
   <head>
-    <title>반려동물 등록 페이지</title>
+    <title>Depot &mdash;Website Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -96,9 +93,57 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
     
     <!-- 언택 추가 CSS -->
-		<link rel="stylesheet" type="text/css" href="resources/css/UT_CSS/petRegister.css?after">
+		<link rel="stylesheet" type="text/css" href="resources/css/UT_CSS/petRegister2.css?after">
 
-
+	<style>
+		.dropdown:hover {
+			background-color: rgb(83, 220, 153);
+		}
+		
+		.dropdown:active {
+			background-color: rgb(83, 220, 153);
+		}
+		.btn-secondary {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+			vertical-align: baseline;
+			font-weight: bold;
+		}
+		
+		.btn-secondary:hover {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+		}
+		
+		.btn-secondary:active {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+		}
+		
+		.btn-secondary:focus {
+			background-color: rgb(83, 220, 153);
+			border-color: rgb(83, 220, 153);
+			box-shadow: 0 0 0 0 rgb(83, 220, 153);
+		}
+		
+		.dropdown-menu {
+			min-width: 60px !important;
+		}
+	
+		.dropdown-item:hover {
+			background-color: rgb(83, 220, 153);
+			color: rgb(255, 255, 255) !important;
+		}
+		
+		.dropdown-item {
+			 color: #53dc99 !important;
+			 font-weight: bold;
+		}
+		
+		.main-menu li a {
+			font-weight: bold;
+		}
+	</style>
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
   
@@ -124,8 +169,20 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 
               <div class="float-right">
-                <a href="memberinfo.me?id=${id }"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+<<<<<<< HEAD:PetSitter/src/main/webapp/petRegister2.jsp
+              	<%
+              		if(id == null) {
+              	%>
+                <a href="loginform.me" ><span class = "font-size-14" >로그인 및 회원가입</span></a>
+                <span class="mx-md-2 d-inline-block"></span>
+                <%} else { %>
+                <a href="profile.me?id=<%=id %>"><span class="font-size-14" ><%=name %>님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+                <%} %>
+=======
+                <a href="memberinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
+>>>>>>> Hong:PetSitter/src/main/webapp/pet/petRegister2.jsp
               </div>
               
             </div>
@@ -133,7 +190,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
         </div>
       </div>
       
-      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152,0.86);">
+      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152);">
 
         <div class="container">
           <div class="row align-items-center position-relative">
@@ -145,11 +202,27 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
               <nav class="site-navigation text-right ml-auto " role="navigation">
 
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li><a href="reservation2.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">방문 돌봄</a></li>
-	                <li><a href="reservation1.br" class="nav-link" id="main_whitefont2" style = "font-size:15px">위탁 돌봄</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">반려동물 전문가 상담</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">후기 게시판</a></li>
-                  <li><a href="home.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
+                  <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
+									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onmousedown="this.style.backgroundColor:'rgb(83, 220, 153)'">
+											돌봄
+									  </button>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+									    <a href="reservation2.br" class="dropdown-item" style="font-size:15px;">방문 돌봄</a>
+                  		<a href="reservation1.br" class="dropdown-item" style="font-size:15px;" >위탁 돌봄</a>
+									  </div>
+									</li>
+									<li class="dropdown">
+									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+											게시판
+									  </button>
+									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+									    <a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
+                  		<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
+                  		<a href="pqboardlist.me" class="dropdown-item" style="font-size:15px;" >펫시터 게시판</a>
+									  </div>
+									</li>
+                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>
+                  <li><a href="noticeboardlist.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
                 </ul>
               </nav>
 
@@ -163,14 +236,47 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
       </header>
       
 <!-- 본 기능 추가 시작 -->
-<section class="top_box">
-  <div class="container">
-    
-  </div>
+<section class="one_box">
+	<div class="container">
+	
+		<div class="row justify-content-center">
+			<div class="col-3">
+				<div class="left">
+					<img class ="left_dog" src="resources/images/pet/PET8.jpg">
+				</div>
+			</div>
+			
+			<div class="col-6">
+				<div class="one_title">
+					<h1 class="one_text1">환영합니다!</h1>
+					<!-- ID값 받아오기 -->
+					<p class="one_text2">
+						${id }님 마이펫 등록을 축하합니다!<br>
+						보살펴조에서는 항상 회원님들의 입장에서<br>
+						보다 좋은 서비스를 받으실 수 있도록 노력하겠습니다.<br>
+						감사합니다:)	
+					</p>
+				</div>
+			</div>
+			
+			<div class="col-3">
+				<div class="right">
+					<img class="right_dog" src="resources/images/pet/PET7.jpg">
+				</div>
+			</div>
+		</div>
+		
+		<div class="row justify-content-center">
+			<div class="col">
+				<div class="one_a">
+					<a href="home.me" class="go_main">메인으로</a>
+				</div>
+			</div>
+		</div>
+		
+		
+	</div>
 </section>
-
-
-
 
 
 <!-- 본 기능 추가 종료 -->
@@ -204,13 +310,13 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
             
 
-
+						<form>
             <h2 class="footer-heading mb-4" id="main_grayfont1">Follow Us</h2>
             <a href="https://www.facebook.com/" class="smoothscroll pl-0 pr-3" target="_blank"><span class="icon-facebook" id="main_grayfont2" ></span></a>
             <a href="https://twitter.com/" class="pl-3 pr-3" target="_blank"><span class="icon-twitter" id="main_grayfont2" ></span></a>
             <a href="https://www.instagram.com/" class="pl-3 pr-3" target="_blank"><span class="icon-instagram" id="main_grayfont2" ></span></a>
             <a href="https://www.linkedin.com/" class="pl-3 pr-3" target="_blank"><span class="icon-linkedin" id="main_grayfont2" ></span></a>
-            <!-- </form> -->
+            </form>
           </div>
         </div>
         <div class="row pt-5 mt-5 text-center">
@@ -241,61 +347,17 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <script src="<c:url value="./resources/js/aos.js"/>"></script><!-- nav 상단바 반응형웹 적용1 -->
 
     <script src="<c:url value="/resources/js/main.js"/>"></script><!-- nav 상단바 반응형웹 적용2 -->
-    
-    <script>
-    	function register()
-    	{
-    		petRegister2.submit();
-    	}
-    </script>
-    
-    <script>
-    	var sel_file;
-    	
-    	$(document).ready(function() {
-/*     		$("#input_img").on("change", handleImgFileSelect); */
-    		 	$("#input-file").on("change", handleImgFileSelect);
-    	});
-    	
-    	function handleImgFileSelect(e) {
-    		var files = e.target.files;
-    		var filesArr = Array.prototype.slice.call(files);
-    		
-    		filesArr.forEach(function(f) {
-    			if(!f.type.match("image.*")) {
-    				alert("확장자는 이미지 확장자만 가능합니다.");
-    				return;
-    			}
-    			
-    			sel_file = f;
-    			
-    			var reader = new FileReader();
-    			reader.onload = function(e) {
-    				$("#noimg").attr("src", e.target.result);
-    			}
-    			reader.readAsDataURL(f);
-    		});
-    	}
-    </script>
-    
-    <!-- 아이콘 -->   
-<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-    
-    
-      <script>
-  $(function () {
-		$('[data-toggle="tooltip"]').tooltip()
-	});
-</script>
-    
-    
-    
-    
-    
-    
-    
       
-
+		<script>
+			$(function() {
+				$(".btn-secondary").on("click mousedown", function() {
+					$(this).css("background-color", "rgb(83, 220, 153)");
+					$(this).css("border-color", "rgb(83, 220, 153)");
+					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
+				});
+			});
+			
+		</script>
 
 </body>
 </html>

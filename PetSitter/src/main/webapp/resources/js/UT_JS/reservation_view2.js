@@ -11,6 +11,7 @@ var btn_c = "F";
 var btn_g = "F";
 var btn_type = "BANG";
 var k = 1;
+let loading = false;
 	//펫시터 클릭시 예약페이지로 넘어감.
 	function go_foster(index)
 	{
@@ -23,6 +24,11 @@ var k = 1;
 	function selectData(btn1, btn2, btn3, btn4, btn_a, btn_b, btn_c, btn_g, btn_type) {
 		$('#petsitter_middle_box').empty();
 		
+		if(loading) {
+			return;
+		}
+		
+		loading = true;
 		$.ajax({
 			url: '/petsitter/getPetsitterList_We.br',
 			type: 'post',
@@ -385,6 +391,10 @@ var k = 1;
 					alert("ajax 통신 실패!");
 				}
 			});
+		
+			setTimeout(function() {
+				loading = false;
+			}, 100);
 		}
 	
 	$(document).ready(function() {

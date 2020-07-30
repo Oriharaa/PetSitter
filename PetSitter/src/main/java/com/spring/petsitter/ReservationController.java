@@ -1,5 +1,6 @@
 package com.spring.petsitter;
 
+import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,10 +80,18 @@ public class ReservationController {
 	}
 	
 	@RequestMapping(value = "mapfoster_view.me")
-	public String mapfoster_view(PetsitterVO vo, Model model,HttpSession session) {
+	public String mapfoster_view(PetsitterVO vo, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String id = (String)session.getAttribute("id");
+		PrintWriter out = response.getWriter();
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		if(id == null) {
-			return "loginform";
+			out.println("<script>");
+			out.println("alert('로그인 후 이용할 수 있습니다.');");
+			out.println("location.href='loginform.me';");
+			out.println("</script>");
+			out.close();
+			return null;
 		}
 		ArrayList<PetVO> list = petService.selectPet(id);
 		PetsitterVO petsitter = petsitterService.selectPetsitter(vo.getPETSITTER_ID());
@@ -168,10 +178,18 @@ public class ReservationController {
 	}
 
 	@RequestMapping(value = "foster_view.me", method = RequestMethod.POST)
-	public String foster_view(HttpSession session, Model model,HttpServletRequest request) {
+	public String foster_view(HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String id = (String)session.getAttribute("id");
+		PrintWriter out = response.getWriter();
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		if(id == null) {
-			return "loginform";
+			out.println("<script>");
+			out.println("alert('로그인 후 이용할 수 있습니다.');");
+			out.println("location.href='loginform.me';");
+			out.println("</script>");
+			out.close();
+			return null;
 		}
 		model.addAttribute("petsitter_id",request.getParameter("petsitter_id"));
 		model.addAttribute("addr",request.getParameter("addr"));

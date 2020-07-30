@@ -71,7 +71,7 @@ public class MemberController {
 			mv.addObject("membervo", membervo);
 			mv.addObject("tel", tel);
 			mv.addObject("address", address);
-			mv.setViewName("memberinfo");
+			mv.setViewName("member/memberinfo");
 			return mv;
 		} else {
 			writer.write("<script>");
@@ -88,7 +88,12 @@ public class MemberController {
 
 		return "redirect:/home.me";
 	}
-
+	
+	@RequestMapping(value = "memberFind.bo")
+	public String memberFind() {
+		return "member/memberFind";
+	}
+	
 	@RequestMapping(value = "memberPwFind.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String memberPwFind(MemberVO vo) {

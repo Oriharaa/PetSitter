@@ -42,6 +42,11 @@ public class PetsitterController {
 		return "redirect:/home.me";
 	}
 	
+	@RequestMapping(value = "petsitterFind.bo")
+	public String petsitterFind() {
+		return "petsitter/petsitterFind";
+	}
+	
 	@RequestMapping(value = "petsitterPwFind.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String petsitterPwFind(PetsitterVO vo) {
@@ -296,7 +301,7 @@ public class PetsitterController {
 			model.addAttribute("vo", vo);
 			model.addAttribute("m_count", m_count); // 이번달 돌봄 수
 			model.addAttribute("m_amount", m_amount); // 이번달 돌봄 금액
-			return "petsitterinfo";
+			return "petsitter/petsitterinfo";
 		} else {
 			writer.write("<script>");
 			writer.write("alert('로그인 시간이 만료되어 자동 로그아웃 됩니다.')");
@@ -350,7 +355,7 @@ public class PetsitterController {
 		PetsitterVO petsitter = new PetsitterVO();
 		petsitter = petsitterService.selectPetsitter(vo.getPETSITTER_ID());
 		model.addAttribute("petsitter", petsitter);
-		return "apply_petsitter";
+		return "petsitter/apply_petsitter";
 	}
 
 	@RequestMapping(value = "petsitter_login.me")

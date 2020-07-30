@@ -96,10 +96,17 @@ p {
 	}
 
 	.noimg {
+<<<<<<< HEAD
+	border-top:1px solid #949494;
+	border-right: 1px solid #949494;
+	border-bottom: 1px solid #949494;;
+	border-left: 1px solid #949494;
+=======
 	border-top:1px solid white;
 	border-right: 1px solid white;
 	border-bottom: 1px solid white;
 	border-left: 1px solid white;
+>>>>>>> Hong
 	width:24%; /*19*/
 	height:266px;
 	margin:0 0.4em 0 0;
@@ -165,6 +172,19 @@ p {
 	height:80px;
 	}
 
+<<<<<<< HEAD
+input::placeholder {text-align:center;}
+input[type=text] {padding-left:10%;}
+input[type=number] {padding-left:10%;}
+
+/*인풋&버튼 클릭시 색상 없애기*/
+input:focus {outline:none;}
+button:focus {outline:none;} 
+
+/*인풋 색상 변경*/
+/* input:focus {outline:2px solid #d50000;} */
+
+=======
 
 /*  .tooltip-inner{
 background-color:#53dc98;
@@ -182,3 +202,4 @@ input[type=number] {padding-left:10%; color:#5e5e5e; font-weight:bold;}
 /*인풋&버튼 클릭시 색상 없애기*/
 input:focus {outline:none;}
 button:focus {outline:none;} 
+>>>>>>> Hong

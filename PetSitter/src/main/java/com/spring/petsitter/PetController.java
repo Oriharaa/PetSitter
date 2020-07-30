@@ -28,13 +28,13 @@ public class PetController {
 		String id = (String)session.getAttribute("id");
 		ArrayList<PetVO> list = petService.selectPet(id);
 		model.addAttribute("list", list);
-		return "myPet";
+		return "pet/myPet";
 	}
 
 
 	@RequestMapping(value = "petRegister.me")
 	public String petRegister() {
-		return "petRegister";
+		return "pet/petRegister";
 	}
 	
 	@RequestMapping(value = "petRegister2.me", method = RequestMethod.POST)
@@ -61,7 +61,7 @@ public class PetController {
 		if(res != 0) {
 			System.out.println("Pet Insert Complete!");
 		}
-		return "petRegister2";
+		return "pet/petRegister2";
 	}
 	
 	@RequestMapping(value = "petDelete.me")
@@ -78,7 +78,7 @@ public class PetController {
 
 		PetVO vo = petService.selectPet2(id, name);
 		model.addAttribute("vo", vo);
-		return "petUpdate";
+		return "pet/petUpdate";
 	}
 	
 

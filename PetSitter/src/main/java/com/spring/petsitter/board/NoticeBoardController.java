@@ -27,9 +27,7 @@ public class NoticeBoardController {
 			
 	@RequestMapping(value = "/noticeboardlist.me")
 	public String memberboard(Model model,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int page, 
-			HttpServletResponse response, HttpSession session) throws Exception {
-		PrintWriter writer = response.getWriter();
+			@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
 		
 		int limit = 10;
 
@@ -56,15 +54,7 @@ public class NoticeBoardController {
 		model.addAttribute("startpage", startpage);
 		model.addAttribute("endpage", endpage);
 
-		if(session.getAttribute("id") != null) {
-			return "board/noticeboard";
-		} else {
-			writer.write("<script>");
-			writer.write("alert('로그인 시간이 만료되어 자동 로그아웃 됩니다.')");
-			writer.write("location.href='loginform.me'");
-			writer.write("</script>");
-			return null;
-		}
+		return "board/noticeboard";
 	}	
 	
 	@RequestMapping("/noticeboardwriteform.me")

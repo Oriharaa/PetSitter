@@ -159,7 +159,7 @@ p {
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.jsp">
+                            <a class="nav-link" href="admin.me">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 대시보드
                             </a>
@@ -206,9 +206,9 @@ p {
                                     </a>
                                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">예약된 거래</a>
-                                            <a class="nav-link" href="register.html">진행중인 거래</a>
-                                            <a class="nav-link" href="password.html">완료된 거래</a>
+                                            <a class="nav-link" href="admin_orderReserved.me">예약된 거래</a>
+                                            <a class="nav-link" href="admin_orderProgress.me">진행중인 거래</a>
+                                            <a class="nav-link" href="admin_orderClosed.me">완료된 거래</a>
                                         </nav>
                                     </div>
                                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
@@ -217,7 +217,7 @@ p {
                                     </a>
                                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="404.html">펫시터 신청 관리</a>
+                                            <a class="nav-link" href="admin_petsitterApply.me">펫시터 신청 관리</a>
                                         </nav>
                                     </div>
                                 </nav>

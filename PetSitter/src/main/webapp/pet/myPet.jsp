@@ -4,22 +4,10 @@
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.spring.petsitter.MemberController.*" %>
-
-
-<%
-	//세션 종료시 홈으로
-	if(session.getAttribute("id") == null) {
-		out.println("<script>");
-		out.println("location.href = 'home.me'");
-		out.println("</script>");
-	}
-%>
-
 <%
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
 %>
-
 <%
 	@SuppressWarnings("unchecked")
 	ArrayList<PetVO> list = (ArrayList<PetVO>)request.getAttribute("list");
