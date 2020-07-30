@@ -11,16 +11,14 @@
 	String rank = null;
 	String btype = "pqboard";
 	
-	if(session.getAttribute("id") == null){
-		out.println("<script>");
-		out.println("location.href='loginform.me'");
-		out.println("</script>");
-	}
-	
 	id = (String)session.getAttribute("id");
 	name = (String)session.getAttribute("name");
 	rank = (String)session.getAttribute("rank");
 	
+	if(rank == null) {
+		rank = "guest";
+	}
+	 
 	ArrayList<MemberVO> memberList = (ArrayList<MemberVO>)request.getAttribute("member_list");
 	List<PetsitterVO> petsitterList = (List<PetsitterVO>)request.getAttribute("petsitter_list");
 	List<PetsitterQnaBoardVO> pqboardlist = (List<PetsitterQnaBoardVO>)request.getAttribute("pqboard_list"); 
@@ -434,8 +432,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
    	</div>
     <div class="col-md-9"></div>
      <div class="col-md-1">
+     <%if(!rank.equals("guest")) {%>
    		<a type="button" style="background:#e67e22; color:white;" class="btn btn-sm" id="write" href="./pqboardwriteform.me">글쓰기</a>
-   		
+   	 <%} %>
    	</div>
    </div>
 	

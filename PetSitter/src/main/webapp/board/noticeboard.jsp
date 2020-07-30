@@ -11,16 +11,13 @@
 	String rank = null;
 	String btype = "noticeboard";
 	
-	if(session.getAttribute("id") == null){
-		out.println("<script>");
-		out.println("location.href='loginform.me'");
-		out.println("</script>");
-	}
 	id = (String)session.getAttribute("id");
 	name = (String)session.getAttribute("name");
 	rank = (String)session.getAttribute("rank");
 	
-	System.out.println(rank);
+	if(rank == null) {
+		rank = "guest";
+	}
 	
 	ArrayList<MemberVO> memberList = (ArrayList<MemberVO>)request.getAttribute("member_list");
 	List<NoticeBoardVO> nboardlist = (List<NoticeBoardVO>)request.getAttribute("nboard_list");

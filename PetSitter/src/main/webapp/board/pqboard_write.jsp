@@ -6,14 +6,15 @@
 
 <%@ page import="javax.servlet.*,java.text.*" %>
 
-<% String name = (String)session.getAttribute("name");
+<% 
+	String name = (String)session.getAttribute("name");
 	String nickname = (String)request.getAttribute("nickname");
-//세션 종료시 홈으로
-if(session.getAttribute("id") == null) {
-   out.println("<script>");
-   out.println("location.href = 'loginform.me'");
-   out.println("</script>");
-}
+	//세션 종료시 홈으로
+	if(session.getAttribute("id") == null) {
+	   out.println("<script>");
+	   out.println("location.href = 'loginform.me'");
+	   out.println("</script>");
+	}
 %>
 
 <!doctype html>

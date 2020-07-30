@@ -9,18 +9,24 @@
 <%@ page import="javax.servlet.*,java.text.*" %>
 <%
 	NoticeBoardVO nboard = (NoticeBoardVO)request.getAttribute("vo");
-
-//세션 종료시 홈으로
-  if(session.getAttribute("id") == null) {
-     out.println("<script>");
-     out.println("location.href = 'loginform.me'");
-     out.println("</script>");
-  }
-	
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
 	String rank = (String)session.getAttribute("rank");
 	String btype = "noticeboard";
+	
+	if(rank == null) {
+		rank = "guest";
+	}
+
+	SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	String StringDate = new_Format.format(nboard.getNOTICE_DATE());
+	String date = StringDate.split(" ")[0]; // 연, 월, 일
+	String time = StringDate.split(" ")[1]; // 시, 분
+	
+	String[] realDate = date.split("-");
+	String[] realTime = time.split(":");
+	
+	
 %>
 <%
 	SimpleDateFormat format1;
@@ -239,7 +245,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
         </div>
 	    </div>
 
-      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152,0.86);">
+      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152);">
         <div class="container" >
           <div class="row align-items-center position-relative" >
             <div class="site-logo">
@@ -303,7 +309,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							</tr> 
 						<tr>
 							<td>작성일</td>
-							<td><%=nboard.getNOTICE_DATE() %></td>
+							<td><%=realDate[0] %>년 <%=realDate[1] %>월 <%=realDate[2] %>일&nbsp;<%=realTime[0] %>시 <%=realTime[1] %>분</td>
 						</tr>
 						<tr> 
 							<td>작성자</td>

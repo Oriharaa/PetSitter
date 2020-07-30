@@ -13,18 +13,15 @@
 	
 	List<ReportArticleVO> ralist = (List<ReportArticleVO>)request.getAttribute("ra_list");
 	List<ReportReplyVO> rrlist = (List<ReportReplyVO>)request.getAttribute("rr_list");
-	
-//세션 종료시 홈으로
-  if(session.getAttribute("id") == null) {
-     out.println("<script>");
-     out.println("location.href = 'loginform.me'");
-     out.println("</script>");
-  }
 
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
 	String rank = (String)session.getAttribute("rank");
 	String btype = "mboard";
+	
+	if(rank == null) {
+		rank = "guest";
+	}
 	
 	if(mboard.getMEMBER_SECRET().equals("on")) {
 		
@@ -135,12 +132,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
   	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-    
-<<<<<<< HEAD
-    <title>회원 게시판</title>
-=======
+
     <title>이용자 상담/문의 | PetSitter</title>
->>>>>>> origin/PGKIM
     
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
@@ -364,8 +357,13 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			<% } else { %>
   			<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./mboardlist.me">목록</a>
   		<% } %>
+	  		<%
+					if(!rank.equals("guest")) {
+				%>
   	 		<button type="button" class="btn btn-danger btn-sm float-right" name="main_redfont0" data-toggle="modal" data-target="#articleModal">신고</button>
-  	 		
+  	 		<%
+					}
+				%>
   	 		
   	 			<!-- 신고 창 시작 -->
   	 		 <form action="./reportArticle.me" method="post" name="reportform">
