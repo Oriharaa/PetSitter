@@ -307,7 +307,7 @@ public class ProBoardController {
 	/*댓글 Controller 부분 시작*/ 	
 	@RequestMapping(value="/read_ProReply.bo", produces="application/json; charset=UTF-8")  //댓글 리스트
 	@ResponseBody
-	private List<ProReplyVO> proCommentServiceList(@RequestParam int bno) throws Exception{
+	private List<ProReplyVO> proCommentServiceList(int bno) throws Exception{
 	  	List<ProReplyVO> proReplyList = proboardService.readProReply(bno);
 	  	return proReplyList;
 	}    

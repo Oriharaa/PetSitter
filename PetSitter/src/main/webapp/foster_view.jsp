@@ -2136,7 +2136,8 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 		//좋아용 기능 시작
 		function reviewLikeCountRead(reviewListNum){
 			$.ajax({
-				url : '/petsitter/readReviewLikeCount.bo?reviewListNum=' + reviewListNum,
+				url : '/petsitter/readReviewLikeCount.bo',
+				data : { reviewListNum : reviewListNum},
 				type : 'post',
 				dataType : 'json',
 				contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -2161,7 +2162,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 		    		//idcheck 는  좋아요를 누른 아이디 일시 2로 바뀜
 		    		var idcheck = 1;
 		    		//첫 split된 인데스 0번째는 'N' 으로 1인덱스부터 시작과 il에 1추가로 필요한 길이 맞춤
-		    		if (sessionid != "null" && likeids != "N"){
+		    		if (sessionid != "null" && value.like_ID != "N"){
 		    			var lc = value.like_COUNT;
 		    			var ln = value.list_NUM;
 		    			for(j = 1; j < lc+1; j++){
