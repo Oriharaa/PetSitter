@@ -136,7 +136,7 @@ public class PetsitterController {
 		PetsitterVO petsitter = new PetsitterVO();
 		petsitter.setPETSITTER_ID(vo.getPETSITTER_ID()); 
 		petsitter = petsitterService.selectPetsitter(vo.getPETSITTER_ID());
-		String uploadPath = "C:\\Project156\\upload\\";
+		String uploadPath = "C:\\Project156\\Spring_Source\\Petsitter\\upload\\";
 		MultipartFile mf = vo.getPhoto();
 		if(mf.getSize() != 0) {
 			String originalFileExtension = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));
@@ -386,7 +386,7 @@ public class PetsitterController {
 		vo.setPETSITTER_CERT_LIST("");
 		
 		MultipartFile mf = vo.getPETSITTER_PHOTO();
-		String uploadPath = "C:\\Project156\\upload\\";
+		String uploadPath = "C:\\Project156\\Spring_Source\\Petsitter\\upload\\";
 
 		if (mf.getSize() != 0) {
 			String originalFileExtension1 = mf.getOriginalFilename()

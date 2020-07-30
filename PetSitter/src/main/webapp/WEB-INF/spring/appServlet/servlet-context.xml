@@ -28,7 +28,7 @@
     	   지정할경우 MultipartResolver로 사용되지 않음. -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
 		<beans:property name="maxUploadSize" value="100000000"></beans:property>
-		<beans:property name="uploadTempDir" value="file:/C:/Project156/upload"></beans:property>
+		<beans:property name="uploadTempDir" value="file:/C:/Project156/Spring_Source/Petsitter/upload"></beans:property>
   </beans:bean>
     
     

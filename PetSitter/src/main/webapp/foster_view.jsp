@@ -467,7 +467,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 										</div>
 										
 										<div class = "col-4">
-											<%if(home_photo2==null)
+											<%if(home_photo2.equals("N") || home_photo2.equals("undefined"))
 											  {
 											%>	<a href = "#" onclick ="toggleImg2()"><img class="home_photo" src = "resources/images/noimg.png"></a>										
 											<%}else
@@ -477,7 +477,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 										</div>
 										
 										<div class = "col-4">
-											<%if(home_photo3==null)
+											<%if(home_photo3.equals("N") || home_photo3.equals("undefined"))
 											  {
 											%>	<a href = "#" onclick ="toggleImg3()"><img class="home_photo" src = "resources/images/noimg.png"></a>										
 											<%}else
