@@ -79,12 +79,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 	/*ajax 에서 사진 가운데 와 크기 지정 css 시작*/
 	.thumbnail-wrappper { 
-	width: 25%; 
+	width: 390px !important; 
 	} 
 	.thumbnail { 
 	position: relative; 
-	width : 350px;
-	height : 290px;
+	width : 390px;
+	height : 250px;
 	background : rgba(94,94,94,0.3);
 	overflow: hidden; 
 	margin-bottom : 4px;
