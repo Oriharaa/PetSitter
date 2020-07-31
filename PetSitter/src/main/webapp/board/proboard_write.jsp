@@ -206,7 +206,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				document.proboardform.PRO_SUBJECT.focus();
 				return false;
 			}
-			
+			if (sub.length > 40)
+			{
+				alert("제목을 40자 이하로 입력하세요.");
+				document.proboardform.PRO_SUBJECT.focus();
+				return false;
+			}			
 			if(con.length < 10){
 				alert("내용을 10자 이상 입력하세요.");
 				document.proboardform.PRO_CONTENT.focus();
