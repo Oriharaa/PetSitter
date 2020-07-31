@@ -8,7 +8,6 @@
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="javax.servlet.*,java.text.*" %>
 
-
 <%
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
@@ -26,6 +25,7 @@
 <!-- 전문가 상담 게시판 -->
 
 <!doctype html>
+<html lang="ko">
 <html lang="en">
 
 
@@ -392,7 +392,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							detailForm += '</div>';
 							detailForm += '<div class="col-md-10">';
 								if(id != 'null' && item.member_ID != id){
-									detailForm += '<a href = "./proreportform.bo?num='+item.pro_NUM+'&sessionid='+id+'&boardType='+item.board_TYPE+'" type="button" class="reportFormAjax reportcss">신고</a>';
+									detailForm += '<a href = "./proreportform.bo?num='+item.pro_NUM+'&sessionid='+id+'" type="button" class="reportFormAjax reportcss">신고</a>';
 								}
 							detailForm += '</div>';
 							detailForm += '<div class="col-md-10">';
@@ -528,9 +528,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			
 			function replyList(bno){
 				$.ajax({
-					url : '/petsitter/read_ProReply.bo',
+					url : '/petsitter/read_ProReply.bo?bno=' + bno,
 					type : 'post',
-					data : {bno : bno},
+					data : {'bno': bno},
 					dataType : 'json',
 					contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 					success : function(data) {
@@ -544,7 +544,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							a += '<div class = "replyboldfloat" >작성자 :&nbsp; </div><div class = "replyfontfloat"> '+value.writer_nickname +'&nbsp&nbsp;</div>';
 							var wid = value.writer_id;
 							if(id != 'null' && wid != id){
-								a += '<a href = "./proreportreplyform.bo?bno='+bno+'&rno='+value.rno+'&sessionid='+id+'&boardType='+value.b_type+'" type="button" class="reportReplyFormAjax reportcss float-right">신고</a>';
+								a += '<a href = "./proreportreplyform.bo?bno='+bno+'&rno='+value.rno+'&sessionid='+id+'" type="button" class="reportReplyFormAjax reportcss float-right">신고</a>';
 							}
 							
 							num = num + 1;
@@ -575,7 +575,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			
 			// 댓글 등록
 			function replyInsert(insertData) {
-				//insertData 는  $('[name=replyInsertForm]').serialize() 를 파라미터로 전해 받음
 				var bno2 = $('input[name=bno]').val(); 
 				$.ajax({		
 					url : '/petsitter/write_ProReply.bo',
@@ -649,7 +648,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			//댓글 count
 			function replyCount(bno){
 				$.ajax({
-					url : '/petsitter/proreplycount.bo',
+					url : '/petsitter/proreplycount.bo?bno=' + bno,
 					type : 'post',
 					data : {'bno': bno},
 					dataType : 'json',
@@ -746,7 +745,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 			function proLikeCountRead2(bno){
 				$.ajax({
-					url : '/petsitter/readprolikecount.bo',
+					url : '/petsitter/readprolikecount.bo?bno=' + bno,
 					type : 'post',
 					data : {'bno': bno},
 					dataType : 'json',

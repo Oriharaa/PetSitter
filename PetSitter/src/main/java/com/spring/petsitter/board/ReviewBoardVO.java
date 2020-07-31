@@ -7,13 +7,13 @@ import org.springframework.web.multipart.MultipartFile;
 // 후기 게시판 VO
 /*reviewBoard
 create table REVIEW_BOARD(
-    LIST_NUM number(10) primary key, -- 리뷰 번호
-    USINGLIST_NUM number(10), --이용내역 번호
+    LIST_NUM number(10), -- 리뷰 번호
+    USINGLIST_NUM number(10), -- 이용내역 번호
     MEMBER_ID varchar2(30), -- 회원 아이디
     PETSITTER_ID varchar2(30), -- 펫시터 아이디
     REVIEW_CONTENT varchar2(250), -- 리뷰 내용
-    REVIEW_SCORE number(2,1), -- 리뷰 평점
-    REVIEW_UP_PHOTO varchar2(200) default 'N', -- 업로드된 리뷰 사진
+    REVIEW_SCORE number(2), -- 리뷰 평점
+    REVIEW_UP_PHOTO varchar2(200), -- 업로드된 리뷰 사진
     REVIEW_DATE date default sysdate, -- 리뷰 작성일
     LIKE_COUNT number(6), -- 좋아요 수
     BOARD_TYPE VARCHAR2(20) default 'REIVIEW_BOARD', -- 게시판 타입

@@ -122,7 +122,7 @@
 	</delete>
 
 	<select id="getProReportCountCheck" parameterType="HashMap" resultType="int">
-		select count(*) from report_article where member_id = #{sessionid} and member_num=#{num} and BTYPE=#{boardType}
+		select count(*) from report_article where member_id = #{sessionid} and member_num=#{num}
 	</select>
 	
 	<insert id="proReportInsert" parameterType="ProBoardVO">
@@ -134,7 +134,7 @@
 	</select>
 	
 	<select id="getProReportReplyCountCheck" parameterType="ProReplyVO" resultType="int">
-		select count(*) from report_reply where member_id = #{writer_id} and bno=#{bno} and rno=#{rno} and btype=#{b_type}
+		select count(*) from report_reply where member_id = #{writer_id} and bno=#{bno} and rno=#{rno}
 	</select>	
 	
 	<insert id="proReportReplyInsert" parameterType="ProBoardVO">
@@ -154,7 +154,7 @@
 	</select>	
 	
 	<select id="readProReply" resultType="com.spring.petsitter.board.ProReplyVO">
-		select rno, content, writer_id, writer_nickname, regDate, b_type from PROREPLY where bno = #{bno} order by rno
+		select rno, content, writer_id, writer_nickname, regDate from PROREPLY where bno = #{bno} order by rno
 	</select>	
 	
 	<insert id="writeProReply" parameterType="com.spring.petsitter.board.ProReplyVO">

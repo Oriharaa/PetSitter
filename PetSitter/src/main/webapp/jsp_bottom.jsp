@@ -2,6 +2,12 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+	<style>
+		.site-footer {
+		  padding-top: 4em;
+		  background: #e9e9e9!important; 
+		}
+	</style>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -88,17 +94,17 @@
 </footer>
 <!-- 하단 바 종료 -->
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="<c:url value="/resources/js/popper.min.js"/>"></script>
-    <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-    <script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
-    <script src="<c:url value="/resources/js/jquery.sticky.js"/>"></script>
-    <script src="<c:url value="/resources/js/jquery.waypoints.min.js"/>"></script>
-    <script src="<c:url value="/resources/js/jquery.animateNumber.min.js"/>"></script>
-    <script src="<c:url value="/resources/js/jquery.fancybox.min.js"/>"></script>
-    <script src="<c:url value="/resources/js/jquery.easing.1.3.js"/>"></script>
-    <script src="<c:url value="./resources/js/aos.js"/>"></script>
-
-    <script src="<c:url value="/resources/js/main.js"/>"></script>
+	<script src="<c:url value="/resources/js/popper.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/jquery.sticky.js"/>"></script>
+	<script src="<c:url value="/resources/js/jquery.waypoints.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/jquery.animateNumber.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/jquery.fancybox.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/jquery.easing.1.3.js"/>"></script>
+	<script src="<c:url value="./resources/js/aos.js"/>"></script>
+	
+	<script src="<c:url value="/resources/js/main.js"/>"></script>
 	<script>
 		/*스크롤 위로올라가기 버튼 시작 script*/
 		$(function() {
@@ -125,54 +131,6 @@
 		animate({ });: animation 을 걸어서 화면 맨위로 이동하도록 설정
 		 
 		스크롤 위로올라가기 버튼 종료 script*/
-		
-		/*스크롤 위로올라가기 버튼 시작 script*/
-		$(function() {
-			$('#MOVE_SIDEBAR_BTN01').fadeIn();
-				
-			$("#MOVE_SIDEBAR_BTN01").click(function() {
-				$('#MOVE_SIDEBAR').fadeIn();  
-				$('#MOVE_SIDEBAR_BTN01').fadeOut();
-				$('#MOVE_SIDEBAR_BTN02').fadeIn();
-			
-			//클릭시 스크롤 버튼 위치 유지 start
-			//현재 스크롤 값 구하기
-			var scrollValue = $(document).scrollTop();
-			//지정값으로 가기
-			$('html, body').animate({
-				scrollTop : scrollValue
-			}, );
-			return false;
-			//클릭시 스크롤 버튼 위치 유지 end	
-				
-			});
-			$("#MOVE_SIDEBAR_BTN02").click(function() {
-				$('#MOVE_SIDEBAR').fadeOut();  
-				$('#MOVE_SIDEBAR_BTN02').fadeOut();
-				$('#MOVE_SIDEBAR_BTN01').fadeIn();		
-				
-				//클릭시 스크롤 버튼 위치 유지 start
-				//현재 스크롤 값 구하기
-				var scrollValue = $(document).scrollTop();
-				//지정값으로 가기
-				$('html, body').animate({
-					scrollTop : scrollValue
-				}, );
-				return false;
-				//클릭시 스크롤 버튼 위치 유지 end	
-				
-	
-			});
-		});
-		/*
-		scroll(function(): scroll 함수를 이용
-		첫 if문  : 스크롤 위치에 따라 화면에서 맨위로 올라가는 버튼을 나타내고, 사라지도록 설정
-		click(function() : 버튼 클릭 이벤트
-		animate({ });: animation 을 걸어서 화면 맨위로 이동하도록 설정
-		 
-		스크롤 위로올라가기 버튼 종료 script*/
-		
-		
 	</script>
 	<script>
 		$(function() {

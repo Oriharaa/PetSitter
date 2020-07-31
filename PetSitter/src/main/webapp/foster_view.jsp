@@ -4,7 +4,6 @@
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.spring.petsitter.ReservationController.*" %>
-
 <%
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
@@ -16,7 +15,6 @@
 	String petPhoto = (String)request.getAttribute("petPhoto");
 	String petName = (String)request.getAttribute("petName");	
 %>
-
 
 <% 
 	 /*분류 (아이디 / 주소 / 닉네임 / 등급 / 후기개수 / 자격증이름 / 자격증여부x2 / 자기소개 / 가능서비스 / 자격증 보유개수)*/
@@ -76,18 +74,11 @@
 	 String price60 = String.valueOf(eprice60);
 	 int ebigPrice2= (int)request.getAttribute("bigPrice2");
 	 String bigPrice2 = String.valueOf(ebigPrice2);
-
-	 
 %> 
-
-
-
+<%@ include file="jsp_top.jsp" %>
 <!doctype html>
-<html lang="en">
-
-
+<html lang="ko">
 <style>
-		
 .datepicker table{
 	width : 330px!important;
 	height : 330px!important;
@@ -100,44 +91,6 @@
     border-color: rgb(83, 220, 152)!important;
 }
 
-	/* 제이쿼리 로인해 색 폰트 사이즈 수정을 위해 jsp파일안에 스타일 오버라이트 
-resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style로 적용 됨) */
-.site-mobile-menu {
-  width: 300px;
-  position: fixed;
-  right: 0;
-  z-index: 2000;
-  padding-top: 20px;
-  background: #d3d3d3!important;
-  height: calc(100vh);
-  -webkit-transform: translateX(110%);
-  -ms-transform: translateX(110%);
-  transform: translateX(110%);
-  -webkit-box-shadow: -10px 0 20px -10px rgba(0, 0, 0, 0.1);
-  box-shadow: -10px 0 20px -10px rgba(0, 0, 0, 0.1);
-  -webkit-transition: .3s all ease-in-out;
-  -o-transition: .3s all ease-in-out;
-  transition: .3s all ease-in-out; 
- }
-	  
-.site-mobile-menu .site-mobile-menu-body {
-	background: #d3d3d3!important;
-	overflow-y: scroll;
-	-webkit-overflow-scrolling: touch;
-	position: relative;
-	padding: 0 20px 20px 20px;
-	height: calc(100vh - 52px);
-	padding-bottom: 150px; 
-}
-  /* 기본 상단바 끝*/
-	  
-	/*최하단바 시작*/
-.site-footer {
-  padding: 4em 0;
-  background: #e9e9e9!important; 
-}
-	/*최하단바 종료*/
-	
 .my-hr1 {
 	border: 0;
   height: 1.7px;
@@ -241,222 +194,62 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 	background-color: #F8F8F8;
 }
 		/*테이블 css 종료*/
-	
 </style>
-
-
-
-  <head>
-    <title>돌봄 예약 페이지</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
-	<!-- 아이콘 css -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
-    
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/aos.css">
-
-    <!-- MAIN CSS 다양한 폰트크기보유 -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/petsitter-style.css">
-    
-    <!-- 데이트피커 ver.2(bootstrap) -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-		<!-- 데이트피커ver.2(bootstrap_design) -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css">
-    
-		<!-- 타임피커 -->
-		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js">
-    
-    <!-- 추가CSS -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/UT_CSS/foster_view.css?after">
-		<link rel="stylesheet" type="text/css" href="resources/css/JH_CSS/foster_view.css?after">
-    <style>
-			.dropdown:hover {
-				background-color: rgb(83, 220, 153);
-			}
-			
-			.dropdown:active {
-				background-color: rgb(83, 220, 153);
-			}
-			.btn-secondary {
-				background-color: rgb(83, 220, 153);
-				border-color: rgb(83, 220, 153);
-				vertical-align: baseline;
-				font-weight: bold;
-			}
-			
-			.btn-secondary:hover {
-				background-color: rgb(83, 220, 153);
-				border-color: rgb(83, 220, 153);
-			}
-			
-			.btn-secondary:active {
-				background-color: rgb(83, 220, 153);
-				border-color: rgb(83, 220, 153);
-			}
-			
-			.btn-secondary:focus {
-				background-color: rgb(83, 220, 153);
-				border-color: rgb(83, 220, 153);
-				box-shadow: 0 0 0 0 rgb(83, 220, 153);
-			}
-			
-			.dropdown-menu {
-				min-width: 60px !important;
-			}
-		
-			.dropdown-item:hover {
-				background-color: rgb(83, 220, 153);
-				color: rgb(255, 255, 255) !important;
-			}
-			
-			.dropdown-item {
-				 color: #53dc99 !important;
-				 font-weight: bold;
-			}
-			
-			.main-menu li a {
-				font-weight: bold;
-			}
-		</style>
-  </head>
-  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-  
-  
-
-      <div class="site-mobile-menu site-navbar-target">
-        <div class="site-mobile-menu-header">
-          <div class="site-mobile-menu-close mt-3">
-            <span class="icon-close2 js-menu-toggle"></span>
-          </div>
-        </div>
-        <div class="site-mobile-menu-body"></div>
-      </div>
-      
-      
-    <div class="top-bar">
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <a href="#" class=""><span class="mr-2  icon-envelope-open-o"></span> <span class="d-none d-md-inline-block">petsitter@yourdomain.com</span></a>
-              <span class="mx-md-2 d-inline-block"></span>
-              <a href="#" class=""><span class="mr-2  icon-phone"></span> <span class="d-none d-md-inline-block">1+ (234) 5678 9101</span></a>
-
-
-              <div class="float-right">
-              	<%
-              		if(session.getAttribute("id") == "" || session.getAttribute("id") == null) {
-              	%>
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 &amp; 회원가입</span></a>
-                <span class="mx-md-2 d-inline-block"></span>
-                <%} else if(!((String)session.getAttribute("rank")).contains("admin") && ((String)session.getAttribute("id")).contains("@")) { %> <!-- 일반 회원 마이 페이지 -->
-                <a href="memberinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
-                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
-                <%} else {%> <!-- 펫시터 마이 페이지 -->
-                <a href="petsitterinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
-                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
-                <%} %>
-              </div>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152);">
-
-        <div class="container">
-          <div class="row align-items-center position-relative">
-            <div class="site-logo">
-              <a href="./home.me"><span class="main_whitefont">보살펴조</span></a>
-            </div>
-
-            <div class="col-12">
-              <nav class="site-navigation text-right ml-auto " role="navigation">
-
-                <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
-											돌봄
-									  </button>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-									    <a href="reservation2.br" class="dropdown-item" style="font-size:15px;">방문 돌봄</a>
-                  		<a href="reservation1.br" class="dropdown-item" style="font-size:15px;" >위탁 돌봄</a>
-									  </div>
-									</li>
-									<li class="dropdown">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-											게시판
-									  </button>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-									    <a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
-                  		<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
-                  		<a href="pqboardlist.me" class="dropdown-item" style="font-size:15px;" >펫시터 게시판</a>
-									  </div>
-									</li>
-                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>
-                  <li><a href="noticeboardlist.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
-                </ul>
-              </nav>
-
-            </div>
-
-            <div class="toggle-button d-inline-block d-lg-none"><a href="#" class="site-menu-toggle py-5 js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
-
-          </div>
-        </div>
-
-      </header>
-      
-   	<!-- 본 기능 추가 시작 -->
-
-			<body>
-			<input type="hidden" value="${id }" id="MEMBER_ID" />
-    	<div class = "container">
-      	<div class = "row justify-content-center">
-      		<div class = "col-md-5" style = "margin-top : 50px;">
- 
-      			<div>
-      				<hr class ="my-hr1" style = "margin-top : 8%" />
-      			
-							<div class = "row justify-content-center">				
-								<div class ="col-10">
+<head>
+	<title>돌봄 예약 페이지</title>
+	<!-- 데이트피커 ver.2(bootstrap) -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+	<!-- 데이트피커ver.2(bootstrap_design) -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css">
+	  
+	<!-- 타임피커 -->
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js">
+	  
+	<!-- 추가CSS -->
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/UT_CSS/foster_view.css?after">
+	<link rel="stylesheet" type="text/css" href="resources/css/JH_CSS/foster_view.css?after">
+</head>
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+<!-- 본 기능 추가 시작 -->
+	<input type="hidden" value="${id }" id="MEMBER_ID" />
+		<div class = "container">
+			<div class = "row justify-content-center">
+				<div class = "col-md-5" style = "margin-top : 50px;">
+					<div>
+						<hr class ="my-hr1" style = "margin-top : 8%" />
+						<div class = "row justify-content-center">				
+							<div class ="col-10">
 								<!--선택된 큰 이미지  -->
-									<div class = "row">
-										<div class ="col-12">
- 											<%if(home_photo1.equals("N") || home_photo1.equals("undefined"))
-												  {
-												%>	<img src = "resources/images/noimg.png"  id ="choiceimage">									
-												<%}else
-													 {
-												%>	<img src = "/filepath/<%=home_photo1%>" id ="choiceimage">
-												<% } %>	 
-
-										</div>
+								<div class = "row">
+									<div class ="col-12">
+										<%
+											if(home_photo1.equals("N") || home_photo1.equals("undefined"))
+											{
+										%>
+										<img src = "resources/images/noimg.png"  id ="choiceimage">									
+										<%
+											} else
+											{
+										%>
+										<img src = "/filepath/<%=home_photo1%>" id ="choiceimage">
+										<%
+											}
+										%>	 
 									</div>
-								</div>	
-							</div>
+								</div>
+							</div>	
+						</div>
+						<p/>
+						<div>
+							<hr class ="my-hr1" />
+						</div>
 						
-							<p/>
-							
-							<div>
-      				<hr class ="my-hr1" />
-      				</div>
-      			
-							<div class = "row justify-content-center">
-								<div class = "col-10">
-									<div class = "row">
-
-										<!-- 집 사진  3장-->
-										<div class = "col-4">
+						<div class = "row justify-content-center">
+							<div class = "col-10">
+								<div class = "row">
+									<!-- 집 사진  3장-->
+									<div class = "col-4">
 											<%if(home_photo1.equals("N") || home_photo1.equals("undefined"))
 											  {
 											%>	<a href = "#" onclick ="toggleImg1()"><img class="home_photo" src = "resources/images/noimg.png"></a>										
@@ -509,7 +302,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
       							<span class = "mybold">나의 반려동물 등록하기</span><span>를 누르세요 </span>
       						</div>
       						<div class = "col-12 main_mint text-center petup" style="border-radius: 0px 50px 50px 0px;">
-      							<a class = "font-size-21 main_whitefont mybold" href = "petRegister.me">나의 반려동물 등록하기 GO!</a>
+      							<a class = "font-size-21 main_whitefont mybold" id="petinsert" href="#">나의 반려동물 등록하기 GO!</a>
       						</div>
       						<div class = "col-12 text-center">
       							<label for="custom_rd1" class="custom_lb" id="custom_lb1"> 위탁</label>
@@ -636,7 +429,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 											<input type="hidden" name="START_DATE" id="START_TIME">
 											<input type="hidden" name="END_DATE" id="END_DATE" value=<%=end_date %>>
 											<input type="hidden" name="END_DATE" id="END_TIME">
-											<input type="submit" style="background:#53dc98; color :white; width : 60%; height : 38px; margin : 4px 0 31px 0;" class="btn btn-sm font-size-14" value="예약 신청">
+											<input type="button" id="paycheck" style="background:#53dc98; color :white; width : 60%; height : 38px; margin : 4px 0 31px 0;" class="btn btn-sm font-size-14" value="예약 신청">
 										</form>
 									</div>
 									
@@ -1061,79 +854,18 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 		<!-- Modal 글신고기능 종료--> 
 
 </body>
-      
-      
-      
-      <!-- 본 기능 추가 종료 -->
-      
-      
-      
-      <footer class="site-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-7">
-                <h2 class="footer-heading mb-4" id="main_grayfont1">About Us</h2>
-                <p id="main_grayfont2" style = "font-size : 14px;">반려동물들을 위해 고객과 펫시터와를 연결시켜주는 매칭 플렛폼입니다.. 신뢰와 안전을 위해 최선을 다하겠습니다.</p>
-              </div>
-              <div class="col-md-4 ml-auto">
-                <h2 class="footer-heading mb-4" id="main_grayfont1">CONTANTS</h2>
-                <ul class="list-unstyled">
-                  <li><a href="#" id="main_grayfont2" style = "font-size : 14px;">방문 돌봄</a></li>
-                  <li><a href="#" id="main_grayfont2" style = "font-size : 14px;">위탁 돌봄</a></li>
-                  <li><a href="#" id="main_grayfont2" style = "font-size : 14px;">반려동물 전문가 상담</a></li>
-                  <li><a href="#" id="main_grayfont2" style = "font-size : 14px;">후기 게시판</a></li>
-                  <li><a href="#" id="main_grayfont2" style = "font-size : 14px;">공지사항</a></li>
-                </ul>
-              </div>
-
-            </div>
-          </div>
-          <div class="col-md-4 ml-auto">
-
-
-            <h2 class="footer-heading mb-4" id="main_grayfont1">Follow Us</h2>
-            <a href="https://www.facebook.com/" class="smoothscroll pl-0 pr-3" target="_blank"><span class="icon-facebook" id="main_grayfont2" ></span></a>
-            <a href="https://twitter.com/" class="pl-3 pr-3" target="_blank"><span class="icon-twitter" id="main_grayfont2" ></span></a>
-            <a href="https://www.instagram.com/" class="pl-3 pr-3" target="_blank"><span class="icon-instagram" id="main_grayfont2" ></span></a>
-            <a href="https://www.linkedin.com/" class="pl-3 pr-3" target="_blank"><span class="icon-linkedin" id="main_grayfont2" ></span></a>
-           
-          </div>
-        </div>
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <div class="border-top pt-5">
-              <p id="main_grayfont2">
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true" id="main_grayfont2"></i> <a href="https://colorlib.com" target="_blank" id="main_grayfont2">by Colorlib</a>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </footer>
-      
-      
+<!-- 본 기능 추가 종료 -->
+<%@ include file="jsp_bottom.jsp" %>
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-	
-		<script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
-    <script src="<c:url value="/resources/js/jquery.sticky.js"/>"></script>
-    
-    
-    <script src="<c:url value="./resources/js/aos.js"/>"></script><!-- nav 상단바 반응형웹 적용1 -->
-
-    <script src="<c:url value="/resources/js/main.js"/>"></script><!-- nav 상단바 반응형웹 적용2 -->
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=24e91ec8fe5a3a10070597915f67d6ba&libraries=services"></script>
     
     
   <script>
+
 	var scheduleDate = new Array();
 	<%
 	if(!startdate.equals("")){
@@ -1322,6 +1054,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 <!-- 시작날짜 -->
 
 	<script type="text/javascript">
+	console.log(scheduleDate);
 
 	$(document).ready(function(){
 		$('#schedule').datepicker({
@@ -1364,6 +1097,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 
 	<!-- 타임피커 자스코드 -->
 	<script type="text/javascript">
+	
 	$('.timepicker').timepicker({
 	    timeFormat: 'p h:mm',
 	    interval: 60,
@@ -1390,13 +1124,55 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 	</script>	 
 
 	<script>
-			$(function() {
-				$(".btn-secondary").on("click mousedown", function() {
-					$(this).css("background-color", "rgb(83, 220, 153)");
-					$(this).css("border-color", "rgb(83, 220, 153)");
-					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
-				});
-			});
+			var id = '<%=id%>'
+				
+			
+		    
+			   if(id == "null"|| id == ""){
+				  $(document).on('click', '#petinsert', function(event){
+						Swal.fire({
+						  title: '로그인을 하시겠습니까?',
+						  text: "반려견 등록은 로그인 후 사용 가능합니다.",
+						  icon: 'warning',
+						  showCancelButton: true,
+						  confirmButtonColor: 'rgba(83, 220, 152)',
+						  cancelButtonColor: '#de7631',
+						  confirmButtonText: '<a href="loginform.me" style = "color : white;">로그인 페이지로</a>'
+						}).then((result) => {
+							  if (result.value) {
+								  window.location = "loginform.me";
+								}
+						})
+					});
+				  
+				  }else{
+					  $(document).on('click','#petinsert',function(event){
+						  window.location = "petRegister.me";
+					  })
+				  }
+			
+			   if(id == "null"|| id == ""){
+					  $(document).on('click', '#paycheck', function(event){
+							Swal.fire({
+							  title: '로그인을 하시겠습니까?',
+							  text: "예약신청은 로그인 후 사용 가능합니다.",
+							  icon: 'warning',
+							  showCancelButton: true,
+							  confirmButtonColor: 'rgba(83, 220, 152)',
+							  cancelButtonColor: '#de7631',
+							  confirmButtonText: '<a href="loginform.me" style = "color : white;">로그인 페이지로</a>'
+							}).then((result) => {
+								  if (result.value) {
+									  window.location = "loginform.me";
+									}
+							})
+						});
+					  
+					  }else{
+						  $(document).on('click','#paycheck',function(event){
+							  document.paycheck.submit();
+						  })
+					  }
 			
 		</script>
 
@@ -1424,8 +1200,6 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 	       	  	$('#reviewRating').append(Rating);
 	       	  	
 	       	  	var reviewStar = '';
-	       	  	
-	       	  	//후기 평점에 따라 보이는 별 개수
 	   	    		if(item.review_SCORE == 5){
 	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
 	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
@@ -1552,7 +1326,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 	        		reviewList += '<tr>';
 	        		reviewList += '<td class = "font-size-18 main_grayfont3 mybold"  align = "center">'+ item.member_NICKNAME + '</td>';
 	        		reviewList += '<td style = "padding: 6px 0 0 10px; font-size: 12px;">';
-	        		reviewList += '<a href = "./reviewreportform.bo?num='+item.list_NUM+'&sessionid='+sessionid+'&boardType='+item.board_TYPE+'" type="button" class="reportFormAjax main_redfont0">신고</a></td>';	
+	        		reviewList += '<a href = "./reviewreportform.bo?num='+item.list_NUM+'&sessionid='+sessionid+'" type="button" class="reportFormAjax main_redfont0">신고</a></td>';	
 	        		reviewList += '</tr>';
 	        		reviewList += '<tr>';
 	        		
@@ -2136,9 +1910,9 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 		//좋아용 기능 시작
 		function reviewLikeCountRead(reviewListNum){
 			$.ajax({
-				url : '/petsitter/readReviewLikeCount.bo',
-				data : { reviewListNum : reviewListNum},
+				url : '/petsitter/readReviewLikeCount.bo?reviewListNum=' + reviewListNum,
 				type : 'post',
+				data : {'reviewListNum': reviewListNum},
 				dataType : 'json',
 				contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 				success : function(data) {
@@ -2162,7 +1936,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 		    		//idcheck 는  좋아요를 누른 아이디 일시 2로 바뀜
 		    		var idcheck = 1;
 		    		//첫 split된 인데스 0번째는 'N' 으로 1인덱스부터 시작과 il에 1추가로 필요한 길이 맞춤
-		    		if (sessionid != "null" && value.like_ID != "N"){
+		    		if (sessionid != "null" && likeids != "N"){
 		    			var lc = value.like_COUNT;
 		    			var ln = value.list_NUM;
 		    			for(j = 1; j < lc+1; j++){
