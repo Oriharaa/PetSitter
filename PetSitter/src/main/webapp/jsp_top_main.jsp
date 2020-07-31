@@ -21,24 +21,8 @@
 			display: none;
 			z-index: 999;
 		}
-				a#MOVE_TOP_SIDEBAR{
-			/* position : 화면에 고정
-			right, bottom : 버튼의 위치 설정
-			display : 화면에서 숨김
-			z-index : 다른 태그들보다 위로 오도록 설정(z-index 가 설정된 다른 태그가 있다면 그 태그보다 커야 함)
-			*/
-			background: rgb(83, 220, 152);
-			color : white;
-			width : 90px;
-			height : 40px;
-			position: fixed; 
-			padding : 7px 0 0 30.8px;
-			border-radius : 22px;
-			right: 2%;
-			bottom: 10px;
-			display: none;
-			z-index: 999;
-		}
+		
+
 	</style>
 <head>
     <meta charset="utf-8">
@@ -106,6 +90,49 @@
 	.main-menu li a {
 		font-weight: bold;
 	}
+	
+	/*side bar Start*/
+
+	#wrap {
+		width:100px;
+		height:100px;
+		background:white;
+		z-index : 3;
+	}
+	#sidebar {
+		background: #333;
+		width: 300px;
+		height: 100%;
+		top: 0;
+		left: -300px;
+		position: fixed;
+		z-index : 3;		
+	}
+	#sidebar > ul {
+		margin:0;
+		padding: 0;
+		top:50px;
+		left:70px;
+		position: absolute;
+		z-index : 3;		
+	}
+	#sidebar li {
+		margin: 0 0 20px;
+		list-style: none;
+		z-index : 3;		
+	}
+	#sidebar > button {
+		background:#333;
+		position: absolute;
+		top: 150px;
+		left: 300px;
+		width: 52px;
+		height: 52px;
+		border: none;
+		color: white;
+		z-index : 3;		
+	}
+	/*side bar Start*/	
 </style>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 	<div class="site-mobile-menu site-navbar-target">
@@ -216,7 +243,12 @@
 		</div>
 		<!-- 스크롤 위로올라가기 버튼 html-->
 		<a id="MOVE_TOP_BTN" href="#">TOP</a>
-		<a id="MOVE_TOP_SIDEBAR" href="#">MENU</a>
+
+	
 	</header>
+
+
+		
+
 </body>
 </html>

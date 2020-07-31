@@ -6,6 +6,8 @@
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
 %>
+<% String sidevarcheck = "review_board"; %>
+<%@ include file="../jsp_top_sidebar.jsp" %>
 <!doctype html>
 <html lang="en">
 
@@ -17,19 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
-	<!-- 아이콘 css -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
-    
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/aos.css">
-
-    <!-- MAIN CSS 다양한 폰트크기보유 -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/petsitter-style.css">
+		<!-- 진호 css -->
     <link rel="stylesheet" type="text/css" href="resources/css/JH_CSS/reviewBoard.css?after">
    
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -888,150 +878,10 @@
 		
 </script>
 
-<style>
-	.dropdown:hover {
-		background-color: rgb(83, 220, 153);
-	}
-	
-	.dropdown:active {
-		background-color: rgb(83, 220, 153);
-	}
-	.btn-secondary {
-		background-color: rgb(83, 220, 153);
-		border-color: rgb(83, 220, 153);
-		vertical-align: baseline;
-		font-weight: bold;
-	}
-	
-	.btn-secondary:hover {
-		background-color: rgb(83, 220, 153);
-		border-color: rgb(83, 220, 153);
-	}
-	
-	.btn-secondary:active {
-		background-color: rgb(83, 220, 153);
-		border-color: rgb(83, 220, 153);
-	}
-	
-	.btn-secondary:focus {
-		background-color: rgb(83, 220, 153);
-		border-color: rgb(83, 220, 153);
-		box-shadow: 0 0 0 0 rgb(83, 220, 153);
-	}
-	
-	.dropdown-menu {
-		min-width: 60px !important;
-	}
 
-	.dropdown-item:hover {
-		background-color: rgb(83, 220, 153);
-		color: rgb(255, 255, 255) !important;
-	}
-	
-	.dropdown-item {
-		 color: #53dc99 !important;
-		 font-weight: bold;
-	}
-	
-	.main-menu li a {
-		font-weight: bold;
-	}
-</style>
     
   </head>
-  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-  
-  
 
-      <div class="site-mobile-menu site-navbar-target">
-        <div class="site-mobile-menu-header">
-          <div class="site-mobile-menu-close mt-3">
-            <span class="icon-close2 js-menu-toggle"></span>
-          </div>
-        </div>
-        <div class="site-mobile-menu-body"></div>
-      </div>
-      
-      
-    <div class="top-bar">
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <a href="#" class=""><span class="mr-2  icon-envelope-open-o"></span> <span class="d-none d-md-inline-block">petsitter@yourdomain.com</span></a>
-              <span class="mx-md-2 d-inline-block"></span>
-              <a href="#" class=""><span class="mr-2  icon-phone"></span> <span class="d-none d-md-inline-block">1+ (234) 5678 9101</span></a>
-
-
-              <div class="float-right">
-              	<%
-              		if(id == null) {
-              	%>
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 &amp; 회원가입</span></a>
-                <span class="mx-md-2 d-inline-block"></span>
-                <%} else if(!((String)session.getAttribute("rank")).contains("admin") && ((String)session.getAttribute("id")).contains("@")) { %> <!-- 일반 회원 마이 페이지 -->
-                <a href="memberinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
-                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
-                <%} else if(((String)session.getAttribute("id")).contains("admin")) {%>
-                <a href="admin.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
-                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
-                <%} else {%> <!-- 펫시터 마이 페이지 -->
-                <a href="petsitterinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
-                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
-                <%} %>
-              </div>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152);">
-
-        <div class="container">
-          <div class="row align-items-center position-relative">
-            <div class="site-logo">
-              <a href="./home.me"><span class="main_whitefont">보살펴조</span></a>
-            </div>
-
-            <div class="col-12">
-              <nav class="site-navigation text-right ml-auto " role="navigation">
-
-                <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											돌봄
-									  </button>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-									    <a href="reservation2.br" class="dropdown-item" style="font-size:15px;">방문 돌봄</a>
-                  		<a href="reservation1.br" class="dropdown-item" style="font-size:15px;" >위탁 돌봄</a>
-									  </div>
-									</li>
-									<li class="dropdown">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-											게시판
-									  </button>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-									    <a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
-                  		<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
-                  		<a href="pqboardlist.me" class="dropdown-item" style="font-size:15px;" >펫시터 게시판</a>
-									  </div>
-									</li>
-                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>
-                  <li><a href="noticeboardlist.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li> 
-                </ul>
-              </nav>
-
-            </div>
-
-            <div class="toggle-button d-inline-block d-lg-none"><a href="#" class="site-menu-toggle py-5 js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
-
-          </div>
-        </div>
-        
-        <!-- 스크롤 위로올라가기 버튼 html-->
-				<a id="MOVE_TOP_BTN" href="#">TOP</a>
-				
-      </header>
       
       <!-- 본 기능 추가 시작 -->
       
@@ -1082,58 +932,7 @@
       
       <!-- 본 기능 추가 종료 -->
       
-      
-
-      
-      <footer class="site-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-7">
-                <h2 class="footer-heading mb-4" id="main_grayfont1">About Us</h2>
-                <p id="main_grayfont2" style = "font-size : 14px;">반려동물들을 위해 고객과 펫시터와를 연결시켜주는 매칭 플렛폼입니다.. 신뢰와 안전을 위해 최선을 다하겠습니다.</p>
-              </div>
-              <div class="col-md-4 ml-auto">
-                <h2 class="footer-heading mb-4" id="main_grayfont1">CONTANTS</h2>
-                <ul class="list-unstyled">
-                  <li><a href="#" id="main_grayfont2" style = "font-size : 14px;">방문 돌봄</a></li>
-                  <li><a href="#" id="main_grayfont2" style = "font-size : 14px;">위탁 돌봄</a></li>
-                  <li><a href="#" id="main_grayfont2" style = "font-size : 14px;">반려동물 전문가 상담</a></li>
-                  <li><a href="#" id="main_grayfont2" style = "font-size : 14px;">후기 게시판</a></li>
-                  <li><a href="#" id="main_grayfont2" style = "font-size : 14px;">공지사항</a></li>
-                </ul>
-              </div>
-
-            </div>
-          </div>
-          <div class="col-md-4 ml-auto">
-
-            
-
-
-            <h2 class="footer-heading mb-4" id="main_grayfont1">Follow Us</h2>
-            <a href="https://www.facebook.com/" class="smoothscroll pl-0 pr-3" target="_blank"><span class="icon-facebook" id="main_grayfont2" ></span></a>
-            <a href="https://twitter.com/" class="pl-3 pr-3" target="_blank"><span class="icon-twitter" id="main_grayfont2" ></span></a>
-            <a href="https://www.instagram.com/" class="pl-3 pr-3" target="_blank"><span class="icon-instagram" id="main_grayfont2" ></span></a>
-            <a href="https://www.linkedin.com/" class="pl-3 pr-3" target="_blank"><span class="icon-linkedin" id="main_grayfont2" ></span></a>
-            </form>
-          </div>
-        </div>
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <div class="border-top pt-5">
-              <p id="main_grayfont2">
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true" id="main_grayfont2"></i> <a href="https://colorlib.com" target="_blank" id="main_grayfont2">by Colorlib</a>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </footer>
+<%@ include file="../jsp_bottom.jsp" %>
       
       
  <!-- Optional JavaScript -->
@@ -1141,11 +940,7 @@
 		
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-		
-		<script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
-    <script src="<c:url value="/resources/js/jquery.sticky.js"/>"></script>
-    <script src="<c:url value="./resources/js/aos.js"/>"></script><!-- nav 상단바 반응형웹 적용1 -->
-    <script src="<c:url value="/resources/js/main.js"/>"></script><!-- nav 상단바 반응형웹 적용2 -->
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script><!-- sweetalert2 -->
  
 
@@ -1189,33 +984,7 @@
 		/*사진 가로 세로 이미지 크기 맞추고 가운데 위치로 보이게 하기  종료*/
 		 });		
 		
-		
-		
-		/*스크롤 위로올라가기 버튼 시작 script*/
-		  $(function() {
-		   $(window).scroll(function() {
-		     if ($(this).scrollTop() > 500) {
-		         $('#MOVE_TOP_BTN').fadeIn();
-		     } else {
-		         $('#MOVE_TOP_BTN').fadeOut();
-		     }
-		   });
-		   
-		   $("#MOVE_TOP_BTN").click(function() {
-		     $('html, body').animate({
-		         scrollTop : 0
-		     }, 400);
-		     return false;
-		   });
-		  });
-		
-		  /*
-		scroll(function(): scroll 함수를 이용
-		첫 if문  : 스크롤 위치에 따라 화면에서 맨위로 올라가는 버튼을 나타내고, 사라지도록 설정
-		click(function() : 버튼 클릭 이벤트
-		animate({ });: animation 을 걸어서 화면 맨위로 이동하도록 설정
-		 
-		스크롤 위로올라가기 버튼 종료 script*/
+
 
 		//더보기 버튼 누를시 현재 스크롤 을 구해서 그 위치를 유지 시작
 		   $(".plus_review").click(function() {
@@ -1232,15 +1001,6 @@
 		
     </script>   
          
-		<script>
-			$(function() {
-				$(".btn-secondary").on("click mousedown", function() {
-					$(this).css("background-color", "rgb(83, 220, 153)");
-					$(this).css("border-color", "rgb(83, 220, 153)");
-					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
-				});
-			});
-			
-		</script>
+
 </body>
 </html>

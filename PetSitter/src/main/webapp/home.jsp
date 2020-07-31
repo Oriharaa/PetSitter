@@ -18,7 +18,9 @@
 	// 펫시터 목록
 	ArrayList<PetsitterVO> list = (ArrayList<PetsitterVO>)request.getAttribute("list");
 %>
-<%@ include file="jsp_top.jsp" %>
+<% String sidevarcheck = "home"; %>
+<%@ include file="jsp_top_sidebar.jsp" %>
+
 <!doctype html>
 <html lang="ko">
 
@@ -591,6 +593,7 @@ var callback = function(result, status) {
 
 
 <!-- 소개부분 시작 -->
+	
 <div class="block__73694 site-section border-top  id="why-us-section" style = "margin : 25px 0 0 0;">
         <div class="container">
           <div class="row d-flex no-gutters align-items-stretch">
@@ -936,8 +939,6 @@ var callback = function(result, status) {
 				</div>
 
       </div>
-
-
 
       <div class="site-section bg-light" id="about-section" style ="height : 1000px;">
         <div class="container">
