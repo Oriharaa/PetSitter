@@ -208,6 +208,15 @@
 	  </thead>
 	  <tbody id="petsitterList">
 	  	<input type="hidden" id="id" value=${id } >
+	  	<tr style="color: #5e5e5e; border-top: 1px dashed gray;">
+		  	<td>' + item.list_TYPE + '</td>
+		  	<td rowspan="3">
+		  	<div class="thumbnail-wrapper profile_sm1">
+		  		<div class="thumbnail">
+		  			<div class="centered">
+		  				<%
+		  				%>
+		  				<img src="resources/images/defaultprofile02.png.png">
 	  </tbody>
 	</table>
   </div>
