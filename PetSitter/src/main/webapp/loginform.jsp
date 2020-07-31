@@ -1281,7 +1281,6 @@ $('.tabs .tab').click(function(){
     }
     if ($(this).hasClass('signup-petsitter3')) {
     	geocoder.addressSearch($("#sample4_roadAddress").val(), callback);
-    	alert($("#sample4_roadAddress").val());
         $('.tabs .tab').removeClass('active');
         $(this).addClass('active');
         $('.cont').hide();

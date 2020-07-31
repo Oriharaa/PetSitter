@@ -82,16 +82,10 @@ public class ReservationController {
 	@RequestMapping(value = "mapfoster_view.me")
 	public String mapfoster_view(PetsitterVO vo, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String id = (String)session.getAttribute("id");
-		PrintWriter out = response.getWriter();
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		if(id == null) {
-			out.println("<script>");
-			out.println("alert('로그인 후 이용할 수 있습니다.');");
-			out.println("location.href='loginform.me';");
-			out.println("</script>");
-			out.close();
-			return null;
+			id="N";
 		}
 		ArrayList<PetVO> list = petService.selectPet(id);
 		PetsitterVO petsitter = petsitterService.selectPetsitter(vo.getPETSITTER_ID());
@@ -172,7 +166,6 @@ public class ReservationController {
 			cert_count = String.valueOf(certphoto.length);
 		}
 		model.addAttribute("cert_count", cert_count);
-		System.out.println("리턴 성공");
 		
 		return "foster_view";
 	}
@@ -180,17 +173,9 @@ public class ReservationController {
 	@RequestMapping(value = "foster_view.me", method = RequestMethod.POST)
 	public String foster_view(HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String id = (String)session.getAttribute("id");
-		PrintWriter out = response.getWriter();
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		if(id == null) {
-			out.println("<script>");
-			out.println("alert('로그인 후 이용할 수 있습니다.');");
-			out.println("location.href='loginform.me';");
-			out.println("</script>");
-			out.close();
-			return null;
-		}
+
 		model.addAttribute("petsitter_id",request.getParameter("petsitter_id"));
 		model.addAttribute("addr",request.getParameter("addr"));
 		model.addAttribute("startdate",request.getParameter("startdate"));
@@ -220,6 +205,7 @@ public class ReservationController {
 		model.addAttribute("start_time",request.getParameter("start_time"));
 		model.addAttribute("end_time",request.getParameter("end_time"));
 		model.addAttribute("radio_basic",request.getParameter("radio_basic"));
+		model.addAttribute("cert_count", request.getParameter("cert_count"));
 		String pr24 = (String)request.getParameter("price24");
 		int price24 = Integer.parseInt(pr24);
 		model.addAttribute("price24",price24);
@@ -232,7 +218,9 @@ public class ReservationController {
 		String bp2 = (String)request.getParameter("bigPrice2");
 		int bigPrice2 = Integer.parseInt(bp2);
 		model.addAttribute("bigPrice2",bigPrice2);
-		
+		if(id == null) {
+			id = "N";
+		}
 		ArrayList<PetVO> list = petService.selectPet(id);
 		model.addAttribute("list", list);
 		return "foster_view";

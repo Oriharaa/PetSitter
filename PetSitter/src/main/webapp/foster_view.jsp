@@ -302,7 +302,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
       							<span class = "mybold">나의 반려동물 등록하기</span><span>를 누르세요 </span>
       						</div>
       						<div class = "col-12 main_mint text-center petup" style="border-radius: 0px 50px 50px 0px;">
-      							<a class = "font-size-21 main_whitefont mybold" href = "petRegister.me">나의 반려동물 등록하기 GO!</a>
+      							<a class = "font-size-21 main_whitefont mybold" id="petinsert" href="#">나의 반려동물 등록하기 GO!</a>
       						</div>
       						<div class = "col-12 text-center">
       							<label for="custom_rd1" class="custom_lb" id="custom_lb1"> 위탁</label>
@@ -429,7 +429,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 											<input type="hidden" name="START_DATE" id="START_TIME">
 											<input type="hidden" name="END_DATE" id="END_DATE" value=<%=end_date %>>
 											<input type="hidden" name="END_DATE" id="END_TIME">
-											<input type="submit" style="background:#53dc98; color :white; width : 60%; height : 38px; margin : 4px 0 31px 0;" class="btn btn-sm font-size-14" value="예약 신청">
+											<input type="button" id="paycheck" style="background:#53dc98; color :white; width : 60%; height : 38px; margin : 4px 0 31px 0;" class="btn btn-sm font-size-14" value="예약 신청">
 										</form>
 									</div>
 									
@@ -865,6 +865,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
     
     
   <script>
+
 	var scheduleDate = new Array();
 	<%
 	if(!startdate.equals("")){
@@ -1053,6 +1054,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 <!-- 시작날짜 -->
 
 	<script type="text/javascript">
+	console.log(scheduleDate);
 
 	$(document).ready(function(){
 		$('#schedule').datepicker({
@@ -1095,6 +1097,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 
 	<!-- 타임피커 자스코드 -->
 	<script type="text/javascript">
+	
 	$('.timepicker').timepicker({
 	    timeFormat: 'p h:mm',
 	    interval: 60,
@@ -1120,6 +1123,69 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 	});
 	</script>	 
 
+<<<<<<< HEAD
+=======
+	<script>
+			$(function() {
+				$(".btn-secondary").on("click mousedown", function() {
+					$(this).css("background-color", "rgb(83, 220, 153)");
+					$(this).css("border-color", "rgb(83, 220, 153)");
+					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
+				});
+			});
+			var id = '<%=id%>'
+				
+			
+		    
+			   if(id == "null"|| id == ""){
+				  $(document).on('click', '#petinsert', function(event){
+						Swal.fire({
+						  title: '로그인을 하시겠습니까?',
+						  text: "반려견 등록은 로그인 후 사용 가능합니다.",
+						  icon: 'warning',
+						  showCancelButton: true,
+						  confirmButtonColor: 'rgba(83, 220, 152)',
+						  cancelButtonColor: '#de7631',
+						  confirmButtonText: '<a href="loginform.me" style = "color : white;">로그인 페이지로</a>'
+						}).then((result) => {
+							  if (result.value) {
+								  window.location = "loginform.me";
+								}
+						})
+					});
+				  
+				  }else{
+					  $(document).on('click','#petinsert',function(event){
+						  window.location = "petRegister.me";
+					  })
+				  }
+			
+			   if(id == "null"|| id == ""){
+					  $(document).on('click', '#paycheck', function(event){
+							Swal.fire({
+							  title: '로그인을 하시겠습니까?',
+							  text: "예약신청은 로그인 후 사용 가능합니다.",
+							  icon: 'warning',
+							  showCancelButton: true,
+							  confirmButtonColor: 'rgba(83, 220, 152)',
+							  cancelButtonColor: '#de7631',
+							  confirmButtonText: '<a href="loginform.me" style = "color : white;">로그인 페이지로</a>'
+							}).then((result) => {
+								  if (result.value) {
+									  window.location = "loginform.me";
+									}
+							})
+						});
+					  
+					  }else{
+						  $(document).on('click','#paycheck',function(event){
+							  document.paycheck.submit();
+						  })
+					  }
+			
+		</script>
+
+>>>>>>> origin/MH
 	<!--갤러리 및 후기 (Start)-->	
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script><!-- sweetalert2 -->
 	<script type="text/javascript">
