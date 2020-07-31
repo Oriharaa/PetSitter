@@ -135,14 +135,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
   	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-    
-<<<<<<< HEAD
-    <title>회원 게시판</title>
-=======
-    <title>이용자 상담/문의 | PetSitter</title>
->>>>>>> origin/PGKIM
-    
-    <meta charset="utf-8">
+
+<title>회원 게시판</title>
+
+<title>이용자 상담/문의 | PetSitter</title>
+
+	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">

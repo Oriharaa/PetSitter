@@ -87,6 +87,9 @@ var bno = <%=bno %>; // 게시판 글 번호
 		    a +='<div class="col-md-10">';	
 				a += '<div class="replyArea" style="border-bottom:1px solid #5e5e5e; margin-bottom: 15px;">';
 				a += '<div style="color:#525252;" class="replyInfo' + value.rno+'">'+'댓글 번호 : ' + num + ' / 작성자 : '+value.writer_name +'&nbsp&nbsp;';
+				a += '작성자 등급 : ' + value.writer_rank + '&nbsp&nbsp;';
+				
+				
 				
 				a += '<form action="./reportReply.me" method="post" name="reportreplyform" id="reportreplyform">';
  	 		 	a += '<input type="hidden" name="MEMBER_ID" value="${id}">';
@@ -123,13 +126,19 @@ var bno = <%=bno %>; // 게시판 글 번호
 				num = num + 1;
 				
 				<%if (rank.equals("admin") || rank.equals("manager")) {%>
-				
 				a += '<a style="color:#26bd72;" href="#" class="oi oi-pencil" onclick="replyUpdateForm('+value.rno+',\''+value.content+'\');">수정</a>  ';
 				a += '<a style="color:#26bd72;" href="#" class="oi oi-x" onclick="replyDelete('+value.rno+');">삭제</a></div>';
+				<%} %>
 				
-				<% } %>
-				
+				if((value.writer_rank == "admin") || (value.writer_rank == "manager")) {
+				a += '<div style="color:#525252;" id="replyContent" class="replyContent'+value.rno+'">';
+				a += '<table class="table table-bordered" style="margin: 10px auto;"><tr><td>';
+				a += '<p><b>관리자의 메세지입니다. </b><br>' + value.content + '</p>';
+				a += '</td></tr></table>';
+				} else {
 				a += '<div style="color:#525252;" id="replyContent" class="replyContent'+value.rno+'"><p>내용 : <br>' + value.content + '</p>';
+				}
+				
 				a += '</div></div></div>'; 
 				a += '</div></div></div>';
 			}); 
