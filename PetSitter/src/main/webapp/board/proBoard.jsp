@@ -25,6 +25,7 @@
 <!-- 전문가 상담 게시판 -->
 
 <!doctype html>
+<html lang="ko">
 <html lang="en">
 
 
