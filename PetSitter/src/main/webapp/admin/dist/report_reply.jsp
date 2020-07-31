@@ -291,6 +291,7 @@ p {
 																						<%
 																							}
 																						%>
+																						<a type="button" class="btn btn-sm btn-outline-danger" href="./rrDelete.me?bno=<%=rr.getBNO()%>&rno=<%=rr.getRNO()%>&id=<%=rr.getMEMBER_ID()%>">삭제</a>
 																						</td>
 																					</tr>
 																					<%} %>

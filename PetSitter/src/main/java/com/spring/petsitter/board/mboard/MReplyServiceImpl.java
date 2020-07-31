@@ -79,4 +79,18 @@ public class MReplyServiceImpl implements MReplyService {
 		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
 		return mReplyMapper.searchIdReportArticle(id, num);
 	}
+
+	@Override
+	public void raDelete(String id, int num) {
+		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
+		mReplyMapper.raDelete(id, num);
+		
+	}
+
+	@Override
+	public void rrDelete(String bno, String rno, String id) {
+		MReplyMapper mReplyMapper = sqlSession.getMapper(MReplyMapper.class);
+		mReplyMapper.rrDelete(id, bno, rno);
+		
+	}
 }

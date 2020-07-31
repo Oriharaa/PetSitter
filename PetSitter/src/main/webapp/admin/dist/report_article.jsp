@@ -208,7 +208,7 @@ $(document).ready(function() {
 																						<%
 																							}
 																						%>&nbsp;
-																						<a type="button" class="btn btn-sm btn-outline-success" href="./raDelete.me?id=<%=ra.getMEMBER_ID()%>&num=<%=ra.getMEMBER_NUM()%>">삭제</a>
+																						<a type="button" class="btn btn-sm btn-outline-danger" href="./raDelete.me?id=<%=ra.getMEMBER_ID()%>&num=<%=ra.getMEMBER_NUM()%>">삭제</a>
 																						</td>																						
 																					</tr>
 																					<%} %>

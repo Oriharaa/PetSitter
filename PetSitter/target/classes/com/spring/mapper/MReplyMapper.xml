@@ -69,4 +69,12 @@
 	<select id="searchIdReportArticle" parameterType="com.spring.petsitter.board.mboard.ReportArticleVO" resultType="int">
 		select count(*) from report_article where member_id = #{id} and member_num = #{num}
 	</select>
+	
+	<delete id="raDelete" parameterType="com.spring.petsitter.board.mboard.ReportArticleVO">
+		delete from report_article where member_id = #{id} and member_num = #{num}
+	</delete>
+	
+	<delete id="rrDelete" parameterType="com.spring.petsitter.board.mboard.ReportReplyVO">
+		delete from report_reply where bno = #{bno} and rno = #{rno} and member_id = #{id}
+	</delete>
 </mapper>

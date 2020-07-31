@@ -14,4 +14,6 @@ public interface MReplyService {
 	public void checkReply2(String bno, String rno, String id);
 	public int searchIdReportReply(String id, int bno, int rno);
 	public int searchIdReportArticle(String id, int num);
+	public void raDelete(String id, int num);
+	public void rrDelete(String bno, String rno, String id);
 }

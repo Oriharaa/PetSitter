@@ -8,14 +8,16 @@ import com.spring.petsitter.board.mboard.MReplyVO;
 
 public interface MReplyMapper {
 	public int replyCount() throws Exception;
-	public List<MReplyVO> readReply(int bno) throws Exception; // ´ñ±Û ÀÐ±â
-	public int writeReply(MReplyVO vo) throws Exception;  // ´ñ±Û ÀÛ¼º
-	public int updateReply(MReplyVO vo) throws Exception; // ´ñ±Û ¼öÁ¤
-	public int deleteReply(int rno) throws Exception; // ´ñ±Û »èÁ¦
+	public List<MReplyVO> readReply(int bno) throws Exception; // ï¿½ï¿½ï¿½ ï¿½Ð±ï¿½
+	public int writeReply(MReplyVO vo) throws Exception;  // ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½
+	public int updateReply(MReplyVO vo) throws Exception; // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	public int deleteReply(int rno) throws Exception; // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void checkArticle(@Param("id")String id, @Param("num")int num);
 	public void checkArticle2(@Param("id")String id, @Param("num")int num);
 	public void checkReply(@Param("bno")String bno, @Param("rno")String rno, @Param("id")String id);
 	public void checkReply2(@Param("bno")String bno, @Param("rno")String rno, @Param("id")String id);
 	public int searchIdReportReply(@Param("id")String id, @Param("bno")int bno, @Param("rno")int rno);
 	public int searchIdReportArticle(@Param("id")String id, @Param("num")int num);
+	public void raDelete(@Param("id")String id, @Param("num")int num);
+	public void rrDelete(@Param("bno")String bno, @Param("rno")String rno, @Param("id")String id);
 }
