@@ -77,19 +77,10 @@ let loading = false;
 					
 					//자격증 개수
 					var cert_count = "";
-					if( !(cert_photo1==="N" || cert_photo1==="null") )
-					{
-						cert_count = "1";
-						
-						if( !(cert_photo2==="N" || cert_photo2==="null") )
-						{
-							cert_count = "2";
-							if( !(cert_photo3==="N" || cert_photo3==="null") )
-							{
-								cert_count = "3";
-							}
-						}
-							
+					if(cert_photo[0] == "N"){
+						cert_count = "0";
+					}else{
+						cert_count = cert_photo.length;
 					}
 
 					//위탁 1박 가격 , 대형견 1박 가격
