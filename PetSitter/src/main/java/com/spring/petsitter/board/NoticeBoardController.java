@@ -81,7 +81,7 @@ public class NoticeBoardController {
 				
 		MultipartFile mf = vo.getNOTICE_FILE();
 		System.out.println("mf.getSize() : " + mf.getSize());
-		String uploadPath = "C:\\Project156\\upload\\";
+		String uploadPath = "C:\\Project156\\Spring_Source\\Petsitter\\upload\\";
 				
 		if(mf.getSize() != 0) {
 			String originalFileExtension = mf.getOriginalFilename();
@@ -160,7 +160,7 @@ public class NoticeBoardController {
      String uploadPath = request.getSession().getServletContext().getRealPath("/upload");
      String fullPath = uploadPath+"/"+of; 
      */
-     String uploadPath = "C:\\Project156\\upload\\"; // 직접 경로 지정
+     String uploadPath = "C:\\Project156\\Spring_Source\\Petsitter\\upload\\"; // 직접 경로 지정
      String fullPath = uploadPath + of;
      File downloadFile = new File(fullPath);
      

@@ -39,7 +39,7 @@ public class PetController {
 	
 	@RequestMapping(value = "petRegister2.me", method = RequestMethod.POST)
 	public String petRegister2(PetVO vo, @RequestParam("PET_PHOTO_PROFILE") MultipartFile mf) {
-		String uploadPath = "C:\\Project156\\upload\\";
+		String uploadPath = "C:\\Project156\\Spring_Source\\Petsitter\\upload\\";
 
 		if(mf.getSize() != 0) {
 			String originalFileExtension = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));
@@ -84,7 +84,7 @@ public class PetController {
 
 	@RequestMapping(value = "petUpdate.me", method = RequestMethod.POST)
 	public String petUpdate2(PetVO vo, HttpSession session, @RequestParam("PET_PHOTO_PROFILE") MultipartFile mf) {
-		String uploadPath = "C:\\Project156\\upload\\";	
+		String uploadPath = "C:\\Project156\\Spring_Source\\Petsitter\\upload\\";
 		if(mf.getSize() != 0) {
 			System.out.println("이게 뜬다면 113은 넘어감");
 			String originalFileExtension = mf.getOriginalFilename().substring(mf.getOriginalFilename().lastIndexOf("."));

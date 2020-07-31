@@ -138,7 +138,7 @@ public class ProBoardController {
 		MultipartFile mf = vo.getPRO_FILE();    
 		MultipartFile mf2 = vo.getPRO_FILE02();    
 		System.out.println("mf=" + mf);
-    	String uploadPath = "C:\\Project156\\upload\\";
+		String uploadPath = "C:\\Project156\\Spring_Source\\Petsitter\\upload\\";
     	if(vo.getSECRET_CHECK() == null) {
     		vo.setSECRET_CHECK("N");
     	}
@@ -197,7 +197,7 @@ public class ProBoardController {
 		MultipartFile mf = vo.getPRO_FILE();    
 		MultipartFile mf2 = vo.getPRO_FILE02();    
 		System.out.println("mf=" + mf);
-    	String uploadPath = "C:\\Project156\\upload\\";
+		String uploadPath = "C:\\Project156\\Spring_Source\\Petsitter\\upload\\";
     	if(vo.getSECRET_CHECK() != null) {
 	    		vo.setSECRET_CHECK("Y");
 	    }
@@ -385,7 +385,7 @@ public class ProBoardController {
 	    String uploadPath = request.getSession().getServletContext().getRealPath("/upload");
 	    String fullPath = uploadPath+"/"+of;
 	    */
-	    String uploadPath = "C:\\Project156\\upload\\";  // 직접 경로 지정
+	    String uploadPath = "C:\\Project156\\Spring_Source\\Petsitter\\upload\\";  // 직접 경로 지정
 	    String fullPath = uploadPath + of;
 	    File downloadFile = new File(fullPath);
 	    

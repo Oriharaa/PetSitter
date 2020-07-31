@@ -28,7 +28,7 @@ public class ReviewBoardController {
 	
 	@RequestMapping(value = "insertReview.me")
 	public String insertReview(ReviewBoardVO vo) throws Exception {
-		String uploadPath = "C:\\Project156\\upload\\";
+		String uploadPath = "C:\\Project156\\Spring_Source\\Petsitter\\upload\\";
 		
 		ArrayList<String> review_up_photolist = new ArrayList<String>();
 		for(int i = 0; i < vo.getREVIEW_PHOTO().length; i++) {

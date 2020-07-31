@@ -147,7 +147,7 @@ let loading = false;
 						//펫시터뷰 기본틀
 						output += '<div class="row">'
 						output += '<div class="col">';
-						output += '<div class="middle_box_row" onclick="go_foster(' +index+ ');">';
+						output += '<div class="middle_box_row">';
 						output += '<div class="middle_room_img">';
 						
 						output += '<div class = "col-12 float-none">';
@@ -226,7 +226,7 @@ let loading = false;
 				    		output += '</div>';		
 
 							output += '</div>';
-							output += '<a class="go_view">';
+							output += '<a class="go_view" href="javascript:go_foster(' +index+ ')">';
 							output += '<div class="view_top">';
 							output += '<p class="v_location">' + real_addr;
 							output += '<span class="v_i"> · </span>';

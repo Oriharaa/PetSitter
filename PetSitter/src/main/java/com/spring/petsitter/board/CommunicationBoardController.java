@@ -147,7 +147,7 @@ public class CommunicationBoardController {
 		int num = boardvo.getUSINGLIST_NUM();
 		
 		MultipartFile mf;
-		String uploadPath = "C:\\Project156\\upload\\";
+		String uploadPath = "C:\\Project156\\Spring_Source\\Petsitter\\upload\\";
 		ArrayList<String> PHOTO_FILE = new ArrayList<String>();
 		for (int i = 0; i < boardvo.getCOMMUNICATION_PHOTO_LIST().length; i++) {
 			mf = boardvo.getCOMMUNICATION_PHOTO_LIST()[i];

@@ -453,7 +453,7 @@ public class MemberController {
 			vo.setMEMBER_REAL_ADDRESS(address[0] + " " + address[1] + " " + address[2]);
 		}
 		MultipartFile mf = vo.getMEMBER_PHOTO();
-		String uploadPath = "C:\\Project156\\upload\\";
+		String uploadPath = "C:\\Project156\\Spring_Source\\Petsitter\\upload\\";
 		
 		MemberVO member = memberService.selectMember(vo.getMEMBER_ID());
 		if(vo.getMEMBER_GENDER() == null) {
