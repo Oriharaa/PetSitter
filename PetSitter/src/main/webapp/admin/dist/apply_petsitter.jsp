@@ -126,7 +126,7 @@ p {
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="./admin/dist/assets/demo/datatables-demo.js"></script>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="admin_applyPetsitter.me">펫시터 신청 목록 페이지</a>
+            <a class="navbar-brand" href="admin.me">관리자 페이지</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -142,8 +142,6 @@ p {
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">기능1</a>
-                        <a class="dropdown-item" href="#">기능2</a>
                         <div class="dropdown-divider"></div>
                         <%
               						if(session.getAttribute("id") == "" || session.getAttribute("id") == null) {
@@ -165,7 +163,7 @@ p {
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.jsp">
+                            <a class="nav-link" href="admin.me">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 대시보드
                             </a>
@@ -221,21 +219,17 @@ p {
                                         펫시터 관리
                                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                     </a>
-                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                    <div class="collapse show" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
                                             <a class="nav-link" href="admin_petsitterApply.me">펫시터 신청 관리</a>
                                         </nav>
                                     </div>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <div class="sb-sidenav-menu-heading">부가기능</div>
                             <a class="nav-link" href="charts.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
+                                차트
                             </a>
                         </div>
                     </div>
@@ -295,31 +289,6 @@ p {
 
 		</tbody>
                                 </table>
-<%--                                 <table class="table table-bordered"  style="table-layout: fixed" id="dataTable" width="100%">
-                                <thead>
-                                <th width="7%">이름</th>
-                                <th width="7%">닉네임</th>
-                                <th width="5%">성별</th>
-                                <th width="10%">전화번호</th>
-                                <th width="5%">등급</th>
-                                <th>주소</th>
-                                <th width="15%">가입일자</th>
-                                </thead>
-                                	<tbody>
-																			<%for(int i = 0 ; i < petsitterlist.size(); i++) { 
-																			PetsitterVO ps = (PetsitterVO)petsitterlist.get(i); %>															
-																			<tr>
-																				<td><%=ps.getPETSITTER_NAME() %></td>
-																				<td><%=ps.getPETSITTER_NICKNAME() %></td>
-																				<td><%=ps.getPETSITTER_GENDER() %></td>
-																				<td><%=ps.getPETSITTER_TEL() %></td>
-																				<td><%=ps.getPETSITTER_RANK() %></td>
-																				<td><%=ps.getPETSITTER_ADDRESS() %></td>
-																				<td><%=ps.getPETSITTER_DATE() %></td>
-																						</tr>
-																			<%} %>
-																	</tbody>
-																	</table> --%>
                                 </div>
                               </div>
 	                        </div>

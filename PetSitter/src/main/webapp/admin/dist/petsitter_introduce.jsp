@@ -171,7 +171,7 @@ table.type09 td {
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="./admin/dist/assets/demo/datatables-demo.js"></script>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="admin_applyPetsitter.me">펫시터 신청 목록 페이지</a>
+            <a class="navbar-brand" href="admin.me">관리자 페이지</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -257,9 +257,9 @@ table.type09 td {
                                     </a>
                                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">예약된 거래</a>
-                                            <a class="nav-link" href="register.html">진행중인 거래</a>
-                                            <a class="nav-link" href="password.html">완료된 거래</a>
+                                            <a class="nav-link" href="admin_orderReserved.me">예약된 거래</a>
+                                            <a class="nav-link" href="admin_orderProgress.me">진행중인 거래</a>
+                                            <a class="nav-link" href="admin_orderClosed.me">완료된 거래</a>
                                         </nav>
                                     </div>
                                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
@@ -268,19 +268,15 @@ table.type09 td {
                                     </a>
                                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="admin_applyPetsitter.me">펫시터 신청 관리</a>
+                                            <a class="nav-link" href="admin_petsitterApply.me">펫시터 신청 관리</a>
                                         </nav>
                                     </div>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.jsp">
+                            <div class="sb-sidenav-menu-heading">부가기능</div>
+                            <a class="nav-link" href="admin_chart.me">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
+                                차트
                             </a>
                         </div>
                     </div>
