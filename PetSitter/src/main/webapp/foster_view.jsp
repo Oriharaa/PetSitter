@@ -1123,16 +1123,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 	});
 	</script>	 
 
-<<<<<<< HEAD
-=======
 	<script>
-			$(function() {
-				$(".btn-secondary").on("click mousedown", function() {
-					$(this).css("background-color", "rgb(83, 220, 153)");
-					$(this).css("border-color", "rgb(83, 220, 153)");
-					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
-				});
-			});
 			var id = '<%=id%>'
 				
 			
@@ -1185,7 +1176,6 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 			
 		</script>
 
->>>>>>> origin/MH
 	<!--갤러리 및 후기 (Start)-->	
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script><!-- sweetalert2 -->
 	<script type="text/javascript">
