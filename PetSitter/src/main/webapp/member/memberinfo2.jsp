@@ -164,68 +164,192 @@
 
 <!-- 이용현황 및 내역 시작!!-->
 <section class="list">
-  <div class="container" style = "margin-top : 25px;">
-    <div class="row justify-content-center">
-	  <img class ="middle_img" src="resources/images/pet/Cuty_Dog1.png" width="150px" height="150px">
-	  <h4 class="middle_head">이용 현황 및 내역</h4> 
-	</div>
+	<div class="container" id="vue_app" style="margin-top: 25px;">
+		<div class="row justify-content-center">
+			<img class ="middle_img" src="resources/images/pet/Cuty_Dog1.png" width="150px" height="150px">
+			<h4 class="middle_head">이용 현황 및 내역</h4> 
+		</div>
 		
-	<div class="row main_grayfont3" style = "margin-top : 25px;">
-	  <div class="date_row">
-		<input type="button" class="middle_bt1" id="middle_bt1" value="1개월" onclick="usinglistfunc(1, 1)">
-		<input type="button" class="middle_bt1" id="middle_bt2" value="3개월" onclick="usinglistfunc(3, 1)">
-		<input type="button" class="middle_bt1" id="middle_bt3" value="6개월" onclick="usinglistfunc(6, 1)">
-		<input type="button" class="middle_bt1" id="middle_bt4" value="전체 시기" onclick="selectData(1)" >
+		<div class="row main_grayfont3" style = "margin-top : 25px;">
+			<div class="date_row">
+				<input type="button" class="middle_bt1" id="middle_bt1" value="1개월" onclick="usinglistfunc(1, 1)">
+				<input type="button" class="middle_bt1" id="middle_bt2" value="3개월" onclick="usinglistfunc(3, 1)">
+				<input type="button" class="middle_bt1" id="middle_bt3" value="6개월" onclick="usinglistfunc(6, 1)">
+				<input type="button" class="middle_bt1" id="middle_bt4" value="전체 시기" onclick="selectData(1)" >
 			
-		<input type="text" class="middle_bt2_date" id="datePicker_start" placeholder="시작일" size="10px" style="text-align: center;" readonly>
-		<input type="text" class="middle_bt2_date" id="datePicker_end" placeholder="종료일" size="10px" style="text-align: center;" readonly>
-		<input type="button" class="middle_bt2" id="middle_bt7" value="조회" onclick="calendarUsinglist(1);">
+				<input type="text" class="middle_bt2_date" id="datePicker_start" placeholder="시작일" size="10px" style="text-align: center;" readonly>
+				<input type="text" class="middle_bt2_date" id="datePicker_end" placeholder="종료일" size="10px" style="text-align: center;" readonly>
+				<input type="button" class="middle_bt2" id="middle_bt7" value="조회" onclick="calendarUsinglist(1);">
+			</div>
+		</div>
 
-	  </div>
-	</div>
-		
-			
-  <table style="width:100%;">
- 	<colgroup>
-	  <col style="width: 15%;">
-	  <col style="width: 15%;">
-	  <col style="width: 15%;">
-	  <col style="width: 15%;">
-	  <col style="width: 12%;">
-	  <col style="width: 12%;">
-	  <col style="width: 16%;">
-	</colgroup> 
-      <thead>
-		<tr class="table_headRow" style="color: #5e5e5e;">
-		  <td>진행 현황</td>
-		  <td id="td1">펫시터 사진</td>
-		  <td>펫시터 정보</td>
-		  <td>이용 일자</td>
-		  <td>주문 번호</td>
-		  <td>이용 금액</td>
-		  <td>소통 게시판</td>
-		</tr>	
-	  </thead>
-	  <tbody id="petsitterList">
-	  	<input type="hidden" id="id" value=${id } >
-	  	<tr style="color: #5e5e5e; border-top: 1px dashed gray;">
-		  	<td>' + item.list_TYPE + '</td>
-		  	<td rowspan="3">
-		  	<div class="thumbnail-wrapper profile_sm1">
-		  		<div class="thumbnail">
-		  			<div class="centered">
-		  				<%
-		  				%>
-		  				<img src="resources/images/defaultprofile02.png.png">
-	  </tbody>
-	</table>
+	  <table style="width:100%;">
+		 	<colgroup>
+			  <col style="width: 15%;">
+			  <col style="width: 15%;">
+			  <col style="width: 15%;">
+			  <col style="width: 15%;">
+			  <col style="width: 12%;">
+			  <col style="width: 12%;">
+			  <col style="width: 16%;">
+			</colgroup> 
+			<thead>
+				<tr class="table_headRow" style="color: #5e5e5e;">
+				  <td>진행 현황</td>
+				  <td id="td1">펫시터 사진</td>
+				  <td>펫시터 정보</td>
+				  <td>이용 일자</td>
+				  <td>주문 번호</td>
+				  <td>이용 금액</td>
+				  <td>소통 게시판</td>
+				</tr>	
+	  	</thead>
+	  	<%-- <tbody v-for="" id="petsitterList">
+		  	<tr style="color: #5e5e5e; border-top: 1px dashed gray;">
+			  	<td>item.list_TYPE</td>
+			  	<td rowspan="3">
+				  	<div class="thumbnail-wrapper profile_sm1">
+				  		<div class="thumbnail">
+				  			<div class="centered">
+				  				<%
+				  					if(item.petsitter_PHOTO_PROFILE_FILE == 'N') {
+				  				%>
+				  				<img src="resources/images/defaultprofile02.png.png">
+				  				<%
+				  					} else {
+				  				%>
+				  				<img src="/filepath/' + item.petsitter_PHOTO_PROFILE_FILE +'">
+				  				<%
+				  					}
+				  				%>
+				  			</div>
+				  		</div>
+				  	</div>
+			  	</td>
+			  	<td>' + item.petsitter_NICKNAME + '</td>
+			  	<td>' + item.list_START_DATE + '</td>
+			  	<td rowspan="3">' + item.list_NUM + '</td>
+			  	<td rowspan="3">' + item.list_PRICE + '</td>
+			  	<%
+			  		if(item.list_COMPLETE == ing2) {
+			  	%>
+			  	<td rowspan="3">
+			  		<input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.list_NUM + '\';" >
+			  	</td>
+			  	<%
+			  		} else if(item.list_COMPLETE == ing3) {
+			  	%>
+			  	<td rowspan="3">
+			  		<input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing('+index+')">
+			  		<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">
+						<input type="hidden" id="review_petsitter_address'+index+'" value="' + item.petsitter_ADDRESS1 + '">
+						<input type="hidden" id="review_petsitter_photo'+index+'" value="' + item.petsitter_PHOTO_PROFILE_FILE + '">
+						<input type="hidden" id="review_petsitter_score'+index+'" value="' + item.petsitter_SCORE + '">
+						<input type="hidden" id="review_petsitter_id'+index+'" value="' + item.petsitter_ID + '">
+						<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.list_NUM + '">
+			  	</td>
+			  	<%
+			  		} else if(item.list_COMPLETE == "예약 취소") {
+			  			if(item.list_ING == "예약 취소") {
+			  	%>
+			  	<td rowspan="3">
+			  		<input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;">
+			  	</td>
+			  	<%
+			  			} else {
+			  	%>
+			  	<td rowspan="3">
+			  		<input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" style="background: #03adfc !important;" onclick="location.href=\'cancel.br?merchant_uid=' + item.merchant_UID + '\'">
+			  	</td>
+			  	<%
+			  			}
+			  		} else {
+			  	%>
+			  	<td rowspan="3">
+			  		<input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;">
+			  	</td>
+			  	<%
+			  		}
+			  	%>
+			  </tr>
+			  <tr style="color: #5e5e5e;">
+				  <%
+				  	if(item.list_ING == ing1) {
+				  %>
+				  <td>
+				  	<b style="color: #0d47a1;">' + item.list_ING + '</b>
+				  </td>
+				  <%
+				  	} else if(item.list_ING == "위탁 대기 중" || item.list_ING == "방문 대기 중") {
+				  %>
+				  <td>
+				  	<b style="color: #03adfc;">' + item.list_ING + '</b>
+				  </td>
+				  <%
+				  	} else if(item.list_ING == "예약 취소") {
+				  %>
+				  <td>
+				  	<b>' + item.list_ING + '</b>
+				  </td>
+				  <%
+				  	} else {
+				  %>
+				  <td>
+				  	<b>' + item.list_ING + '</b>
+				  </td>
+				  <%
+				  	}
+				  %>
+				  <td><b>' + item.petsitter_NAME + '</b></td>
+				  <td>~</td>
+			  </tr>
+			  <tr style="color: #5e5e5e;">
+			  	<td class="grade" style="margin-bottom: 5px;">신고</td>
+			  	<td>item.petsitter_TEL</td>
+			  	<td>item.list_END_DATE</td>
+			  </tr>
+	  	</tbody>
+		</table>
   </div>
   <table id="pagenum_table" class="col-md-12 text-center">
-	  
+		<tr class="table_page_number">
+			<td colspan=7 style="font-family:Tahoma;font-size:10pt;">
+			<%
+				if(nowpage <= 1) {
+			%>
+				&#60;&nbsp;&nbsp;
+			<%
+				} else {
+			%>
+				<a href="javascript:selectData(' + (nowpage - 1) + ')">&#60;&nbsp;&nbsp;</a>
+			<%
+				}
+				for(int a = startpage; a <= endpage; a++) {
+					if(a == nowpage) {
+			%>
+					a&nbsp;&nbsp
+			<%
+					} else {
+			%>
+				<a href="javascript:selectData(' + a + ')" >a&nbsp;&nbsp;</a>
+			<%
+					}
+				}
+				if(nowpage >= maxpage) {
+			%>
+				&#62;
+			<%
+				} else {
+			%>
+				<a href="javascript:selectData(' + (nowpage + 1) + ')" >&#62;</a>
+			<%
+				}
+			%>
+			</td> --%>
+		</tr>
   </table>
 </section>
 <!-- 이용현황 및 내역 끝!!-->
-
 
 <!-- Modal 회원정보변경시작-->
 <form name="updateMember" action="./memberUpdate.me" method="post" enctype="multipart/form-data">
@@ -549,6 +673,15 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+		<script>
+			var usinglist = new Vue({
+				el: '#vue_app',
+			  data: {
+			    
+			  }
+			})
+		</script>
       
 		<!-- 모달 구현 제이쿼리(부트스트랩용) 회원정보 수정 시작-->
     <script type="text/javascript">

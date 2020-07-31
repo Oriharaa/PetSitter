@@ -297,11 +297,11 @@ h1, h2, h3, h4, h5,
     padding: 4em 0; }
 
 .site-footer {
-  padding: 4em 0;
+  padding-top: 4em;
   background: #333333; }
   @media (min-width: 768px) {
     .site-footer {
-      padding: 8em 0; } }
+      padding-top: 8em; } }
   .site-footer .border-top {
     border-top: 1px solid rgba(255, 255, 255, 0.1) !important; }
   .site-footer p {
@@ -463,7 +463,6 @@ h1, h2, h3, h4, h5,
   .site-navbar .site-logo {
     position: absolute;
     font-size: 2rem;
-    text-transform: uppercase;
     font-weight: 900;
     line-height: 0;
     margin: 0;

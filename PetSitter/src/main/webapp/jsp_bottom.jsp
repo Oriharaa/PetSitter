@@ -2,6 +2,12 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+	<style>
+		.site-footer {
+		  padding-top: 4em;
+		  background: #e9e9e9!important; 
+		}
+	</style>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -88,17 +94,17 @@
 </footer>
 <!-- 하단 바 종료 -->
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="<c:url value="/resources/js/popper.min.js"/>"></script>
-    <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
-    <script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
-    <script src="<c:url value="/resources/js/jquery.sticky.js"/>"></script>
-    <script src="<c:url value="/resources/js/jquery.waypoints.min.js"/>"></script>
-    <script src="<c:url value="/resources/js/jquery.animateNumber.min.js"/>"></script>
-    <script src="<c:url value="/resources/js/jquery.fancybox.min.js"/>"></script>
-    <script src="<c:url value="/resources/js/jquery.easing.1.3.js"/>"></script>
-    <script src="<c:url value="./resources/js/aos.js"/>"></script>
-
-    <script src="<c:url value="/resources/js/main.js"/>"></script>
+	<script src="<c:url value="/resources/js/popper.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/jquery.sticky.js"/>"></script>
+	<script src="<c:url value="/resources/js/jquery.waypoints.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/jquery.animateNumber.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/jquery.fancybox.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/jquery.easing.1.3.js"/>"></script>
+	<script src="<c:url value="./resources/js/aos.js"/>"></script>
+	
+	<script src="<c:url value="/resources/js/main.js"/>"></script>
 	<script>
 		/*스크롤 위로올라가기 버튼 시작 script*/
 		$(function() {

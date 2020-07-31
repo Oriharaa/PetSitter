@@ -150,7 +150,7 @@ let loading = false;
 						output += '<div class="middle_box_row">';
 						output += '<div class="middle_room_img">';
 						
-						output += '<div class = "col-12 float-none">';
+						output += '<div class = "col-12 float-none" style="padding-left: 0px;">';
 			    		output += '<center>';
 				    		
 				    		if(item.petsitter_PHOTO_HOME_FILE != "N" && home_photo[1] != null){
@@ -211,15 +211,17 @@ let loading = false;
 				    		}
 				    		
 				    		if(item.petsitter_PHOTO_HOME_FILE != "N" && home_photo[1] == null){
+				    		output += '<div style="position: relative; overflow: hidden; width: 100%;">';
 			    			output += '<div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered">';
 				    		output += '<img src="/filepath/'+home_photo[0]+'" class="d-block w-100" alt="...">';
-				    		output += '</div></div></div>';	
+				    		output += '</div></div></div></div>';	
 				    		}
 				    		
 				    		if(item.petsitter_PHOTO_HOME_FILE == "N"){
+				    		output += '<div style="position: relative; overflow: hidden; width: 100%;">';
 				    		output += '<div class="thumbnail-wrapper"> <div class="thumbnail"> <div class="centered">';
 				    		output += '<img src="resources/images/dogmark.png" class="d-block w-100" alt="...">';
-				    		output += '</div></div></div>';
+				    		output += '</div></div></div></div>';
 				    		}
 				    		
 				    		output += '</center>';
@@ -384,7 +386,8 @@ let loading = false;
 								output += '</div>';
 	
 								output +='</div></div></div></a></div></div></div></form>';
-								$('#petsitter_middle_box').append(output);		
+								$('#petsitter_middle_box').append(output);
+							k++;
 					});
 				},
 				error: function() {
