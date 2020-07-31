@@ -26,7 +26,7 @@
 	</select>
 
 	<select id="readReply" resultType="com.spring.petsitter.board.mboard.MReplyVO">
-		select rno, content, writer_name, regDate from mReply where bno = #{bno}
+		select rno, content, writer_name, regDate,writer_rank from mReply where bno = #{bno}
 	</select>	
 	
 	<insert id="writeReply" parameterType="com.spring.petsitter.board.mboard.MReplyVO">
@@ -34,8 +34,8 @@
 			select nvl(max(rno), 0)+1 from mReply
 		</selectKey>
 	
- 	 INSERT INTO mReply (BNO, RNO, CONTENT, WRITER_ID, WRITER_NAME, REGDATE)
-		VALUES(#{bno},#{rno},#{content},#{writer_id}, #{writer_name}, sysdate) 
+ 	 INSERT INTO mReply (BNO, RNO, CONTENT, WRITER_ID, WRITER_NAME, REGDATE, WRITER_RANK)
+		VALUES(#{bno},#{rno},#{content},#{writer_id}, #{writer_name}, sysdate, #{writer_rank}) 
 	</insert>
 	
 	<update id="updateReply" parameterType="com.spring.petsitter.board.mboard.MReplyVO">

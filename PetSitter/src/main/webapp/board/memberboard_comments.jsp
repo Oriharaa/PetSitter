@@ -87,17 +87,13 @@ var bno = <%=bno %>; // 게시판 글 번호
 		    a +='<div class="col-md-10">';	
 				a += '<div class="replyArea" style="border-bottom:1px solid #5e5e5e; margin-bottom: 15px;">';
 				a += '<div style="color:#525252;" class="replyInfo' + value.rno+'">'+'댓글 번호 : ' + num + ' / 작성자 : '+value.writer_name +'&nbsp&nbsp;';
-				a += '작성자 등급 : ' + value.writer_rank + '&nbsp&nbsp;';
-				
-				
 				
 				a += '<form action="./reportReply.me" method="post" name="reportreplyform" id="reportreplyform">';
  	 		 	a += '<input type="hidden" name="MEMBER_ID" value="${id}">';
 				a += '<input type="hidden" name="BNO" value="' + <%=mboard.getMEMBER_NUM() %> + '">';
 				a += '<input type="hidden" name="RNO" value=' + value.rno + '>';
 				a += '<input type="hidden" name="BTYPE" value="mboard">';
-				
-
+	
 				a += '<button type="button" class="btn btn-danger btn-sm float-right" data-toggle="modal" data-target="#exampleModal">';
 				a += '신고';
 				a += '</button>';
