@@ -211,7 +211,7 @@ p {
                                     </div>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">부가기능</div>
+                            <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="admin_chart.me">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 차트

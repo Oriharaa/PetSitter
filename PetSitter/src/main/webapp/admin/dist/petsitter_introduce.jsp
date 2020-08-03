@@ -16,16 +16,16 @@
 	if(!(petsitter.getPETSITTER_SERVICE_LIST().equals("N"))){
 		String[] service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
 		for(int i =0;i < service.length;i++){
-			if(service[i].equals("olddog")){
+			if(service[i].equals("노견 케어 가능")){
 				olddog = "Y";
 			}
-			if(service[i].equals("yard")){
+			if(service[i].equals("마당 존재")){
 				yard = "Y";
 			}
-			if(service[i].equals("bigsize")){
+			if(service[i].equals("대형견 케어 가능")){
 				big = "Y";
 			}
-			if(service[i].equals("pickup")){
+			if(service[i].equals("픽업 가능")){
 				pickup = "Y";
 			}
 		}
@@ -152,8 +152,8 @@ table.type09 td {
         <meta name="author" content="" />
         <title>펫시터 신청 목록 페이지 - Petsitter</title>
         <link href="./admin/dist/css/styles.css" rel="stylesheet" />
-        <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" ></script>
+        <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
         
         <!-- 부트스트랩 toggle -->
         <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
@@ -161,14 +161,14 @@ table.type09 td {
     </head>
 	
     <body class="sb-nav-fixed">
-            <script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" ></script>
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="./admin/dist/js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="./admin/dist/assets/demo/chart-area-demo.js"></script>
         <script src="./admin/dist/assets/demo/chart-bar-demo.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="./admin/dist/assets/demo/datatables-demo.js"></script>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <a class="navbar-brand" href="admin.me">관리자 페이지</a>
@@ -187,8 +187,9 @@ table.type09 td {
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <!-- <a class="dropdown-item" href="#">기능1</a>
-                        <a class="dropdown-item" href="#">기능2</a> -->
+                        <a class="dropdown-item" href="#">기능1</a>
+                        <a class="dropdown-item" href="#">기능2</a>
+                        <div class="dropdown-divider"></div>
                         <%
               						if(session.getAttribute("id") == "" || session.getAttribute("id") == null) {
               					%>
@@ -209,7 +210,7 @@ table.type09 td {
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="admin.me">
+                            <a class="nav-link" href="index.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 대시보드
                             </a>
@@ -272,7 +273,7 @@ table.type09 td {
                                     </div>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">부가기능</div>
+                            <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="admin_chart.me">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 차트
@@ -300,15 +301,15 @@ table.type09 td {
                                 <i class="fas fa-table mr-1"></i>
                                 펫시터 신청 목록
                             </div>
-                            <div class="card-body">
-                            <img src="/filepath/<%=petsitter.getPETSITTER_PHOTO_UPFILE()%>" class = "float-center">
-    						<img src="/filepath/<%=petsitter.getPETSITTER_PHOTO_PROFILE_FILE()%>" class = "float-center">
+                            <div class="card-body" align="center">
+                            <img src="/filepath/<%=petsitter.getPETSITTER_PHOTO_UPFILE()%>" class = "float-center" width="250px">
+    						<img src="/filepath/<%=petsitter.getPETSITTER_PHOTO_PROFILE_FILE()%>" class = "float-center" width="250px">
     						<%
     						if(!(petsitter.getPETSITTER_PHOTO_HOME_FILE().equals("N"))){
     							String[] home = petsitter.getPETSITTER_PHOTO_HOME_FILE().split(",");
     							for(int i = 0 ; i < home.length;i++){
     						%>
-    						<img src="/filepath/<%=home[i]%>" class = "float-center">
+    						<img src="/filepath/<%=home[i]%>" class = "float-center" width="250px">
     						<%}} %>
                                 <div class="table-responsive">
                                 	<table class="type09">

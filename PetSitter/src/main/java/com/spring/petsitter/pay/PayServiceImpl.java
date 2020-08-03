@@ -33,15 +33,15 @@ public class PayServiceImpl implements PayService {
 	}
 
 	@Override
-	public void memberAmount(int amount, String m_id) {
+	public void memberAmount(int amount, int point, String m_id) {
 		PayMapper payMapper = sqlsession.getMapper(PayMapper.class);
-		payMapper.memberAmount(amount, m_id);
+		payMapper.memberAmount(amount, point, m_id);
 	}
 
 	@Override
-	public void memberAmountRemove(int amount, String m_id) {
+	public void memberAmountRemove(int amount, int point, String m_id) {
 		PayMapper payMapper = sqlsession.getMapper(PayMapper.class);
-		payMapper.memberAmountRemove(amount, m_id);
+		payMapper.memberAmountRemove(amount, point, m_id);
 	}
 
 	@Override

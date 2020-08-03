@@ -137,7 +137,7 @@
 							<h5 class="fmcss">후기 작성 : <%=review_count %></h5>
 						</div>
 						<div class = "col-12">
-							<h5 class="fmcss">포인트 : 0</h5>
+							<h5 class="fmcss">포인트 : <%=membervo.getMEMBER_POINT() %></h5>
 						</div>
 					</div>
 		    </div>	
