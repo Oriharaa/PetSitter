@@ -6,13 +6,10 @@
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
 %>
-<% String sidevarcheck = "review_board"; %>
 <%@ include file="../jsp_top_sidebar.jsp" %>
+<% sidevarcheck = "review_board"; %>
 <!doctype html>
-<html lang="en">
-
-
-
+<html lang="ko">
   <head>
     <title>이용 후기</title>
     <meta charset="utf-8">

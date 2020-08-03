@@ -18,9 +18,8 @@
 	// 펫시터 목록
 	ArrayList<PetsitterVO> list = (ArrayList<PetsitterVO>)request.getAttribute("list");
 %>
-<% String sidevarcheck = "home"; %>
 <%@ include file="jsp_top_sidebar.jsp" %>
-
+<% sidevarcheck = "home"; %>
 <!doctype html>
 <html lang="ko">
 

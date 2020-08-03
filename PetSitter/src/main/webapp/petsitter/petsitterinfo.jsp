@@ -772,89 +772,78 @@ function handleImgFileSelect11(e){
 <!-- 상세정보 시작!! -->
 <section class="myinfo">
   <div class="container" style = "margin-top :60px;">
-    <div class = "row">
-	  <div class="col-md-7" style = "padding : 0;">
-	    <div class="box1">
+    <div class = "row box1">
+	  	<div class="col-7" style = "padding : 0;">
 		    <div class="row">
 		      <div class="col-5" style = "margin : 3.5% 0 0 0;">  
-			    <div class="roundimg">
-				  <div class="profile aspect_1_1" style="background: #BDBDBD;">
-				  <%if(vo.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")){ %>
-				  	<img src="resources/images/defaultprofile02.png">
-				  	<%}else{ %>
-					<img src="/filepath/<%=vo.getPETSITTER_PHOTO_PROFILE_FILE() %>">
-					<%} %>
-				  </div>
+			   	 <div class="roundimg">
+					 	 <div class="profile aspect_1_1" style="background: #BDBDBD;">
+					 	 <%if(vo.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")){ %>
+					  	<img src="resources/images/defaultprofile02.png">
+					  	<%}else{ %>
+							<img src="/filepath/<%=vo.getPETSITTER_PHOTO_PROFILE_FILE() %>">
+						<%} %>
+						 </div>
+					 </div>
+			  	</div> 
+				  <div class="col-7" style = "padding : 0;">
+				  	<h3 class="mypage font-size-24">PETSITTER MY PAGE</h3>
+				    <div class="mpbody">
+						  <div class="row" style = "margin-to">
+							  <div class = "col-04" style = "padding : 0 15px;">
+							    <h2 class="mpname float-left">${name }</h2>
+									<h5 class="mpneem float-none">님</h5>
+							    <h3 class="mpnick">닉네임 : <%=vo.getPETSITTER_NICKNAME() %></h3>
+							    <h5 class="mpgrade">등급 : <%=vo.getPETSITTER_RANK() %>
+							    	<%
+							    		if(vo.getPETSITTER_RANK().equals("Pro")) {
+							    	%>
+							    	<img src="resources/images/petsitter_pro.png" style="width: 19px;">
+							    	<%
+							    		} else if(vo.getPETSITTER_RANK().equals("GoldPro")) {
+							    	%>
+							    	<img src="resources/images/petsitter_goldpro.png" style="width: 19px;">
+							    	<%
+							    		}
+							    	%>
+							    </h5>
+							    <h5 class="mpdate font-size-16">가입일 : <%=vo.getPETSITTER_DATE().substring(0,10) %></h5>
+							  </div>
+							  <div class = "col-md-5" style = "margin-top : 55px;">
+							  	<button type="button" class="profilefont mybtn" data-toggle="modal" data-target="#staticBackdrop03">스케쥴 관리
+									</button>
+							  	<button type="button" class="profilefont mybtn" data-toggle="modal" data-target="#staticBackdrop">회원정보 변경
+									</button>
+							  </div>
+						  </div>
+						</div>							
+				  </div> 
 				</div>
-			  </div> 
-			  <div class="col-7" style = "padding : 0;">
-			  	 <h3 class="mypage font-size-24">PETSITTER MY PAGE</h3>
-			    <div class="mpbody">
-				  <div class="row" style = "margin-to">
-				  <div class = "col-04" style = "padding : 0 15px;">
-				    <h2 class="mpname float-left">${name }</h2>
-						<h5 class="mpneem float-none">님</h5>
-				    <h3 class="mpnick">닉네임 : <%=vo.getPETSITTER_NICKNAME() %></h3>
-				    <h5 class="mpgrade">등급 : <%=vo.getPETSITTER_RANK() %>
-				    	<%
-				    		if(vo.getPETSITTER_RANK().equals("Pro")) {
-				    	%>
-				    	<img src="resources/images/petsitter_pro.png" style="width: 19px;">
-				    	<%
-				    		} else if(vo.getPETSITTER_RANK().equals("GoldPro")) {
-				    	%>
-				    	<img src="resources/images/petsitter_goldpro.png" style="width: 19px;">
-				    	<%
-				    		}
-				    	%>
-				    </h5>
-				    <h5 class="mpdate font-size-16">가입일 : <%=vo.getPETSITTER_DATE().substring(0,10) %></h5>
-				  </div>
-				  <div class = "col-md-5" style = "margin-top : 50px;">
-				  	<button type="button" style = "padding : 0;" class="font-size-16 main_whitefont mybtn" data-toggle="modal" data-target="#staticBackdrop03">스케쥴 관리
-						</button>
-				  	<button type="button" style = "padding : 0;" class="font-size-16 main_whitefont mybtn" data-toggle="modal" data-target="#staticBackdrop">회원정보 변경
-						</button>
-				  </div>
-				  </div>
-				</div>							
-			  </div> 
 			</div>
-		  </div>
+			
+			
+			<div class="col-lg-4 offset-md-1" style = "color : #5e5e5e;">
+				<div class="circle1">		
+				  <div class="row justify-content-center">
+					  <div class = "col-12">
+							<h5 class="fmcss">돌봄 수 : <%=vo.getPETSITTER_COUNT() %></h5>
+						</div>
+						<div class = "col-12">
+							<h5 class="fmcss">이번달 돌봄 수 : <%=m_count %></h5>
+						</div>
+						<div class = "col-12">
+							<h5 class="fmcss">총 돌봄금액 : <%=vo.getPETSITTER_AMOUNT() %></h5>
+						</div>
+						<div class = "col-12">
+							<h5 class="fmcss">이번달 돌봄 금액: <%=m_amount %></h5>
+						</div>
+					</div>	
+				</div>				
+		  </div>	
 		</div>
-			
-			
-		<div class="col-md-5" style = "color : #5e5e5e;">
-			<div class="mptext">
-			  <div class="row">
-			  <div class = "col-6">
-				<h5 class="font-size-15">돌봄 수 : <%=vo.getPETSITTER_COUNT() %></h5>
-				</div>
-				<div class = "col-6">
-				<h5 class="font-size-15">이번달 돌봄 수 : <%=m_count %></h5>
-				</div>
-				<div class = "col-12">
-				<hr class ="line" color="#949494" width="100%">
-				</div>
-				<div class = "col-6">
-				<h5 class="font-size-15">총 돌봄금액 : <%=vo.getPETSITTER_AMOUNT() %></h5>
-				</div>
-				<div class = "col-6">
-				<h5 class="font-size-15">이번달 돌봄 금액: <%=m_amount %></h5>
-				</div>
-				<div class = "col-12">
-				<hr class ="line" color="#949494" width="100%">
-				</div>
-			</div>		
-		  </div>
-	    </div>	
-	  </div>
 	</div>
 </section>
 <!-- 상세정보 끝!! -->
-
-
-
 
 <!-- 이용현황 및 내역 시작!!-->
 <section class="list">

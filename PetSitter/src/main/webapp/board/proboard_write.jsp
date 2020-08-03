@@ -98,24 +98,14 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	 
 	
 </style>
-	
-	
-  <head>
-  	
+<head>
   	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     <title>전문가 상담 게시판</title>
-
-	
 		<link rel="stylesheet" type="text/css" href="resources/css/JH_CSS/proBoard2.css?after">	
-
-
-
   </head>
-
- 
- <form action="./proboardwrite.bo" method="post" name="proboardform" enctype="multipart/form-data">
- <input type="hidden" name="MEMBER_ID" value="<%=id %>">
+<form action="./proboardwrite.bo" method="post" name="proboardform" enctype="multipart/form-data">
+<input type="hidden" name="MEMBER_ID" value="<%=id %>">
    	<div class="container">      
 			<div class="row">
     		<div class="col-md-12 p-3"></div>
@@ -193,8 +183,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	   
 <%@ include file="../jsp_bottom.jsp" %>
 
-
-    
     <script type="text/javascript">
     //제목, 최소 글자수 제한
 		function addboard(){
@@ -310,8 +298,5 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		//두번째 이미지 파일 넣을때 종료
 
 	</script>
-	
-
-  </body>
-
+</body>
 </html>

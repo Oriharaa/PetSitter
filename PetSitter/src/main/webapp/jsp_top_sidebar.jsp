@@ -1,8 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String sidevarcheck = "";
+%>
 <!DOCTYPE html>
 <html>
 	<style>
+		@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+		body {
+		  font-family: "Noto Sans KR", sans-serif !important;
+		  font-weight: 400;
+		} 
 		a#MOVE_TOP_BTN {
 			/* position : 화면에 고정
 			right, bottom : 버튼의 위치 설정
@@ -20,6 +28,33 @@
 			bottom: 50px;
 			display: none;
 			z-index: 999;
+		}
+		.site-mobile-menu {
+			width: 300px;
+			position: fixed;
+			right: 0;
+			z-index: 2000;
+			padding-top: 20px;
+			background: #d3d3d3!important;
+			height: calc(100vh);
+			-webkit-transform: translateX(110%);
+			-ms-transform: translateX(110%);
+			transform: translateX(110%);
+			-webkit-box-shadow: -10px 0 20px -10px rgba(0, 0, 0, 0.1);
+			box-shadow: -10px 0 20px -10px rgba(0, 0, 0, 0.1);
+			-webkit-transition: .3s all ease-in-out;
+			-o-transition: .3s all ease-in-out;
+			transition: .3s all ease-in-out; 
+		}
+	  
+		.site-mobile-menu .site-mobile-menu-body {
+			background: #d3d3d3!important;
+			overflow-y: scroll;
+			-webkit-overflow-scrolling: touch;
+			position: relative;
+			padding: 0 20px 20px 20px;
+			height: calc(100vh - 52px);
+			padding-bottom: 150px; 
 		}
 		a#MOVE_SIDEBAR_BTN01{
 			/* position : 화면에 고정
@@ -104,21 +139,21 @@
 		}			
 	</style>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
     
 	<!-- 아이콘 css -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/aos.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/owl.theme.default.min.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/fonts/flaticon/font/flaticon.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/aos.css">
     
-    <!-- MAIN CSS 다양한 폰트크기보유 -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
+	<!-- MAIN CSS 다양한 폰트크기보유 -->
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/petsitter-style.css">
 </head>
 <style>
@@ -318,7 +353,7 @@
 			<a href="mboardlist.me" style="font-size:15px;" class = "sideMenuBar"><div class = "sideMenuHover">회원 게시판</div></a>
 			<%} %>				
 			
-			<%if(sidevarcheck == "mboardlist") {%>				
+			<%if(sidevarcheck == "pqboardlist") {%>				
 			<a href="pqboardlist.me" style="font-size:15px;" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">펫시터 게시판</div></a>
 			<%}else{%>					
 			<a href="pqboardlist.me" style="font-size:15px;" class = "sideMenuBar"><div class = "sideMenuHover">펫시터 게시판</div></a>
@@ -338,8 +373,6 @@
 			<%} %>		
 
 		</div>
-		
-		
-	</header>
+</header>
 </body>
 </html>

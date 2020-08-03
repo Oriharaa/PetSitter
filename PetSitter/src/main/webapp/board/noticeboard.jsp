@@ -32,7 +32,8 @@
 	SimpleDateFormat format1;
 	format1 = new SimpleDateFormat("yyyy-MM-dd");
 %>
-<%@ include file="../jsp_top.jsp" %>
+<%@ include file="../jsp_top_sidebar.jsp" %>
+<% sidevarcheck = "noticeboardlist"; %>
 <!doctype html>
 <html lang="ko">
 <style>

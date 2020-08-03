@@ -22,13 +22,11 @@
 	int startpage=((Integer)request.getAttribute("startpage")).intValue();
 	int endpage=((Integer)request.getAttribute("endpage")).intValue();
 %>
-
+<%@ include file="../jsp_top_sidebar.jsp" %>
+<% sidevarcheck = "proboard"; %>
 <!-- 전문가 상담 게시판 -->
-
 <!doctype html>
-<html lang="en">
-
-
+<html lang="ko">
 <style>
 	/*펫시터 메인 폰트컬러 */
 	.main_mintfont{
@@ -51,75 +49,15 @@
 	color : #949494!important;
 	}
 	/*펫시터 메인 폰트컬러 끝*/
-	
-	
-	/* 제이쿼리 로인해 색 폰트 사이즈 수정을 위해 jsp파일안에 스타일 오버라이트 
-resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style로 적용 됨) */
-	.site-mobile-menu {
-	  width: 300px;
-	  position: fixed;
-	  right: 0;
-	  z-index: 2000;
-	  padding-top: 20px;
-	  background: #d3d3d3!important;
-	  height: calc(100vh);
-	  -webkit-transform: translateX(110%);
-	  -ms-transform: translateX(110%);
-	  transform: translateX(110%);
-	  -webkit-box-shadow: -10px 0 20px -10px rgba(0, 0, 0, 0.1);
-	  box-shadow: -10px 0 20px -10px rgba(0, 0, 0, 0.1);
-	  -webkit-transition: .3s all ease-in-out;
-	  -o-transition: .3s all ease-in-out;
-	  transition: .3s all ease-in-out; }
-	  
-	.site-mobile-menu .site-mobile-menu-body {
-	background: #d3d3d3!important;
-	overflow-y: scroll;
-	-webkit-overflow-scrolling: touch;
-	position: relative;
-	padding: 0 20px 20px 20px;
-	height: calc(100vh - 52px);
-	padding-bottom: 150px; }
-	  /* 기본 상단바 끝*/
-	  
-	/*최하단바 시작*/
-	.site-footer {
-	  padding: 4em 0;
-	  background: #e9e9e9!important; 
-	}
-	/*최하단바 종료*/
-	
-
-		
 </style>
-
-
-  <head>
-    <title>전문가 상담 게시판</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
-	<!-- 아이콘 css -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/fonts/icomoon/style.css">
-    
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery.fancybox.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/owl.carousel.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/owl.theme.default.min.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/aos.css">
-
-    <!-- MAIN CSS 다양한 폰트크기보유 -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
-    
+<head>
+	<title>전문가 상담 게시판</title>
     <!-- 언택 추가 CSS -->
 		<link rel="stylesheet" type="text/css" href="resources/css/UT_CSS/proBoard.css?after">
 		<link rel="stylesheet" type="text/css" href="resources/css/JH_CSS/proBoard2.css?after">
     
-		<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 		<script type="text/javascript">
-		
 		var id = '<%=id%>';
 		var rank = '<%=rank%>';
 		var j = 1; //좋아요 아이디 체크 for문용
@@ -1028,155 +966,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			
 		});		
 		</script>
-
-<style>
-	.dropdown:hover {
-		background-color: rgb(83, 220, 153);
-	}
-	
-	.dropdown:active {
-		background-color: rgb(83, 220, 153);
-	}
-	.btn-secondary {
-		background-color: rgb(83, 220, 153);
-		border-color: rgb(83, 220, 153);
-		vertical-align: baseline;
-		font-weight: bold;
-	}
-	
-	.btn-secondary:hover {
-		background-color: rgb(83, 220, 153);
-		border-color: rgb(83, 220, 153);
-	}
-	
-	.btn-secondary:active {
-		background-color: rgb(83, 220, 153);
-		border-color: rgb(83, 220, 153);
-	}
-	
-	.btn-secondary:focus {
-		background-color: rgb(83, 220, 153);
-		border-color: rgb(83, 220, 153);
-		box-shadow: 0 0 0 0 rgb(83, 220, 153);
-	}
-	
-	.dropdown-menu {
-		min-width: 60px !important;
-	}
-
-	.dropdown-item:hover {
-		background-color: rgb(83, 220, 153);
-		color: rgb(255, 255, 255) !important;
-	}
-	
-	.dropdown-item {
-		 color: #53dc99 !important;
-		 font-weight: bold;
-	}
-	
-	.main-menu li a {
-		font-weight: bold;
-	}
-</style>
-  </head>
-  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-  
-  
-
-      <div class="site-mobile-menu site-navbar-target">
-        <div class="site-mobile-menu-header">
-          <div class="site-mobile-menu-close mt-3">
-            <span class="icon-close2 js-menu-toggle"></span>
-          </div>
-        </div>
-        <div class="site-mobile-menu-body"></div>
-      </div>
-      
-      
-    <div class="top-bar">
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <a href="#" class=""><span class="mr-2  icon-envelope-open-o"></span> <span class="d-none d-md-inline-block">petsitter@yourdomain.com</span></a>
-              <span class="mx-md-2 d-inline-block"></span>
-              <a href="#" class=""><span class="mr-2  icon-phone"></span> <span class="d-none d-md-inline-block">1+ (234) 5678 9101</span></a>
-
-
-              <div class="float-right">
-              	<%
-              		if(id == null) {
-              	%>
-                <a href="loginform.me" ><span class = "font-size-14" >로그인 &amp; 회원가입</span></a>
-                <span class="mx-md-2 d-inline-block"></span>
-                <%} else if(!((String)session.getAttribute("rank")).contains("admin") && ((String)session.getAttribute("id")).contains("@")) { %> <!-- 일반 회원 마이 페이지 -->
-                <a href="memberinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
-                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
-                <%} else if(((String)session.getAttribute("id")).contains("admin")) {%>
-                <a href="admin.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
-                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
-                <%} else {%> <!-- 펫시터 마이 페이지 -->
-                <a href="petsitterinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
-                <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
-                <%} %>
-              </div>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgba(83,220,152);">
-
-        <div class="container">
-          <div class="row align-items-center position-relative">
-            <div class="site-logo">
-              <a href="./home.me"><span class="main_whitefont">보살펴조</span></a>
-            </div>
-
-            <div class="col-12">
-              <nav class="site-navigation text-right ml-auto " role="navigation">
-
-                <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-                  <li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											돌봄
-									  </button>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-									    <a href="reservation2.br" class="dropdown-item" style="font-size:15px;">방문 돌봄</a>
-                  		<a href="reservation1.br" class="dropdown-item" style="font-size:15px;" >위탁 돌봄</a>
-									  </div>
-									</li>
-									<li class="dropdown">
-									  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-											게시판
-									  </button>
-									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-									    <a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
-                  		<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
-                  		<a href="pqboardlist.me" class="dropdown-item" style="font-size:15px;" >펫시터 게시판</a>
-									  </div>
-									</li>
-                  <li><a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a></li>
-                  <li><a href="noticeboardlist.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a></li>
-                </ul>
-              </nav>
-
-            </div>
-
-            <div class="toggle-button d-inline-block d-lg-none"><a href="#" class="site-menu-toggle py-5 js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
-
-          </div>
-        </div>
-        
-        <!-- 스크롤 위로올라가기 버튼 html-->
-				<a id="MOVE_TOP_BTN" href="#">TOP</a>
-				
-      </header>
-      
-      
-      
+</head>
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 <!-- 본 기능 추가 시작 -->
-
 <!-- top_box 시작-->
 <section class="top_box">
 	<div class="container">

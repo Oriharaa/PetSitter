@@ -26,7 +26,6 @@
 			display: none;
 			z-index: 999;
 		}
-<<<<<<< HEAD
 		
 		.site-mobile-menu {
 			width: 300px;
@@ -54,8 +53,8 @@
 			padding: 0 20px 20px 20px;
 			height: calc(100vh - 52px);
 			padding-bottom: 150px; 
-=======
-				a#MOVE_TOP_SIDEBAR{
+		}
+		a#MOVE_TOP_SIDEBAR{
 			/* position : 화면에 고정
 			right, bottom : 버튼의 위치 설정
 			display : 화면에서 숨김
@@ -72,7 +71,6 @@
 			bottom: 10px;
 			display: none;
 			z-index: 999;
->>>>>>> origin/CJH
 		}
 	</style>
 <head>

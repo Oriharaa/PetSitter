@@ -65,8 +65,29 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 /*상단 왼쪽 box1 */
 	.box1{
 	background:rgba(83,220,152);
- 	width: 100%;
+ 	width: 1130px;
   height: 100%; 
+  border-radius : 8px;
+	}
+	
+	.circle1 {
+	width : 300px;
+	height : 180px;
+	border-radius : 120px;
+	border : 1px solid rgba(224,224,224,1);
+	margin : 25px 0 5px 0px;
+	padding : 46px 0 0 0;
+	}
+	.fmcss{
+	color : white;
+	font-size : 14px;
+	text-align : center;
+	margin : 0 0 20px 0;
+	}	
+	
+	.profilefont {
+	font-size : 15px;
+	color : white;
 	}
 	
 	.mypage{
@@ -114,8 +135,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	.mpbody {color:#ffffff;}  
 	.mpgrade {
 	font-size : 16px;
-	}  
-	.mpdate {margin:0 60px 0 0 ;}
+	} 
 
 
 /*상단 오른쪽 box2 */

@@ -64,103 +64,88 @@
 <!-- 상세정보 시작!! -->
 <section class="myinfo">
   <div class="container" style="margin-top: 60px;">
-    <div class="row">
-	  <div class="col-md-7" style="padding: 0;">
-	    <div class="box1">
-		    <div class="row">
-		      <div class="col-5" style="margin: 3.5% 0 0 0;">  
-			    <div class="roundimg">
-				  <div class="profile aspect_1_1" style="background: #BDBDBD;">
-				  <%
-				  	if(membervo.getMEMBER_PHOTO_FILE().equals("N")) {
-				  %>
-				  	<img src="resources/images/defaultprofile.jpg.jpg">
-				  <%} else { %>
-						<img src="/filepath/${membervo.MEMBER_PHOTO_FILE }" >
-					<%} %>
-
-				  </div>
-				</div>
-			  </div> 
-			  <div class="col-7" style = "padding : 0;">
-			  	 <h3 class="mypage font-size-24">MY PAGE</h3>
-			    <div class="mpbody">
-				  <div class="row" style = "margin-to">
-				  <div class = "col-04" style = "padding : 0 15px;">
-				  	<%
-				  		if(nickname.equals("")) {
-				  	%>
-				  	<h2 class="mpname float-left">닉네임</h2>
-				  	<%
-				  		} else {
-				  	%>
-				    <h2 class="mpname float-left"><%=nickname %></h2>
-				    <%
-				  		}
-				    %>
-				    <%
-				    	if(membervo.getMEMBER_RANK().equals("Green")) {
-				    %>
-				    	<h3 class="mpnick" style="margin-top: 60px;">${name } &nbsp;<img src="resources/images/rank_green.png" style="width: 25px; height: 25px;"></h3>
-				    <%
-				    	} else if(membervo.getMEMBER_RANK().equals("Gold")) {
-				    %>
-				   		<h3 class="mpnick" style="margin-top: 60px;">${name } &nbsp;<img src="resources/images/rank_gold.png" style="width: 25px; height: 25px;"></h3>
-				    <%
-				    	} else if(membervo.getMEMBER_RANK().equals("VIP")) { 
-				    %>
-				    	<h3 class="mpnick" style="margin-top: 60px;">${name } &nbsp;<img src="resources/images/rank_vip.png" style="width: 25px; height: 25px;"></h3>
-				    <%
-				    	} 
-				    %>
-				    <h5 class="mpdate font-size-16" id="memberdate">가입일 &nbsp;<%=membervo.getMEMBER_DATE().substring(0,10) %></h5>
-				  </div>
-				  <div class = "col-md-5" style = "margin-top : 50px;">
-				  	<!-- <a href="petRegister.me" class="font-size-16 main_whitefont">마이펫 현황</a> -->
-				  	<a href="myPet.me" class="font-size-16 main_whitefont">마이펫 현황</a>
-				  	<button type="button" style = "padding : 0;" class="font-size-16 main_whitefont mybtn" data-toggle="modal" data-target="#staticBackdrop">
-						회원정보 변경
-						</button>
-				  </div>
-				  </div>
-				</div>							
-			  </div> 
+    <div class="row box1">
+		  <div class="col-7" style="padding: 0;">
+			   <div class="row">
+			      <div class="col-5" style="margin: 3.5% 0 0 0;">  
+					    <div class="roundimg">
+							  <div class="profile aspect_1_1" style="background: #BDBDBD;">
+								  <%
+								  	if(membervo.getMEMBER_PHOTO_FILE().equals("N")) {
+								  %>
+								  	<img src="resources/images/defaultprofile.jpg.jpg">
+								  <%} else { %>
+										<img src="/filepath/${membervo.MEMBER_PHOTO_FILE }" >
+									<%} %>
+							  </div>
+							</div>
+				 		</div> 
+				  <div class="col-7" style = "padding : 0;">
+				  	<h3 class="mypage font-size-24">MY PAGE</h3>
+				    <div class="mpbody">
+						  <div class="row" style = "margin-to">
+							  <div class = "col-6" style = "padding : 0 15px;">
+							  	<%
+							  		if(nickname.equals("")) {
+							  	%>
+							  	<h2 class="mpname float-left">닉네임</h2>
+							  	<%
+							  		} else {
+							  	%>
+							    <h2 class="mpname float-left"><%=nickname %></h2>
+							    <%
+							  		}
+							    %>
+							    <%
+							    	if(membervo.getMEMBER_RANK().equals("Green")) {
+							    %>
+							    	<h3 class="mpnick" style="margin-top: 60px;">${name } &nbsp;<img src="resources/images/rank_green.png" style="width: 25px; height: 25px;"></h3>
+							    <%
+							    	} else if(membervo.getMEMBER_RANK().equals("Gold")) {
+							    %>
+							   		<h3 class="mpnick" style="margin-top: 60px;">${name } &nbsp;<img src="resources/images/rank_gold.png" style="width: 25px; height: 25px;"></h3>
+							    <%
+							    	} else if(membervo.getMEMBER_RANK().equals("VIP")) { 
+							    %>
+							    	<h3 class="mpnick" style="margin-top: 60px;">${name } &nbsp;<img src="resources/images/rank_vip.png" style="width: 25px; height: 25px;"></h3>
+							    <%
+							    	} 
+							    %>
+							    <h5 class="mpdate font-size-16" id="memberdate">가입일 &nbsp;<%=membervo.getMEMBER_DATE().substring(0,10) %></h5>
+							  </div>
+							  <div class = "col-md-5" style = "margin-top : 55px;">
+							  	<!-- <a href="petRegister.me" class="font-size-16 main_whitefont">마이펫 현황</a> -->
+							  	<a href="myPet.me" class="profilefont">마이펫 현황</a>
+							  	<button type="button" style = "padding : 0;" class="font-size-15 main_whitefont mybtn" data-toggle="modal" data-target="#staticBackdrop">
+									회원정보 변경
+									</button>
+							  </div>
+						  </div>
+						</div>							
+				  </div> 
+			  </div>
 			</div>
-		  </div>
-		</div>
 			
-			
-		<div class="col-md-5" style = "color : #5e5e5e;">
-			<div class="mptext">
-			  <div class="row">
-			  <div class = "col-6">
-				<h5 class="font-size-15">이용 횟수 : <%=membervo.getMEMBER_COUNT() %></h5>
-				</div>
-				<div class = "col-6">
-				<h5 class="font-size-15">후기 작성 : <%=review_count %></h5>
-				</div>
-				<div class = "col-12">
-				<hr class ="line" color="#949494" width="100%">
-				</div>
-				<div class = "col-6">
-				<h5 class="font-size-15">할인 쿠폰 : 0</h5>
-				</div>
-				<div class = "col-6">
-				<h5 class="font-size-15">포인트 : 0</h5>
-				</div>
-				<div class = "col-12">
-				<hr class ="line" color="#949494" width="100%">
-				</div>
-			</div>		
+				
+			<div class="col-lg-4 offset-md-1" style = "color : #5e5e5e;">
+				<div class="circle1">
+				  <div class="row justify-content-center">
+					  <div class = "col-12">
+							<h5 class="fmcss">이용 횟수 : <%=membervo.getMEMBER_COUNT() %></h5>
+						</div>
+						<div class = "col-12">
+							<h5 class="fmcss">후기 작성 : <%=review_count %></h5>
+						</div>
+						<div class = "col-12">
+							<h5 class="fmcss">포인트 : 0</h5>
+						</div>
+					</div>
+		    </div>	
 		  </div>
-	    </div>	
-	  </div>
+		</div>		  
 	</div>
 </section>
 <!-- 상세정보 끝!! -->
-
-
-
 
 <!-- 이용현황 및 내역 시작!!-->
 <section class="list">
