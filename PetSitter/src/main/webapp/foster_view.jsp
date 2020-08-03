@@ -1200,6 +1200,8 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 	       	  	$('#reviewRating').append(Rating);
 	       	  	
 	       	  	var reviewStar = '';
+	       	  	
+	       	  	//후기 평점에 따라 보이는 별 개수
 	   	    		if(item.review_SCORE == 5){
 	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
 	   	    			reviewStar += '<img src="resources/images/star.png" width="17px" height="17px" style="margin-bottom: 8px;">';
@@ -1326,7 +1328,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 	        		reviewList += '<tr>';
 	        		reviewList += '<td class = "font-size-18 main_grayfont3 mybold"  align = "center">'+ item.member_NICKNAME + '</td>';
 	        		reviewList += '<td style = "padding: 6px 0 0 10px; font-size: 12px;">';
-	        		reviewList += '<a href = "./reviewreportform.bo?num='+item.list_NUM+'&sessionid='+sessionid+'" type="button" class="reportFormAjax main_redfont0">신고</a></td>';	
+	        		reviewList += '<a href = "./reviewreportform.bo?num='+item.list_NUM+'&sessionid='+sessionid+'&boardType='+item.board_TYPE+'" type="button" class="reportFormAjax main_redfont0">신고</a></td>';	
 	        		reviewList += '</tr>';
 	        		reviewList += '<tr>';
 	        		
@@ -1910,9 +1912,9 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 		//좋아용 기능 시작
 		function reviewLikeCountRead(reviewListNum){
 			$.ajax({
-				url : '/petsitter/readReviewLikeCount.bo?reviewListNum=' + reviewListNum,
+				url : '/petsitter/readReviewLikeCount.bo',
+				data : { reviewListNum : reviewListNum},
 				type : 'post',
-				data : {'reviewListNum': reviewListNum},
 				dataType : 'json',
 				contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
 				success : function(data) {
@@ -1936,7 +1938,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 		    		//idcheck 는  좋아요를 누른 아이디 일시 2로 바뀜
 		    		var idcheck = 1;
 		    		//첫 split된 인데스 0번째는 'N' 으로 1인덱스부터 시작과 il에 1추가로 필요한 길이 맞춤
-		    		if (sessionid != "null" && likeids != "N"){
+		    		if (sessionid != "null" && value.like_ID != "N"){
 		    			var lc = value.like_COUNT;
 		    			var ln = value.list_NUM;
 		    			for(j = 1; j < lc+1; j++){

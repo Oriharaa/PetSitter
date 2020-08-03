@@ -257,7 +257,6 @@ public class ReservationController {
 	@ResponseBody 
 	// jsp와 같은 뷰를 전달 하는게 아닌 데이터를 전달 하기 위해 사용 
 	public List<ReviewBoardVO> reviewList(String petsitterid) {
-		System.out.println("1");
 		List<ReviewBoardVO> list = petsitterService.reviewList(petsitterid);
 		SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd");
 		for(int i = 0; i < list.size(); i++) {
@@ -283,10 +282,9 @@ public class ReservationController {
 	/*좋아요 기능 시작*/
 	@RequestMapping(value="/readReviewLikeCount.bo", produces="application/json; charset=UTF-8")
 	@ResponseBody	
-	private List<ReviewBoardVO> readReviewLikeCount(@RequestParam int reviewListNum) throws Exception{
+	private List<ReviewBoardVO> readReviewLikeCount(int reviewListNum) throws Exception{
 	  	List<ReviewBoardVO> reviewLikeCount = petsitterService.readReviewLikeCount(reviewListNum);
 	  	
-	  	reviewLikeCount.get(0).getLIKE_ID();
 	  	return reviewLikeCount;
 	}	
 	

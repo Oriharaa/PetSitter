@@ -3,11 +3,6 @@
 <!DOCTYPE html>
 <html>
 	<style>
-		@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
-		body {
-		  font-family: "Noto Sans KR", sans-serif !important;
-		  font-weight: 400;
-		} 
 		a#MOVE_TOP_BTN {
 			/* position : 화면에 고정
 			right, bottom : 버튼의 위치 설정
@@ -26,54 +21,87 @@
 			display: none;
 			z-index: 999;
 		}
-<<<<<<< HEAD
-		
-		.site-mobile-menu {
-			width: 300px;
-			position: fixed;
-			right: 0;
-			z-index: 2000;
-			padding-top: 20px;
-			background: #d3d3d3!important;
-			height: calc(100vh);
-			-webkit-transform: translateX(110%);
-			-ms-transform: translateX(110%);
-			transform: translateX(110%);
-			-webkit-box-shadow: -10px 0 20px -10px rgba(0, 0, 0, 0.1);
-			box-shadow: -10px 0 20px -10px rgba(0, 0, 0, 0.1);
-			-webkit-transition: .3s all ease-in-out;
-			-o-transition: .3s all ease-in-out;
-			transition: .3s all ease-in-out; 
-		}
-	  
-		.site-mobile-menu .site-mobile-menu-body {
-			background: #d3d3d3!important;
-			overflow-y: scroll;
-			-webkit-overflow-scrolling: touch;
-			position: relative;
-			padding: 0 20px 20px 20px;
-			height: calc(100vh - 52px);
-			padding-bottom: 150px; 
-=======
-				a#MOVE_TOP_SIDEBAR{
+		a#MOVE_SIDEBAR_BTN01{
 			/* position : 화면에 고정
 			right, bottom : 버튼의 위치 설정
 			display : 화면에서 숨김
 			z-index : 다른 태그들보다 위로 오도록 설정(z-index 가 설정된 다른 태그가 있다면 그 태그보다 커야 함)
 			*/
-			background: rgb(83, 220, 152);
-			color : white;
-			width : 90px;
-			height : 40px;
+			background: white;
+			color : rgb(83, 220, 152);
+			border : 1px solid #53DC98!important;
+			width : 50px;
+			height : 50px;
 			position: fixed; 
-			padding : 7px 0 0 30.8px;
-			border-radius : 22px;
-			right: 2%;
-			bottom: 10px;
+			padding : 13px 0 0 7px;
+			border-radius : 25px;
+			right: 87.5%;
+			bottom: 735px;
 			display: none;
 			z-index: 999;
->>>>>>> origin/CJH
+			font-size : 13px;
 		}
+		a#MOVE_SIDEBAR_BTN02{
+			/* position : 화면에 고정
+			right, bottom : 버튼의 위치 설정
+			display : 화면에서 숨김
+			z-index : 다른 태그들보다 위로 오도록 설정(z-index 가 설정된 다른 태그가 있다면 그 태그보다 커야 함)
+			*/
+			background: white;
+			color : rgb(83, 220, 152);
+			border : 1px solid #53DC98!important;
+			width : 50px;
+			height : 50px;
+			position: fixed; 
+			padding : 13px 0 0 9px;
+			border-radius : 25px;
+			right: 87.5%;
+			bottom: 735px;
+			display: none;
+			z-index: 999;
+			font-size : 13px;
+		}		
+		div#MOVE_SIDEBAR{
+			/* position : 화면에 고정
+			right, bottom : 버튼의 위치 설정
+			display : 화면에서 숨김
+			z-index : 다른 태그들보다 위로 오도록 설정(z-index 가 설정된 다른 태그가 있다면 그 태그보다 커야 함)
+			*/
+			background : rgba(83, 220, 152, 0.15);
+			color : #26bd72;
+			width : 180px;
+			height : 940px;
+			position: fixed; 
+			padding : 13px 0 0 7px;
+			right: 90.55%;
+			bottom: 0px;
+			display: none;
+			z-index: 1200;
+			font-size : 15px;
+			text-align : center;
+		}		
+
+		.sideMenuBar{
+		font-size : 15px;
+		color : #26bd79;
+		margin : 0 0 5px 0;
+		}	
+		.sideMenuBar:hover{
+		font-size : 15px;
+		color : white;
+		margin : 0 0 5px 0;
+		}
+		
+		.sideMenuBar02{
+		font-size : 15px;
+		color : white;
+		margin : 0 0 5px 0;
+		background : rgba(83, 220, 152, 0.7);
+		}
+				
+		.sideMenuHover:hover{
+		background : rgba(83, 220, 152, 0.7);
+		}			
 	</style>
 <head>
     <meta charset="utf-8">
@@ -105,6 +133,7 @@
 		background-color: rgb(83, 220, 153);
 		border-color: rgb(83, 220, 153);
 		vertical-align: baseline;
+		font-weight: bold;
 	}
 	
 	.btn-secondary:hover {
@@ -134,8 +163,13 @@
 	
 	.dropdown-item {
 		 color: #53dc99 !important;
+		 font-weight: bold;
 	}
 	
+	.main-menu li a {
+		font-weight: bold;
+
+	}
 </style>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 	<div class="site-mobile-menu site-navbar-target">
@@ -201,7 +235,7 @@
 			<div class="row align-items-center position-relative" >
 				<div class="site-logo">
 					<a href="home.me" >
-						<span class="main_whitefont">Petstiny</span>
+						<span class="main_whitefont">보살펴조</span>
 					</a>
 				</div>
 
@@ -209,7 +243,7 @@
 					<nav class="site-navigation text-right ml-auto " role="navigation" >
 						<ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
 							<li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
-								<button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 15px; font-weight: 390;">
+								<button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									돌봄
 								</button>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
@@ -218,7 +252,7 @@
 								</div>
 							</li>
 							<li class="dropdown">
-								<button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 15px; font-weight: 390;">
+								<button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
 									게시판
 								</button>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
@@ -228,10 +262,10 @@
 								</div>
 							</li>
 							<li>
-								<a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px; font-weight: 390;">이용 후기</a>
+								<a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a>
 							</li>
 							<li>
-								<a href="noticeboardlist.me" class="nav-link" id="main_whitefont2" style = "font-size:15px; font-weight: 390;">공지사항</a>
+								<a href="noticeboardlist.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a>
 							</li> 
 						</ul>
 					</nav>
@@ -246,7 +280,66 @@
 		</div>
 		<!-- 스크롤 위로올라가기 버튼 html-->
 		<a id="MOVE_TOP_BTN" href="#">TOP</a>
-		<a id="MOVE_TOP_SIDEBAR" href="#">MENU</a>
+		
+		
+		<a id="MOVE_SIDEBAR_BTN01" href="#">MENU</a>
+		<a id="MOVE_SIDEBAR_BTN02" href="#">BACK</a>		
+		<div id="MOVE_SIDEBAR">
+			<br/><br/><br/><br/><br/><br/><br/>
+			<%if(sidevarcheck == "home") {%>
+			<a href="home.me" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">HOME</div></a>
+			<%}else{%>
+			<a href="home.me" class = "sideMenuBar"><div class = "sideMenuHover">HOME</div></a>
+			<%} %>
+			
+			<br/>
+			<%if(sidevarcheck == "reservation2") {%>			
+			<a href="reservation2.br" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">방문 돌봄</div></a>			
+			<%}else{%>
+			<a href="reservation2.br" class = "sideMenuBar"><div class = "sideMenuHover">방문 돌봄</div></a>		
+			<%} %>
+			
+			<%if(sidevarcheck == "reservation1") {%>				
+			<a href="reservation1.br" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">위탁 돌봄</div></a>			
+			<%}else{%>
+			<a href="reservation1.br" class = "sideMenuBar"><div class = "sideMenuHover">위탁 돌봄</div></a>				
+			<%} %>			
+												
+			<br/>
+			<%if(sidevarcheck == "proboard") {%>					
+			<a href="proboard.bo" style="font-size:15px;" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">전문가 상담 게시판</div></a>
+			<%}else{%>
+			<a href="proboard.bo" style="font-size:15px;" class = "sideMenuBar"><div class = "sideMenuHover">전문가 상담 게시판</div></a>
+			<%} %>					
+			
+			<%if(sidevarcheck == "mboardlist") {%>										
+			<a href="mboardlist.me" style="font-size:15px;" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">회원 게시판</div></a>
+			<%}else{%>			
+			<a href="mboardlist.me" style="font-size:15px;" class = "sideMenuBar"><div class = "sideMenuHover">회원 게시판</div></a>
+			<%} %>				
+			
+			<%if(sidevarcheck == "mboardlist") {%>				
+			<a href="pqboardlist.me" style="font-size:15px;" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">펫시터 게시판</div></a>
+			<%}else{%>					
+			<a href="pqboardlist.me" style="font-size:15px;" class = "sideMenuBar"><div class = "sideMenuHover">펫시터 게시판</div></a>
+			<%} %>					
+			
+			<br/>
+			<%if(sidevarcheck == "review_board") {%>				
+			<a href="review_board.bo" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">이용 후기</div></a>	
+			<%}else{%>				
+			<a href="review_board.bo" class = "sideMenuBar"><div class = "sideMenuHover">이용 후기</div></a>				
+			<%} %>				
+			
+			<%if(sidevarcheck == "noticeboardlist") {%>						
+			<a href="noticeboardlist.me" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">공지사항</div></a>	
+			<%}else{%>					
+			<a href="noticeboardlist.me" class = "sideMenuBar"><div class = "sideMenuHover">공지사항</div></a>				
+			<%} %>		
+
+		</div>
+		
+		
 	</header>
 </body>
 </html>

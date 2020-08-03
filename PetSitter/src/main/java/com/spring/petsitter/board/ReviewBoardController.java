@@ -74,8 +74,6 @@ public class ReviewBoardController {
 	// jsp와 같은 뷰를 전달 하는게 아닌 데이터를 전달 하기 위해 사용 
 	public List<ReviewBoardVO> getReviewBoardJSONGET() {
 		List<ReviewBoardVO> review_list = ReviewboardService.getReviewList();
-		//System.out.println(review_list.get(0).getMEMBER_PHOTO_FILE());
-		//System.out.println(review_list.get(0).getREVIEW_REFLY());
 
         return review_list;
 	}
@@ -101,19 +99,17 @@ public class ReviewBoardController {
 	@ResponseBody	
 	public List<ReviewBoardVO> getReviewReportForm(
 			@RequestParam(value="num", required=true) int num,
-			@RequestParam(value="sessionid", required=true) String sessionid) throws Exception {
-		System.out.println("컨트롤러 신고 form");
+			@RequestParam(value="sessionid", required=true) String sessionid,
+			@RequestParam(value="boardType", required=true) String boardType) throws Exception {
 		HashMap<String, Object> hashmap = new HashMap<String, Object>();
 		hashmap.put("num", num);
 		hashmap.put("sessionid", sessionid);
+		hashmap.put("boardType", boardType);
 		int count = ReviewboardService.getReviewReportCountCheck(hashmap);
 		
 		List<ReviewBoardVO> boardlist = ReviewboardService.getReviewReportForm(num);
 		if(count != 0) {
 			boardlist.get(0).setREVIEW_CONTENT("NN");
-			System.out.println("확인 = " + boardlist.get(0).getREVIEW_CONTENT());
-			System.out.println("확인 = " + boardlist.get(0).getREVIEW_CONTENT());
-			System.out.println("확인 = " + boardlist.get(0).getREVIEW_CONTENT());
 		}
 		return boardlist;
 	}	
