@@ -132,7 +132,7 @@
 		 
 		스크롤 위로올라가기 버튼 종료 script*/
 		
-		/*스크롤 위로올라가기 버튼 시작 script*/
+		/*sidebar 버튼 시작 script*/
 		$(function() {
 			$('#MOVE_SIDEBAR_BTN01').fadeIn();
 				
@@ -141,7 +141,8 @@
 				$('#MOVE_SIDEBAR_BTN01').fadeOut();
 				$('#MOVE_SIDEBAR_BTN02').fadeIn();
 			
-			//클릭시 스크롤 버튼 위치 유지 start
+			//클릭시 sidebar는 fadeIn으로 보이며 버튼은 바뀐다
+			
 			//현재 스크롤 값 구하기
 			var scrollValue = $(document).scrollTop();
 			//지정값으로 가기
@@ -157,7 +158,6 @@
 				$('#MOVE_SIDEBAR_BTN02').fadeOut();
 				$('#MOVE_SIDEBAR_BTN01').fadeIn();		
 				
-				//클릭시 스크롤 버튼 위치 유지 start
 				//현재 스크롤 값 구하기
 				var scrollValue = $(document).scrollTop();
 				//지정값으로 가기
@@ -165,18 +165,13 @@
 					scrollTop : scrollValue
 				}, );
 				return false;
-				//클릭시 스크롤 버튼 위치 유지 end	
+				//sidebar 버튼  end	
 				
 	
 			});
 		});
-		/*
-		scroll(function(): scroll 함수를 이용
-		첫 if문  : 스크롤 위치에 따라 화면에서 맨위로 올라가는 버튼을 나타내고, 사라지도록 설정
-		click(function() : 버튼 클릭 이벤트
-		animate({ });: animation 을 걸어서 화면 맨위로 이동하도록 설정
-		 
-		스크롤 위로올라가기 버튼 종료 script*/
+
+
 		
 		
 	</script>

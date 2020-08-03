@@ -22,8 +22,15 @@
 	int startpage=((Integer)request.getAttribute("startpage")).intValue();
 	int endpage=((Integer)request.getAttribute("endpage")).intValue();
 %>
+<<<<<<< HEAD
 <%@ include file="../jsp_top_sidebar.jsp" %>
 <% sidevarcheck = "proboard"; %>
+=======
+
+
+<%@ include file="../jsp_top_sidebar.jsp"%>
+<%sidevarcheck = "proboard"; %>
+>>>>>>> origin/CJH
 <!-- 전문가 상담 게시판 -->
 <!doctype html>
 <html lang="ko">
@@ -50,8 +57,18 @@
 	}
 	/*펫시터 메인 폰트컬러 끝*/
 </style>
+<<<<<<< HEAD
 <head>
 	<title>전문가 상담 게시판</title>
+=======
+
+
+  <head>
+    <title>전문가 상담 게시판</title>
+
+
+    
+>>>>>>> origin/CJH
     <!-- 언택 추가 CSS -->
 		<link rel="stylesheet" type="text/css" href="resources/css/UT_CSS/proBoard.css?after">
 		<link rel="stylesheet" type="text/css" href="resources/css/JH_CSS/proBoard2.css?after">
@@ -90,7 +107,7 @@
 							proForm += '<div class="bottom_table">';
 							proForm += '<table class="PRO_TABLE main_grayfont3 fixtable">';
 							proForm += '<thead>';
-							proForm += '<tr class="PRO_PRO">';
+							proForm += '<tr>';
 							proForm += '<!-- PRO_NUM -->';
 							proForm += '<td scope="col"><div class = "font-size-12 float-left" style = "padding : 5px 0 0 0;">NO :&nbsp; </div> '+item.pro_NUM+'</td>';
 							proForm += '<!-- MEMBER_ID -->';
@@ -111,10 +128,10 @@
 							//비밀게시물이 아닌 경우						
 							if(bls2 == 'N'){
 								proForm += '<tr class="PRO_SUBJECT">';
-								proForm += '<th colspan = "5" style = "padding : 3px 40px 3px 40px"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "lista detailView">'+item.pro_SUBJECT+'</a></th>';
+								proForm += '<th colspan = "5" class = "detailView01"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "lista">'+item.pro_SUBJECT+'</a></th>';
 								proForm += '</tr>';
 								proForm += '<tr class="PRO_CONTENT main_grayfont3">';
-								proForm += '<td colspan ="5" style = "padding : 3px 40px 3px 40px"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "lista2 detailView">'+item.pro_CONTENT+'</a></td>';
+								proForm += '<td colspan ="5" class = "detailView02"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "lista2">'+item.pro_CONTENT+'</a></td>';
 								proForm += '</tr>';
 								proForm += '<tr class="PRO_READMORE">';
 								proForm += '<td colspan ="4" style = "padding-left : 15px"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "read detailView">read more</a></td>';
@@ -126,10 +143,10 @@
 							if(rank != 'null'){
 								if((bls2 == 'Y') && (rank != 'admin') && (rank != 'manager') && (id != blid2)) {								
 									proForm += '<tr class="PRO_SUBJECT">';
-									proForm += '<th colspan = "5" style = "padding : 3px 40px 3px 40px">secret board.</th>';
+									proForm += '<th colspan = "5" style = "padding : 3px 40px 3px 40px;">secret board.</th>';
 									proForm += '</tr>';
 									proForm += '<tr class="PRO_CONTENT main_grayfont3">';
-									proForm += '<td colspan ="5" style = "padding : 3px 40px 3px 40px">비밀 게시글입니다.</td>';
+									proForm += '<td colspan ="5" style = "padding : 3px 40px 3px 40px;">비밀 게시글입니다.</td>';
 									proForm += '</tr>';
 									proForm += '<tr class="PRO_READMORE">';
 									proForm += '<td colspan ="4" style = "padding-left : 15px"><a class="read">read more <span class="oi oi-lock-locked"></span></a></td>';
@@ -142,10 +159,10 @@
 							if(rank == 'null') {		
 								if(bls2 == 'Y'){	
 									proForm += '<tr class="PRO_SUBJECT">';
-									proForm += '<th colspan = "5" style = "padding : 3px 40px 3px 40px">secret board.</th>';
+									proForm += '<th colspan = "5" style = "padding : 3px 40px 3px 40px;">secret board.</th>';
 									proForm += '</tr>';
 									proForm += '<tr class="PRO_CONTENT main_grayfont3">';
-									proForm += '<td colspan ="5" style = "padding : 3px 40px 3px 40px">비밀 게시글입니다.</td>';
+									proForm += '<td colspan ="5" style = "padding : 3px 40px 3px 40px;">비밀 게시글입니다.</td>';
 									proForm += '</tr>';
 									proForm += '<tr class="PRO_READMORE">';
 									proForm += '<td colspan ="4" style = "padding-left : 15px"><a class="read">read more <span class="oi oi-lock-locked"></span></a></td>';
@@ -159,10 +176,10 @@
 								if(rank != 'null'){					
 									if(rank == 'admin' || rank == 'manager' || id == blid2){									
 										proForm += '<tr class="PRO_SUBJECT">';
-										proForm += '<th colspan = "5" style = "padding : 3px 40px 3px 40px"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "lista detailView">'+item.pro_SUBJECT+'</a></th>';
+										proForm += '<th colspan = "5" class = "detailView01"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "lista">'+item.pro_SUBJECT+'</a></th>';
 										proForm += '</tr>';
 										proForm += '<tr class="PRO_CONTENT main_grayfont3">';
-										proForm += '<td colspan ="5" style = "padding : 3px 40px 3px 40px"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "lista2 detailView">'+item.pro_CONTENT+'</a></td>';
+										proForm += '<td colspan ="5" class = "detailView02"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "lista2">'+item.pro_CONTENT+'</a></td>';
 										proForm += '</tr>';
 										proForm += '<tr class="PRO_READMORE">';
 										proForm += '<td colspan ="4" style = "padding-left : 15px"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "read detailView">read more <span class="oi oi-lock-unlocked"></span></a></td>';
@@ -966,8 +983,18 @@
 			
 		});		
 		</script>
+<<<<<<< HEAD
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+=======
+
+
+  </head>
+
+      
+      
+      
+>>>>>>> origin/CJH
 <!-- 본 기능 추가 시작 -->
 <!-- top_box 시작-->
 <section class="top_box">
@@ -1131,7 +1158,7 @@
 					<div class="bottom_table">
 						<table class="PRO_TABLE main_grayfont3 fixtable">
 						<thead>
-							<tr class="PRO_PRO">
+							<tr>
 								<!-- PRO_NUM -->
 								<td scope="col"><div class = "font-size-12 float-left" style = "padding : 5px 0 0 0;">NO :&nbsp; </div> <%=bl.getPRO_NUM() %></td>
 								<!-- MEMBER_ID -->
@@ -1150,13 +1177,13 @@
 				if(bls.equals("N")) {
 		%>		
 							<tr class="PRO_SUBJECT">
-				     		<th colspan = "5" style = "padding : 3px 40px 3px 40px"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "lista detailView"><%=bl.getPRO_SUBJECT() %></a></th>
+				     		<th colspan = "5"  class = "detailView01"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "lista"><%=bl.getPRO_SUBJECT() %></a></th>
 				   		</tr>
 				    	<tr class="PRO_CONTENT main_grayfont3">
-				      	<td colspan ="5" style = "padding : 3px 40px 3px 40px"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "lista2 detailView"><%=bl.getPRO_CONTENT() %></a></td>
+				      	<td colspan ="5"  class = "detailView02"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "lista2"><%=bl.getPRO_CONTENT() %></a></td>
 				    	</tr>
 				    	<tr class="PRO_READMORE">
-				      	<td colspan ="4" style = "padding-left : 15px"><a href="./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class="read detailView">read more</a></td>
+				      	<td colspan ="4" style = "padding-left : 15px"><a href="./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class="read">read more</a></td>
 								<td colspan ="1" class = "replycountcss01">댓글 : <span class = "replycountcss02" id = "replycount<%=bl.getPRO_NUM() %>">0</span></td>
 							</tr>
 		<%	}%>
@@ -1167,10 +1194,10 @@
 					if(bls.equals("Y") && !(rank.equals("admin")) && !(rank.equals("manager")) && !(id.equals(blid))) {
 		%>				
 							<tr class="PRO_SUBJECT">
-				     		<th colspan = "5" style = "padding : 3px 40px 3px 40px">secret board.</th>
+				     		<th colspan = "5" class = "tdpaddign01">secret board.</th>
 				   		</tr>
 				    	<tr class="PRO_CONTENT main_grayfont3">
-				      	<td colspan ="5" style = "padding : 3px 40px 3px 40px">비밀 게시글입니다.</td>
+				      	<td colspan ="5" class = "tdpaddign01">비밀 게시글입니다.</td>
 				    	</tr>
 				    	<tr class="PRO_READMORE">
 				      	<td colspan ="4" style = "padding-left : 15px"><a class="read">read more <span class="oi oi-lock-locked"></span></a></td>
@@ -1185,10 +1212,10 @@
 					if(rank == null){	
 		%>		
 							<tr class="PRO_SUBJECT">
-				     		<th colspan = "5" style = "padding : 3px 40px 3px 40px">secret board.</th>
+				     		<th colspan = "5" class = "tdpaddign01">secret board.</th>
 				   		</tr>
 				    	<tr class="PRO_CONTENT main_grayfont3">
-				      	<td colspan ="5" style = "padding : 3px 40px 3px 40px">비밀 게시글입니다.</td>
+				      	<td colspan ="5" class = "tdpaddign01" >비밀 게시글입니다.</td>
 				    	</tr>
 				    	<tr class="PRO_READMORE">
 				      	<td colspan ="4" style = "padding-left : 15px"><a class="read">read more <span class="oi oi-lock-locked"></span></a></td>
@@ -1204,13 +1231,13 @@
 						if((rank.equals("admin")) || (rank.equals("manager")) || (id.equals(blid))){
 		%>		
 							<tr class="PRO_SUBJECT">
-				     		<th colspan = "5" style = "padding : 3px 40px 3px 40px"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "lista detailView"><%=bl.getPRO_SUBJECT() %></a></th>
+				     		<th colspan = "5" class = "detailView01"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "lista"><%=bl.getPRO_SUBJECT() %></a></th>
 				   		</tr>
 				    	<tr class="PRO_CONTENT main_grayfont3">
-				      	<td colspan ="5" style = "padding : 3px 40px 3px 40px"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "lista2 detailView"><%=bl.getPRO_CONTENT() %></a></td>
+				      	<td colspan ="5" class ="detailView02"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "lista2"><%=bl.getPRO_CONTENT() %></a></td>
 				    	</tr>
 				    	<tr class="PRO_READMORE">
-				      	<td colspan ="4" style = "padding-left : 15px"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "read detailView">read more <span class="oi oi-lock-unlocked"></span></a></td>
+				      	<td colspan ="4" style = "padding-left : 15px"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "read">read more <span class="oi oi-lock-unlocked"></span></a></td>
 								<td colspan ="1" class = "replycountcss01">댓글 : <span class = "replycountcss02" id = "replycount<%=bl.getPRO_NUM() %>">0</span></td>
 							</tr>		
 		<%			}%>		
@@ -1313,61 +1340,15 @@
 <!-- 전문가 게시판 미리보기 종료 (테이블) -->
 <!-- bottom-box 종료 -->   
 <!-- 본 기능 추가 종료 -->
+<%@ include file="../jsp_bottom.jsp" %>
+      
       
 
-      
-      <footer class="site-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-7">
-                <h2 class="footer-heading mb-4" id="main_grayfont1">About Us</h2>
-                <p id="main_grayfont2" style = "font-size : 14px;">반려동물들을 위한 고객과 펫시터와 연결시켜주는 매칭 플렛폼입니다. 신뢰와 안전을 위해 최선을 다하겠습니다.</p>
-              </div>
-              <div class="col-md-4 ml-auto">
-                <h2 class="footer-heading mb-4" id="main_grayfont1">CONTANTS</h2>
-                <ul class="list-unstyled">
-                  <li><a href="#" id="main_grayfont2" style = "font-size : 14px;">방문 돌봄</a></li>
-                  <li><a href="#" id="main_grayfont2" style = "font-size : 14px;">위탁 돌봄</a></li>
-                  <li><a href="#" id="main_grayfont2" style = "font-size : 14px;">반려동물 전문가 상담</a></li>
-                  <li><a href="#" id="main_grayfont2" style = "font-size : 14px;">후기 게시판</a></li>
-                  <li><a href="#" id="main_grayfont2" style = "font-size : 14px;">공지사항</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 ml-auto">
-            <h2 class="footer-heading mb-4" id="main_grayfont1">Follow Us</h2>
-            <a href="https://www.facebook.com/" class="smoothscroll pl-0 pr-3" target="_blank"><span class="icon-facebook" id="main_grayfont2" ></span></a>
-            <a href="https://twitter.com/" class="pl-3 pr-3" target="_blank"><span class="icon-twitter" id="main_grayfont2" ></span></a>
-            <a href="https://www.instagram.com/" class="pl-3 pr-3" target="_blank"><span class="icon-instagram" id="main_grayfont2" ></span></a>
-            <a href="https://www.linkedin.com/" class="pl-3 pr-3" target="_blank"><span class="icon-linkedin" id="main_grayfont2" ></span></a>
-          </div>
-        </div>
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <div class="border-top pt-5">
-              <p id="main_grayfont2">
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true" id="main_grayfont2"></i> <a href="https://colorlib.com" target="_blank" id="main_grayfont2">by Colorlib</a>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </footer>
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
-		<script src="<c:url value="/resources/js/owl.carousel.min.js"/>"></script>
-    <script src="<c:url value="/resources/js/jquery.sticky.js"/>"></script>
 
-    <script src="<c:url value="./resources/js/aos.js"/>"></script><!-- nav 상단바 반응형웹 적용1 -->
-    <script src="<c:url value="/resources/js/main.js"/>"></script><!-- nav 상단바 반응형웹 적용2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script><!-- sweetalert2 -->
     
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css"><!--아이콘 (자물쇠)-->
@@ -1408,29 +1389,7 @@
 
 			$(document).ready(function(){				
 				/*스크롤 위로올라가기 버튼 시작 script*/
-			  $(function() {
-			   $(window).scroll(function() {
-			     if ($(this).scrollTop() > 500) {
-			     	 $('#MOVE_TOP_BTN').fadeIn();
-			     } else {
-			       $('#MOVE_TOP_BTN').fadeOut();
-			     }
-			   });
-		   
-		     $("#MOVE_TOP_BTN").click(function() {
-		       $('html, body').animate({
-		         scrollTop : 0
-		     	 }, 400);
-		     return false;
-		     });
-		   });
-		   /*
-			 scroll(function(): scroll 함수를 이용
-			  첫 if문  : 스크롤 위치에 따라 화면에서 맨위로 올라가는 버튼을 나타내고, 사라지도록 설정
-			 click(function() : 버튼 클릭 이벤트
-			 animate({ });: animation 을 걸어서 화면 맨위로 이동하도록 설정
-		 
-		      스크롤 위로올라가기 버튼 종료 script*/
+
 
 				$(document).on('click', '.loginalert', function(event){
 					Swal.fire({
