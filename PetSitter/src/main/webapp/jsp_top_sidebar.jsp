@@ -70,8 +70,8 @@
 			position: fixed; 
 			padding : 13px 0 0 7px;
 			border-radius : 25px;
-			right: 87.5%;
-			bottom: 735px;
+			left: 3.3%;
+			bottom: 78%;
 			display: none;
 			z-index: 999;
 			font-size : 13px;
@@ -90,8 +90,8 @@
 			position: fixed; 
 			padding : 13px 0 0 9px;
 			border-radius : 25px;
-			right: 87.5%;
-			bottom: 735px;
+			left: 3.3%;
+			bottom: 78%;
 			display: none;
 			z-index: 999;
 			font-size : 13px;
@@ -107,11 +107,10 @@
 			width : 180px;
 			height : 940px;
 			position: fixed; 
-			padding : 13px 0 0 7px;
 			right: 90.55%;
-			bottom: 0px;
+			bottom: -15px;
 			display: none;
-			z-index: 1200;
+			z-index: 900;
 			font-size : 15px;
 			text-align : center;
 		}		
@@ -263,14 +262,14 @@
 			<div class="row align-items-center position-relative" >
 				<div class="site-logo">
 					<a href="home.me" >
-						<span class="main_whitefont">보살펴조</span>
+						<span class="main_whitefont">Petstiny</span>
 					</a>
 				</div>
 
 				<div class="col-12">
 					<nav class="site-navigation text-right ml-auto " role="navigation" >
 						<ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-							<li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
+							<li class="dropdown">
 								<button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 15px; font-weight: 390;">
 									돌봄
 								</button>
@@ -313,7 +312,7 @@
 		<a id="MOVE_SIDEBAR_BTN01" href="#">MENU</a>
 		<a id="MOVE_SIDEBAR_BTN02" href="#">BACK</a>		
 		<div id="MOVE_SIDEBAR">
-			<br/><br/><br/><br/><br/><br/><br/>
+			<br/><br/><br/><br/><br/><br/><br/><br/><br/>
 			<%if(sidevarcheck.equals("home")) {%>
 			<a href="home.me" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">HOME</div></a>
 			<%}else{%>

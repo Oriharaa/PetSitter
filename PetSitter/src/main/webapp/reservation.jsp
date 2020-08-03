@@ -8,7 +8,6 @@
 	PetsitterVO petsittervo = (PetsitterVO)request.getAttribute("petsittervo");
 	ArrayList<PetsitterVO> petsitterlist = (ArrayList<PetsitterVO>)request.getAttribute("petsitterlist");
 	ArrayList<UsinglistVO> usinglist = (ArrayList<UsinglistVO>)request.getAttribute("usinglist");
-
 %>
 <jsp:include page="./jsp_top_sidebar.jsp">
 	<jsp:param value="reservation1" name="sidevarcheck"/>
@@ -16,138 +15,18 @@
 <!-- 위탁 돌봄 -->
 <!doctype html>
 <html lang="ko">
-<style>
-	/*펫시터 메인 폰트컬러 */
-	.main_mintfont{
-	color : #53DC98!important;
-	}
-	
-	.main_whitefont{
-	color : #ffffff!important;
-	}
-	
-	#main_whitefont2{
-	color : #ffffff!important;
-	}
-	
-	#main_grayfont1{
-	color : #707070!important;
-	}
-	
-	#main_grayfont2{
-	color : #949494!important;
-	}
-	/*펫시터 메인 폰트컬러 끝*/
-
-	/*ajax 에서 사진 가운데 와 크기 지정 css 시작*/
-	.thumbnail-wrappper { 
-	width: 390px !important; 
-	} 
-	.thumbnail { 
-	position: relative; 
-	width : 390px;
-	height : 250px;
-	background : rgba(94,94,94,0.3);
-	overflow: hidden; 
-	margin-bottom : 4px;
-	border-radius : 3px;
-	} 
-	.thumbnail .centered { 
-	position: absolute; 
-	top: 0; 
-	left: 0; 
-	right: 0; 
-	bottom: 0; 
-	-webkit-transform: translate(50%,50%); 
-	-ms-transform: translate(50%,50%); 
-	transform: translate(50%,50%); 
-	} 
-	
-	.thumbnail .centered img { 
-	position: absolute; 
-	top: 0; 
-	left: 0; 
-	max-width: auto; 
-	max-height: auto; 
-	height: auto; 
-	-webkit-transform: translate(-50%,-50%); 
-	-ms-transform: translate(-50%,-50%);
-	 transform: translate(-50%,-50%); 
-	 }
-	 
-	 
-	.thumbnail02 { 
-	position: relative; 
-	width : 60px;
-	height : 60px;
-	background : rgba(94,94,94,0.3);
-	overflow: hidden; 
-	margin-bottom : 4px;
-	border-radius : 30px;
-	} 
-	.thumbnail02 .centered02 { 
-	position: relative; 
-	top: 0; 
-	left: 0; 
-	right: 0; 
-	bottom: 0; 
-	-webkit-transform: translate(50%,50%); 
-	-ms-transform: translate(50%,50%); 
-	transform: translate(50%,50%); 
-	} 
-	
-	.thumbnail02 .centered02 img { 
-	position: absolute; 
-	top: 0; 
-	left: 0; 
-	max-width: 60px; 
-	max-height: auto; 
-	height: 60px; 
-	-webkit-transform: translate(-50%,-50%); 
-	-ms-transform: translate(-50%,-50%);
-	 transform: translate(-50%,-50%); 
-	 }
-	 
-	/*ajax 에서 사진 가운데 와 크기 지정 css 종료*/
-	
-	/*carousel 고정 높이 조정*/
-	.slide {
-  height: 266px!important;
-  min-height: 266px!important;
-  background-size: cover;
-	}
-	
-	/*carousel 위치 보여주는 아이콘 바 설정*/
-	.carousel-indicators li {
-   box-sizing: content-box;
-   -ms-flex: 0 1 auto;
-   flex: 0 1 auto;
-   width: 18px!important;
-   height: 3px;
-   margin-right: 1.5px!important;
-   margin-left: 1.5px!important;
-   text-indent: -999px;
-   cursor: pointer;
-   background-color: #fff;
-   background-clip: padding-box;
-   border-top: 10px solid transparent;
-   border-bottom: 10px solid transparent;
-   opacity: .5;
-   transition: opacity .6s ease;
-   }
-</style>
 <head>
 	<title>위탁 돌봄 예약 페이지</title>
-		<!--  언택 추가 CSS -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/UT_CSS/reservation.css?after">
+	<!--  언택 추가 CSS -->
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/UT_CSS/reservation.css?after">
 
-    <!-- 데이트피커 ver.2(bootstrap) -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-		<!-- 데이트피커ver.2(bootstrap_design) -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css">
-    
-    <!-- 타임피커 -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+	<!-- 데이트피커 ver.2(bootstrap) -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+	<!-- 데이트피커ver.2(bootstrap_design) -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css">
+	  
+	<!-- 타임피커 -->
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 <!-- 본 기능 추가 시작 -->
@@ -254,17 +133,10 @@
 				</div>
 			</div>
 		</div>
-		
-			
 	</div>
 </section>
-
-
-
-
 <!-- 예약날짜 & 맞춤조건 등.. 종료-->      
 <!-- top_box 종료 --> 
-
 
 <!-- middle_box 시작 -->
 <!-- 맞춤조건에 의한 펫시터 뷰 시작-->
@@ -285,12 +157,10 @@
 				</div>
 			</div>
 		</div>
-
-		
-		
 		<div class="row" id="petsitter_middle_box">
-				
-		</div></div><br><br>
+		</div>
+	</div>
+<br><br>
 </section>     
 <!-- 맞춤조건에 의한 펫시터 뷰 종료-->     
 <!-- middle_box 종료 -->
@@ -298,7 +168,6 @@
 <%@ include file="jsp_bottom.jsp" %>
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" ></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" ></script>
 
@@ -321,7 +190,7 @@
 <!-- 데이트피커 -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-	<!-- 달력(한국어버젼_) -->
+<!-- 달력(한국어버젼_) -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
 	
 <!-- 타임피커 -->
@@ -379,8 +248,6 @@
 		    scrollbar: true
 		});
 		
-	
-
 	</script>
 </body>
 </html>

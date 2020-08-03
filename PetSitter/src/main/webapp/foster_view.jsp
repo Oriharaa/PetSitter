@@ -340,7 +340,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 										<div class ="row justify-content-center">
 											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;"id="hide1">
 
-												<input type="text" id="datePicker_start" class="form-control dateP" placeholder ="Check In Date" value="<%=start_date%>" style = "height : 41px;">
+												<input type="text" id="datePicker_start" class="form-control dateP" placeholder="체크인 날짜" value="<%=start_date%>" style = "height : 41px;">
 											</div>
 											<div class = "col-1" id = "hide2" style = "padding : 0 0">
 												<svg class="bi bi-chevron-compact-right main_grayfont4" width="30px" height="30px" style = "margin-top : 11px;"viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -348,7 +348,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 												</svg>
 											</div>
 											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;">
-												<input type="text" id="datePicker_end" class="form-control dateP" placeholder ="Check Out Date" value="<%=end_date%>" style = "height : 41px;">
+												<input type="text" id="datePicker_end" class="form-control dateP" placeholder ="체크아웃 날짜" value="<%=end_date%>" style = "height : 41px;">
 											</div>
 										</div>
 									</div>
@@ -370,7 +370,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 									<div class = "col-11 text-center">
 										<div class ="row justify-content-center">
 											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;">
-												<input type="text" name="time" class="form-control timepicker dateP" id="timePicker_start" placeholder="Check In Time" value="<%=start_time%>" style = "height : 41px;">
+												<input type="text" name="time" class="form-control timepicker dateP" id="timePicker_start" placeholder="체크인 시간" value="<%=start_time%>" style = "height : 41px;">
 											</div>
 											<div class = "col-1" style = "padding : 0 0">
 												<svg class="bi bi-chevron-compact-right main_grayfont4" width="30px" height="30px" style = "margin-top : 11px;"viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -378,7 +378,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 												</svg>
 											</div>
 											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;">
-												<input type="text" name="time" class="form-control timepicker dateP" id="timePicker_end" placeholder="Check Out Time" value="<%=end_time%>" style = "height : 41px;">
+												<input type="text" name="time" class="form-control timepicker dateP" id="timePicker_end" placeholder="체크아웃 시간" value="<%=end_time%>" style = "height : 41px;">
 											</div>
 										</div>
 									</div>

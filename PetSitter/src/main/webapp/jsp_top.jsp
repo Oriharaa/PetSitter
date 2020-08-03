@@ -206,7 +206,7 @@
 				<div class="col-12">
 					<nav class="site-navigation text-right ml-auto " role="navigation" >
 						<ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
-							<li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
+							<li class="dropdown">
 								<button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 15px; font-weight: 390;">
 									돌봄
 								</button>

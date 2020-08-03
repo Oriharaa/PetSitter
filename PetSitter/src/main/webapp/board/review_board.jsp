@@ -875,14 +875,8 @@
 		//글 신고 INSERT 버튼 종료
 		
 </script>
-
-
-    
-  </head>
-
-      
-      <!-- 본 기능 추가 시작 -->
-      
+</head>
+<!-- 본 기능 추가 시작 -->
       <div class = "container">
       	<div class = "row justify-content-center">
       		<div class = "col-md-4" style = "padding : 0 0 0 0;">
