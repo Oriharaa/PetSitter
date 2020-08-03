@@ -28,6 +28,7 @@ public class MReplyController {
   private int writeReply(MReplyVO comment, HttpSession session) throws Exception{
       comment.setWriter_name((String)session.getAttribute("name"));
       comment.setWriter_id((String)session.getAttribute("id"));
+      comment.setWriter_rank((String)session.getAttribute("rank"));
       
       return mReplyService.writeReply(comment);
   }

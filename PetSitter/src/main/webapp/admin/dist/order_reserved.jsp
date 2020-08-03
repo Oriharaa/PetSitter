@@ -128,7 +128,7 @@ overflow:hidden;
                                         거래 관리
                                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                     </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                    <div class="collapse show" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
 																						<a class="nav-link" href="admin_orderReserved.me">예약된 거래</a>
                                             <a class="nav-link" href="admin_orderProgress.me">진행중인 거래</a>
@@ -146,14 +146,10 @@ overflow:hidden;
                                     </div>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.jsp">
+                            <div class="sb-sidenav-menu-heading">부가기능</div>
+                            <a class="nav-link" href="admin_chart.me">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
-                            </a>
-                            <a class="nav-link" href="tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
+                                차트
                             </a>
                         </div>
                     </div>

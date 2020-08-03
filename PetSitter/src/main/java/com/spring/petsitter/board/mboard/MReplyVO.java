@@ -11,7 +11,8 @@ public class MReplyVO {
 	"CONTENT" VARCHAR2(2000 BYTE), 
 	"WRITER_ID" VARCHAR2(30 BYTE), 
 	"REGDATE" DATE DEFAULT sysdate, 
-	"WRITER_NAME" VARCHAR2(30 BYTE)
+	"WRITER_NAME" VARCHAR2(30 BYTE),
+	"WRITER_RANK" VARCHAR2(10 BYTE)
    ) 
 	 */
 	
@@ -20,6 +21,7 @@ public class MReplyVO {
 	private String content;
 	private String writer_id;
 	private String writer_name;
+	private String writer_rank;
 	private Date regDate;
 
 	public int getBno() {
@@ -57,6 +59,12 @@ public class MReplyVO {
 	}
 	public void setWriter_name(String writer_name) {
 		this.writer_name = writer_name;
+	}
+	public String getWriter_rank() {
+		return writer_rank;
+	}
+	public void setWriter_rank(String writer_rank) {
+		this.writer_rank = writer_rank;
 	}
 
 }

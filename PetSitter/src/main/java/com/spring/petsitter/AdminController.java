@@ -280,4 +280,18 @@ public class AdminController {
 		mreplyService.checkReply2(bno, rno, id);
 		return "redirect:/admin_reportReply.me";
 	}
+	
+	/* 글 신고 목록 삭제 */
+	@RequestMapping(value = "raDelete.me")
+	public String report_article_delete(@RequestParam(value="id", required=true) String id, @RequestParam(value="num", required=true) int num) throws Exception {
+		mreplyService.raDelete(id, num);
+		return "redirect:/admin_reportArticle.me";
+	}
+	
+	/* 리플 신고 목록 삭제 */
+	@RequestMapping(value = "rrDelete.me")
+	public String report_reply_delete(@RequestParam(value="bno", required=true) String bno, @RequestParam(value="rno", required=true) String rno, @RequestParam(value="id", required=true) String id) throws Exception {
+		mreplyService.rrDelete(bno, rno, id);
+		return "redirect:/admin_reportReply.me";
+	}
 }
