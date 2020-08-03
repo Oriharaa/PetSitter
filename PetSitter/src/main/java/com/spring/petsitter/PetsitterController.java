@@ -29,9 +29,6 @@ public class PetsitterController {
 
 	@Autowired
 	private PetsitterService petsitterService;
-
-	@Autowired
-	private MemberService memberService;
 	
 	@Autowired
 	JavaMailSender mailSender;
@@ -309,53 +306,6 @@ public class PetsitterController {
 			writer.write("</script>");
 			return null;
 		}
-	}
-
-	@RequestMapping(value = "member_info_list.me")
-	public String memberInfo(PetsitterVO vo, Model model) {
-		ArrayList<PetsitterVO> petsitterList = new ArrayList<PetsitterVO>();
-		petsitterList = petsitterService.petsitterList();
-		model.addAttribute("petsitter_list", petsitterList);
-
-		ArrayList<MemberVO> memberList = new ArrayList<MemberVO>();
-		memberList = memberService.memberList();
-		model.addAttribute("member_list", memberList);
-
-		return "admin/admin_member_info_list";
-	}
-
-	@RequestMapping(value = "petsitter_refusal.me")
-	public String petsitterRefusal(PetsitterVO vo) {
-		int res = petsitterService.petsitterRefusal(vo);
-		if (res == 1) {
-			System.out.println("회원 거절 완료");
-		}
-		return "redirect:/admin_main.me";
-	}
-
-	@RequestMapping(value = "petsitter_approval.me")
-	public String petsitterApproval(PetsitterVO vo) {
-		int res = petsitterService.petsitterApproval(vo);
-		if (res == 1) {
-			System.out.println("회원 승인 완료");
-		}
-		return "redirect:/admin_main.me";
-	}
-
-	@RequestMapping(value = "admin_main.me", method = RequestMethod.GET)
-	public String admin_main(Model model) {
-		ArrayList<PetsitterVO> petsitterList = new ArrayList<PetsitterVO>();
-		petsitterList = petsitterService.petsitterList();
-		model.addAttribute("petsitter_list", petsitterList);
-		return "admin/admin_main";
-	}
-
-	@RequestMapping(value = "apply_petsitter.me", method = RequestMethod.GET)
-	public String apply_petsitter(Model model, PetsitterVO vo) {
-		PetsitterVO petsitter = new PetsitterVO();
-		petsitter = petsitterService.selectPetsitter(vo.getPETSITTER_ID());
-		model.addAttribute("petsitter", petsitter);
-		return "petsitter/apply_petsitter";
 	}
 
 	@RequestMapping(value = "petsitter_login.me")

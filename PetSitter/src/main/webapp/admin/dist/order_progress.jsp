@@ -29,7 +29,6 @@ word-wrap:normal;
 overflow:hidden;
 }
 </style>
-<html lang="en">
     <head>
     		<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -70,9 +69,8 @@ overflow:hidden;
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">기능1</a>
-                        <a class="dropdown-item" href="#">기능2</a>
-                        <div class="dropdown-divider"></div>
+                        <!-- <a class="dropdown-item" href="#">기능1</a>
+                        <a class="dropdown-item" href="#">기능2</a> -->
                         <%
               						if(session.getAttribute("id") == "" || session.getAttribute("id") == null) {
               					%>

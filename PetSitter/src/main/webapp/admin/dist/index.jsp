@@ -63,7 +63,6 @@ overflow:hidden;
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 <!--                         <a class="dropdown-item" href="#">기능1</a>
                         <a class="dropdown-item" href="#">기능2</a> -->
-                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="logout.me">로그아웃</a>
                     </div>
                 </li>

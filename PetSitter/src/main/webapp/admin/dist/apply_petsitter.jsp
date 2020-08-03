@@ -98,7 +98,6 @@ p {
 }
 
 </style>
-<html lang="en">
     <head>
         <meta charset="utf-8" />	
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -142,7 +141,6 @@ p {
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <div class="dropdown-divider"></div>
                         <%
               						if(session.getAttribute("id") == "" || session.getAttribute("id") == null) {
               					%>

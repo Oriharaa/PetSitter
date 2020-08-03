@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.petsitter.board.mboard.MReplyService;
@@ -182,6 +183,14 @@ public class AdminController {
 		model.addAttribute("petsitter_list", petsitterList);		
 		
 		return "admin/dist/apply_petsitter";
+	}
+
+	@RequestMapping(value = "apply_petsitter.me", method = RequestMethod.GET)
+	public String apply_petsitter(Model model, PetsitterVO vo) {
+		PetsitterVO petsitter = new PetsitterVO();
+		petsitter = petsitterService.selectPetsitter(vo.getPETSITTER_ID());
+		model.addAttribute("petsitter", petsitter);
+		return "admin/dist/petsitter_introduce";
 	}
 	
 	/* 펫시터 관리 페이지 */

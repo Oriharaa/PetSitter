@@ -142,7 +142,6 @@ p {
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="logout.me">로그아웃</a>
                     </div>
                 </li>
@@ -204,11 +203,7 @@ p {
                                     </a>
                                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-<<<<<<< HEAD
-                                            <a class="nav-link" href="admin_orderReserved.me">예약된 거래</a>
-=======
-                                        				<a class="nav-link" href="admin_orderReserved.me">예약된 거래</a>
->>>>>>> origin/PGKIM
+                                        		<a class="nav-link" href="admin_orderReserved.me">예약된 거래</a>
                                             <a class="nav-link" href="admin_orderProgress.me">진행중인 거래</a>
                                             <a class="nav-link" href="admin_orderClosed.me">완료된 거래</a>
                                         </nav>
@@ -219,11 +214,7 @@ p {
                                     </a>
                                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-<<<<<<< HEAD
                                             <a class="nav-link" href="admin_petsitterApply.me">펫시터 신청 관리</a>
-=======
-                                             <a class="nav-link" href="admin_petsitterApply.me">펫시터 신청 관리</a>
->>>>>>> origin/PGKIM
                                         </nav>
                                     </div>
                                 </nav>
