@@ -10,8 +10,9 @@
 	ArrayList<UsinglistVO> usinglist = (ArrayList<UsinglistVO>)request.getAttribute("usinglist");
 
 %>
-<%@ include file="jsp_top_sidebar.jsp" %>
-<% sidevarcheck = "reservation1"; %>
+<jsp:include page="./jsp_top_sidebar.jsp">
+	<jsp:param value="reservation1" name="sidevarcheck"/>
+</jsp:include>
 <!-- 위탁 돌봄 -->
 <!doctype html>
 <html lang="ko">

@@ -18,11 +18,11 @@
 	// 펫시터 목록
 	ArrayList<PetsitterVO> list = (ArrayList<PetsitterVO>)request.getAttribute("list");
 %>
-<%@ include file="jsp_top_sidebar.jsp" %>
-<% sidevarcheck = "home"; %>
+<jsp:include page="./jsp_top_sidebar.jsp">
+	<jsp:param value="home" name="sidevarcheck"/>
+</jsp:include>
 <!doctype html>
 <html lang="ko">
-
 <style>
 .map_wrap {position:absolute;top:10px;left:10px;overflow:hidden;width:310px;z-index:2;height:100%;max-height:410px;margin:0;padding:0;}
 .radius_border{border-radius:8px;z-index:1;}     

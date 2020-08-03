@@ -22,15 +22,9 @@
 	int startpage=((Integer)request.getAttribute("startpage")).intValue();
 	int endpage=((Integer)request.getAttribute("endpage")).intValue();
 %>
-<<<<<<< HEAD
-<%@ include file="../jsp_top_sidebar.jsp" %>
-<% sidevarcheck = "proboard"; %>
-=======
-
-
-<%@ include file="../jsp_top_sidebar.jsp"%>
-<%sidevarcheck = "proboard"; %>
->>>>>>> origin/CJH
+<jsp:include page="../jsp_top_sidebar.jsp">
+	<jsp:param value="proboard" name="sidevarcheck"/>
+</jsp:include>
 <!-- 전문가 상담 게시판 -->
 <!doctype html>
 <html lang="ko">
@@ -57,18 +51,9 @@
 	}
 	/*펫시터 메인 폰트컬러 끝*/
 </style>
-<<<<<<< HEAD
 <head>
 	<title>전문가 상담 게시판</title>
-=======
 
-
-  <head>
-    <title>전문가 상담 게시판</title>
-
-
-    
->>>>>>> origin/CJH
     <!-- 언택 추가 CSS -->
 		<link rel="stylesheet" type="text/css" href="resources/css/UT_CSS/proBoard.css?after">
 		<link rel="stylesheet" type="text/css" href="resources/css/JH_CSS/proBoard2.css?after">
@@ -983,18 +968,7 @@
 			
 		});		
 		</script>
-<<<<<<< HEAD
 </head>
-<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-=======
-
-
-  </head>
-
-      
-      
-      
->>>>>>> origin/CJH
 <!-- 본 기능 추가 시작 -->
 <!-- top_box 시작-->
 <section class="top_box">

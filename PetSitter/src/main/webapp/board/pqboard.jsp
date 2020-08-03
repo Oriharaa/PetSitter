@@ -32,8 +32,9 @@
 	SimpleDateFormat format1;
 	format1 = new SimpleDateFormat("yyyy-MM-dd");
 %>
-<%@ include file="../jsp_top_sidebar.jsp" %>
-<% sidevarcheck = "pqboardlist"; %>
+<jsp:include page="../jsp_top_sidebar.jsp">
+	<jsp:param value="pqboardlist" name="sidevarcheck"/>
+</jsp:include>
 <!doctype html>
 <html lang="ko">
 	<style>

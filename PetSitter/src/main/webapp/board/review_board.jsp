@@ -6,8 +6,9 @@
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
 %>
-<%@ include file="../jsp_top_sidebar.jsp" %>
-<% sidevarcheck = "review_board"; %>
+<jsp:include page="../jsp_top_sidebar.jsp">
+	<jsp:param value="review_board" name="sidevarcheck"/>
+</jsp:include>
 <!doctype html>
 <html lang="ko">
   <head>
@@ -924,23 +925,14 @@
 		<a href = "#" class = "staticBackdropReport" data-toggle="modal" data-target="#staticBackdropReport"></a>	
 		<div id = "reportForm"></div>
 		<!-- Modal 글신고기능 종료-->      
-      
-      
-      
-      <!-- 본 기능 추가 종료 -->
-      
+ <!-- 본 기능 추가 종료 -->
 <%@ include file="../jsp_bottom.jsp" %>
-      
-      
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-		
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script><!-- sweetalert2 -->
- 
-
 
  		<script>
 		/*사진 가로 세로 이미지 크기 맞추고 가운데 위치로 보이게 하기  시작*/ 
@@ -994,10 +986,6 @@
 			     return false;
 		  });
 		//종료		
-		
-		
-    </script>   
-         
-
+    </script>
 </body>
 </html>

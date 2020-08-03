@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String sidevarcheck = "";
+	String sidevarcheck = request.getParameter("sidevarcheck");
 %>
 <!DOCTYPE html>
 <html>
@@ -9,7 +9,7 @@
 		@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 		body {
 		  font-family: "Noto Sans KR", sans-serif !important;
-		  font-weight: 400;
+		  font-weight: 390;
 		} 
 		a#MOVE_TOP_BTN {
 			/* position : 화면에 고정
@@ -168,7 +168,6 @@
 		background-color: rgb(83, 220, 153);
 		border-color: rgb(83, 220, 153);
 		vertical-align: baseline;
-		font-weight: bold;
 	}
 	
 	.btn-secondary:hover {
@@ -198,12 +197,6 @@
 	
 	.dropdown-item {
 		 color: #53dc99 !important;
-		 font-weight: bold;
-	}
-	
-	.main-menu li a {
-		font-weight: bold;
-
 	}
 </style>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -278,7 +271,7 @@
 					<nav class="site-navigation text-right ml-auto " role="navigation" >
 						<ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
 							<li class="dropdown" onmousedown="this.style.backgroundColor='rgb(83, 220, 153)'">
-								<button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 15px; font-weight: 390;">
 									돌봄
 								</button>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
@@ -287,7 +280,7 @@
 								</div>
 							</li>
 							<li class="dropdown">
-								<button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+								<button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size: 15px; font-weight: 390;">
 									게시판
 								</button>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
@@ -297,10 +290,10 @@
 								</div>
 							</li>
 							<li>
-								<a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px">이용 후기</a>
+								<a href="review_board.bo" class="nav-link" id="main_whitefont2" style="font-size: 15px; font-weight: 390;">이용 후기</a>
 							</li>
 							<li>
-								<a href="noticeboardlist.me" class="nav-link" id="main_whitefont2" style = "font-size:15px">공지사항</a>
+								<a href="noticeboardlist.me" class="nav-link" id="main_whitefont2" style="font-size: 15px; font-weight: 390;">공지사항</a>
 							</li> 
 						</ul>
 					</nav>
@@ -321,52 +314,52 @@
 		<a id="MOVE_SIDEBAR_BTN02" href="#">BACK</a>		
 		<div id="MOVE_SIDEBAR">
 			<br/><br/><br/><br/><br/><br/><br/>
-			<%if(sidevarcheck == "home") {%>
+			<%if(sidevarcheck.equals("home")) {%>
 			<a href="home.me" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">HOME</div></a>
 			<%}else{%>
 			<a href="home.me" class = "sideMenuBar"><div class = "sideMenuHover">HOME</div></a>
 			<%} %>
 			
 			<br/>
-			<%if(sidevarcheck == "reservation2") {%>			
+			<%if(sidevarcheck.equals("reservation2")) {%>			
 			<a href="reservation2.br" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">방문 돌봄</div></a>			
 			<%}else{%>
 			<a href="reservation2.br" class = "sideMenuBar"><div class = "sideMenuHover">방문 돌봄</div></a>		
 			<%} %>
 			
-			<%if(sidevarcheck == "reservation1") {%>				
+			<%if(sidevarcheck.equals("reservation1")) {%>				
 			<a href="reservation1.br" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">위탁 돌봄</div></a>			
 			<%}else{%>
 			<a href="reservation1.br" class = "sideMenuBar"><div class = "sideMenuHover">위탁 돌봄</div></a>				
 			<%} %>			
 												
 			<br/>
-			<%if(sidevarcheck == "proboard") {%>					
+			<%if(sidevarcheck.equals("proboard")) {%>					
 			<a href="proboard.bo" style="font-size:15px;" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">전문가 상담 게시판</div></a>
 			<%}else{%>
 			<a href="proboard.bo" style="font-size:15px;" class = "sideMenuBar"><div class = "sideMenuHover">전문가 상담 게시판</div></a>
 			<%} %>					
 			
-			<%if(sidevarcheck == "mboardlist") {%>										
+			<%if(sidevarcheck.equals("mboardlist")) {%>										
 			<a href="mboardlist.me" style="font-size:15px;" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">회원 게시판</div></a>
 			<%}else{%>			
 			<a href="mboardlist.me" style="font-size:15px;" class = "sideMenuBar"><div class = "sideMenuHover">회원 게시판</div></a>
 			<%} %>				
 			
-			<%if(sidevarcheck == "pqboardlist") {%>				
+			<%if(sidevarcheck.equals("pqboardlist")) {%>				
 			<a href="pqboardlist.me" style="font-size:15px;" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">펫시터 게시판</div></a>
 			<%}else{%>					
 			<a href="pqboardlist.me" style="font-size:15px;" class = "sideMenuBar"><div class = "sideMenuHover">펫시터 게시판</div></a>
 			<%} %>					
 			
 			<br/>
-			<%if(sidevarcheck == "review_board") {%>				
+			<%if(sidevarcheck.equals("review_board")) {%>				
 			<a href="review_board.bo" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">이용 후기</div></a>	
 			<%}else{%>				
 			<a href="review_board.bo" class = "sideMenuBar"><div class = "sideMenuHover">이용 후기</div></a>				
 			<%} %>				
 			
-			<%if(sidevarcheck == "noticeboardlist") {%>						
+			<%if(sidevarcheck.equals("noticeboardlist")) {%>						
 			<a href="noticeboardlist.me" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">공지사항</div></a>	
 			<%}else{%>					
 			<a href="noticeboardlist.me" class = "sideMenuBar"><div class = "sideMenuHover">공지사항</div></a>				

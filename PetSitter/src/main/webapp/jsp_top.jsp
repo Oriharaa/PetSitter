@@ -6,7 +6,7 @@
 		@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 		body {
 		  font-family: "Noto Sans KR", sans-serif !important;
-		  font-weight: 400;
+		  font-weight: 390;
 		} 
 		a#MOVE_TOP_BTN {
 			/* position : 화면에 고정
@@ -194,7 +194,7 @@
 			</div>
 		</div>
 	</div>
-	<header class="site-navbar js-sticky-header site-navbar-target" role="banner" style = "background : rgb(83,220,152);">
+	<header class="site-navbar js-sticky-header site-navbar-target" role="banner" style="background: rgb(83,220,152);">
 		<div class="container" >
 			<div class="row align-items-center position-relative" >
 				<div class="site-logo">
@@ -211,8 +211,8 @@
 									돌봄
 								</button>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-									<a href="reservation2.br" class="dropdown-item" style="font-size:15px;">방문 돌봄</a>
-									<a href="reservation1.br" class="dropdown-item" style="font-size:15px;" >위탁 돌봄</a>
+									<a href="reservation2.br" class="dropdown-item" style="font-size:15px; font-weight: 390;">방문 돌봄</a>
+									<a href="reservation1.br" class="dropdown-item" style="font-size:15px; font-weight: 390;" >위탁 돌봄</a>
 								</div>
 							</li>
 							<li class="dropdown">
@@ -220,16 +220,16 @@
 									게시판
 								</button>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-									<a href="proboard.bo" class="dropdown-item" style="font-size:15px;" >전문가 상담 게시판</a>
-									<a href="mboardlist.me" class="dropdown-item" style="font-size:15px;" >회원 게시판</a>
-									<a href="pqboardlist.me" class="dropdown-item" style="font-size:15px;" >펫시터 게시판</a>
+									<a href="proboard.bo" class="dropdown-item" style="font-size:15px; font-weight: 390;" >전문가 상담 게시판</a>
+									<a href="mboardlist.me" class="dropdown-item" style="font-size:15px; font-weight: 390;" >회원 게시판</a>
+									<a href="pqboardlist.me" class="dropdown-item" style="font-size:15px; font-weight: 390;" >펫시터 게시판</a>
 								</div>
 							</li>
 							<li>
-								<a href="review_board.bo" class="nav-link" id="main_whitefont2" style = "font-size:15px; font-weight: 390;">이용 후기</a>
+								<a href="review_board.bo" class="nav-link" id="main_whitefont2" style="font-size:15px; font-weight: 390;">이용 후기</a>
 							</li>
 							<li>
-								<a href="noticeboardlist.me" class="nav-link" id="main_whitefont2" style = "font-size:15px; font-weight: 390;">공지사항</a>
+								<a href="noticeboardlist.me" class="nav-link" id="main_whitefont2" style="font-size:15px; font-weight: 390;">공지사항</a>
 							</li> 
 						</ul>
 					</nav>
