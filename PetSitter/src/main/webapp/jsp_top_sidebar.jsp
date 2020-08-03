@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%String sidevarcheck = ""; %>    
 <!DOCTYPE html>
 <html>
 	<style>
@@ -318,7 +319,7 @@
 			<a href="mboardlist.me" style="font-size:15px;" class = "sideMenuBar"><div class = "sideMenuHover">회원 게시판</div></a>
 			<%} %>				
 			
-			<%if(sidevarcheck == "mboardlist") {%>				
+			<%if(sidevarcheck == "pqboardlist") {%>				
 			<a href="pqboardlist.me" style="font-size:15px;" class = "sideMenuBar02"><div class = "sideMenuHover sideMenuBar02">펫시터 게시판</div></a>
 			<%}else{%>					
 			<a href="pqboardlist.me" style="font-size:15px;" class = "sideMenuBar"><div class = "sideMenuHover">펫시터 게시판</div></a>

@@ -126,7 +126,32 @@
 	.fixtable {
 	table-layout:fixed;
 	}
+	.detailView{
+	width:50%;  
+	text-overflow:ellipsis; 
+	overflow:hidden; 
+	white-space:nowrap;
+	}
 	
+
+
+	.detailView01{
+	color : #53DC98;
+	padding : 3px 40px 3px 40px;
+	width:50%;  
+	text-overflow:ellipsis; 
+	overflow:hidden; 
+	white-space:nowrap;
+	}
+
+	.detailView02{
+	padding : 3px 40px 3px 40px;
+	width:50%;  
+	text-overflow:ellipsis; 
+	overflow:hidden; 
+	white-space:nowrap;
+	}
+		
 	.writebtn {
 	padding : 3px 10px;
 	border : 2px solid #53DC98;

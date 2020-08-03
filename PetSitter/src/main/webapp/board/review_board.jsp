@@ -6,8 +6,8 @@
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
 %>
-<% String sidevarcheck = "review_board"; %>
-<%@ include file="../jsp_top_sidebar.jsp" %>
+<%@ include file="../jsp_top_sidebar.jsp"%>
+<%sidevarcheck = "review_board"; %>
 <!doctype html>
 <html lang="en">
 
