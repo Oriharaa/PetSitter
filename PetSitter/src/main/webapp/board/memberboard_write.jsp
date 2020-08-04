@@ -15,9 +15,11 @@ if(session.getAttribute("id") == null) {
 
 String id = (String)session.getAttribute("id");
 String name = (String)session.getAttribute("name");
-String nickname = (String).session.getAttribute("nickname");
+String nickname = (String)session.getAttribute("nickname");
 String rank = (String)session.getAttribute("rank");
 String btype = "mboard";
+
+System.out.println(nickname);
 %>
 
 <!doctype html>
@@ -106,18 +108,12 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	
 	
   <head>
-  <form action="./mboardwrite.me" method="post" name="boardform" enctype="multipart/form-data">
+	<form action="./mboardwrite.me" method="post" name="boardform" enctype="multipart/form-data">
   <input type="hidden" name="MEMBER_ID" value="${id}">
-  <input type="hidden" name="MEMBER_NICKNAME" value="${nickname}">
-  
+  <input type="hidden" name="MEMBER_NAME" value="${nickname}">
   
   	<!-- CKEDITOR 사용 위한 스크립트 -->
   	<script src = "${pageContext.request.contextPath}/resources/js/ckeditor/ckeditor.js"></script>
-
-  		
-  	
-  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 
     <title>이용자 상담/문의 | PetSitter</title>
     <meta charset="utf-8">
@@ -219,13 +215,13 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
                 <a href="loginform.me" ><span class = "font-size-14" >로그인 &amp; 회원가입</span></a>
                 <span class="mx-md-2 d-inline-block"></span>
                 <%} else if(((String)session.getAttribute("id")).contains("admin")) {%>
-                <a href="admin.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="admin.me"><span class="font-size-14" >${nickname }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} else if(!((String)session.getAttribute("rank")).contains("admin") && ((String)session.getAttribute("id")).contains("@")) { %> <!-- 일반 회원 마이 페이지 -->
                 <a href="memberinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} else {%> <!-- 펫시터 마이 페이지 -->
-                <a href="petsitterinfo.me"><span class="font-size-14" >${name }님</span></a>&nbsp;&nbsp;&nbsp;
+                <a href="petsitterinfo.me"><span class="font-size-14" >${nickname }님</span></a>&nbsp;&nbsp;&nbsp;
                 <a href="logout.me"><span class="font-size-14">로그아웃</span></a>
                 <%} %>
               </div>
@@ -278,9 +274,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
       </header>
       
-		
-		
-      
+		  
    	<div class="container">      
 			<div class="row">
     		<div class="col-md-12 p-3"></div>
@@ -297,8 +291,8 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     		<button type="button" style="background:#53dc98;" class="btn btn-sm">회계 관리</button>
     	</div>
     </div>  
-    ${id}  로그인 중
-    닉네임 : ${name} 
+    ${id}  로그인 중 <br>
+    닉네임 : ${nickname} 
     <!-- 여백용 row -->
     <div class="row">
     	<div class="col-md-12 p-3"></div>
@@ -438,11 +432,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     </footer>
 	<!-- 하단 바 종료 -->
     </div>
-
-
-    
-    
-    MEMBER_SECRET
+		
     
   	<script language="javascript">
 		function addboard(){

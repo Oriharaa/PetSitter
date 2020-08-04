@@ -9,6 +9,7 @@
 	String id = null;
 	String name = null;
 	String rank = null;
+	String nickname = null;
 	
 	if(session.getAttribute("id") == null){
 		out.println("<script>");
@@ -18,6 +19,7 @@
 	id = (String)session.getAttribute("id");
 	name = (String)session.getAttribute("name");
 	rank = (String)session.getAttribute("rank");
+	nickname = (String)session.getAttribute("nickname");
 	
 	ArrayList<MemberVO> memberList = (ArrayList<MemberVO>)request.getAttribute("member_list");
 	List<MemberBoardVO> mboardlist=(List<MemberBoardVO>)request.getAttribute("mboard_list");
