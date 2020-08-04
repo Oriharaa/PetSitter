@@ -332,7 +332,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							</tr>
 							<tr>
 								<td>
-									<img src="./upload/<%=nboard.getNOTICE_UP_FILE() %>">
+								<%if(!(nboard.getNOTICE_ORG_FILE() == null)) { %>
+									<img src="./upload/<%=nboard.getNOTICE_UP_FILE() %>" width="300px">
+									<%} %>
 								</td> 
 							</tr>
 					</table>

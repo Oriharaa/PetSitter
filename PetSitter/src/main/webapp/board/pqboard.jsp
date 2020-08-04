@@ -22,7 +22,7 @@
 	rank = (String)session.getAttribute("rank");
 	
 	ArrayList<MemberVO> memberList = (ArrayList<MemberVO>)request.getAttribute("member_list");
-	List<PetsitterVO> petsitterList = (List<PetsitterVO>)request.getAttribute("petsitter_list");
+	ArrayList<PetsitterVO> petsitterList = (ArrayList<PetsitterVO>)request.getAttribute("petsitter_list");
 	List<PetsitterQnaBoardVO> pqboardlist = (List<PetsitterQnaBoardVO>)request.getAttribute("pqboard_list"); 
 	
 	int listcount=((Integer)request.getAttribute("listcount")).intValue();
@@ -194,7 +194,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				pqForm += '</div>';
 				pqForm += '</div>';
 								
-				$('#getBoardList2').append(pqForm);
+				$('#table').append(pqForm);
 			},
 	   	error:function(request,status,error){
  	    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -371,7 +371,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     th {
     	text-align:center;
     }
-    td:nth-child(1), td:nth-child(3) {
+    td:nth-child(1) {
  			text-align: center;
    	}
    	.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {

@@ -6,14 +6,19 @@
 
 <%@ page import="javax.servlet.*,java.text.*" %>
 
-<% String name = (String)session.getAttribute("name");
-	String nickname = (String)request.getAttribute("nickname");
+<%
 //세션 종료시 홈으로
 if(session.getAttribute("id") == null) {
    out.println("<script>");
    out.println("location.href = 'loginform.me'");
    out.println("</script>");
 }
+
+String id = (String)session.getAttribute("id");
+String name = (String)session.getAttribute("name");
+String rank = (String)session.getAttribute("rank");
+String nickname = (String)session.getAttribute("nickname");
+String btype = "pqboard";
 %>
 
 <!doctype html>
@@ -182,7 +187,7 @@ margin-bottom: 5px;
   <head>
   <form action="./pqboardwrite.me" method="post" name="boardform" enctype="multipart/form-data">
   <input type="hidden" name="MEMBER_ID" value="${id}">
-  <input type="hidden" name="MEMBER_NICKNAME" value="<%=nickname %>">
+  <input type="hidden" name="MEMBER_NICKNAME" value="${nickname}">
   <input type="hidden" name="PETSITTER_ID" value="aaaa">
   <input type="hidden" name="PETSITTER_NICKNAME" value="aabaa">
   
@@ -372,7 +377,7 @@ margin-bottom: 5px;
     	</div>
     </div>  
     ${id}  로그인 중
-    닉네임 : <%=nickname %>
+    닉네임 : ${nickname}
     <!-- 여백용 row -->
     <div class="row">
     	<div class="col-md-12 p-3"></div>
@@ -569,9 +574,7 @@ margin-bottom: 5px;
 					$(this).css("box-shadow", "0 0 0 0 rgb(83, 220, 153)");
 				});
 			});
-			
-		</script>
-		
+		</script>		
   </body>
 
 </html>

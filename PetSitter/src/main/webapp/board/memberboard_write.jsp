@@ -15,6 +15,7 @@ if(session.getAttribute("id") == null) {
 
 String id = (String)session.getAttribute("id");
 String name = (String)session.getAttribute("name");
+String nickname = (String).session.getAttribute("nickname");
 String rank = (String)session.getAttribute("rank");
 String btype = "mboard";
 %>
@@ -107,7 +108,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
   <head>
   <form action="./mboardwrite.me" method="post" name="boardform" enctype="multipart/form-data">
   <input type="hidden" name="MEMBER_ID" value="${id}">
-  <input type="hidden" name="MEMBER_NAME" value="${name}">
+  <input type="hidden" name="MEMBER_NICKNAME" value="${nickname}">
   
   
   	<!-- CKEDITOR 사용 위한 스크립트 -->

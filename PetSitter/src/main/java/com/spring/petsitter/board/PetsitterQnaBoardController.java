@@ -56,6 +56,9 @@ public class PetsitterQnaBoardController {
 	@RequestMapping("/pqboardwrite.me")
 	public String pqboardInsert(PetsitterQnaBoardVO vo) throws Exception {
 		
+		System.out.println("vo.getMEMBER_ID() : " + vo.getMEMBER_ID());
+		System.out.println("vo.getMEMBER_NICKNAME() : " + vo.getMEMBER_NICKNAME());
+		
 		System.out.println("vo.getPETSITTER_ID() : " + vo.getPETSITTER_ID());
 		System.out.println("vo.getPETSITTER_NICKNAME() : " + vo.getPETSITTER_NICKNAME());
 		
