@@ -363,7 +363,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 									<span class="span_txt3" id="file">사진 업로드</span>
 								</div>
 								<div class="div_txt3">
-									<img class="noimg" id="noimg" src="resources/images/noimg.png">
+									<img class="noimg" id="noimg" src="resources/images/noimg.jpg">
 									<button type="submit" class="btn_next" onclick="javascript:register">
 										<i class="fas fa-arrow-right" id="icon1"></i>펫 등록
 									</button>

@@ -3,73 +3,89 @@
 /* 언택 추가 CSS *//* 언택 추가 CSS *//* 언택 추가 CSS */ 
 
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
-body {
+section {
   font-family: "Noto Sans KR", sans-serif !important;
 }
-
-h1 {
-  font-size: 60px;
-}
-
-p {
-  font-size: 20px;
-}
-
-
-
-
-
 
 
 
 
 /* one_box */
-	.one_box{
-	margin-top:5%;
-	margin-bottom:5%;
-	}
+.one_box{
+margin-top:5%;
+margin-bottom:5%;
+}
 
-	.one_text1{
-	color:#525252;
-	font-weight:bold;
-	font-size:100px;
-	}
-	
-	.one_text2{
-	text-align:center;
-	font-size:15px;
-	font-weight:bold;
-	color:#949494;
-	}
+.one_text1{
+color:#525252;
+font-weight:bold;
+font-size: 68px;
+margin-left: 86px;
+}
 
-	.left_dog{
-	width:95%;
-	height:250px;
-	border-radius:50%;
-	border:1px solid #ffffff;
-	box-shadow: 5px 5px 5px 5px gray;
-	}
-	
-	.right_dog{
-	width:95%;
-	height:250px;
-	border-radius:50%;
-	border:1px solid #ffffff;
-/* 	border:1px solid #53DC98; */
-	box-shadow: 5px 5px 5px 5px gray;
-	}
+.one_text2{
+text-align:center;
+font-size:15px;
+font-weight:bold;
+color:#949494;
+}
 
-	.one_a{
-	text-align:center;
-	width:32%;
-	margin-left:34%;
-	background-color:#53DC98;
-	}
+.left_dog{
+width:95%;
+height:250px;
+border-radius:50%;
+border:1px solid #ffffff;
+box-shadow: 5px 5px 5px 5px gray;
+}
+
+.right_dog{
+width:95%;
+height:250px;
+border-radius:50%;
+border:1px solid #ffffff;
+box-shadow: 5px 5px 5px 5px gray;
+}
+
+.one_a{
+text-align:center;
+width:32%;
+margin-left:34%;
+background-color:#53DC98;
+border-radius:10px;
+}
+
+.go_main{
+color:#ffffff;
+font-size:20px;
+}
+
+.one_a:hover{
+color:white;
+background-color:rgb(0, 200, 83);
+border-radius: 10px;
+}
 	
-	.go_main{
-	color:#ffffff;
-	background-color:#53DC98;
-	font-size:20px;
-	}
+.go_main:hover, .go_main:link{
+color:white;
+}	
+	
+	
+
+.right-text:link, .left-text:link{
+color: #525252; text-decoration: none;
+}
+
+.right-text:hover, .left-text:hover{ 
+color: #525252; text-decoration: none;
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	

@@ -79,7 +79,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
 	/*ajax 에서 사진 가운데 와 크기 지정 css 시작*/
 	.thumbnail-wrappper { 
-	width: 390px !important; 
+	width: 25%; 
 	} 
 	.thumbnail { 
 	position: relative; 
@@ -403,9 +403,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 			<div class="col">	
 				<div class="time">
 					<h1 class="top_box_text3">시간을 설정해주세요!</h1>
-					<input type="text" name="time" class="timepicker" id="timePicker_start">
+					<input type="text" name="time" class="timepicker" id="timePicker_start" placeholder="시작 시간">
 					<i class="fas fa-arrow-right"></i>
-  				<input type="text" name="time" class="timepicker" id="timePicker_end">
+  				<input type="text" name="time" class="timepicker" id="timePicker_end" placeholder="종료 시간">
 				</div>
 			</div>
 		</div>
@@ -634,25 +634,24 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 <!-- 시작시간 -->
 	<script type="text/javascript">
 		$('#timePicker_start').timepicker({
-		    timeFormat: 'p h:mm',
-		    interval: 60,
-		    minTime: '09',
-		    maxTime: '11:00pm',
-		    defaultTime: '14',
-		    startTime: '00:00',
+				timeFormat: 'p h:mm',
+ 		    interval: 60,
+		    startTime: '',  
 		    dynamic: false,
 		    dropdown: true,
-		    scrollbar: true
+		    scrollbar: true,
+		    minTime: '09',
+		    maxTime: '11:00pm',
 		});
 	</script>
 	<script type="text/javascript">
 <!-- 종료시간 -->		
 		$('#timePicker_end').timepicker({
-		    timeFormat: 'p h:mm',
+				timeFormat: 'p h:mm',
 		    interval: 60,
 		    minTime: '09',
 		    maxTime: '11:00pm',
-		    defaultTime: '14',
+		    /* defaultTime: '14', */
 		    startTime: '00:00',
 		    dynamic: false,
 		    dropdown: true,

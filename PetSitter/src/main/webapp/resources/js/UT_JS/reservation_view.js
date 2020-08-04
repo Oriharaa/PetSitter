@@ -147,14 +147,13 @@ var k = 1;	//반복될시 carousel 맞춤 지정
 						output += '<input type="hidden" name="price60" value="' +price60+ '">';
 						output += '<input type="hidden" name="bigPrice2" value="' +bigPrice2+ '">';
 						
-						
 						//펫시터뷰 기본틀
-						output += '<div class="row">'
+						output += '<div class="row">';
 						output += '<div class="col">';
 						output += '<div class="middle_box_row">';
 						output += '<div class="middle_room_img">';
 						
-						output += '<div class = "col-12 float-none">';
+						output += '<div class = "col-12 float-none" style="padding-left: 0px;">';
 			    		output += '<center>';
 				    		
 				    		if(item.petsitter_PHOTO_HOME_FILE != "N" && home_photo[1] != null){

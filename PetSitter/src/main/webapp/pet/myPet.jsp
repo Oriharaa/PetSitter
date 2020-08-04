@@ -105,7 +105,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
     
     <!-- 언택 추가 CSS -->
-		<link rel="stylesheet" type="text/css" href="resources/css/UT_CSS/myPet.css?after">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/UT_CSS/myPet.css?after">
 
 
 
@@ -355,7 +355,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		</div>
 		<div class="row">
 			<div class="close" onClick="closeModalUp();">
-				<span class="close_btn">닫기</span>
+				<p class="close_btn">닫기</p>
 			</div>
 		</div>
 	</div><hr>
@@ -394,7 +394,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		</div>
 		<div class="row">
 			<div class="close" onClick="closeModalDel();">
-				<span class="close_btn">닫기</span>
+				<p class="close_btn">닫기</p>
 			</div>
 		</div>
 	</div><hr>

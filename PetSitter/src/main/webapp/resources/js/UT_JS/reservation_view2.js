@@ -150,7 +150,7 @@ let loading = false;
 						output += '<div class="middle_box_row">';
 						output += '<div class="middle_room_img">';
 						
-						output += '<div class = "col-12 float-none">';
+						output += '<div class = "col-12 float-none"  style="padding-left:0px;">';
 			    		output += '<center>';
 				    		
 				    		if(item.petsitter_PHOTO_HOME_FILE != "N" && home_photo[1] != null){

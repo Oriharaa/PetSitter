@@ -31,6 +31,9 @@ public class ReservationController {
 	@Autowired
 	private PetService petService;
 	
+	@Autowired
+	private MemberService memberService;
+	
 	// 위탁 돌봄 예약 페이지 이동
 	@RequestMapping(value = "reservation1.br")
 	public String reservation1() {
@@ -191,6 +194,9 @@ public class ReservationController {
 			out.close();
 			return null;
 		}
+		MemberVO member = memberService.selectMember(id);
+		int point = member.getMEMBER_POINT();
+		model.addAttribute("point", point);
 		model.addAttribute("petsitter_id",request.getParameter("petsitter_id"));
 		model.addAttribute("addr",request.getParameter("addr"));
 		model.addAttribute("startdate",request.getParameter("startdate"));
@@ -269,7 +275,6 @@ public class ReservationController {
 	@ResponseBody 
 	// jsp와 같은 뷰를 전달 하는게 아닌 데이터를 전달 하기 위해 사용 
 	public List<ReviewBoardVO> reviewList(String petsitterid) {
-		System.out.println("1");
 		List<ReviewBoardVO> list = petsitterService.reviewList(petsitterid);
 		SimpleDateFormat new_Format = new SimpleDateFormat("yyyy-MM-dd");
 		for(int i = 0; i < list.size(); i++) {

@@ -42,11 +42,11 @@
 	</update>
 	
 	<update id="memberAmount" parameterType="map">
-		update member set MEMBER_AMOUNT=MEMBER_AMOUNT + #{amount} where MEMBER_ID=#{MEMBER_ID}
+		update member set MEMBER_AMOUNT=MEMBER_AMOUNT + #{amount}, MEMBER_POINT=MEMBER_POINT + #{point} where MEMBER_ID=#{MEMBER_ID} 
 	</update>
 	
 	<update id="memberAmountRemove" parameterType="map">
-		update member set MEMBER_AMOUNT=MEMBER_AMOUNT - #{amount} where MEMBER_ID=#{MEMBER_ID}
+		update member set MEMBER_AMOUNT=MEMBER_AMOUNT - #{amount}, MEMBER_POINT=MEMBER_POINT - #{point} where MEMBER_ID=#{MEMBER_ID}
 	</update>
 	
 	<update id="petsitterAmount" parameterType="map">

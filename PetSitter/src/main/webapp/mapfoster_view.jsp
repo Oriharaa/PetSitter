@@ -1522,7 +1522,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 	});
 	
 		$('#datePicker_start').datepicker({
-				format : "yyyy-mm-dd", 			//달력에서 클릭시 표시할 값 형식
+				dateFormat: 'yy-mm-dd', 			//달력에서 클릭시 표시할 값 형식
 				language : "ko", 						//언어
 				orientation: "bottom auto", //아래에 뜨게
 				todayHighlight : true,			//오늘날짜 색상표시
@@ -1534,7 +1534,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 <!-- 종료날짜 -->
 	<script type="text/javascript">
 		$('#datePicker_end').datepicker({
-				format : "yyyy-mm-dd", 			//달력에서 클릭시 표시할 값 형식
+				dateFormat: 'yy-mm-dd', 			//달력에서 클릭시 표시할 값 형식
 				language : "ko", 						// 언어
 				orientation: "bottom auto", //아래에 뜨게
 				todayHighlight : true,			//오늘날짜 색상표시

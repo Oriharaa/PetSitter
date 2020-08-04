@@ -192,7 +192,6 @@ $(document).ready(function() {
 	{
 		
 		$("#plus1").click(function(){
-			
 			count++;
 			
 			//select 선택값(펫이름,사이즈) 변수로 지정.
@@ -204,10 +203,28 @@ $(document).ready(function() {
 				
 			
 			//bak : (체크아웃 - 체크인) ill : (bak + 1) dayTime : (날짜를 시간으로 계산하기위함)
-			var bak =  (String) ($("#datePicker_end").data('datepicker').getFormattedDate('mmdd') - $("#datePicker_start").data('datepicker').getFormattedDate('mmdd'));	
-			var ill =  (String) (1  + ($("#datePicker_end").data('datepicker').getFormattedDate('mmdd') - $("#datePicker_start").data('datepicker').getFormattedDate('mmdd')));
-			var dayTime = (String)  (24 * ($("#datePicker_end").data('datepicker').getFormattedDate('mmdd') - $("#datePicker_start").data('datepicker').getFormattedDate('mmdd')));
-			
+			var selectOption = document.getElementById("choicepet");
+			var selectName = document.getElementById("choicepet");
+				selectOption = selectOption.options[selectOption.selectedIndex].value;
+				
+
+			//bak : (체크아웃 - 체크인) ill : (bak + 1) dayTime : (날짜를 시간으로 계산하기위함)
+			var sdd = (String) ($("#datePicker_start").data('datepicker').getFormattedDate('yyyy-mm-dd'));
+			var edd = (String) ($("#datePicker_end").data('datepicker').getFormattedDate('yyyy-mm-dd'));
+
+		    var ar1 = sdd.split('-');
+		    var ar2 = edd.split('-');
+		    
+		    
+		    var da1 = new Date(ar1);
+		    var da2 = new Date(ar2);
+
+		    var dif = da2 - da1;
+		    var cDay = 24 * 60 * 60 * 1000;
+		    
+		    var bak = (String) ((parseInt)(dif/cDay));
+		    var ill = (String) (1 + (parseInt)(dif/cDay));
+		    var dayTime = (String) (24 * (parseInt)(dif/cDay));
 			
 			var test1 = (String) ($('#timePicker_start').timepicker("getTime"));
 			var test2 = (String) ($('#timePicker_end').timepicker("getTime"));
@@ -229,9 +246,11 @@ $(document).ready(function() {
 				 allTime = ( ((parseInt)(dayTime)) + (test5) );
 				 price = ( (parseInt(sixty)) * (allTime) );
 			}
-			if(isNaN(price) || isNaN(allTime)) {
+			if(isNaN(price) || isNaN(allTime) || isNaN(bak) || isNaN(ill)) {
 				price = 0;
 				allTime = 0;
+				bak = 0;
+				ill = 0;
 			}
 			
 			
@@ -241,12 +260,19 @@ $(document).ready(function() {
 				//처음에만 비워줌
 				$("#cost1").empty();
 			}
+			
+			
+		
 			$("#cost1").append("<p class='plusPet' id='p"+count+"'>" +selectOption+", " +bak+ "박" +ill+ "일, " +
 								"총 "+allTime+"시간, 비용 : " +price+ "원 <button type='button' class='x_btn' id='x"+count+"' value='"+price+"'>x</button></p>"); 
 			
 			price_all_1 += price;
 			$("#cost2").empty();
-			$("#cost2").append("<p class='allCost'>예상 총 비용 : " +price_all_1+ "원</p>");
+			$("#cost2").append("<p class='allCost' id='"+price_all_1+"'>예상 총 비용 : " +price_all_1+ "원</p>");
+			
+			//모달창에서 결제비용 추가..
+			$("#p33").empty();
+			$("#p33").append("+KRW "+price_all_1);
 			
 			
 			//'x' 클릭시 해당p태그 삭제 예상 총비용 변화
@@ -259,6 +285,9 @@ $(document).ready(function() {
 				$("#cost2").empty();
 				$("#cost2").append("<p class='allCost'>예상 총 비용 : " +price_all_1+ "원</p>");
 				
+				//모달창에서 결제비용 추가..
+				$("#p33").empty();
+				$("#p33").append("+KRW "+price_all_1);
 				count--;
 			});
 			
@@ -328,6 +357,7 @@ $(document).ready(function() {
 			if(isNaN(price) || isNaN(test5)) {
 				price = 0;
 				test5 = 0;
+				
 			}
 			
 			
@@ -345,6 +375,10 @@ $(document).ready(function() {
 			$("#cost2").empty();
 			$("#cost2").append("<p class='allCost'>예상 총 비용 : " +price_all_2+ "원</p>");
 			
+			//모달창에서 결제비용 추가..
+			$("#p33").empty();
+			$("#p33").append("+KRW "+price_all_2);
+			
 			
 			//'x' 클릭시 해당p태그 삭제 예상 총비용 변화
 			$("#x"+count_2).click(function(){ 
@@ -355,6 +389,10 @@ $(document).ready(function() {
 				$("#p"+count_2).empty();
 				$("#cost2").empty();
 				$("#cost2").append("<p class='allCost'>예상 총 비용 : " +price_all_2+ "원</p>");
+				
+				//모달창에서 결제비용 추가..
+				$("#p33").empty();
+				$("#p33").append("+KRW "+price_all_2);
 				
 				count_2--;
 			});
@@ -374,21 +412,3 @@ $(document).ready(function() {
 	}
 	
 });
-
-
-
-/*코드변화(1) */
-
-	/*	펫 견적 추가(위탁)(span 활용)
-	$("#cost1").append("<span class='petN'>" +selectOption+", </span>" +
-	  "<span class='bak'>" +bak+"박" +ill+"일, " +
-	  "총 "+allTime+"시간, 비용 : " +price+ "원</span> <input type='button' class='x_btn' id='x"+count+"' value='x'>   <br/>");
-	
-	*/
-
-
-	/* 펫 견적 추가(방문)(span 활용)	
-  	$("#cost1").append("<span class='petN'>" +selectOption+", </span>" +
-		"<span class='bak'>" +"총 "+test5+"시간, 비용 : " +price+ "원  <input type='button' class='x_btn' value='x'></span><br/>");
-	 */
-

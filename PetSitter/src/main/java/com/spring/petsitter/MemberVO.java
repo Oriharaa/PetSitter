@@ -17,6 +17,7 @@ create table member(
     MEMBER_REPORT number DEFAULT 0, --신고누적횟수
     MEMBER_ADDRESS varchar2(100) DEFAULT 'N', -- 주소
     MEMBER_GENDER varchar2(4) DEFAULT 'N'-- 성별
+    MEMBER_POINT number DEFAULT 0 -- 포인트
 );
 */
 
@@ -36,7 +37,14 @@ public class MemberVO {
 	private String MEMBER_ADDRESS;
 	private String MEMBER_REAL_ADDRESS;
 	private String MEMBER_GENDER;
+	private int MEMBER_POINT;
 	
+	public int getMEMBER_POINT() {
+		return MEMBER_POINT;
+	}
+	public void setMEMBER_POINT(int mEMBER_POINT) {
+		MEMBER_POINT = mEMBER_POINT;
+	}
 	public String getMEMBER_ID() {
 		return MEMBER_ID;
 	}

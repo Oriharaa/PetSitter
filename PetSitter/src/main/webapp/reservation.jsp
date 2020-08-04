@@ -626,7 +626,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	<script>
 	$(function() {
 		$('#datePicker_start').datepicker({
-				format : "yyyy-mm-dd", 			//달력에서 클릭시 표시할 값 형식
+				dateFormat: 'yy-mm-dd', 			//달력에서 클릭시 표시할 값 형식
 				language : "ko", 						//언어
 				orientation: "bottom auto", //아래에 뜨게
 				todayHighlight : true,			//오늘날짜 색상표시
@@ -635,7 +635,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		
 		<!-- 종료날짜 -->
 		$('#datePicker_end').datepicker({
-				format : "yyyy-mm-dd", 			//달력에서 클릭시 표시할 값 형식
+				dateFormat: 'yy-mm-dd', 			//달력에서 클릭시 표시할 값 형식
 				language : "ko", 						// 언어
 				orientation: "bottom auto", //아래에 뜨게
 				todayHighlight : true,			//오늘날짜 색상표시
