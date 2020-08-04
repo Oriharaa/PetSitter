@@ -15,7 +15,7 @@ public interface ProBoardMapper {
 	public ProBoardVO getProModifyForm(int num);	
 	public void proModifyUpdate(ProBoardVO board);	
 	public int isProBoardWriter(HashMap<String, String> hashmap);	
-	public void proBoardDelete(int num);	
+	public void proBoardDelete(int num);
 	public void proLikeDelete(int num);	
 	
 	public int getProReportCountCheck(HashMap<String, Object> hashmap);

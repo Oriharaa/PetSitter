@@ -355,7 +355,7 @@ public class PetsitterController {
 		PetsitterVO petsitter = new PetsitterVO();
 		petsitter = petsitterService.selectPetsitter(vo.getPETSITTER_ID());
 		model.addAttribute("petsitter", petsitter);
-		return "petsitter/apply_petsitter";
+		return "admin/dist/petsitter_introduce";
 	}
 
 	@RequestMapping(value = "petsitter_login.me")

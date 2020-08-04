@@ -149,7 +149,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
     <script src="<c:url value="./resources/js/aos.js"/>"></script>
 
     <script src="<c:url value="/resources/js/main.js"/>"></script>
-<script>
+<%-- <script>
 
 	function getBoardList2() {
 		$.ajax({
@@ -177,16 +177,14 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				pqForm += '</tr>';
 				pqForm += '</thead>';
 				pqForm += '<tbody>';
-
-				
-				
+						
 				$.each(data, function(index, item) {
 				
 						pqForm += '<tr>'; 
 						pqForm +=	'<td>' + item.member_NICKNAME + '</td>';
 						
 						console.log(item.petsitter_QNA_BNO);
-						pqForm += '<td><a href="./pqboarddetail.me?bno=' + item.petsitter_QNA_BNO + '">' + item.petsitter_QNA_SUBJECT + '</a></td>';
+						pqForm += '<td><a href="#" onClick="fn_contentView(' + item.petsitter_QNA_BNO + ')">' + item.petsitter_QNA_SUBJECT + '</a></td>';
 						pqForm += '<td>' +item.real_DATE+ '</td>'; 
 						pqForm += '</tr>';						
 					});
@@ -195,9 +193,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 				pqForm += '</table>';
 				pqForm += '</div>';
 				pqForm += '</div>';
-				
-				
-				
+								
 				$('#getBoardList2').append(pqForm);
 			},
 	   	error:function(request,status,error){
@@ -210,7 +206,13 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 	$(document).ready(function() {
 		getBoardList2();
  	});
-</script>
+	
+	function fn_contentView(bno) {
+		var url = "${pageContext.request.contextPath}/pqboarddetail2.bo";
+		url = url + "?bno=" + bno;
+		location.href = url;
+	}
+</script> --%>
 
 
 </head>
@@ -349,7 +351,6 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 
     </header>
     
-    
     <div class="container">
    
     <!-- 여백용 row -->
@@ -378,9 +379,9 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		}
     </style>
     
-    <div id="getBoardList2"></div>
+    <!-- <div id="getBoardList2"></div> -->
     
-    <%-- <div class="row">
+    <div class="row">
     
     <div class="col-md-12">  
 		
@@ -415,7 +416,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 		</table>
 		</div>
 	</div>
-	 --%>
+
 		    <div class="row">
      <div class="col-md-2">
      	      

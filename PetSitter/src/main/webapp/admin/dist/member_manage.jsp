@@ -207,7 +207,7 @@ p {
                                     </a>
                                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                        	<a class="nav-link" href="admin_applyPetsitter.me">펫시터 신청 관리</a>
+                                        	<a class="nav-link" href="admin_petsitterApply.me">펫시터 신청 관리</a>
                                         </nav>
                                     </div>
                                 </nav>
@@ -262,8 +262,11 @@ p {
 																				<td><%=ml.getMEMBER_TEL() %></td>
 																				<td><%=ml.getMEMBER_RANK() %></td>
 																				<td><%=ml.getMEMBER_DATE() %></td>
-																				<td><%=ml.getMEMBER_AMOUNT() %></td>
+																				<td style="text-align: right;"><%=String.format("%, d", ml.getMEMBER_AMOUNT()) %> 원</td>
 																				<td style="margin:auto; text-align:center;">
+																				
+																				<input type="hidden" id="member_id" value="<%=ml.getMEMBER_ID()%>">
+																				<input type="hidden" id="member_rank" value="<%=ml.getMEMBER_RANK() %>">
 																				
 																				<!-- 기능 칸 -->
 																				<form action="./changemember.me" name="memberFrm<%=i%>" value="<%=ml.getMEMBER_ID() %>">
@@ -274,8 +277,15 @@ p {
 																					<a type="button" id="memberSuspended<%=i%>" style="color:black;" class="btn btn-sm btn-warning" href="./suspendedmember.me?id=<%=ml.getMEMBER_ID() %>">정지</a>&nbsp;
 																					<%} %>
 																					
-<%-- 																					<button type="button" class="btn btn-primary btn-sm" name="memberChange" data-toggle="modal" data-target="#memberChange">등급변경</button>
-																					
+																				<button type="button" class="btn btn-primary btn-sm" name="memberChange" data-toggle="modal" data-target="#memberChange" 
+																				data-id="<%=ml.getMEMBER_ID() %>" data-rank="<%=ml.getMEMBER_RANK()%>">등급변경</button>
+													
+																				</form>
+																				
+																				</td>
+																			</tr>
+																		<%} %>
+
 																					<div class="modal fade" id="memberChange" tabindex="-1" role="dialog" aria-labelledby="articleModalLabel" aria-hidden="true">
 																						<div class="modal-dialog" role="document">
 																							<div class="modal-content">
@@ -286,9 +296,13 @@ p {
 																									</button>
 																								</div>
 																								<div class="modal-body">
-																									현재 등급 : <%= ml.getMEMBER_RANK() %>
+																								<input type="hidden" id="member_id"/>
+																								<input type="hidden" id="member_rank"/>
+																								<script>
 																									
-																						      <select id="select<%=i %>" onchange="alert_select_value(this);">
+																								</script>
+																									바꿀 등급 : 
+																						      <select id="selectRank" onchange="alert_select_value(this);">
 																				            <option value="Green">Green</option>
 																				            <option value="Gold">Gold</option>
 																				            <option value="VIP">VIP</option>
@@ -303,7 +317,7 @@ p {
 																						        };
 																						        
 																										function addchange(){
-																											document.forms[<%=i%>].submit();
+																											// document.forms[].submit();
 																										}		
 																						      </script>
 																					        
@@ -315,13 +329,8 @@ p {
 																			
 																							</div>
 																						</div>
-																					</div> --%>
-																					
-																				</form>
-																				
-																				</td>
-																			</tr>
-																		<%} %>
+																					</div> 
+																		
 																	</tbody>
 																</table>
                                </div>
@@ -330,14 +339,28 @@ p {
 											</div>
    	            </main>
                 
+								<script>
+								$(document).ready(function() {
+									$('#memberChange').on('show.bs.modal', function (e) {
+									    var id2 = $(e.relatedTarget).data('id');
+									    var rank2 = $(e.relatedTarget).data('rank');
+									    
+									    $(".modal-body #member_id").val($(this).data('id'));
+									    $(".modal-body #member_rank").val($(this).data('rank'));
+									    
+									    console.log(id2);
+									    console.log(rank2);
+									})
+								});
+								</script>
+                
+                
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Petsitter 2020 </div>
+                            <div class="text-muted">Copyright &copy; Petstiny 2020 </div>
                             <div>
-                                <a href="#">개인정보 정책</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
+
                             </div>
                         </div>
                     </div>

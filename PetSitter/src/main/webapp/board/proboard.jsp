@@ -550,7 +550,7 @@ resource/css/style.css 부분에서 찾은 부분(최종은 jsp에있는 style�
 							
 							if(rank != null){
 								if(rank == 'admin' || rank == 'manager' || wid == id){
-									a += '<a  href="#" class="oi oi-x replyfontfloat03" onclick="proReplyDelete('+value.rno+','+bno+');">삭제</a>';
+									a += '<a href="#" class="oi oi-x replyfontfloat03" onclick="proReplyDelete('+value.rno+','+bno+');">삭제</a>';
 									a += '<a href="#" class="oi oi-pencil replyfontfloat02" onclick="proReplyUpdateForm('+value.rno+',\''+value.content+'\','+bno+');">수정</a>';
 								}
 							}

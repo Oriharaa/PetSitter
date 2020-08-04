@@ -26,7 +26,7 @@ public class ProBoardController {
 	@Autowired
 	private ProBoardService proboardService;	
 	
-	@RequestMapping(value = "proboard.bo") 
+	@RequestMapping(value = "proboard.bo")
 	public String getBoardlist(Model model, 
 			@RequestParam(value="page", required=false,defaultValue="1") int page,
 			@RequestParam(required = false, defaultValue = "title") String searchType,

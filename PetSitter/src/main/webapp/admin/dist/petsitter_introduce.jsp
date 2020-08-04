@@ -301,15 +301,15 @@ table.type09 td {
                                 <i class="fas fa-table mr-1"></i>
                                 펫시터 신청 목록
                             </div>
-                            <div class="card-body">
-                            <img src="/filepath/<%=petsitter.getPETSITTER_PHOTO_UPFILE()%>" class = "float-center">
-    						<img src="/filepath/<%=petsitter.getPETSITTER_PHOTO_PROFILE_FILE()%>" class = "float-center">
+                            <div class="card-body" align="center">
+                            <img src="/filepath/<%=petsitter.getPETSITTER_PHOTO_UPFILE()%>" class = "float-center" width="250px">
+    						<img src="/filepath/<%=petsitter.getPETSITTER_PHOTO_PROFILE_FILE()%>" class = "float-center" width="250px">
     						<%
     						if(!(petsitter.getPETSITTER_PHOTO_HOME_FILE().equals("N"))){
     							String[] home = petsitter.getPETSITTER_PHOTO_HOME_FILE().split(",");
     							for(int i = 0 ; i < home.length;i++){
     						%>
-    						<img src="/filepath/<%=home[i]%>" class = "float-center">
+    						<img src="/filepath/<%=home[i]%>" class = "float-center" width="250px">
     						<%}} %>
                                 <div class="table-responsive">
                                 	<table class="type09">
@@ -386,11 +386,9 @@ table.type09 td {
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                            <div class="text-muted">Copyright &copy; Petstiny 2020</div>
                             <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
+                                
                             </div>
                         </div>
                     </div>

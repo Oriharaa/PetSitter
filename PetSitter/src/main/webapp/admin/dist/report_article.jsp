@@ -181,11 +181,12 @@ $(document).ready(function() {
                                     		<th width="13%">처리상태</th>
                                     	</thead>
 																			<tbody>
+																										
 																			<%for(int i = 0 ; i < ralist.size(); i++) {
 																					ReportArticleVO ra=(ReportArticleVO)ralist.get(i);
 																					%>
 																					<tr>
-																						<td><a href="./mboarddetail.me?num=<%=ra.getMEMBER_NUM() %>"><%=ra.getMEMBER_NUM() %></a></td>
+																						<td><a href="./mboarddetail.me?num=<%=ra.getMEMBER_NUM() %>" target="_blank"><%=ra.getMEMBER_NUM() %></a></td>
 																						<td id="reasonArticle"><%=ra.getREPORT_REASON() %></td>
 																						<td><%=ra.getMEMBER_ID() %></td>
 																						<td>
@@ -223,11 +224,8 @@ $(document).ready(function() {
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                            <div class="text-muted">Copyright &copy; Petstiny 2020</div>
                             <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
                             </div>
                         </div>
                     </div>

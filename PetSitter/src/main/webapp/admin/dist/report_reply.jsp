@@ -267,7 +267,7 @@ p {
 																					ReportReplyVO rr=(ReportReplyVO)rrlist.get(i);
 																					%>
 																					<tr>
-																						<td><%=rr.getBNO() %></td>
+																						<td><a href="./mboarddetail.me?num=<%=rr.getBNO() %>" target="_blank"><%=rr.getBNO() %></a></td>
 																						<td><%=rr.getRNO() %></td>
 																						<td><%=rr.getREPORT_REASON() %></td>
 																						<td><%=rr.getMEMBER_ID() %></td>
@@ -306,11 +306,9 @@ p {
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                            <div class="text-muted">Copyright &copy; Petstiny 2020</div>
                             <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
+                                
                             </div>
                         </div>
                     </div>

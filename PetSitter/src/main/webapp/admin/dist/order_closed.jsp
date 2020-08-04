@@ -211,7 +211,7 @@
 																				<td><%=sdf.format(uvo.getLIST_START_DATE()) %></td>
 																				<td><%=sdf.format(uvo.getLIST_END_DATE()) %></td>
 																				<td><%=uvo.getLIST_TYPE() %></td>
-																				<td><%=String.format("%,d", uvo.getLIST_PRICE()) %> 원</td>
+																				<td style="text-align: right;"><%=String.format("%,d", uvo.getLIST_PRICE()) %> 원</td>
 																			</tr>
 																			<%}}%>
 																	</tbody>
@@ -224,7 +224,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                            <div class="text-muted">Copyright &copy; Petstiny 2020</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
