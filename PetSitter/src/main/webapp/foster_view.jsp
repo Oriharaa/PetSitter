@@ -421,21 +421,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 										<div class="petcost2" id="cost2">
 										<p>예상 총 비용 : </p>
 										</div>
-<<<<<<< HEAD
-										<form name="paycheck" action="./paycheck.br" method="post">
-											<input type="hidden" name="PAY_ID" id="PAY_ID" value=${id } >
-											<input type="hidden" name="PAY_AMOUNT" id="PAY_AMOUNT" >
-											<input type="hidden" name="PETSITTER_ID" id="PETSITTER_ID" value=<%=petsitter_id %> >
-											<input type="hidden" name="PAY_TYPE" id="PAY_TYPE" value="위탁" >
-											<input type="hidden" name="START_DATE" id="START_DATE" value=<%=start_date %>>
-											<input type="hidden" name="START_DATE" id="START_TIME">
-											<input type="hidden" name="END_DATE" id="END_DATE" value=<%=end_date %>>
-											<input type="hidden" name="END_DATE" id="END_TIME">
-											<input type="button" id="paycheck" style="background:#53dc98; color :white; width : 60%; height : 38px; margin : 4px 0 31px 0;" class="btn btn-sm font-size-14" value="예약 신청">
-										</form>
-=======
 											<button type="button" class="go-regi" onclick="openModalRe();">예약 신청</button>
->>>>>>> origin/Hong
 									</div>
       					</div>
       				</div>
@@ -851,7 +837,8 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 
 <!-- 예약 신청 모달 -->
 <!-- 모달창 백그라운드 -->
-	<div id="modalRe" class="searchModalRe" data-keyboard="false">
+	<div class="searchModalRe" id="modalRe" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="search-modal-dialog">
 		<!-- 모달창 내용물 -->
 		<div class="search-modal-content">
 		<form name="paycheck" action="./paycheck.br" method="post">
@@ -1205,39 +1192,12 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 		</form>
 		</div>
 	</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	</div>
 </body>
 <!-- 본 기능 추가 종료 -->
 <%@ include file="jsp_bottom.jsp" %>
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=24e91ec8fe5a3a10070597915f67d6ba&libraries=services"></script>
@@ -1304,7 +1264,12 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
   var btnPrice = document.getElementById("p33").innerHTML;
 			btnPrice = (parseInt)(btnPrice.substr(5));
 	var fPrice = btnPrice - (parseInt)(<%=point%>);
-	
+		
+		if(isNaN(btnPrice) || isNaN(fPrice)) 
+    {
+			btnPrice = 0;
+			fPrice = 0;
+		}
 		if(<%=point%> > btnPrice)
 		{ 
 			alert("선택하신 적립금이 결제비용보다 많습니다.");

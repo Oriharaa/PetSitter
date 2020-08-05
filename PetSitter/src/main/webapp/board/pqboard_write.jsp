@@ -3,21 +3,9 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.petsitter.*" %>
 <%@ page import="com.spring.petsitter.board.*" %>
-
 <%@ page import="javax.servlet.*,java.text.*" %>
 
-<<<<<<< HEAD
 <% 
-	String name = (String)session.getAttribute("name");
-	String nickname = (String)request.getAttribute("nickname");
-	//세션 종료시 홈으로
-	if(session.getAttribute("id") == null) {
-	   out.println("<script>");
-	   out.println("location.href = 'loginform.me'");
-	   out.println("</script>");
-	}
-=======
-<%
 //세션 종료시 홈으로
 if(session.getAttribute("id") == null) {
    out.println("<script>");
@@ -30,7 +18,6 @@ String name = (String)session.getAttribute("name");
 String rank = (String)session.getAttribute("rank");
 String nickname = (String)session.getAttribute("nickname");
 String btype = "pqboard";
->>>>>>> origin/PGKIM
 %>
 <%@ include file="../jsp_top.jsp" %>
 <!doctype html>
