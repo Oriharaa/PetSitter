@@ -55,10 +55,15 @@
 					<p class="one_text2">
 						${id }님 마이펫 등록을 축하합니다!<br>
 						보살펴조에서는 항상 회원님들의 입장에서<br>
-						보다 좋은 서비스를 받으실 수 있도록 노력하겠습니다.<br>
-						감사합니다:)	
+						보다 좋은 서비스를 받으실 수 있도록 <br>
+						노력하겠습니다. 감사합니다:)<br>
+						
 					</p>
 				</div>
+				<div class="one_a">
+					<a href="home.me" class="go_main">메인으로</a>
+				</div>
+				
 			</div>
 			
 			<div class="col-3">
@@ -68,13 +73,7 @@
 			</div>
 		</div>
 		
-		<div class="row justify-content-center">
-			<div class="col">
-				<div class="one_a">
-					<a href="home.me" class="go_main">메인으로</a>
-				</div>
-			</div>
-		</div>
+
 		
 		
 	</div>

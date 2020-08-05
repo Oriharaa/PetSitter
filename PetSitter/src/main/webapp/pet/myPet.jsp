@@ -165,7 +165,7 @@
 		</div>
 		<div class="row">
 			<div class="close" onClick="closeModalUp();">
-				<span class="close_btn">닫기</span>
+				<p class="close_btn">닫기</p>
 			</div>
 		</div>
 	</div><hr>
@@ -204,7 +204,7 @@
 		</div>
 		<div class="row">
 			<div class="close" onClick="closeModalDel();">
-				<span class="close_btn">닫기</span>
+				<p class="close_btn">닫기</p>
 			</div>
 		</div>
 	</div><hr>

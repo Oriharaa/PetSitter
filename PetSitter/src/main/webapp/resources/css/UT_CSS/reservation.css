@@ -130,12 +130,12 @@
 	align-items: center;
 	margin-left:4%;
 	margin-bottom:5%;
+	cursor:pointer;
 	}
 
 	.middle_room_img{
 	width: 390px; 
 	height: 250px;  
-	
 	border-radius: 5px;
 	overflow: hidden; 
 	position: relative;

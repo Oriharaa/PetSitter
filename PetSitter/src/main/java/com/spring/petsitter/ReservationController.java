@@ -29,6 +29,9 @@ public class ReservationController {
 	@Autowired
 	private PetService petService;
 	
+	@Autowired
+	private MemberService memberService;
+	
 	// 위탁 돌봄 예약 페이지 이동
 	@RequestMapping(value = "reservation1.br")
 	public String reservation1() {
@@ -174,6 +177,9 @@ public class ReservationController {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 
+		MemberVO member = memberService.selectMember(id);
+		int point = member.getMEMBER_POINT();
+		model.addAttribute("point", point);
 		model.addAttribute("petsitter_id",request.getParameter("petsitter_id"));
 		model.addAttribute("addr",request.getParameter("addr"));
 		model.addAttribute("startdate",request.getParameter("startdate"));
