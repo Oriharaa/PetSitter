@@ -148,11 +148,20 @@ public class ReservationController {
 		for(int j = 0; j < certphoto.length; j++) {
 		model.addAttribute("cert_photo"+(j+1), certphoto[j]);
 		}
-		
+		if(!petsitter.getPETSITTER_PRICE_60M().equals("N")) {
 		model.addAttribute("price24", 24*Integer.parseInt(petsitter.getPETSITTER_PRICE_60M()));
 		model.addAttribute("bigPrice", 1000 +Integer.parseInt(petsitter.getPETSITTER_PRICE_60M()));
+		}else {
+		model.addAttribute("price24", 0);
+		model.addAttribute("bigPrice",0);
+		}
+		if(!petsitter.getPETSITTER_PRICE_30M().equals("N")) {
 		model.addAttribute("price60", 2*Integer.parseInt(petsitter.getPETSITTER_PRICE_30M()));
 		model.addAttribute("bigPrice2", 1000 +Integer.parseInt(petsitter.getPETSITTER_PRICE_30M()));
+		}else {
+			model.addAttribute("price60", 0);
+			model.addAttribute("bigPrice2", 0);
+		}
 		model.addAttribute("rank",petsitter.getPETSITTER_RANK());
 		model.addAttribute("nickname",petsitter.getPETSITTER_NICKNAME());
 		model.addAttribute("petsitter_id",petsitter.getPETSITTER_ID());
