@@ -2,9 +2,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.spring.petsitter.pay.*" %>
+
 <%
 	PayVO payvo = (PayVO)request.getAttribute("payvo");
+	String name = (String)request.getAttribute("name");
+	
+	//시작 날짜 + 시작 시간 
+	String startDate = payvo.getSTART_DATE();
+	String[] dateStart = startDate.split(" ");
+	
+	String[] date1 = dateStart[0].split("-");
+	
+	
+	String time1 = dateStart[1];
+	String[] time_hm1 = time1.split(":");
+	
+	
+	//종료 날짜 + 종료 시간
+	String endDate = payvo.getEND_DATE();
+	String[] dateEnd = endDate.split(" ");
+	
+	String[] date2 = dateEnd[0].split("-");
+	
+	String time2 = dateEnd[1];
+	String[] time_hm2 = time2.split(":");
+	
+	String type = payvo.getPAY_TYPE();
+	int amount = payvo.getPAY_AMOUNT();
+	
 %>
+
 <%@ include file="../jsp_top.jsp" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -75,7 +102,7 @@
 						</div>
 						<div class="p00">
 							<div>승인 금액  </div>
-							<p class="top2">50000원</p>
+							<p class="top2"><%=amount%></p>
 						</div>
 					</div>
 					
@@ -100,27 +127,27 @@
 					<div class="center-ct2">
 						<div class="p1">
 							<div class="d2">이름  </div>
-							<p>홍언택</p>
+							<p><%=name%></p>
 						</div>
 						<div class="p2">
 							<div>예약 유형  </div>
-							<p>위탁</p>
+							<p><%=type%></p>
 						</div>
 						<div class="p3">
 							<div>시작 날짜  </div>
-							<p>2020-01-01</p>
+							<p><%=date1[0]%>년 <%=date1[1]%>월 <%=date1[2]%>일</p>
 						</div>
 						<div class="p4">
 							<div>종료 날짜  </div>
-							<p>2020-01-02</p>
+							<p><%=date2[0]%>년 <%=date2[1]%>월 <%=date2[2]%>일</p>
 						</div>
 						<div class="p5">
 							<div>시작 시간  </div>
-							<p>11시 00분</p>
+							<p><%=time_hm1[0]%>시 <%=time_hm1[1]%>분</p>
 						</div>
 						<div class="p6">
 							<div>종료 시간  </div>
-							<p>11시 00분</p>
+							<p><%=time_hm2[0]%>시 <%=time_hm2[1]%>분</p>
 						</div>
 					</div>
 					

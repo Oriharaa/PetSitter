@@ -87,7 +87,12 @@ public class PayController {
 	}
 	
 	@RequestMapping(value = "payConfirm.br")
-	public String payConfirm(@RequestParam(value = "mid") String merchant_uid, Model model) {
+	public String payConfirm(HttpSession session, @RequestParam(value = "mid") String merchant_uid, Model model) {
+		String id = (String)session.getAttribute("id");
+		MemberVO member = memberService.selectMember(id);
+		String name = member.getMEMBER_NAME();
+		model.addAttribute("name", name);
+		
 		PayVO payvo = payService.selectPay(merchant_uid);
 		model.addAttribute("payvo", payvo);
 		return "pay/payConfirm";
