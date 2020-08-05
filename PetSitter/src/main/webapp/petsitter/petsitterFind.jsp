@@ -297,12 +297,26 @@ body .container .content .signup-cont {
 a { 
 text-decoration:none; 
 } 
+#popup{
+ line-height : 40px;
+ width : 250px;
+ visibility : hidden;
+ position : absolute;
+ font-size: 14px;
+ background-color : white;
+ border-radius: 5px;
+ border-style : solid;
+ border-width : 1px;
+ text-align:center;
+}
 </style>
 </head>
 <body>
 <section class="container">
+  				<div id="popup" class="PW1hoverpopup"></div>
+  				<div id="popup" class="PW2hoverpopup"></div>
 		    <article class="half">
-			        <a href="home.me"><h1>PET SITTER</h1></a>
+			        <a href="home.me"><h1>PETSTINY</h1></a>
 			        <div class="tabs">
 				            <span class="tab idfind active"><a href="#idfind">아이디 찾기</a></span>
 				            <span class="tab pwfind"><a href="#pwfind">비밀번호 찾기</a></span>
@@ -342,11 +356,10 @@ text-decoration:none;
             <div class = "pwfind3-cont cont" style = "display :none;">
             	<form action = "petsitterPwUpdate.me" method = "post">
             		<input type = "hidden" id = "PETSITTER_ID" name = "PETSITTER_ID">
-            		<input type = "password" id= "PETSITTER_PW1" name = "PETSITTER_PW" class= "inpt" placeholder = "새 비밀번호를 입력하세요">
-            		<input type = "password" id= "PETSITTER_PW2" class = "inpt" placeholder = "새 비밀번호 확인">
+            		<input type = "password" id= "PETSITTER_PW1" name = "PETSITTER_PW" class= "inpt PW1check" placeholder = "새 비밀번호를 입력하세요">
+            		<input type = "password" id= "PETSITTER_PW2" class = "inpt PW2check" placeholder = "새 비밀번호 확인">
             		<div class="submit-wrap">
-            		<input type="text" id = "check" class="inptcheck" value = "비밀번호가 일치하지않습니다" style = "display : none;" readonly>
-            		<input type="submit" id = "petsitter_submit" value="Change Password" class="submit">
+            		<input type="submit" id = "petsitter_submit" value="Change Password" class="submit" style = "display : none;">
            			</div>
             	</form>
             </div>
@@ -361,20 +374,95 @@ text-decoration:none;
 <script type="text/javascript">
 var num;
 
-$('#PETSITTER_PW2').keyup(function(){
-	var pw1=$('#PETSITTER_PW1').val();
-	var pw2=$('#PETSITTER_PW2').val();
+var petcheck1 = "N";
+var petcheck2 = "N";
+
+$('.PW2check').keyup(function(event){
+	var pw1 = $('#PETSITTER_PW1').val();
 	
-	if(pw1 != "" || pw2 != ""){
-		if(pw1 == pw2){
-			$('#petsitter_submit').show();
-			$('#check').hide();
-		}else{
-			$('#petsitter_submit').hide();
-			$('#check').show();
+    if($(this).val() == pw1){
+    	$(this).css({
+    		"background-color" : "white"
+    	});
+    	$(this).mouseover(function(event){
+            $(".PW2hoverpopup").css("display", "none"); 
+    	});
+    	petcheck2 = "Y";
+    	if(petcheck1 == "Y" && petcheck2 == "Y"){
+    		$('#petsitter_submit').show();
+    	}else{
+    		$('#petsitter_submit').hide();
+    	}
+    }else{
+    	$(this).css({
+    		"background-color" : "rgba(237, 156, 165, 0.15)"
+    	});
+    	$(this).mouseover(function(event){
+    		$(".PW2hoverpopup").text('비밀번호가 일치하지 않습니다.');
+    		$(".PW2hoverpopup").css("visibility", "Visible");
+            $(".PW2hoverpopup").css("top", event.target.offsetTop + 200);
+            $(".PW2hoverpopup").css("left", event.target.offsetLeft + 330);
+            $(".PW2hoverpopup").css("display", "block"); 
+    	});
+    	$(this).mouseout(function(event){
+    		$(".PW2hoverpopup").css("display", "none");
+    	});
+		if($(this).val().length == 0){
+			$(this).css({
+				"background-color" : "white"
+			})
 		}
-	}
-})
+		petcheck2 = "N";
+    	if(petcheck1 == "Y" && petcheck2 == "Y"){
+    		$('#petsitter_submit').show();
+    	}else{
+    		$('#petsitter_submit').hide();
+    	}
+    }
+});
+
+$('.PW1check').keyup(function(event){
+    if($(this).val().length<6 || $(this).val().length>16){
+    	$(this).css({
+    		"background-color" : "rgba(237, 156, 165, 0.15)"
+    	});
+    	$(this).mouseover(function(event){
+    		$(".PW1hoverpopup").text('비밀번호는 6~16글자 입니다.');
+    		$(".PW1hoverpopup").css("visibility", "Visible");
+            $(".PW1hoverpopup").css("top", event.target.offsetTop + 200);
+            $(".PW1hoverpopup").css("left", event.target.offsetLeft + 330);
+            $(".PW1hoverpopup").css("display", "block"); 
+    	});
+    	$(this).mouseout(function(event){
+    		$(".PW1hoverpopup").css("display", "none");
+    	});
+		if($(this).val().length == 0){
+			$(this).css({
+				"background-color" : "white"
+			})
+		}
+		petcheck1 = "N";
+    	if(petcheck1 == "Y" && petcheck2 == "Y"){
+    		$('#petsitter_submit').show();
+    	}else{
+    		$('#petsitter_submit').hide();
+    	}
+    }else{
+    	$(this).css({
+    		"background-color" : "white"
+    	});
+    	$(this).mouseover(function(event){
+            $(".PW1hoverpopup").css("display", "none");
+    	});
+    	petcheck1 = "Y";
+    	if(petcheck1 == "Y" && petcheck2 == "Y"){
+    		$('#petsitter_submit').show();
+    	}else{
+    		$('#petsitter_submit').hide();
+    	}
+    }
+});
+
 $('.tabs .tab').click(function(){
     if ($(this).hasClass('idfind')) {
         $('.tabs .tab').removeClass('active');

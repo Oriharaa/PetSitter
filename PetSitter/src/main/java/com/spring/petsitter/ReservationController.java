@@ -134,6 +134,13 @@ public class ReservationController {
 		model.addAttribute("addr", petsitter.getPETSITTER_ADDRESS());
 		model.addAttribute("safeaddr", petsitter.getPETSITTER_SAFEADDR());
 		System.out.println(petsitter.getPETSITTER_SAFEADDR());
+		model.addAttribute("home_photo1","N");
+		model.addAttribute("home_photo2","N");
+		model.addAttribute("home_photo3","N");
+		model.addAttribute("cert_photo1","N");
+		model.addAttribute("cert_photo2","N");
+		model.addAttribute("cert_photo3","N");
+		
 		for(int j = 0; j < homephoto.length; j++) {
 		model.addAttribute("home_photo"+(j+1), homephoto[j]);
 		}
