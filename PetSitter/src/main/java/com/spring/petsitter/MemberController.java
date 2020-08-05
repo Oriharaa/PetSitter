@@ -439,6 +439,7 @@ public class MemberController {
 			session.setAttribute("id", membervo.getMEMBER_ID());
 			session.setAttribute("name", membervo.getMEMBER_NAME());
 			session.setAttribute("rank", membervo.getMEMBER_RANK());
+			session.setAttribute("nickname", membervo.getMEMBER_NICKNAME());
 			return "redirect:/home.me";
 		}else {
 			return "loginform";

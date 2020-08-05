@@ -142,7 +142,9 @@
 							</tr>
 							<tr>
 								<td>
-									<img src="./upload/<%=mboard.getMEMBER_UP_FILE() %>">
+								<%if(!(mboard.getMEMBER_ORG_FILE() == null)) { %>
+									<img src="./upload/<%=mboard.getMEMBER_UP_FILE() %>" width="500px">
+								<% } %>	
 								</td> 
 							</tr>
 					</table>

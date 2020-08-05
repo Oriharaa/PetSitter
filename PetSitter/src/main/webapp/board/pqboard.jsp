@@ -20,7 +20,7 @@
 	}
 	 
 	ArrayList<MemberVO> memberList = (ArrayList<MemberVO>)request.getAttribute("member_list");
-	List<PetsitterVO> petsitterList = (List<PetsitterVO>)request.getAttribute("petsitter_list");
+	ArrayList<PetsitterVO> petsitterList = (ArrayList<PetsitterVO>)request.getAttribute("petsitter_list");
 	List<PetsitterQnaBoardVO> pqboardlist = (List<PetsitterQnaBoardVO>)request.getAttribute("pqboard_list"); 
 	
 	int listcount=((Integer)request.getAttribute("listcount")).intValue();
@@ -127,16 +127,14 @@
 				pqForm += '</tr>';
 				pqForm += '</thead>';
 				pqForm += '<tbody>';
-
-				
-				
+						
 				$.each(data, function(index, item) {
 				
 						pqForm += '<tr>'; 
 						pqForm +=	'<td>' + item.member_NICKNAME + '</td>';
 						
 						console.log(item.petsitter_QNA_BNO);
-						pqForm += '<td><a href="./pqboarddetail.me?bno=' + item.petsitter_QNA_BNO + '">' + item.petsitter_QNA_SUBJECT + '</a></td>';
+						pqForm += '<td><a href="#" onClick="fn_contentView(' + item.petsitter_QNA_BNO + ')">' + item.petsitter_QNA_SUBJECT + '</a></td>';
 						pqForm += '<td>' +item.real_DATE+ '</td>'; 
 						pqForm += '</tr>';						
 					});
@@ -145,10 +143,8 @@
 				pqForm += '</table>';
 				pqForm += '</div>';
 				pqForm += '</div>';
-				
-				
-				
-				$('#getBoardList2').append(pqForm);
+								
+				$('#table').append(pqForm);
 			},
 	   	error:function(request,status,error){
  	    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -161,6 +157,15 @@
 		getBoardList2();
  	});
 </script>
+	
+	function fn_contentView(bno) {
+		var url = "${pageContext.request.contextPath}/pqboarddetail2.bo";
+		url = url + "?bno=" + bno;
+		location.href = url;
+	}
+</script> --%>
+
+
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
   <div class="site-wrap" id="home-section">
@@ -178,7 +183,7 @@
 	    
     <div id="getBoardList2"></div>
     
-    <%-- <div class="row">
+    <div class="row">
     
     <div class="col-md-12">  
 		
@@ -213,7 +218,7 @@
 		</table>
 		</div>
 	</div>
-	 --%>
+
 		    <div class="row">
      <div class="col-md-2">
      	      

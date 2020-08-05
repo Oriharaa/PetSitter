@@ -9,10 +9,12 @@
 	String id = null;
 	String name = null;
 	String rank = null;
+	String nickname = null;
 	
 	id = (String)session.getAttribute("id");
 	name = (String)session.getAttribute("name");
 	rank = (String)session.getAttribute("rank");
+	nickname = (String)session.getAttribute("nickname");
 	
 	if(rank == null) {
 		rank = "guest";

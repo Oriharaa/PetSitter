@@ -15,8 +15,11 @@ if(session.getAttribute("id") == null) {
 
 String id = (String)session.getAttribute("id");
 String name = (String)session.getAttribute("name");
+String nickname = (String)session.getAttribute("nickname");
 String rank = (String)session.getAttribute("rank");
 String btype = "mboard";
+
+System.out.println(nickname);
 %>
 <%@ include file="../jsp_top.jsp" %>
 <!doctype html>
@@ -85,8 +88,8 @@ String btype = "mboard";
     		<button type="button" style="background:#53dc98;" class="btn btn-sm">회계 관리</button>
     	</div>
     </div>  
-    ${id}  로그인 중
-    닉네임 : ${name} 
+    ${id}  로그인 중 <br>
+    닉네임 : ${nickname} 
     <!-- 여백용 row -->
     <div class="row">
     	<div class="col-md-12 p-3"></div>

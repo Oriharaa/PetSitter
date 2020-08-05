@@ -99,7 +99,6 @@ public class MemberBoardServiceImpl implements MemberBoardService {
 		MemberBoardMapper memberboardMapper = sqlSession.getMapper(MemberBoardMapper.class);
 		
 		List<ReportArticleVO> rarticlelist = memberboardMapper.getReportArticleList(report);
-		System.out.println("rarticlelist.size() : " + rarticlelist.size());
 		return rarticlelist;
 	}
 
@@ -108,7 +107,6 @@ public class MemberBoardServiceImpl implements MemberBoardService {
 		MemberBoardMapper memberboardMapper = sqlSession.getMapper(MemberBoardMapper.class);
 		
 		List<ReportReplyVO> rreplylist = memberboardMapper.getReportReplyList(report);
-		System.out.println("rreplylist.size() : " + rreplylist.size());
 		return rreplylist;
 	}
 }

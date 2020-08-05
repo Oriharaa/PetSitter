@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberBoardController {
 	
 	@Autowired
-	private MemberBoardService memberboardService;		
+	private MemberBoardService memberboardService;	 
 	
 	@Autowired 
 	private MReplyService mReplyService;

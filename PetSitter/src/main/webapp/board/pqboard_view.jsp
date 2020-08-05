@@ -126,7 +126,7 @@
 							<td><%=pqboard.getMEMBER_NICKNAME() %></td>
 						</tr>
 						<tr>
-							<td>타겟 펫시터</td>
+							<td>대상 펫시터</td>
 							<td><%=pqboard.getPETSITTER_NICKNAME() %></td>
 						</tr>
 						<%-- <tr>
@@ -154,8 +154,8 @@
 					</table>
 					
 			<%if((pqboard.getMEMBER_ID().equals(id)) || rank.equals("admin") || rank.equals("manager")) {%>
-				<%-- <a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnModify" href="./pqboardmodifyform.me?bno=<%=pqboard.getPETSITTER_QNA_BNO() %>">수정</a> --%>
-	  		<%-- <a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnDelete" href="./pqboardDelete.me?bno=<%=pqboard.getPETSITTER_QNA_BNO()%>">삭제</a> --%>
+				<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnModify" href="./pqboardmodifyform.me?bno=<%=pqboard.getPETSITTER_QNA_BNO() %>">수정</a>
+	  		<a type="button" style="background:#53dc98;" class="btn btn-sm" id="btnDelete" href="./pqboardDelete.me?bno=<%=pqboard.getPETSITTER_QNA_BNO()%>">삭제</a>
 	  		<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./pqboardlist.me">목록</a>
 			<% } else { %>
   			<a type="button" style="background:#e67e22;" class="btn btn-sm" id="btnList" href="./pqboardlist.me">목록</a>
@@ -211,9 +211,9 @@
 	</div>	  
 	
 	<!-- 리플란 차후 수정 -->
-	<%-- <jsp:include page="./memberboard_comments.jsp">
-	<jsp:param name="bno" value="<%=mboard.getMEMBER_NUM() %>"/>
-</jsp:include> --%>
+	 <jsp:include page="./pqboard_comments.jsp">
+	<jsp:param name="bno" value="<%=pqboard.getPETSITTER_QNA_BNO() %>"/>
+</jsp:include> 
 	
 		<!-- 하단 넉넉하게 여백 주기 -->
 		<div class="row">
