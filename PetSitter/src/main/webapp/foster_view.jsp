@@ -376,12 +376,6 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 
 										</div>
 									</div>
-									
-									
-									
-									
-									
-									
 									<div class = "col-11 text-center">
 										<div class ="row justify-content-center">
 											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;">
@@ -869,9 +863,9 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 			<input type="hidden" name="PAY_TYPE" id="PAY_TYPE" value="위탁" >
 			<input type="hidden" name="START_DATE" id="START_DATE" value=<%=start_date %>>
 			<input type="hidden" name="START_DATE" id="START_TIME">
-			<input type="hidden" name="END_DATE" id="END_DATE" value=<%=end_date %>>
+			<input type="hidden" name="END_DATE" id="END_DATE" value=<%=start_date %>>
 			<input type="hidden" name="END_DATE" id="END_TIME">
-			<input type="hidden" name="PAY_POINT" id="PAY_POINT">
+			<input type="hidden" name="PAY_POINT" id="PAY_POINT" value=0>
 			<div class="container">
 				<div class="row">
 					<div class="col-2">

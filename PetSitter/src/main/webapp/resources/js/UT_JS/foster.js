@@ -43,6 +43,7 @@ $(document).ready(function(){
 	        	hide2.style.display = "none";
 	        	we.style.background = "rgb(190, 190, 190)";
 	        	bang.style.background = "rgb(83, 220, 152)";
+	        	$("#END_DATE").val('$("#START_DATE").val()');
 	        }
 	    });
 
@@ -381,7 +382,7 @@ $(document).ready(function() {
 			$("#p33").empty();
 			$("#p33").append("+KRW "+price_all_2);
 			$(".p5").empty();
-			$(".p5").append("KRW "+price_all_1);
+			$(".p5").append("KRW "+price_all_2);
 			
 			
 			//'x' 클릭시 해당p태그 삭제 예상 총비용 변화
@@ -409,7 +410,7 @@ $(document).ready(function() {
 			var end_time = (String) ($("#timePicker_end").timepicker("getTime"));
 			
 			$("#START_DATE").val(start_date);
-			$("#END_DATE").val(end_date);
+			$("#END_DATE").val(start_date);
 			$("#START_TIME").val(start_time.substr(16, 5));
 			$("#END_TIME").val(end_time.substr(16, 5));
 		});
