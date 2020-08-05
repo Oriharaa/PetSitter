@@ -218,7 +218,7 @@ body .container .content input.inpt {
   height: 2px;
   margin-bottom: 12px;
   padding: 16px 13px;
-  color: #999999;
+  color: #5e5e5e!important;
   border: 1px solid #d9d9d9;
   background: transparent;
   background-color: #ED9CA5;
@@ -451,13 +451,36 @@ body .container .content .signup-cont {
 a { 
 text-decoration:none; 
 } 
+#popup{
+ line-height : 40px;
+ width : 250px;
+ visibility : hidden;
+ position : absolute;
+ font-size: 14px;
+ background-color : white;
+ border-radius: 5px;
+ border-style : solid;
+ border-width : 1px;
+ text-align:center;
+}
 </style>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 </head>
 <body>
 
 <section class="container">
+  				<div id="popup" class="IDhoverpopup"></div>
+  				<div id="popup" class="PW1hoverpopup"></div>
+  				<div id="popup" class="PW2hoverpopup"></div>
+  				<div id="popup" class="TELhoverpopup"></div>
+  				<div id="popup" class="TELhoverpopup"></div>
+  				
+  				<div id="popup" class="MEMBER_IDhoverpopup"></div>
+  				<div id="popup" class="MEMBER_PW1hoverpopup"></div>
+  				<div id="popup" class="MEMBER_PW2hoverpopup"></div>
+  				<div id="popup" class="MEMBER_TELhoverpopup"></div>
 <article class="half">
-	<a href="home.me"><h1>PET SITTER</h1></a>
+	<a href="home.me"><h1>PETSTINY</h1></a>
 		<!-- 상단 메뉴 -->
         <div class="tabs">
             <span class="tab signin active"><a href="#signin">로그인</a></span>
@@ -494,36 +517,36 @@ text-decoration:none;
 	        
 	        <!-- 일반회원 회원가입 -->
 	        <div class="signup-cont cont">
-	  	      <form action="member_join.me" method="post" onsubmit="return member_check_input();" enctype="multipart/form-data" id="Signinform3">
-	          <input type="email" name="MEMBER_ID" class="inpt" required="required" placeholder="이메일을 입력해주세요">
-					<input type="password" name="MEMBER_PW" id="MEMBER_PW1" class="inpt" required="required" placeholder="패스워드를 입력해주세요">
-                    <input type="password" name="password2" id="MEMBER_PW2" class="inpt" required="required" placeholder="패스워드를 확인해주세요">
+	  	      <form action="member_join.me" method="post" enctype="multipart/form-data" id="Signinform3">
+	          <input type="text" name="MEMBER_ID" id= "MEMBER_JOIN_ID" class="inpt" required="required" placeholder="이메일을 입력해주세요">
+					<input type="password" name="MEMBER_PW" id="MEMBER_PW1" class="inpt MEMBER_PW1check" required="required" placeholder="패스워드를 입력해주세요">
+                    <input type="password" name="password2" id="MEMBER_PW2" class="inpt MEMBER_PW2check" required="required" placeholder="패스워드를 확인해주세요">
 				    <input type="text" name="MEMBER_NAME" id="MEMBER_NAME" class="inpt" required="required" placeholder="이름을 입력해주세요">
- 					<input type="tel" name="MEMBER_TEL" id="MEMBER_TEL" class="inpt" required="required" placeholder="전화번호를 입력해주세요 ('-'생략)">
+ 					<input type="tel" name="MEMBER_TEL" id="MEMBER_TEL" class="inpt MEMBER_TELcheck" required="required" placeholder="전화번호를 입력해주세요">
                     <div class="submit-wrap">
-                        <input type="submit" value="Sign up" class="submit" id="member_submit">
-                        <input type="text" name="checkpw2" id="checkpw1" class="inptcheck2"  readonly value="패스워드가 일치하지 않습니다">
+                        <input type="submit" value="Sign up" class="submit" id="member_submit" style = "display : none;">
                         <a href="#" class="more">Terms and conditions</a>
                     </div>
            </form>
         	</div>
 
         	<!-- 펫시터 회원가입1 -->
-			<form action="petsitter_join.me" id = "petsitter_submit_form" method="post" onsubmit ="return petsitter_check_input();" enctype="multipart/form-data">
+			<form action="petsitter_join.me" id = "petsitter_submit_form" method="post" enctype="multipart/form-data">
 				<div class="signup-cont-cont cont">
 				
-				<input type="text" name="PETSITTER_ID" id="PETSITTER_ID" class="inpt" required="required" placeholder="아이디를 입력해주세요 ">
-      			<input type="password" name="PETSITTER_PW" id="PETSITTER_PW1" class="inpt" required="required" placeholder="패스워드를 입력해주세요">
-    			<input type="password" id="PETSITTER_PW2" class="inpt" required="required" placeholder="패스워드를 확인해주세요">
+				<input type="text" name="PETSITTER_ID" id="PETSITTER_ID" class="inpt IDcheck" required="required" placeholder="아이디를 입력해주세요 ">
+      			<input type="password" name="PETSITTER_PW" id="PETSITTER_PW1" class="inpt PW1check" required="required" placeholder="패스워드를 입력해주세요">
+    			<input type="password" id="PETSITTER_PW2" class="inpt PW2check" required="required" placeholder="패스워드를 확인해주세요">
   				<input type="text" name="PETSITTER_NAME" class="inpt" required="required" placeholder="이름을 입력해주세요">
-  				<input type="tel" name="PETSITTER_TEL" id="PETSITTER_TEL" class="inpt" required="required" placeholder="전화번호를 입력해주세요('-'생략)">
-  				
+  				<input type="tel" name="PETSITTER_TEL" id="PETSITTER_TEL" class="inpt TELcheck" required="required" placeholder="전화번호를 입력해주세요">
+
+
   				<div class="tabs">
             	&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="tab signup-petsitter2"><a href="#signup-petsitter2">다음</a></span></div>
             	</div>
             <!-- 펫시터 회원가입2 -->
             	<div class="signup-cont-cont2 cont">
-            	<input type="email" name="PETSITTER_EMAIL" class="inpt" required="required" placeholder="이메일을 입력해주세요 ">
+            	<input type="text" name="PETSITTER_EMAIL" id = "PETSITTER_EMAIL" class="inpt" required="required" placeholder="이메일을 입력해주세요 ">
             	<input type="button" class= "button1" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
            		<input type="text" name="PETSITTER_ADDRESS" id="sample4_postcode" class="input1" placeholder="우편번호" required="required" readonly>
 				<input type="text" name="PETSITTER_ADDRESS" id="sample4_roadAddress" class="inpt" placeholder="도로명주소" readonly>
@@ -706,8 +729,7 @@ text-decoration:none;
        	<input type="text" name = "messagebyte" value="0" size="1" maxlength="4" readonly>/2000 Byte
        	<div class="tabs">
        	<span class="tab signup-petsitter9-back"><a href="#signup-petsitter9">이전</a></span></div>
-       	<input type="submit" value="Sign up" class="submit" id="petsitter_submit">
-       	<input type="text" name="checkpw2" id="checkpw2" class="inptcheck2"  readonly placeholder="패스워드가 일치하지 않습니다">
+       	<input type="submit" value="Sign up" class="submit" id="petsitter_submit" style="display: none;" >
 
        	</div>
    					</form>
@@ -736,118 +758,503 @@ var callback = function(result, status) { //입력된 도로명주소의 좌표�
 function geocoderAddr(){ //입력된 도로명주소의 좌표값을 구하는 함수
 	geocoder.addressSearch($("#sample4_roadAddress").val(), callback);
 };
-
-
-
-
-var regExpId = /^[a-zA-Z0-9]{4,12}$/;
-
-function member_check_input(){
-	var ch;
-	var str = $("#MEMBER_PW1").val();
-		if(str.length < 6 || str.length > 12){
-			alert("패스워드 형식이 올바르지 않습니다.");
-			return false;
-		}else{
-			for(var i =0; i< str.length; i++){
-				ch = str.substring(i,i+1);
-				if (!((ch >= "0" && ch <= "9") || (ch >= "a" && ch <= "z") 
-						|| (ch >= "A" && ch <= "Z"))){
-					alert("패스워드 형식이 올바르지 않습니다.");
-					return false;
-				}
-			}
+	
+var memcheck1 = "N";
+var memcheck2 = "N";
+var memcheck3 = "N";
+var memcheck4 = "N";
+$('#MEMBER_JOIN_ID').keyup(function(event){
+	var reg_email = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+	if(!reg_email.test($('#MEMBER_JOIN_ID').val())){
+		$(this).css({
+			"background-color" : "rgba(237, 156, 165, 0.15)"
+		});
+		$(this).mouseover(function(event){
+			$(".MEMBER_IDhoverpopup").text('이메일 형식이 올바르지 않습니다.');
+			$(".MEMBER_IDhoverpopup").css("visibility", "Visible");
+            $(".MEMBER_IDhoverpopup").css("top", event.target.offsetTop + 196);
+            $(".MEMBER_IDhoverpopup").css("left", event.target.offsetLeft + 330);
+            $(".MEMBER_IDhoverpopup").css("display", "block"); 
+		});
+		$(this).mouseout(function(event){
+			$(".MEMBER_IDhoverpopup").css("display","none");
+		});
+		if($(this).val().length == 0){
+			$(this).css({
+				"background-color" : "white"
+			})
 		}
-		str = $("#MEMBER_TEL").val();
-		if(str.length != 11){
-			alert("전화번호 형식이 올바르지 않습니다.");
-			return false;
-		}else{
-			for(var i = 0; i <str.length;i++){
-				ch = str.substring(i,i+1);
-				if(!(ch >= "0" && ch <= "9")){
-					alert("전화번호 형식이 올바르지 않습니다.");
-					return false;
-				}
-			}
-		}
+		memcheck = "N";
+		if(memcheck1 == "Y" && memcheck2 == "Y" && memcheck3 == "Y" && memcheck4 == "Y"){
+    		$('#member_submit').show();
+    	}else{
+    		$('#member_submit').hide();
+    	}
+	}else{
+		$(this).css({
+			"background-color" : "white"
+		});
+		$(this).mouseover(function(event){
+			$(".MEMBER_IDhoverpopup").css("display","none");
+		});
 		
-		return true;
+		$.ajax({
+            url:'/petsitter/memberIdCheck.bo',
+            type:'POST',
+            dataType : "text", // 서버에서 보내줄 데이터 타입
+            data:{"MEMBER_ID":$('#MEMBER_JOIN_ID').val()},
+            contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+            success:function(data){
+    			if(data == "N"){
+    				$('#MEMBER_JOIN_ID').css({
+    					"background-color" : "rgba(237, 156, 165, 0.15)"
+    		    	});
+    		    	$('#MEMBER_JOIN_ID').mouseover(function(event){
+    		    		$(".MEMBER_IDhoverpopup").text('중복된 이메일 입니다.');
+    		    		$(".MEMBER_IDhoverpopup").css("visibility", "Visible");
+    		            $(".MEMBER_IDhoverpopup").css("top", event.target.offsetTop + 196);
+    		            $(".MEMBER_IDhoverpopup").css("left", event.target.offsetLeft + 330);
+    		            $(".MEMBER_IDhoverpopup").css("display", "block"); 
+    		    	});
+    		    	$('#MEMBER_JOIN_ID').mouseout(function(event){
+    		    		$(".MEMBER_IDhoverpopup").css("display", "none");
+    		    	});
+    		    	memcheck1 = "N";
+    		    	if(memcheck1 == "Y" && memcheck2 == "Y" && memcheck3 == "Y" && memcheck4 == "Y"){
+    		    		$('#member_submit').show();
+    		    	}else{
+    		    		$('#member_submit').hide();
+    		    	}
+    			}else{
+    				$('#MEMBER_JOIN_ID').css({
+    		    		"background-color" : "white"
+    		    	});
+    				
+    				$('#MEMBER_JOIN_ID').mouseover(function(event){
+    		            $(".MEMBER_IDhoverpopup").css("display", "none"); 
+    		    	});
+    				memcheck1 = "Y";
+    				if(memcheck1 == "Y" && memcheck2 == "Y" && memcheck3 == "Y" && memcheck4 == "Y"){
+    		    		$('#member_submit').show();
+    		    	}else{
+    		    		$('#member_submit').hide();
+    		    	}
+    			}
+
+        	},
+        	error:function(request,status,error){
+    	        alert("list ajax통신 실패!!!");
+    	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        	}
+    	});
+
 	}
-	
-function petsitter_check_input(){
-var str = $("#PETSITTER_ID").val();
-var ch;
-	if(str.length<4 || str.length > 12){
-		alert("아이디 형식이 올바르지 않습니다.");
-		$("#PETSITTER_ID").focus();
-		return false;
-	}else{
-		for(var i = 0;i<str.length ;i++){
-			ch = str.substring(i,i+1);
-			if(!((ch >= "0" && ch <= "9") || (ch >= "a" && ch<="z") || (ch >= "A"&& ch<="Z"))){
-				alert("아이디 형식이 올바르지 않습니다.");
-				$("#PETSITTER_ID").focus();
-				return false;
-			}
-		}
-	}
-	str = $("#PETSITTER_PW1").val();
-	if(str.length < 6 || str.length > 12){
-		alert(str)
-		alert("패스워드 형식이 올바르지 않습니다.1");
-		$("#PETSITTER_PW1").focus();
-		return false;
-	}else{
-		for(var i =0; i< str.length; i++){
-			ch = str.substring(i,i+1);
-			if (!((ch >= "0" && ch <= "9") || (ch >= "a" && ch <= "z") 
-					|| (ch >= "A" && ch <= "Z"))){
-				alert("패스워드 형식이 올바르지 않습니다.2");
-				$("#PETSITTER_PW").focus();
-				return false;
-			}
-		}
-	}
-	return true;
-}
-
-	$("#checkpw1").hide();
-	$("#checkpw2").hide();
-
-	
-	$("#MEMBER_PW2").keyup(function(){
-		var pw1=$("#MEMBER_PW1").val();
-		var pw2=$("#MEMBER_PW2").val();
-		if(pw1 != "" || pw2 != ""){
-			if(pw1 == pw2){
-				$("#member_submit").show();
-				$("#checkpw1").hide();
-			}else{
-				$("#member_submit").hide();
-				$("#checkpw1").show();
-			}
-		}
-	})
-
-
-$(function(){
-	$("#checkpw2").hide();
-	$("#PETSITTER_PW2").keyup(function(){
-		var pw1=$("#PETSITTER_PW1").val();
-		var pw2=$("#PETSITTER_PW2").val();
-		if(pw1 != "" || pw2 != ""){
-			if(pw1 == pw2){
-				$("#petsitter_submit").show();
-				$("#checkpw2").hide();
-			}else{
-				$("#checkpw2").text("패스워드가 일치하지 않습니다.");
-				$("#petsitter_submit").hide();
-				$("#checkpw2").show();
-			}
-		}
-	})
 });
+
+$('.MEMBER_PW2check').keyup(function(event){
+	var pw1 = $('#MEMBER_PW1').val();
+    if($(this).val() == pw1){
+    	$(this).css({
+    		"background-color" : "white"
+    	});
+    	$(this).mouseover(function(event){
+            $(".MEMBER_PW2hoverpopup").css("display", "none"); 
+    	});
+    	memcheck3 = "Y";
+    	if(memcheck1 == "Y" && memcheck2 == "Y" && memcheck3 == "Y" && memcheck4 == "Y"){
+    		$('#member_submit').show();
+    	}else{
+    		$('#member_submit').hide();
+    	}
+    }else{
+    	$(this).css({
+    		"background-color" : "rgba(237, 156, 165, 0.15)"
+    	});
+    	$(this).mouseover(function(event){
+    		$(".MEMBER_PW2hoverpopup").text('비밀번호가 일치하지 않습니다.');
+    		$(".MEMBER_PW2hoverpopup").css("visibility", "Visible");
+            $(".MEMBER_PW2hoverpopup").css("top", event.target.offsetTop + 196);
+            $(".MEMBER_PW2hoverpopup").css("left", event.target.offsetLeft + 330);
+            $(".MEMBER_PW2hoverpopup").css("display", "block"); 
+    	});
+    	$(this).mouseout(function(event){
+    		$(".MEMBER_PW2hoverpopup").css("display", "none");
+    	});
+		if($(this).val().length == 0){
+			$(this).css({
+				"background-color" : "white"
+			})
+		}
+    	memcheck3 = "N";
+    	if(memcheck1 == "Y" && memcheck2 == "Y" && memcheck3 == "Y" && memcheck4 == "Y"){
+    		$('#member_submit').show();
+    	}else{
+    		$('#member_submit').hide();
+    	}
+    }
+});
+
+$('.MEMBER_PW1check').keyup(function(event){
+    if($(this).val().length<6 || $(this).val().length>16){
+    	$(this).css({
+    		"background-color" : "rgba(237, 156, 165, 0.15)"
+    	});
+    	$(this).mouseover(function(event){
+    		$(".MEMBER_PW1hoverpopup").text('비밀번호는 6~16글자 입니다.');
+    		$(".MEMBER_PW1hoverpopup").css("visibility", "Visible");
+            $(".MEMBER_PW1hoverpopup").css("top", event.target.offsetTop + 196);
+            $(".MEMBER_PW1hoverpopup").css("left", event.target.offsetLeft + 330);
+            $(".MEMBER_PW1hoverpopup").css("display", "block"); 
+    	});
+    	$(this).mouseout(function(event){
+    		$(".MEMBER_PW1hoverpopup").css("display", "none");
+    	});
+		if($(this).val().length == 0){
+			$(this).css({
+				"background-color" : "white"
+			})
+		}
+    	memcheck2 = "N";
+    	if(memcheck1 == "Y" && memcheck2 == "Y" && memcheck3 == "Y" && memcheck4 == "Y"){
+    		$('#member_submit').show();
+    	}else{
+    		$('#member_submit').hide();
+    	}
+    }else{
+    	$(this).css({
+    		"background-color" : "white"
+    	});
+    	$(this).mouseover(function(event){
+            $(".MEMBER_PW1hoverpopup").css("display", "none"); 
+    	});
+    	if($(this).val().length == 0){
+			$(this).css({
+				"background-color" : "white"
+			})
+		};
+    	memcheck2 = "Y";
+    	if(memcheck1 == "Y" && memcheck2 == "Y" && memcheck3 == "Y" && memcheck4 == "Y"){
+    		$('#member_submit').show();
+    	}else{
+    		$('#member_submit').hide();
+    	}
+    }
+});
+
+$('.MEMBER_TELcheck').keyup(function(event){
+	var regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+	if(!regExp.test($('#MEMBER_TEL').val())){
+		$(this).css({
+			"background-color" : "rgba(237, 156, 165, 0.15)"
+    	});
+    	$(this).mouseover(function(event){
+    		$(".MEMBER_TELhoverpopup").text('전화번호 형식이 올바르지 않습니다.');
+    		$(".MEMBER_TELhoverpopup").css("visibility", "Visible");
+            $(".MEMBER_TELhoverpopup").css("top", event.target.offsetTop + 196);
+            $(".MEMBER_TELhoverpopup").css("left", event.target.offsetLeft + 330);
+            $(".MEMBER_TELhoverpopup").css("display", "block"); 
+    	});
+    	$(this).mouseout(function(event){
+    		$(".MEMBER_TELhoverpopup").css("display", "none");
+    	});
+		if($(this).val().length == 0){
+			$(this).css({
+				"background-color" : "white"
+			})
+		}
+    	memcheck4 = "N";
+    	if(memcheck1 == "Y" && memcheck2 == "Y" && memcheck3 == "Y" && memcheck4 == "Y"){
+    		$('#member_submit').show();
+    	}else{
+    		$('#member_submit').hide();
+    	}
+	}else{
+		$(this).css({
+    		"background-color" : "white"
+    	});
+    	$(this).mouseover(function(event){
+            $(".MEMBER_TELhoverpopup").css("display", "none"); 
+    	});
+    	memcheck4 = "Y";
+    	if(memcheck1 == "Y" && memcheck2 == "Y" && memcheck3 == "Y" && memcheck4 == "Y"){
+    		$('#member_submit').show();
+    	}else{
+    		$('#member_submit').hide();
+    	}
+	}
+});
+	
+var petcheck1 = "N";
+var petcheck2 = "N";
+var petcheck3 = "N";
+var petcheck4 = "N";
+var petcheck5 = "N";
+$('#PETSITTER_EMAIL').keyup(function(event){
+	var reg_email = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+	if(!reg_email.test($('#PETSITTER_EMAIL').val())){
+		$(this).css({
+			"background-color" : "rgba(237, 156, 165, 0.15)"
+		});
+		$(this).mouseover(function(event){
+			$(".EMAILhoverpopup").text('이메일 형식이 올바르지 않습니다');
+			$(".EMAILhoverpopup").css("visibility", "Visible");
+            $(".EMAILhoverpopup").css("top", event.target.offsetTop + 196);
+            $(".EMAILhoverpopup").css("left", event.target.offsetLeft + 330);
+            $(".EMAILhoverpopup").css("display", "block"); 
+		});
+		$(this).mouseout(function(event){
+			$(".EMAILhoverpopup").css("display","none");
+		});
+		if($(this).val().length == 0){
+			$(this).css({
+				"background-color" : "white"
+			})
+		}
+		petcheck5 = "N";
+    	if(petcheck1 == "Y" && petcheck2 == "Y" && petcheck3 == "Y" && petcheck4 == "Y" && petcheck5 == "Y"){
+    		$('#petsitter_submit').show();
+    	}else{
+    		$('#petsitter_submit').hide();
+    	}
+	}else{
+		$(this).css({
+			"background-color" : "white"
+		});
+		$(this).mouseover(function(event){
+			$(".EMAILhoverpopup").css("display","none");
+		});
+		petcheck5 = "Y";
+    	if(petcheck1 == "Y" && petcheck2 == "Y" && petcheck3 == "Y" && petcheck4 == "Y" && petcheck5 == "Y"){
+    		$('#petsitter_submit').show();
+    	}else{
+    		$('#petsitter_submit').hide();
+    	}
+
+	}
+});
+
+$('.TELcheck').keyup(function(event){
+	var regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+	if(!regExp.test($('#PETSITTER_TEL').val())){
+		$(this).css({
+			"background-color" : "rgba(237, 156, 165, 0.15)"
+    	});
+    	$(this).mouseover(function(event){
+    		$(".TELhoverpopup").text('전화번호 형식이 올바르지 않습니다');
+    		$(".TELhoverpopup").css("visibility", "Visible");
+            $(".TELhoverpopup").css("top", event.target.offsetTop + 196);
+            $(".TELhoverpopup").css("left", event.target.offsetLeft + 330);
+            $(".TELhoverpopup").css("display", "block"); 
+    	});
+    	$(this).mouseout(function(event){
+    		$(".TELhoverpopup").css("display", "none");
+    	});
+		if($(this).val().length == 0){
+			$(this).css({
+				"background-color" : "white"
+			})
+		}
+    	petcheck4 = "N";
+    	if(petcheck1 == "Y" && petcheck2 == "Y" && petcheck3 == "Y" && petcheck4 == "Y" && petcheck5 == "Y"){
+    		$('#petsitter_submit').show();
+    	}else{
+    		$('#petsitter_submit').hide();
+    	}
+	}else{
+		$(this).css({
+    		"background-color" : "white"
+    	});
+    	$(this).mouseover(function(event){
+            $(".TELhoverpopup").css("display", "none"); 
+    	});
+    	petcheck4 = "Y";
+    	if(petcheck1 == "Y" && petcheck2 == "Y" && petcheck3 == "Y" && petcheck4 == "Y" && petcheck5 == "Y"){
+    		$('#petsitter_submit').show();
+    	}else{
+    		$('#petsitter_submit').hide();
+    	}
+	}
+});
+
+$('.PW2check').keyup(function(event){
+	var pw1 = $('#PETSITTER_PW1').val();
+	
+    if($(this).val() == pw1){
+    	$(this).css({
+    		"background-color" : "white"
+    	});
+    	$(this).mouseover(function(event){
+            $(".PW2hoverpopup").css("display", "none"); 
+    	});
+    	petcheck3 = "Y";
+    	if(petcheck1 == "Y" && petcheck2 == "Y" && petcheck3 == "Y" && petcheck4 == "Y" && petcheck5 == "Y"){
+    		$('#petsitter_submit').show();
+    	}else{
+    		$('#petsitter_submit').hide();
+    	}
+    }else{
+    	$(this).css({
+    		"background-color" : "rgba(237, 156, 165, 0.15)"
+    	});
+    	$(this).mouseover(function(event){
+    		$(".PW2hoverpopup").text('비밀번호가 일치하지 않습니다.');
+    		$(".PW2hoverpopup").css("visibility", "Visible");
+            $(".PW2hoverpopup").css("top", event.target.offsetTop + 196);
+            $(".PW2hoverpopup").css("left", event.target.offsetLeft + 330);
+            $(".PW2hoverpopup").css("display", "block"); 
+    	});
+    	$(this).mouseout(function(event){
+    		$(".PW2hoverpopup").css("display", "none");
+    	});
+		if($(this).val().length == 0){
+			$(this).css({
+				"background-color" : "white"
+			})
+		}
+    	petcheck3 = "N";
+    	if(petcheck1 == "Y" && petcheck2 == "Y" && petcheck3 == "Y" && petcheck4 == "Y" && petcheck5 == "Y"){
+    		$('#petsitter_submit').show();
+    	}else{
+    		$('#petsitter_submit').hide();
+    	}
+    }
+});
+
+$('.PW1check').keyup(function(event){
+    if($(this).val().length<6 || $(this).val().length>16){
+    	$(this).css({
+    		"background-color" : "rgba(237, 156, 165, 0.15)"
+    	});
+    	$(this).mouseover(function(event){
+    		$(".PW1hoverpopup").text('비밀번호는 6~16글자 입니다.');
+    		$(".PW1hoverpopup").css("visibility", "Visible");
+            $(".PW1hoverpopup").css("top", event.target.offsetTop + 196);
+            $(".PW1hoverpopup").css("left", event.target.offsetLeft + 330);
+            $(".PW1hoverpopup").css("display", "block"); 
+    	});
+    	$(this).mouseout(function(event){
+    		$(".PW1hoverpopup").css("display", "none");
+    	});
+		if($(this).val().length == 0){
+			$(this).css({
+				"background-color" : "white"
+			})
+		}
+    	petcheck2 = "N";
+    	if(petcheck1 == "Y" && petcheck2 == "Y" && petcheck3 == "Y" && petcheck4 == "Y" && petcheck5 == "Y"){
+    		$('#petsitter_submit').show();
+    	}else{
+    		$('#petsitter_submit').hide();
+    	}
+    }else{
+    	$(this).css({
+    		"background-color" : "white"
+    	});
+    	$(this).mouseover(function(event){
+            $(".PW1hoverpopup").css("display", "none"); 
+    	});
+    	petcheck2 = "Y";
+    	if(petcheck1 == "Y" && petcheck2 == "Y" && petcheck3 == "Y" && petcheck4 == "Y" && petcheck5 == "Y"){
+    		$('#petsitter_submit').show();
+    	}else{
+    		$('#petsitter_submit').hide();
+    	}
+    }
+});
+
+
+$('.IDcheck').keyup(function(event){
+    if (!(event.keyCode >=37 && event.keyCode<=40)) {
+        var inputVal = $(this).val();
+        $(this).val($(this).val().replace(/[^_a-z0-9]/gi,'')); //_(underscore), 영어, 숫자만 가능
+    }
+    if($(this).val().length<4 || $(this).val().length>12){
+    	$(this).css({
+    		"background-color" : "rgba(237, 156, 165, 0.15)"
+    	});
+    	$(this).mouseover(function(event){
+    		$(".IDhoverpopup").text('아이디는 4~12글자 입니다.');
+    		$(".IDhoverpopup").css("visibility", "Visible");
+            $(".IDhoverpopup").css("top", event.target.offsetTop + 196);
+            $(".IDhoverpopup").css("left", event.target.offsetLeft + 330);
+            $(".IDhoverpopup").css("display", "block"); 
+    	});
+    	$(this).mouseout(function(event){
+    		$(".IDhoverpopup").css("display", "none");
+    	})
+		if($(this).val().length == 0){
+			$(this).css({
+				"background-color" : "white"
+			})
+		}
+    	petcheck1 = "N";
+    	if(petcheck1 == "Y" && petcheck2 == "Y" && petcheck3 == "Y" && petcheck4 == "Y" && petcheck5 == "Y"){
+    		$('#petsitter_submit').show();
+    	}else{
+    		$('#petsitter_submit').hide();
+    	}
+    	
+        }else{
+    	$(this).css({
+    		"background-color" : "white"
+    	});
+    	$(this).mouseover(function(event){
+            $(".IDhoverpopup").css("display", "none"); 
+    	});
+    	$.ajax({
+            url:'/petsitter/petsitterIdCheck.bo',
+            type:'POST',
+            dataType : "text", // 서버에서 보내줄 데이터 타입
+            data:{"PETSITTER_ID":$('#PETSITTER_ID').val()},
+            contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+            success:function(data){
+    			if(data == "N"){
+    				$('#PETSITTER_ID').css({
+    					"background-color" : "rgba(237, 156, 165, 0.15)"
+    		    	});
+    		    	$('#PETSITTER_ID').mouseover(function(event){
+    		    		$(".IDhoverpopup").text('중복된 아이디 입니다.');
+    		    		$(".IDhoverpopup").css("visibility", "Visible");
+    		            $(".IDhoverpopup").css("top", event.target.offsetTop + 196);
+    		            $(".IDhoverpopup").css("left", event.target.offsetLeft + 330);
+    		            $(".IDhoverpopup").css("display", "block"); 
+    		    	});
+    		    	$('#PETSITTER_ID').mouseout(function(event){
+    		    		$(".IDhoverpopup").css("display", "none");
+    		    	});
+    		    	petcheck1 = "N";
+    		    	if(petcheck1 == "Y" && petcheck2 == "Y" && petcheck3 == "Y" && petcheck4 == "Y" && petcheck5 == "Y"){
+    		    		$('#petsitter_submit').show();
+    		    	}else{
+    		    		$('#petsitter_submit').hide();
+    		    	}
+    			}else{
+    				$('#PETSITTER_ID').css({
+    		    		"background-color" : "white"
+    		    	});
+    				
+    				$('#PETSITTER_ID').mouseover(function(event){
+    		            $(".IDhoverpopup").css("display", "none"); 
+    		    	});
+    				petcheck1 = "Y";
+    		    	if(petcheck1 == "Y" && petcheck2 == "Y" && petcheck3 == "Y" && petcheck4 == "Y" && petcheck5 == "Y"){
+    		    		$('#petsitter_submit').show();
+    		    	}else{
+    		    		$('#petsitter_submit').hide();
+    		    	}
+    			}
+
+        	},
+        	error:function(request,status,error){
+    	        alert("list ajax통신 실패!!!");
+    	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        	}
+    	}); 
+    	
+    }
+    
+});
+
 var clearChk=true;
 var limitByte = 2000; //바이트 최대 크기
 

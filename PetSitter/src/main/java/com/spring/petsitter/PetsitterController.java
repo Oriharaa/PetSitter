@@ -44,9 +44,22 @@ public class PetsitterController {
 		return "petsitter/petsitterFind";
 	}
 	
+	@RequestMapping(value = "petsitterIdCheck.bo",method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String petsitterIdCheck(String PETSITTER_ID) {
+		PetsitterVO petsitter = petsitterService.selectPetsitter(PETSITTER_ID);
+		if(petsitter == null) {
+			return "Y";
+		}else {
+			return "N";
+		}
+	}
+	
 	@RequestMapping(value = "petsitterPwFind.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String petsitterPwFind(PetsitterVO vo) {
+		String realTEL = vo.getPETSITTER_TEL().replaceAll("-", "");
+		vo.setPETSITTER_TEL(realTEL);
 		int res = petsitterService.petsitterPwFind(vo);
 		if(res == 1) {
 			Random r = new Random();
@@ -81,7 +94,8 @@ public class PetsitterController {
 	@RequestMapping(value = "petsitterIdFind.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String petsitterIdFind(PetsitterVO vo){
-
+		String realTEL = vo.getPETSITTER_TEL().replaceAll("-", "");
+		vo.setPETSITTER_TEL(realTEL);
 		String res = petsitterService.petsitterIdFind(vo);
 		if(res == null) {
 			return "N";
@@ -427,8 +441,9 @@ public class PetsitterController {
 		if (vo.getPETSITTER_PHOTO_PROFILE_FILE().equals("")) {
 			vo.setPETSITTER_PHOTO_PROFILE_FILE("N");
 		}
-
-
+		
+		String realTEL = vo.getPETSITTER_TEL().replaceAll("-", "");
+		vo.setPETSITTER_TEL(realTEL);
 		int res = petsitterService.petsitterInsert(vo);
 
 		if (res == 1) {

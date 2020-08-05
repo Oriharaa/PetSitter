@@ -48,7 +48,18 @@ public class MemberController {
 	@Autowired
 	JavaMailSender mailSender;
 	
-
+	
+	@RequestMapping(value = "memberIdCheck.bo",method = RequestMethod.POST,produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String memberIdCheck(String MEMBER_ID) {
+		MemberVO member =memberService.selectMember(MEMBER_ID);
+		if(member == null) {
+			return "Y";
+		}else {
+			return "N";
+		}
+	}
+	
 	@RequestMapping(value = "memberinfo.me")
 	public ModelAndView profile(MemberVO vo, Model model, HttpSession session, HttpServletResponse response) throws Exception {
 		response.setCharacterEncoding("UTF-8");
@@ -99,6 +110,8 @@ public class MemberController {
 	@RequestMapping(value = "memberPwFind.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String memberPwFind(MemberVO vo) {
+		String realTEL = vo.getMEMBER_TEL().replaceAll("-", "");
+		vo.setMEMBER_TEL(realTEL);
 		int res = memberService.memberPwFind(vo);
 		if(res == 1) {
 			Random r = new Random();
@@ -133,7 +146,8 @@ public class MemberController {
 	@RequestMapping(value = "memberIdFind.bo", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String memberIdFind(MemberVO vo){
-
+		String realTel = vo.getMEMBER_TEL().replaceAll("-", "");
+		vo.setMEMBER_TEL(realTel);
 		String res = memberService.memberIdFind(vo);
 		if(res == null) {
 			return "N";
@@ -488,6 +502,8 @@ public class MemberController {
 	
 	@RequestMapping(value = "member_join.me")
 	public String member_join(MemberVO vo) {
+		String realTEL = vo.getMEMBER_TEL().replaceAll("-","");
+		vo.setMEMBER_TEL(realTEL);
 		memberService.memberInsert(vo);
 		
 		return "redirect:/home.me";
