@@ -1332,7 +1332,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 			  $(".reserves").val("<%=point%>");
 			  
 			  $(".p4").empty();
-			  $(".p4").append(" -KRW "+point);
+			  $(".p4").append(" -KRW "+<%=point%>);
 			  $(".p5").empty();
 			  $(".p5").append("  KRW "+sumPrice);
 			}
