@@ -829,7 +829,7 @@
 	        		reportForm += '<div>${id}</div>';		        		
 	        		reportForm += '<div>${name}</div>';
 	        		reportForm += '</br><div>신고 사유</div>';
-	        		reportForm += '<textarea id="REPORT_REASON" name="REPORT_REASON" rows="4" cols="40" placeholder="신고 사유를 적어주세요."></textarea>';
+	        		reportForm += '<textarea id="REPORT_REASON" name="REPORT_REASON" rows="4" cols="35" placeholder="신고 사유를 적어주세요."></textarea>';
 	        		reportForm += '</div>';
 	        		reportForm += '</div>';
 	        		reportForm += '</div>';

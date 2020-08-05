@@ -95,12 +95,22 @@ var k = 1;	//반복될시 carousel 맞춤 지정
 						}
 					
 					//위탁 1박 가격 , 대형견 1박 가격
-					var price24 = 24 * (parseInt)(item.petsitter_PRICE_60M);
-					var bigPrice = 1000 + (parseInt)(item.petsitter_PRICE_60M);
+					var price24 = 0;
+					var bigPrice = 0;
+					if(!(item.petistter_PRICE_60M == "N")){
+						var price24 = 24 * (parseInt)(item.petsitter_PRICE_60M);
+						var bigPrice = 1000 + (parseInt)(item.petsitter_PRICE_60M);
+					}
+					
 						
 					//방문 1시간가격
-					var price60 = 2 * (parseInt)(item.petsitter_PRICE_30M);
-					var bigPrice2 = 1000 + (parseInt)(item.petsitter_PRICE_30M);
+					var price60 = 0;
+					var bigPrice2 = 0;
+					if(!(item.petsitter_PRICE_30M == "N")){
+						var price60 = 2 * (parseInt)(item.petsitter_PRICE_30M);
+						var bigPrice2 = 1000 + (parseInt)(item.petsitter_PRICE_30M);
+					}
+					
 					
 					var output = '';
 					//히든값으로 펫시터 정보 넘겨줌..

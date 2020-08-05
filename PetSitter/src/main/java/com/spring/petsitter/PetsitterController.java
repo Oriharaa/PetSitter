@@ -269,7 +269,10 @@ public class PetsitterController {
 		petsitter.setPETSITTER_TYPE(type);
 		petsitter.setPETSITTER_PRICE_60M(vo.getPrice60m());
 		petsitter.setPETSITTER_PRICE_30M(vo.getPrice30m());
-		String service = String.join(",", vo.getServicelist());
+		String service = "N";;
+		if(vo.getServicelist() != null) {
+			service = String.join(",", vo.getServicelist());
+		}
 		petsitter.setPETSITTER_SERVICE_LIST(service);
 		petsitter.setPETSITTER_INTRODUCE(vo.getIntroduce());
 		petsitter.setPETSITTER_ADDRX(vo.getAddrX());
@@ -320,6 +323,24 @@ public class PetsitterController {
 			writer.write("</script>");
 			return null;
 		}
+	}
+	
+	@RequestMapping(value = "petsitter_refusal.me")
+	public String petsitterRefusal(PetsitterVO vo) {
+		int res = petsitterService.petsitterRefusal(vo);
+		if(res == 1) {
+			System.out.println(vo.getPETSITTER_ID() + " 회원 거절 완료");
+		}		
+		return "redirect:/admin_petsitterApply.me";
+	}
+	
+	@RequestMapping(value = "petsitter_approval.me")
+	public String petsitterApproval(PetsitterVO vo) {
+		int res = petsitterService.petsitterApproval(vo);
+		if(res == 1) {
+			System.out.println(vo.getPETSITTER_ID() + " 회원 임시승인 완료");
+		}		
+		return "redirect:/admin_petsitterApply.me";
 	}
 
 	@RequestMapping(value = "petsitter_login.me")

@@ -193,8 +193,12 @@ $(document).ready(function() {
 																						<% 
 																							if(ra.getBTYPE().equals("mboard")) {
 																								out.println("이용자 문의 게시판");
-																							} else {
-																								out.println(ra.getBTYPE());
+																							} else if (ra.getBTYPE().equals("review_board")) {
+																								out.println("후기 게시판");
+																							} else if (ra.getBTYPE().equals("pro_board")) {
+																								out.println("전문가 게시판");
+																							} else if (ra.getBTYPE().equals("pqboard")) {
+																								out.println("펫시터 질문 게시판");
 																							}
 																						%>
 																						</td>

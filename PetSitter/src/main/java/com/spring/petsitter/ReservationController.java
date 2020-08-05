@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.petsitter.board.CommunicationBoardVO;
+import com.spring.petsitter.board.PetsitterQnaBoardService;
 import com.spring.petsitter.board.ReviewBoardVO;
 
 @Controller
@@ -32,6 +33,8 @@ public class ReservationController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private PetsitterQnaBoardService petsitterQnaBoardService;
 	// 위탁 돌봄 예약 페이지 이동
 	@RequestMapping(value = "reservation1.br")
 	public String reservation1() {
@@ -83,14 +86,19 @@ public class ReservationController {
 	@RequestMapping(value = "mapfoster_view.me")
 	public String mapfoster_view(PetsitterVO vo, Model model, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String id = (String)session.getAttribute("id");
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
 		if(id == null) {
 			id="N";
 		}
+		int point = 0;
 		ArrayList<PetVO> list = petService.selectPet(id);
+		MemberVO member = memberService.selectMember(id);
+		if(member != null) {
+			point = member.getMEMBER_POINT();
+		}
+		model.addAttribute("point" , point);
 		PetsitterVO petsitter = petsitterService.selectPetsitter(vo.getPETSITTER_ID());
 		ArrayList<PetsitterVO> schedule = petsitterService.getSchedule(vo);
+		
 		String startdate = "";
 		String enddate = "";
 		if(!(schedule == null)) {
@@ -184,6 +192,23 @@ public class ReservationController {
 		}
 		model.addAttribute("cert_count", cert_count);
 		
+		int limit = 20;
+		int page = 1;
+		
+		int listcount = petsitterQnaBoardService.getListCount();
+		int maxpage = (int) ((double) listcount / limit + 0.95);
+		int startpage = (((int) ((double) page / 10 + 0.9)) - 1) * 10 + 1;
+		int endpage = maxpage;
+
+		if (endpage > startpage + 10 - 1)
+			endpage = startpage + 10 - 1;
+		model.addAttribute("page", page);
+		model.addAttribute("listcount", listcount);
+		model.addAttribute("maxpage", maxpage);
+		model.addAttribute("startpage", startpage);
+		model.addAttribute("endpage", endpage);
+		
+		
 		return "foster_view";
 	}
 
@@ -192,9 +217,17 @@ public class ReservationController {
 		String id = (String)session.getAttribute("id");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-
+		ArrayList<PetVO> list = new ArrayList<PetVO>();
+		int point = 0;
+		if(session.getAttribute("id") != null) {
 		MemberVO member = memberService.selectMember(id);
-		int point = member.getMEMBER_POINT();
+		list = petService.selectPet(id);
+		if(member != null) {
+			point = member.getMEMBER_POINT();
+		}
+		}
+		model.addAttribute("list", list);
+		System.out.println("222222");
 		model.addAttribute("point", point);
 		model.addAttribute("petsitter_id",request.getParameter("petsitter_id"));
 		model.addAttribute("addr",request.getParameter("addr"));
@@ -238,11 +271,25 @@ public class ReservationController {
 		String bp2 = (String)request.getParameter("bigPrice2");
 		int bigPrice2 = Integer.parseInt(bp2);
 		model.addAttribute("bigPrice2",bigPrice2);
+		int limit = 10;
+		int page = 1;
+		
+		int listcount = petsitterQnaBoardService.getListCount();
+		int maxpage = (int) ((double) listcount / limit + 0.95);
+		int startpage = (((int) ((double) page / 10 + 0.9)) - 1) * 10 + 1;
+		int endpage = maxpage;
+
+		if (endpage > startpage + 10 - 1)
+			endpage = startpage + 10 - 1;
+		model.addAttribute("page", page);
+		model.addAttribute("listcount", listcount);
+		model.addAttribute("maxpage", maxpage);
+		model.addAttribute("startpage", startpage);
+		model.addAttribute("endpage", endpage);
 		if(id == null) {
 			id = "N";
 		}
-		ArrayList<PetVO> list = petService.selectPet(id);
-		model.addAttribute("list", list);
+		
 		return "foster_view";
 	}
 	

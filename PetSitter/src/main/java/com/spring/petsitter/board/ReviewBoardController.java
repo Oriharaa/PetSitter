@@ -6,14 +6,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.petsitter.MemberService;
+import com.spring.petsitter.MemberVO;
+import com.spring.petsitter.PetService;
+import com.spring.petsitter.PetVO;
 import com.spring.petsitter.PetsitterService;
 import com.spring.petsitter.PetsitterVO;
 
@@ -25,6 +32,15 @@ public class ReviewBoardController {
 	
 	@Autowired
 	private PetsitterService petsitterService;
+	
+	@Autowired
+	private PetService petService;
+	
+	@Autowired
+	private MemberService memberService;
+	
+	@Autowired
+	private PetsitterQnaBoardService petsitterQnaBoardService;
 	
 	@RequestMapping(value = "insertReview.me")
 	public String insertReview(ReviewBoardVO vo) throws Exception {
@@ -121,8 +137,132 @@ public class ReviewBoardController {
 	}	
 
 	@RequestMapping("/reviewreportinsert2.bo") 
-	public String reviwReportInsert2(ReviewBoardVO vo) throws Exception {
+	public String reviwReportInsert2(ReviewBoardVO vo,Model model, HttpSession session) throws Exception {
 		ReviewboardService.reviwReportInsert(vo);
-		return "redirect:/reservation1.br";
+		String id = (String)session.getAttribute("id");
+		if(id == null) {
+			id="N";
+		}
+		int point = 0;
+		ArrayList<PetVO> list = petService.selectPet(id);
+		MemberVO member = memberService.selectMember(id);
+		if(member != null) {
+			point = member.getMEMBER_POINT();
+		}
+		model.addAttribute("point" , point);
+		PetsitterVO petsitter = petsitterService.selectPetsitter(vo.getPETSITTER_ID());
+		ArrayList<PetsitterVO> schedule = petsitterService.getSchedule(petsitter);
+		
+		String startdate = "";
+		String enddate = "";
+		if(!(schedule == null)) {
+			for(int i = 0; i <schedule.size(); i++) {
+				startdate += schedule.get(i).getSTART_DATE().substring(0,10)+",";
+				enddate += schedule.get(i).getEND_DATE().substring(0,10)+",";
+			}
+			petsitter.setSTART_DATE(startdate);
+			petsitter.setEND_DATE(enddate);
+			
+			if(!petsitter.getPETSITTER_ADDRESS().equals("N")) {
+				String[] petsitter_address = petsitter.getPETSITTER_ADDRESS().split(",");
+				petsitter.setPETSITTER_ADDRESS(petsitter_address[1]);
+			}
+			
+			if(!petsitter.getPETSITTER_SERVICE_LIST().equals("N")) {
+				String[] petsitter_service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
+				petsitter.setPETSITTER_SERVICE(petsitter_service);
+			}
+			
+			
+		}
+
+		String radio_basic;
+		String[] type = petsitter.getPETSITTER_TYPE().split(",");
+		if(type[0].equals("위탁")) {
+			radio_basic = "we";
+		}else {
+			radio_basic = "bang";
+		}
+		String[] address = petsitter.getPETSITTER_ADDRESS().split(" ");
+		String[] homephoto = petsitter.getPETSITTER_PHOTO_HOME_FILE().split(",");
+		String[] certphoto = petsitter.getPETSITTER_PHOTO_CERT_FILE().split(",");
+		model.addAttribute("startdate", startdate);
+		model.addAttribute("start_date", "Check In Date");
+		model.addAttribute("end_date", "Check In Date");
+		model.addAttribute("start_time","Check In Time");
+		model.addAttribute("end_time","Check In Time");
+		System.out.println("startdate11=" + startdate);
+		model.addAttribute("enddate", enddate);
+		model.addAttribute("address", address[0]+" "+address[1]);
+		model.addAttribute("addr", petsitter.getPETSITTER_ADDRESS());
+		model.addAttribute("safeaddr", petsitter.getPETSITTER_SAFEADDR());
+		System.out.println(petsitter.getPETSITTER_SAFEADDR());
+		model.addAttribute("home_photo1","N");
+		model.addAttribute("home_photo2","N");
+		model.addAttribute("home_photo3","N");
+		model.addAttribute("cert_photo1","N");
+		model.addAttribute("cert_photo2","N");
+		model.addAttribute("cert_photo3","N");
+		
+		for(int j = 0; j < homephoto.length; j++) {
+		model.addAttribute("home_photo"+(j+1), homephoto[j]);
+		}
+		for(int j = 0; j < certphoto.length; j++) {
+		model.addAttribute("cert_photo"+(j+1), certphoto[j]);
+		}
+		if(!petsitter.getPETSITTER_PRICE_60M().equals("N")) {
+		model.addAttribute("price24", 24*Integer.parseInt(petsitter.getPETSITTER_PRICE_60M()));
+		model.addAttribute("bigPrice", 1000 +Integer.parseInt(petsitter.getPETSITTER_PRICE_60M()));
+		}else {
+		model.addAttribute("price24", 0);
+		model.addAttribute("bigPrice",0);
+		}
+		if(!petsitter.getPETSITTER_PRICE_30M().equals("N")) {
+		model.addAttribute("price60", 2*Integer.parseInt(petsitter.getPETSITTER_PRICE_30M()));
+		model.addAttribute("bigPrice2", 1000 +Integer.parseInt(petsitter.getPETSITTER_PRICE_30M()));
+		}else {
+			model.addAttribute("price60", 0);
+			model.addAttribute("bigPrice2", 0);
+		}
+		model.addAttribute("rank",petsitter.getPETSITTER_RANK());
+		model.addAttribute("nickname",petsitter.getPETSITTER_NICKNAME());
+		model.addAttribute("petsitter_id",petsitter.getPETSITTER_ID());
+		model.addAttribute("review_count",petsitter.getPETSITTER_REVIEWCOUNT());
+		model.addAttribute("cert_list",petsitter.getPETSITTER_CERT_LIST());
+		model.addAttribute("introduce",petsitter.getPETSITTER_INTRODUCE());
+		model.addAttribute("service",petsitter.getPETSITTER_SERVICE_LIST());
+		model.addAttribute("price",petsitter.getPETSITTER_PRICE_60M());
+		model.addAttribute("price2",petsitter.getPETSITTER_PRICE_30M());
+		model.addAttribute("profile",petsitter.getPETSITTER_PHOTO_PROFILE_FILE());
+		model.addAttribute("photo_upfile",petsitter.getPETSITTER_PHOTO_UPFILE());
+		model.addAttribute("radio_basic",radio_basic);
+		model.addAttribute("list", list);
+
+		String cert_count = "";
+		if(certphoto[0].equals("N")) {
+			cert_count = "0";
+		}else {
+			cert_count = String.valueOf(certphoto.length);
+		}
+		model.addAttribute("cert_count", cert_count);
+		
+		int limit = 20;
+		int page = 1;
+		
+		int listcount = petsitterQnaBoardService.getListCount();
+		int maxpage = (int) ((double) listcount / limit + 0.95);
+		int startpage = (((int) ((double) page / 10 + 0.9)) - 1) * 10 + 1;
+		int endpage = maxpage;
+
+		if (endpage > startpage + 10 - 1)
+			endpage = startpage + 10 - 1;
+		model.addAttribute("page", page);
+		model.addAttribute("listcount", listcount);
+		model.addAttribute("maxpage", maxpage);
+		model.addAttribute("startpage", startpage);
+		model.addAttribute("endpage", endpage);
+		
+		
+		return "foster_view";
 	}	
 }

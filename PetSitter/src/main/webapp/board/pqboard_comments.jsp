@@ -14,6 +14,9 @@ String bno = request.getParameter("bno");
 String id = (String)session.getAttribute("id");
 String rank = (String)session.getAttribute("rank");
 String name = (String)session.getAttribute("name");
+if(rank == null){
+	rank = "guest";
+}
 String btype = "pqboard";
 
 %>

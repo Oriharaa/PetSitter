@@ -273,11 +273,15 @@ p {
 																						<td><%=rr.getMEMBER_ID() %></td>
 																						<td>
 																						<% 
-																							if(rr.getBTYPE().equals("mboard")) {
-																								out.println("이용자 문의 게시판");
-																							} else {
-																								out.println(rr.getBTYPE());
-																							}
+																						if(rr.getBTYPE().equals("mboard")) {
+																							out.println("이용자 문의 게시판");
+																						} else if (rr.getBTYPE().equals("review_board")) {
+																							out.println("후기 게시판");
+																						} else if (rr.getBTYPE().equals("pro_board")) {
+																							out.println("전문가 게시판");
+																						} else if (rr.getBTYPE().equals("pqboard")) {
+																							out.println("펫시터 질문 게시판");
+																						}
 																						%>
 																						</td>
 																						<td style="margin:auto; text-align:center;">

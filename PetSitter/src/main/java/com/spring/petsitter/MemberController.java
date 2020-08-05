@@ -84,7 +84,7 @@ public class MemberController {
 			mv.addObject("membervo", membervo);
 			mv.addObject("tel", tel);
 			mv.addObject("address", address);
-			mv.setViewName("member/memberinfo2");
+			mv.setViewName("member/memberinfo");
 			return mv;
 		} else {
 			writer.println("<script>");
