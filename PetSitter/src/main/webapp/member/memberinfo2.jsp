@@ -154,20 +154,20 @@
 			<img class ="middle_img" src="resources/images/pet/Cuty_Dog1.png" width="150px" height="150px">
 			<h4 class="middle_head">이용 현황 및 내역</h4> 
 		</div>
-		
-		<div class="row main_grayfont3" style = "margin-top : 25px;">
-			<div class="date_row">
-				<input type="button" class="middle_bt1" id="middle_bt1" value="1개월" onclick="usinglistfunc(1, 1)">
-				<input type="button" class="middle_bt1" id="middle_bt2" value="3개월" onclick="usinglistfunc(3, 1)">
-				<input type="button" class="middle_bt1" id="middle_bt3" value="6개월" onclick="usinglistfunc(6, 1)">
-				<input type="button" class="middle_bt1" id="middle_bt4" value="전체 시기" onclick="getMyPageData(1)" >
-			
-				<input type="text" class="middle_bt2_date" id="datePicker_start" placeholder="시작일" size="10px" style="text-align: center;" readonly>
-				<input type="text" class="middle_bt2_date" id="datePicker_end" placeholder="종료일" size="10px" style="text-align: center;" readonly>
-				<input type="button" class="middle_bt2" id="middle_bt7" value="조회" onclick="calendarUsinglist(1);">
-			</div>
-		</div>
 		<div id="app">
+			<div class="row main_grayfont3" style = "margin-top : 25px;">
+				<div class="date_row">
+					<input type="button" class="middle_bt1" id="middle_bt1" value="1개월" onclick="usinglistfunc(1, 1)">
+					<input type="button" class="middle_bt1" id="middle_bt2" value="3개월" onclick="usinglistfunc(3, 1)">
+					<input type="button" class="middle_bt1" id="middle_bt3" value="6개월" onclick="usinglistfunc(6, 1)">
+					<input type="button" class="middle_bt1" id="middle_bt4" value="전체 시기" v-on:click="pageReload(1)" >
+				
+					<input type="text" class="middle_bt2_date" id="datePicker_start" placeholder="시작일" size="10px" style="text-align: center;" readonly>
+					<input type="text" class="middle_bt2_date" id="datePicker_end" placeholder="종료일" size="10px" style="text-align: center;" readonly>
+					<input type="button" class="middle_bt2" id="middle_bt7" value="조회" onclick="calendarUsinglist(1);">
+				</div>
+			</div>
+		
 		  <table style="width:100%;">
 			 	<colgroup>
 				  <col style="width: 15%;">
@@ -273,13 +273,13 @@
 	  					&#60;&nbsp;&nbsp;
 	  				</span>
 		  			<span v-else>
-		  				<a v-on:click="pageReload('nowpage - 1')" >&#60;&nbsp;&nbsp;</a>
+		  				<a v-on:click="pageReload(parseInt(nowpage - 1))" >&#60;&nbsp;&nbsp;</a>
 		  			</span>
 		  			
 		  			<span v-for="n in (startpage, endpage)">
 		  				<span v-if="n == nowpage"> {{ n }} &nbsp;&nbsp;</span>
 		  				<span v-else>
-		  					<a v-on:click="pageReload('n')" > {{ n }} &nbsp;&nbsp;</a>
+		  					<a v-on:click="pageReload(parseInt(n))" > {{ n }} &nbsp;&nbsp;</a>
 		  				</span>
 		  			</span>
 		  			
@@ -287,7 +287,7 @@
 		  				&#62;
 		  			</span>
 		  			<span v-else>
-		  				<a v-on:click="pageReload('nowpage + 1')" >&#62;</a>
+		  				<a v-on:click="pageReload(parseInt(nowpage + 1))" >&#62;</a>
 		  			</span>
 	  			</td>
 	  		</tr>
@@ -809,6 +809,30 @@
 	    		})
     	}
     	
+    	function getMyPageData_month() {
+    		return $.ajax({
+    			url: '/petsitter/getUsingList_month.bo',
+					type: 'post',
+					data: {
+						id : '<%=(String)session.getAttribute("id")%>'
+					},
+					dataType: 'json',
+					contentType: 'application/x-www-form-urlencoded; charset=utf-8'
+	    		})
+    	}
+    	
+    	function getMyPageData_calendar() {
+    		return $.ajax({
+    			url: '/petsitter/getUsingList_calendar.bo',
+					type: 'post',
+					data: {
+						id : '<%=(String)session.getAttribute("id")%>'
+					},
+					dataType: 'json',
+					contentType: 'application/x-www-form-urlencoded; charset=utf-8'
+	    		})
+    	}
+    	
     	var data = {
     			page: 1,
     			listcount: <%=listcount %>,
@@ -836,8 +860,9 @@
     				})
     			},
     			pageReload: function(page) {
-    				data.page = page
-    			}
+    				data.page = page,
+    				this.nowpage = data.page
+    			},
     		}
     	})
 		</script>
