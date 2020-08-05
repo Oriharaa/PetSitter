@@ -454,7 +454,7 @@ background-color: #fefefe;
 margin: 15% auto; 
 border: 1px solid #888;
 width: 60%;
-height: 655px;
+height: 630px;
 position: fixed;
 top: 23%;
 left: 50%;
@@ -465,7 +465,7 @@ transform: translate(-50%,-50%);
 .left{
 background-color:#53DC98; 
 margin-left:-15px;
-height:653px;
+height:628px;
 }
 
 .left p{
@@ -478,7 +478,7 @@ padding-left: 20px;
 .right{
 background-color:#53DC98; 
 margin-right:-15px;
-height:653px;
+height:628px;
 }
 
 .center-top1{
@@ -743,7 +743,7 @@ margin-left:53px;
 margin-left: 57px;
 }
 .bt-button{
-margin-top: 40px;
+margin-top: 25px;
 }
 
 .bt-button p{
