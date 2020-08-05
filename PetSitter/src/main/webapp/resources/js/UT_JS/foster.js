@@ -273,6 +273,8 @@ $(document).ready(function() {
 			//모달창에서 결제비용 추가..
 			$("#p33").empty();
 			$("#p33").append("+KRW "+price_all_1);
+			$(".p5").empty();
+			$(".p5").append("KRW "+price_all_1);
 			
 			
 			//'x' 클릭시 해당p태그 삭제 예상 총비용 변화
@@ -378,6 +380,8 @@ $(document).ready(function() {
 			//모달창에서 결제비용 추가..
 			$("#p33").empty();
 			$("#p33").append("+KRW "+price_all_2);
+			$(".p5").empty();
+			$(".p5").append("KRW "+price_all_1);
 			
 			
 			//'x' 클릭시 해당p태그 삭제 예상 총비용 변화
