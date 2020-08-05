@@ -63,6 +63,7 @@ overflow:hidden;
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 <!--                         <a class="dropdown-item" href="#">기능1</a>
                         <a class="dropdown-item" href="#">기능2</a> -->
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="logout.me">로그아웃</a>
                     </div>
                 </li>
@@ -141,9 +142,9 @@ overflow:hidden;
                                 </nav>
                             </div>
                             <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="charts.jsp">
+                            <a class="nav-link" href="admin_chart.me">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                               	 차트
+                                차트
                             </a>
                         </div>
                     </div>
@@ -169,47 +170,11 @@ overflow:hidden;
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-area mr-1"></i>
-                                        Q&A 게시판
+                                        글 신고 목록
                                     </div>
                                     <div class="card-body">
                                     	<table class="table table-sm table-hover table-striped" height="40">
                                     		<thead>
-                                    		<th>작성자</th>
-                                    		<th>제목</th>
-                                    		<th>작성일</th>
-                                    		</thead>
-																				<tbody>
-																					<%for(int i = 0 ; i < mboardlist.size(); i++) {
-																					MemberBoardVO bl=(MemberBoardVO)mboardlist.get(i);
-																					%>
-																					<tr>
-																						<td><%=bl.getMEMBER_NICKNAME() %> </td>
-																						<td><a href="./mboarddetail.me?num=<%=bl.getMEMBER_NUM()%>"><%=bl.getMEMBER_SUBJECT() %></a></td>
-																						<td><%=sdf.format(bl.getMEMBER_DATE()) %></td>
-																					</tr>
-																					<%} %>
-																					<tr>
-																						<td colspan="3" style="text-align:center;"><a href="./mboardlist.me">더보기</a></td>
-																					</tr> 
-																				</tbody>
-																			</table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-
-																			  <h2>신고 목록</h2>
-																			  <ul class="nav nav-tabs">
-																			    <li><a type="button" class="btn btn-primary btn-sm" data-toggle="tab" href="#reportArticle">글 신고</a></li>
-																			    <li><a type="button" class="btn btn-secondary btn-sm" data-toggle="tab" href="#reportReply">리플 신고</a></li>
-																			  </ul>
-
-                                    </div>
-                                    <div class="card-body"><div class="tab-content">
-																     <div id="reportArticle" class="tab-pane fade">
-																      	<table class="table table-sm table-hover table-striped"  style="table-layout: fixed" height="40">
                                     		<thead>
                                     		<th width="15%">글번호</th>
                                     		<th width="55%">신고이유</th>
@@ -217,21 +182,47 @@ overflow:hidden;
                                     		<th width="15%">게시판</th>
                                     		</thead>
 																				<tbody>
-																				<%for(int i = 0 ; i < ralist.size(); i++) {
+																			<% int size_ra = ( ralist.size() < 12 ) ? ralist.size() : 12;
+																			int size_rr = ( rrlist.size() < 12 ) ? rrlist.size() : 12;
+																				
+																			%>
+																			
+																				<%for(int i = 0 ; i < size_ra ; i++) {
 																					ReportArticleVO ra=(ReportArticleVO)ralist.get(i);
 																					%>
 																					<tr>
 																						<td><%=ra.getMEMBER_NUM() %> </td>
 																						<td id="reasonArticle"><%=ra.getREPORT_REASON() %></td>
 																						<td id="idArticle"><%=ra.getMEMBER_ID() %></td>
-																						<td><%=ra.getBTYPE() %>
+																						<td>
+																																												<% 
+																							if(ra.getBTYPE().equals("mboard")) {
+																								out.println("이용자 QnA");
+																							} else if (ra.getBTYPE().equals("pqboard")) {
+																								out.println("펫시터 QnA");
+																							} else if (ra.getBTYPE().equals("PRO_BOARD")) {
+																								out.println("전문가 QnA");
+																							}
+																						%>
+																						</td>
 																					</tr>
 																					<%} %>
+																					<tr>
+																						<td colspan="4" style="text-align:center;"><a href="./admin_reportArticle.me">더 보기</a></td>
+																					</tr>
 																				</tbody>
-																				</table>
-																    </div>
-																    <div id="reportReply" class="tab-pane fade">
-																   	  <table class="table table-sm table-hover table-striped" style="table-layout: fixed" height="40">
+																			</table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="card mb-4">
+                                      <div class="card-header">
+                                        <i class="fas fa-chart-area mr-1"></i>
+                                        리플 신고 목록
+                                    </div>
+                                    <div class="card-body">
+                                    	<table class="table table-sm table-hover table-striped" style="table-layout: fixed" height="40">
                                     		<thead>
                                     		<th width="12%">글번호</th>
                                     		<th width="15%">리플번호</th>
@@ -240,7 +231,7 @@ overflow:hidden;
                                     		<th width="15%">게시판</th>
                                     		</thead>
 																				<tbody>
-																				<%for(int i = 0 ; i < rrlist.size(); i++) {
+																				<%for(int i = 0 ; i < size_rr ; i++) {
 																					ReportReplyVO rr=(ReportReplyVO)rrlist.get(i);
 																					%>
 																					<tr>
@@ -248,14 +239,25 @@ overflow:hidden;
 																						<td><%=rr.getRNO() %></td>
 																						<td id="reasonReply"><%=rr.getREPORT_REASON() %></td>
 																						<td id="idReply"><%=rr.getMEMBER_ID() %></td>
-																						<td><%=rr.getBTYPE() %></td>
+																						<td>
+																						<% 
+																							if(rr.getBTYPE().equals("mboard")) {
+																								out.println("이용자 QnA");
+																							} else if (rr.getBTYPE().equals("pqboard")) {
+																								out.println("펫시터 QnA");
+																							} else if (rr.getBTYPE().equals("PRO_BOARD")) {
+																								out.println("전문가 QnA");
+																							}
+																						%>
+																						</td>
 																					</tr>
 																					<%} %>
+																					<tr>
+																						<td colspan="5" style="text-align:center;"><a href="./admin_reportReply.me">더 보기</a></td>
+																					</tr>
 																				</tbody>
 																			</table> 
-																    </div>
-																    
-																  </div></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -266,7 +268,7 @@ overflow:hidden;
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-																<table class="table table-bordered"  style="table-layout: fixed" id="dataTable" width="100%">
+																<table class="table table-bordered"  id="dataTable" width="100%">
                                 <thead>
                                 <th>의뢰인</th>
                                 <th>펫시터</th>
@@ -311,11 +313,8 @@ overflow:hidden;
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; 보살펴조 2020</div>
+                            <div class="text-muted">Copyright &copy; Petstiny 2020</div>
                             <div>
-                                <a href="#">보살펴조</a>
-                                &middot;
-                                <a href="#">보살펴조</a>
                             </div>
                         </div>
                     </div>

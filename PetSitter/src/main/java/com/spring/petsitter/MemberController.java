@@ -51,6 +51,8 @@ public class MemberController {
 
 	@RequestMapping(value = "memberinfo.me")
 	public ModelAndView profile(MemberVO vo, Model model, HttpSession session, HttpServletResponse response) throws Exception {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter writer = response.getWriter();
 		if(session.getAttribute("id") != null) {
 			String id = (String)session.getAttribute("id");
@@ -71,13 +73,13 @@ public class MemberController {
 			mv.addObject("membervo", membervo);
 			mv.addObject("tel", tel);
 			mv.addObject("address", address);
-			mv.setViewName("member/memberinfo");
+			mv.setViewName("member/memberinfo2");
 			return mv;
 		} else {
-			writer.write("<script>");
-			writer.write("alert('로그인 시간이 만료되어 자동 로그아웃 됩니다.')");
-			writer.write("location.href='loginform.me'");
-			writer.write("</script>");
+			writer.println("<script>");
+			writer.println("alert('로그인 시간이 만료되어 자동 로그아웃 됩니다.')");
+			writer.println("location.href='loginform.me'");
+			writer.println("</script>");
 			return null;
 		}
 	}

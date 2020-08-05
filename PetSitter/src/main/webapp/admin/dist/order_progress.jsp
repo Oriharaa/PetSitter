@@ -29,6 +29,7 @@ word-wrap:normal;
 overflow:hidden;
 }
 </style>
+<html lang="en">
     <head>
     		<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -69,8 +70,9 @@ overflow:hidden;
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <!-- <a class="dropdown-item" href="#">기능1</a>
-                        <a class="dropdown-item" href="#">기능2</a> -->
+                        <a class="dropdown-item" href="#">기능1</a>
+                        <a class="dropdown-item" href="#">기능2</a>
+                        <div class="dropdown-divider"></div>
                         <%
               						if(session.getAttribute("id") == "" || session.getAttribute("id") == null) {
               					%>
@@ -91,7 +93,7 @@ overflow:hidden;
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="admin.me">
+                            <a class="nav-link" href="index.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 대시보드
                             </a>
@@ -154,7 +156,7 @@ overflow:hidden;
                                     </div>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <div class="sb-sidenav-menu-heading">부가기능</div>
                             <a class="nav-link" href="admin_chart.me">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 차트
@@ -214,7 +216,7 @@ overflow:hidden;
 																				<td><%=sdf.format(uvo.getLIST_START_DATE()) %></td>
 																				<td><%=sdf.format(uvo.getLIST_END_DATE()) %></td>
 																				<td><%=uvo.getLIST_TYPE() %></td>
-																				<td><%=String.format("%,d", uvo.getLIST_PRICE()) %> 원</td>
+																				<td style="text-align: right;"><%=String.format("%,d", uvo.getLIST_PRICE()) %> 원</td>
 																			</tr>
 																			<%}}%>
 																	</tbody>
@@ -227,11 +229,8 @@ overflow:hidden;
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                            <div class="text-muted">Copyright &copy; Petstiny 2020</div>
                             <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
                             </div>
                         </div>
                     </div>

@@ -11,9 +11,10 @@ create table member(
     MEMBER_PHOTO_FILE varchar2(100) DEFAULT 'N', --프로필사진
     MEMBER_REPORT number DEFAULT 0, --신고누적횟수
     MEMBER_GENDER varchar2(4) DEFAULT 'N', -- 성별, 추가
-    MEMBER_ADDRESS varchar2(100) DEFAULT 'N'-- 주소, 추가
+    MEMBER_ADDRESS varchar2(100) DEFAULT 'N',-- 주소, 추가
+    MEMBER_POINT number DEFAULT 0 -- 포인트
 ); 
-
+commit;
 create table PETSITTER(
     PETSITTER_ID varchar2(30) primary key, --ID
     PETSITTER_NICKNAME varchar2(30) DEFAULT 'N', --닉네임
@@ -201,7 +202,8 @@ create table mreply(
     CONTENT varchar2(2000),
     WRITER_ID varchar2(30),
     REGDATE date default sysdate,
-    WRITER_NAME varchar2(30)
+    WRITER_NAME varchar2(30),
+    writer_rank varchar2(10)
 );
 
 -- 펫시터와의 소통 게시판
@@ -313,3 +315,10 @@ values('asd111', 'N', '볼리베어', '123123', '01011112222', 'asd111@asd111.com', 
 insert into member
 values('asdasd@naver.com', '호이잇', '123123', '둘리', '01011112222', 'Green', 1, 37500, sysdate, 'cf58b71ad91c4eb1a4372de3b2bfdf62.png', 0, '남', '18132,경기 오산시 운암로 122,106동 1803호');
 commit;
+
+insert into pay
+values('asdasd@naver.com', 213000, 'asd333', 'nsduvo', sysdate, '위탁', to_date('2020-07-30 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-08-05 15:00', 'YYYY-MM-DD HH24:mi'), '결제 완료');
+insert into communication_photo_list
+values(11, 'N', sysdate, 'asd333');
+insert into usinglist
+values(11, 'asd333', '서울 서초구', 'asdasd@naver.com', 213000, to_date('2020-07-30 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-08-05 15:00', 'YYYY-MM-DD HH24:mi'), '위탁', 'nsduvo');

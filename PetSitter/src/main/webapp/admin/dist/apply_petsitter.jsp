@@ -98,6 +98,7 @@ p {
 }
 
 </style>
+<html lang="en">
     <head>
         <meta charset="utf-8" />	
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -141,6 +142,7 @@ p {
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <div class="dropdown-divider"></div>
                         <%
               						if(session.getAttribute("id") == "" || session.getAttribute("id") == null) {
               					%>
@@ -161,7 +163,7 @@ p {
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="admin.me">
+                            <a class="nav-link" href="/admin.me">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 대시보드
                             </a>
@@ -208,9 +210,9 @@ p {
                                     </a>
                                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="login.html">예약된 거래</a>
-                                            <a class="nav-link" href="register.html">진행중인 거래</a>
-                                            <a class="nav-link" href="password.html">완료된 거래</a>
+                                            <a class="nav-link" href="admin_orderReserved.me">예약된 거래</a>
+                                            <a class="nav-link" href="admin_orderProgress.me">진행중인 거래</a>
+                                            <a class="nav-link" href="admin_orderClosed.me">완료된 거래</a>
                                         </nav>
                                     </div>
                                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
@@ -224,7 +226,7 @@ p {
                                     </div>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <div class="sb-sidenav-menu-heading">부가기능</div>
                             <a class="nav-link" href="charts.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 차트
@@ -296,11 +298,8 @@ p {
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                            <div class="text-muted">Copyright &copy; Petstiny 2020</div>
                             <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
                             </div>
                         </div>
                     </div>

@@ -142,6 +142,7 @@ p {
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="logout.me">로그아웃</a>
                     </div>
                 </li>
@@ -203,7 +204,7 @@ p {
                                     </a>
                                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                        		<a class="nav-link" href="admin_orderReserved.me">예약된 거래</a>
+                                        				<a class="nav-link" href="admin_orderReserved.me">예약된 거래</a>
                                             <a class="nav-link" href="admin_orderProgress.me">진행중인 거래</a>
                                             <a class="nav-link" href="admin_orderClosed.me">완료된 거래</a>
                                         </nav>
@@ -214,12 +215,12 @@ p {
                                     </a>
                                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="admin_petsitterApply.me">펫시터 신청 관리</a>
+                                             <a class="nav-link" href="admin_petsitterApply.me">펫시터 신청 관리</a>
                                         </nav>
                                     </div>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <div class="sb-sidenav-menu-heading">부가기능</div>
                             <a class="nav-link" href="admin_chart.me">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 차트
@@ -283,11 +284,8 @@ p {
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                            <div class="text-muted">Copyright &copy; Petstiny 2020</div>
                             <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
                             </div>
                         </div>
                     </div>

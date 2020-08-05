@@ -64,107 +64,92 @@
 <!-- 상세정보 시작!! -->
 <section class="myinfo">
   <div class="container" style="margin-top: 60px;">
-    <div class="row">
-	  <div class="col-md-7" style="padding: 0;">
-	    <div class="box1">
-		    <div class="row">
-		      <div class="col-5" style="margin: 3.5% 0 0 0;">  
-			    <div class="roundimg">
-				  <div class="profile aspect_1_1" style="background: #BDBDBD;">
-				  <%
-				  	if(membervo.getMEMBER_PHOTO_FILE().equals("N")) {
-				  %>
-				  	<img src="resources/images/defaultprofile.jpg.jpg">
-				  <%} else { %>
-						<img src="/filepath/${membervo.MEMBER_PHOTO_FILE }" >
-					<%} %>
-
-				  </div>
-				</div>
-			  </div> 
-			  <div class="col-7" style = "padding : 0;">
-			  	 <h3 class="mypage font-size-24">MY PAGE</h3>
-			    <div class="mpbody">
-				  <div class="row" style = "margin-to">
-				  <div class = "col-04" style = "padding : 0 15px;">
-				  	<%
-				  		if(nickname.equals("")) {
-				  	%>
-				  	<h2 class="mpname float-left">닉네임</h2>
-				  	<%
-				  		} else {
-				  	%>
-				    <h2 class="mpname float-left"><%=nickname %></h2>
-				    <%
-				  		}
-				    %>
-				    <%
-				    	if(membervo.getMEMBER_RANK().equals("Green")) {
-				    %>
-				    	<h3 class="mpnick" style="margin-top: 60px;">${name } &nbsp;<img src="resources/images/rank_green.png" style="width: 25px; height: 25px;"></h3>
-				    <%
-				    	} else if(membervo.getMEMBER_RANK().equals("Gold")) {
-				    %>
-				   		<h3 class="mpnick" style="margin-top: 60px;">${name } &nbsp;<img src="resources/images/rank_gold.png" style="width: 25px; height: 25px;"></h3>
-				    <%
-				    	} else if(membervo.getMEMBER_RANK().equals("VIP")) { 
-				    %>
-				    	<h3 class="mpnick" style="margin-top: 60px;">${name } &nbsp;<img src="resources/images/rank_vip.png" style="width: 25px; height: 25px;"></h3>
-				    <%
-				    	} 
-				    %>
-				    <h5 class="mpdate font-size-16" id="memberdate">가입일 &nbsp;<%=membervo.getMEMBER_DATE().substring(0,10) %></h5>
-				  </div>
-				  <div class = "col-md-5" style = "margin-top : 50px;">
-				  	<!-- <a href="petRegister.me" class="font-size-16 main_whitefont">마이펫 현황</a> -->
-				  	<a href="myPet.me" class="font-size-16 main_whitefont">마이펫 현황</a>
-				  	<button type="button" style = "padding : 0;" class="font-size-16 main_whitefont mybtn" data-toggle="modal" data-target="#staticBackdrop">
-						회원정보 변경
-						</button>
-				  </div>
-				  </div>
-				</div>							
-			  </div> 
+    <div class="row box1">
+		  <div class="col-7" style="padding: 0;">
+			   <div class="row">
+			      <div class="col-5" style="margin: 3.5% 0 0 0;">  
+					    <div class="roundimg">
+							  <div class="profile aspect_1_1" style="background: #BDBDBD;">
+								  <%
+								  	if(membervo.getMEMBER_PHOTO_FILE().equals("N")) {
+								  %>
+								  	<img src="resources/images/defaultprofile.jpg.jpg">
+								  <%} else { %>
+										<img src="/filepath/${membervo.MEMBER_PHOTO_FILE }" >
+									<%} %>
+							  </div>
+							</div>
+				 		</div> 
+				  <div class="col-7" style = "padding : 0;">
+				  	<h3 class="mypage font-size-24">MY PAGE</h3>
+				    <div class="mpbody">
+						  <div class="row" style = "margin-to">
+							  <div class = "col-6" style = "padding : 0 15px;">
+							  	<%
+							  		if(nickname.equals("")) {
+							  	%>
+							  	<h2 class="mpname float-left">닉네임</h2>
+							  	<%
+							  		} else {
+							  	%>
+							    <h2 class="mpname float-left"><%=nickname %></h2>
+							    <%
+							  		}
+							    %>
+							    <%
+							    	if(membervo.getMEMBER_RANK().equals("Green")) {
+							    %>
+							    	<h3 class="mpnick" style="margin-top: 60px;">${name } &nbsp;<img src="resources/images/rank_green.png" style="width: 25px; height: 25px;"></h3>
+							    <%
+							    	} else if(membervo.getMEMBER_RANK().equals("Gold")) {
+							    %>
+							   		<h3 class="mpnick" style="margin-top: 60px;">${name } &nbsp;<img src="resources/images/rank_gold.png" style="width: 25px; height: 25px;"></h3>
+							    <%
+							    	} else if(membervo.getMEMBER_RANK().equals("VIP")) { 
+							    %>
+							    	<h3 class="mpnick" style="margin-top: 60px;">${name } &nbsp;<img src="resources/images/rank_vip.png" style="width: 25px; height: 25px;"></h3>
+							    <%
+							    	} 
+							    %>
+							    <h5 class="mpdate font-size-16" id="memberdate">가입일 &nbsp;<%=membervo.getMEMBER_DATE().substring(0,10) %></h5>
+							  </div>
+							  <div class = "col-md-5" style = "margin-top : 55px;">
+							  	<!-- <a href="petRegister.me" class="font-size-16 main_whitefont">마이펫 현황</a> -->
+							  	<a href="myPet.me" class="profilefont">마이펫 현황</a>
+							  	<button type="button" style = "padding : 0;" class="font-size-15 main_whitefont mybtn" data-toggle="modal" data-target="#staticBackdrop">
+									회원정보 변경
+									</button>
+							  </div>
+						  </div>
+						</div>							
+				  </div> 
+			  </div>
 			</div>
-		  </div>
-		</div>
 			
-			
-		<div class="col-md-5" style = "color : #5e5e5e;">
-			<div class="mptext">
-			  <div class="row">
-			  <div class = "col-6">
-				<h5 class="font-size-15">이용 횟수 : <%=membervo.getMEMBER_COUNT() %></h5>
-				</div>
-				<div class = "col-6">
-				<h5 class="font-size-15">후기 작성 : <%=review_count %></h5>
-				</div>
-				<div class = "col-12">
-				<hr class ="line" color="#949494" width="100%">
-				</div>
-				<div class = "col-6">
-				<h5 class="font-size-15">할인 쿠폰 : 0</h5>
-				</div>
-				<div class = "col-6">
-				<h5 class="font-size-15">포인트 : 0</h5>
-				</div>
-				<div class = "col-12">
-				<hr class ="line" color="#949494" width="100%">
-				</div>
-			</div>		
+				
+			<div class="col-lg-4 offset-md-1" style = "color : #5e5e5e;">
+				<div class="circle1">
+				  <div class="row justify-content-center">
+					  <div class = "col-12">
+							<h5 class="fmcss">이용 횟수 : <%=membervo.getMEMBER_COUNT() %></h5>
+						</div>
+						<div class = "col-12">
+							<h5 class="fmcss">후기 작성 : <%=review_count %></h5>
+						</div>
+						<div class = "col-12">
+							<h5 class="fmcss">포인트 : <%=membervo.getMEMBER_POINT() %></h5>
+						</div>
+					</div>
+		    </div>	
 		  </div>
-	    </div>	
-	  </div>
+		</div>		  
 	</div>
 </section>
 <!-- 상세정보 끝!! -->
 
-
-
-
 <!-- 이용현황 및 내역 시작!!-->
 <section class="list">
-	<div class="container" id="vue_app" style="margin-top: 25px;">
+	<div class="container" style="margin-top: 25px;">
 		<div class="row justify-content-center">
 			<img class ="middle_img" src="resources/images/pet/Cuty_Dog1.png" width="150px" height="150px">
 			<h4 class="middle_head">이용 현황 및 내역</h4> 
@@ -175,179 +160,140 @@
 				<input type="button" class="middle_bt1" id="middle_bt1" value="1개월" onclick="usinglistfunc(1, 1)">
 				<input type="button" class="middle_bt1" id="middle_bt2" value="3개월" onclick="usinglistfunc(3, 1)">
 				<input type="button" class="middle_bt1" id="middle_bt3" value="6개월" onclick="usinglistfunc(6, 1)">
-				<input type="button" class="middle_bt1" id="middle_bt4" value="전체 시기" onclick="selectData(1)" >
+				<input type="button" class="middle_bt1" id="middle_bt4" value="전체 시기" onclick="getMyPageData(1)" >
 			
 				<input type="text" class="middle_bt2_date" id="datePicker_start" placeholder="시작일" size="10px" style="text-align: center;" readonly>
 				<input type="text" class="middle_bt2_date" id="datePicker_end" placeholder="종료일" size="10px" style="text-align: center;" readonly>
 				<input type="button" class="middle_bt2" id="middle_bt7" value="조회" onclick="calendarUsinglist(1);">
 			</div>
 		</div>
-
-	  <table style="width:100%;">
-		 	<colgroup>
-			  <col style="width: 15%;">
-			  <col style="width: 15%;">
-			  <col style="width: 15%;">
-			  <col style="width: 15%;">
-			  <col style="width: 12%;">
-			  <col style="width: 12%;">
-			  <col style="width: 16%;">
-			</colgroup> 
-			<thead>
-				<tr class="table_headRow" style="color: #5e5e5e;">
-				  <td>진행 현황</td>
-				  <td id="td1">펫시터 사진</td>
-				  <td>펫시터 정보</td>
-				  <td>이용 일자</td>
-				  <td>주문 번호</td>
-				  <td>이용 금액</td>
-				  <td>소통 게시판</td>
-				</tr>	
-	  	</thead>
-	  	<%-- <tbody v-for="" id="petsitterList">
-		  	<tr style="color: #5e5e5e; border-top: 1px dashed gray;">
-			  	<td>item.list_TYPE</td>
-			  	<td rowspan="3">
-				  	<div class="thumbnail-wrapper profile_sm1">
-				  		<div class="thumbnail">
-				  			<div class="centered">
-				  				<%
-				  					if(item.petsitter_PHOTO_PROFILE_FILE == 'N') {
-				  				%>
-				  				<img src="resources/images/defaultprofile02.png.png">
-				  				<%
-				  					} else {
-				  				%>
-				  				<img src="/filepath/' + item.petsitter_PHOTO_PROFILE_FILE +'">
-				  				<%
-				  					}
-				  				%>
-				  			</div>
-				  		</div>
-				  	</div>
-			  	</td>
-			  	<td>' + item.petsitter_NICKNAME + '</td>
-			  	<td>' + item.list_START_DATE + '</td>
-			  	<td rowspan="3">' + item.list_NUM + '</td>
-			  	<td rowspan="3">' + item.list_PRICE + '</td>
-			  	<%
-			  		if(item.list_COMPLETE == ing2) {
-			  	%>
-			  	<td rowspan="3">
-			  		<input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.list_NUM + '\';" >
-			  	</td>
-			  	<%
-			  		} else if(item.list_COMPLETE == ing3) {
-			  	%>
-			  	<td rowspan="3">
-			  		<input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing('+index+')">
-			  		<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">
-						<input type="hidden" id="review_petsitter_address'+index+'" value="' + item.petsitter_ADDRESS1 + '">
-						<input type="hidden" id="review_petsitter_photo'+index+'" value="' + item.petsitter_PHOTO_PROFILE_FILE + '">
-						<input type="hidden" id="review_petsitter_score'+index+'" value="' + item.petsitter_SCORE + '">
-						<input type="hidden" id="review_petsitter_id'+index+'" value="' + item.petsitter_ID + '">
-						<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.list_NUM + '">
-			  	</td>
-			  	<%
-			  		} else if(item.list_COMPLETE == "예약 취소") {
-			  			if(item.list_ING == "예약 취소") {
-			  	%>
-			  	<td rowspan="3">
-			  		<input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;">
-			  	</td>
-			  	<%
-			  			} else {
-			  	%>
-			  	<td rowspan="3">
-			  		<input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" style="background: #03adfc !important;" onclick="location.href=\'cancel.br?merchant_uid=' + item.merchant_UID + '\'">
-			  	</td>
-			  	<%
-			  			}
-			  		} else {
-			  	%>
-			  	<td rowspan="3">
-			  		<input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;">
-			  	</td>
-			  	<%
-			  		}
-			  	%>
-			  </tr>
-			  <tr style="color: #5e5e5e;">
-				  <%
-				  	if(item.list_ING == ing1) {
-				  %>
-				  <td>
-				  	<b style="color: #0d47a1;">' + item.list_ING + '</b>
-				  </td>
-				  <%
-				  	} else if(item.list_ING == "위탁 대기 중" || item.list_ING == "방문 대기 중") {
-				  %>
-				  <td>
-				  	<b style="color: #03adfc;">' + item.list_ING + '</b>
-				  </td>
-				  <%
-				  	} else if(item.list_ING == "예약 취소") {
-				  %>
-				  <td>
-				  	<b>' + item.list_ING + '</b>
-				  </td>
-				  <%
-				  	} else {
-				  %>
-				  <td>
-				  	<b>' + item.list_ING + '</b>
-				  </td>
-				  <%
-				  	}
-				  %>
-				  <td><b>' + item.petsitter_NAME + '</b></td>
-				  <td>~</td>
-			  </tr>
-			  <tr style="color: #5e5e5e;">
-			  	<td class="grade" style="margin-bottom: 5px;">신고</td>
-			  	<td>item.petsitter_TEL</td>
-			  	<td>item.list_END_DATE</td>
-			  </tr>
-	  	</tbody>
-		</table>
-  </div>
-  <table id="pagenum_table" class="col-md-12 text-center">
-		<tr class="table_page_number">
-			<td colspan=7 style="font-family:Tahoma;font-size:10pt;">
-			<%
-				if(nowpage <= 1) {
-			%>
-				&#60;&nbsp;&nbsp;
-			<%
-				} else {
-			%>
-				<a href="javascript:selectData(' + (nowpage - 1) + ')">&#60;&nbsp;&nbsp;</a>
-			<%
-				}
-				for(int a = startpage; a <= endpage; a++) {
-					if(a == nowpage) {
-			%>
-					a&nbsp;&nbsp
-			<%
-					} else {
-			%>
-				<a href="javascript:selectData(' + a + ')" >a&nbsp;&nbsp;</a>
-			<%
-					}
-				}
-				if(nowpage >= maxpage) {
-			%>
-				&#62;
-			<%
-				} else {
-			%>
-				<a href="javascript:selectData(' + (nowpage + 1) + ')" >&#62;</a>
-			<%
-				}
-			%>
-			</td> --%>
-		</tr>
-  </table>
+		<div id="app">
+		  <table style="width:100%;">
+			 	<colgroup>
+				  <col style="width: 15%;">
+				  <col style="width: 15%;">
+				  <col style="width: 15%;">
+				  <col style="width: 15%;">
+				  <col style="width: 12%;">
+				  <col style="width: 12%;">
+				  <col style="width: 16%;">
+				</colgroup> 
+				<thead>
+					<tr class="table_headRow" style="color: #5e5e5e;">
+					  <td>진행 현황</td>
+					  <td id="td1">펫시터 사진</td>
+					  <td>펫시터 정보</td>
+					  <td>이용 일자</td>
+					  <td>주문 번호</td>
+					  <td>이용 금액</td>
+					  <td>소통 게시판</td>
+					</tr>	
+		  	</thead>
+		  	<tbody v-if="myPageData">
+		  		<template v-for="(item,index) in myPageData">
+		  			<template v-if="index >= 5 * (data.page - 1) && index <= 4 + 5 * (data.page - 1)">
+				  		<tr style="color: #5e5e5e; border-top: 1px dashed gray;">
+				  			<td> {{ item.list_TYPE }} </td>
+				  			<td rowspan="3">
+							  	<div class="thumbnail-wrapper profile_sm1">
+							  		<div class="thumbnail">
+							  			<div v-if="item.petsitter_PHOTO_PROFILE_FILE === 'N'" class="centered">
+							  				<img src="resources/images/defaultprofile02.png.png">
+							  			</div>
+							  			<div class="centered" v-else>
+							  				<img v-bind:src="'/filepath/' + item.petsitter_PHOTO_PROFILE_FILE">
+							  			</div>
+							  		</div>
+							  	</div>
+						  	</td>
+				  			<td>
+				  				{{ item.petsitter_NICKNAME }}
+				  			</td>
+				  			<td>
+				  				{{ item.list_START_DATE }}
+				  			</td>
+				  			<td rowspan="3">
+				  				{{ item.list_NUM }}
+				  			</td>
+				  			<td rowspan="3">
+				  				{{ item.list_PRICE }}
+				  			</td>
+				  			<td v-if="item.list_COMPLETE === '펫시터와의 소통'" rowspan="3">
+				  				<input type="button" class="pet_talk mybtn" v-bind:value="item.list_COMPLETE" v-on:click="location.href='communication_member.bo?usinglist_num=' + item.list_NUM" >
+				  			</td>
+				  			<td v-else-if="item.list_COMPLETE === '리뷰 남기기'" rowspan="3">
+				  				<input type="button" class="pet_talk mybtn" v-bind:id="'review_modal' + index" v-bind:value="item.list_COMPLETE" data-toggle="modal" data-target="#staticBackdrop02" v-on:click="showing(index)">
+									<input type="hidden" v-bind:id="'review_petsitter' + index" v-bind:value="item.petsitter_NICKNAME">
+									<input type="hidden" v-bind:id="'review_petsitter_address' + index" v-bind:value="item.petsitter_ADDRESS1">
+									<input type="hidden" v-bind:id="'review_petsitter_photo' + index" v-bind:value="item.petsitter_PHOTO_PROFILE_FILE">
+									<input type="hidden" v-bind:id="'review_petsitter_score' + index" v-bind:value="item.petsitter_SCORE">
+									<input type="hidden" v-bind:id="'review_petsitter_id' + index" v-bind:value="item.petsitter_ID">
+									<input type="hidden" v-bind:id="'review_usinglist_num' + index" v-bind:value="item.list_NUM">
+				  			</td>
+				  			<td v-else-if="item.list_COMPLETE === '예약 취소'" rowspan="3">
+				  				<div v-if="item.list_ING === '예약 취소'">
+				  					<input type="button" class="pet_talk mybtn" v-bind:value="item.list_COMPLETE" disabled="disabled" style="opacity: 0.5;">
+				  				</div>
+				  				<div v-else>
+				  					<input type="button" class="pet_talk mybtn" v-bind:value="item.list_COMPLETE" style="background: #03adfc !important;" v-on:click="location.href='cancel.br?merchant_uid=' + item.merchant_UID">
+				  				</div>
+				  			</td>
+				  			<td v-else rowspan="3">
+				  				<input type="button" class="pet_talk mybtn" v-bind:value="item.list_COMPLETE" disabled="disabled" style="opacity: 0.5;">
+				  			</td>
+				  		</tr>
+				  		<tr style="color: #5e5e5e;">
+				  			<td v-if="item.list_ING === '현재 이용중'">
+				  				<b style="color: #0d47a1;"> {{ item.list_ING }} </b>
+				  			</td>
+				  			<td v-else-if="item.list_ING === '위탁 대기 중' || item.list_ING === '방문 대기 중'">
+				  				<b style="color: #03adfc;"> {{ item.list_ING }} </b>
+				  			</td>
+				  			<td v-else>
+				  				<b> {{ item.list_ING }} </b>
+				  			</td>
+				  			<td>
+				  				<b> {{ item.petsitter_NAME }} </b>
+				  			</td>
+				  			<td>~</td>
+				  		</tr>
+				  		<tr style="color: #5e5e5e;">
+				  			<td class="grade" style="margin-bottom: 5px;">신고</td>
+				  			<td> {{ item.petsitter_TEL }} </td>
+				  			<td> {{ item.list_END_DATE }} </td>
+				  		</tr>
+			  		</template>
+					</template>
+				</tbody>
+			</table>
+			<table class="col-md-12 text-center">
+				<tr class="table_page_number">
+	  			<td colspan=7 style="font-family:Tahoma; font-size:10pt;">
+	  				<span v-if="nowpage == 1"> 
+	  					&#60;&nbsp;&nbsp;
+	  				</span>
+		  			<span v-else>
+		  				<a v-on:click="pageReload('nowpage - 1')" >&#60;&nbsp;&nbsp;</a>
+		  			</span>
+		  			
+		  			<span v-for="n in (startpage, endpage)">
+		  				<span v-if="n == nowpage"> {{ n }} &nbsp;&nbsp;</span>
+		  				<span v-else>
+		  					<a v-on:click="pageReload('n')" > {{ n }} &nbsp;&nbsp;</a>
+		  				</span>
+		  			</span>
+		  			
+		  			<span v-if="nowpage >= data.maxpage">
+		  				&#62;
+		  			</span>
+		  			<span v-else>
+		  				<a v-on:click="pageReload('nowpage + 1')" >&#62;</a>
+		  			</span>
+	  			</td>
+	  		</tr>
+			</table>
+		</div>
+	</div>
 </section>
 <!-- 이용현황 및 내역 끝!!-->
 
@@ -674,14 +620,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-		<script>
-			var usinglist = new Vue({
-				el: '#vue_app',
-			  data: {
-			    
-			  }
-			})
-		</script>
       
 		<!-- 모달 구현 제이쿼리(부트스트랩용) 회원정보 수정 시작-->
     <script type="text/javascript">
@@ -859,405 +797,54 @@
 	</script>
 		
 		<script>
-		/* 전체 목록 출력 함수 */
-			function selectData(page) {
-				$('#petsitterList').empty();
-				$('#pagenum_table').empty();
-				
-				let listcount = <%=listcount %>;
-				
-				$.ajax({
-					url: '/petsitter/getUsingList.bo',
+    	function getMyPageData() {
+    		return $.ajax({
+    			url: '/petsitter/getUsingList.bo',
 					type: 'post',
 					data: {
-						id : '${id}',
-						page: page
+						id : '<%=(String)session.getAttribute("id")%>'
 					},
 					dataType: 'json',
-					contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-					success: function(data) {
-						
-						let nowpage = page;
-						let maxpage = parseInt(listcount / 5 + 0.95);
-						let startpage = (parseInt((page / 10 + 0.9)) - 1) * 10 + 1;
-						let endpage = maxpage;
-						if(endpage > startpage + 10 - 1) {
-							endpage = startpage + 10 - 1;
-						}
-						
-						$.each(data, function(index, item) {
-							let ing1 = '현재 이용중';
-							let ing2 = '펫시터와의 소통';
-							let ing3 = '리뷰 남기기';
-							
-							var output = '';
-							if(index >= 5 * (page - 1) && index <= 4 + 5 * (page - 1)) {
-								output += '<tr style="color: #5e5e5e; border-top: 1px dashed gray;">';
-								output += '<td>' + item.list_TYPE + '</td>';
-								output += '<td rowspan="3">';
-								output += '<div class="thumbnail-wrapper profile_sm1"> <div class="thumbnail"> <div class="centered">';
-								if(item.petsitter_PHOTO_PROFILE_FILE === 'N') {
-									output += '<img src="resources/images/defaultprofile02.png.png">';
-								} else {
-									output += '<img src="/filepath/' + item.petsitter_PHOTO_PROFILE_FILE +'">';
-								}
-								output += '</div></div></div>';
-								output += '</td>';
-								output += '<td>' + item.petsitter_NICKNAME + '</td>';
-								output += '<td>' + item.list_START_DATE + '</td>';
-								output += '<td rowspan="3">' + item.list_NUM + '</td>';
-								output += '<td rowspan="3">' + item.list_PRICE + '</td>';
-								if(item.list_COMPLETE === ing2) {
-									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.list_NUM + '\';" ></td>';
-								} else if(item.list_COMPLETE === ing3) {
-									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing('+index+')">';
-									output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
-									output += '<input type="hidden" id="review_petsitter_address'+index+'" value="' + item.petsitter_ADDRESS1 + '">';
-									output += '<input type="hidden" id="review_petsitter_photo'+index+'" value="' + item.petsitter_PHOTO_PROFILE_FILE + '">';
-									output += '<input type="hidden" id="review_petsitter_score'+index+'" value="' + item.petsitter_SCORE + '">';
-									output += '<input type="hidden" id="review_petsitter_id'+index+'" value="' + item.petsitter_ID + '">';
-									output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.list_NUM + '">';
-									output += '</td>';
-								} else if(item.list_COMPLETE === '예약 취소') {
-									if(item.list_ING === '예약 취소') {
-										output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
-									} else {
-										output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" style="background: #03adfc !important;" onclick="location.href=\'cancel.br?merchant_uid=' + item.merchant_UID + '\'"></td>';
-									}
-								} else {
-									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
-								}
-								
-								output += '<tr style="color: #5e5e5e;">';
-								if(item.list_ING === ing1) {
-									output += '<td><b style="color: #0d47a1;">' + item.list_ING + '</b></td>';
-								} else if(item.list_ING === '위탁 대기 중' || item.list_ING === '방문 대기 중') {
-									output += '<td><b style="color: #03adfc;">' + item.list_ING + '</b></td>';
-								} else if(item.list_ING === '예약 취소') {
-									output += '<td><b>' + item.list_ING + '</b></td>';
-								} 
-								else {
-									output += '<td><b>' + item.list_ING + '</b></td>';
-								}
-								output += '<td><b>' + item.petsitter_NAME + '</b></td>';
-								output += '<td>~</td>';
-								output += '</tr>';
-								output += '<tr style="color: #5e5e5e;">';
-								output += '<td class="grade" style="margin-bottom: 5px;">신고</td>';
-								output += '<td>' + item.petsitter_TEL + '</td>';
-								output += '<td>' + item.list_END_DATE + '</td>';
-								output += '</tr>';
-								
-								if(item.list_ING === ing1) {
-									$('#petsitterList').prepend(output);
-								} else {
-									$('#petsitterList').append(output);
-								}
-							} else {
-								return true;
-							}
-						});
-						
-						pagenum = '';
-						pagenum += '<tr class="table_page_number">';
-						pagenum += '<td colspan=7 style="font-family:Tahoma;font-size:10pt;">';
-						if(nowpage <= 1) {
-							pagenum += '<&nbsp;&nbsp;';
-						} else {
-							pagenum += '<a href="javascript:selectData(' + (nowpage - 1) + ')" >' + '<&nbsp;&nbsp;' + '</a>';
-						}
-						for(let a = startpage; a <= endpage; a++) {
-							if(a === nowpage) {
-								pagenum += a + '&nbsp;&nbsp';
-							} else {
-								pagenum += '<a href="javascript:selectData(' + a + ')" >' + a + '&nbsp;&nbsp;</a>';
-							}
-						}
-						if(nowpage >= maxpage) {
-							pagenum += '>';
-						} else {
-							pagenum += '<a href="javascript:selectData(' + (nowpage + 1) + ')" >' + '>' + '</a>';
-						}
-						pagenum += '</td>';
-						pagenum += '</tr>';
-						
-						$('#pagenum_table').append(pagenum);
-					},
-					error: function(request,status,error) {
-						alert("ajax 통신 실패!");
-				        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					contentType: 'application/x-www-form-urlencoded; charset=utf-8'
+	    		})
+    	}
+    	
+    	var data = {
+    			page: 1,
+    			listcount: <%=listcount %>,
+    			maxpage: parseInt(<%=listcount%> / 5 + 0.95)
+    	}
 
-					}
-				});
-			}
+    	var list = new Vue({
+    		el: '#app',
+    		data() {
+    			return {
+	    			myPageData: null,
+	    			data,
+	    			nowpage: data.page,
+	    			startpage: (parseInt(data.page / 10 + 0.9) - 1) * 10 + 1,
+	    			endpage: data.maxpage
+    			}
+    		},
+    		created() {
+    			this.fetchData()
+    		},
+    		methods: {
+    			fetchData() {
+    				getMyPageData().then((res) => {
+    					this.myPageData = res
+    				})
+    			},
+    			pageReload: function(page) {
+    				data.page = page
+    			}
+    		}
+    	})
+		</script>
 			
-			/* n개월 버튼 클릭 함수 */
-			function usinglistfunc(month, page) {
-				$('#petsitterList').empty();
-				$('#pagenum_table').empty();
-				
-				$.ajax({
-					url: '/petsitter/getUsingList_month.bo',
-					type: 'post',
-					data: {
-						id : '${id}', 
-						month: month, 
-						page: page
-					},
-					dataType: 'json',
-					contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-					success: function(data) {
-						
-						let listcount = data.length;
-						let nowpage = page;
-						let maxpage = parseInt(listcount / 5 + 0.95);
-						let startpage = (parseInt((page / 10 + 0.9)) - 1) * 10 + 1;
-						let endpage = maxpage;
-						if(endpage > startpage + 10 - 1) {
-							endpage = startpage + 10 - 1;
-						}
-						
-						$.each(data, function(index, item) {
-							if(index >= 5 * (page - 1) && index <= 4 + 5 * (page - 1)) {
-								let ing1 = '현재 이용중';
-								let ing2 = '펫시터와의 소통';
-								let ing3 = '리뷰 남기기';
-								var output = '';
-								output += '<tr style="color: #5e5e5e; border-top: 1px dashed gray;">';
-								output += '<td>' + item.list_TYPE + '</td>';
-								output += '<td rowspan="3">';
-								output += '<div class="thumbnail-wrapper profile_sm1"> <div class="thumbnail"> <div class="centered">';
-								if(item.petsitter_PHOTO_PROFILE_FILE === 'N') {
-									output += '<img src="resources/images/defaultprofile02.png.png">';
-								} else {
-									output += '<img src="/filepath/' + item.petsitter_PHOTO_PROFILE_FILE +'">';
-								}
-								output += '</div></div></div>';
-								output += '</td>';
-								output += '<td>' + item.petsitter_NICKNAME + '</td>';
-								output += '<td>' + item.list_START_DATE + '</td>';
-								output += '<td rowspan="3">' + item.list_NUM + '</td>';
-								output += '<td rowspan="3">' + item.list_PRICE + '</td>';
-								if(item.list_COMPLETE === ing2) {
-									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.list_NUM + '\';" ></td>';
-								} else if(item.list_COMPLETE === ing3) {
-									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing('+index+')">';
-									output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
-									output += '<input type="hidden" id="review_petsitter_address'+index+'" value="' + item.petsitter_ADDRESS1 + '">';
-									output += '<input type="hidden" id="review_petsitter_photo'+index+'" value="' + item.petsitter_PHOTO_PROFILE_FILE + '">';
-									output += '<input type="hidden" id="review_petsitter_score'+index+'" value="' + item.petsitter_SCORE + '">';
-									output += '<input type="hidden" id="review_petsitter_id'+index+'" value="' + item.petsitter_ID + '">';
-									output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.list_NUM + '">';
-									output += '</td>';
-								} else if(item.list_COMPLETE === '예약 취소') {
-									if(item.list_ING === '예약 취소') {
-										output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
-									} else {
-										output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" style="background: #03adfc !important;" onclick="location.href=\'cancel.br?merchant_uid=' + item.merchant_UID + '\'"></td>';
-									}
-								} else {
-									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
-								}
-								
-								output += '<tr style="color: #5e5e5e;">';
-								if(item.list_ING === ing1) {
-									output += '<td><b style="color: #0d47a1;">' + item.list_ING + '</b></td>';
-								} else if(item.list_ING === '위탁 대기 중' || item.list_ING === '방문 대기 중') {
-									output += '<td><b style="color: #03adfc;">' + item.list_ING + '</b></td>';
-								} else if(item.list_ING === '예약 취소') {
-									output += '<td><b>' + item.list_ING + '</b></td>';
-								} 
-								else {
-									output += '<td><b>' + item.list_ING + '</b></td>';
-								}
-								output += '<td><b>' + item.petsitter_NAME + '</b></td>';
-								output += '<td>~</td>';
-								output += '</tr>';
-								output += '<tr style="color: #5e5e5e;">';
-								output += '<td class="grade" style="margin-bottom: 5px;">신고</td>';
-								output += '<td>' + item.petsitter_TEL + '</td>';
-								output += '<td>' + item.list_END_DATE + '</td>';
-								output += '</tr>';
-								
-								if(item.list_ING === ing1) {
-									$('#petsitterList').prepend(output);
-								} else {
-									$('#petsitterList').append(output);
-								}
-							} else {
-								return true;
-							}
-						});
-						
-						pagenum = '';
-						pagenum += '<tr class="table_page_number">';
-						pagenum += '<td colspan=7 style="font-family:Tahoma;font-size:10pt;">';
-						if(nowpage <= 1) {
-							pagenum += '<&nbsp;&nbsp;';
-						} else {
-							pagenum += '<a href="javascript:usinglistfunc(' + month + ', ' + (nowpage - 1) + ')" >' + '<&nbsp;&nbsp;' + '</a>';
-						}
-						for(let a = startpage; a <= endpage; a++) {
-							if(a === nowpage) {
-								pagenum += a + '&nbsp;&nbsp';
-							} else {
-								pagenum += '<a href="javascript:usinglistfunc(' + month + ', ' + a + ')" >' + a + '&nbsp;&nbsp;</a>';
-							}
-						}
-						if(nowpage >= maxpage) {
-							pagenum += '>';
-						} else {
-							pagenum += '<a href="javascript:usinglistfunc(' + month + ', ' + (nowpage + 1) + ')" >' + '>' + '</a>';
-						}
-						pagenum += '</td>';
-						pagenum += '</tr>';
-						
-						$('#pagenum_table').append(pagenum);
-					},
-					error: function() {
-						alert("ajax 통신 실패!");
-					}
-				});
-			}
-		
-			/* 날짜 선택 후 목록 출력 */
-			function calendarUsinglist(page) {
-				$('#petsitterList').empty();
-				$('#pagenum_table').empty();
-				
-				let start_date = $("#datePicker_start").val();
-				let end_date = $("#datePicker_end").val();
-				
-				$.ajax({
-					url: '/petsitter/getUsingList_calendar.bo',
-					type: 'post',
-					data: {
-						id : '${id}', 
-						startdate: start_date,
-						enddate: end_date,
-						page: page
-					},
-					dataType: 'json',
-					contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-					success: function(data) {
-						
-						let listcount = data.length;
-						let nowpage = page;
-						let maxpage = parseInt(listcount / 5 + 0.95);
-						let startpage = (parseInt((page / 10 + 0.9)) - 1) * 10 + 1;
-						let endpage = maxpage;
-						if(endpage > startpage + 10 - 1) {
-							endpage = startpage + 10 - 1;
-						}
-						let num = listcount - ((nowpage - 1) * 5);
-						
-						$.each(data, function(index, item) {
-							if(index >= 5*(page - 1) && index <= 4 + 5*(page - 1)) {
-								let ing1 = '현재 이용중';
-								let ing2 = '펫시터와의 소통';
-								let ing3 = '리뷰 남기기';
-								var output = '';
-								output += '<tr style="color: #5e5e5e; border-top: 1px dashed gray;">';
-								output += '<td>' + item.list_TYPE + '</td>';
-								output += '<td rowspan="3">';
-								output += '<div class="thumbnail-wrapper profile_sm1"> <div class="thumbnail"> <div class="centered">';
-								if(item.petsitter_PHOTO_PROFILE_FILE === 'N') {
-									output += '<img src="resources/images/defaultprofile02.png.png">';
-								} else {
-									output += '<img src="/filepath/' + item.petsitter_PHOTO_PROFILE_FILE +'">';
-								}
-								output += '</div></div></div>';
-								output += '</td>';
-								output += '<td>' + item.petsitter_NICKNAME + '</td>';
-								output += '<td>' + item.list_START_DATE + '</td>';
-								output += '<td rowspan="3">' + item.list_NUM + '</td>';
-								output += '<td rowspan="3">' + item.list_PRICE + '</td>';
-								if(item.list_COMPLETE === ing2) {
-									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" onclick="location.href=\'communication_member.bo?usinglist_num=' + item.list_NUM + '\';" ></td>';
-								} else if(item.list_COMPLETE === ing3) {
-									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" id="review_modal'+index+'" value="' + item.list_COMPLETE + '" data-toggle="modal" data-target="#staticBackdrop02" onclick="showing('+index+')">';
-									output += '<input type="hidden" id="review_petsitter'+index+'" value="' + item.petsitter_NICKNAME + '">';
-									output += '<input type="hidden" id="review_petsitter_address'+index+'" value="' + item.petsitter_ADDRESS1 + '">';
-									output += '<input type="hidden" id="review_petsitter_photo'+index+'" value="' + item.petsitter_PHOTO_PROFILE_FILE + '">';
-									output += '<input type="hidden" id="review_petsitter_score'+index+'" value="' + item.petsitter_SCORE + '">';
-									output += '<input type="hidden" id="review_petsitter_id'+index+'" value="' + item.petsitter_ID + '">';
-									output += '<input type="hidden" id="review_usinglist_num'+index+'" value="' + item.list_NUM + '">';
-									output += '</td>';
-								} else if(item.list_COMPLETE === '예약 취소') {
-									if(item.list_ING === '예약 취소') {
-										output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
-									} else {
-										output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" style="background: #03adfc !important;" onclick="location.href=\'cancel.br?merchant_uid=' + item.merchant_UID + '\'"></td>';
-									}
-								} else {
-									output += '<td rowspan="3"><input type="button" class="pet_talk mybtn" value="' + item.list_COMPLETE + '" disabled="disabled" style="opacity: 0.5;"></td>';
-								}
-								
-								output += '<tr style="color: #5e5e5e;">';
-								if(item.list_ING === ing1) {
-									output += '<td><b style="color: #0d47a1;">' + item.list_ING + '</b></td>';
-								} else if(item.list_ING === '위탁 대기 중' || item.list_ING === '방문 대기 중') {
-									output += '<td><b style="color: #03adfc;">' + item.list_ING + '</b></td>';
-								} else if(item.list_ING === '예약 취소') {
-									output += '<td><b>' + item.list_ING + '</b></td>';
-								} 
-								else {
-									output += '<td><b>' + item.list_ING + '</b></td>';
-								}
-								output += '<td><b>' + item.petsitter_NAME + '</b></td>';
-								output += '<td>~</td>';
-								output += '</tr>';
-								output += '<tr style="color: #5e5e5e;">';
-								output += '<td class="grade" style="margin-bottom: 5px;">신고</td>';
-								output += '<td>' + item.petsitter_TEL + '</td>';
-								output += '<td>' + item.list_END_DATE + '</td>';
-								output += '</tr>';
-								
-								if(item.list_ING === ing1) {
-									$('#petsitterList').prepend(output);
-								} else {
-									$('#petsitterList').append(output);
-								}
-							} else {
-								return true;
-							}
-						});
-						
-						pagenum = '';
-						pagenum += '<tr class="table_page_number">';
-						pagenum += '<td colspan=7 style="font-family:Tahoma;font-size:10pt;">';
-						if(nowpage <= 1) {
-							pagenum += '<&nbsp;&nbsp;';
-						} else {
-							pagenum += '<a href="javascript:calendarUsinglist(' + (nowpage - 1) + ')" >' + '<&nbsp;&nbsp;' + '</a>';
-						}
-						for(let a = startpage; a <= endpage; a++) {
-							if(a === nowpage) {
-								pagenum += a + '&nbsp;&nbsp';
-							} else {
-								pagenum += '<a href="javascript:calendarUsinglist(' + a + ')" >' + a + '&nbsp;&nbsp;</a>';
-							}
-						}
-						if(nowpage >= maxpage) {
-							pagenum += '>';
-						} else {
-							pagenum += '<a href="javascript:calendarUsinglist(' + (nowpage + 1) + ')" >' + '>' + '</a>';
-						}
-						pagenum += '</td>';
-						pagenum += '</tr>';
-						
-						$('#pagenum_table').append(pagenum);
-					},
-					error: function() {
-						alert("ajax 통신 실패!");
-					}
-				});
-			}
-			
+		<script>
 		
 			$(document).ready(function() {
-				selectData(1);
-				
 				let sel_file;
 				let sel_file02;
 				let sel_file03;
@@ -1267,9 +854,6 @@
 				$("#ex_filename02").on("change", handleImgFileSelect02);
 				$("#ex_filename03").on("change", handleImgFileSelect03);
 				$("#ex_filename04").on("change", handleImgFileSelect04);
-				
-				
-				
 			});
 			
 			/* 회원정보 수정 모달창에서 미리보기 이미지 파일 삭제 */

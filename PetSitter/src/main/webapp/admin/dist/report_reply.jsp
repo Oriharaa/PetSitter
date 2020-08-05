@@ -96,6 +96,7 @@ p {
 }
 
 </style>
+<html lang="en">
     <head>
         <meta charset="utf-8" />	
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -104,8 +105,8 @@ p {
         <meta name="author" content="" />
         <title>신고 관리 페이지 - Petsitter</title>
         <link href="./admin/dist/css/styles.css" rel="stylesheet" />
-        <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+        <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
         
         <!-- 부트스트랩 toggle -->
         <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
@@ -113,14 +114,14 @@ p {
     </head>
 	
     <body class="sb-nav-fixed">
-            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="./admin/dist/js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="./admin/dist/assets/demo/chart-area-demo.js"></script>
         <script src="./admin/dist/assets/demo/chart-bar-demo.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="./admin/dist/assets/demo/datatables-demo.js"></script>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <a class="navbar-brand" href="admin.me">관리자 페이지</a>
@@ -139,6 +140,7 @@ p {
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="logout.me">로그아웃</a>
                     </div>
                 </li>
@@ -223,7 +225,7 @@ p {
                                     </div>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <div class="sb-sidenav-menu-heading">부가기능</div>
                             <a class="nav-link" href="admin_chart.me">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 차트
@@ -265,7 +267,7 @@ p {
 																					ReportReplyVO rr=(ReportReplyVO)rrlist.get(i);
 																					%>
 																					<tr>
-																						<td><%=rr.getBNO() %></td>
+																						<td><a href="./mboarddetail.me?num=<%=rr.getBNO() %>" target="_blank"><%=rr.getBNO() %></a></td>
 																						<td><%=rr.getRNO() %></td>
 																						<td><%=rr.getREPORT_REASON() %></td>
 																						<td><%=rr.getMEMBER_ID() %></td>
@@ -304,11 +306,9 @@ p {
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                            <div class="text-muted">Copyright &copy; Petstiny 2020</div>
                             <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
+                                
                             </div>
                         </div>
                     </div>

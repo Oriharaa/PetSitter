@@ -16,16 +16,16 @@
 	if(!(petsitter.getPETSITTER_SERVICE_LIST().equals("N"))){
 		String[] service = petsitter.getPETSITTER_SERVICE_LIST().split(",");
 		for(int i =0;i < service.length;i++){
-			if(service[i].equals("노견 케어 가능")){
+			if(service[i].equals("olddog")){
 				olddog = "Y";
 			}
-			if(service[i].equals("마당 존재")){
+			if(service[i].equals("yard")){
 				yard = "Y";
 			}
-			if(service[i].equals("대형견 케어 가능")){
+			if(service[i].equals("bigsize")){
 				big = "Y";
 			}
-			if(service[i].equals("픽업 가능")){
+			if(service[i].equals("pickup")){
 				pickup = "Y";
 			}
 		}
@@ -273,7 +273,7 @@ table.type09 td {
                                     </div>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <div class="sb-sidenav-menu-heading">부가기능</div>
                             <a class="nav-link" href="admin_chart.me">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 차트
@@ -386,11 +386,9 @@ table.type09 td {
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                            <div class="text-muted">Copyright &copy; Petstiny 2020</div>
                             <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
+                                
                             </div>
                         </div>
                     </div>

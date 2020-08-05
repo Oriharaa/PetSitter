@@ -62,8 +62,9 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <!-- <a class="dropdown-item" href="#">기능1</a>
-                        <a class="dropdown-item" href="#">기능2</a> -->
+                        <a class="dropdown-item" href="#">기능1</a>
+                        <a class="dropdown-item" href="#">기능2</a>
+                        <div class="dropdown-divider"></div>
                         <%
               						if(session.getAttribute("id") == "" || session.getAttribute("id") == null) {
               					%>
@@ -147,7 +148,7 @@
                                     </div>
                                 </nav>
                             </div>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <div class="sb-sidenav-menu-heading">부가기능</div>
                             <a class="nav-link" href="charts.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 차트
@@ -210,7 +211,7 @@
 																				<td><%=sdf.format(uvo.getLIST_START_DATE()) %></td>
 																				<td><%=sdf.format(uvo.getLIST_END_DATE()) %></td>
 																				<td><%=uvo.getLIST_TYPE() %></td>
-																				<td><%=String.format("%,d", uvo.getLIST_PRICE()) %> 원</td>
+																				<td style="text-align: right;"><%=String.format("%,d", uvo.getLIST_PRICE()) %> 원</td>
 																			</tr>
 																			<%}}%>
 																	</tbody>
@@ -223,7 +224,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2020</div>
+                            <div class="text-muted">Copyright &copy; Petstiny 2020</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;
