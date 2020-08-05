@@ -40,11 +40,12 @@ public class PayController {
 			payvo.setPAY_ID((String)session.getAttribute("id"));
 			String[] pay_start_date = payvo.getSTART_DATE().split(",");
 			String[] pay_end_date = payvo.getEND_DATE().split(",");
+			int org_point = memberService.selectMember((String)session.getAttribute("id")).getMEMBER_POINT();
 			payvo.setSTART_DATE(pay_start_date[0] + " " + pay_start_date[1]);
 			payvo.setEND_DATE(pay_end_date[0] + " " + pay_end_date[1]);
 			int point = (int)(payvo.getPAY_AMOUNT() * 0.01);
 			payService.insertPay(payvo);
-			payService.memberAmount(payvo.getPAY_AMOUNT(), point, payvo.getPAY_ID());
+			payService.memberAmount(payvo.getPAY_AMOUNT(), org_point + point - payvo.getPAY_POINT(), payvo.getPAY_ID());
 			payService.petsitterAmount(payvo.getPAY_AMOUNT(), payvo.getPETSITTER_ID());
 			
 			PetsitterVO petsitter = petsitterService.selectPetsitter(payvo.getPETSITTER_ID());
@@ -117,7 +118,7 @@ public class PayController {
 		PayVO pay = payService.selectPay(merchant_uid);
 		int point = (int)(pay.getPAY_AMOUNT() * 0.01);
 		payService.updatePay(merchant_uid);
-		payService.memberAmountRemove(amount, point, m_id);
+		payService.memberAmountRemove(amount, point - pay.getPAY_POINT(), m_id);
 		payService.petsitterAmountRemove(amount, p_id);
 		
 		PetsitterScheduleVO petsitterschedule = new PetsitterScheduleVO();

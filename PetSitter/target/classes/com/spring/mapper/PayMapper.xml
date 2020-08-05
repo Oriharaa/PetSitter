@@ -31,8 +31,8 @@
 	</select>
 
 	<insert id="insertPay" parameterType="com.spring.petsitter.pay.PayVO">
-		insert into pay(PAY_ID, PAY_AMOUNT, PETSITTER_ID, MERCHANT_UID, PAY_DATE, PAY_TYPE, START_DATE, END_DATE)
-		values(#{PAY_ID}, #{PAY_AMOUNT}, #{PETSITTER_ID}, #{MERCHANT_UID}, sysdate, #{PAY_TYPE}, to_date(#{START_DATE}, 'YYYY-MM-DD HH24:mi'), to_date(#{END_DATE}, 'YYYY-MM-DD HH24:mi')) 
+		insert into pay(PAY_ID, PAY_AMOUNT, PETSITTER_ID, MERCHANT_UID, PAY_DATE, PAY_TYPE, START_DATE, END_DATE, PAY_POINT)
+		values(#{PAY_ID}, #{PAY_AMOUNT}, #{PETSITTER_ID}, #{MERCHANT_UID}, sysdate, #{PAY_TYPE}, to_date(#{START_DATE}, 'YYYY-MM-DD HH24:mi'), to_date(#{END_DATE}, 'YYYY-MM-DD HH24:mi'), #{PAY_POINT}) 
 	</insert>
 	
 	<update id="updatePay" parameterType="String">
@@ -42,7 +42,7 @@
 	</update>
 	
 	<update id="memberAmount" parameterType="map">
-		update member set MEMBER_AMOUNT=MEMBER_AMOUNT + #{amount}, MEMBER_POINT=MEMBER_POINT + #{point} where MEMBER_ID=#{MEMBER_ID}
+		update member set MEMBER_AMOUNT=MEMBER_AMOUNT + #{amount}, MEMBER_POINT=#{point} where MEMBER_ID=#{MEMBER_ID}
 	</update>
 	
 	<update id="memberAmountRemove" parameterType="map">

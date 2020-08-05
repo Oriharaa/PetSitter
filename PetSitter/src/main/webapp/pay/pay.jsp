@@ -65,7 +65,8 @@
 								MERCHANT_UID: rsp.merchant_uid,
 								PAY_TYPE: "<%=payvo.getPAY_TYPE() %>",
 								START_DATE: "<%=payvo.getSTART_DATE() %>",
-								END_DATE: "<%=payvo.getEND_DATE() %>"
+								END_DATE: "<%=payvo.getEND_DATE() %>",
+								PAY_POINT: <%=payvo.getPAY_POINT() %>
 						};
 						
 						$.ajax({

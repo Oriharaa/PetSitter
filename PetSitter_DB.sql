@@ -186,8 +186,17 @@ CREATE TABLE petsitter_qna_board (
     petsitter_qna_date     DATE,
     petsitter_qna_bno      NUMBER
 );
+-- 펫시터 Q&A 댓글 테이블
+CREATE TABLE PQREPLY (
+    BNO NUMBER, 
+    RNO NUMBER, 
+    CONTENT VARCHAR2(2000 BYTE), 
+    WRITER_ID VARCHAR2(30 BYTE), 
+    REGDATE DATE DEFAULT sysdate, 
+    WRITER_NAME VARCHAR2(30 BYTE),
+    WRITER_RANK VARCHAR2(10 BYTE)
+);
 
--- 최신화 안됨
 create table report_article (
     member_num number,
     report_reason varchar2(4000),
@@ -252,7 +261,8 @@ create table pay(
     PAY_TYPE varchar2(10), -- 위탁 or 방문
     START_DATE date, -- 이용 시작 날짜
     END_DATE date, -- 이용 종료 날짜
-    PAY_STATUS varchar2(10) default '결제 완료' -- 결제 완료 or 결제 취소
+    PAY_STATUS varchar2(10) default '결제 완료', -- 결제 완료 or 결제 취소
+    PAY_POINT number -- 결제 사용 포인트
 );
 
 -- 이용 내역 테이블
@@ -267,58 +277,33 @@ create table USINGLIST(
     LIST_TYPE varchar2(10),
     MERCHANT_UID varchar2(10) -- 거래 고유 아이디
 );
-
--- usinglist 예시 데이터
-insert into usinglist
-values(1, 'asd111', '경기 성남시', 'asdasd@naver.com', 75000, to_date('2020-07-21 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-23 15:00', 'YYYY-MM-DD HH24:mi'), '위탁', 'iaPgv1');
-
-insert into usinglist
-values(2, 'asd111', '경기 성남시', 'asdasd@naver.com', 120000, to_date('2020-07-25 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-29 15:00', 'YYYY-MM-DD HH24:mi'), '위탁', 'Eng82o');
-
-insert into usinglist
-values(3, 'asd111', '경기 성남시', 'asdasd@naver.com', 37500, to_date('2020-07-29 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-30 15:00', 'YYYY-MM-DD HH24:mi'), '위탁', '7Tpbg9');
-
-
--- review_board 예시 데이터
-insert into REVIEW_BOARD
-values(2, 2, 'asdasd@naver.com', 'asd111', '2따뜻한 봄바람을 불어 보내는 것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 풀이 없으면 인간은 사막이다 오아이스도 없는 사막이다', 
-4.5, 'dog01.jpg', '','2020/05/23', 0, 'REVIEW_BOARD');
-insert into REVIEW_BOARD
-values(1, 1, 'asdasd@naver.com', 'asd222', '2따뜻한 봄바람을 불어 보내는 것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 풀이 없으면 인간은 사막이다 오아이스도 없는 사막이다', 
-3, 'dog02.jpg', '','2020/03/01', 0, 'REVIEW_BOARD');
-insert into REVIEW_BOARD
-values(4, 4, 'asdasd@naver.com', 'asd333', '2따뜻한 봄바람을 불어 보내는 것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 풀이 없으면 인간은 사막이다 오아이스도 없는 사막이다', 
-5, 'dog03.jpg', '','2020/06/29', 0, 'REVIEW_BOARD');
-insert into REVIEW_BOARD
-values(3, 3, 'asdasd@naver.com', 'asd444', '2따뜻한 봄바람을 불어 보내는 것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 풀이 없으면 인간은 사막이다 오아이스도 없는 사막이다', 
-4, 'dog04.jpg', '','2020/06/28', 0, 'REVIEW_BOARD');
-insert into REVIEW_BOARD
-values(5, 9, 'asdasd@naver.com', 'asd111', '2따뜻한 봄바람을 불어 보내는 것은 청춘의 끓는 피다 청춘의 피가 뜨거운지라 인간의 동산에는 사랑의 풀이 돋고 이상의 꽃이 피고 희망의 놀이 뜨고 열락의 새가 운다사랑의 풀이 없으면 인간은 사막이다 오아이스도 없는 사막이다', 
-3.5, 'dog05.jpg', '','2020/07/04', 0, 'REVIEW_BOARD');
-
-insert into pay(PAY_ID, PAY_AMOUNT, PETSITTER_ID, MERCHANT_UID, PAY_DATE, PAY_TYPE, START_DATE, END_DATE)
-values('asdasd@naver.com', 50000, 'asdasd', 'yaIB5s', sysdate, '위탁', to_date('2020-07-29 14:00', 'YYYY-MM-DD HH:mi'), to_date('2020-07-30 14:00', 'YYYY-MM-DD HH:mi'));
-
-
-insert into pay
-values('asdasd@naver.com', 37500, 'asd111', '7Tpbg9', sysdate, '위탁', to_date('2020-07-29 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-30 15:00', 'YYYY-MM-DD HH24:mi'), '결제 완료');
-
-insert into pay
-values('asdasd@naver.com', 120000, 'asd111', 'Eng82o', sysdate, '위탁', to_date('2020-07-25 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-29 15:00', 'YYYY-MM-DD HH24:mi'), '결제 완료');
-
-insert into pay
-values('asdasd@naver.com', 75000, 'asd111', 'iaPgv1', sysdate, '위탁', to_date('2020-07-21 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-07-23 15:00', 'YYYY-MM-DD HH24:mi'), '결제 완료');
-
-insert into petsitter
-values('asd111', 'N', '볼리베어', '123123', '01011112222', 'asd111@asd111.com', 0, 0,	'N', '13494,경기 성남시 분당구 판교역로 233-1,101호',	'ㅎㅇㅎㅇㅎㅇ 볼리베어입니다', 15000,	1500, '픽업 가능,마당 존재,대형견 케어 가능,노견 케어 가능', '715744dd7f8347c6a7a87b0855129ece.jpg', '44353bd42b3849e8ae8849d4c60edc89.jpg', 'N', 'N', 'b0520cdf66144c63a6d989c192c21b3c.jpg,5b3deed78e754722ad2316740f95dff2.jpg', sysdate, '방문,위탁', 0, 'N', 0, 'N', 0, 127.109420804531, 37.4016559594071, 'N');
-
-insert into member
-values('asdasd@naver.com', '호이잇', '123123', '둘리', '01011112222', 'Green', 1, 37500, sysdate, 'cf58b71ad91c4eb1a4372de3b2bfdf62.png', 0, '남', '18132,경기 오산시 운암로 122,106동 1803호');
 commit;
+-- 회원, 운영자, 매니저 데이터
+-- 아이디, 닉네임, 비밀번호, 이름, 휴대폰, 등급, 이용횟수, 총 금액, 가입 날짜, 프로필 사진, 신고 횟수, 성별, 주소, 포인트
+insert into member 
+values('petmember2@naver.com', '양이랑', '123456', '최재우', '01011111111', 'VIP', 0,0,sysdate,'xvxcverv.jpg',0, '남','06611,서울 서초구 강남대로 459,비트캠프 3층 302호', 0);
+insert into member 
+values('petmember1@nate.com', '푸들과', '123456', '박현수', '01022222222', 'Green', 0,0,sysdate,'sdfvzsffdvdzfv.PNG',0, '여','06611,서울 서초구 강남대로 459,비트캠프 3층 302호', 0);
+insert into member values('petmember3@nate.com', '강아지랑', '123456', '박현아', '01022252222', 'Green', 0,0,sysdate,'N',0, '여','06611,서울 서초구 강남대로 459,비트캠프 3층 302호',0);
+insert into member values('petmember4@nate.com', '아지', '123456', '최지윤', '01022662222', 'Green', 0,0,sysdate,'089f68773d8e7d4e0e6865fca840bdc6.jpg',0, '여','06611,서울 서초구 강남대로 459,비트캠프 3층 302호',0);
+insert into member values('petmember5@nate.com', '허스키씨', '123456', '김취직', '01022252222', 'Gold', 25,0,sysdate,'N',0, '여','06611,서울 서초구 강남대로 459,비트캠프 3층 302호',0);
+insert into member values('petmember6@nate.com', '강아지씨', '123456', '최취직', '01022232222', 'Green', 0,0,sysdate,'fddfdfffb.jpg',0, '남','06611,서울 서초구 강남대로 459,비트캠프 3층 302호',0);
+insert into member values('petmember7@nate.com', '양이씨', '123456', '조현재', '01022522222', 'Gold', 25,0,sysdate,'sdfvzsffdvdzfv.PNG',0, '남','06611,서울 서초구 강남대로 459,비트캠프 3층 302호',0);
+insert into member values('petmember8@nate.com', '강투더아지', '123456', '이시원', '01032222222', 'Green', 0,0,sysdate,'N',0, '남','06611,서울 서초구 강남대로 459,비트캠프 3층 302호',0);
+insert into member values('doctor@nate.com', '수의사', '123456', '김수의', '01032222222', 'VIP', 0,0,sysdate,'AA222.jpg',0, '남','06611,서울 서초구 강남대로 459,비트캠프 3층 302호',0);
 
-insert into pay
-values('asdasd@naver.com', 213000, 'asd333', 'nsduvo', sysdate, '위탁', to_date('2020-07-30 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-08-05 15:00', 'YYYY-MM-DD HH24:mi'), '결제 완료');
-insert into communication_photo_list
-values(11, 'N', sysdate, 'asd333');
-insert into usinglist
-values(11, 'asd333', '서울 서초구', 'asdasd@naver.com', 213000, to_date('2020-07-30 14:00', 'YYYY-MM-DD HH24:mi'), to_date('2020-08-05 15:00', 'YYYY-MM-DD HH24:mi'), '위탁', 'nsduvo');
+insert into member 
+values('admin@a.a', '운영자', '123456', '김운영', '01055555555', 'admin', 0,0,sysdate,'szdrfzdsegedrgd.png',0, '남','06611,서울 서초구 강남대로 459,비트캠프 3층 302호', 0);
+insert into member 
+values('manager@m.m', '매니저', '123456', '강매니', '01066666666', 'manager', 0,0,sysdate,'szdrfzdsegedrgd.png',0, '남','06611,서울 서초구 강남대로 459,비트캠프 3층 302호', 0);
+
+-- 펫시터 예시 데이터
+insert into PETSITTER values('petsitter', '펫과함께', '김훈련', '123456',  '01033333333', 'petsitter@nate.com', 0, 0, 'Pro','06611,서울 서초구 강남대로 459,비트캠프 3층 302호',
+'안녕하세요 신뢰가는 펫시터가 되기위해 노력하는 펫과함께입니다. 항상 좋은 서비스를위해 준비를 갖추고 있으며 특별한 사항이 있다면 최대한 맞춰보도록 하겠습니다.',5000,2000,'대형견 케어 가능,픽업 가능,마당 존재','sdgsdgsdg.jpg','sdgsdgsdg.jpg',
+'Petstiny훈련사자격증,국제애견관리자격증,애견미용자격증','xzcsdzzzsz.jpg,ghjtyeeett.jpg,sdgsgsgdsdvvbvvccc.jpg', '999F1C415E3CECE02C.png,ae483d2d94a57dc606f7e8596fe21c41.jpg,5e94e4c7db7c809802d1585085f7cd40.jpg',
+sysdate,'방문,위탁',0,'남',0,'awsvsvsv.jpg,vcervever.jpg,rewerwerw.jpg,', 0, 127.024481869429, 37.5031241023357, '서울 강남구 봉은사로 지하 102,신논현역 7번출구 5분거리');
+
+insert into PETSITTER values('sitter01', '펫이랑', '이수의', '123456',  '01044444444', 'sitter01@naver.com', 0, 25, 'GoldPro','06611,서울 서초구 강남대로 459,비트캠프 3층 302호',
+'안녕하세요 신뢰가는 펫시터가 되기위해 노력하는 펫이랑입니다. 항상 좋은 서비스를위해 준비를 갖추고 있으며 특별한 사항이 있다면 최대한 맞춰보도록 하겠습니다.',5000,2000,'픽업 가능,마당 존재','awsvsvsv.jpg','awsvsvsv.jpg',
+'Petstiny훈련사자격증,국제애견관리자격증,애견미용자격증','xzcsdzzzsz.jpg,ghjtyeeett.jpg,sdgsgsgdsdvvbvvccc.jpg', 'd6dcae1bc882dff4437b681705989106.jpg,c8192daa51629691994dfb373172f8f1.jpg,e172e8ad46d34a98a4587a8169ee7141.jpg',
+sysdate,'방문,위탁',0,'여',0,'20190430_03a3da83912a14b8d9dfd67b7ccf538c.jpg,sdfsdfsaasaasassa.jpg,B003059676.jpg,', 0, 127.024481869429, 37.5031241023357, '서울 강남구 봉은사로 지하 102,신논현역 7번출구 5분거리');

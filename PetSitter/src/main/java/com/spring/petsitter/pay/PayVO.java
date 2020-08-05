@@ -12,7 +12,8 @@ create table pay(
     PAY_TYPE varchar2(10), -- 위탁 or 방문
     START_DATE date, -- 이용 시작 날짜
     END_DATE date, -- 이용 종료 날짜
-    PAY_STATUS varchar2(10) default '결제 완료' -- 결제 완료 or 결제 취소
+    PAY_STATUS varchar2(10) default '결제 완료', -- 결제 완료 or 결제 취소
+    PAY_POINT number -- 결제 사용 포인트
 );
 */
 public class PayVO {
@@ -25,6 +26,7 @@ public class PayVO {
 	private String START_DATE;
 	private String END_DATE;
 	private String PAY_STATUS;
+	private int PAY_POINT;
 	
 	public String getPAY_ID() {
 		return PAY_ID;
@@ -79,6 +81,12 @@ public class PayVO {
 	}
 	public void setPAY_STATUS(String pAY_STATUS) {
 		PAY_STATUS = pAY_STATUS;
+	}
+	public int getPAY_POINT() {
+		return PAY_POINT;
+	}
+	public void setPAY_POINT(int pAY_POINT) {
+		PAY_POINT = pAY_POINT;
 	}
 	
 }

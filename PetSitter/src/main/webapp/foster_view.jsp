@@ -848,7 +848,8 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 			<input type="hidden" name="START_DATE" id="START_DATE" value=<%=start_date %>>
 			<input type="hidden" name="START_DATE" id="START_TIME">
 			<input type="hidden" name="END_DATE" id="END_DATE" value=<%=end_date %>>
-			<input type="hidden" name="END_DATE" id="END_TIME">		
+			<input type="hidden" name="END_DATE" id="END_TIME">
+			<input type="hidden" name="PAY_POINT" id="PAY_POINT">
 			<div class="container">
 				<div class="row">
 					<div class="col-2">
@@ -1276,7 +1277,9 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 			$(".p4").empty();
 		  $(".p4").append(" -KRW "+btnPrice);
 		  $(".p5").empty();
-		  $(".p5").append("  KRW 0");	
+		  $(".p5").append("  KRW 0");
+		  $("#PAY_POINT").val(btnPrice);
+		  $("#PAY_AMOUNT").val(0);
 		}
 		else
 		{
@@ -1285,7 +1288,9 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 		 	$(".p4").empty();
 		  $(".p4").append(" -KRW "+<%=point%>);
 		  $(".p5").empty();
-		  $(".p5").append("  KRW "+fPrice);	
+		  $(".p5").append("  KRW "+fPrice);
+		  $("#PAY_POINT").val(<%=point%>);
+		  $("#PAY_AMOUNT").val(fPrice);
 		}
 	};
   
@@ -1319,12 +1324,16 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 		  $(".p4").append(" -KRW "+point);
 		  $(".p5").empty();
 		  $(".p5").append("  KRW "+sumPrice);
+		  $("#PAY_POINT").val(point);
+		  $("#PAY_AMOUNT").val(sumPrice);
 		  
 		  if(point < 10)
   		{
 			  $(".p4").empty();
 			  $(".p5").empty();
 			  $(".p5").append("  KRW "+payPrice);
+			  $("#PAY_POINT").val(0);
+			  $("#PAY_AMOUNT").val(payPrice);
   		}
 		  else if(point > <%=point%>)
 			{
@@ -1335,6 +1344,8 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 			  $(".p4").append(" -KRW "+<%=point%>);
 			  $(".p5").empty();
 			  $(".p5").append("  KRW "+sumPrice);
+			  $("#PAY_POINT").val(<%=point%>);
+			  $("#PAY_AMOUNT").val(sumPrice);
 			}
 		  else if(point > payPrice)
 			{
@@ -1344,7 +1355,8 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 			  $(".p4").append(" -KRW "+payPrice);
 			  $(".p5").empty();
 			  $(".p5").append("  KRW 0");
-				
+			  $("#PAY_POINT").val(payPrice);
+			  $("#PAY_AMOUNT").val(0);
 			}
 	});
   });
