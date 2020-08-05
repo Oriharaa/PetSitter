@@ -24,7 +24,13 @@ public class PetsitterQnaBoardVO {
 	private String PETSITTER_QNA_SUBJECT;
 	private String PETSITTER_QNA_CONTENT;
 	private Date PETSITTER_QNA_DATE;
+	private String REAL_DATE;
 	private int PETSITTER_QNA_BNO;
+	private int page2;
+	private int listcount2;
+	private int maxpage2;
+	private int startpage2;
+	private int endpage2;
 	
 	public String getPETSITTER_ID() {
 		return PETSITTER_ID;
@@ -74,4 +80,42 @@ public class PetsitterQnaBoardVO {
 	public void setPETSITTER_QNA_BNO(int pETSITTER_QNA_BNO) {
 		PETSITTER_QNA_BNO = pETSITTER_QNA_BNO;
 	}
+	public int getPage2() {
+		return page2;
+	}
+	public void setPage2(int page2) {
+		this.page2 = page2;
+	}
+	public int getListcount2() {
+		return listcount2;
+	}
+	public void setListcount2(int listcount2) {
+		this.listcount2 = listcount2;
+	}
+	public int getMaxpage2() {
+		return maxpage2;
+	}
+	public void setMaxpage2(int maxpage2) {
+		this.maxpage2 = maxpage2;
+	}
+	public int getStartpage2() {
+		return startpage2;
+	}
+	public void setStartpage2(int startpage2) {
+		this.startpage2 = startpage2;
+	}
+	public int getEndpage2() {
+		return endpage2;
+	}
+	public void setEndpage2(int endpage2) {
+		this.endpage2 = endpage2;
+	}
+	public String getREAL_DATE() {
+		return REAL_DATE;
+	}
+	public void setREAL_DATE(String rEAL_DATE) {
+		REAL_DATE = rEAL_DATE;
+	}
+	
+	
 }

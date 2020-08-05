@@ -86,7 +86,7 @@
 	                <p class="col-12 font-size-14 text-center" style = " color : orange!important;">반경 5km내에 펫시터 정보를 알 수 있습니다.</p>
 	                <form action="#">
 										<div class="form-group d-flex">
-											<input class="form-control" type="text"  id="sample5_address"  placeholder="주소를 입력하세요" >
+											<input class="form-control" type="text"  id="sample5_address" onclick="sample5_execDaumPostcode(); location.href='#mapgo';" placeholder="주소를 입력하세요" readonly>
 											<input type="button" class="btn btn-outline-warning px-4" onclick="sample5_execDaumPostcode(); location.href='#mapgo';" value="주소 검색 " >
 	                	</div>
 	                </form>
@@ -200,11 +200,7 @@ title.push('<%=list.get(i).getPETSITTER_ID()%>');
 <%for(int i = 0; i < list.size(); i++){%>
 latlng1.push(new kakao.maps.LatLng(addrY[<%=i%>],addrX[<%=i%>]));
 nickname.push('<%=list.get(i).getPETSITTER_NICKNAME()%>');
-<%if(!list.get(i).getPETSITTER_SAFEADDR().equals("N")){%>
-	addr1.push('<%=list.get(i).getPETSITTER_SAFEADDR().split(",")[0]%>');
-<%}else{%>
 addr1.push('<%=list.get(i).getPETSITTER_ADDRESS().split(",")[1].split(" ")[0]%> '+'<%=list.get(i).getPETSITTER_ADDRESS().split(",")[1].split(" ")[1]%>');
-<%}%>
 count.push(<%=list.get(i).getPETSITTER_COUNT()%>);
 score.push(<%=list.get(i).getPETSITTER_SCORE()%>);
 id.push('<%=list.get(i).getPETSITTER_ID()%>');
@@ -350,11 +346,7 @@ var callback = function(result, status) {
 		for(int i =0; i < voList.length; i ++){%>
 		latlng1.push(new kakao.maps.LatLng(<%=voList[i].getPETSITTER_ADDRY()%>,<%=voList[i].getPETSITTER_ADDRX()%>));
 		nickname.push('<%=voList[i].getPETSITTER_NICKNAME()%>');
-		<%if(!voList[i].getPETSITTER_SAFEADDR().equals("N")){%>
-		addr1.push('<%=voList[i].getPETSITTER_SAFEADDR().split(",")[0]%>');
-		<%}else{%>
 		addr1.push('<%=voList[i].getPETSITTER_ADDRESS().split(",")[1].split(" ")[0]%> '+'<%=list.get(i).getPETSITTER_ADDRESS().split(",")[1].split(" ")[1]%>');
-		<%}%>
 		count.push(<%=voList[i].getPETSITTER_COUNT()%>);
 		score.push(<%=voList[i].getPETSITTER_SCORE()%>);
 		id.push('<%=voList[i].getPETSITTER_ID()%>');
@@ -413,11 +405,8 @@ var callback = function(result, status) {
 	for(int i =0; i < voList1.length; i ++){%>
 	latlng1.push(new kakao.maps.LatLng(<%=voList1[i].getPETSITTER_ADDRY()%>,<%=voList1[i].getPETSITTER_ADDRX()%>));
 	nickname.push('<%=voList1[i].getPETSITTER_NICKNAME()%>');
-	<%if(!voList[i].getPETSITTER_SAFEADDR().equals("N")){%>
-	addr1.push('<%=voList[i].getPETSITTER_SAFEADDR().split(",")[0]%>');
-	<%}else{%>
 	addr1.push('<%=voList[i].getPETSITTER_ADDRESS().split(",")[1].split(" ")[0]%> '+'<%=list.get(i).getPETSITTER_ADDRESS().split(",")[1].split(" ")[1]%>');
-	<%}%>	count.push(<%=voList1[i].getPETSITTER_COUNT()%>);
+	count.push(<%=voList1[i].getPETSITTER_COUNT()%>);
 	score.push(<%=voList1[i].getPETSITTER_SCORE()%>);
 	id.push('<%=voList1[i].getPETSITTER_ID()%>');
 	<%
@@ -456,11 +445,7 @@ var callback = function(result, status) {
 			$.each(data,function(index, item){
 				latlng1.push(new kakao.maps.LatLng(item.petsitter_ADDRY,item.petsitter_ADDRX));
 				nickname.push(item.petsitter_NICKNAME);
-				if(item.petsitter_SAFEADDR == "N"){
-					addr1.push(item.petsitter_ADDRESS.split(",")[1].split(" ")[0]+' '+item.petsitter_ADDRESS.split(",")[1].split(" ")[1]);
-				}else{
-					addr1.push(item.petsitter_SAFEADDR.split(",")[0]);
-				}
+				addr1.push(item.petsitter_ADDRESS.split(",")[1].split(" ")[0]+' '+item.petsitter_ADDRESS.split(",")[1].split(" ")[1]);
 				id.push(item.petsitter_ID);
 				count.push(item.petsitter_COUNT);
 				score.push(item.petsitter_SCORE);
@@ -617,7 +602,7 @@ var callback = function(result, status) {
           	}
           %>
           <div class="owl-carousel owl-all mb-5">
-            <div class="block-team-member-1 text-center rounded h-100">
+            <div class="block-team-member-1 text-center rounded h-100" style = "width : 350px; height : 358px!important;">
               <figure>
                <a href="#">
                <%
@@ -646,14 +631,14 @@ var callback = function(result, status) {
               </figure>
               <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_date1.getPETSITTER_NAME() %></h3></a>
               <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_date1.getPETSITTER_ADDRESS() %></span>
-              <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_date1.getPETSITTER_INTRODUCE() %></p></a>
+              <a href="#"><p class="mb-4" style = "color : #949494!important; width : 100%; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"><%=petsitter_date1.getPETSITTER_INTRODUCE() %></p></a>
               <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">신규 추천 펫시터</div>
               <%
                		}
               %>
             </div>
             
-            <div class="block-team-member-1 text-center rounded h-100">
+            <div class="block-team-member-1 text-center rounded h-100" style = "width : 350px; height : 358px!important;">
               <figure>
                <a href="#">
                <%
@@ -671,7 +656,7 @@ var callback = function(result, status) {
                <%
                			if(petsitter_date2.getPETSITTER_PHOTO_PROFILE_FILE().equals("N")) {
                %>
-               <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle" width = "130px!important" height = "131px!important"></a>
                <%
                			} else {
                %>
@@ -682,20 +667,20 @@ var callback = function(result, status) {
               </figure>
               <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_date2.getPETSITTER_NAME() %></h3></a>
               <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_date2.getPETSITTER_ADDRESS() %></span>
-              <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_date2.getPETSITTER_INTRODUCE() %></p></a>
+              <a href="#"><p class="mb-4" style = "color : #949494!important; width : 100%; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"><%=petsitter_date2.getPETSITTER_INTRODUCE() %></p></a>
               <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">신규 추천 펫시터</div>
               <%
                		}
               %>
             </div>
 
-            <div class="block-team-member-1 text-center rounded h-100">
+            <div class="block-team-member-1 text-center rounded h-100" style = "width : 350px; height : 358px!important;">
               <figure>
                <a href="#">
                <%
                		if(petsitter_date3 == null) {
                %>
-               <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle"></a>
+               <img src="resources/images/defaultprofile02.png" alt="Image" class="img-fluid rounded-circle" ></a>
                </figure>
 	             <a href="#"><h3 class="font-size-20 text-black">펫시터</h3></a>
 	             <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3">펫시터</span>
@@ -718,14 +703,14 @@ var callback = function(result, status) {
               </figure>
               <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_date3.getPETSITTER_NAME() %></h3></a>
               <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_date3.getPETSITTER_ADDRESS() %></span>
-              <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_date3.getPETSITTER_INTRODUCE() %></p></a>
+              <a href="#"><p class="mb-4" style = "color : #949494!important; width : 100%; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"><%=petsitter_date3.getPETSITTER_INTRODUCE() %></p></a>
               <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">신규 추천 펫시터</div>
               <%
                		}
               %>
             </div>
 
-            <div class="block-team-member-1 text-center rounded h-100">
+            <div class="block-team-member-1 text-center rounded h-100" style = "width : 350px; height : 358px!important;">
               <figure>
                <a href="#">
                <%
@@ -754,14 +739,14 @@ var callback = function(result, status) {
               </figure>
               <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_this_month.getPETSITTER_NAME() %></h3></a>
               <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_this_month.getPETSITTER_ADDRESS() %></span>
-              <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_this_month.getPETSITTER_INTRODUCE() %></p></a>
+              <a href="#"><p class="mb-4" style = "color : #949494!important; width : 100%; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"><%=petsitter_this_month.getPETSITTER_INTRODUCE() %></p></a>
               <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 펫시터</div>
               <%
                		}
               %>
             </div>
             
-            <div class="block-team-member-1 text-center rounded h-100">
+            <div class="block-team-member-1 text-center rounded h-100" style = "width : 350px; height : 358px!important;">
               <figure>
                <a href="#">
                <%
@@ -790,14 +775,14 @@ var callback = function(result, status) {
               </figure>
               <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_this_month_score.getPETSITTER_NAME() %></h3></a>
               <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_this_month_score.getPETSITTER_ADDRESS() %></span>
-              <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_this_month_score.getPETSITTER_INTRODUCE() %></p></a>
+              <a href="#"><p class="mb-4" style = "color : #949494!important; width : 100%; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"><%=petsitter_this_month_score.getPETSITTER_INTRODUCE() %></p></a>
               <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 평점왕</div>
               <%
                		}
               %>
             </div>
             
-            <div class="block-team-member-1 text-center rounded h-100">
+            <div class="block-team-member-1 text-center rounded h-100" style = "width : 350px; height : 358px!important;">
               <figure>
                <a href="#">
                <%
@@ -826,7 +811,7 @@ var callback = function(result, status) {
               </figure>
               <a href="#"><h3 class="font-size-20 text-black"><%=petsitter_this_month_count.getPETSITTER_NAME() %></h3></a>
               <span class="d-block font-gray-9 letter-spacing-1 text-uppercase font-size-14 mb-3"><%=petsitter_this_month_count.getPETSITTER_ADDRESS() %></span>
-              <a href="#"><p class="mb-4" style = "color : #949494!important;"><%=petsitter_this_month_count.getPETSITTER_INTRODUCE() %></p></a>
+              <a href="#"><p class="mb-4" style = "color : #949494!important; width : 100%; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"><%=petsitter_this_month_count.getPETSITTER_INTRODUCE() %></p></a>
               <div class=" main_whitefont" style = "background : rgba(134,127,160); border-radius : 7px 7px 7px 7px">이달의 실적왕</div>
               <%
                		}
@@ -878,26 +863,26 @@ var callback = function(result, status) {
               <div class="row">
                 <div class="col-6 col-md-6 mb-4 col-lg-0 col-lg-3" data-aos="fade-up" data-aos-delay="">
                   <div class="block-counter-1">
-                    <span class="number main_mintfont"><span data-number="140">0</span>+</span>
+                    <span class="number main_mintfont"><span data-number="140">140</span>+</span>
                     <span class="caption">이달의 펫시터 연결</span>
                   </div>
                 </div>
                 <!-- data-number 부분에 DB로 업데이트 되게 설정 -->
                 <div class="col-6 col-md-6 mb-4 col-lg-0 col-lg-3" data-aos="fade-up" data-aos-delay="100">
                   <div class="block-counter-1">
-                    <span class="number main_mintfont"><span data-number="322">0</span>+</span>
+                    <span class="number main_mintfont"><span data-number="322">322</span>+</span>
                     <span class="caption">등록된 신뢰가는 펫시터</span>
                   </div>
                 </div>
                 <div class="col-6 col-md-6 mb-4 col-lg-0 col-lg-3" data-aos="fade-up" data-aos-delay="200">
                   <div class="block-counter-1">
-                    <span class="number main_mintfont"><span data-number="1125">0</span>+</span>
+                    <span class="number main_mintfont"><span data-number="1125">1125</span>+</span>
                     <span class="caption">올해의 펫시터 연결</span>
                   </div>
                 </div>
                 <div class="col-6 col-md-6 mb-4 col-lg-0 col-lg-3" data-aos="fade-up" data-aos-delay="300">
                   <div class="block-counter-1">
-                    <span class="number main_mintfont"><span data-number="1452">0</span>+</span>
+                    <span class="number main_mintfont"><span data-number="1452">1452</span>+</span>
                     <span class="caption">총 누적 펫시터 연결</span>
                   </div>
                 </div>

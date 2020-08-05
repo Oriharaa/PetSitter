@@ -197,11 +197,13 @@ overflow:hidden;
 																						<td>
 																																												<% 
 																							if(ra.getBTYPE().equals("mboard")) {
-																								out.println("이용자 QnA");
+																								out.println("이용자");
 																							} else if (ra.getBTYPE().equals("pqboard")) {
-																								out.println("펫시터 QnA");
+																								out.println("펫시터");
 																							} else if (ra.getBTYPE().equals("PRO_BOARD")) {
-																								out.println("전문가 QnA");
+																								out.println("전문가");
+																							} else if (ra.getBTYPE().equals("review_board")) {
+																								out.println("후기");
 																							}
 																						%>
 																						</td>
@@ -241,13 +243,15 @@ overflow:hidden;
 																						<td id="idReply"><%=rr.getMEMBER_ID() %></td>
 																						<td>
 																						<% 
-																							if(rr.getBTYPE().equals("mboard")) {
-																								out.println("이용자 QnA");
-																							} else if (rr.getBTYPE().equals("pqboard")) {
-																								out.println("펫시터 QnA");
-																							} else if (rr.getBTYPE().equals("PRO_BOARD")) {
-																								out.println("전문가 QnA");
-																							}
+																						if(rr.getBTYPE().equals("mboard")) {
+																							out.println("이용자");
+																						} else if (rr.getBTYPE().equals("pqboard")) {
+																							out.println("펫시터");
+																						} else if (rr.getBTYPE().equals("PRO_BOARD")) {
+																							out.println("전문가");
+																						} else if (rr.getBTYPE().equals("review_board")) {
+																							out.println("후기");
+																						}
 																						%>
 																						</td>
 																					</tr>

@@ -4,12 +4,27 @@
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.spring.petsitter.ReservationController.*" %>
+<%@ page import="com.spring.petsitter.board.*" %>
 <%
 	String id = (String)session.getAttribute("id");
 	String name = (String)session.getAttribute("name");
 %>
 
 <%
+	ArrayList<MemberVO> memberList = (ArrayList<MemberVO>)request.getAttribute("member_list");
+	List<PetsitterVO> petsitterList = (List<PetsitterVO>)request.getAttribute("petsitter_list");
+	List<PetsitterQnaBoardVO> pqboardlist = (List<PetsitterQnaBoardVO>)request.getAttribute("pqboard_list");
+
+	int listcount=((Integer)request.getAttribute("listcount")).intValue();
+	int nowpage=((Integer)request.getAttribute("page")).intValue();
+	int maxpage=((Integer)request.getAttribute("maxpage")).intValue();
+	int startpage=((Integer)request.getAttribute("startpage")).intValue();
+	int endpage=((Integer)request.getAttribute("endpage")).intValue();
+
+
+SimpleDateFormat format1;
+format1 = new SimpleDateFormat("yyyy-MM-dd");
+
 	ArrayList<PetVO> list = (ArrayList<PetVO>)request.getAttribute("list");
 	String memberId = (String)request.getAttribute("memberId");
 	String petPhoto = (String)request.getAttribute("petPhoto");
@@ -420,7 +435,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 										<div class="petcost2" id="cost2">
 										<p>예상 총 비용 : </p>
 										</div>
-											<button type="button" class="go-regi" onclick="openModalRe();">예약 신청</button>
+											<button type="button" class="go-regi" id= "paycheck">예약 신청</button>
 									</div>
       					</div>
       				</div>
@@ -510,7 +525,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 								%>	<img src = "/filepath/<%=cert_photo1%>" id ="choiceimage2">
 								<% } %>	 
 					</div>
-					
+						
 					<div class="certImg2">
 						<%if(cert_photo1.equals("N") || cert_photo1.equals("undefined"))
 					  {
@@ -520,7 +535,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 						%>	<a href = "#none" onclick ="toggleImg4()"><img class="imgCert" src = "/filepath/<%=cert_photo1%>"></a>
 						<% } %>		
 						
-						<%if(cert_photo2==null || cert_photo2.equals("undefined"))
+						<%if(cert_photo2.equals("N") || cert_photo2.equals("undefined"))
 					  {
 						%>	<a href = "#none" onclick ="toggleImg5()"><img class="imgCert" id="cert_photo2" src = "resources/images/noimg.jpg"></a>										
 						<%}else
@@ -528,7 +543,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 						%>	<a href = "#none" onclick ="toggleImg5()"><img class="imgCert" src = "/filepath/<%=cert_photo2%>"></a>
 						<% } %>	
 
-						<%if(cert_photo3==null || cert_photo3.equals("undefined"))
+						<%if(cert_photo3.equals("N") || cert_photo3.equals("undefined"))
 					  {
 						%>	<a href = "#none" onclick ="toggleImg6()"><img class="imgCert" id="cert_photo3" src = "resources/images/noimg.jpg"></a>										
 						<%}else
@@ -783,46 +798,53 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 
 
 <!-- Q&A 시작 -->
-					<div class = "container">
-						<div class = "row">
-							<div class = "col-12 font-size-23 main_grayfont3" style = "margin-top : 50px;">펫시터 Q&A</div>
-							<div class = "col-12" style = "margin-top : 20px;">
-								<table class="table table-sm table-hover table-striped">
-								<thead>
-										<tr>
-											<th width="50px">번호</th>
-											
-											<th width="100px">답변여부</th>
-											<th width="180px">구분</th>
-											
-											<th width="100px">작성자</th>
-											<th width="100px">등록일자</th>
-										</tr>
-									</thead>
-									<tbody>
-								<c:forEach var="i" begin="1" end="10">
-									<tr>
-											<td><c:out value="${16-i}"></c:out></td>
-											
-											<td>답변예정/완료</td>
-											<td>위탁 중 5월 20일 저녁에 잠시 들리려해요!</td>
-											
-											<td>닉네임123</td>
-											<td>2020-05-11</td>
-											</tr>
-								</c:forEach>
-								</tbody>
-								</table>
-							</div>
-							<div class="col-md-12 text-center">
-							<h6>< 1 2 3 4 5 6 7 8 9 10 ></h6>
-							</div>
-							<br/><br/><br/>
-						</div>
-					</div>
+
 							<div class ="col-md-4">
 							</div>
 						</div>
+						<div id="getBoardList2"></div>
+						<div class="row">
+     <div class="col-md-2">
+     	      
+     <% if(nowpage <= 1) { %>
+     <a type="button" style="background:#F8F8F8; color:black;" class="btn btn-sm" id="prev">이전</a>
+     <% } else { %>
+     <a type="button" style="background:#F8F8F8; color:black;" class="btn btn-sm" id="prev" href="./pqboardlist.me?page=<%=nowpage-1 %>">이전</a>
+     <% } %>
+           
+     <%if(nowpage >= maxpage) { %>
+     <a type="button" style="background:#F8F8F8; color:black;" class="btn btn-sm" id="next">다음</a>
+     <% } else { %>
+     <a type="button" style="background:#F8F8F8; color:black;" class="btn btn-sm" id="next" href="./pqboardlist.me?page=<%=nowpage+1%>">다음</a>
+     <% } %>
+     
+   	</div>
+    <div class="col-md-9"></div>
+     <div class="col-md-1">
+   		<a type="button" style="background:#e67e22; color:white;" class="btn btn-sm" id="write" href="./pqboardwriteform.me">문의</a>
+   		
+   	</div>
+   </div>
+   
+   <div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<h3 class="text-center">
+				<tr>
+					<td>
+					<%for(int a=startpage;a<=endpage;a++){
+						if(a==nowpage){%>
+						<a type="button" style="background:#53DC98; color:white" class="btn btn-sm"><%=a %></a>
+						<%}else{ %>
+						<a type="button" style="background:#F8F8F8;" class="btn btn-sm" href="./pqboardlist.me?page=<%=a %>"><%=a %></a>
+						
+						<%} %>
+					<%} %>
+					</td>
+				</tr>				
+			</h3>
+			<br>
+		</div>
 					</div>
 				</div>
 			</div>
@@ -1193,9 +1215,10 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 		</div>
 	</div>
 	</div>
+	<%@ include file="jsp_bottom.jsp" %>
 </body>
 <!-- 본 기능 추가 종료 -->
-<%@ include file="jsp_bottom.jsp" %>
+
  <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -1587,6 +1610,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 			dateFormat: 'yy-mm-dd', 			//달력에서 클릭시 표시할 값 형식
 				language : "ko", 						//언어
 				orientation: "bottom auto", //아래에 뜨게
+				datesDisabled : scheduleDate,
 				todayHighlight : true,			//오늘날짜 색상표시
 				autoclose : true						//날짜누르면 닫힘.
 		});
@@ -1599,6 +1623,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 			dateFormat: 'yy-mm-dd',			//달력에서 클릭시 표시할 값 형식
 				language : "ko", 						// 언어
 				orientation: "bottom auto", //아래에 뜨게
+				datesDisabled : scheduleDate,
 				todayHighlight : true,			//오늘날짜 색상표시
 				autoclose : true						//날짜누르면 닫힘.
 		});
@@ -1683,7 +1708,7 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 					  
 					  }else{
 						  $(document).on('click','#paycheck',function(event){
-							  document.paycheck.submit();
+							  openModalRe();
 						  })
 					  }
 			
@@ -2602,13 +2627,13 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 			        		reportForm += '<input type="hidden" name="MEMBER_ID" value="${id}">';
 			        		reportForm += '<input type="hidden" name="LIST_NUM" value="'+item.list_NUM+'">';
 			        		reportForm += '<input type="hidden" name="BOARD_TYPE" value="'+item.board_TYPE+'">';
-			        		reportForm += '<input type="hidden" name="petsitter_id" value="' + petsitter_id + '">';	
+			        		reportForm += '<input type="hidden" name="PETSITTER_ID" value="' + petsitter_id + '">';	
 			        		reportForm += '신고 글 번호 : '+item.list_NUM+'<br/>';
 			        		reportForm += '<br/><div>신고자</div>';
 			        		reportForm += '<div>${id}</div>';		        		
 			        		reportForm += '<div>${name}</div>';
 			        		reportForm += '</br><div>신고 사유</div>';
-			        		reportForm += '<textarea id="REPORT_REASON" name="REPORT_REASON" rows="4" cols="40" placeholder="신고 사유를 적어주세요."></textarea>';
+			        		reportForm += '<textarea id="REPORT_REASON" name="REPORT_REASON" rows="4" cols="35" placeholder="신고 사유를 적어주세요."></textarea>';
 			        		reportForm += '</div>';
 			        		reportForm += '</div>';
 			        		reportForm += '</div>';
@@ -2630,9 +2655,10 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 		    			});
 			      	if( true ) { $('.staticBackdropReport').get(0).click(); }        	
 		    		},
-			    	error:function(){
-			        alert("ajax통신 실패!!!");
-			    	}
+		    		error:function(request,status,error){
+		    	        alert("list ajax통신 실패!!!");
+		    	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		        	}
 					}); 
 					//기본 이벤트 제거
 					event.preventDefault();				
@@ -2656,5 +2682,66 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 		}
 		//글 신고 INSERT 버튼 종료			
 	</script> 
+	<script>
+	function getBoardList2() {
+		$.ajax({
+			url : '/petsitter/pqboardlist2.bo',
+      type : 'POST',
+      dataType : 'JSON',
+      contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+			success:function(data) { // 성공시
+				
+				console.log("통신 성공");
+				
+				var id = '<%=id%>';
+				var rank = '<%=rank%>';
+		
+				var pqForm = '';
+							
+				pqForm += '<div class="row">';
+				pqForm += '<div class="col-md-12">';
+				pqForm += '<br><br>';
+				pqForm += '<h5 style="color:#5e5e5e!important;">펫시터에게 질문하기</h6>';
+				pqForm += '<table class="table table-sm table-hover table-striped">';
+				pqForm += '<thead>';
+				pqForm += '<tr>';
+				pqForm += '<th width="150px">닉네임</th>';
+				pqForm += '<th>제목</th>';
+				pqForm += '<th width="100px">작성일자</th>';
+				pqForm += '</tr>';
+				pqForm += '</thead>';
+				pqForm += '<tbody>';			
+				
+				$.each(data, function(index, item) {		
+					
+					var nickname = '${nickname}';
+					
+					if(nickname == item.petsitter_NICKNAME) {
+						pqForm += '<tr>'; 
+						pqForm +=	'<td>' + item.member_NICKNAME + '</td>';						
+						pqForm += '<td style="text-align:left;"><b><a style="color:#53dc99!important;" href="./pqboarddetail.me?bno=' + item.petsitter_QNA_BNO + '">' + item.petsitter_QNA_SUBJECT + '</a></b></td>';
+						pqForm += '<td>' +item.real_DATE+ '</td>'; 
+						pqForm += '</tr>';
+					}
+					});
+				
+				pqForm += '</tbody>';
+				pqForm += '</table>';
+				pqForm += '</div>';
+				pqForm += '</div>';
+			
+				$('#getBoardList2').append(pqForm);
+			},
+	   	error:function(request,status,error){
+ 	    	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+     		}
+		});
+			
+	}
+
+	$(document).ready(function() {
+		getBoardList2();
+ 	});
+</script> 
 </body>
 </html>

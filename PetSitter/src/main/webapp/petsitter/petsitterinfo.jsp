@@ -1138,7 +1138,7 @@ function handleImgFileSelect11(e){
       						<%
       							if(vo.getPETSITTER_PHOTO_UPFILE().equals("N")) {
       						%>
-      						<img id= "img" class="img4" src= "resources/images/defaultprofile02.png"/>
+      						<img id= "img" class="img5" src= "resources/images/defaultprofile02.png"/>
       						<%
       							} else {
       						%>
