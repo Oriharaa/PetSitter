@@ -113,10 +113,10 @@
 							//비밀게시물이 아닌 경우						
 							if(bls2 == 'N'){
 								proForm += '<tr class="PRO_SUBJECT">';
-								proForm += '<th colspan = "5" class = "detailView01"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "lista">'+item.pro_SUBJECT+'</a></th>';
+								proForm += '<th colspan = "5" class = "detailView01"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "lista detailView">'+item.pro_SUBJECT+'</a></th>';
 								proForm += '</tr>';
 								proForm += '<tr class="PRO_CONTENT main_grayfont3">';
-								proForm += '<td colspan ="5" class = "detailView02"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "lista2">'+item.pro_CONTENT+'</a></td>';
+								proForm += '<td colspan ="5" class = "detailView02"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "lista2 detailView">'+item.pro_CONTENT+'</a></td>';
 								proForm += '</tr>';
 								proForm += '<tr class="PRO_READMORE">';
 								proForm += '<td colspan ="4" style = "padding-left : 15px"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "read detailView">read more</a></td>';
@@ -128,10 +128,10 @@
 							if(rank != 'null'){
 								if((bls2 == 'Y') && (rank != 'admin') && (rank != 'manager') && (id != blid2)) {								
 									proForm += '<tr class="PRO_SUBJECT">';
-									proForm += '<th colspan = "5" style = "padding : 3px 40px 3px 40px;">secret board.</th>';
+									proForm += '<th colspan = "5" class = "tdpaddign01">secret board.</th>';
 									proForm += '</tr>';
 									proForm += '<tr class="PRO_CONTENT main_grayfont3">';
-									proForm += '<td colspan ="5" style = "padding : 3px 40px 3px 40px;">비밀 게시글입니다.</td>';
+									proForm += '<td colspan ="5" class = "tdpaddign01">비밀 게시글입니다.</td>';
 									proForm += '</tr>';
 									proForm += '<tr class="PRO_READMORE">';
 									proForm += '<td colspan ="4" style = "padding-left : 15px"><a class="read">read more <span class="oi oi-lock-locked"></span></a></td>';
@@ -144,10 +144,10 @@
 							if(rank == 'null') {		
 								if(bls2 == 'Y'){	
 									proForm += '<tr class="PRO_SUBJECT">';
-									proForm += '<th colspan = "5" style = "padding : 3px 40px 3px 40px;">secret board.</th>';
+									proForm += '<th colspan = "5" class = "tdpaddign01">secret board.</th>';
 									proForm += '</tr>';
 									proForm += '<tr class="PRO_CONTENT main_grayfont3">';
-									proForm += '<td colspan ="5" style = "padding : 3px 40px 3px 40px;">비밀 게시글입니다.</td>';
+									proForm += '<td colspan ="5" class = "tdpaddign01">비밀 게시글입니다.</td>';
 									proForm += '</tr>';
 									proForm += '<tr class="PRO_READMORE">';
 									proForm += '<td colspan ="4" style = "padding-left : 15px"><a class="read">read more <span class="oi oi-lock-locked"></span></a></td>';
@@ -161,10 +161,10 @@
 								if(rank != 'null'){					
 									if(rank == 'admin' || rank == 'manager' || id == blid2){									
 										proForm += '<tr class="PRO_SUBJECT">';
-										proForm += '<th colspan = "5" class = "detailView01"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "lista">'+item.pro_SUBJECT+'</a></th>';
+										proForm += '<th colspan = "5" class = "detailView01"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "lista detailView">'+item.pro_SUBJECT+'</a></th>';
 										proForm += '</tr>';
 										proForm += '<tr class="PRO_CONTENT main_grayfont3">';
-										proForm += '<td colspan ="5" class = "detailView02"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "lista2">'+item.pro_CONTENT+'</a></td>';
+										proForm += '<td colspan ="5" class = "detailView02"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "lista2 detailView">'+item.pro_CONTENT+'</a></td>';
 										proForm += '</tr>';
 										proForm += '<tr class="PRO_READMORE">';
 										proForm += '<td colspan ="4" style = "padding-left : 15px"><a href = "./proboarddetail.bo?num='+item.pro_NUM+'" class = "read detailView">read more <span class="oi oi-lock-unlocked"></span></a></td>';
@@ -287,7 +287,7 @@
 							detailForm += '<table class="table table-sm main_grayfont3 font-size-14">';
 							detailForm += '<tr>';
 							detailForm += '<th>제목</th>';
-							detailForm += '<td>'+item.pro_SUBJECT+'</td>';
+							detailForm += '<td><div>'+item.pro_SUBJECT+'</div></td>';
 							detailForm += '</tr> ';
 							detailForm += '<tr>';
 							detailForm += '<th>작성일</th>';
@@ -1151,14 +1151,14 @@
 				if(bls.equals("N")) {
 		%>		
 							<tr class="PRO_SUBJECT">
-				     		<th colspan = "5"  class = "detailView01"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "lista"><%=bl.getPRO_SUBJECT() %></a></th>
+				     		<th colspan = "5"  class = "detailView01"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "lista detailView"><%=bl.getPRO_SUBJECT() %></a></th>
 				   		</tr>
 				    	<tr class="PRO_CONTENT main_grayfont3">
-				      	<td colspan ="5"  class = "detailView02"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "lista2"><%=bl.getPRO_CONTENT() %></a></td>
+				      	<td colspan ="5"  class = "detailView02"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "lista2 detailView"><%=bl.getPRO_CONTENT() %></a></td>
 				    	</tr>
 				    	<tr class="PRO_READMORE">
 				      	<td colspan ="4" style = "padding-left : 15px"><a href="./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class="read">read more</a></td>
-								<td colspan ="1" class = "replycountcss01">댓글 : <span class = "replycountcss02" id = "replycount<%=bl.getPRO_NUM() %>">0</span></td>
+								<td colspan ="1" class = "replycountcss01">댓글 : <span class = "replycountcss02 detailView" id = "replycount<%=bl.getPRO_NUM() %>">0</span></td>
 							</tr>
 		<%	}%>
 		
@@ -1205,13 +1205,13 @@
 						if((rank.equals("admin")) || (rank.equals("manager")) || (id.equals(blid))){
 		%>		
 							<tr class="PRO_SUBJECT">
-				     		<th colspan = "5" class = "detailView01"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "lista"><%=bl.getPRO_SUBJECT() %></a></th>
+				     		<th colspan = "5" class = "detailView01"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "lista detailView"><%=bl.getPRO_SUBJECT() %></a></th>
 				   		</tr>
 				    	<tr class="PRO_CONTENT main_grayfont3">
-				      	<td colspan ="5" class ="detailView02"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "lista2"><%=bl.getPRO_CONTENT() %></a></td>
+				      	<td colspan ="5" class ="detailView02"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "lista2 detailView"><%=bl.getPRO_CONTENT() %></a></td>
 				    	</tr>
 				    	<tr class="PRO_READMORE">
-				      	<td colspan ="4" style = "padding-left : 15px"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "read">read more <span class="oi oi-lock-unlocked"></span></a></td>
+				      	<td colspan ="4" style = "padding-left : 15px"><a href = "./proboarddetail.bo?num=<%=bl.getPRO_NUM() %>" class = "read detailView">read more <span class="oi oi-lock-unlocked"></span></a></td>
 								<td colspan ="1" class = "replycountcss01">댓글 : <span class = "replycountcss02" id = "replycount<%=bl.getPRO_NUM() %>">0</span></td>
 							</tr>		
 		<%			}%>		
