@@ -5,9 +5,6 @@
 <%
 	MemberVO member = (MemberVO)request.getAttribute("member");
 	PayVO payvo = (PayVO)request.getAttribute("payvo");
-	String addr = member.getMEMBER_ADDRESS().split(",")[1]; // 도로명 주소
-	String[] road_addr = addr.split(" ");
-	String postcode = member.getMEMBER_ADDRESS().split(",")[0]; // 우편번호
 %>
 <!doctype html>
 <html>
@@ -40,17 +37,12 @@
 					// name과 amount만 있어도 결제 진행가능
 					pg : 'kakao', // pg 사 선택(kakao, kakaopay 둘다 가능)
 					pay_method : 'card',
-					//merchant_uid : 'merchant_' + new Date().getTime(),
 					merchant_uid : merchant_123,
 					name : '결제테스트', // 상품명
 					amount : <%=payvo.getPAY_AMOUNT() %>,
 					buyer_name : "<%=member.getMEMBER_NAME() %>",
 					buyer_email : "<%=member.getMEMBER_ID() %>",
-					buyer_tel : "<%=member.getMEMBER_TEL() %>",
-					buyer_addr : "<%=road_addr[0] + " " + road_addr[1] %>",
-					buyer_postcode : <%=postcode %>,
-					// 결제 완료후 이동할 페이지. kakao나 kakaopay는 생략함
-					//m_redirect_url : 'https://localhost:8080/payments/complete'
+					buyer_tel : "<%=member.getMEMBER_TEL() %>"
 				}, function(rsp) {
 					if ( rsp.success ) { // 결제 성공시 
 						var msg = '결제가 완료되었습니다.';

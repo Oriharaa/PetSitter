@@ -363,7 +363,8 @@ td:nth-child(1), td:nth-child(2), td:nth-child(4), td:nth-child(5) {
 												</svg>
 											</div>
 											<div class = "col-5" style = "padding : 0; margin : 4px 0 0 0;">
-												<input type="text" id="datePicker_end" class="form-control dateP" placeholder ="Check Out Date" value="<%=end_date%>" style = "height : 41px;" autocomplete=off>
+												<input type="text" id="datePicker_end" class="form-control dateP" placeholder ="Check Out Date" style="height:41px;" autocomplete=off
+                                    <%if(end_date.equals("undefined")) {%><%}else {%> value="<%=end_date%>" <%}%>> 
 											</div>
 										</div>
 									</div>
