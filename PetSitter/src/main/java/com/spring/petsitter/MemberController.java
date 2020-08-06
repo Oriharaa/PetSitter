@@ -464,6 +464,9 @@ public class MemberController {
 	@RequestMapping(value = "memberUpdate.me")
 	public String member_update(MemberVO vo, HttpServletRequest request) throws Exception {
 		String[] address = request.getParameterValues("MEMBER_ADDRESS");
+		if(vo.getMEMBER_NICKNAME().equals("")) {
+			vo.setMEMBER_NICKNAME("N");
+		}
 		if(address[0].equals("")) {
 			vo.setMEMBER_ADDRESS("N");
 		}else {
