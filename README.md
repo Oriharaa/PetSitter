@@ -1,11 +1,7 @@
 # PetSitter
 
 **Spring Project** 
-
-<br/>
-
 `#Java #Oracle #Html&Css&Js #Spring #MyBatis #Bootstrap 4`
-
 <br/>
 
 😊[시연영상 보러가기](https://youtu.be/MXQDc59MJDM?t=599)
